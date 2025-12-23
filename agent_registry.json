@@ -1,0 +1,171 @@
+{
+  "registry_version": "1.0",
+  "last_updated": "2025-12-22",
+  "agents": {
+    "knowmad-1": {
+      "name": "File Structure Analyzer",
+      "description": "Analyzes folder structures and provides organization recommendations",
+      "skills": ["structure_analysis", "pattern_recognition", "recommendation"],
+      "trigger_phrases": ["analyze structure", "check folders", "review organization"],
+      "location": "G:/My Drive/00 - Trajanus USA/00-Command-Center/05-Scripts/knowmad_1_structure_analyzer.py",
+      "status": "active",
+      "requires_approval": true
+    },
+    "knowmad-2": {
+      "name": "File Categorizer",
+      "description": "Categorizes files based on content and naming patterns",
+      "skills": ["content_analysis", "categorization", "tagging"],
+      "trigger_phrases": ["categorize files", "organize by type", "classify documents"],
+      "location": "G:/My Drive/00 - Trajanus USA/00-Command-Center/05-Scripts/knowmad_2_categorizer.py",
+      "status": "active",
+      "requires_approval": true
+    },
+    "knowmad-3": {
+      "name": "File Mover",
+      "description": "Executes file organization based on categorization results",
+      "skills": ["file_operations", "verification", "rollback"],
+      "trigger_phrases": ["move files", "execute organization", "relocate documents"],
+      "location": "G:/My Drive/00 - Trajanus USA/00-Command-Center/05-Scripts/knowmad_3_mover.py",
+      "status": "active",
+      "requires_approval": true
+    },
+    "knowmad-4": {
+      "name": "File Scout",
+      "description": "Scans directories and provides detailed file inventories",
+      "skills": ["scanning", "inventory", "metadata_extraction"],
+      "trigger_phrases": ["scan folder", "inventory files", "list contents"],
+      "location": "G:/My Drive/00 - Trajanus USA/00-Command-Center/05-Scripts/knowmad_4_file_scout.py",
+      "status": "active",
+      "requires_approval": false
+    },
+    "knowmad-5": {
+      "name": "Batch Converter",
+      "description": "Converts markdown files to Google Docs format",
+      "skills": ["format_conversion", "batch_processing", "verification"],
+      "trigger_phrases": ["convert files", "batch convert", "create gdocs"],
+      "location": "G:/My Drive/00 - Trajanus USA/00-Command-Center/05-Scripts/batch_convert_md_only.py",
+      "status": "active",
+      "requires_approval": false
+    },
+    "knowmad-6": {
+      "name": "EOS Executor",
+      "description": "Executes end-of-session file organization workflows",
+      "skills": ["workflow_orchestration", "file_organization", "verification"],
+      "trigger_phrases": ["run EOS", "end of session", "organize session files"],
+      "location": "G:/My Drive/00 - Trajanus USA/00-Command-Center/05-Scripts/knowmad_6_eos_executor.py",
+      "status": "active",
+      "requires_approval": true
+    },
+    "knowmad-7": {
+      "name": "Living Documents Manager",
+      "description": "Verifies and appends entries to living master documents",
+      "skills": ["verification", "appending", "monitoring", "orchestration"],
+      "trigger_phrases": ["update living documents", "append to masters", "verify masters"],
+      "location": "G:/My Drive/00 - Trajanus USA/00-Command-Center/05-Scripts/knowmad_7_living_docs_manager.py",
+      "status": "active",
+      "requires_approval": false,
+      "idempotent": true
+    },
+    "research-agent": {
+      "name": "Daily Research Intelligence",
+      "description": "Automated research and industry intelligence gathering",
+      "skills": ["topic_rotation", "web_search", "categorization", "kb_ingestion"],
+      "trigger_phrases": ["run research", "get industry news", "daily intelligence"],
+      "location": "G:/My Drive/00 - Trajanus USA/00-Command-Center/05-Scripts/morning_research_agent.py",
+      "status": "active",
+      "requires_approval": false,
+      "schedule": "daily_morning"
+    },
+    "qcm-agent": {
+      "name": "QCM Document Reviewer",
+      "description": "Reviews construction submittals against templates and regulations",
+      "skills": ["document_analysis", "compliance_checking", "report_generation"],
+      "trigger_phrases": ["review submittal", "QCM check", "compliance review"],
+      "location": "G:/My Drive/00 - Trajanus USA/00-Command-Center/05-Scripts/qcm_agent.py",
+      "status": "active",
+      "requires_approval": true
+    },
+    "compliance-officer": {
+      "name": "Compliance Protocol Officer",
+      "description": "Monitors and enforces operational protocols",
+      "skills": ["protocol_verification", "violation_logging", "recommendation"],
+      "trigger_phrases": ["check compliance", "verify protocols", "audit session"],
+      "location": "G:/My Drive/00 - Trajanus USA/00-Command-Center/05-Scripts/compliance_officer.py",
+      "status": "active",
+      "requires_approval": false
+    },
+    "kb-ingestion": {
+      "name": "Knowledge Base Ingestion Agent",
+      "description": "Ingests documents into Supabase knowledge base with embeddings",
+      "skills": ["document_processing", "embedding_generation", "database_insertion"],
+      "trigger_phrases": ["ingest documents", "add to KB", "update knowledge base"],
+      "location": "G:/My Drive/00 - Trajanus USA/00-Command-Center/05-Scripts/file_ingestion.py",
+      "status": "active",
+      "requires_approval": true
+    },
+    "gdrive-cleanup": {
+      "name": "Google Drive Cleanup Agent",
+      "description": "Identifies and removes duplicate/unnecessary files from Google Drive",
+      "skills": ["duplicate_detection", "cleanup", "space_optimization"],
+      "trigger_phrases": ["clean drive", "remove duplicates", "optimize storage"],
+      "location": "G:/My Drive/00 - Trajanus USA/00-Command-Center/05-Scripts/gdrive_cleanup_agent.py",
+      "status": "active",
+      "requires_approval": true
+    },
+    "file-appender": {
+      "name": "Living Documents Appender",
+      "description": "Appends new entries to living master documents",
+      "skills": ["append_operations", "format_preservation", "verification"],
+      "trigger_phrases": ["append entries", "add to living docs", "update masters"],
+      "location": "G:/My Drive/00 - Trajanus USA/00-Command-Center/05-Scripts/append_living_documents.py",
+      "status": "active",
+      "requires_approval": false,
+      "idempotent": true
+    },
+    "youtube-crawler": {
+      "name": "YouTube Transcript Crawler",
+      "description": "Bulk downloads and converts YouTube video transcripts",
+      "skills": ["web_scraping", "transcript_extraction", "batch_processing"],
+      "trigger_phrases": ["download transcripts", "crawl youtube", "get video text"],
+      "location": "G:/My Drive/00 - Trajanus USA/00-Command-Center/05-Scripts/live_crawler.py",
+      "status": "active",
+      "requires_approval": false
+    },
+    "db-audit": {
+      "name": "Database Audit Agent",
+      "description": "Audits Supabase database for completeness and integrity",
+      "skills": ["database_query", "verification", "reporting"],
+      "trigger_phrases": ["audit database", "check KB integrity", "verify ingestion"],
+      "location": "G:/My Drive/00 - Trajanus USA/00-Command-Center/05-Scripts/check_db.py",
+      "status": "active",
+      "requires_approval": false
+    }
+  },
+  "agent_categories": {
+    "file_management": ["knowmad-1", "knowmad-2", "knowmad-3", "knowmad-4", "knowmad-5", "knowmad-6", "file-appender", "gdrive-cleanup"],
+    "knowledge_base": ["kb-ingestion", "db-audit"],
+    "research": ["research-agent", "youtube-crawler"],
+    "quality_control": ["qcm-agent", "compliance-officer"],
+    "automation": ["knowmad-7", "file-appender"]
+  },
+  "skill_definitions": {
+    "verification": "Check current state before acting to prevent duplicate work",
+    "appending": "Add new content while preserving existing structure",
+    "monitoring": "Provide comprehensive status reporting",
+    "orchestration": "Coordinate multiple skills with user approval gates",
+    "idempotent": "Safe to run multiple times without duplicating work",
+    "file_operations": "Create, move, rename, delete files with rollback capability",
+    "format_conversion": "Convert between file formats while preserving content",
+    "batch_processing": "Process multiple items efficiently",
+    "web_search": "Query web search APIs for current information",
+    "categorization": "Classify items into organized categories",
+    "kb_ingestion": "Add documents to knowledge base with embeddings",
+    "compliance_checking": "Verify adherence to standards and protocols"
+  },
+  "orchestration_patterns": {
+    "sequential": "Execute agents one after another",
+    "parallel": "Execute multiple agents simultaneously",
+    "conditional": "Execute agents based on conditions",
+    "approval_gated": "Require user approval between steps"
+  }
+}
