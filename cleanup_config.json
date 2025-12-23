@@ -1,0 +1,50 @@
+{
+  "base_folder": "00 - Trajanus USA",
+  "safe_mode": true,
+  "auto_approve": false,
+  "operations": {
+    "detect_duplicates": true,
+    "detect_conversions": true,
+    "validate_organization": true,
+    "generate_inventory": true
+  },
+  "rules": {
+    "folder_mappings": {
+      "session": "07-Session-Journal",
+      "protocol": "01-Core-Protocols",
+      "script": "05-Scripts",
+      "eos": "08-EOS-Files",
+      "guide": "06-User-Guides",
+      "living": "03-Living-Documents",
+      "archive": "09-Archive"
+    },
+    "conversion_whitelist": [
+      ".md",
+      ".txt",
+      ".docx",
+      ".doc",
+      ".xlsx",
+      ".xls",
+      ".pptx",
+      ".ppt"
+    ],
+    "exclude_folders": [
+      "09-Archive",
+      "12-Credentials"
+    ],
+    "duplicate_strategy": "report_only",
+    "min_file_age_days": 0
+  },
+  "reporting": {
+    "output_format": "both",
+    "include_file_ids": true,
+    "include_timestamps": true,
+    "detail_level": "full"
+  },
+  "safety": {
+    "require_confirmation": true,
+    "backup_before_delete": true,
+    "max_deletions_per_run": 0,
+    "dry_run_default": true
+  }
+}
