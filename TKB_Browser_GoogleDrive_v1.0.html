@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TKB Browser - Google Drive Navigation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .browser-container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .browser-header {
+            background: white;
+            border-radius: 12px;
+            padding: 20px 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 2px solid #9B7E52;
+        }
+
+        .browser-header h1 {
+            color: #9B7E52;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .drive-btn {
+            padding: 12px 24px;
+            border: 2px solid #9B7E52;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: white;
+            color: #9B7E52;
+        }
+
+        .drive-btn:hover {
+            background: rgba(155, 126, 82, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .drive-btn.active {
+            background: #9B7E52;
+            color: white;
+        }
+
+        .drive-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .auth-btn {
+            background: #4285f4;
+            color: white;
+            border-color: #4285f4;
+        }
+
+        .auth-btn:hover {
+            background: #3367d6;
+        }
+
+        .signout-btn {
+            background: #dc3545;
+            color: white;
+            border-color: #dc3545;
+        }
+
+        .signout-btn:hover {
+            background: #c82333;
+        }
+
+        .status-text {
+            font-size: 0.9rem;
+            color: #666;
+            margin-left: auto;
+        }
+
+        .status-text.connected {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .browser-layout {
+            display: flex;
+            gap: 20px;
+            height: calc(100vh - 180px);
+        }
+
+        .tree-pane {
+            width: 380px;
+            min-width: 300px;
+            background: white;
+            border: 2px solid #9B7E52;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tree-header {
+            background: #9B7E52;
+            color: white;
+            padding: 15px 20px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .tree-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+        }
+
+        .file-pane {
+            flex: 1;
+            background: white;
+            border: 2px solid #9B7E52;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .file-header {
+            background: #9B7E52;
+            color: white;
+            padding: 15px 20px;
+            font-weight: 600;
+            font-size: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        /* Tree View Styles */
+        .folder-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 10px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.15s ease;
+            user-select: none;
+        }
+
+        .folder-item:hover {
+            background: rgba(155, 126, 82, 0.1);
+        }
+
+        .folder-item.selected {
+            background: rgba(155, 126, 82, 0.2);
+        }
+
+        .expand-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #9B7E52;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+
+        .expand-icon:hover {
+            background: rgba(155, 126, 82, 0.2);
+        }
+
+        .expand-icon.empty {
+            visibility: hidden;
+        }
+
+        .folder-icon {
+            font-size: 1.2rem;
+            margin: 0 8px;
+        }
+
+        .folder-name {
+            flex: 1;
+            font-size: 0.95rem;
+            color: #333;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .folder-children {
+            margin-left: 24px;
+            border-left: 2px solid rgba(155, 126, 82, 0.2);
+            padding-left: 8px;
+        }
+
+        .folder-children.collapsed {
+            display: none;
+        }
+
+        /* File List Styles */
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .file-item:hover {
+            background: rgba(155, 126, 82, 0.08);
+            border-color: #9B7E52;
+            transform: translateX(5px);
+        }
+
+        .file-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+        }
+
+        .file-info {
+            flex: 1;
+        }
+
+        .file-name {
+            font-weight: 600;
+            color: #9B7E52;
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .file-meta {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .file-arrow {
+            font-size: 1.5rem;
+            color: #9B7E52;
+        }
+
+        /* Loading & Empty States */
+        .loading-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            color: #666;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(155, 126, 82, 0.2);
+            border-top-color: #9B7E52;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        /* Auth Card */
+        .auth-card {
+            background: white;
+            border: 2px solid #9B7E52;
+            border-radius: 12px;
+            padding: 60px 40px;
+            text-align: center;
+            max-width: 500px;
+            margin: 100px auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .auth-card h2 {
+            color: #9B7E52;
+            margin-bottom: 20px;
+        }
+
+        .auth-card p {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .google-btn {
+            background: #4285f4;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.2s;
+        }
+
+        .google-btn:hover {
+            background: #3367d6;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            font-weight: normal;
+        }
+
+        /* Error state */
+        .error-message {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            color: #856404;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        /* Subfolder count badge */
+        .subfolder-count {
+            font-size: 0.75rem;
+            background: rgba(155, 126, 82, 0.2);
+            color: #9B7E52;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="browser-container">
+        <div class="browser-header">
+            <h1>TKB Browser - Google Drive Navigation</h1>
+            <div class="button-group">
+                <button id="authBtn" class="drive-btn auth-btn" onclick="handleAuthClick()">
+                    Sign in with Google
+                </button>
+                <button id="signoutBtn" class="drive-btn signout-btn" onclick="handleSignoutClick()" style="display: none;">
+                    Sign Out
+                </button>
+                <button id="trajanusBtn" class="drive-btn" onclick="loadTrajanusFolders()" disabled>
+                    Trajanus USA
+                </button>
+                <button id="archiveBtn" class="drive-btn" onclick="loadArchiveFolders()" disabled>
+                    Google Drive Archive
+                </button>
+                <span id="statusText" class="status-text">Not connected</span>
+            </div>
+        </div>
+
+        <div id="authCard" class="auth-card">
+            <h2>Welcome to TKB Browser</h2>
+            <p>
+                Connect your Google Drive to browse documents and files from your
+                Trajanus USA folder and Archive.
+            </p>
+            <button class="google-btn" onclick="handleAuthClick()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                </svg>
+                Sign in with Google
+            </button>
+        </div>
+
+        <div id="browserLayout" class="browser-layout" style="display: none;">
+            <div class="tree-pane">
+                <div class="tree-header" id="treeHeader">
+                    FOLDER TREE
+                </div>
+                <div class="tree-content" id="treeContent">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📁</div>
+                        <p>Select a drive to browse</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="file-pane">
+                <div class="file-header">
+                    <span id="fileHeaderTitle">FILE LIST</span>
+                    <span id="fileHeaderCount" class="breadcrumb"></span>
+                </div>
+                <div class="file-content" id="fileContent">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📄</div>
+                        <p>Select a folder to view files</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google API Scripts -->
+    <script src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+    <script src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+
+    <script>
+        // ========================================
+        // CONFIGURATION
+        // ========================================
+
+        // Google Cloud Console credentials
+        // To get these:
+        // 1. Go to https://console.cloud.google.com/
+        // 2. Create a new project or select existing
+        // 3. Enable Google Drive API
+        // 4. Create OAuth 2.0 credentials (Web application)
+        // 5. Add authorized JavaScript origins: file:// and your domain
+        // 6. Create API Key with Drive API restriction
+
+        const CLIENT_ID = 'YOUR_CLIENT_ID.apps.googleusercontent.com';
+        const API_KEY = 'YOUR_API_KEY';
+        const DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'];
+        const SCOPES = 'https://www.googleapis.com/auth/drive.readonly';
+
+        // Folder IDs
+        const TRAJANUS_FOLDER_ID = '1GwQY0nI74Q8NeZEho0KVow43IejKhHCM';
+        let ARCHIVE_FOLDER_ID = null; // Will be discovered
+
+        // ========================================
+        // STATE
+        // ========================================
+
+        let tokenClient;
+        let gapiInited = false;
+        let gisInited = false;
+        let isAuthorized = false;
+        let currentRootId = null;
+        let currentRootName = '';
+        let selectedFolderId = null;
+        let folderCache = {}; // Cache folder contents
+
+        // ========================================
+        // INITIALIZATION
+        // ========================================
+
+        function gapiLoaded() {
+            gapi.load('client', initializeGapiClient);
+        }
+
+        async function initializeGapiClient() {
+            try {
+                await gapi.client.init({
+                    apiKey: API_KEY,
+                    discoveryDocs: DISCOVERY_DOCS,
+                });
+                gapiInited = true;
+                maybeEnableButtons();
+                console.log('GAPI client initialized');
+            } catch (error) {
+                console.error('Error initializing GAPI:', error);
+                showError('Failed to initialize Google API. Check your API key.');
+            }
+        }
+
+        function gisLoaded() {
+            tokenClient = google.accounts.oauth2.initTokenClient({
+                client_id: CLIENT_ID,
+                scope: SCOPES,
+                callback: '', // Will be set later
+            });
+            gisInited = true;
+            maybeEnableButtons();
+            console.log('GIS client initialized');
+        }
+
+        function maybeEnableButtons() {
+            if (gapiInited && gisInited) {
+                document.getElementById('authBtn').disabled = false;
+            }
+        }
+
+        // ========================================
+        // AUTHENTICATION
+        // ========================================
+
+        function handleAuthClick() {
+            tokenClient.callback = async (resp) => {
+                if (resp.error !== undefined) {
+                    console.error('Auth error:', resp);
+                    showError('Authentication failed: ' + resp.error);
+                    return;
+                }
+
+                isAuthorized = true;
+                onAuthorized();
+            };
+
+            if (gapi.client.getToken() === null) {
+                // First time - request consent
+                tokenClient.requestAccessToken({ prompt: 'consent' });
+            } else {
+                // Already have token - just refresh
+                tokenClient.requestAccessToken({ prompt: '' });
+            }
+        }
+
+        function handleSignoutClick() {
+            const token = gapi.client.getToken();
+            if (token !== null) {
+                google.accounts.oauth2.revoke(token.access_token);
+                gapi.client.setToken('');
+            }
+
+            isAuthorized = false;
+
+            // Reset UI
+            document.getElementById('authCard').style.display = 'block';
+            document.getElementById('browserLayout').style.display = 'none';
+            document.getElementById('authBtn').style.display = 'inline-block';
+            document.getElementById('signoutBtn').style.display = 'none';
+            document.getElementById('trajanusBtn').disabled = true;
+            document.getElementById('archiveBtn').disabled = true;
+            document.getElementById('trajanusBtn').classList.remove('active');
+            document.getElementById('archiveBtn').classList.remove('active');
+            document.getElementById('statusText').textContent = 'Not connected';
+            document.getElementById('statusText').classList.remove('connected');
+
+            // Clear cache
+            folderCache = {};
+        }
+
+        async function onAuthorized() {
+            console.log('Authorized successfully');
+
+            // Update UI
+            document.getElementById('authCard').style.display = 'none';
+            document.getElementById('browserLayout').style.display = 'flex';
+            document.getElementById('authBtn').style.display = 'none';
+            document.getElementById('signoutBtn').style.display = 'inline-block';
+            document.getElementById('trajanusBtn').disabled = false;
+            document.getElementById('archiveBtn').disabled = false;
+            document.getElementById('statusText').textContent = 'Connected to Google Drive';
+            document.getElementById('statusText').classList.add('connected');
+
+            // Try to find Archive folder
+            await findArchiveFolder();
+        }
+
+        async function findArchiveFolder() {
+            try {
+                const response = await gapi.client.drive.files.list({
+                    q: "name='Archive' and mimeType='application/vnd.google-apps.folder' and trashed=false and 'root' in parents",
+                    fields: 'files(id, name)',
+                    pageSize: 10
+                });
+
+                if (response.result.files && response.result.files.length > 0) {
+                    ARCHIVE_FOLDER_ID = response.result.files[0].id;
+                    console.log('Found Archive folder:', ARCHIVE_FOLDER_ID);
+                } else {
+                    console.log('Archive folder not found in root');
+                    // Try searching anywhere
+                    const response2 = await gapi.client.drive.files.list({
+                        q: "name='Archive' and mimeType='application/vnd.google-apps.folder' and trashed=false",
+                        fields: 'files(id, name)',
+                        pageSize: 5
+                    });
+
+                    if (response2.result.files && response2.result.files.length > 0) {
+                        ARCHIVE_FOLDER_ID = response2.result.files[0].id;
+                        console.log('Found Archive folder (anywhere):', ARCHIVE_FOLDER_ID);
+                    }
+                }
+            } catch (error) {
+                console.error('Error finding Archive folder:', error);
+            }
+        }
+
+        // ========================================
+        // FOLDER LOADING
+        // ========================================
+
+        async function loadTrajanusFolders() {
+            currentRootId = TRAJANUS_FOLDER_ID;
+            currentRootName = 'Trajanus USA';
+
+            document.getElementById('trajanusBtn').classList.add('active');
+            document.getElementById('archiveBtn').classList.remove('active');
+            document.getElementById('treeHeader').textContent = 'TRAJANUS USA';
+
+            await loadFolderTree();
+        }
+
+        async function loadArchiveFolders() {
+            if (!ARCHIVE_FOLDER_ID) {
+                showError('Archive folder not found. Please ensure you have an "Archive" folder in your Google Drive.');
+                return;
+            }
+
+            currentRootId = ARCHIVE_FOLDER_ID;
+            currentRootName = 'Google Drive Archive';
+
+            document.getElementById('archiveBtn').classList.add('active');
+            document.getElementById('trajanusBtn').classList.remove('active');
+            document.getElementById('treeHeader').textContent = 'GOOGLE DRIVE ARCHIVE';
+
+            await loadFolderTree();
+        }
+
+        async function loadFolderTree() {
+            const treeContent = document.getElementById('treeContent');
+            treeContent.innerHTML = `
+                <div class="loading-state">
+                    <div class="spinner"></div>
+                    <p>Loading folders...</p>
+                </div>
+            `;
+
+            // Clear file pane
+            document.getElementById('fileHeaderTitle').textContent = 'FILE LIST';
+            document.getElementById('fileHeaderCount').textContent = '';
+            document.getElementById('fileContent').innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">📄</div>
+                    <p>Select a folder to view files</p>
+                </div>
+            `;
+
+            try {
+                // Get root folder info
+                const rootInfo = await gapi.client.drive.files.get({
+                    fileId: currentRootId,
+                    fields: 'id, name'
+                });
+
+                const rootName = rootInfo.result.name;
+
+                // Get root folder contents
+                const contents = await getFolderContents(currentRootId);
+
+                // Build tree HTML
+                let html = `
+                    <div class="folder-item selected" data-folder-id="${currentRootId}" onclick="selectFolder('${currentRootId}', '${escapeHtml(rootName)}', event)">
+                        <span class="expand-icon" onclick="toggleFolder('${currentRootId}', event)">−</span>
+                        <span class="folder-icon">📁</span>
+                        <span class="folder-name">${escapeHtml(rootName)}</span>
+                    </div>
+                    <div class="folder-children" id="children-${currentRootId}">
+                `;
+
+                // Add subfolders
+                for (const folder of contents.folders) {
+                    html += renderFolderItem(folder, false);
+                }
+
+                html += '</div>';
+
+                treeContent.innerHTML = html;
+
+                // Select root folder
+                selectedFolderId = currentRootId;
+                await displayFiles(currentRootId, rootName);
+
+            } catch (error) {
+                console.error('Error loading folder tree:', error);
+                treeContent.innerHTML = `
+                    <div class="error-message">
+                        Failed to load folders: ${error.message || 'Unknown error'}
+                    </div>
+                `;
+            }
+        }
+
+        async function getFolderContents(folderId) {
+            // Check cache first
+            if (folderCache[folderId]) {
+                return folderCache[folderId];
+            }
+
+            try {
+                const response = await gapi.client.drive.files.list({
+                    q: `'${folderId}' in parents and trashed=false`,
+                    fields: 'files(id, name, mimeType, modifiedTime, size)',
+                    orderBy: 'folder,name',
+                    pageSize: 1000
+                });
+
+                const items = response.result.files || [];
+
+                const folders = items.filter(item =>
+                    item.mimeType === 'application/vnd.google-apps.folder'
+                );
+
+                const files = items.filter(item =>
+                    item.mimeType !== 'application/vnd.google-apps.folder'
+                );
+
+                const result = { folders, files };
+                folderCache[folderId] = result;
+
+                return result;
+
+            } catch (error) {
+                console.error('Error getting folder contents:', error);
+                return { folders: [], files: [] };
+            }
+        }
+
+        function renderFolderItem(folder, isExpanded) {
+            const expandIcon = isExpanded ? '−' : '+';
+            const childrenDisplay = isExpanded ? '' : 'collapsed';
+
+            return `
+                <div class="folder-item" data-folder-id="${folder.id}" onclick="selectFolder('${folder.id}', '${escapeHtml(folder.name)}', event)">
+                    <span class="expand-icon" onclick="toggleFolder('${folder.id}', event)">${expandIcon}</span>
+                    <span class="folder-icon">📂</span>
+                    <span class="folder-name">${escapeHtml(folder.name)}</span>
+                </div>
+                <div class="folder-children ${childrenDisplay}" id="children-${folder.id}">
+                    <div class="loading-placeholder" style="padding: 10px; color: #999; font-size: 0.9rem;">
+                        Loading...
+                    </div>
+                </div>
+            `;
+        }
+
+        async function toggleFolder(folderId, event) {
+            event.stopPropagation();
+
+            const childrenDiv = document.getElementById(`children-${folderId}`);
+            const expandIcon = event.target;
+            const isCollapsed = childrenDiv.classList.contains('collapsed');
+
+            if (isCollapsed) {
+                // Expand
+                expandIcon.textContent = '−';
+                childrenDiv.classList.remove('collapsed');
+
+                // Check if already loaded
+                const hasPlaceholder = childrenDiv.querySelector('.loading-placeholder');
+                if (hasPlaceholder) {
+                    // Load subfolders
+                    const contents = await getFolderContents(folderId);
+
+                    if (contents.folders.length === 0) {
+                        childrenDiv.innerHTML = '';
+                        expandIcon.classList.add('empty');
+                    } else {
+                        let html = '';
+                        for (const subfolder of contents.folders) {
+                            html += renderFolderItem(subfolder, false);
+                        }
+                        childrenDiv.innerHTML = html;
+                    }
+                }
+            } else {
+                // Collapse
+                expandIcon.textContent = '+';
+                childrenDiv.classList.add('collapsed');
+            }
+        }
+
+        // ========================================
+        // FILE DISPLAY
+        // ========================================
+
+        async function selectFolder(folderId, folderName, event) {
+            if (event) {
+                event.stopPropagation();
+            }
+
+            // Update selection in tree
+            document.querySelectorAll('.folder-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+
+            const folderItem = document.querySelector(`[data-folder-id="${folderId}"]`);
+            if (folderItem) {
+                folderItem.classList.add('selected');
+            }
+
+            selectedFolderId = folderId;
+            await displayFiles(folderId, folderName);
+        }
+
+        async function displayFiles(folderId, folderName) {
+            const fileContent = document.getElementById('fileContent');
+            document.getElementById('fileHeaderTitle').textContent = folderName;
+            document.getElementById('fileHeaderCount').textContent = 'Loading...';
+
+            fileContent.innerHTML = `
+                <div class="loading-state">
+                    <div class="spinner"></div>
+                    <p>Loading files...</p>
+                </div>
+            `;
+
+            try {
+                const contents = await getFolderContents(folderId);
+                const files = contents.files;
+
+                document.getElementById('fileHeaderCount').textContent =
+                    `${files.length} file${files.length !== 1 ? 's' : ''}`;
+
+                if (files.length === 0) {
+                    fileContent.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📭</div>
+                            <p>No files in this folder</p>
+                            <p style="font-size: 0.9rem; color: #999; margin-top: 10px;">
+                                ${contents.folders.length} subfolder${contents.folders.length !== 1 ? 's' : ''} available
+                            </p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                let html = '';
+
+                for (const file of files) {
+                    const icon = getFileIcon(file.mimeType, file.name);
+                    const date = new Date(file.modifiedTime).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                    });
+                    const fileType = getFileTypeName(file.mimeType);
+
+                    html += `
+                        <div class="file-item" onclick="openDriveFile('${file.id}', '${escapeHtml(file.name)}', '${file.mimeType}')">
+                            <span class="file-icon">${icon}</span>
+                            <div class="file-info">
+                                <div class="file-name">${escapeHtml(file.name)}</div>
+                                <div class="file-meta">${fileType} • Modified: ${date}</div>
+                            </div>
+                            <span class="file-arrow">→</span>
+                        </div>
+                    `;
+                }
+
+                fileContent.innerHTML = html;
+
+            } catch (error) {
+                console.error('Error displaying files:', error);
+                fileContent.innerHTML = `
+                    <div class="error-message">
+                        Failed to load files: ${error.message || 'Unknown error'}
+                    </div>
+                `;
+            }
+        }
+
+        function getFileIcon(mimeType, fileName) {
+            // Google Docs types
+            if (mimeType === 'application/vnd.google-apps.document') return '📄';
+            if (mimeType === 'application/vnd.google-apps.spreadsheet') return '📊';
+            if (mimeType === 'application/vnd.google-apps.presentation') return '📽️';
+            if (mimeType === 'application/vnd.google-apps.form') return '📋';
+
+            // By extension
+            const ext = fileName.split('.').pop().toLowerCase();
+            if (ext === 'py') return '🐍';
+            if (ext === 'js') return '📜';
+            if (ext === 'html' || ext === 'htm') return '🌐';
+            if (ext === 'css') return '🎨';
+            if (ext === 'ps1') return '⚡';
+            if (ext === 'json') return '📋';
+            if (ext === 'md') return '📝';
+            if (ext === 'txt') return '📄';
+            if (ext === 'pdf') return '📕';
+            if (['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp'].includes(ext)) return '🖼️';
+            if (['mp4', 'mov', 'avi', 'webm'].includes(ext)) return '🎬';
+            if (['mp3', 'wav', 'ogg'].includes(ext)) return '🎵';
+            if (['zip', 'rar', '7z', 'tar', 'gz'].includes(ext)) return '📦';
+
+            // By mime type
+            if (mimeType.includes('image')) return '🖼️';
+            if (mimeType.includes('video')) return '🎬';
+            if (mimeType.includes('audio')) return '🎵';
+            if (mimeType.includes('pdf')) return '📕';
+            if (mimeType.includes('text')) return '📄';
+
+            return '📄';
+        }
+
+        function getFileTypeName(mimeType) {
+            const types = {
+                'application/vnd.google-apps.document': 'Google Doc',
+                'application/vnd.google-apps.spreadsheet': 'Google Sheet',
+                'application/vnd.google-apps.presentation': 'Google Slides',
+                'application/vnd.google-apps.form': 'Google Form',
+                'application/pdf': 'PDF',
+                'text/plain': 'Text File',
+                'text/html': 'HTML',
+                'text/css': 'CSS',
+                'application/javascript': 'JavaScript',
+                'application/json': 'JSON',
+                'text/x-python': 'Python',
+                'image/png': 'PNG Image',
+                'image/jpeg': 'JPEG Image',
+                'image/gif': 'GIF Image',
+            };
+
+            return types[mimeType] || 'File';
+        }
+
+        // ========================================
+        // FILE OPENING
+        // ========================================
+
+        async function openDriveFile(fileId, fileName, mimeType) {
+            console.log(`Opening file: ${fileName} (${mimeType})`);
+
+            try {
+                let content = '';
+                let fileType = getFileTypeName(mimeType);
+
+                if (mimeType === 'application/vnd.google-apps.document') {
+                    // Google Doc - export as HTML
+                    const response = await gapi.client.drive.files.export({
+                        fileId: fileId,
+                        mimeType: 'text/html'
+                    });
+                    content = response.body;
+
+                } else if (mimeType === 'application/vnd.google-apps.spreadsheet') {
+                    // Google Sheet - open in Google Sheets
+                    window.open(`https://docs.google.com/spreadsheets/d/${fileId}`, '_blank');
+                    return;
+
+                } else if (mimeType === 'application/vnd.google-apps.presentation') {
+                    // Google Slides - open in Google Slides
+                    window.open(`https://docs.google.com/presentation/d/${fileId}`, '_blank');
+                    return;
+
+                } else if (mimeType.startsWith('image/')) {
+                    // Image - display inline
+                    const imageUrl = `https://drive.google.com/uc?export=view&id=${fileId}`;
+                    content = `<img src="${imageUrl}" style="max-width: 100%; height: auto;" alt="${escapeHtml(fileName)}">`;
+
+                } else {
+                    // Other files - try to get content
+                    try {
+                        const response = await gapi.client.drive.files.get({
+                            fileId: fileId,
+                            alt: 'media'
+                        });
+                        content = response.body;
+
+                        // Format code files
+                        if (isCodeFile(fileName, mimeType)) {
+                            content = `<pre style="background: #f5f5f5; padding: 20px; border-radius: 8px; overflow-x: auto; font-family: 'Consolas', 'Monaco', monospace; font-size: 0.95rem; line-height: 1.5;"><code>${escapeHtml(content)}</code></pre>`;
+                        } else if (mimeType === 'text/plain' || mimeType === 'text/markdown') {
+                            content = `<pre style="white-space: pre-wrap; font-family: inherit;">${escapeHtml(content)}</pre>`;
+                        }
+
+                    } catch (error) {
+                        // Can't download - open in Drive
+                        console.log('Cannot download file, opening in Drive');
+                        window.open(`https://drive.google.com/file/d/${fileId}/view`, '_blank');
+                        return;
+                    }
+                }
+
+                // Open in new tab
+                displayDocumentInNewTab(fileName, content, fileType, fileId);
+
+            } catch (error) {
+                console.error('Error opening file:', error);
+                alert('Failed to open file: ' + (error.message || 'Unknown error'));
+            }
+        }
+
+        function isCodeFile(fileName, mimeType) {
+            const codeExtensions = ['py', 'js', 'html', 'htm', 'css', 'json', 'ps1', 'sh', 'bat', 'sql', 'xml', 'yaml', 'yml', 'ts', 'jsx', 'tsx'];
+            const ext = fileName.split('.').pop().toLowerCase();
+            return codeExtensions.includes(ext);
+        }
+
+        function displayDocumentInNewTab(title, content, fileType, fileId) {
+            const driveLink = `https://drive.google.com/file/d/${fileId}/view`;
+
+            const html = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>${escapeHtml(title)} - TKB Document Viewer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .document-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border: 2px solid #9B7E52;
+        }
+
+        .document-header {
+            border-bottom: 3px solid #9B7E52;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .document-title {
+            color: #9B7E52;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            word-break: break-word;
+        }
+
+        .document-meta {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: #9B7E52;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .drive-link {
+            color: #4285f4;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .drive-link:hover {
+            text-decoration: underline;
+        }
+
+        .document-content {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .document-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .document-content pre {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .document-content code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+
+        .close-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #9B7E52;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .close-button:hover {
+            background: #7d6542;
+        }
+
+        /* Style Google Docs exported content */
+        .document-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        .document-content td, .document-content th {
+            border: 1px solid #ddd;
+            padding: 12px;
+        }
+
+        .document-content h1, .document-content h2, .document-content h3 {
+            color: #9B7E52;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .document-content p {
+            margin-bottom: 15px;
+        }
+
+        .document-content ul, .document-content ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        .document-content li {
+            margin-bottom: 8px;
+        }
+
+        .document-content a {
+            color: #4285f4;
+        }
+    </style>
+</head>
+<body>
+    <button class="close-button" onclick="window.close()">✕ Close</button>
+
+    <div class="document-container">
+        <div class="document-header">
+            <h1 class="document-title">${escapeHtml(title)}</h1>
+            <div class="document-meta">
+                <span class="badge">${escapeHtml(fileType)}</span>
+                <a href="${driveLink}" target="_blank" class="drive-link">Open in Google Drive ↗</a>
+            </div>
+        </div>
+
+        <div class="document-content">
+            ${content}
+        </div>
+    </div>
+</body>
+</html>
+            `;
+
+            const newWindow = window.open('', '_blank');
+            if (newWindow) {
+                newWindow.document.write(html);
+                newWindow.document.close();
+            } else {
+                alert('Pop-up blocked. Please allow pop-ups for this site.');
+            }
+        }
+
+        // ========================================
+        // UTILITY FUNCTIONS
+        // ========================================
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function showError(message) {
+            const treeContent = document.getElementById('treeContent');
+            treeContent.innerHTML = `
+                <div class="error-message">
+                    ${escapeHtml(message)}
+                </div>
+            `;
+        }
+
+        // ========================================
+        // DEMO MODE (for testing without auth)
+        // ========================================
+
+        function enableDemoMode() {
+            console.log('Demo mode enabled');
+
+            // Show browser layout without auth
+            document.getElementById('authCard').style.display = 'none';
+            document.getElementById('browserLayout').style.display = 'flex';
+            document.getElementById('statusText').textContent = 'Demo Mode (no Google API)';
+
+            // Show sample tree
+            document.getElementById('treeContent').innerHTML = `
+                <div class="folder-item selected" data-folder-id="demo-root">
+                    <span class="expand-icon">−</span>
+                    <span class="folder-icon">📁</span>
+                    <span class="folder-name">00 - Trajanus USA</span>
+                </div>
+                <div class="folder-children">
+                    <div class="folder-item" data-folder-id="demo-1">
+                        <span class="expand-icon">+</span>
+                        <span class="folder-icon">📂</span>
+                        <span class="folder-name">00-Command-Center</span>
+                    </div>
+                    <div class="folder-children collapsed" id="children-demo-1"></div>
+
+                    <div class="folder-item" data-folder-id="demo-2">
+                        <span class="expand-icon">+</span>
+                        <span class="folder-icon">📂</span>
+                        <span class="folder-name">01-Core-Protocols</span>
+                    </div>
+                    <div class="folder-children collapsed" id="children-demo-2"></div>
+
+                    <div class="folder-item" data-folder-id="demo-3">
+                        <span class="expand-icon">+</span>
+                        <span class="folder-icon">📂</span>
+                        <span class="folder-name">03-Living-Documents</span>
+                    </div>
+                    <div class="folder-children collapsed" id="children-demo-3"></div>
+                </div>
+            `;
+
+            document.getElementById('fileHeaderTitle').textContent = '00 - Trajanus USA';
+            document.getElementById('fileHeaderCount').textContent = 'Demo - 3 files';
+            document.getElementById('fileContent').innerHTML = `
+                <div class="file-item">
+                    <span class="file-icon">📄</span>
+                    <div class="file-info">
+                        <div class="file-name">Research_Index_20251217</div>
+                        <div class="file-meta">Google Doc • Modified: Dec 17, 2025</div>
+                    </div>
+                    <span class="file-arrow">→</span>
+                </div>
+                <div class="file-item">
+                    <span class="file-icon">🐍</span>
+                    <div class="file-info">
+                        <div class="file-name">file_ingestion.py</div>
+                        <div class="file-meta">Python • Modified: Dec 16, 2025</div>
+                    </div>
+                    <span class="file-arrow">→</span>
+                </div>
+                <div class="file-item">
+                    <span class="file-icon">🌐</span>
+                    <div class="file-info">
+                        <div class="file-name">TKB_Browser_v3.0.html</div>
+                        <div class="file-meta">HTML • Modified: Dec 17, 2025</div>
+                    </div>
+                    <span class="file-arrow">→</span>
+                </div>
+            `;
+        }
+
+        // Check if API keys are configured
+        window.addEventListener('load', () => {
+            if (CLIENT_ID === 'YOUR_CLIENT_ID.apps.googleusercontent.com' ||
+                API_KEY === 'YOUR_API_KEY') {
+                console.log('Google API credentials not configured');
+                document.querySelector('.auth-card p').innerHTML = `
+                    <strong style="color: #dc3545;">Configuration Required</strong><br><br>
+                    To use this browser, you need to configure Google API credentials.<br><br>
+                    1. Go to <a href="https://console.cloud.google.com/" target="_blank">Google Cloud Console</a><br>
+                    2. Create a project and enable Google Drive API<br>
+                    3. Create OAuth 2.0 credentials and an API key<br>
+                    4. Update CLIENT_ID and API_KEY in this file<br><br>
+                    <button class="drive-btn" onclick="enableDemoMode()" style="margin-top: 10px;">
+                        View Demo Mode
+                    </button>
+                `;
+                document.querySelector('.google-btn').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

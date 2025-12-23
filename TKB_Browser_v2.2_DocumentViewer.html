@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TKB Browser v2.2 - Document Viewer</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #3d2a1f 0%, #1f1410 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #fff;
+        }
+        .session-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .session-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        .source-btn { transition: all 0.2s; }
+        .source-btn:hover { opacity: 0.85; }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .loading-spinner {
+            border: 4px solid rgba(155,126,82,0.3);
+            border-top: 4px solid #9B7E52;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        .source-badge {
+            display: inline-block;
+            background: #9B7E52;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        .chunk-badge {
+            display: inline-block;
+            background: rgba(155,126,82,0.3);
+            color: #9B7E52;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-left: 8px;
+        }
+        .doc-title-link {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .doc-title-link:hover {
+            color: #9B7E52;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div style="max-width: 1400px; margin: 0 auto;">
+        <h1 style="text-align: center; margin-bottom: 30px; color: #9B7E52; font-size: 2.5rem;">TKB Browser v2.2 - Document Viewer</h1>
+
+        <!-- Data Source Selector -->
+        <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+            <button class="source-btn active" data-source="hardcoded" onclick="switchDataSource('hardcoded')"
+                    style="padding: 10px 20px; border: 2px solid #9B7E52; border-radius: 4px; background: #9B7E52; color: white; cursor: pointer; font-weight: 600;">
+                Hardcoded (18)
+            </button>
+            <button class="source-btn" data-source="supabase" onclick="switchDataSource('supabase')"
+                    style="padding: 10px 20px; border: 2px solid #9B7E52; border-radius: 4px; background: transparent; color: #9B7E52; cursor: pointer; font-weight: 600;">
+                Supabase (1800+)
+            </button>
+            <button class="source-btn" data-source="gdrive" onclick="switchDataSource('gdrive')"
+                    style="padding: 10px 20px; border: 2px solid #9B7E52; border-radius: 4px; background: transparent; color: #9B7E52; cursor: pointer; font-weight: 600;">
+                Google Drive (170+)
+            </button>
+        </div>
+
+        <button onclick="openTKBBrowser()" class="session-btn" style="background: linear-gradient(180deg, #9B7E52 0%, #7B6142 100%); display: block; margin: 0 auto 20px auto; font-size: 1.2rem; padding: 15px 40px;">
+            Open TKB Browser (18 Real Documents)
+        </button>
+        <div style="text-align: center; color: #999; font-size: 0.9rem;">
+            <p id="statusLine1">Initializing...</p>
+            <p id="statusLine2">Real research findings loaded</p>
+            <p>Click document titles to view full content</p>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 20000; align-items: center; justify-content: center;">
+        <div style="background: #1a1a1a; border: 2px solid #9B7E52; border-radius: 8px; padding: 40px; text-align: center;">
+            <div class="loading-spinner"></div>
+            <p id="loadingText" style="color: #9B7E52; font-weight: 600;">Loading...</p>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // SUPABASE CONFIGURATION
+        // ============================================
+        const SUPABASE_URL = 'https://iaxtwrswinygwwwdkvok.supabase.co';
+        const SUPABASE_ANON_KEY = 'REDACTED_SUPABASE_KEY';
+
+        var supabaseClient = null;
+        var supabaseStats = { totalDocs: 0, totalChunks: 0 };
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', async () => {
+            if (typeof supabase !== 'undefined') {
+                supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                console.log('Supabase client initialized');
+
+                // Get database stats
+                try {
+                    const { count, error } = await supabaseClient
+                        .from('knowledge_base')
+                        .select('*', { count: 'exact', head: true });
+
+                    if (!error) {
+                        supabaseStats.totalChunks = count || 0;
+                        document.getElementById('statusLine1').textContent =
+                            'Supabase connected | ' + supabaseStats.totalChunks + ' chunks in database';
+                    }
+                } catch (e) {
+                    console.log('Could not fetch stats:', e);
+                }
+
+                document.getElementById('statusLine1').textContent = 'Supabase connected | Google Drive ready';
+            } else {
+                console.error('Supabase SDK not loaded');
+                document.getElementById('statusLine1').textContent = 'Supabase SDK failed to load';
+            }
+        });
+
+        // ============================================
+        // LOADING STATES
+        // ============================================
+        function showLoading(message = 'Loading...') {
+            document.getElementById('loadingText').textContent = message;
+            document.getElementById('loadingOverlay').style.display = 'flex';
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
+
+        // ============================================
+        // DATA SOURCE MANAGEMENT
+        // ============================================
+        let currentDataSource = 'hardcoded';
+        let currentPage = 0;
+        let hasMoreData = false;
+        let isSearchMode = false;
+
+        function switchDataSource(source) {
+            currentDataSource = source;
+            currentPage = 0;
+            isSearchMode = false;
+
+            document.querySelectorAll('.source-btn').forEach(btn => {
+                if (btn.dataset.source === source) {
+                    btn.style.background = '#9B7E52';
+                    btn.style.color = 'white';
+                    btn.classList.add('active');
+                } else {
+                    btn.style.background = 'transparent';
+                    btn.style.color = '#9B7E52';
+                    btn.classList.remove('active');
+                }
+            });
+
+            const mainBtn = document.querySelector('.session-btn');
+            if (source === 'hardcoded') {
+                mainBtn.innerHTML = 'Open TKB Browser (18 Real Documents)';
+                document.getElementById('statusLine2').textContent = 'Real research findings loaded';
+            } else if (source === 'supabase') {
+                mainBtn.innerHTML = 'Open TKB Browser (Supabase - ' + supabaseStats.totalChunks + ' chunks)';
+                document.getElementById('statusLine2').textContent = 'Supabase vector database selected';
+            } else if (source === 'gdrive') {
+                mainBtn.innerHTML = 'Open TKB Browser (Google Drive - 170+ Docs)';
+                document.getElementById('statusLine2').textContent = 'Google Drive research folder selected';
+            }
+
+            console.log('Data source switched to:', source);
+        }
+
+        // ============================================
+        // HARDCODED DOCUMENTS (Original 18)
+        // ============================================
+        const REAL_DOCUMENTS = [
+            { id: '1lZQbFPMkTxd9ECBAipMlLDDAYf_w-8aoMvwwWmxc6Q4', title: 'Webix JS UI Library & Framework', url: 'https://docs.google.com/document/d/1lZQbFPMkTxd9ECBAipMlLDDAYf_w-8aoMvwwWmxc6Q4/edit', topic: 'Implementation-Examples', created_at: '2025-12-17T15:49:08Z', summary: 'JavaScript File Manager widget for managing files hierarchically in web applications' },
+            { id: '1XHwY-gNqPkZYA9UBUe53QwWFZPEl3E7DqMzBXOybqgE', title: 'filebrowser Web File Browser', url: 'https://docs.google.com/document/d/1XHwY-gNqPkZYA9UBUe53QwWFZPEl3E7DqMzBXOybqgE/edit', topic: 'Implementation-Examples', created_at: '2025-12-17T15:49:06Z', summary: 'Single binary web file browser for upload, delete, preview and edit.' },
+            { id: '1HvLJGd1svkO7vRglvMDE11WQ746Dg6NH4r4xk0lr4FI', title: 'The 38 Best JavaScript Libraries and Frameworks', url: 'https://docs.google.com/document/d/1HvLJGd1svkO7vRglvMDE11WQ746Dg6NH4r4xk0lr4FI/edit', topic: 'Implementation-Examples', created_at: '2025-12-17T15:49:01Z', summary: 'User-friendly JS file management with built-in widgets, cross-platform support.' },
+            { id: '1Jxzt9PG0sT7eVgQy-YdneYfa2gdC7H98BhdRmtGKoNw', title: 'File Browser', url: 'https://docs.google.com/document/d/1Jxzt9PG0sT7eVgQy-YdneYfa2gdC7H98BhdRmtGKoNw/edit', topic: 'Implementation-Examples', created_at: '2025-12-17T15:48:58Z', summary: 'File managing interface with easy login, sleek interface, user management.' },
+            { id: '1mtIZ_I-NuA4SdrBY5I4o2GHIxFVDuiV9dATro8j8gys', title: 'Manage files in the browser in JS', url: 'https://docs.google.com/document/d/1mtIZ_I-NuA4SdrBY5I4o2GHIxFVDuiV9dATro8j8gys/edit', topic: 'Implementation-Examples', created_at: '2025-12-17T15:48:56Z', summary: 'File System API in modern browsers. Higher-level API to operate on real file system.' },
+            { id: '1P6OxiFsyx5eifcECY5n1P3zFMw-RiKH_eiRDGotMBtU', title: 'pgvector - Open-source vector similarity search', url: 'https://docs.google.com/document/d/1P6OxiFsyx5eifcECY5n1P3zFMw-RiKH_eiRDGotMBtU/edit', topic: 'Supabase-pgvector', created_at: '2025-12-17T15:48:53Z', summary: 'Store vectors with PostgreSQL. L2 distance, inner product, cosine distance.' },
+            { id: '1VDnVaBKkN9nIXn2otMc460AkfHFd9mjm2YoI0ZO3RCY', title: 'Vector Similarity Search with PostgreSQL', url: 'https://docs.google.com/document/d/1VDnVaBKkN9nIXn2otMc460AkfHFd9mjm2YoI0ZO3RCY/edit', topic: 'Supabase-pgvector', created_at: '2025-12-17T15:48:50Z', summary: 'CREATE TABLE with VECTOR(3) columns. Demonstrate vector searches.' },
+            { id: '19pYT1PiCk0x4u0jiRh9A5EdYEKrJ9N189s5UWpG36J0', title: 'pgvector Tutorial - Integrate Vector Search', url: 'https://docs.google.com/document/d/19pYT1PiCk0x4u0jiRh9A5EdYEKrJ9N189s5UWpG36J0/edit', topic: 'Supabase-pgvector', created_at: '2025-12-17T15:48:48Z', summary: 'Efficient storage, fast similarity search, exact/approximate nearest neighbor.' },
+            { id: '12wtQShGUdvbcTfxyuZ-87v6OBvx_faDpUVqdXs5ZfeE', title: 'Building AI-Powered Search and RAG with PostgreSQL', url: 'https://docs.google.com/document/d/12wtQShGUdvbcTfxyuZ-87v6OBvx_faDpUVqdXs5ZfeE/edit', topic: 'RAG-Production', created_at: '2025-12-17T15:48:44Z', summary: 'Store embeddings as native VECTOR type, perform similarity searches.' },
+            { id: '1lyCiI7EsInaYORTV71DFYIXe0cBZn4JwTBPnNcLsuOE', title: 'Run a vector similarity search - AlloyDB', url: 'https://docs.google.com/document/d/1lyCiI7EsInaYORTV71DFYIXe0cBZn4JwTBPnNcLsuOE/edit', topic: 'RAG-Production', created_at: '2025-12-17T15:48:42Z', summary: 'Nearest neighbor search in AlloyDB. Query for semantically similar vectors.' },
+            { id: '1IhMmXWVabvGJ0M2S_7zxe3P7BRXaKrWMVQpKWUYPWwk', title: 'subprocess - Subprocess management Python', url: 'https://docs.google.com/document/d/1IhMmXWVabvGJ0M2S_7zxe3P7BRXaKrWMVQpKWUYPWwk/edit', topic: 'Electron-Python-IPC', created_at: '2025-12-17T15:48:40Z', summary: 'SubprocessError, TimeoutExpired exceptions. STDOUT, STDIN, STDERR handling.' },
+            { id: '1EJVQX2N8PGPISTObJovGHZqsDiyvkBg0v1-JGpv-nmk', title: 'A Guide to Python Subprocess - Stackify', url: 'https://docs.google.com/document/d/1EJVQX2N8PGPISTObJovGHZqsDiyvkBg0v1-JGpv-nmk/edit', topic: 'Electron-Python-IPC', created_at: '2025-12-17T15:48:35Z', summary: 'subprocess.call(), subprocess.check_output() with error handling.' },
+            { id: '174NSFZIVGzH7TvllsfYipM9iNDMJHlIaM4U5FcqKGmA', title: 'Errors - Node.js v25.2.1 Documentation', url: 'https://docs.google.com/document/d/174NSFZIVGzH7TvllsfYipM9iNDMJHlIaM4U5FcqKGmA/edit', topic: 'Electron-Python-IPC', created_at: '2025-12-17T15:48:32Z', summary: 'EventEmitter error handler registration, uncaughtException event.' },
+            { id: '1yd7XWSFA_UzPBKZUlbcrVJF7J9ALDTIS7Vtt7Sg4ca8', title: 'Node.js Error Handling - W3Schools', url: 'https://docs.google.com/document/d/1yd7XWSFA_UzPBKZUlbcrVJF7J9ALDTIS7Vtt7Sg4ca8/edit', topic: 'Electron-Python-IPC', created_at: '2025-12-17T15:48:30Z', summary: 'Error types, patterns, best practices. Meaningful feedback.' },
+            { id: '1WfK0AjijtPTtEu12apnRpo55ZD6G2hQwLencV2Pae8I', title: 'Child process - Node.js Documentation', url: 'https://docs.google.com/document/d/1WfK0AjijtPTtEu12apnRpo55ZD6G2hQwLencV2Pae8I/edit', topic: 'Electron-Python-IPC', created_at: '2025-12-17T15:48:27Z', summary: 'subprocess.spawn(), subprocess.send(), callbacks with (error, stdout, stderr).' },
+            { id: '1-uL8eS-u74O83W9sAfKK1JUdr3QPRmebKnK4AARf2NU', title: 'Correct Architecture for React Electron app', url: 'https://docs.google.com/document/d/1-uL8eS-u74O83W9sAfKK1JUdr3QPRmebKnK4AARf2NU/edit', topic: 'Agent-Orchestration', created_at: '2025-12-17T15:48:25Z', summary: 'Architect Electron app so web and desktop applications work together.' },
+            { id: '1g0JzJnxoIPDpdONgr_O4I6gPbPVr4V5H7_zyhUrpO40', title: 'Electron - Build cross-platform desktop apps', url: 'https://docs.google.com/document/d/1g0JzJnxoIPDpdONgr_O4I6gPbPVr4V5H7_zyhUrpO40/edit', topic: 'Agent-Orchestration', created_at: '2025-12-17T15:48:22Z', summary: 'Chromium + Node.js for desktop. Cross-platform, open-source, stable.' },
+            { id: '1clxWAdH7-QoyBAUSyQkcSkGOErLTW7zhs-fOnQsWJSM', title: 'Plugin Architecture for Electron apps', url: 'https://docs.google.com/document/d/1clxWAdH7-QoyBAUSyQkcSkGOErLTW7zhs-fOnQsWJSM/edit', topic: 'Agent-Orchestration', created_at: '2025-12-17T15:48:19Z', summary: 'Write desktop apps with HTML, JavaScript, CSS. Ship features faster.' }
+        ];
+
+        // ============================================
+        // SUPABASE DATA LOADER (Enhanced for Phase 2)
+        // ============================================
+        async function loadSupabaseDocuments(page = 0, pageSize = 100) {
+            if (!supabaseClient) {
+                throw new Error('Supabase not connected');
+            }
+
+            console.log('Loading page ' + page + ' from Supabase (knowledge_base table)...');
+
+            const { data, error, count } = await supabaseClient
+                .from('knowledge_base')
+                .select('id, url, chunk_number, title, summary, content, metadata, created_at', { count: 'exact' })
+                .order('created_at', { ascending: false })
+                .range(page * pageSize, (page + 1) * pageSize - 1);
+
+            if (error) throw error;
+
+            console.log('Fetched ' + data.length + ' chunks from Supabase');
+
+            // Group chunks by URL to get unique documents
+            const groupedDocs = {};
+            data.forEach(chunk => {
+                const url = chunk.url || ('chunk-' + chunk.id);
+                if (!groupedDocs[url]) {
+                    // Clean up title - remove " (Part X)" suffix
+                    let cleanTitle = chunk.title || 'Untitled';
+                    cleanTitle = cleanTitle.replace(/\s*\(Part\s*\d+\)\s*$/i, '');
+
+                    groupedDocs[url] = {
+                        id: chunk.id.toString(),
+                        title: cleanTitle,
+                        url: url,
+                        topic: (chunk.metadata && chunk.metadata.source) ? chunk.metadata.source : 'General',
+                        created_at: chunk.created_at,
+                        summary: chunk.summary || (chunk.content ? chunk.content.substring(0, 150) + '...' : 'No summary'),
+                        chunkCount: 0,
+                        metadata: chunk.metadata || {}
+                    };
+                }
+                groupedDocs[url].chunkCount++;
+            });
+
+            const documents = Object.values(groupedDocs);
+
+            console.log('Grouped into ' + documents.length + ' unique documents');
+
+            return {
+                documents: documents,
+                totalChunks: data.length,
+                totalCount: count || 0,
+                hasMore: (page + 1) * pageSize < (count || 0),
+                page: page
+            };
+        }
+
+        // ============================================
+        // SUPABASE SEARCH
+        // ============================================
+        async function searchSupabase(query) {
+            if (!supabaseClient) {
+                throw new Error('Supabase not connected');
+            }
+
+            console.log('Searching Supabase for: ' + query);
+
+            // Text search using ilike (case-insensitive)
+            const { data, error } = await supabaseClient
+                .from('knowledge_base')
+                .select('id, url, chunk_number, title, summary, content, metadata, created_at')
+                .or('title.ilike.%' + query + '%,summary.ilike.%' + query + '%,content.ilike.%' + query + '%')
+                .order('created_at', { ascending: false })
+                .limit(100);
+
+            if (error) throw error;
+
+            console.log('Search found ' + data.length + ' matching chunks');
+
+            // Group by URL
+            const groupedDocs = {};
+            data.forEach(chunk => {
+                const url = chunk.url || ('chunk-' + chunk.id);
+                if (!groupedDocs[url]) {
+                    let cleanTitle = chunk.title || 'Untitled';
+                    cleanTitle = cleanTitle.replace(/\s*\(Part\s*\d+\)\s*$/i, '');
+
+                    groupedDocs[url] = {
+                        id: chunk.id.toString(),
+                        title: cleanTitle,
+                        url: url,
+                        topic: (chunk.metadata && chunk.metadata.source) ? chunk.metadata.source : 'General',
+                        created_at: chunk.created_at,
+                        summary: chunk.summary || (chunk.content ? chunk.content.substring(0, 150) + '...' : 'No summary'),
+                        chunkCount: 0,
+                        metadata: chunk.metadata || {}
+                    };
+                }
+                groupedDocs[url].chunkCount++;
+            });
+
+            return Object.values(groupedDocs);
+        }
+
+        // ============================================
+        // DOCUMENT VIEWER - FETCH ALL CHUNKS
+        // ============================================
+        async function openDocument(docId, docUrl) {
+            if (!supabaseClient) {
+                console.error('Supabase not connected');
+                return;
+            }
+
+            showLoading('Loading document...');
+
+            try {
+                // Fetch ALL chunks for this document by URL
+                const { data, error } = await supabaseClient
+                    .from('knowledge_base')
+                    .select('id, url, chunk_number, title, summary, content, metadata, created_at')
+                    .eq('url', docUrl)
+                    .order('chunk_number', { ascending: true });
+
+                if (error) throw error;
+
+                if (!data || data.length === 0) {
+                    hideLoading();
+                    alert('Document not found in database');
+                    return;
+                }
+
+                console.log('Fetched ' + data.length + ' chunks for document');
+
+                // Get document metadata from first chunk
+                const firstChunk = data[0];
+                let cleanTitle = firstChunk.title || 'Untitled';
+                cleanTitle = cleanTitle.replace(/\s*\(Part\s*\d+\)\s*$/i, '');
+
+                const metadata = {
+                    topic: (firstChunk.metadata && firstChunk.metadata.source) ? firstChunk.metadata.source : 'General',
+                    created_at: firstChunk.created_at,
+                    chunkCount: data.length,
+                    url: docUrl
+                };
+
+                // Combine all chunk content in order
+                const fullContent = data.map(chunk => chunk.content || '').join('\n\n');
+
+                // Get summary from first chunk
+                const summary = firstChunk.summary || '';
+
+                hideLoading();
+
+                // Display in new tab
+                displayDocumentInNewTab(cleanTitle, fullContent, metadata, docUrl, summary);
+
+            } catch (error) {
+                hideLoading();
+                console.error('Error loading document:', error);
+                alert('Failed to load document: ' + error.message);
+            }
+        }
+
+        // ============================================
+        // DOCUMENT VIEWER - NEW TAB DISPLAY
+        // ============================================
+        function displayDocumentInNewTab(title, content, metadata, url, summary) {
+            // Format content - convert markdown-like formatting to HTML
+            let formattedContent = content
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/\n\n/g, '</p><p>')
+                .replace(/\n/g, '<br>')
+                .replace(/```([\s\S]*?)```/g, '<pre style="background: rgba(155,126,82,0.1); padding: 15px; border-radius: 4px; overflow-x: auto; font-family: monospace; font-size: 0.9rem;">$1</pre>')
+                .replace(/`([^`]+)`/g, '<code style="background: rgba(155,126,82,0.2); padding: 2px 6px; border-radius: 3px; font-family: monospace;">$1</code>')
+                .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*([^*]+)\*/g, '<em>$1</em>');
+
+            // Wrap in paragraphs if not already
+            if (!formattedContent.startsWith('<p>')) {
+                formattedContent = '<p>' + formattedContent + '</p>';
+            }
+
+            const dateStr = metadata.created_at ?
+                new Date(metadata.created_at).toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                }) : 'Unknown';
+
+            const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${title} - TKB Document Viewer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #3d2a1f 0%, #1f1410 100%);
+            min-height: 100vh;
+            color: #e0d5c5;
+            line-height: 1.7;
+        }
+        .header {
+            background: linear-gradient(180deg, #9B7E52 0%, #7B6142 100%);
+            padding: 30px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .header h1 {
+            color: #fff;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .header-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .badge.topic {
+            background: rgba(0,0,0,0.3);
+        }
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+        .summary-box {
+            background: rgba(155,126,82,0.15);
+            border-left: 4px solid #9B7E52;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 0 8px 8px 0;
+        }
+        .summary-box h3 {
+            color: #9B7E52;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .summary-box p {
+            color: #ccc;
+            font-size: 1rem;
+        }
+        .document-content {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(155,126,82,0.3);
+            border-radius: 8px;
+            padding: 40px;
+        }
+        .document-content p {
+            margin-bottom: 1.2em;
+            color: #e0d5c5;
+        }
+        .document-content pre {
+            margin: 20px 0;
+            background: rgba(0,0,0,0.4) !important;
+            border: 1px solid rgba(155,126,82,0.2);
+        }
+        .document-content code {
+            color: #9B7E52;
+        }
+        .document-content strong {
+            color: #fff;
+        }
+        .source-link {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(155,126,82,0.3);
+            font-size: 0.9rem;
+            color: #888;
+        }
+        .source-link a {
+            color: #9B7E52;
+            text-decoration: none;
+        }
+        .source-link a:hover {
+            text-decoration: underline;
+        }
+        .back-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(180deg, #9B7E52 0%, #7B6142 100%);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+        .back-btn:hover {
+            transform: translateY(-2px);
+        }
+        @media print {
+            .header { position: relative; }
+            .back-btn { display: none; }
+            body { background: white; color: black; }
+            .document-content { background: white; border: 1px solid #ddd; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>${title}</h1>
+        <div class="header-meta">
+            <span class="badge topic">${metadata.topic}</span>
+            <span class="badge">${metadata.chunkCount} chunk${metadata.chunkCount !== 1 ? 's' : ''}</span>
+            <span class="badge">${dateStr}</span>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        ${summary ? `
+        <div class="summary-box">
+            <h3>Summary</h3>
+            <p>${summary}</p>
+        </div>
+        ` : ''}
+        <div class="document-content">
+            ${formattedContent}
+        </div>
+        <div class="source-link">
+            <strong>Source:</strong> <a href="${url}" target="_blank">${url}</a>
+        </div>
+    </div>
+    <button class="back-btn" onclick="window.close()">Close</button>
+</body>
+</html>`;
+
+            // Open new tab and write content
+            const newTab = window.open('', '_blank');
+            if (newTab) {
+                newTab.document.write(html);
+                newTab.document.close();
+            } else {
+                alert('Pop-up blocked. Please allow pop-ups for this site.');
+            }
+        }
+
+        // ============================================
+        // GOOGLE DRIVE DATA LOADER (Phase 4 - Placeholder)
+        // ============================================
+        async function loadGDriveDocuments() {
+            console.log('Google Drive integration coming in Phase 4');
+            alert('Google Drive integration coming in Phase 4.\n\nResearch folder ID: 1GwQY0nI74Q8NeZEho0KVow43IejKhHCM\n\nFalling back to hardcoded documents.');
+            return [];
+        }
+
+        // ============================================
+        // MAIN TKB BROWSER FUNCTION
+        // ============================================
+        async function openTKBBrowser() {
+            if (document.getElementById('tkbBrowserOverlay')) return;
+
+            showLoading('Loading documents...');
+
+            let documents = REAL_DOCUMENTS;
+            let loadResult = null;
+
+            try {
+                if (currentDataSource === 'supabase') {
+                    loadResult = await loadSupabaseDocuments(0, 100);
+                    documents = loadResult.documents;
+                    hasMoreData = loadResult.hasMore;
+                    currentPage = 0;
+
+                    if (documents.length === 0) {
+                        console.log('No documents loaded from Supabase. Falling back to hardcoded.');
+                        alert('No documents loaded from Supabase. Falling back to hardcoded.');
+                        documents = REAL_DOCUMENTS;
+                        hasMoreData = false;
+                    }
+                } else if (currentDataSource === 'gdrive') {
+                    documents = await loadGDriveDocuments();
+                    if (documents.length === 0) {
+                        documents = REAL_DOCUMENTS;
+                    }
+                    hasMoreData = false;
+                } else {
+                    hasMoreData = false;
+                }
+            } catch (error) {
+                console.error('Error loading documents:', error);
+                alert('Error loading documents: ' + error.message + '\n\nFalling back to hardcoded.');
+                documents = REAL_DOCUMENTS;
+                hasMoreData = false;
+            }
+
+            hideLoading();
+
+            const overlay = document.createElement('div');
+            overlay.id = 'tkbBrowserOverlay';
+            overlay.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.85); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px;';
+
+            const panel = document.createElement('div');
+            panel.style.cssText = 'background: #1a1a1a; border: 2px solid #9B7E52; border-radius: 8px; width: 90%; max-width: 1200px; height: 85%; display: flex; flex-direction: column; box-shadow: 0 10px 40px rgba(0,0,0,0.5);';
+
+            const sourceLabel = currentDataSource === 'hardcoded' ? 'Hardcoded' :
+                               currentDataSource === 'supabase' ? 'Supabase' : 'Google Drive';
+
+            const statsInfo = loadResult ?
+                ' | ' + loadResult.totalCount + ' total chunks' : '';
+
+            panel.innerHTML = `
+                <div style="background: linear-gradient(180deg, #9B7E52 0%, #7B6142 100%); padding: 20px; border-radius: 6px 6px 0 0; display: flex; align-items: center; justify-content: space-between;">
+                    <div>
+                        <h2 style="margin: 0; color: #fff; font-size: 1.5rem; font-weight: 600;">TRAJANUS KNOWLEDGE BASE (TKB)</h2>
+                        <div style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-top: 5px;">Source: ${sourceLabel} | ${documents.length} documents${statsInfo}</div>
+                    </div>
+                    <button onclick="closeTKBBrowser()" style="background: rgba(255,255,255,0.2); border: none; color: #fff; font-size: 1.8rem; width: 40px; height: 40px; border-radius: 4px; cursor: pointer; line-height: 1;">&times;</button>
+                </div>
+                <div style="padding: 20px; border-bottom: 1px solid rgba(155,126,82,0.3);">
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <input type="text" id="tkbSearch" placeholder="Search documents..." style="flex: 1; min-width: 200px; padding: 12px; background: rgba(0,0,0,0.4); border: 1px solid rgba(155,126,82,0.5); color: #fff; border-radius: 4px; font-size: 1rem;">
+                        <button onclick="performSearch()" class="session-btn" style="background: linear-gradient(180deg, #9B7E52 0%, #7B6142 100%); padding: 12px 20px;">Search</button>
+                        <button onclick="refreshTKB()" class="session-btn" style="background: linear-gradient(180deg, #e8922a 0%, #cc6e1f 100%); padding: 12px 20px;">Reset</button>
+                    </div>
+                </div>
+                <div id="tkbList" style="flex: 1; overflow-y: auto; padding: 20px;"></div>
+                <div id="tkbFooter" style="padding: 15px 20px; background: rgba(0,0,0,0.3); border-top: 1px solid rgba(155,126,82,0.3); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                    <div id="tkbCount" style="color: #999; font-size: 0.9rem;">0 documents</div>
+                    <div style="display: flex; gap: 10px;">
+                        <button id="loadMoreBtn" onclick="loadMoreDocs()" class="session-btn" style="background: rgba(155,126,82,0.5); padding: 10px 20px; display: none;">Load More</button>
+                        <button onclick="closeTKBBrowser()" class="session-btn" style="background: rgba(155,126,82,0.3);">Close</button>
+                    </div>
+                </div>
+            `;
+
+            overlay.appendChild(panel);
+            document.body.appendChild(overlay);
+
+            window.tkbData = documents;
+            window.tkbAllData = documents;
+            renderTKBDocs(documents);
+
+            // Show load more button if there's more data
+            if (hasMoreData && currentDataSource === 'supabase') {
+                document.getElementById('loadMoreBtn').style.display = 'block';
+            }
+
+            // Setup search on Enter key
+            document.getElementById('tkbSearch').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+        }
+
+        // ============================================
+        // SEARCH FUNCTION
+        // ============================================
+        async function performSearch() {
+            const query = document.getElementById('tkbSearch').value.trim();
+
+            if (!query) {
+                // Reset to all documents
+                renderTKBDocs(window.tkbAllData);
+                isSearchMode = false;
+                if (hasMoreData && currentDataSource === 'supabase') {
+                    document.getElementById('loadMoreBtn').style.display = 'block';
+                }
+                return;
+            }
+
+            if (currentDataSource === 'supabase') {
+                // Search Supabase directly
+                showLoading('Searching database...');
+                try {
+                    const results = await searchSupabase(query);
+                    window.tkbData = results;
+                    isSearchMode = true;
+                    renderTKBDocs(results);
+                    document.getElementById('loadMoreBtn').style.display = 'none';
+                } catch (error) {
+                    console.error('Search error:', error);
+                    alert('Search failed: ' + error.message);
+                }
+                hideLoading();
+            } else {
+                // Local search for hardcoded/gdrive
+                const filtered = window.tkbAllData.filter(d =>
+                    (d.title && d.title.toLowerCase().includes(query.toLowerCase())) ||
+                    (d.summary && d.summary.toLowerCase().includes(query.toLowerCase())) ||
+                    (d.topic && d.topic.toLowerCase().includes(query.toLowerCase()))
+                );
+                window.tkbData = filtered;
+                isSearchMode = true;
+                renderTKBDocs(filtered);
+                document.getElementById('loadMoreBtn').style.display = 'none';
+            }
+        }
+
+        // ============================================
+        // LOAD MORE FUNCTION
+        // ============================================
+        async function loadMoreDocs() {
+            if (currentDataSource !== 'supabase' || isSearchMode) return;
+
+            showLoading('Loading more documents...');
+
+            try {
+                currentPage++;
+                const result = await loadSupabaseDocuments(currentPage, 100);
+
+                // Merge with existing documents (avoid duplicates)
+                const existingUrls = new Set(window.tkbAllData.map(d => d.url));
+                const newDocs = result.documents.filter(d => !existingUrls.has(d.url));
+
+                window.tkbAllData = [...window.tkbAllData, ...newDocs];
+                window.tkbData = window.tkbAllData;
+
+                renderTKBDocs(window.tkbData);
+
+                hasMoreData = result.hasMore;
+                if (!hasMoreData) {
+                    document.getElementById('loadMoreBtn').textContent = 'All loaded';
+                    document.getElementById('loadMoreBtn').disabled = true;
+                }
+
+                console.log('Loaded ' + newDocs.length + ' more documents. Total: ' + window.tkbAllData.length);
+
+            } catch (error) {
+                console.error('Error loading more:', error);
+                alert('Failed to load more: ' + error.message);
+            }
+
+            hideLoading();
+        }
+
+        function closeTKBBrowser() {
+            const overlay = document.getElementById('tkbBrowserOverlay');
+            if (overlay) overlay.remove();
+            isSearchMode = false;
+        }
+
+        function renderTKBDocs(docs) {
+            const listDiv = document.getElementById('tkbList');
+            const countDiv = document.getElementById('tkbCount');
+
+            if (!docs || docs.length === 0) {
+                listDiv.innerHTML = '<div style="text-align: center; padding: 60px 20px; color: #999;"><div style="font-size: 3rem; opacity: 0.3;">No Results</div><div style="font-size: 1.2rem;">No documents found</div></div>';
+                countDiv.textContent = '0 documents';
+                return;
+            }
+
+            // Group by topic
+            const grouped = {};
+            docs.forEach(doc => {
+                const topic = doc.topic || 'General';
+                if (!grouped[topic]) grouped[topic] = [];
+                grouped[topic].push(doc);
+            });
+
+            let html = '';
+            const sortedTopics = Object.keys(grouped).sort();
+
+            for (const topic of sortedTopics) {
+                const topicDocs = grouped[topic];
+                html += `<div style="margin-bottom: 30px;">
+                    <div style="font-size: 1.2rem; font-weight: 600; color: #9B7E52; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 2px solid rgba(155,126,82,0.3);">
+                        ${topic} <span style="font-weight: normal; color: #999;">(${topicDocs.length})</span>
+                    </div>`;
+
+                topicDocs.forEach(doc => {
+                    const date = doc.created_at ? new Date(doc.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '';
+                    const chunkBadge = doc.chunkCount && doc.chunkCount > 1 ?
+                        '<span class="chunk-badge">' + doc.chunkCount + ' chunks</span>' : '';
+
+                    // Escape quotes in title and URL for onclick
+                    const escapedUrl = (doc.url || '').replace(/'/g, "\\'");
+                    const escapedId = (doc.id || '').replace(/'/g, "\\'");
+
+                    html += `
+                        <div style="background: rgba(155,126,82,0.05); border: 1px solid rgba(155,126,82,0.2); border-radius: 4px; padding: 15px; margin-bottom: 10px; transition: all 0.2s;"
+                        onmouseover="this.style.background='rgba(155,126,82,0.15)'" onmouseout="this.style.background='rgba(155,126,82,0.05)'">
+                            <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+                                <div style="flex: 1;">
+                                    <div style="font-size: 1.1rem; font-weight: 600; margin-bottom: 8px;">
+                                        <a class="doc-title-link" onclick="viewDoc('${escapedId}', '${escapedUrl}')">${doc.title}</a>${chunkBadge}
+                                    </div>
+                                    <div style="font-size: 0.9rem; color: #ccc; margin-bottom: 8px; line-height: 1.4;">${doc.summary || 'No summary'}</div>
+                                    <div style="font-size: 0.85rem; color: #999;">${date}</div>
+                                </div>
+                                <div onclick="viewDoc('${escapedId}', '${escapedUrl}')" style="color: #9B7E52; font-size: 1.5rem; margin-left: 15px; cursor: pointer;">&#8594;</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+
+            listDiv.innerHTML = html;
+
+            const searchNote = isSearchMode ? ' (search results)' : '';
+            countDiv.textContent = docs.length + ' document' + (docs.length !== 1 ? 's' : '') + searchNote;
+        }
+
+        function refreshTKB() {
+            document.getElementById('tkbSearch').value = '';
+            isSearchMode = false;
+            window.tkbData = window.tkbAllData;
+            renderTKBDocs(window.tkbAllData);
+
+            if (hasMoreData && currentDataSource === 'supabase') {
+                document.getElementById('loadMoreBtn').style.display = 'block';
+                document.getElementById('loadMoreBtn').textContent = 'Load More';
+                document.getElementById('loadMoreBtn').disabled = false;
+            }
+        }
+
+        function viewDoc(docId, docUrl) {
+            const doc = window.tkbData.find(d => d.id === docId || d.id.toString() === docId);
+            if (!doc) {
+                console.log('Document not found:', docId);
+                return;
+            }
+
+            // For Supabase documents, open full document viewer
+            if (currentDataSource === 'supabase' && doc.url) {
+                openDocument(docId, doc.url);
+            }
+            // For Google Docs URLs, open directly
+            else if (doc.url && doc.url.includes('docs.google.com')) {
+                window.open(doc.url, '_blank');
+            }
+            // For file:/// URLs or no URL, show modal
+            else if (doc.url && doc.url.startsWith('file:///')) {
+                showDocumentDetails(doc);
+            } else if (doc.url) {
+                window.open(doc.url, '_blank');
+            } else {
+                showDocumentDetails(doc);
+            }
+        }
+
+        function showDocumentDetails(doc) {
+            // Create modal to show document details
+            const modal = document.createElement('div');
+            modal.id = 'docDetailModal';
+            modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); z-index: 20000; display: flex; align-items: center; justify-content: center; padding: 20px;';
+
+            modal.innerHTML = `
+                <div style="background: #1a1a1a; border: 2px solid #9B7E52; border-radius: 8px; max-width: 800px; max-height: 80%; overflow-y: auto; padding: 30px;">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px;">
+                        <h2 style="color: #9B7E52; margin: 0; font-size: 1.5rem;">${doc.title}</h2>
+                        <button onclick="document.getElementById('docDetailModal').remove()" style="background: rgba(155,126,82,0.3); border: none; color: #fff; font-size: 1.5rem; width: 36px; height: 36px; border-radius: 4px; cursor: pointer;">&times;</button>
+                    </div>
+                    <div style="color: #999; margin-bottom: 15px;">
+                        <span class="source-badge">${doc.topic}</span>
+                        ${doc.chunkCount ? '<span class="chunk-badge">' + doc.chunkCount + ' chunks</span>' : ''}
+                    </div>
+                    <div style="color: #ccc; line-height: 1.6; margin-bottom: 20px;">${doc.summary}</div>
+                    <div style="color: #666; font-size: 0.85rem;">
+                        <p>Source: ${doc.url || 'Unknown'}</p>
+                        <p>Created: ${doc.created_at ? new Date(doc.created_at).toLocaleString() : 'Unknown'}</p>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+
+            // Close on background click
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) modal.remove();
+            });
+        }
+    </script>
+</body>
+</html>
