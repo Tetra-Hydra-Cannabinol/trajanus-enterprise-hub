@@ -1,0 +1,359 @@
+Title: AMAZING Excel People Charts using a FONT! Alternative for Bar, Column, Waffle and more!
+Channel: MyOnlineTrainingHub
+Video ID: KSjzOn_Fous
+URL: https://www.youtube.com/watch?v=KSjzOn_Fous
+Duration: 15:19
+Level: ADVANCED
+Application: Microsoft Excel
+Topics: WeePeople Font, Waffle Charts, Bar Charts, Column Charts, Survey Data Visualization, RANDARRAY Function, CHAR Function, WRAPCOLS Function, Dynamic Arrays, Conditional Formatting, CODE Function, TEXTJOIN Function, SEQUENCE Function, Data Validation, COUNTA Function, ROW Function, COLUMNS Function, Absolute References, Cell Referencing, Font Formatting
+Ingested: 2025-12-21
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 Excel we people font charts enable you
+0:02 to build interesting variations on
+0:04 waffle bar and column charts to name a
+0:07 few they're great for visualizing
+0:09 demographic data survey data and more
+0:12 now some of the techniques I'll show you
+0:14 use Dynamic array functions which are
+0:16 available in Microsoft 365 and Excel
+0:20 2021 but you don't have to use Dynamic
+0:22 arrays to create these charts let's take
+0:25 a
+0:26 look The Free We people font courtesy of
+0:29 propile UA consists of 20 different
+0:32 people silhouettes handrawn by Alberto
+0:34 Cairo there's a link in the video
+0:36 description where you can download the
+0:38 font now you can see here the last six
+0:40 letters of the alphabet U through Zed
+0:43 are a repeat of the letter e person
+0:45 leaving us with 20 unique
+0:48 Silhouettes we can use the code function
+0:50 to convert these letters to numbers
+0:52 enabling us to work with them in Excel
+0:55 here you can see that lowercase a is
+0:56 code 97 and Zed is 122
+1:00 we can discard you through Z and just
+1:02 use codes 97 through 1116 let's look at
+1:05 some
+1:07 examples here I want to visualize the
+1:09 Senate numbers in a waffle chart
+1:11 highlighting the women by Democrats and
+1:13 Republicans now for those with Microsoft
+1:15 365 or Excel 2021 we can use the Rand
+1:19 array function and we'll generate a list
+1:22 of 100 numbers starting at
+1:26 97 and a maximum of 116 and and I want
+1:30 integers returned so whole numbers let's
+1:33 press enter and we get a spilled array
+1:36 of 100 random numbers between 97 and 116
+1:40 but we need letters so let's wrap that
+1:42 in the car function or character
+1:44 function close parentheses and now we
+1:47 have a random list of letters between a
+1:50 and t however I want a 10x 10 grid so
+1:54 I'm going to use the new wrap calls
+1:56 function and we want to wrap after 10
+1:58 and we'll pad with a blank not that
+2:01 we'll need to pad it because it's going
+2:03 to be perfectly Square press enter and
+2:06 there I have a 10x10 grid of random
+2:09 letters between a and t all I need to do
+2:12 now is apply the we people font so let's
+2:14 scroll down to the bottom and there they
+2:17 are there let's change the size we'll
+2:20 make it 48 to fill the space and let's
+2:23 format it in a shade of gray so it's not
+2:26 so harsh now you'll notice every time I
+2:29 press 9 or if I edit a cell or enter
+2:32 another formula that we get a new set of
+2:36 random numbers and therefore a new set
+2:39 of random we people if you don't want it
+2:41 to change all the time all you need to
+2:43 do is copy them and paste them as
+2:47 values next I want to color code the 17
+2:49 Democrats blue and the nine Republicans
+2:52 red and I can do that with conditional
+2:54 formatting for this I need a formula
+2:56 that will number each cell and that I
+2:58 can use in the conditional format
+2:59 matting rule I'm going to enter the
+3:01 formula here in the worksheet first so
+3:04 you can see what it returns and
+3:05 hopefully it will make more sense when I
+3:07 create the conditional format now I want
+3:10 the bottom left cell to be number one
+3:12 and the top right to be 100 and I can
+3:15 use the columns function to give me a
+3:18 column count so we're going to Absolute
+3:21 the first reference a and then through
+3:23 to a close parentheses on columns that's
+3:26 just going to give me one but as I copy
+3:28 this formula across it's going to
+3:30 increase by one and then we're going to
+3:33 add 10 times the number of rows so we're
+3:37 going to use the rows function 1 through
+3:40 to Absolute 10 close parentheses on rows
+3:44 minus one close parentheses on that part
+3:47 of the formula and I'll press enter and
+3:50 I get 91 and if we want to see how this
+3:53 is evaluating we can evaluate each
+3:55 component so this part returns one rows
+4:01 returns
+4:02 10 - 1 is 9 * 10 is 90 + 1 is 91 that's
+4:09 how we get 91 and then when I copy it
+4:12 down and cross we get our grid of
+4:16 numbers 1 through to 100 so I'm going to
+4:19 use this formula in my conditional
+4:21 format let's just copy it save writing
+4:24 it out again I'm going to select my grid
+4:27 starting in the top left corner and it's
+4:29 important you start in the top left
+4:31 because we're going to use a mixture of
+4:33 absolute and relative references so that
+4:35 first cell that we've selected is really
+4:37 important and then on the Home tab I'm
+4:40 going to go conditional formatting new
+4:42 rule and I want to use a formula and in
+4:45 here I'm going to paste in my formula
+4:47 that gives me the count and first of all
+4:51 I'm applying the red font so I want to
+4:53 check that the result of the grid number
+4:56 formula is less than or equal to both
+5:00 the Democrats plus the Republicans
+5:03 values and I'm going to format this red
+5:07 so in the font I want the color to be
+5:09 red I'm just going to pick this dark red
+5:12 click okay and okay again now we have
+5:15 the first 26 colored red but I'm going
+5:17 to apply the next format and that's
+5:19 going to override the first 17 so with
+5:22 it's still selected I'm going to create
+5:24 another new rule use a formula let's
+5:28 paste in the formula that numbers the
+5:30 cells and this time I just need to check
+5:32 that it's less than or equal to the
+5:35 number of Democrats let's apply the
+5:37 format this time it's going to be blue
+5:41 click okay and okay and now we have 17
+5:46 Democrats and nine
+5:48 Republicans I've linked this to a date
+5:51 validation list so I can choose the next
+5:53 Congress the 117th and we get slightly
+5:55 different results 16 Democrats and eight
+5:58 Republicans we can toggle between the
+6:01 two you can see the we people are also
+6:03 updating as well as the colorcoded we
+6:06 people now if you find the order of the
+6:08 colors isn't right you can change it in
+6:10 the conditional formatting manage rules
+6:12 dialogue box select it and change the
+6:15 order I'm going to leave it as is
+6:17 because it's working correctly here now
+6:19 I know conditional formatting can be a
+6:21 bit of a mind Bender so there's a link
+6:23 in the video description to my
+6:25 comprehensive video that explains how it
+6:27 works under the hood we can also use we
+6:30 people to create bar charts for example
+6:33 if you have Dynamic arrays you can
+6:35 create a string of we people using the
+6:37 sequence function so here I want to join
+6:40 together my text I don't need any
+6:42 delimiter here and I want to ignore
+6:44 empty cells not that I'm going to have
+6:46 any and then we need to wrap the formula
+6:49 in the car function so that we get
+6:51 letters and then I'm going to use
+6:53 sequence to return 20 rows no columns
+6:57 will skip that I want to start at 97
+6:59 and it's going to step by one which is
+7:01 the default so I can skip that argument
+7:03 close sequence close car and close text
+7:07 join and you'll see we get a string of
+7:09 letters and all we need to do then is
+7:12 apply the we people font let's make them
+7:15 a bit bigger so here I have 20
+7:18 Silhouettes in a single cell now I can
+7:21 modify sequence to return up to 26
+7:24 characters or I can create many more
+7:26 with the randay function which is
+7:28 available in Microsoft 365 and EXL 2021
+7:32 or later another option is to use Rand
+7:35 array with C to Spill the Wei people
+7:37 into separate cells so starting with
+7:40 Rand array I'm going to skip the first
+7:42 argument and then I want 10 results
+7:45 between 97 and
+7:47 116 and I want integers close Rand
+7:52 array so you can see it's giving me
+7:54 numbers but I want letters so let's wrap
+7:56 it in
+7:58 car and now I get an array of letters
+8:02 all I need to do is apply the
+8:08 font and make them a bit
+8:11 bigger let's Center them so they fit in
+8:14 the cell and we can also use conditional
+8:16 formatting here so let me just copy
+8:18 these down we'll do two more rows let's
+8:21 say I want to highlight the first 30%
+8:23 here this one 50% and this one 70% and
+8:27 let's change the colors of the these so
+8:29 that they're not so harsh so we'll give
+8:31 them a paler shade of green and then I'm
+8:34 going to highlight 30% of them in a
+8:37 darker shade for the first row 50% in a
+8:40 darker shade for the second and 70% in a
+8:43 darker shade for the third row so on the
+8:45 Home tab conditional formatting new rule
+8:49 using a formula so here I'm going to use
+8:52 the count a or count our function to
+8:55 count the number of characters so I want
+8:58 C9 through to C9 but let's change the
+9:01 absolute referencing so this one F4 so
+9:04 that only the column is absolute and
+9:06 then this one here not absolute at all
+9:09 that way the conditional format will
+9:12 increment as it applies it to each cell
+9:15 in the selected range so I'm checking
+9:18 whether the count is less than or equal
+9:20 to the value here and again I only want
+9:24 to Absolute the column time 10 we're
+9:28 multiplying by 10 to bring the
+9:30 percentage in column B in line with the
+9:33 values returned by count the supply
+9:36 format here it's a font and we'll make
+9:38 it a shade of Darker green click okay
+9:42 and okay again and there we have a cool
+9:45 bar chart kind of effect using we people
+9:49 just like bar charts we can create
+9:51 column charts again we can use round
+9:53 array and we just need to enter the
+9:57 number that we want in the rows instead
+9:59 of of the columns like we looked at in
+10:00 the previous bar chart example so we
+10:02 want 10 rows starting at 97 through to
+10:06 116 and we want integers close
+10:10 parentheses so there I have 10 random
+10:13 numbers remember we need to wrap it in
+10:15 the car
+10:17 function and now we have our
+10:19 letters let's format them as we
+10:25 people
+10:27 and make some bigger to fill the space
+10:31 we Center them as well let me copy them
+10:35 across and let's make them a shade of
+10:38 gray as well so they're not so harsh and
+10:40 just like before we can conditionally
+10:42 format them so let's say we want to
+10:45 color code
+10:46 20% 50% and
+10:50 70% let's just Center those
+10:53 values and we'll make them
+10:55 blue and then let's apply the
+10:57 conditional formatting on the Home tab
+11:00 new rule formula and here we need to use
+11:04 the row function so we want rows 1
+11:08 through absolute 10 close parentheses
+11:11 and the reason we're using rows is
+11:13 because we want to number the cells 1
+11:15 through 10 starting at the bottom we're
+11:17 checking is it less than or equal to the
+11:20 value here and I need to change the
+11:22 absolute reference so that it's just on
+11:24 the row time 10 let's apply the font
+11:28 format and we'll go with the dark shade
+11:30 of blue click okay and okay and there's
+11:34 our conditional formatting so now we
+11:37 have a column chart effect using we
+11:40 people we people are also great for
+11:43 visualizing survey data so again using
+11:45 Rand array we can skip the rows we're
+11:49 going to create an array of columns
+11:51 which will generate a bar chart of we
+11:54 people we're going to base it on the
+11:55 total number of responses in column F
+11:58 and our minimum is 997 maximum 116 and
+12:02 we want integers returned close
+12:05 parentheses on randay let's wrap it in
+12:07 the car function so that it converts it
+12:10 to letters which we can then format in
+12:13 the we people font I'm just going to
+12:15 copy that one
+12:17 down and select them
+12:19 all and we'll format it in the
+12:24 font right down at the
+12:26 [Music]
+12:27 bottom let's make them a bit
+12:30 bigger and we'll Center them so that we
+12:32 can see them in the space now I'm not
+12:34 going to worry about changing the color
+12:35 here cuz I'm actually going to use
+12:37 conditional formatting to format them
+12:39 into students lectures and staff so with
+12:42 them all selected conditional formatting
+12:44 new rule and we're going to use a
+12:47 formula and because this is a bar chart
+12:49 I can use the counter R function or
+12:51 count a however you want to say it so
+12:53 we're starting with this
+12:56 cell and we're going to use absolute
+12:58 reference
+12:59 so that as a conditional formatting is
+13:02 copied
+13:03 across it increments by one column at a
+13:06 Time closing parentheses on count a and
+13:10 I'm just going to copy that cuz I'm
+13:11 going to use this part of the formula in
+13:14 my other formats as well and the first
+13:16 one is Pink So I want to check that the
+13:19 count is greater than the sum of the
+13:22 students and the lectures and again
+13:25 let's F4 to fix the conditional
+13:27 formatting on the column
+13:29 let's go and apply the
+13:31 format this is for the font and we want
+13:35 pink okay and okay and so now we can see
+13:38 the staff are highlighted let's go and
+13:41 repeat that for the lecturers using a
+13:43 formula and I'm just contrl + V to paste
+13:45 in the one I copied from the previous
+13:48 format and here we want purple this is
+13:50 less than or equal to the sum of the
+13:54 students and the
+13:56 lecturers and again F4 to Absolute the
+14:00 column only let's format it this one is
+14:03 purple now this is going to apply it to
+14:06 all of the we people except for the
+14:08 pinons but we're going to override that
+14:10 with the next rule which is for the
+14:13 students so again control V to paste in
+14:15 my first part of the formula and here I
+14:17 just want to check that it's less than
+14:20 or equal to the number of
+14:22 students therefore to lock it on the
+14:25 column format and this one is the this
+14:28 bright blue color click okay and okay
+14:31 again and then we have our survey data
+14:33 visualized in we people if we go into
+14:36 the conditional formatting manage rules
+14:38 you can see that what's happening is
+14:41 it's applying the pink format first then
+14:44 the purple and then the blue so the blue
+14:47 is overriding the purple so if you have
+14:49 problems with displaying the conditional
+14:51 format in the correct order you can
+14:54 rearrange the order using these up and
+14:55 down arrows
+14:57 here I hope you found this tutorial
+14:59 useful you can download the EXL file for
+15:01 this lesson from the link here and if
+15:03 you like this video please give it a
+15:05 thumbs up and subscribe to our channel
+15:07 for more and why not share it with your
+15:09 friends who might also find it useful
+15:11 thanks for
+15:13 [Music]
+15:18 watching

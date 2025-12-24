@@ -1,0 +1,279 @@
+{
+  "date": "2025-12-18T13:28:49.948419",
+  "base_folder": "User's Guides",
+  "base_folder_id": "1zBHvLXZYSByV2R0gHtpYBBuF5DnmU8K8",
+  "total_files": 50,
+  "conversions": 49,
+  "folders_created": [
+    "User-Instructions",
+    "Traffic-Studies",
+    "MCP-API-Documentation",
+    "System-Architecture",
+    "Session-Protocols",
+    "Knowledge-Base-RAG",
+    "Developer-Documentation",
+    "Integration-Guides"
+  ],
+  "category_distribution": {
+    "Session-Protocols": 6,
+    "Developer-Documentation": 12,
+    "User-Instructions": 8,
+    "MCP-API-Documentation": 8,
+    "Knowledge-Base-RAG": 3,
+    "System-Architecture": 8,
+    "Integration-Guides": 4,
+    "Traffic-Studies": 1
+  },
+  "move_log": [
+    {
+      "file": "DEVELOPMENT_WORKFLOW",
+      "category": "Session-Protocols",
+      "status": "success"
+    },
+    {
+      "file": "ADDING_UTILITY_BUTTONS",
+      "category": "Developer-Documentation",
+      "status": "success"
+    },
+    {
+      "file": "DEVELOPER_UTILITIES_CONFIG",
+      "category": "User-Instructions",
+      "status": "success"
+    },
+    {
+      "file": "DEVELOPER_UTILITIES_QUICK_REF",
+      "category": "Developer-Documentation",
+      "status": "success"
+    },
+    {
+      "file": "CODING_EDUCATION_GUIDE",
+      "category": "User-Instructions",
+      "status": "success"
+    },
+    {
+      "file": "CODING_CHEAT_SHEET",
+      "category": "Developer-Documentation",
+      "status": "success"
+    },
+    {
+      "file": "LEARNING_TRAINING_SUMMARY",
+      "category": "Developer-Documentation",
+      "status": "success"
+    },
+    {
+      "file": "README",
+      "category": "Developer-Documentation",
+      "status": "success"
+    },
+    {
+      "file": "User_Guides_Complete",
+      "category": "User-Instructions",
+      "status": "success"
+    },
+    {
+      "file": "MASTER_INDEX",
+      "category": "MCP-API-Documentation",
+      "status": "success"
+    },
+    {
+      "file": "HOW_TO_ACCESS_KB",
+      "category": "Knowledge-Base-RAG",
+      "status": "success"
+    },
+    {
+      "file": "User_Guides_Complete (1)",
+      "category": "User-Instructions",
+      "status": "success"
+    },
+    {
+      "file": "INTEGRATION_GUIDE_COMPLETE",
+      "category": "User-Instructions",
+      "status": "success"
+    },
+    {
+      "file": "QUICK_REFERENCE",
+      "category": "Developer-Documentation",
+      "status": "success"
+    },
+    {
+      "file": "MULTI_SKILLED_AGENT_ARCHITECTURE",
+      "category": "System-Architecture",
+      "status": "success"
+    },
+    {
+      "file": "MISSION_TRANSCRIPT_Developer_Project_Build",
+      "category": "Developer-Documentation",
+      "status": "success"
+    },
+    {
+      "file": "TKB_README_START_HERE",
+      "category": "Knowledge-Base-RAG",
+      "status": "success"
+    },
+    {
+      "file": "Future_Ideas_Maybe_Later",
+      "category": "Integration-Guides",
+      "status": "success"
+    },
+    {
+      "file": "Supabase_pgvector_Setup_Guide",
+      "category": "Knowledge-Base-RAG",
+      "status": "success"
+    },
+    {
+      "file": "Electron_Python_Bridge_Guide",
+      "category": "User-Instructions",
+      "status": "success"
+    },
+    {
+      "file": "Orchestrator_Workers_Pattern",
+      "category": "System-Architecture",
+      "status": "success"
+    },
+    {
+      "file": "Master Claude Code_ Proven Daily Workflows from 3 Technical Founders (Real Examples)",
+      "category": "Developer-Documentation",
+      "status": "success"
+    },
+    {
+      "file": "Codex vs Claude Code 2.0_ A CTO\u2019s 9 Part Real-World Test",
+      "category": "Developer-Documentation",
+      "status": "success"
+    },
+    {
+      "file": "Turn Claude Code into Your Own INCREDIBLE UI Designer (using Playwright MCP Subagents)",
+      "category": "System-Architecture",
+      "status": "success"
+    },
+    {
+      "file": "Turn Claude Code into Your Own INCREDIBLE UI Designer (using Playwright MCP Subagents) (1)",
+      "category": "System-Architecture",
+      "status": "success"
+    },
+    {
+      "file": "PLANNER_CONFIG_REVISED",
+      "category": "Developer-Documentation",
+      "status": "success"
+    },
+    {
+      "file": "TASK-003_QUICK_START",
+      "category": "MCP-API-Documentation",
+      "status": "success"
+    },
+    {
+      "file": "DEVELOPER_CONFIG_REVISED",
+      "category": "Developer-Documentation",
+      "status": "success"
+    },
+    {
+      "file": "ARCHITECTURE_PLAN_EXTRACTION_METHOD",
+      "category": "System-Architecture",
+      "status": "success"
+    },
+    {
+      "file": "BROWSER_UNIFICATION_PLAN (1)",
+      "category": "MCP-API-Documentation",
+      "status": "success"
+    },
+    {
+      "file": "SESSION_TRANSCRIPT_2025-12-14_Responses",
+      "category": "MCP-API-Documentation",
+      "status": "success"
+    },
+    {
+      "file": "TASK-002_TRANSCRIPT_Complete",
+      "category": "System-Architecture",
+      "status": "success"
+    },
+    {
+      "file": "TASK-003_RESEARCH_GUIDE_Complete",
+      "category": "User-Instructions",
+      "status": "success"
+    },
+    {
+      "file": "TASK-001_TRANSCRIPT_Complete",
+      "category": "System-Architecture",
+      "status": "success"
+    },
+    {
+      "file": "TKB_RMS_30_Integration_Guide",
+      "category": "Integration-Guides",
+      "status": "success"
+    },
+    {
+      "file": "TKB_P6_Integration_Guide",
+      "category": "Integration-Guides",
+      "status": "success"
+    },
+    {
+      "file": "COMPLIANCE_OFFICER_SPEC",
+      "category": "Session-Protocols",
+      "status": "success"
+    },
+    {
+      "file": "PHASE3_RESEARCH_AGENT",
+      "category": "MCP-API-Documentation",
+      "status": "success"
+    },
+    {
+      "file": "TRAJANUS_PLATFORM_IMPLEMENTATION_PLAN",
+      "category": "Developer-Documentation",
+      "status": "success"
+    },
+    {
+      "file": "PHASE4_TKB_EXPANSION",
+      "category": "System-Architecture",
+      "status": "success"
+    },
+    {
+      "file": "BROWSER_UNIFICATION_PLAN",
+      "category": "MCP-API-Documentation",
+      "status": "success"
+    },
+    {
+      "file": "TKB_Procore_Integration_Guide",
+      "category": "Integration-Guides",
+      "status": "success"
+    },
+    {
+      "file": "RESEARCH_FINDINGS_LARGE_FILE_EDITING",
+      "category": "Session-Protocols",
+      "status": "success"
+    },
+    {
+      "file": "PHASE2_COMPLIANCE_OFFICER",
+      "category": "Session-Protocols",
+      "status": "success"
+    },
+    {
+      "file": "TKB_Traffic_Study_Requirements_Guide",
+      "category": "Traffic-Studies",
+      "status": "success"
+    },
+    {
+      "file": "COMPLETE_BROWSER_FIX_INSTRUCTIONS",
+      "category": "User-Instructions",
+      "status": "success"
+    },
+    {
+      "file": "CC_AGENT_DEPLOYMENT_TODAY",
+      "category": "MCP-API-Documentation",
+      "status": "success"
+    },
+    {
+      "file": "QUICK_START_AGENT_DEPLOYMENT",
+      "category": "MCP-API-Documentation",
+      "status": "success"
+    },
+    {
+      "file": "MASTER_WORKFLOWS_COMPREHENSIVE",
+      "category": "Session-Protocols",
+      "status": "success"
+    },
+    {
+      "file": "MASTER_WORKFLOWS_COMPREHENSIVE",
+      "category": "Session-Protocols",
+      "status": "success"
+    }
+  ]
+}

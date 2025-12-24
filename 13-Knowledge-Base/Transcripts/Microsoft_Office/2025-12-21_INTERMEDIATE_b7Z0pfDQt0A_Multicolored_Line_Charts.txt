@@ -1,0 +1,212 @@
+Title: Multi-colored Excel Line Charts - 3 EASY ways!
+Channel: MyOnlineTrainingHub
+Video ID: b7Z0pfDQt0A
+URL: https://www.youtube.com/watch?v=b7Z0pfDQt0A
+Duration: 8:10
+Level: INTERMEDIATE
+Application: Microsoft Excel
+Topics: Line Charts, Gradient Fill, Multiple Series, Column Charts, Stacked Area Charts, Threshold Bands, Traffic Light Encoding, Color Formatting, Series Overlap, Chart Formatting
+Ingested: 2025-12-21
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 multicolored line charts are a little
+0:02 gimmicky after all we don't need color
+0:04 to tell if a line is going up or down
+0:07 however it can be useful for encoding
+0:09 data that's outside of a threshold and
+0:11 can also speed up interpretation
+0:14 especially if you use the familiar
+0:15 traffic light encoding we have a few
+0:18 different approaches available for
+0:19 creating multicolored line charts so
+0:21 let's take a
+0:23 look I'm using some load data for a
+0:26 computer CPU taken at half hour
+0:28 intervals now the first first chart
+0:30 formats the line in a gradient fill and
+0:32 this is the simplest because it only
+0:34 requires one Series so let's insert our
+0:38 chart it's just a line chart and then we
+0:41 need to Simply format the line so I'm
+0:43 going to control one to open the format
+0:45 data series I need the Paint Bucket icon
+0:49 and here we want to choose gradient line
+0:51 and all I need to do is format the
+0:53 colors for these gradient stops so the
+0:55 first one's selected and here I want
+0:57 this one to be red the next next one I
+1:00 need to move it down in fact I wanted
+1:02 about
+1:03 34% and let's format the color for this
+1:06 one in
+1:08 yellow this one I don't need so I'm
+1:10 going to delete
+1:12 it and the last one is going to be green
+1:16 so you can see now our line is formatted
+1:18 I want to change the axis maximum to 100
+1:22 we can't have more than 100% CPU now the
+1:25 limitation with the gradient is that
+1:27 it's based on percentages as opposed to
+1:29 Absolute values and that means you can't
+1:31 format values above or below a threshold
+1:34 with a specific color this can make
+1:36 updating the gradient stops for new data
+1:39 a potentially manual task it really
+1:41 depends if you plan to update your chart
+1:43 with new data on as to how userfriendly
+1:45 this method will
+1:48 be the second option is to use multiple
+1:51 Series this requires the source data to
+1:53 be set up with each Series in its own
+1:56 column and you can see them here I've
+1:57 got one for orange yellow and green
+2:00 now for ease of calculation you can see
+2:02 I've got if formulas in each column each
+2:05 one is slightly different but for ease
+2:07 of calculation the green series plots
+2:10 every value but the green series line is
+2:13 covered up by the yellow and orange
+2:15 series were appropriate and you'll see
+2:17 that in a moment so let's insert the
+2:19 chart insert another line chart so it
+2:23 looks like we only have one series here
+2:24 let me make the chart a bit bigger if I
+2:26 right click on the chart we're going to
+2:28 select data
+2:30 now the first thing I want to do is
+2:31 delete the CPU load series I don't
+2:33 actually need it in the chart it's just
+2:35 in the table for the purpose of the
+2:36 calculation for the other series the
+2:39 next thing I need to do is rearrange the
+2:41 order of the remaining series because
+2:44 you can see in the chart that the whole
+2:46 line is yellow and that's because the
+2:48 green series which is currently
+2:49 formatted yellow we haven't changed it
+2:51 yet is sitting on the bottom so let me
+2:54 move that to the top and then we'll move
+2:56 this one up one as well and now you can
+2:58 see if we look behind behind we have
+3:00 three distinct colors for our lines one
+3:03 for each Series so I click okay there
+3:06 now all I need to do is format the color
+3:08 of those lines so control one to open
+3:10 the format pane we're going to go to the
+3:12 line here and we're going to make this
+3:14 one
+3:16 green and I'll select the next one this
+3:19 one's going to be yellow and the last
+3:22 one is orange now I don't need this
+3:25 Legend so I'm just going to select it
+3:26 and press delete we'll format the axess
+3:30 again so that the maximum is
+3:33 100 and our chart is
+3:35 done now the key here let me close this
+3:39 down and move the chart across is that
+3:41 these series overlap so you can see 85
+3:44 there is also present in the green
+3:46 series now if I were to delete the 85 in
+3:49 the green series we'll end up with a gap
+3:51 here and that's why you need to make
+3:53 sure that they overlap so I can contrl Z
+3:56 to undo that now strictly speaking I
+3:59 don't need all of these values because
+4:02 they're covered by the line so I could
+4:04 delete them the line Remains the Same
+4:07 but like I said I've used formulas to
+4:09 populate the values for each series and
+4:12 it's just easier to leave those ones in
+4:15 so that is the multicolor line chart
+4:17 where we've Ed three series one for each
+4:19 color A variation on this chart is to
+4:22 create a column chart so I'm going to
+4:24 control D to duplicate that chart and
+4:27 I'll just place it over the top CU I
+4:30 don't have a lot of space so let's
+4:31 modify the format of this chart we'll
+4:33 change the chart type to a column chart
+4:37 and I'll click okay now we need to do
+4:39 some formatting because right now it
+4:41 looks a bit of a mess so contrl 1 and
+4:44 here I
+4:45 want my series to be 100% overlapped And
+4:50 I'm going to change the Gap width to 30
+4:52 just because having narrow columns hurts
+4:54 my eyes so now all I need to do is
+4:57 format the colors of those columns so so
+4:59 contrl one again we'll go into the Paint
+5:01 Bucket so the first one should be green
+5:05 and we want the border to be no
+5:08 line now just to be clear on which
+5:11 series I'm selecting I'm going to go to
+5:13 the format tab I'm going to select it
+5:15 here so this one's the yellow series now
+5:18 I can change that to Yellow fill and
+5:21 we'll have no line on that as well and
+5:23 the last series is orange anyway so
+5:26 there you have a variation on the
+5:29 gradient fills in the line chart instead
+5:31 we've got a column chart with column
+5:33 charts we can easily determine Trends in
+5:36 our data because the top of the columns
+5:39 acts a bit like a line so it really just
+5:41 depends on your preference whether you
+5:42 use the line chart or the column chart
+5:46 okay let's take a look at the last
+5:49 option this one uses a stacked area
+5:52 chart for the threshold bands and you'll
+5:54 notice here in the table that we've got
+5:56 three thresholds green yellow and orange
+5:59 now you'll notice that the value for the
+6:01 thresholds is the same all the way down
+6:04 the columns the green threshold is
+6:06 anything below 80 the yellow threshold
+6:09 is anything between 80 and 90 remember
+6:11 it's a stacked chart so we're adding
+6:13 these values together so that will give
+6:15 us 90 and then finally the orange
+6:18 threshold is anything between 90 and 100
+6:22 so let's insert our chart we want a
+6:24 stacked error chart so this one here now
+6:27 we need to change this blue series to a
+6:31 line chart so I'm going to right click
+6:33 change series chart type and here's my
+6:36 CPU load I want that to be a line and
+6:39 you can see automatically my stacked
+6:42 values look more like thresholds so I'll
+6:45 click okay now all I need to do is
+6:48 format them so again control one to open
+6:50 the format
+6:52 dialogue here I want my line color to be
+6:55 white and then all I need to do is
+6:57 format the threshold so this one's
+7:01 green this one is yellow and I'm just
+7:05 choosing pastel kind of variations of
+7:08 the colors so that it's not too bright
+7:11 and gishen in your face and lastly let's
+7:14 make this
+7:16 100 we don't need the
+7:18 legend we can always link the chart
+7:21 title to this cell
+7:23 here the last thing I want to do is get
+7:26 rid of the grid lines you can only just
+7:27 see them behind so we'll deselect those
+7:30 and it just looks a bit
+7:32 neater I hope you can make use of this
+7:35 technique but don't get carried away
+7:36 using gradient fills multicolored lines
+7:39 and columns Etc please only use them
+7:42 where they aid interpretation otherwise
+7:45 they fall into the chart junk category
+7:47 where at best they can make you look
+7:49 unprofessional and at worst they make it
+7:52 difficult for your audience to interpret
+7:53 the chart so go ahead and download the
+7:56 Excel file and if you like this video
+7:58 please give it a thumbs up And subscribe
+8:00 to my channel for more and why not share
+8:02 it with your friends who might also find
+8:04 it useful thanks for
+8:09 watching

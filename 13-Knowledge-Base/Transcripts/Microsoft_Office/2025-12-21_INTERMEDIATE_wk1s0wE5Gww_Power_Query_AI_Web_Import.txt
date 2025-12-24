@@ -1,0 +1,99 @@
+Title: Unveiling Power Query AI Web Import Enhancements
+Channel: MyOnlineTrainingHub
+Video ID: wk1s0wE5Gww
+URL: https://www.youtube.com/watch?v=wk1s0wE5Gww
+Duration: 8:59
+Level: INTERMEDIATE
+Application: Microsoft Excel
+Topics: Power Query, AI, web scraping, data import, web connector
+Ingested: 2025-12-21
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 Power Query in Excel can now use AI to see what you see on a web page and enable you
+0:04 to scrape the data based on a few examples you give it. It's no longer restricted to
+0:10 proper HTML tables contained inside table tags, like it once was. Another new feature
+0:16 is its ability to autodetect data on a web page, which it curates into a list of suggested tables
+0:22 that you can choose from and then import into Excel. It's available to Microsoft
+0:27 365 users with Excel for Windows, and it will eventually be available in Excel for Web and Mac.
+0:34 Let's take a look. For example, suppose you're a gamer and you want to keep track
+0:38 of Xbox game prices to buy them when they're heavily discounted. I'll copy the URL here,
+0:44 and go to Excel. On the Data tab, "From Web," we paste in the URL and click "OK." At the Navigator
+0:55 dialog box, Power Query has made four table suggestions. Now, these consist of data Power
+1:01 Query has detected, which could form a table, as opposed to data stored in HTML table tags.
+1:07 Selecting table one, I get a preview on the right. I'll make it wider so we can see all the
+1:12 columns. It looks like the information I want, but it's a bit messy. And while I can bring it
+1:17 into Power Query and clean it up, let's look at the other tables first. This looks like the table
+1:23 information in the page footer. Let's look at table three. No, that's not what I want. Lucky last,
+1:30 table four. Bingo! We've got the game name, the original price, the sale price, and the discount
+1:37 percent. Now, this table only includes the games that are discounted. If I want all the games, I'd
+1:43 need table one, but that's not what I want. So, I'll go back to table 4. I'll transform the data,
+1:50 so I can fix the column names. Just double click the column headers. This will be "Game Title."
+1:57 This is "RRP." Column three is the "Discount Price." Column four is the "Discount Percent."
+2:06 Right, let's rename the query "Discounted Games," and now I can load it to Excel. I'll load it to
+2:14 a table on a new worksheet. And now, each week, I can get an update by right-clicking the table
+2:22 and refresh. Pretty cool, but even cooler is the next new feature we're going to look at,
+2:28 which uses AI to identify data on a page based on some examples we give it. By the way,
+2:34 if you'd like to get your Power Query skills up to speed, check out my course linked to here.
+2:39 Suppose you're starting an online store selling gadgets. You want to stock up on inventory based
+2:44 on tech reviews from websites like CNET, because you think those products will have the highest
+2:49 demand. However, looking at the "Best Flip Phone of 2023 Buying Guide," you see these products
+2:56 mentioned aren't in a tabular format. Also, the page has a lot of text that you'll have to scroll
+3:00 through to find the best products to add to your store. Alternatively, you can have Power Query
+3:07 find the data. So, I'll copy the URL, and then in Excel, on the Data tab, "From Web," paste in the
+3:17 URL. And at the Navigator pane, at the bottom, click on "Add Table Using Examples." That might
+3:26 take a few seconds to load, and now here, I get a preview of the website in the top half, and the
+3:32 bottom half is where I can enter my examples. I'll scroll down so I can see the information
+3:37 for the first phone. And in the first column, I'll type the name of the phone, "Samsung." As I type,
+3:45 Power Query suggests possible information from the page. I can double-click to select the item,
+3:50 or press enter or tab. I'll add a new column for the price and enter the price. Now,
+3:57 you must type it exactly as you see it, that is, including the dollar sign and comma separator.
+4:03 And I'll add a column for the description, "Best Flip Phone." Select it from the list.
+4:12 Okay, let's scroll down to the next phone. This one's Motorola. Select it from the list, and Power Query
+4:19 auto-detects the pattern and suggests the next phone names. It hasn't detected all the prices
+4:25 yet, so let's give it some more suggestions. Got $1,000 at Motorola, and there we go. I'll rename
+4:33 the columns, so column one is "Product," column two is "Price," column three is "Benefit," and I
+4:42 click "OK." Now, notice it's added a new table under custom tables. I'll select table seven,
+4:51 and we can see in the preview it's a table created as a result of the examples I gave it. So,
+4:56 I'll go into "Transform Data," so I can extract the price from the supplier. Select the price
+5:02 column, and on the Home tab, "Split Column by Delimiter." I'll choose a custom delimiter,
+5:10 and in the field here, I'll type a space, and then "at," and then space. And I want
+5:16 to split it at the leftmost delimiter, and click "OK." I'll double-click to rename the columns,
+5:22 so we've got "Price," "Supplier," and lastly, I'll rename the table "Product."
+5:30 All right, let's close and load to a table on a new worksheet. And just like the previous example,
+5:37 I can simply right-click the query table to refresh and get updates.
+5:43 Okay, that's great, but I have a list of pages I want to scrape data from. After all,
+5:48 my gadget store is going to sell a lot more than just flip phones, and these pages all have the
+5:53 same structure, which means I can pass this list to my query and let it get the data from
+5:57 each page and bring it into a single table. Let me show you. I'll load this table to Power Query
+6:02 using the "From Table/Range" connector. And then, for the original query, I'll go into the Advanced
+6:08 Editor and convert it to a custom function. At the top of the code, you need to add the
+6:13 function parameter name inside parentheses. I'll call it "URL," and this parameter will be text,
+6:19 followed by "=", and the greater-than sign tells Power Query what follows is a function. And then,
+6:26 replace the URL in the code with the parameter name. The URL needs to be wrapped in double
+6:31 quotes, as does the parameter name. So, I'll add another double quote, then the ampersand,
+6:37 the parameter name which is "URL," then another ampersand, and double quote. And I'll click
+6:43 "Done." You can see the query is now converted to a custom function called "Products." I'll select
+6:49 the query containing the URLs, and to invoke the custom function, go to the "Add Column" tab,
+6:54 and "Invoke Custom Function." I'll select the "Products" query from the dropdown,
+6:59 and click "OK." Now, I need to add information about data privacy, so I'll select "Public,"
+7:05 because I don't have anything confidential in this file, but you need to select the correct
+7:09 option for your data. The query has added a column containing a table for each URL,
+7:15 so I'll click the expand button, and deselect "Use original column name as prefix," and
+7:22 click "OK." And now, I have a list of the best gadgets for my new store: the price, supplier,
+7:28 and benefit. I'm ready to go. However, notice there are a few blank lines, so let's remove
+7:34 those with the filter on the price column, just deselect "null." And before loading it to Excel,
+7:39 I need to fix the data types, because there's a few currently set to "any." Holding control,
+7:44 I'll select "Product," "Supplier," and "Benefit," and on the "Transform" tab,
+7:49 I'll select "Data Type: Text." And for price, I'll select "Decimal Number." Lastly,
+7:56 I'll rename the query "Product List." Now, I can close and load to, and let it load a
+8:01 table in a new sheet. Again, if I need to get any updates, I just right-click and refresh the query.
+8:09 Now, while these new features are impressive, there are some limitations. For example,
+8:14 if we look at the web page for the first example again, you'll see there's a button
+8:17 at the bottom to load more games. When you click this button, JavaScript is executed on the page,
+8:23 and it displays more. However, Power Query can't trigger JavaScript to load,
+8:27 so unfortunately, there's no way to get data for these extra games with Power Query. That aside,
+8:33 I think for the majority of web pages, this is super useful. As you can see,
+8:38 there are huge productivity gains to be had with Power Query. If you'd like to get your skills up
+8:43 to speed, check out my course linked to in the video description. And if you're not convinced of Power
+8:48 Query's magic abilities, check out this video on combining multiple files from a folder next.

@@ -1,0 +1,69 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2025-12-06",
+  "updated_by": "Claude Opus 4.5",
+  
+  "paths": {
+    "root": "G:\\My Drive\\00 - Trajanus USA",
+    "command_center": "G:\\My Drive\\00 - Trajanus USA\\00-Command-Center",
+    "eos_files": "G:\\My Drive\\00 - Trajanus USA\\08-EOS-Files",
+    "session_journal": "G:\\My Drive\\00 - Trajanus USA\\07-Session-Journal",
+    "living_documents": "G:\\My Drive\\00 - Trajanus USA\\03-Living-Documents",
+    "core_protocols": "G:\\My Drive\\00 - Trajanus USA\\01-Core-Protocols",
+    "credentials": "G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\Credentials"
+  },
+  
+  "google_drive_folder_ids": {
+    "_comment": "UPDATE THESE IDs when folders change - all scripts read from here",
+    "session_summaries": "NEEDS_UPDATE",
+    "technical_journals": "NEEDS_UPDATE",
+    "personal_diaries": "NEEDS_UPDATE",
+    "code_repositories": "NEEDS_UPDATE",
+    "living_documents": "NEEDS_UPDATE",
+    "eos_files": "NEEDS_UPDATE"
+  },
+  
+  "living_documents": {
+    "bills_pov": "BILLS_POV_MASTER.md",
+    "project_state": "PROJECT_STATE_MASTER.md",
+    "technical_decisions": "TECHNICAL_DECISIONS_MASTER.md",
+    "lessons_learned": "LESSONS_LEARNED_MASTER.md",
+    "startup_briefing": "CLAUDE_STARTUP_BRIEFING.md"
+  },
+  
+  "eos_settings": {
+    "auto_find_newest_zip": true,
+    "create_timestamped_folders": true,
+    "append_to_living_docs": true,
+    "update_startup_briefing": true,
+    "play_completion_sound": true,
+    "archive_processed_zips": true
+  },
+  
+  "file_patterns": {
+    "session_summary": "Session_Summary",
+    "technical_journal": "Technical_Journal",
+    "personal_diary": "Personal_Diary",
+    "code_repository": "Code_Repository",
+    "project_diary": "Project_Diary",
+    "operational_journal": "Operational_Journal",
+    "handoff": "Handoff"
+  },
+  
+  "conversion_settings": {
+    "convert_md_to_gdocs": true,
+    "convert_docx_to_gdocs": true,
+    "skip_already_converted": true,
+    "conversion_timeout_seconds": 30
+  },
+  
+  "user_preferences": {
+    "name": "Bill King",
+    "company": "Trajanus USA",
+    "timezone": "America/New_York",
+    "date_format": "YYYY-MM-DD",
+    "time_format": "24hr",
+    "communication_style": "casual_professional",
+    "session_break_reminder_minutes": 90
+  }
+}

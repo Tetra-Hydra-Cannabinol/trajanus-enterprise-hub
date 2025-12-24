@@ -1,0 +1,353 @@
+"""
+Ingest Playlist 3 video 1 (ody_09oUaHY) - Excel Mini Charts - BETTER than Sparklines!
+"""
+
+import os
+from datetime import datetime
+from supabase import create_client
+
+def load_env():
+    env_path = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\.env'
+    env_vars = {}
+    with open(env_path, 'r', encoding='utf-8-sig') as f:
+        for line in f:
+            line = line.strip()
+            if line and '=' in line and not line.startswith('#'):
+                key, value = line.split('=', 1)
+                env_vars[key.strip()] = value.strip()
+    return env_vars
+
+env = load_env()
+supabase = create_client(env['SUPABASE_URL'], env['SUPABASE_ANON_KEY'])
+
+video_id = 'ody_09oUaHY'
+title = "Excel Mini Charts - BETTER than Sparklines!"
+channel = 'MyOnlineTrainingHub'
+duration = '10:33'
+topics = ['Mini Charts', 'Sparklines', 'Area Charts', 'Line Charts', 'Bar Charts', 'Ghost Series', 'Data Visualization', 'Chart Formatting', 'Actual vs Budget', 'Plot Area']
+
+transcript = """0:01 many charts are a great alternative to
+0:04 spark lines they're just regular charts
+0:06 made really really small you might
+0:08 consider using them instead of spark
+0:10 lines when you want something other than
+0:12 column line or win loss charts for
+0:15 example maybe you want to see two Series
+0:17 in your mini chart like this actual and
+0:19 budget data let's take a look at how to
+0:21 create a mini
+0:23 chart here's my data now I want to
+0:26 insert an area chart that's going to
+0:28 show the trend of these values over time
+0:31 so all I need to do is select the actual
+0:33 values I'm not going to display the
+0:36 access labels or a legend so I don't
+0:38 need to worry about the labels for the
+0:39 columns and the rows then insert and we
+0:43 want the area chart 2D so next I need to
+0:47 strip the chart down so it just shows
+0:50 the area I don't need the axis the chart
+0:53 title or the grid lines the next thing I
+0:57 want to do is get rid of the border on
+0:59 the chart if I click off you can see
+1:01 there's a faint border so let's go up
+1:03 and format it and we'll set the shape
+1:06 outline to no
+1:07 outline next I'm going to resize the
+1:10 plot area so that it fills the entire
+1:14 chart area CU we need these charts to be
+1:17 as big as possible when they're in the
+1:19 cell so I've created my chart now all I
+1:22 need to do is position it so with the
+1:25 outside of the chart selected I'm going
+1:26 to hold down the ALT key and that will
+1:29 just snap it to the grid so I'm going to
+1:31 place it in column o and then still
+1:33 holding down alt I'm just going to
+1:36 resize it to fill the cell so now that
+1:39 I've created one all I need to do is
+1:41 rinse and repeat so let's contrl D to
+1:44 duplicate the chart and we need seven of
+1:47 them so we'll do it six more
+1:49 times let's just position them I'm going
+1:52 to grab this one and position it down in
+1:54 the bottom
+1:55 cell and then I'm going to select each
+1:59 of the other charts I'm holding down
+2:00 shift while I select them and let's just
+2:03 format them so that they're all aligned
+2:05 to the left and then we're going to
+2:07 distribute them vertically so now we
+2:10 have our charts one in each cell but at
+2:12 the moment they're all picking up this
+2:14 line of data so let's just adjust them
+2:18 just left clicking and dragging to
+2:20 move the series cells down to the
+2:23 relevant
+2:28 row okay so now we have a mini chart in
+2:31 each cell and because they're aligned to
+2:34 the cell size if I increase the width of
+2:37 the column you can see that the chart
+2:40 resizes in line with the column width
+2:42 and likewise I can change the row height
+2:45 and the chart will resize as well let's
+2:48 just undo that now one thing to be aware
+2:50 of is that each mini chart has its own
+2:52 vertical axis Scale based on the values
+2:55 in the series so if we look at row seven
+2:57 you can see that all the values are less
+2:59 than 20
+3:00 but most of the values in row eight are
+3:02 closer to 200 however this isn't obvious
+3:05 from the mini charts now having the
+3:07 vertical axes on different scales makes
+3:09 it difficult to compare the charts to
+3:11 one another so if this is something that
+3:13 you want to do your best to use a ghost
+3:16 series to force the vertical axis scale
+3:19 to be uniform across all of the charts
+3:22 now the ghost series contains a single
+3:24 value that's the maximum value in your
+3:27 data set so if we look at our data set
+3:30 you can see that the maximum value is
+3:32 200 which is there so your ghost series
+3:35 value will be 200 and this is going to
+3:37 force all of the charts to have the same
+3:39 vertical axis scale you then set the
+3:42 color for the ghost series to no fill so
+3:44 it's not visible in the chart now
+3:45 there's a link in the video description
+3:47 to a post on how to insert ghost series
+3:49 if you're interested in that so that's
+3:52 an area chart with a single value it's
+3:54 similar to spark lines except spark line
+3:57 don't have an area option but let's look
+4:00 at another option where we have two
+4:02 Series so here I have some actual data
+4:06 and budget data and I want to show the
+4:08 actuals as an area chart and the budget
+4:11 as a line chart so I'm just going to
+4:13 start by inserting an area chart for my
+4:18 actuals and then I want to add a series
+4:21 for the budget so I'm going to copy this
+4:23 data and then on the Home tab we're
+4:26 going to paste special and want a new
+4:30 series the values are in the row and
+4:33 we'll click okay so now we have our two
+4:36 Series this is my budget and this is my
+4:38 actual so what I want to do is change
+4:41 the chart type for the budget so I'm
+4:42 going to right click change series chart
+4:45 type and then here I want this to be a
+4:48 line chart and I'll click okay now we
+4:51 can go about formatting this as we want
+4:54 so let's get rid of the chart title and
+4:57 the grid lines and the
+5:00 axes the next thing I want to do is
+5:02 apply the formatting now it's easier to
+5:04 do the formatting while the chart is Big
+5:06 so control one to open the format pane
+5:09 so let's set this
+5:12 to a gray color and we'll make it much
+5:15 thinner because when we make the chart
+5:17 smaller it's going to look much thicker
+5:20 and let's change the color we'll make it
+5:22 paler shade of green okay now that our
+5:25 chart's looking how we want let's make
+5:27 the plot area the same size as the chart
+5:32 area and now all I need to do is select
+5:36 the chart using alt move it into place
+5:39 I've just noticed it still has the
+5:41 border so let's remove the border so
+5:43 we're going to go shape outline no
+5:45 outline okay and I'm going to close this
+5:49 pane so I can reach my pull handles
+5:52 holding down alt and resizing it so
+5:56 there's our mini chart that contains our
+5:58 budget and actual now I'm just going to
+6:01 duplicate it seven times so contrl
+6:05 D let's move this one down holding down
+6:09 alt and then shift while I select the
+6:11 other charts now I could use contr a to
+6:15 select all objects but I have other
+6:18 charts on this sheet so I don't want to
+6:20 do that so we're just going to use shift
+6:22 we're going to Aline them left and then
+6:25 distribute vertically now all we need to
+6:27 do is select the series so I need to
+6:30 move this one down and likewise so while
+6:34 I do this I'm just going to fast forward
+6:36 so that you don't have to watch me rinse
+6:38 and repeat so now each chart is picking
+6:41 up the correct data but you'll notice
+6:43 the formatting is all messed up so when
+6:44 I chose the new series range it reverted
+6:47 to the default formatting so what I want
+6:50 to do is copy the formatting from this
+6:52 chart and paste it onto the others so
+6:54 with the chart selected crl C then I'm
+6:57 going to select the next chart
+7:00 and then on the Home tab we're going to
+7:01 go paste special and down here in the
+7:04 dialogue box I'm choosing formats so
+7:07 I'll click okay and like magic it
+7:09 updates now a quicker way to do that is
+7:12 just to select the next chart and press
+7:15 F4 once we've done the past special once
+7:17 we can just rinse and repeat with the F4
+7:21 key and then we have our Excel mini
+7:25 charts plotting actual and budget data
+7:28 and again the vertical axis on each of
+7:30 these is specific to the data set so if
+7:33 you want all of the vertical axes to be
+7:35 the same you'll need to use another
+7:37 ghost
+7:38 series and lastly I want to show you how
+7:41 to plot a bar chart for this data here
+7:45 so I want to plot the variance data so
+7:47 I'm just going to select it this is the
+7:49 variance so I'm going to
+7:51 insert a bar
+7:53 chart now I need to format the vertical
+7:56 axis so with it selected control one to
+7:58 open the format map Pane and here I
+8:01 first of all need to set the categories
+8:03 in reverse order and if I add the data
+8:05 labels you'll see what what I mean you
+8:08 can see here the first value is 18 which
+8:10 is the last and here the last value is
+8:12 22 which is the first so we need to set
+8:15 the categories in reverse order so that
+8:17 our chart bars are in the correct
+8:20 order now I want to hide the vertical
+8:23 axis but I don't want to delete it I
+8:25 just want to hide the tick marks so
+8:28 let's go down and they're set To None
+8:30 already that's fine let's turn the
+8:33 labels to
+8:34 none and I want to format the vertical
+8:38 line so that it's a slightly darker
+8:42 gray and a bit thicker and you'll see
+8:45 why when I make the chart smaller so now
+8:48 that we've hidden that let's turn off
+8:50 the horizontal axis we'll get rid of the
+8:53 chart title and the grid lines let's
+8:55 format this negative Series in a
+8:58 different color so with it's selected I
+9:00 can invert if negative so we're going to
+9:03 go green for the positive and red for
+9:07 negative now with the chart selected
+9:09 let's hide the outline so I'm just going
+9:11 to click this again CU it's already set
+9:13 to no fill or no outline and let's
+9:17 resize the plot area to fill the chart
+9:21 space and before I make the chart
+9:24 smaller I'm just going to set the Gap
+9:27 width to 30 cuz this will make the bars
+9:30 a bit bigger which will be helpful when
+9:31 I make the chart really small so with
+9:34 the outer edge of the chart selected I'm
+9:36 holding down alt to snap it to the grid
+9:40 and holding down alt while I resize it
+9:43 so now that I have my variance chart I
+9:45 don't necessarily need this column CU
+9:47 I've got the values here so I'm just
+9:49 going to make this column really narrow
+9:51 if I hide it then I have to change the
+9:53 settings on the chart to display hidden
+9:55 columns so I'm just going to make it
+9:57 much smaller and that'll just save me a
+9:58 few steps so there you have mini Excel
+10:03 charts they enable us to do a bit more
+10:05 than we can with the spark line options
+10:08 of line column and win loss so I hope
+10:11 you find them useful take a moment to
+10:13 download the Excel file for this lesson
+10:15 from the link here or in the video
+10:17 description I hope you can make use of
+10:19 this technique if you liked it please
+10:21 give it a thumbs up and subscribe to my
+10:23 channel for more and why not share it
+10:25 with your friends who might also find it
+10:27 useful thanks for watching"""
+
+# Save transcript
+archive_dir = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\Knowledge_Archive\Transcripts\Microsoft_Office'
+os.makedirs(archive_dir, exist_ok=True)
+
+header = f"""Title: {title}
+Channel: {channel}
+Video ID: {video_id}
+URL: https://www.youtube.com/watch?v={video_id}
+Duration: {duration}
+Level: INTERMEDIATE
+Application: Microsoft Excel
+Topics: {', '.join(topics)}
+Ingested: {datetime.now().strftime('%Y-%m-%d')}
+Source: Playwright Browser Extraction
+{'='*78}
+
+"""
+
+filename = f"{datetime.now().strftime('%Y-%m-%d')}_INTERMEDIATE_{video_id}_Mini_Charts.txt"
+filepath = os.path.join(archive_dir, filename)
+
+with open(filepath, 'w', encoding='utf-8') as f:
+    f.write(header + transcript)
+
+print(f'Transcript saved: {filename}')
+
+# Chunk and ingest
+def chunk_text(text, chunk_size=3000):
+    chunks = []
+    current = ''
+    for line in text.split('\n'):
+        if len(current) + len(line) + 1 <= chunk_size:
+            current = current + '\n' + line if current else line
+        else:
+            if current:
+                chunks.append(current.strip())
+            current = line
+    if current.strip():
+        chunks.append(current.strip())
+    return chunks
+
+url = f'https://www.youtube.com/watch?v={video_id}'
+chunks = chunk_text(transcript)
+
+full_metadata = {
+    'channel': channel,
+    'video_id': video_id,
+    'duration': duration,
+    'level': 'INTERMEDIATE',
+    'application': 'Microsoft Excel',
+    'topics': topics,
+    'source': 'YouTube Transcript',
+    'ingested_date': datetime.now().strftime('%Y-%m-%d'),
+    'content_type': 'youtube_tutorial',
+    'category': 'Microsoft_Office'
+}
+
+inserted = 0
+for i, chunk in enumerate(chunks):
+    summary = chunk[:200].replace('\n', ' ').strip()
+    if len(chunk) > 200:
+        summary += '...'
+
+    record = {
+        'url': url,
+        'chunk_number': i + 1,
+        'title': title,
+        'summary': summary,
+        'content': chunk,
+        'metadata': full_metadata
+    }
+
+    try:
+        supabase.table('knowledge_base').insert(record).execute()
+        inserted += 1
+        print(f'  Chunk {i+1}/{len(chunks)} inserted')
+    except Exception as e:
+        print(f'  Error chunk {i+1}: {e}')
+
+print(f'\nTotal: {inserted} chunks inserted to Supabase')

@@ -1,0 +1,255 @@
+"""
+Ingest Playlist 3 video 12 (ILtbplnlNV4) - Drill Down in Excel Pivot Charts - No VBA!
+"""
+
+import os
+from datetime import datetime
+from supabase import create_client
+
+def load_env():
+    env_path = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\.env'
+    env_vars = {}
+    with open(env_path, 'r', encoding='utf-8-sig') as f:
+        for line in f:
+            line = line.strip()
+            if line and '=' in line and not line.startswith('#'):
+                key, value = line.split('=', 1)
+                env_vars[key.strip()] = value.strip()
+    return env_vars
+
+env = load_env()
+supabase = create_client(env['SUPABASE_URL'], env['SUPABASE_ANON_KEY'])
+
+video_id = 'ILtbplnlNV4'
+title = "Drill Down in Excel Pivot Charts - No VBA!"
+channel = 'MyOnlineTrainingHub'
+duration = '5:50'
+topics = ['Pivot Charts', 'Drill Down', 'Expand Collapse Buttons', 'Hierarchy Navigation', 'Axis Fields', 'Field List', 'Bar Charts', 'Chart Formatting', 'Field Buttons', 'Double Click Navigation']
+
+transcript = """0:00 Excel pivot chart drill down buttons are
+0:02 an intuitive way for your users to drill
+0:04 up and down through a hierarchy right on
+0:07 the face of a chart they're technically
+0:09 expand and collapse buttons and they are
+0:11 introduced in Excel 2016 you'll find
+0:14 them in the bottom right of your pivot
+0:16 chart whenever you have more than one
+0:17 field in the chart access area let's
+0:20 take a look at some
+0:22 examples here I have a pivot chart and
+0:25 if you look at the field list you can
+0:26 see there are three fields in the axis
+0:29 well you years quarters and date which
+0:32 actually represents the month now
+0:34 currently the chart is only showing the
+0:36 year and quarter level of detail but I
+0:39 can drill up and down using these expand
+0:42 and collapse buttons on the face of the
+0:45 chart now in earlier versions of excel
+0:48 you don't have these buttons but you can
+0:50 double click on the axis to drill down
+0:53 and to go back up you need to have the
+0:56 axis selected and then right click
+0:59 expand and collapse
+1:00 here you can collapse one field at a
+1:02 time so that would be the field that you
+1:04 had selected when you right clicked so
+1:06 you can see here Quarter Two has
+1:09 collapsed or you can right click expand
+1:12 and collapse collapse entire field so
+1:16 there's a bit more work required in
+1:18 earlier versions of excel because we
+1:20 don't have these handy expand and
+1:22 collapse buttons on the face of the
+1:23 chart but the features are still there
+1:26 now let's look at how we build a chart
+1:28 with these expand and CLE
+1:31 buttons to build a pivot chart with the
+1:33 expand and collapse buttons simply
+1:35 select the data or a cell in the data
+1:38 range and then on the insert tab I'm
+1:40 going to go straight to Pivot
+1:42 chart you get the same dialogue box you
+1:45 do for a pivot table so all I need to do
+1:47 is choose where I want to place the
+1:48 pivot chart and I'm going to put it on
+1:51 this sheet so select the cell there and
+1:53 click okay notice that we get a
+1:56 placeholder for the pivot table and a
+1:58 placeholder for the pivot chart
+2:00 and if we look at the field list you can
+2:02 see the field Wells have Legend and axis
+2:05 categories instead of rows and column
+2:07 labels we build it just like a pivot
+2:10 table so we add the fields to the Chart
+2:13 area that we want now notice at the
+2:16 moment I only have one field in my Axis
+2:19 categories and I don't have the expand
+2:21 and collapse buttons but as soon as I
+2:23 add product now I get the expand and
+2:26 collapse buttons added now the charts a
+2:30 bit small so let's make it a bit bigger
+2:32 Now by default pivot charts have these
+2:34 field buttons for the access labels the
+2:36 legend if you have one and the values
+2:39 personally I think these take up way too
+2:41 much room especially in bar charts which
+2:44 I'm going to turn this into but first I
+2:46 want to turn these buttons off so you
+2:49 can do it by right clicking and then
+2:51 hide access field buttons on chart you
+2:54 can hide all the field buttons on the
+2:55 chart but I want the expand and collapse
+2:57 buttons to remain so I need to turn
+2:59 these access field buttons off by
+3:02 themselves and then again for the valy
+3:05 fields now you can also access those
+3:08 fill button options on the paper chart
+3:10 tab fill buttons and then you can see it
+3:13 still has the report filter buttons on
+3:16 the chart but we don't have any at the
+3:18 moment there's no filters so I don't
+3:20 need to turn that off and the legend
+3:22 Fields I don't have any values in my
+3:24 Legend so again I don't need to turn
+3:27 that off but I can do it here you can
+3:29 see there is the expand and collapse fi
+3:32 buttons and they're showing in the
+3:34 bottom right of the chart so let's turn
+3:36 this into a bar chart on the design tab
+3:40 I'm just going to change the chart type
+3:42 bar chart is better suited to charts
+3:44 with long labels in the axis so let's
+3:48 resize
+3:49 this and I'll do a little bit more
+3:51 formatting we'll turn the title Off the
+3:53 Grid lines and the legend and I'm just
+3:56 going to select the bar and control one
+3:59 to open the the formatting and we'll
+4:01 make the Gap with
+4:02 50% that just makes it a bit easier to
+4:05 read so now that I have my chart you can
+4:08 see I've got the expand and collapse
+4:09 buttons I can
+4:11 collapse and expand as I wish now
+4:15 another feature that's not easily
+4:17 discoverable is the ability to add a
+4:18 field to the access using double click
+4:21 for this I'm going to remove the product
+4:23 field and you can see the expand and
+4:25 claps buttons have gone now with the
+4:27 axis selected if I double click one of
+4:29 the access labels I get a dialogue Box
+4:32 open up that allows me to add a field
+4:35 from the existing field list so for
+4:37 example here I could add the Year to my
+4:40 access and it's being added to the
+4:42 access categories in the field list and
+4:45 you can see it's also added to the Chart
+4:48 again the expand and collapse buttons
+4:50 are available so I can rightclick to
+4:55 collapse I can double click to expand or
+4:58 I can use the expand and collapse
+5:00 buttons depending on the version of
+5:01 excel that you have now the only
+5:04 downside of the drill down buttons or
+5:06 expand and collapse buttons is that they
+5:07 can only drill up and down on one chart
+5:10 at a time I think it would be nice if
+5:12 you could link them to other charts like
+5:14 you can with slices and then you could
+5:16 drill down multiple charts at the same
+5:18 time well that's drilling down on the
+5:21 face of the chart now all you need to do
+5:23 is teach those who read your reports how
+5:25 to use
+5:27 them you can download the s far for this
+5:30 lesson from the link here I hope you can
+5:32 make use of this technique if you like
+5:34 this video please give it a thumbs up
+5:36 and subscribe to my channel for more and
+5:38 don't forget to share it with your
+5:40 friends who might also find this useful
+5:42 thanks for
+5:49 watching"""
+
+# Save transcript
+archive_dir = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\Knowledge_Archive\Transcripts\Microsoft_Office'
+os.makedirs(archive_dir, exist_ok=True)
+
+header = f"""Title: {title}
+Channel: {channel}
+Video ID: {video_id}
+URL: https://www.youtube.com/watch?v={video_id}
+Duration: {duration}
+Level: BEGINNER
+Application: Microsoft Excel
+Topics: {', '.join(topics)}
+Ingested: {datetime.now().strftime('%Y-%m-%d')}
+Source: Playwright Browser Extraction
+{'='*78}
+
+"""
+
+filename = f"{datetime.now().strftime('%Y-%m-%d')}_BEGINNER_{video_id}_Pivot_Chart_Drill_Down.txt"
+filepath = os.path.join(archive_dir, filename)
+
+with open(filepath, 'w', encoding='utf-8') as f:
+    f.write(header + transcript)
+
+print(f'Transcript saved: {filename}')
+
+# Chunk and ingest
+def chunk_text(text, chunk_size=3000):
+    chunks = []
+    current = ''
+    for line in text.split('\n'):
+        if len(current) + len(line) + 1 <= chunk_size:
+            current = current + '\n' + line if current else line
+        else:
+            if current:
+                chunks.append(current.strip())
+            current = line
+    if current.strip():
+        chunks.append(current.strip())
+    return chunks
+
+url = f'https://www.youtube.com/watch?v={video_id}'
+chunks = chunk_text(transcript)
+
+full_metadata = {
+    'channel': channel,
+    'video_id': video_id,
+    'duration': duration,
+    'level': 'BEGINNER',
+    'application': 'Microsoft Excel',
+    'topics': topics,
+    'source': 'YouTube Transcript',
+    'ingested_date': datetime.now().strftime('%Y-%m-%d'),
+    'content_type': 'youtube_tutorial',
+    'category': 'Microsoft_Office'
+}
+
+inserted = 0
+for i, chunk in enumerate(chunks):
+    summary = chunk[:200].replace('\n', ' ').strip()
+    if len(chunk) > 200:
+        summary += '...'
+
+    record = {
+        'url': url,
+        'chunk_number': i + 1,
+        'title': title,
+        'summary': summary,
+        'content': chunk,
+        'metadata': full_metadata
+    }
+
+    try:
+        supabase.table('knowledge_base').insert(record).execute()
+        inserted += 1
+        print(f'  Chunk {i+1}/{len(chunks)} inserted')
+    except Exception as e:
+        print(f'  Error chunk {i+1}: {e}')
+
+print(f'\nTotal: {inserted} chunks inserted to Supabase')

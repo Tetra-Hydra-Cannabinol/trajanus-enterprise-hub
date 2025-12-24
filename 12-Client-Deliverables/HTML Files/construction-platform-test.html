@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trajanus Enterprise Hub - Construction Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ============================================
+           TRAJANUS COLOR SCHEME
+           ============================================ */
+        :root {
+            --bg-dark: #1a1a2e;
+            --bg-darker: #0f0f1a;
+            --bg-card: #1f1410;
+            --orange-primary: #e8922a;
+            --orange-light: #cc6e1f;
+            --orange-dark: #a85a1a;
+            --brown-light: #d4a574;
+            --brown-dark: #8b6914;
+            --cream: #f5e6d3;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #888888;
+            --border-color: rgba(232, 146, 42, 0.3);
+            --shadow-color: rgba(0, 0, 0, 0.4);
+        }
+
+        /* ============================================
+           BASE STYLES
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-darker) 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+        }
+
+        /* ============================================
+           HEADER
+           ============================================ */
+        .header {
+            background: linear-gradient(180deg, rgba(31, 20, 16, 0.95) 0%, rgba(15, 15, 26, 0.95) 100%);
+            border-bottom: 2px solid var(--orange-primary);
+            padding: 15px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .back-btn {
+            background: rgba(232, 146, 42, 0.2);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 16px;
+            color: var(--orange-primary);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: rgba(232, 146, 42, 0.3);
+            border-color: var(--orange-primary);
+        }
+
+        .platform-header-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .platform-icon-header {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #e8922a 0%, #cc6e1f 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(232, 146, 42, 0.3);
+        }
+
+        .platform-title h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--cream);
+            margin-bottom: 2px;
+        }
+
+        .platform-title .subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .header-right {
+            text-align: right;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .header-right .version {
+            color: var(--orange-light);
+            font-weight: 500;
+        }
+
+        /* ============================================
+           BREADCRUMB
+           ============================================ */
+        .breadcrumb-bar {
+            background: rgba(31, 20, 16, 0.6);
+            padding: 12px 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb-item {
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb-item:hover {
+            color: var(--orange-primary);
+        }
+
+        .breadcrumb-separator {
+            color: var(--text-muted);
+        }
+
+        .breadcrumb-item.active {
+            color: var(--orange-primary);
+            font-weight: 500;
+        }
+
+        /* ============================================
+           MAIN CONTENT
+           ============================================ */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        .section-title {
+            margin-bottom: 30px;
+        }
+
+        .section-title h2 {
+            font-size: 1.8rem;
+            color: var(--cream);
+            margin-bottom: 8px;
+        }
+
+        .section-title p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           WORKSPACE GRID
+           ============================================ */
+        .workspace-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        /* ============================================
+           WORKSPACE CARD
+           ============================================ */
+        .workspace-card {
+            background: linear-gradient(145deg, var(--bg-card) 0%, rgba(31, 20, 16, 0.8) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .workspace-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--orange-primary), var(--brown-light));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .workspace-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(232, 146, 42, 0.2);
+            border-color: var(--orange-primary);
+        }
+
+        .workspace-card:hover::before {
+            opacity: 1;
+        }
+
+        .workspace-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            color: white;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+
+        .workspace-card.qcm .workspace-icon {
+            background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+        }
+
+        .workspace-card.pm .workspace-icon {
+            background: linear-gradient(135deg, #4a90d9 0%, #2c5aa0 100%);
+        }
+
+        .workspace-card.dashboard .workspace-icon {
+            background: linear-gradient(135deg, #9b59b6 0%, #6c3483 100%);
+        }
+
+        .workspace-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--cream);
+            margin-bottom: 10px;
+        }
+
+        .workspace-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 18px;
+        }
+
+        /* ============================================
+           FEATURE LIST
+           ============================================ */
+        .feature-list {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .feature-list-title {
+            font-size: 0.8rem;
+            color: var(--orange-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 0;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .feature-item i {
+            color: var(--orange-primary);
+            font-size: 0.75rem;
+            width: 16px;
+        }
+
+        /* ============================================
+           OPEN BUTTON
+           ============================================ */
+        .open-btn {
+            width: 100%;
+            padding: 12px 20px;
+            background: linear-gradient(180deg, var(--orange-primary) 0%, var(--orange-dark) 100%);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(232, 146, 42, 0.3);
+        }
+
+        .open-btn:hover {
+            background: linear-gradient(180deg, #f5a23d 0%, var(--orange-primary) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(232, 146, 42, 0.4);
+        }
+
+        .open-btn:active {
+            transform: translateY(0);
+        }
+
+        /* ============================================
+           QUICK STATS BAR
+           ============================================ */
+        .stats-bar {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(31, 20, 16, 0.6);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-card {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--orange-primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer a {
+            color: var(--orange-primary);
+            text-decoration: none;
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 1100px) {
+            .workspace-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .workspace-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .header-left {
+                flex-direction: column;
+            }
+
+            .header-right {
+                text-align: center;
+            }
+
+            .stats-bar {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-left">
+            <button class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+                <span>All Platforms</span>
+            </button>
+            <div class="platform-header-info">
+                <div class="platform-icon-header">
+                    <i class="fas fa-hard-hat"></i>
+                </div>
+                <div class="platform-title">
+                    <h1>Construction Management</h1>
+                    <div class="subtitle">Quality Control, Project Management, Inspections</div>
+                </div>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="version">Enterprise Hub v4.0.0</div>
+            <div>December 2025</div>
+        </div>
+    </header>
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb-bar">
+        <div class="breadcrumb">
+            <span class="breadcrumb-item" onclick="goBack()">Enterprise Hub</span>
+            <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+            <span class="breadcrumb-item active">Construction Management</span>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- QUICK STATS -->
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="stat-value">2</div>
+                <div class="stat-label">Active Projects</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">12</div>
+                <div class="stat-label">Pending Submittals</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">3</div>
+                <div class="stat-label">Open RFIs</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">98%</div>
+                <div class="stat-label">Compliance Rate</div>
+            </div>
+        </div>
+
+        <!-- SECTION TITLE -->
+        <div class="section-title">
+            <h2>Available Workspaces</h2>
+            <p>Select a workspace to begin working</p>
+        </div>
+
+        <!-- WORKSPACE GRID -->
+        <div class="workspace-grid">
+            <!-- QCM Workspace -->
+            <div class="workspace-card qcm" onclick="openWorkspace('qcm')">
+                <div class="workspace-icon">
+                    <i class="fas fa-clipboard-check"></i>
+                </div>
+                <div class="workspace-name">QCM Workspace</div>
+                <div class="workspace-description">
+                    Quality Control Manager tools for submittal review, inspection reports, and deficiency tracking.
+                </div>
+                <div class="feature-list">
+                    <div class="feature-list-title">Key Features</div>
+                    <div class="feature-item">
+                        <i class="fas fa-check"></i>
+                        <span>AI-Powered Submittal Review</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check"></i>
+                        <span>Inspection Report Generator</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check"></i>
+                        <span>Deficiency Tracker</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check"></i>
+                        <span>Closeout Checklist</span>
+                    </div>
+                </div>
+                <button class="open-btn" onclick="event.stopPropagation(); openWorkspace('qcm')">
+                    <span>Open Workspace</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- PM Toolkit -->
+            <div class="workspace-card pm" onclick="openWorkspace('pm')">
+                <div class="workspace-icon">
+                    <i class="fas fa-tasks"></i>
+                </div>
+                <div class="workspace-name">PM Toolkit</div>
+                <div class="workspace-description">
+                    Project Management tools for scheduling, budgeting, RFIs, and change order management.
+                </div>
+                <div class="feature-list">
+                    <div class="feature-list-title">Key Features</div>
+                    <div class="feature-item">
+                        <i class="fas fa-check"></i>
+                        <span>Schedule Navigator</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check"></i>
+                        <span>Budget Tracker</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check"></i>
+                        <span>RFI Manager</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check"></i>
+                        <span>Change Order Log</span>
+                    </div>
+                </div>
+                <button class="open-btn" onclick="event.stopPropagation(); openWorkspace('pm')">
+                    <span>Open Workspace</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- Project Dashboard -->
+            <div class="workspace-card dashboard" onclick="openWorkspace('dashboard')">
+                <div class="workspace-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="workspace-name">Project Dashboard</div>
+                <div class="workspace-description">
+                    Real-time project overview with metrics, milestones, and team coordination tools.
+                </div>
+                <div class="feature-list">
+                    <div class="feature-list-title">Key Features</div>
+                    <div class="feature-item">
+                        <i class="fas fa-check"></i>
+                        <span>Project Overview</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check"></i>
+                        <span>Milestone Tracker</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check"></i>
+                        <span>Team Directory</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check"></i>
+                        <span>Daily Reports</span>
+                    </div>
+                </div>
+                <button class="open-btn" onclick="event.stopPropagation(); openWorkspace('dashboard')">
+                    <span>Open Workspace</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>Trajanus USA &copy; 2025 | Construction Management Platform | Version 4.0.0</p>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Go back to platform selection
+        function goBack() {
+            console.log('Navigation: Back to Platform Selection');
+            // In real app: window.location.href = 'platform-selection-test.html';
+            alert('Back to Platform Selection\n\nIn production: navigates to platform-selection-test.html');
+        }
+
+        // Open workspace handler
+        function openWorkspace(workspaceId) {
+            console.log(`Opening workspace: ${workspaceId}`);
+
+            // Visual feedback
+            const card = document.querySelector(`.workspace-card.${workspaceId}`);
+            if (card) {
+                card.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    card.style.transform = '';
+                }, 150);
+            }
+
+            // Log workspace details
+            switch(workspaceId) {
+                case 'qcm':
+                    console.log('  -> Loading QCM Workspace');
+                    console.log('  -> Tools: Submittal Review, Inspection Reports, Deficiency Tracker');
+                    break;
+                case 'pm':
+                    console.log('  -> Loading PM Toolkit');
+                    console.log('  -> Tools: Schedule Navigator, Budget Tracker, RFI Manager');
+                    break;
+                case 'dashboard':
+                    console.log('  -> Loading Project Dashboard');
+                    console.log('  -> Tools: Overview, Milestones, Team Directory');
+                    break;
+            }
+
+            // Alert for testing
+            alert(`Workspace: ${workspaceId}\nCheck console for details.`);
+        }
+
+        // Log page load
+        console.log('Construction Management Platform Loaded');
+        console.log('Available workspaces: qcm, pm, dashboard');
+    </script>
+</body>
+</html>

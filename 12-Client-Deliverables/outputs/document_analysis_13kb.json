@@ -1,0 +1,1206 @@
+[
+  {
+    "id": "1brLCFbQS4SKylRLBCx5JbyU-SnjNPloMt5m7ji17Avk",
+    "name": "Research_Index_20251217",
+    "source_path": "AI-Development/Uncategorized",
+    "source_folder_id": "1S6o0H3B-0mQr8vsz9AjccfDkS6ot0rS2",
+    "target_path": "10-AI-Development/Agents/Claude-Agent-SDK"
+  },
+  {
+    "id": "1DBARcU6xY-OXqYEcQdBczYdCT3eQewxzhE21pwzj8TI",
+    "name": "20251217_Finding_164_filebrowser-filebrowser- 📂 Web File Browser",
+    "source_path": "AI-Development/Uncategorized",
+    "source_folder_id": "1S6o0H3B-0mQr8vsz9AjccfDkS6ot0rS2",
+    "target_path": "11-Software-Tools/Google-APIs/Drive-API"
+  },
+  {
+    "id": "1VQqKzHJHibiS4LqHVv3xUJQeSN-TXZCM7QjOD6PEmbQ",
+    "name": "20251217_Finding_164_filebrowser-filebrowser-  Web File Browser",
+    "source_path": "AI-Development/Uncategorized",
+    "source_folder_id": "1S6o0H3B-0mQr8vsz9AjccfDkS6ot0rS2",
+    "target_path": "11-Software-Tools/Google-APIs/Drive-API"
+  },
+  {
+    "id": "1XSeTAyLlvdWSFJJn1gkf2IvoK8hSOg9UquRH4Wj6H8Q",
+    "name": "20251217_Finding_152_Node.js Error Handling - W3Schools",
+    "source_path": "AI-Development/Uncategorized",
+    "source_folder_id": "1S6o0H3B-0mQr8vsz9AjccfDkS6ot0rS2",
+    "target_path": "11-Software-Tools/JavaScript-Libraries/File-Management"
+  },
+  {
+    "id": "1F2t3unRGEm0gVRFzR_eZl4AtVxl-i9OZBfQVsnG277o",
+    "name": "20251217_Finding_134_Combine keyword and semantic search for text and images using ...",
+    "source_path": "AI-Development/Uncategorized",
+    "source_folder_id": "1S6o0H3B-0mQr8vsz9AjccfDkS6ot0rS2",
+    "target_path": "10-AI-Development/Agents/Claude-Agent-SDK"
+  },
+  {
+    "id": "1H2_sk_zFqyd8yR7jlp6TjYmalpOrBZxAuu6Q2Obc8cU",
+    "name": "20251217_Finding_124_Filling and Submitting Forms - CodeSignal Learn",
+    "source_path": "AI-Development/Uncategorized",
+    "source_folder_id": "1S6o0H3B-0mQr8vsz9AjccfDkS6ot0rS2",
+    "target_path": "10-AI-Development/Agents/Claude-Agent-SDK"
+  },
+  {
+    "id": "1RjJQzDVojNu67Q8rgABWWqHD7BnhxleeT19SD1tnsfg",
+    "name": "20251217_Finding_104_Resumable Media Uploads in the Google Data Protocol",
+    "source_path": "AI-Development/Uncategorized",
+    "source_folder_id": "1S6o0H3B-0mQr8vsz9AjccfDkS6ot0rS2",
+    "target_path": "11-Software-Tools/Google-APIs/Drive-API"
+  },
+  {
+    "id": "1bn05YuYeVmT7bBO1Mv4i7N4bxuTIzSW9U49UlnR6O1I",
+    "name": "20251217_Finding_083_Progress Report Template (Word, Excel)",
+    "source_path": "AI-Development/Uncategorized",
+    "source_folder_id": "1S6o0H3B-0mQr8vsz9AjccfDkS6ot0rS2",
+    "target_path": "12-Technical-Guides/Documentation-Standards"
+  },
+  {
+    "id": "1zKT9oWn2cnB01Gv_-o0-V4GcNzSldhc5oQzluBHAXX4",
+    "name": "20251217_Finding_080_Anatomy of a Context Window- A Guide to Context Engineering - Letta",
+    "source_path": "AI-Development/Uncategorized",
+    "source_folder_id": "1S6o0H3B-0mQr8vsz9AjccfDkS6ot0rS2",
+    "target_path": "10-AI-Development/Agents/Agent-Patterns"
+  },
+  {
+    "id": "1zbfLANz4x9nsZrEcKigl9cpwSgn2oy9sPBmdvr_rSAw",
+    "name": "20251217_Finding_076_Context Window Management- Strategies for Long ... - Maxim AI",
+    "source_path": "AI-Development/Uncategorized",
+    "source_folder_id": "1S6o0H3B-0mQr8vsz9AjccfDkS6ot0rS2",
+    "target_path": "10-AI-Development/Agents/Agent-Patterns"
+  },
+  {
+    "id": "13QN89OrmCiW09dr6IndA_6HGR2s88zrO0f6hichfUO0",
+    "name": "20251217_Finding_072_Quickstart - Claude Docs",
+    "source_path": "AI-Development/Uncategorized",
+    "source_folder_id": "1S6o0H3B-0mQr8vsz9AjccfDkS6ot0rS2",
+    "target_path": "10-AI-Development/Claude-Specific/Claude-Updates"
+  },
+  {
+    "id": "17oKHiB7duwx2etw0S1dlDUgtDk_G8oJ9b3z3YPj1bPM",
+    "name": "20251217_Finding_025_Step-by-Step Guide to Choosing the Best Embedding Model for ...",
+    "source_path": "AI-Development/Uncategorized",
+    "source_folder_id": "1S6o0H3B-0mQr8vsz9AjccfDkS6ot0rS2",
+    "target_path": "10-AI-Development/Vector-Databases/Embeddings"
+  },
+  {
+    "id": "12SV76bvSz9XJPI0MatzN-9kf004l0szze_JFW0sml-Q",
+    "name": "20251217_Finding_024_Embeddings performance difference between small vs large at 1536 ...",
+    "source_path": "AI-Development/Uncategorized",
+    "source_folder_id": "1S6o0H3B-0mQr8vsz9AjccfDkS6ot0rS2",
+    "target_path": "10-AI-Development/Vector-Databases/Embeddings"
+  },
+  {
+    "id": "1PS11m9uGv2XV_5qlXh2jQYyd3g3AvGRsyauuQ7KM0fU",
+    "name": "20251217_Finding_023_Vector embeddings - OpenAI API",
+    "source_path": "AI-Development/Uncategorized",
+    "source_folder_id": "1S6o0H3B-0mQr8vsz9AjccfDkS6ot0rS2",
+    "target_path": "10-AI-Development/Vector-Databases/Embeddings"
+  },
+  {
+    "id": "1aT_-sL-OmXoCTFU_nKHOfTG_od2d1fbwR__Jal2bfEk",
+    "name": "20251217_Finding_022_Exploring Text-Embedding-3-Large- A Comprehensive Guide to the ...",
+    "source_path": "AI-Development/Uncategorized",
+    "source_folder_id": "1S6o0H3B-0mQr8vsz9AjccfDkS6ot0rS2",
+    "target_path": "10-AI-Development/Vector-Databases/Embeddings"
+  },
+  {
+    "id": "1izF6VdQ33cNKKYEbfIsYM6CnwO7gct9EQ5fAnUjPXuo",
+    "name": "20251217_Finding_021_The guide to text-embedding-3-small - OpenAI - Zilliz",
+    "source_path": "AI-Development/Uncategorized",
+    "source_folder_id": "1S6o0H3B-0mQr8vsz9AjccfDkS6ot0rS2",
+    "target_path": "10-AI-Development/Vector-Databases/Embeddings"
+  },
+  {
+    "id": "1h4BGs6528fBGbz1fBIPQyPoN7YUN1v2I0GFwesLaKnE",
+    "name": "20251217_Finding_001_Create a Data Pipeline with PostgreSQL - Vectorize Docs",
+    "source_path": "AI-Development/Uncategorized",
+    "source_folder_id": "1S6o0H3B-0mQr8vsz9AjccfDkS6ot0rS2",
+    "target_path": "11-Software-Tools/Google-APIs/Docs-API"
+  },
+  {
+    "id": "1OAS69zoBD8XhLmch84oxoBGDVvQmoDXEAtyf1OYheVo",
+    "name": "20251217_Finding_015_Row Level Security - Supabase Docs",
+    "source_path": "AI-Development/Supabase/Row-Level-Security",
+    "source_folder_id": "1-T8-rC8IPibhaxiGhTj5OPHDws2kdobZ",
+    "target_path": "10-AI-Development/Supabase-AI/Row-Level-Security"
+  },
+  {
+    "id": "1T2W87GKCt_GCw-WZlB9qSLfFobK4kRTbYEkjNZtMNCA",
+    "name": "20251217_Finding_014_Easy Row Level Security (RLS) Policies in Supabase and Postgres",
+    "source_path": "AI-Development/Supabase/Row-Level-Security",
+    "source_folder_id": "1-T8-rC8IPibhaxiGhTj5OPHDws2kdobZ",
+    "target_path": "10-AI-Development/Supabase-AI/Row-Level-Security"
+  },
+  {
+    "id": "1d-C6-6yiiPzpsN8fZsEr58LnF5M62AIS5FgoyRYGFP4",
+    "name": "20251217_Finding_020_Connection management - Supabase Docs",
+    "source_path": "AI-Development/Supabase/Connection-Management",
+    "source_folder_id": "1u9c20bMPGqqQUbUuDlxkWSHzIDvsIKKj",
+    "target_path": "10-AI-Development/Supabase-AI/Connection-Management"
+  },
+  {
+    "id": "16SK9UpMO0Sgo__Uv3nw6atibZ6F_H0t-aWflq5rmyyQ",
+    "name": "20251217_Finding_018_Supavisor 1.0- a scalable connection pooler for Postgres - Supabase",
+    "source_path": "AI-Development/Supabase/Connection-Management",
+    "source_folder_id": "1u9c20bMPGqqQUbUuDlxkWSHzIDvsIKKj",
+    "target_path": "10-AI-Development/Supabase-AI/Connection-Management"
+  },
+  {
+    "id": "1RxkpkMsYhAJzQ9Cua1WQ7sPoD4iP9s0KP_h0CXhIErU",
+    "name": "20251217_Finding_005_Vector columns - Supabase Docs",
+    "source_path": "AI-Development/Supabase",
+    "source_folder_id": "1_D1_jIk4Es584_boGBuufU-SK3fD-7RF",
+    "target_path": "10-AI-Development/Supabase-AI/Connection-Management"
+  },
+  {
+    "id": "1tkUcNkG2AwCVERI63BcMw8ZyAmR8FOHanlW5ajQt-9Q",
+    "name": "20251217_Finding_102_Resumable uploads - Cloud Storage - Google Cloud Documentation",
+    "source_path": "AI-Development/Google-Cloud-APIs/Drive-Storage",
+    "source_folder_id": "1hnaXAL3d_3jl_77-PjvFbz-ZH86qo3kd",
+    "target_path": "10-AI-Development/Google-Cloud-APIs/Drive-Storage"
+  },
+  {
+    "id": "1ZbaVtxOGNR5a-3amVmvyOj4gXUbO6XNQrBbpH4fNgYE",
+    "name": "20251217_Finding_101_Upload file data - Google Drive",
+    "source_path": "AI-Development/Google-Cloud-APIs/Drive-Storage",
+    "source_folder_id": "1hnaXAL3d_3jl_77-PjvFbz-ZH86qo3kd",
+    "target_path": "10-AI-Development/Google-Cloud-APIs/Drive-Storage"
+  },
+  {
+    "id": "1lhoMlUpFfapRaQcsRdXvVfrTYV1FQQM8CKAiASbUOZU",
+    "name": "20251217_Finding_092_Usage limits - Google Drive",
+    "source_path": "AI-Development/Google-Cloud-APIs",
+    "source_folder_id": "1Ig9rBkVlmnInkoFAPp4bU1wTZjb7cYzv",
+    "target_path": "10-AI-Development/Google-Cloud-APIs/Drive-Storage"
+  },
+  {
+    "id": "1PSbPHwbiXZGY5bj5j-Z4VhROdIiBN7hoHqMMNAYxSHY",
+    "name": "20251217_Finding_121_Playwright Guide - Submitting Forms - ScrapeOps",
+    "source_path": "AI-Development/Playwright-Testing/Testing-Guides",
+    "source_folder_id": "1xWDbJgEb-M5RmSIdipAqrxr4sEeiAj2m",
+    "target_path": "10-AI-Development/Playwright-Testing/Testing-Guides"
+  },
+  {
+    "id": "1-_c05571QMSFb_eOONbNDABvCgQbptvZyj96w95lv2Y",
+    "name": "20251217_Finding_120_Snapshot testing - Playwright",
+    "source_path": "AI-Development/Playwright-Testing/Screenshots",
+    "source_folder_id": "1L6eGQAHfzZVXnfnRHjBdpX3sLULkRCYk",
+    "target_path": "10-AI-Development/Playwright-Testing/Screenshots"
+  },
+  {
+    "id": "1EHnvItdBGGMgwHVw7YBlNvJ9IeWHIPJk_DDdGg74eZY",
+    "name": "20251217_Finding_117_Playwright Screenshots - How to Take and Automate Screenshots",
+    "source_path": "AI-Development/Playwright-Testing/Screenshots",
+    "source_folder_id": "1L6eGQAHfzZVXnfnRHjBdpX3sLULkRCYk",
+    "target_path": "10-AI-Development/Playwright-Testing/Testing-Guides"
+  },
+  {
+    "id": "137uTnPLgN6LFKF4gOcKWlNaMmq3qTSL7G0iUpVee2i8",
+    "name": "20251217_Finding_116_How to Capture Screenshots and PDFs with Playwright",
+    "source_path": "AI-Development/Playwright-Testing/Screenshots",
+    "source_folder_id": "1L6eGQAHfzZVXnfnRHjBdpX3sLULkRCYk",
+    "target_path": "10-AI-Development/Playwright-Testing/Testing-Guides"
+  },
+  {
+    "id": "1zRqqf3A7LM_LRyqByn8JHbPFns6TF9MULnVdrtQOdfA",
+    "name": "20251217_Finding_125_Actions - Playwright",
+    "source_path": "AI-Development/Playwright-Testing",
+    "source_folder_id": "1IejLg3KXaPP_P0V3lY7VV0CikxcOamGz",
+    "target_path": "10-AI-Development/Playwright-Testing/Testing-Guides"
+  },
+  {
+    "id": "1YGVsG7-vaBRv4JbPOq-KmPT4eDH4xWyV3h3ALtcaCTc",
+    "name": "20251217_Finding_123_Best Practices - Playwright",
+    "source_path": "AI-Development/Playwright-Testing",
+    "source_folder_id": "1IejLg3KXaPP_P0V3lY7VV0CikxcOamGz",
+    "target_path": "10-AI-Development/Playwright-Testing/Testing-Guides"
+  },
+  {
+    "id": "1E_Kk7jxrGJOdP535fV8M6lGefR6sNBNhhO3UMqNhkNQ",
+    "name": "20251217_Finding_122_Writing tests - Playwright",
+    "source_path": "AI-Development/Playwright-Testing",
+    "source_folder_id": "1IejLg3KXaPP_P0V3lY7VV0CikxcOamGz",
+    "target_path": "10-AI-Development/Playwright-Testing/Testing-Guides"
+  },
+  {
+    "id": "1uqOy9qkpWgPWKLQBlkMR5Fe6wlEyMaHcC54KzOBWyWE",
+    "name": "20251217_Finding_119_Playwright Visual Testing- A Comprehensive Guide to UI Regression",
+    "source_path": "AI-Development/Playwright-Testing",
+    "source_folder_id": "1IejLg3KXaPP_P0V3lY7VV0CikxcOamGz",
+    "target_path": "10-AI-Development/Playwright-Testing/Testing-Guides"
+  },
+  {
+    "id": "1ufeZqK1zeOHfgcvekducnDIADhBuIXCRfmElRce9Ypk",
+    "name": "20251217_Finding_079_Effective context engineering for AI agents - Anthropic",
+    "source_path": "AI-Development/Agents/Agent-Patterns",
+    "source_folder_id": "1vse4iTsXUuwCgxQ4N53BUKoVKodEt5lQ",
+    "target_path": "10-AI-Development/Agents/Agent-Patterns"
+  },
+  {
+    "id": "1wOBNwiXvKcswVJk89kN_0-lHHDtPk0rZlF-meG-78kY",
+    "name": "20251217_Finding_077_State Management in Multi-Agent AI Systems - Ranjan Kumar",
+    "source_path": "AI-Development/Agents/Agent-Patterns",
+    "source_folder_id": "1vse4iTsXUuwCgxQ4N53BUKoVKodEt5lQ",
+    "target_path": "10-AI-Development/Agents/Multi-Agent-Systems"
+  },
+  {
+    "id": "1F9UGeo-8ryfotr5zVe-muuUAy3cEX1ynOhiCx54uLY8",
+    "name": "20251217_Finding_071_Effective harnesses for long-running agents - Anthropic",
+    "source_path": "AI-Development/Agents/Agent-Patterns",
+    "source_folder_id": "1vse4iTsXUuwCgxQ4N53BUKoVKodEt5lQ",
+    "target_path": "10-AI-Development/Agents/Agent-Patterns"
+  },
+  {
+    "id": "10xqx_2sggChjAkaJJ6lrp7SmMCI0HpL2Y47zwU02EUI",
+    "name": "20251217_Finding_090_VoltAgent-awesome-claude-code-subagents - GitHub",
+    "source_path": "AI-Development/Agents/Multi-Agent-Systems",
+    "source_folder_id": "15mZAR2aKo4GMG0hTLbJP8je-Waq1yG9X",
+    "target_path": "10-AI-Development/Agents/Multi-Agent-Systems"
+  },
+  {
+    "id": "15lnnSljUuErFJn1Hek3bKH9mK2xfMKql5XfWeBn68HM",
+    "name": "20251217_Finding_088_Multi-Agent collaboration patterns with Strands Agents and Amazon ...",
+    "source_path": "AI-Development/Agents/Multi-Agent-Systems",
+    "source_folder_id": "15mZAR2aKo4GMG0hTLbJP8je-Waq1yG9X",
+    "target_path": "10-AI-Development/Agents/Multi-Agent-Systems"
+  },
+  {
+    "id": "17l589AacBmzaqTA8Wgsste0lnV2rC7SFvuHTOP_IYiQ",
+    "name": "20251217_Finding_086_Claude Code Subagents- The Revolutionary Multi-Agent ...",
+    "source_path": "AI-Development/Agents/Multi-Agent-Systems",
+    "source_folder_id": "15mZAR2aKo4GMG0hTLbJP8je-Waq1yG9X",
+    "target_path": "10-AI-Development/Agents/Multi-Agent-Systems"
+  },
+  {
+    "id": "1iFhoA0ZaVLsqs6Lt-6C7X3gJ8fdblmtvpcNViCz6D3A",
+    "name": "20251217_Finding_075_Agent SDK reference - Python - Claude Docs",
+    "source_path": "AI-Development/Agents/Claude-Agent-SDK",
+    "source_folder_id": "1PZgmgTK2rRX56fT7XplUTq9UsBZ_52QA",
+    "target_path": "10-AI-Development/Agents/Claude-Agent-SDK"
+  },
+  {
+    "id": "12r_RdBFKXTgv3rBYsFglUnzCnORkJ9nLL7N5UmvrCGw",
+    "name": "20251217_Finding_074_Agent SDK overview - Claude Docs",
+    "source_path": "AI-Development/Agents/Claude-Agent-SDK",
+    "source_folder_id": "1PZgmgTK2rRX56fT7XplUTq9UsBZ_52QA",
+    "target_path": "10-AI-Development/Agents/Claude-Agent-SDK"
+  },
+  {
+    "id": "1Xgme7vniqUz-BNHF2iA-lq4eUJDVt79YMRxyJmM6amo",
+    "name": "20251217_Finding_073_How to Use Claude Agent SDK- Step-by-Step AI Agent Tutorial",
+    "source_path": "AI-Development/Agents/Claude-Agent-SDK",
+    "source_folder_id": "1PZgmgTK2rRX56fT7XplUTq9UsBZ_52QA",
+    "target_path": "10-AI-Development/Agents/Claude-Agent-SDK"
+  },
+  {
+    "id": "1kC2UwSTzyCo5pE2ylxZ8otGEb1A2FV4zEn_6fZIFdSk",
+    "name": "20251217_Finding_089_Sub-agents in Claude Code - Daily Dose of Data Science",
+    "source_path": "AI-Development/Agents",
+    "source_folder_id": "1m7Jfg4yYc0ju6y66Ze0gYofjTGH6-AKY",
+    "target_path": "10-AI-Development/Claude-Specific/Claude-Code-Tool"
+  },
+  {
+    "id": "1xy-4UfuWTMR6Z055Hv7GyPTNM32mHn0mN-T-qxPWbrc",
+    "name": "20251217_Finding_087_Best Practices for Building Agentic AI Systems- What Actually Works ...",
+    "source_path": "AI-Development/Agents",
+    "source_folder_id": "1m7Jfg4yYc0ju6y66Ze0gYofjTGH6-AKY",
+    "target_path": "10-AI-Development/Agents/Claude-Agent-SDK"
+  },
+  {
+    "id": "1e3KgJ-063j14BT_OnoQ-wJQQxUYDswBNwM2EN4cwWgw",
+    "name": "20251217_Finding_084_Agents - Server2023 - Relativity Documentation",
+    "source_path": "AI-Development/Agents",
+    "source_folder_id": "1m7Jfg4yYc0ju6y66Ze0gYofjTGH6-AKY",
+    "target_path": "10-AI-Development/Agents/Claude-Agent-SDK"
+  },
+  {
+    "id": "1ce5wCDcxW114f4bBKltYDN5jC6w7_beT2x_0jiMvjBI",
+    "name": "20251217_Finding_082_Tetra File-Log Agent Performance Guidelines",
+    "source_path": "AI-Development/Agents",
+    "source_folder_id": "1m7Jfg4yYc0ju6y66Ze0gYofjTGH6-AKY",
+    "target_path": "10-AI-Development/Agents/Claude-Agent-SDK"
+  },
+  {
+    "id": "1C4vV1WqUfG6WEUzDei1u98Z9CuX6pLj0ypHVV2ZHJnE",
+    "name": "20251217_Finding_081_Agent properties - Progress Documentation",
+    "source_path": "AI-Development/Agents",
+    "source_folder_id": "1m7Jfg4yYc0ju6y66Ze0gYofjTGH6-AKY",
+    "target_path": "10-AI-Development/Agents/Claude-Agent-SDK"
+  },
+  {
+    "id": "1o0KOfRBu9v7Dmyh9EH7Cogp_tCt8cOze-50MYUmw7fw",
+    "name": "20251217_Finding_042_Let your Coding Agent debug your browser session with Chrome ...",
+    "source_path": "AI-Development/Agents",
+    "source_folder_id": "1m7Jfg4yYc0ju6y66Ze0gYofjTGH6-AKY",
+    "target_path": "10-AI-Development/Agents/Claude-Agent-SDK"
+  },
+  {
+    "id": "1zplwloLpdAyeftraOLprHb5WmEg-XDpoLUDUZGgy7qY",
+    "name": "20251217_Finding_112_A Detailed Guide To Playwright MCP Server - QA Touch",
+    "source_path": "AI-Development/MCP-Protocol/MCP-Servers",
+    "source_folder_id": "1E3hOFQayFqd1jIHFXYoszOsH8J-wNIvU",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "1O0QPe2NdF8bFYRP0t987zvYi8Ps01vEjhuRX1sglekA",
+    "name": "20251217_Finding_050_Building MCP servers for ChatGPT and API integrations",
+    "source_path": "AI-Development/MCP-Protocol/MCP-Servers",
+    "source_folder_id": "1E3hOFQayFqd1jIHFXYoszOsH8J-wNIvU",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "1YQ6fP7bCCBzEpm_b2ZIt9SRUD6FY-zLqvME9hljO_iA",
+    "name": "20251217_Finding_047_Python MCP Server- Connect LLMs to Your Data",
+    "source_path": "AI-Development/MCP-Protocol/MCP-Servers",
+    "source_folder_id": "1E3hOFQayFqd1jIHFXYoszOsH8J-wNIvU",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "19SteyhGxbEIIF3aq1KWIY2qzywx-PnBzsJvZ-t6YGV8",
+    "name": "20251217_Finding_045_Use MCP servers in VS Code",
+    "source_path": "AI-Development/MCP-Protocol/MCP-Servers",
+    "source_folder_id": "1E3hOFQayFqd1jIHFXYoszOsH8J-wNIvU",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "1dEuki4Ez79I7JQcY8JQ-5zirxNfLxf-AKvUaEc2brjI",
+    "name": "20251217_Finding_041_Resolve MCP Server Debugging Problems in Simple Steps - AI Future",
+    "source_path": "AI-Development/MCP-Protocol/MCP-Servers",
+    "source_folder_id": "1E3hOFQayFqd1jIHFXYoszOsH8J-wNIvU",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "1PtL3QKWHLsEvTLsAtGrAOpomncwfPtfKup_kW2binFo",
+    "name": "20251217_Finding_040_Designing MCP servers for wide schemas and large result sets",
+    "source_path": "AI-Development/MCP-Protocol/MCP-Servers",
+    "source_folder_id": "1E3hOFQayFqd1jIHFXYoszOsH8J-wNIvU",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "1zVKsyNzkR1wkt3AUN1gc9fJsVgdl4e8ZP5QCNI0nnoU",
+    "name": "20251217_Finding_037_15 Best Practices for Building MCP Servers in Production",
+    "source_path": "AI-Development/MCP-Protocol/MCP-Servers",
+    "source_folder_id": "1E3hOFQayFqd1jIHFXYoszOsH8J-wNIvU",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "12EaLrChVShQoLJ5AzlaSWb5VFpFF363tqOFbNbpqSYg",
+    "name": "20251217_Finding_036_How to Optimize Your MCP Server Performance for Faster ...",
+    "source_path": "AI-Development/MCP-Protocol/MCP-Servers",
+    "source_folder_id": "1E3hOFQayFqd1jIHFXYoszOsH8J-wNIvU",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "1AcZFzi4k1BCgngYtmVibmFA3S_VxbZ9x7lstqMo8hag",
+    "name": "20251217_Finding_035_How to Build and Deploy an SSE MCP Server with OAuth in Rust",
+    "source_path": "AI-Development/MCP-Protocol/MCP-Servers",
+    "source_folder_id": "1E3hOFQayFqd1jIHFXYoszOsH8J-wNIvU",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "157TdSBymK4M1lRfFnQdl9EueowT8Hle-mEn0Ls5oz_E",
+    "name": "20251217_Finding_028_Building Your First MCP Server- A Beginners Tutorial",
+    "source_path": "AI-Development/MCP-Protocol/MCP-Servers",
+    "source_folder_id": "1E3hOFQayFqd1jIHFXYoszOsH8J-wNIvU",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "16_g4EXcISvVRg1T4uVOw46jy-yLyUym9eTTErvpE5uY",
+    "name": "20251217_Finding_027_Build an MCP Server- Complete MCP Tutorial for Beginners",
+    "source_path": "AI-Development/MCP-Protocol/MCP-Servers",
+    "source_folder_id": "1E3hOFQayFqd1jIHFXYoszOsH8J-wNIvU",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "1XLHjC4IsQDL_7HpXN5gJ714-pOQs9MlU20X4G5jF2-0",
+    "name": "20251217_Finding_026_Build a Real-world MCP Server with One TypeScript File - Full Tutorial",
+    "source_path": "AI-Development/MCP-Protocol/MCP-Servers",
+    "source_folder_id": "1E3hOFQayFqd1jIHFXYoszOsH8J-wNIvU",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "1Y2wAESaOLdUGSAbbxJeRHSGIx4pnrERssD6eNQualIM",
+    "name": "20251217_Finding_118_Automate Your Screenshot Documentation with Playwright MCP",
+    "source_path": "AI-Development/MCP-Protocol",
+    "source_folder_id": "1F80KfxPqtAmEHmdBnQSnmnD-AdtjfnZl",
+    "target_path": "10-AI-Development/Playwright-Testing/Screenshots"
+  },
+  {
+    "id": "11qiECWUl-brutaZbs4sO--6cEj6HQZHiUdXEqhsTlT8",
+    "name": "20251217_Finding_113_Playwright MCP- A Modern Guide to Test Automation - Testomat.io",
+    "source_path": "AI-Development/MCP-Protocol",
+    "source_folder_id": "1F80KfxPqtAmEHmdBnQSnmnD-AdtjfnZl",
+    "target_path": "10-AI-Development/Playwright-Testing/Testing-Guides"
+  },
+  {
+    "id": "1LkB6qlFKMgmM15K2GvyL6ccOJN207m63LM25Dq3VNbY",
+    "name": "20251217_Finding_078_Why Your AI Agents Need State Replay (And How MCP Solves It)",
+    "source_path": "AI-Development/MCP-Protocol",
+    "source_folder_id": "1F80KfxPqtAmEHmdBnQSnmnD-AdtjfnZl",
+    "target_path": "10-AI-Development/Agents/Claude-Agent-SDK"
+  },
+  {
+    "id": "1HmGb3tJp6cSaxA2sEftDmct50uQ2hSCHoSS4O-dkDVU",
+    "name": "20251217_Finding_049_A Quick Introduction to Model Context Protocol (MCP) in Python",
+    "source_path": "AI-Development/MCP-Protocol",
+    "source_folder_id": "1F80KfxPqtAmEHmdBnQSnmnD-AdtjfnZl",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "18CaEYvOOf-z0IhPCmDxE4JfxGwabM36tO0ionA5ec40",
+    "name": "20251217_Finding_044_What debug logs should I implement in an Model Context Protocol ...",
+    "source_path": "AI-Development/MCP-Protocol",
+    "source_folder_id": "1F80KfxPqtAmEHmdBnQSnmnD-AdtjfnZl",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "1Wv8DyXZWLtmXzfNZmpwghE8mySABQvUdkjR0pKi-fdQ",
+    "name": "20251217_Finding_043_Debugging - Model Context Protocol",
+    "source_path": "AI-Development/MCP-Protocol",
+    "source_folder_id": "1F80KfxPqtAmEHmdBnQSnmnD-AdtjfnZl",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "1sRih_9aXTHtnQLOgULiBha73YHdw8wspGuCrAnlYV_U",
+    "name": "20251217_Finding_039_MCP Implementation Best Practices",
+    "source_path": "AI-Development/MCP-Protocol",
+    "source_folder_id": "1F80KfxPqtAmEHmdBnQSnmnD-AdtjfnZl",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "1Csenzxj62j21bdapLJs1ZsLIHvoGbTSi5Gq8HoVOYfk",
+    "name": "20251217_Finding_038_MCP tool schema- what it is, how it works, and examples - Merge.dev",
+    "source_path": "AI-Development/MCP-Protocol",
+    "source_folder_id": "1F80KfxPqtAmEHmdBnQSnmnD-AdtjfnZl",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "1kxppMVwyOjPmsWa-pkI-fXg09Qa7bOdS_jquLRiIuGQ",
+    "name": "20251217_Finding_034_Model context protocol (MCP) - OpenAI Agents SDK",
+    "source_path": "AI-Development/MCP-Protocol",
+    "source_folder_id": "1F80KfxPqtAmEHmdBnQSnmnD-AdtjfnZl",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "1aBF6aaITNyKZV9ciI-2dCMkbjdVsya-yXL8M7XnI_6k",
+    "name": "20251217_Finding_033_MCP Practical Guide with SSE Transport - F22 Labs",
+    "source_path": "AI-Development/MCP-Protocol",
+    "source_folder_id": "1F80KfxPqtAmEHmdBnQSnmnD-AdtjfnZl",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "1MwtkkhOnEHI81TCkyCjIlZ_JT3LKHSDORKH4D1bm4Co",
+    "name": "20251217_Finding_032_Build a Model Context Protocol (MCP) server in C# - .NET Blog",
+    "source_path": "AI-Development/MCP-Protocol",
+    "source_folder_id": "1F80KfxPqtAmEHmdBnQSnmnD-AdtjfnZl",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "1uI8D0ZEUYcAnS2CrvrSTt1Kfv9eCA1T2Vz_F-997W9M",
+    "name": "20251217_Finding_030_How to build and deploy a Model Context Protocol (MCP) ...",
+    "source_path": "AI-Development/MCP-Protocol",
+    "source_folder_id": "1F80KfxPqtAmEHmdBnQSnmnD-AdtjfnZl",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "113YDoFc4YwsEvAkljHOx9kinK_g-aUra7obxR5nb18s",
+    "name": "20251217_Finding_141_RAG evaluation- Metrics, methodologies, best practices & more",
+    "source_path": "AI-Development/RAG-Systems/RAG-Monitoring",
+    "source_folder_id": "1JLiW8EYkukpL8skddI3Rdkg2MichhjvM",
+    "target_path": "10-AI-Development/RAG-Systems/RAG-Monitoring"
+  },
+  {
+    "id": "1emopRigMG9jfKP6vryOajFxiOCdoKZxm7QdeBgGMiNs",
+    "name": "20251217_Finding_139_Improving RAG accuracy- 10 techniques that actually work",
+    "source_path": "AI-Development/RAG-Systems/RAG-Monitoring",
+    "source_folder_id": "1JLiW8EYkukpL8skddI3Rdkg2MichhjvM",
+    "target_path": "10-AI-Development/RAG-Systems/RAG-Monitoring"
+  },
+  {
+    "id": "1xooqmaJYU-7LdFUHDNhzv5YbQ0xjyDtUp6ntv4GyFi8",
+    "name": "20251217_Finding_138_Improving RAG Accuracy with Rerankers - InfraCloud",
+    "source_path": "AI-Development/RAG-Systems/RAG-Monitoring",
+    "source_folder_id": "1JLiW8EYkukpL8skddI3Rdkg2MichhjvM",
+    "target_path": "10-AI-Development/RAG-Systems/Retrieval-Optimization"
+  },
+  {
+    "id": "1KZG_j-KiRLBkAX-dToYTqhBOBVUhvbpwNVVjohea2qU",
+    "name": "20251217_Finding_137_Rerankers and Two-Stage Retrieval - Pinecone",
+    "source_path": "AI-Development/RAG-Systems/Retrieval-Optimization",
+    "source_folder_id": "12vANqS-5hxMMvMKg6OKv0AuAoQz7BHbd",
+    "target_path": "10-AI-Development/RAG-Systems/Retrieval-Optimization"
+  },
+  {
+    "id": "16w0o1XjdiVA12ok1tr5Ybj_G5LyMbhzqLetMlUt0YYw",
+    "name": "20251217_Finding_136_How Using a Reranking Microservice Can Improve Accuracy and ...",
+    "source_path": "AI-Development/RAG-Systems/Retrieval-Optimization",
+    "source_folder_id": "12vANqS-5hxMMvMKg6OKv0AuAoQz7BHbd",
+    "target_path": "10-AI-Development/RAG-Systems/Retrieval-Optimization"
+  },
+  {
+    "id": "1DT6z_ik9Ne3yGo60kZFOa5XEGMjuqJE0sRSDTZ9NLws",
+    "name": "20251217_Finding_135_Hybrid Search 101- how it works and why It's important - Meilisearch",
+    "source_path": "AI-Development/RAG-Systems/Retrieval-Optimization",
+    "source_folder_id": "12vANqS-5hxMMvMKg6OKv0AuAoQz7BHbd",
+    "target_path": "10-AI-Development/RAG-Systems/Retrieval-Optimization"
+  },
+  {
+    "id": "1lmoJXbEVvoiI-Nht7e-LeqF3xx2ItEglspHX9D0DMM4",
+    "name": "20251217_Finding_133_Hybrid Search- Combining Semantic and Keyword Approaches for ...",
+    "source_path": "AI-Development/RAG-Systems/Retrieval-Optimization",
+    "source_folder_id": "12vANqS-5hxMMvMKg6OKv0AuAoQz7BHbd",
+    "target_path": "10-AI-Development/RAG-Systems/Retrieval-Optimization"
+  },
+  {
+    "id": "10mTADITBUaJm_OWk085tbcqWnTfptooLdYVIYjMna3w",
+    "name": "20251217_Finding_132_How Hybrid Search Combines Lexical and Semantic Methods - Kroolo",
+    "source_path": "AI-Development/RAG-Systems/Retrieval-Optimization",
+    "source_folder_id": "12vANqS-5hxMMvMKg6OKv0AuAoQz7BHbd",
+    "target_path": "10-AI-Development/RAG-Systems/Retrieval-Optimization"
+  },
+  {
+    "id": "1Q0fDAYYYpXk1RIsEpk5vjrLoDsZOX_SWpF0Tl639ks8",
+    "name": "20251217_Finding_131_A Comprehensive Hybrid Search Guide - Elastic",
+    "source_path": "AI-Development/RAG-Systems/Retrieval-Optimization",
+    "source_folder_id": "12vANqS-5hxMMvMKg6OKv0AuAoQz7BHbd",
+    "target_path": "10-AI-Development/RAG-Systems/Retrieval-Optimization"
+  },
+  {
+    "id": "1dDCTGJ7xBOOYRh5stUgw3dnqgG3CI0ry-BdW9wk_LuE",
+    "name": "20251217_Finding_130_Develop a RAG Solution - Chunking Phase - Microsoft Learn",
+    "source_path": "AI-Development/RAG-Systems/Chunking-Strategies",
+    "source_folder_id": "1HyzOUkL4LXlieqVduH9oK86_KiSAlvio",
+    "target_path": "10-AI-Development/RAG-Systems/Chunking-Strategies"
+  },
+  {
+    "id": "1NtX88pK4fzhtuainDueSdalOtD5HRnRrgxU1MZnv3H8",
+    "name": "20251217_Finding_129_The Ultimate Guide to RAG Chunking Strategies - Agenta",
+    "source_path": "AI-Development/RAG-Systems/Chunking-Strategies",
+    "source_folder_id": "1HyzOUkL4LXlieqVduH9oK86_KiSAlvio",
+    "target_path": "10-AI-Development/RAG-Systems/Chunking-Strategies"
+  },
+  {
+    "id": "1T05R5NZzMs5kmVNxbFfTDQT7p53PWI8taWeGZnQAHNA",
+    "name": "20251217_Finding_128_Evaluating the Ideal Chunk Size for a RAG System using LlamaIndex",
+    "source_path": "AI-Development/RAG-Systems/Chunking-Strategies",
+    "source_folder_id": "1HyzOUkL4LXlieqVduH9oK86_KiSAlvio",
+    "target_path": "10-AI-Development/RAG-Systems/Chunking-Strategies"
+  },
+  {
+    "id": "1bJ67pVEZq7ie6RDVyaTqW7dlR5sYMG8Z6T1IsW81Xxk",
+    "name": "20251217_Finding_127_Finding the Best Chunking Strategy for Accurate AI Responses",
+    "source_path": "AI-Development/RAG-Systems/Chunking-Strategies",
+    "source_folder_id": "1HyzOUkL4LXlieqVduH9oK86_KiSAlvio",
+    "target_path": "10-AI-Development/RAG-Systems/Chunking-Strategies"
+  },
+  {
+    "id": "1EyHhSUhzJZ5HaXFUg6yDMPN_muv4PCuIQYQ1Ho51RdA",
+    "name": "20251217_Finding_126_Optimizing RAG Chunk Size- Your Definitive Guide to ...",
+    "source_path": "AI-Development/RAG-Systems/Chunking-Strategies",
+    "source_folder_id": "1HyzOUkL4LXlieqVduH9oK86_KiSAlvio",
+    "target_path": "10-AI-Development/RAG-Systems/Chunking-Strategies"
+  },
+  {
+    "id": "1PvQnOA6eHNjtogdsde7qVH6eI_TSV_7DGWzYVZOYJ-8",
+    "name": "20251217_Finding_157_Building AI-Powered Search and RAG with PostgreSQL and Vector ...",
+    "source_path": "AI-Development/RAG-Systems",
+    "source_folder_id": "1yen7kXl_OEaOfLq7xPXCsefEB8XiZS2y",
+    "target_path": "10-AI-Development/RAG-Systems/Chunking-Strategies"
+  },
+  {
+    "id": "1NW1jCs2AFNqBgI_b2bkvw1Zv81BVrUnUwUcKmEImEQE",
+    "name": "20251217_Finding_145_Introduction to evaluation & monitoring RAG applications",
+    "source_path": "AI-Development/RAG-Systems",
+    "source_folder_id": "1yen7kXl_OEaOfLq7xPXCsefEB8XiZS2y",
+    "target_path": "10-AI-Development/RAG-Systems/Chunking-Strategies"
+  },
+  {
+    "id": "1MAmG9yWas-ciC4nGE6dPnThmq5QtcuRgSq8jH4Gtx6w",
+    "name": "20251217_Finding_144_Mastering RAG- How To Observe Your RAG Post-Deployment",
+    "source_path": "AI-Development/RAG-Systems",
+    "source_folder_id": "1yen7kXl_OEaOfLq7xPXCsefEB8XiZS2y",
+    "target_path": "10-AI-Development/RAG-Systems/Chunking-Strategies"
+  },
+  {
+    "id": "1ZlbIDXygUNDNfj1p2WoQu-Pkq77r2j27WBTAnsNVUtE",
+    "name": "20251217_Finding_143_Real-Time Monitoring for RAG Agents- Key Metrics - Newline.co",
+    "source_path": "AI-Development/RAG-Systems",
+    "source_folder_id": "1yen7kXl_OEaOfLq7xPXCsefEB8XiZS2y",
+    "target_path": "10-AI-Development/Agents/Claude-Agent-SDK"
+  },
+  {
+    "id": "1sC7vW6zVqQ8KXyfYPA2aXwmZ5skV4AlmaSjkJua6OWs",
+    "name": "20251217_Finding_142_Optimizing RAG Performance- Key Metrics to Track - Galileo AI",
+    "source_path": "AI-Development/RAG-Systems",
+    "source_folder_id": "1yen7kXl_OEaOfLq7xPXCsefEB8XiZS2y",
+    "target_path": "10-AI-Development/RAG-Systems/Chunking-Strategies"
+  },
+  {
+    "id": "1BGBl4oExi1NfibDHJq8fyDCrW5aPPK1R2NrjiTxpSOA",
+    "name": "20251217_Finding_140_Improving RAG Performance- WTF are Re-Ranking ...",
+    "source_path": "AI-Development/RAG-Systems",
+    "source_folder_id": "1yen7kXl_OEaOfLq7xPXCsefEB8XiZS2y",
+    "target_path": "10-AI-Development/RAG-Systems/Chunking-Strategies"
+  },
+  {
+    "id": "1wqQ6YvtmyBSpYUDmUgcKUPC1jHppEv0DtY1krAHyp1s",
+    "name": "20251217_Finding_105_Uploads and downloads - Cloud Storage",
+    "source_path": "AI-Development/RAG-Systems",
+    "source_folder_id": "1yen7kXl_OEaOfLq7xPXCsefEB8XiZS2y",
+    "target_path": "10-AI-Development/Google-Cloud-APIs/Drive-Storage"
+  },
+  {
+    "id": "1gEYFqDl2NK980XjIw8qyi-4QUzWF-ah4mUGBjO8B2wM",
+    "name": "20251217_Finding_103_Optimize Cloud Storage Upload Performance with Client Libraries",
+    "source_path": "AI-Development/RAG-Systems",
+    "source_folder_id": "1yen7kXl_OEaOfLq7xPXCsefEB8XiZS2y",
+    "target_path": "10-AI-Development/Google-Cloud-APIs/Drive-Storage"
+  },
+  {
+    "id": "16-uOXfusQGg2CqlIfPVPvB9nK4tOsBYaMdN6JIPxzH4",
+    "name": "20251217_Finding_058_Please explain the -IPC Security- paragraph in the Electron tutorial",
+    "source_path": "AI-Development/RAG-Systems",
+    "source_folder_id": "1yen7kXl_OEaOfLq7xPXCsefEB8XiZS2y",
+    "target_path": "11-Software-Tools/Electron/IPC-Communication"
+  },
+  {
+    "id": "1-jYK7dEKxk0SIu4DUB3tJ8u9WQsqOgsoarfjCN4WHKc",
+    "name": "20251217_Finding_031_Building a Server-Sent Events (SSE) MCP Server with FastAPI - Ragie",
+    "source_path": "AI-Development/RAG-Systems",
+    "source_folder_id": "1yen7kXl_OEaOfLq7xPXCsefEB8XiZS2y",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "1E2hmZ-NYtSz4Mc3HRQFuPdCYf1ZBpImboEYD-Jm4by8",
+    "name": "20251217_Finding_160_pgvector-pgvector- Open-source vector similarity search for Postgres",
+    "source_path": "AI-Development/Vector-Databases/Pgvector",
+    "source_folder_id": "1ZEXnEvPNY5UJ4kG_AdSBpD7tVwT-Ps7s",
+    "target_path": "10-AI-Development/Vector-Databases/Pgvector"
+  },
+  {
+    "id": "1b-ZTIrCprKk3m6scxU0LOX1FL6M_KWq_9pctVeK7Mec",
+    "name": "20251217_Finding_159_Vector Similarity Search with PostgreSQL and pgvector - Medium",
+    "source_path": "AI-Development/Vector-Databases/Pgvector",
+    "source_folder_id": "1ZEXnEvPNY5UJ4kG_AdSBpD7tVwT-Ps7s",
+    "target_path": "10-AI-Development/Vector-Databases/Pgvector"
+  },
+  {
+    "id": "1K7O6XOCSFaU874UaECPs_ZIjaNtOzv9UlwQN5qZpNfk",
+    "name": "20251217_Finding_158_pgvector Tutorial- Integrate Vector Search into PostgreSQL",
+    "source_path": "AI-Development/Vector-Databases/Pgvector",
+    "source_folder_id": "1ZEXnEvPNY5UJ4kG_AdSBpD7tVwT-Ps7s",
+    "target_path": "10-AI-Development/Vector-Databases/Pgvector"
+  },
+  {
+    "id": "1puUI2RpkFAK2SFunfvSBMPrJBTL7nXi8Ruc-ADNcKYo",
+    "name": "20251217_Finding_010_Vector Indexes in Postgres using pgvector- IVFFlat vs HNSW - Tembo",
+    "source_path": "AI-Development/Vector-Databases/Pgvector",
+    "source_folder_id": "1ZEXnEvPNY5UJ4kG_AdSBpD7tVwT-Ps7s",
+    "target_path": "10-AI-Development/Vector-Databases/Pgvector"
+  },
+  {
+    "id": "1CcwdU3RRAKOWvjIHS7W3VBC_TODMytnukVCTD4Fu19Y",
+    "name": "20251217_Finding_009_Choosing your Index with PGVector - PIXION Blog",
+    "source_path": "AI-Development/Vector-Databases/Pgvector",
+    "source_folder_id": "1ZEXnEvPNY5UJ4kG_AdSBpD7tVwT-Ps7s",
+    "target_path": "10-AI-Development/Vector-Databases/Pgvector"
+  },
+  {
+    "id": "1jVKd6NW-058Ap9Zp3BjnQDk97H3DAyjkgmX0SLiJ8tY",
+    "name": "20251217_Finding_008_PGVector- HNSW vs IVFFlat — A Comprehensive Study - Medium",
+    "source_path": "AI-Development/Vector-Databases/Pgvector",
+    "source_folder_id": "1ZEXnEvPNY5UJ4kG_AdSBpD7tVwT-Ps7s",
+    "target_path": "10-AI-Development/Vector-Databases/Pgvector"
+  },
+  {
+    "id": "1c45sJy3I8OIXicZEuNDmtsXsqIQEMXUDMN0OkDIvmG8",
+    "name": "20251217_Finding_008_PGVector- HNSW vs IVFFlat  A Comprehensive Study - Medium",
+    "source_path": "AI-Development/Vector-Databases/Pgvector",
+    "source_folder_id": "1ZEXnEvPNY5UJ4kG_AdSBpD7tVwT-Ps7s",
+    "target_path": "10-AI-Development/Vector-Databases/Pgvector"
+  },
+  {
+    "id": "1fnKXo7qHZQtaJw1ZNGl_qNqHJveBNqr0288qqo_wbFU",
+    "name": "20251217_Finding_007_Speed up PostgreSQL® pgvector queries with indexes",
+    "source_path": "AI-Development/Vector-Databases/Pgvector",
+    "source_folder_id": "1ZEXnEvPNY5UJ4kG_AdSBpD7tVwT-Ps7s",
+    "target_path": "10-AI-Development/Vector-Databases/Pgvector"
+  },
+  {
+    "id": "1LxEGekPFq9pf_QikCdCg8o0tGiMH12ck97PBbVfc8CE",
+    "name": "20251217_Finding_007_Speed up PostgreSQL pgvector queries with indexes",
+    "source_path": "AI-Development/Vector-Databases/Pgvector",
+    "source_folder_id": "1ZEXnEvPNY5UJ4kG_AdSBpD7tVwT-Ps7s",
+    "target_path": "10-AI-Development/Vector-Databases/Pgvector"
+  },
+  {
+    "id": "1sxaTrg9P03pBeky--Ao3HrcwQw8I3MGG6NagNO5VVts",
+    "name": "20251217_Finding_006_pgvector v0.5.0- Faster semantic search with HNSW indexes",
+    "source_path": "AI-Development/Vector-Databases/Pgvector",
+    "source_folder_id": "1ZEXnEvPNY5UJ4kG_AdSBpD7tVwT-Ps7s",
+    "target_path": "10-AI-Development/Vector-Databases/Pgvector"
+  },
+  {
+    "id": "1kTUNb3kW9sREGdSRRequEsZQHVkxUvq_3DWnk33nbs4",
+    "name": "20251217_Finding_004_pgvector Tutorial- Integrate Vector Search into PostgreSQL",
+    "source_path": "AI-Development/Vector-Databases/Pgvector",
+    "source_folder_id": "1ZEXnEvPNY5UJ4kG_AdSBpD7tVwT-Ps7s",
+    "target_path": "10-AI-Development/Vector-Databases/Pgvector"
+  },
+  {
+    "id": "1vkFVezks6O8cS3MS9L4LsUG7NCZX97I2WUtI_KE9MXI",
+    "name": "20251217_Finding_003_Build a RAG App With Descope, Supabase & pgvector- Part 1",
+    "source_path": "AI-Development/Vector-Databases/Pgvector",
+    "source_folder_id": "1ZEXnEvPNY5UJ4kG_AdSBpD7tVwT-Ps7s",
+    "target_path": "10-AI-Development/Vector-Databases/Pgvector"
+  },
+  {
+    "id": "1iiLLqshB2ro2ieAczlw2EVlerqtfmeynh--Y9iTCAn4",
+    "name": "20251217_Finding_002_LangChain + Supabase Vector Store (pgvector) - DEV Community",
+    "source_path": "AI-Development/Vector-Databases/Pgvector",
+    "source_folder_id": "1ZEXnEvPNY5UJ4kG_AdSBpD7tVwT-Ps7s",
+    "target_path": "10-AI-Development/Vector-Databases/Pgvector"
+  },
+  {
+    "id": "1gAhamxFcLiyVo96fvIHZmxE9Pp9PO-UwCkDJxgDO_OM",
+    "name": "20251217_Finding_156_Run a vector similarity search - AlloyDB for PostgreSQL",
+    "source_path": "AI-Development/Vector-Databases",
+    "source_folder_id": "1CyPdA2P8L6QX9kgO-zVUPsWlq33kIALH",
+    "target_path": "10-AI-Development/Vector-Databases/Pgvector"
+  },
+  {
+    "id": "1x_ZjC9d03JPxxZou06s9kSxl3CGAZ10xFXAiuiDXF20",
+    "name": "20251217_Finding_165_Webix JS UI Library & Framework - JavaScript UI Widgets for Fast ...",
+    "source_path": "Software-Tools/Uncategorized",
+    "source_folder_id": "1vDXU5KuwMim6Ec8ISFvRsz7dwJ1yEWrC",
+    "target_path": "11-Software-Tools/JavaScript-Libraries/File-Management"
+  },
+  {
+    "id": "1TlMzW9zYlQmYx7AQosCsR-hCOaoR-0L5gNvyQyUr_f4",
+    "name": "20251217_Finding_163_The 38 Best JavaScript Libraries and Frameworks - Kinsta",
+    "source_path": "Software-Tools/Uncategorized",
+    "source_folder_id": "1vDXU5KuwMim6Ec8ISFvRsz7dwJ1yEWrC",
+    "target_path": "11-Software-Tools/JavaScript-Libraries/File-Management"
+  },
+  {
+    "id": "1Sr0ia-vUQB3KgPoRLJ61_uRAuLCviZyi6ZDe5K-AVJs",
+    "name": "20251217_Finding_161_Manage files in the browser in JS - by A-yon - DevGenius.io",
+    "source_path": "Software-Tools/Uncategorized",
+    "source_folder_id": "1vDXU5KuwMim6Ec8ISFvRsz7dwJ1yEWrC",
+    "target_path": "11-Software-Tools/Google-APIs/Drive-API"
+  },
+  {
+    "id": "1_EOA8wIAwMJYBZ3WPYtnaAd5S24zlwyVch9Cqz7yaPE",
+    "name": "20251217_Finding_108_How can I efficiently modify Google Docs content via API-",
+    "source_path": "Software-Tools/Uncategorized",
+    "source_folder_id": "1vDXU5KuwMim6Ec8ISFvRsz7dwJ1yEWrC",
+    "target_path": "11-Software-Tools/Google-APIs/Docs-API"
+  },
+  {
+    "id": "1QkaaWDc3dJjKJWomAl8Ktj8DQDC2qV5OCfb9PwfJJDQ",
+    "name": "20251217_Finding_107_Using Google Docs' API- Steps & Low-Code Examples (2023) - Rowy",
+    "source_path": "Software-Tools/Uncategorized",
+    "source_folder_id": "1vDXU5KuwMim6Ec8ISFvRsz7dwJ1yEWrC",
+    "target_path": "11-Software-Tools/Google-APIs/Docs-API"
+  },
+  {
+    "id": "1FEsmBaTLNAWnMvzq0o6JEhohBazq3fkc0FSazonO5Xk",
+    "name": "20251217_Finding_100_Google Drive large migration best practices",
+    "source_path": "Software-Tools/Uncategorized",
+    "source_folder_id": "1vDXU5KuwMim6Ec8ISFvRsz7dwJ1yEWrC",
+    "target_path": "11-Software-Tools/Google-APIs/Drive-API"
+  },
+  {
+    "id": "1BXvrAMs7WIgJZGJiYBUCdMvXbVOHeGWSa6_HDecIJ2k",
+    "name": "20251217_Finding_097_Batch Processing in the Google Data Protocol",
+    "source_path": "Software-Tools/Uncategorized",
+    "source_folder_id": "1vDXU5KuwMim6Ec8ISFvRsz7dwJ1yEWrC",
+    "target_path": "11-Software-Tools/Google-APIs/Drive-API"
+  },
+  {
+    "id": "1mtIU0R1q571Op2I45W0bHFWbTDVy7mqezy8QgbThUvk",
+    "name": "20251217_Finding_096_Improve performance - Google Drive",
+    "source_path": "Software-Tools/Uncategorized",
+    "source_folder_id": "1vDXU5KuwMim6Ec8ISFvRsz7dwJ1yEWrC",
+    "target_path": "11-Software-Tools/Google-APIs/Drive-API"
+  },
+  {
+    "id": "1yWMk5bqKHAkTbIa4G5yiXS7xxREYsvvMNw-SynoXhcU",
+    "name": "20251217_Finding_095_Quotas and limits - API Keys API Documentation",
+    "source_path": "Software-Tools/Uncategorized",
+    "source_folder_id": "1vDXU5KuwMim6Ec8ISFvRsz7dwJ1yEWrC",
+    "target_path": "11-Software-Tools/Google-APIs/Docs-API"
+  },
+  {
+    "id": "1OXB631nVZPk2KGbjhDVtXAPGKPCrmus7uXA_LX2ilQ8",
+    "name": "20251217_Finding_093_Usage limits - Google Docs",
+    "source_path": "Software-Tools/Uncategorized",
+    "source_folder_id": "1vDXU5KuwMim6Ec8ISFvRsz7dwJ1yEWrC",
+    "target_path": "11-Software-Tools/Google-APIs/Docs-API"
+  },
+  {
+    "id": "1pq3H1Nkq3NN1m49_Qi0eDYUxGJKPCX4xQwBUX7t6NTs",
+    "name": "20251217_Finding_070_Designing an output capturer - Python Discussions",
+    "source_path": "Software-Tools/Uncategorized",
+    "source_folder_id": "1vDXU5KuwMim6Ec8ISFvRsz7dwJ1yEWrC",
+    "target_path": "11-Software-Tools/Python-Development/Subprocess"
+  },
+  {
+    "id": "1wndpRfhmIyYv-9Tc3FPpdq3e_DX_B93KsaezcEaaiGI",
+    "name": "20251217_Finding_068_Parsing a stdout in Python - Stack Overflow",
+    "source_path": "Software-Tools/Uncategorized",
+    "source_folder_id": "1vDXU5KuwMim6Ec8ISFvRsz7dwJ1yEWrC",
+    "target_path": "11-Software-Tools/Python-Development/Subprocess"
+  },
+  {
+    "id": "1Qn3Vce-PaXAYcBwyfGkUBnIosSZ1H5nkh5R-nvUWFEw",
+    "name": "20251217_Finding_057_[Feature Request]- allow to validate IPC before handling it centrally",
+    "source_path": "Software-Tools/Uncategorized",
+    "source_folder_id": "1vDXU5KuwMim6Ec8ISFvRsz7dwJ1yEWrC",
+    "target_path": "11-Software-Tools/Electron/IPC-Communication"
+  },
+  {
+    "id": "1KHtY9veoJ99w6fSFdALYEWp8_9PS5n_sYfkaXnJ0DXk",
+    "name": "20251217_Finding_019_Connect to your database - Supabase Docs",
+    "source_path": "Software-Tools/Uncategorized",
+    "source_folder_id": "1vDXU5KuwMim6Ec8ISFvRsz7dwJ1yEWrC",
+    "target_path": "11-Software-Tools/Google-APIs/Docs-API"
+  },
+  {
+    "id": "1bf2DZPUntB8qG9i4800HFBw_I11J1iH7Y3pjwF8UG6w",
+    "name": "20251217_Finding_013_Token Security and Row Level Security - Supabase Docs",
+    "source_path": "Software-Tools/Uncategorized",
+    "source_folder_id": "1vDXU5KuwMim6Ec8ISFvRsz7dwJ1yEWrC",
+    "target_path": "10-AI-Development/Supabase-AI/Row-Level-Security"
+  },
+  {
+    "id": "178eAv_z042kvuv1ZHjnG2ApkJ0hXMXE5JX6OnWiA2MU",
+    "name": "20251217_Finding_012_row-level security policies in Supabase for a multitenant application",
+    "source_path": "Software-Tools/Uncategorized",
+    "source_folder_id": "1vDXU5KuwMim6Ec8ISFvRsz7dwJ1yEWrC",
+    "target_path": "10-AI-Development/Supabase-AI/Row-Level-Security"
+  },
+  {
+    "id": "1lc-wvyOwDOOO_-DJAsHZXBRSJWWs1ZPAah4NkvTgEtg",
+    "name": "20251217_Finding_011_Implement Row-Level Security Policies in Supabase SQL",
+    "source_path": "Software-Tools/Uncategorized",
+    "source_folder_id": "1vDXU5KuwMim6Ec8ISFvRsz7dwJ1yEWrC",
+    "target_path": "10-AI-Development/Supabase-AI/Row-Level-Security"
+  },
+  {
+    "id": "1VqStjnsNttDZrGM0hl1uN4VNGbqmT1-iwICE4GSFhZA",
+    "name": "20251217_Finding_017_Supabase Connection Scaling- The Essential Guide for FastAPI ...",
+    "source_path": "Software-Tools/Supabase-Tools",
+    "source_folder_id": "187RbdafOWb78aiW68NzbILe79p5kUpfZ",
+    "target_path": "10-AI-Development/Supabase-AI/Connection-Management"
+  },
+  {
+    "id": "11F82Qifo5fscpRV2ygwvW4J5gOrFL6QoWc4sAZU5xbo",
+    "name": "20251217_Finding_053_PEP 787 – Safer subprocess usage using t-strings - peps.python.org",
+    "source_path": "Software-Tools/Python-Development/Security",
+    "source_folder_id": "1Ima9-fAHJQBEJbDgGh-9osAxCZ7_XCSv",
+    "target_path": "11-Software-Tools/Python-Development/Subprocess"
+  },
+  {
+    "id": "1jYtNYJRgx0duYqBGIcs-e0sbKeZMp8i8pTuEL_yICtg",
+    "name": "20251217_Finding_053_PEP 787  Safer subprocess usage using t-strings - peps.python.org",
+    "source_path": "Software-Tools/Python-Development/Security",
+    "source_folder_id": "1Ima9-fAHJQBEJbDgGh-9osAxCZ7_XCSv",
+    "target_path": "11-Software-Tools/Python-Development/Subprocess"
+  },
+  {
+    "id": "1fdptgJBjsQP60Yty7209fkl7BDZpV-r0S6iv7rqUv5M",
+    "name": "20251217_Finding_052_Secure Python Code- safe usage of the subprocess module - Codiga",
+    "source_path": "Software-Tools/Python-Development/Security",
+    "source_folder_id": "1Ima9-fAHJQBEJbDgGh-9osAxCZ7_XCSv",
+    "target_path": "11-Software-Tools/Python-Development/Subprocess"
+  },
+  {
+    "id": "1jhwVFPi0uvCybSz9JE79W9gGhztNYUSaC9Emn4gWzlM",
+    "name": "20251217_Finding_051_Command Injection in Python - Semgrep",
+    "source_path": "Software-Tools/Python-Development/Security",
+    "source_folder_id": "1Ima9-fAHJQBEJbDgGh-9osAxCZ7_XCSv",
+    "target_path": "11-Software-Tools/Python-Development/Security"
+  },
+  {
+    "id": "1lVfsIIEehARkIBPinmdbNuYZ8gNipjI9JkuGalYflNY",
+    "name": "20251217_Finding_155_subprocess — Subprocess management — Python 3.14.2 ...",
+    "source_path": "Software-Tools/Python-Development/Subprocess",
+    "source_folder_id": "1R3FJJwZNu99dLK7BNLVbO1Z91UvliWk3",
+    "target_path": "11-Software-Tools/Python-Development/Subprocess"
+  },
+  {
+    "id": "144Qx9H7SyeX_DFF_YA6y4l_Ksp89x9pntaNpz68HTzY",
+    "name": "20251217_Finding_155_subprocess  Subprocess management  Python 3.14.2 ...",
+    "source_path": "Software-Tools/Python-Development/Subprocess",
+    "source_folder_id": "1R3FJJwZNu99dLK7BNLVbO1Z91UvliWk3",
+    "target_path": "11-Software-Tools/Python-Development/Subprocess"
+  },
+  {
+    "id": "1y9YunaosRf1OMVoSXnMPcEbRi-eG14U9H280hzR-igc",
+    "name": "20251217_Finding_109_How to Create Document Texts with the Google Docs API in Python",
+    "source_path": "Software-Tools/Google-APIs/Docs-API",
+    "source_folder_id": "1IANgmpt01BjVt96qtEcsnkCnBJflMFLY",
+    "target_path": "11-Software-Tools/Google-APIs/Docs-API"
+  },
+  {
+    "id": "1IljILULFAfxuYMlpgQ2oPYec0d1FJDlQbDoJttoh_YI",
+    "name": "20251217_Finding_098_Drive API's Batch requests - { Limezest }",
+    "source_path": "Software-Tools/Google-APIs/Drive-API",
+    "source_folder_id": "15KqUJdJuWviN1X6QzgNpOSEhqQjUzmYE",
+    "target_path": "11-Software-Tools/Google-APIs/Drive-API"
+  },
+  {
+    "id": "1V5c6JsVmp906_WEuHMH9dU_uOMjD9ugMQi47qdn3BSc",
+    "name": "20251217_Finding_091_What is the limit on Google Drive API usage- - Stack Overflow",
+    "source_path": "Software-Tools/Google-APIs/Drive-API",
+    "source_folder_id": "15KqUJdJuWviN1X6QzgNpOSEhqQjUzmYE",
+    "target_path": "11-Software-Tools/Google-APIs/Drive-API"
+  },
+  {
+    "id": "1hqjN5-XaGBsTmnHziO_bG3Nq18vCXJbJZVWLoJM0f1s",
+    "name": "20251217_Finding_099_Batch requests - Google Docs",
+    "source_path": "Software-Tools/Google-APIs",
+    "source_folder_id": "190qRynHfLoM3tRzm5ZxOL3gBobCN-acB",
+    "target_path": "11-Software-Tools/Google-APIs/Docs-API"
+  },
+  {
+    "id": "1YM4fnavPYN7SO6AId2_N_qn4wye8TvOqmy07K28BMVM",
+    "name": "20251217_Finding_094_Google API Quota Limits - Mobility Stream Documentation",
+    "source_path": "Software-Tools/Google-APIs",
+    "source_folder_id": "190qRynHfLoM3tRzm5ZxOL3gBobCN-acB",
+    "target_path": "11-Software-Tools/Google-APIs/Docs-API"
+  },
+  {
+    "id": "1TrYswiFcn2IP63jm_hyXukIiDFyX5GbXAHmNZkxuP-k",
+    "name": "20251217_Finding_056_Penetration Testing of Electron-based Applications - DeepStrike",
+    "source_path": "Software-Tools/Electron/Security-Architecture",
+    "source_folder_id": "1ZKa6AwEoGP2UDoYFB-fAd_FR2eJVHno-",
+    "target_path": "11-Software-Tools/Electron/Security-Architecture"
+  },
+  {
+    "id": "1IQ4Gc5K0gBxEkalP2fEcOw3tncdnkShqLu55aqkFWMw",
+    "name": "20251217_Finding_064_Using Preload Scripts - Electron",
+    "source_path": "Software-Tools/Electron/IPC-Communication",
+    "source_folder_id": "1tIZlepsnA6Ev9k-a3VbPHtuVrWCPWUYS",
+    "target_path": "11-Software-Tools/Electron/IPC-Communication"
+  },
+  {
+    "id": "1vqkcTJxBuxrr7v4xXdvfVMebUjKK4h_l3rvh4-7Vqq0",
+    "name": "20251217_Finding_063_How to use preload.js properly in Electron - Stack Overflow",
+    "source_path": "Software-Tools/Electron/IPC-Communication",
+    "source_folder_id": "1tIZlepsnA6Ev9k-a3VbPHtuVrWCPWUYS",
+    "target_path": "11-Software-Tools/Electron/IPC-Communication"
+  },
+  {
+    "id": "1NOM3XTDkI_sALt1W3RgMS5u22JOh98gTTUgxLmrtMl4",
+    "name": "20251217_Finding_062_Mastering Preload.js in Electron for Seamless Apps",
+    "source_path": "Software-Tools/Electron/IPC-Communication",
+    "source_folder_id": "1tIZlepsnA6Ev9k-a3VbPHtuVrWCPWUYS",
+    "target_path": "11-Software-Tools/Electron/IPC-Communication"
+  },
+  {
+    "id": "1dQdVCKh2aqjIXbYAppUHHp50VmRndSGzg49o_-zg6yE",
+    "name": "20251217_Finding_060_Inter-Process Communication - Electron",
+    "source_path": "Software-Tools/Electron/IPC-Communication",
+    "source_folder_id": "1tIZlepsnA6Ev9k-a3VbPHtuVrWCPWUYS",
+    "target_path": "11-Software-Tools/Electron/IPC-Communication"
+  },
+  {
+    "id": "1mO_7zBBj6fGJRt4gt890sRPYCMuaVYhxP-HEXQ8ojiw",
+    "name": "20251217_Finding_059_IPC in Electron - Ray",
+    "source_path": "Software-Tools/Electron/IPC-Communication",
+    "source_folder_id": "1tIZlepsnA6Ev9k-a3VbPHtuVrWCPWUYS",
+    "target_path": "11-Software-Tools/Electron/IPC-Communication"
+  },
+  {
+    "id": "1Imt7ySLVXUhd-0YI00nKVJXkrysC6iOEfOfpy2SFDcM",
+    "name": "20251217_Finding_150_Correct Architecture for a React based application - r-electronjs",
+    "source_path": "Software-Tools/Electron",
+    "source_folder_id": "1Z013rGfmAq0cajx-owYhZbQC1pESX5wb",
+    "target_path": "11-Software-Tools/JavaScript-Libraries/Frameworks"
+  },
+  {
+    "id": "1x3ABNi5qgeBk8SHhiZUQS9QZxWNkn1y4U9oUTKhjhZ8",
+    "name": "20251217_Finding_149_Electron- Build cross-platform desktop apps with JavaScript, HTML ...",
+    "source_path": "Software-Tools/Electron",
+    "source_folder_id": "1Z013rGfmAq0cajx-owYhZbQC1pESX5wb",
+    "target_path": "11-Software-Tools/Electron/IPC-Communication"
+  },
+  {
+    "id": "1oWFY2RaetjmHzREeGjV2EfSD6bc5-8zOY7I6pfANGHo",
+    "name": "20251217_Finding_148_Plugin Architecture for Electron apps - Part 1 - Beyond Code",
+    "source_path": "Software-Tools/Electron",
+    "source_folder_id": "1Z013rGfmAq0cajx-owYhZbQC1pESX5wb",
+    "target_path": "11-Software-Tools/Electron/IPC-Communication"
+  },
+  {
+    "id": "1JfXY2h67s9Yu0Zts-7IQihy1wBy2lE_asuVSX5_2P3s",
+    "name": "20251217_Finding_147_Building a desktop application with Electron - Medium",
+    "source_path": "Software-Tools/Electron",
+    "source_folder_id": "1Z013rGfmAq0cajx-owYhZbQC1pESX5wb",
+    "target_path": "11-Software-Tools/Electron/IPC-Communication"
+  },
+  {
+    "id": "1Cb1NC8kuMGMUB7cK1bOyRC0jVqCMEF0sHlrECSqlyDk",
+    "name": "20251217_Finding_146_Getting Started with Electron- A Guide To Building Desktop Apps",
+    "source_path": "Software-Tools/Electron",
+    "source_folder_id": "1Z013rGfmAq0cajx-owYhZbQC1pESX5wb",
+    "target_path": "11-Software-Tools/Electron/IPC-Communication"
+  },
+  {
+    "id": "1FDkKaoXGt4kRlsUJPiFUonx4o0KYUaC7AhZaM9vEuMI",
+    "name": "20251217_Finding_069_How to use python within my electron APP - r-electronjs - Reddit",
+    "source_path": "Software-Tools/Electron",
+    "source_folder_id": "1Z013rGfmAq0cajx-owYhZbQC1pESX5wb",
+    "target_path": "11-Software-Tools/Electron/IPC-Communication"
+  },
+  {
+    "id": "1H8Ua2i9C1ib9r15qlmX9vYcZbm97mgeDwU_LHwdsKyk",
+    "name": "20251217_Finding_067_Capturing stdout-stderr of Node-API module running in Electron",
+    "source_path": "Software-Tools/Electron",
+    "source_folder_id": "1Z013rGfmAq0cajx-owYhZbQC1pESX5wb",
+    "target_path": "11-Software-Tools/Electron/IPC-Communication"
+  },
+  {
+    "id": "1rpthPGLqLspvGrY4_hV7yhLiisVsdSVnBcGVSKGntzI",
+    "name": "20251217_Finding_066_ways to build a desktop app with electron and python - Adarsha Regmi",
+    "source_path": "Software-Tools/Electron",
+    "source_folder_id": "1Z013rGfmAq0cajx-owYhZbQC1pESX5wb",
+    "target_path": "11-Software-Tools/Electron/IPC-Communication"
+  },
+  {
+    "id": "1Xj1X0u7D5meNYE4dd6zjFedDv4dUxA0XsepAeoKaTKw",
+    "name": "20251217_Finding_065_Electron - How to Detect When Renderer Window is... — codestudy.net",
+    "source_path": "Software-Tools/Electron",
+    "source_folder_id": "1Z013rGfmAq0cajx-owYhZbQC1pESX5wb",
+    "target_path": "11-Software-Tools/Electron/IPC-Communication"
+  },
+  {
+    "id": "1CUeCwx0W7S9N_j3KRdioJs6P8mJFOBe6sd38vUAd5Vo",
+    "name": "20251217_Finding_065_Electron - How to Detect When Renderer Window is...  codestudy.net",
+    "source_path": "Software-Tools/Electron",
+    "source_folder_id": "1Z013rGfmAq0cajx-owYhZbQC1pESX5wb",
+    "target_path": "11-Software-Tools/Electron/IPC-Communication"
+  },
+  {
+    "id": "15sDAG2YCNb8Ozt_Dbcg_JRG-iK0xNEFEmkWi6qwSde4",
+    "name": "20251217_Finding_061_Getting Started with Electron- A Guide To Building Desktop Apps",
+    "source_path": "Software-Tools/Electron",
+    "source_folder_id": "1Z013rGfmAq0cajx-owYhZbQC1pESX5wb",
+    "target_path": "11-Software-Tools/Electron/IPC-Communication"
+  },
+  {
+    "id": "1Ii57xf7SWdeEGeU5aZrgpetqTlW-oB9NkRJlMuqLwRs",
+    "name": "20251217_Finding_055_Electron as GUI of Python Applications (Updated)",
+    "source_path": "Software-Tools/Electron",
+    "source_folder_id": "1Z013rGfmAq0cajx-owYhZbQC1pESX5wb",
+    "target_path": "11-Software-Tools/Electron/IPC-Communication"
+  },
+  {
+    "id": "1gH4oBJ-uAx3Qv5RcRbqhop2QR1hqMFgiY_w2yv5VGME",
+    "name": "20251217_Finding_054_Security - Electron",
+    "source_path": "Software-Tools/Electron",
+    "source_folder_id": "1Z013rGfmAq0cajx-owYhZbQC1pESX5wb",
+    "target_path": "11-Software-Tools/Electron/Security-Architecture"
+  },
+  {
+    "id": "1zUMLtXcjnRJyGpd_itaFCBPKx6B7Mm8asuaCsXRe0Ds",
+    "name": "20251217_Finding_162_File Browser",
+    "source_path": "Technical-Guides/Uncategorized",
+    "source_folder_id": "10ljPu1uN01qSFh1zn4BxV4VabiE_N-fo",
+    "target_path": "11-Software-Tools/Google-APIs/Drive-API"
+  },
+  {
+    "id": "1DNzDhufR8sO6EceChpVN8_fu8xJEQblEByzg9Lep8vg",
+    "name": "20251217_Finding_115_Step-by-step guide on how to set up Playwright MCP Server in ...",
+    "source_path": "Technical-Guides/Uncategorized",
+    "source_folder_id": "10ljPu1uN01qSFh1zn4BxV4VabiE_N-fo",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "1wQol1ZxDgycz8zdD508QPMOC2Fif3MwDY6kGOZrKClA",
+    "name": "20251217_Finding_114_How to Install Playwright MCP Server in VS Code - YouTube",
+    "source_path": "Technical-Guides/Uncategorized",
+    "source_folder_id": "10ljPu1uN01qSFh1zn4BxV4VabiE_N-fo",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "1AF8LyFAgyUfSvyq8TTV6WGPUFF4TV0xsJUTzj7MYrd0",
+    "name": "20251217_Finding_111_Setting Up MCP Server with Playwright- A Complete Integration Guide",
+    "source_path": "Technical-Guides/Uncategorized",
+    "source_folder_id": "10ljPu1uN01qSFh1zn4BxV4VabiE_N-fo",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "10yLE0X-AZRrKimFN88uWPlHX2Ubyxa5EYvYSM68hrPI",
+    "name": "20251217_Finding_106_Best practices for best results - Google Docs",
+    "source_path": "Technical-Guides/Uncategorized",
+    "source_folder_id": "10ljPu1uN01qSFh1zn4BxV4VabiE_N-fo",
+    "target_path": "11-Software-Tools/Google-APIs/Docs-API"
+  },
+  {
+    "id": "1yl4arfsZ_VPyU2UOCbMnwgdPLQOpc2nAtWZOZbspt64",
+    "name": "20251217_Finding_048_MCP server- A step-by-step guide to building from scratch - Composio",
+    "source_path": "Technical-Guides/Uncategorized",
+    "source_folder_id": "10ljPu1uN01qSFh1zn4BxV4VabiE_N-fo",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "1zdNHc9W-5GdkWK3EGsHs124msut9KvHu5zXL3mAHVBs",
+    "name": "20251217_Finding_046_How to Build an MCP Server in Python- A Complete Guide - Scrapfly",
+    "source_path": "Technical-Guides/Uncategorized",
+    "source_folder_id": "10ljPu1uN01qSFh1zn4BxV4VabiE_N-fo",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "1y0P4cJCHo4lxubIA2nNyHBMR71gAacEdgat_U6ACSJs",
+    "name": "20251217_Finding_029_MCP server- A step-by-step guide to building from scratch",
+    "source_path": "Technical-Guides/Uncategorized",
+    "source_folder_id": "10ljPu1uN01qSFh1zn4BxV4VabiE_N-fo",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "1nQdcB570YyaIobrTCnsYEenVomuQ76XUaPcGqXTw0Eo",
+    "name": "20251217_Finding_016_Supabase MCP Server- A Complete Guide to Setup and Features",
+    "source_path": "Technical-Guides/Uncategorized",
+    "source_folder_id": "10ljPu1uN01qSFh1zn4BxV4VabiE_N-fo",
+    "target_path": "10-AI-Development/MCP-Protocol/MCP-Servers"
+  },
+  {
+    "id": "1eN4-I8Rhl5Y7plzUYwMG5o5RDVeZ_9DDJSrH-5fkh7k",
+    "name": "20251217_Finding_154_A Guide to Python Subprocess - Stackify",
+    "source_path": "Technical-Guides/Python-Guides",
+    "source_folder_id": "1LLEbgYAYLF0SpLP17VDrvPnuB3rHEkzL",
+    "target_path": "11-Software-Tools/Python-Development/Subprocess"
+  },
+  {
+    "id": "14xgcm1kT5hMDSJKewymLVkGAp6If6JB8VcQrnM970_A",
+    "name": "20251217_Finding_110_Documentation Best Practices - styleguide - Google",
+    "source_path": "Technical-Guides/Documentation-Standards",
+    "source_folder_id": "19YX43HKRLrXTGaqCXhDj7XdKrl1x2p-2",
+    "target_path": "12-Technical-Guides/Documentation-Standards"
+  },
+  {
+    "id": "1TZuu50v7yH5XtASqqTk4lYa6iVWls1-dc5OLBxTaCZQ",
+    "name": "20251217_Finding_153_Errors - Node.js v25.2.1 Documentation",
+    "source_path": "Technical-Guides/Node-Documentation",
+    "source_folder_id": "1_-QliWlVIUWkWJhm5FdOPetI3rM_41kz",
+    "target_path": "11-Software-Tools/Google-APIs/Docs-API"
+  },
+  {
+    "id": "1U0o_SUDnK7fwLk0huxnbvwnjN7NhYoq43NAEWPy6kzY",
+    "name": "20251217_Finding_151_Child process - Node.js v25.2.1 Documentation",
+    "source_path": "Technical-Guides/Node-Documentation",
+    "source_folder_id": "1_-QliWlVIUWkWJhm5FdOPetI3rM_41kz",
+    "target_path": "11-Software-Tools/Electron/Python-Integration"
+  },
+  {
+    "id": "1mlxNqcgNPzOnEzn64f1wyonEm3TjqLYk5_dUn7hHG-g",
+    "name": "20251217_Finding_085_How to Write a Technical Specification Document With Examples",
+    "source_path": "QCM-Quality/Documentation",
+    "source_folder_id": "1eaDQTMhG6CPKFaIDiY4_AB-8QQ16dS3W",
+    "target_path": "12-Technical-Guides/Documentation-Standards"
+  }
+]

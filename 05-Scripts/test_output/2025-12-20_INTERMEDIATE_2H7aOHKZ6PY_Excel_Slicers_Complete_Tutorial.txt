@@ -1,0 +1,163 @@
+Title: Excel Slicers, EVERYTHING You Need to Know - includes workbook with step by step instructions
+Channel: MyOnlineTrainingHub
+Video ID: 2H7aOHKZ6PY
+URL: https://www.youtube.com/watch?v=2H7aOHKZ6PY
+Duration: 13:04
+Level: INTERMEDIATE
+Application: Excel
+Topics: Excel Slicers, PivotTables, Excel Tables, Data Filtering, Slicer Formatting, Report Connections, Pivot Cache, Multi-select, Slicer Settings
+Ingested: 2025-12-20
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:02 hi I'm minda Tracy from my online training Hub in this video we're going
+0:05 to get you up and running with Excel slices and once you see them in action
+0:07 you'll wonder how you lived without them
+0:11 now I've created an Excel file that you can download and keep and that's got
+0:13 step-by-step instructions for everything covered here so don't worry if I cover
+0:15 things quickly because I've taken notes for you and you're welcome to share that
+0:19 file with your colleagues too now there's a link under the video where you
+0:21 can download the workbook and I'll put it up at the end of the video as well
+0:25 okay so slices are available for pivot tables in excel20 onwards and they also
+0:27 work with tables from Excel 2013 onwards now slices allow you to quickly
+0:33 and easily filter tables and pivot tables with just the click or click and
+0:36 drag of buttons and they float above the grid they're objects so they're easily
+0:40 movable and aligned and they're not to the cells on your worksheet they
+0:44 visually indicate items that are selected as you can see here and if I
+0:47 select bikes you can see the subcategory now has these grade out buttons which
+0:50 indicates data that's not available for that particular category we've got scroll bars that
+0:56 enable you to scroll through the list and they're inserted by default based on
+1:00 the size of the slicer slices for pivot tables can filter more than one pivot
+1:02 table as you can see here here I've got a pivot table here and one right beside
+1:08 let me zoom out a little bit so you can see it easier so as I select States you can see
+1:14 both pivot tables respond based on the selections that I've made in the slices
+1:18 and also notice that as I continue to filter the slic selections are additive
+1:21 so I can drill down into my data and filter out all the noise that I don't
+1:25 want to see by continually selecting more and more buttons in my slices now
+1:29 with slices for tables first of all you need to format your data in a table so
+1:32 if it's not formatted in a table select a cell in the table range or all of the
+1:36 data and then contrl T will insert the table formatting and now you can apply a
+1:44 slicer to that table so inserting slices is pretty
+1:49 quick and easy and as with most things in Excel there are lots of ways to
+1:52 approach this one option is with the table or pivot table selected on the
+1:56 contextual tab you can see here I've got insert slicer if I'm on a pivot table I
+2:01 also have the contextual tab and you'll see insert slicer but you'll also find insert
+2:08 slicer on the insert tab first of all make sure you've got the pivot table or
+2:12 table selected that you want to insert as slicer four click on the slicer
+2:16 button you get the list of all of the fields and from here we can select
+2:20 multiple slices to insert and then click okay I can move them around I can click
+2:27 and drag the outer edge to resize them and if I choose not to use that slicer
+2:32 with it selected on the Outer Edge I can press the delete key and get rid of them
+2:36 now the other way to insert a slicer that is available in Excel 2013 onwards
+2:42 is in your field list you can right click a field and then add as
+2:47 slicer and that will give you one slicer at a time you can't insert multiple
+2:51 slices with that method I'll delete that one now the great thing about using
+2:55 slices is they're quite intuitive so as you saw we can left click a button we
+3:00 can left click and drag to select multiple contiguous buttons or items we
+3:05 can left click and then hold down control to select noncontiguous items or
+3:10 we can left click hold down shift and then click the last to select a range of
+3:15 items and we have this clear filters button at the top in Excel 2016 we have
+3:21 this multi- select option here and this changes the behavior of the single
+3:25 button click so that each click adds or deselects an item and this is really
+3:30 ideal for touchscreen use in Excel when you're using it on your desktop top it's
+3:35 more intuitive to leave multi select off but that is an option for XL 2016 so
+3:41 let's look at our formatting options for slices with a slicer selected we get the
+3:46 contextual slicer tools Tab and here we can change the caption on the slicer we can access the slicer settings
+3:53 which I'll cover in a moment and Report connections also in a moment we can set
+3:58 our slic style so maybe we want them to be a different color and there's a whole
+4:03 gallery that we can choose from we can even create our own slicer
+4:07 style because these are objects we have the arrange tools so we can align slices
+4:12 if you hold down shift and select multiple slices then you can use the
+4:17 Align tools we can also group them so they're easy to move around as though
+4:22 they're one object I'll undo that so I can make some more changes and show you
+4:27 some more of the setting we can change the number of columns so
+4:32 you can see my year slicer has two columns and I can increase that as I
+4:37 want we can also alter the button height and the width of the slicer
+4:43 buttons we can alter the overall height using the height adjuster and the width
+4:49 or we can just use our pull handles to roughly size them how we want we can cut
+4:54 them and move them so the slicer doesn't have to be on the sheet that your pivot
+4:59 tables on so with the slices selected I can contrl X to cut it out and I could
+5:05 pop it on a completely different sheet I could still use it here if I select 2015
+5:10 and go back to my pivot table you can see my data is now filtered for 2015 so
+5:16 slices are independent of the sheet that the pivot table is actually on so let me
+5:21 pop it back in here we can also hold down alt when
+5:26 we're moving it around and that will snap the slicer to the grid
+5:30 and align it to the cells underneath or if we hold down shift when
+5:36 we move the slicer then it will stay aligned vertically or horizontally
+5:39 depending on the direction you're moving it in another great shortcut is if you want
+5:45 to select all slices with one selected crl a will select them all now crl a
+5:51 will select all objects on your sheet so if you have other charts or images then
+5:57 controller a will select them as well so may not always be suitable but it is a
+7:01 shortcut if you're just working with slices and you might want to select them
+7:05 all and change them all to a particular color in one go now another thing I like to do when
+7:12 I'm producing a report for other users is to set the properties of the slicer
+7:18 so that when you click on it it doesn't activate the pool handles if you click
+7:23 the buttons it's okay but if you miss that button the pull handles on the
+7:27 slicer become activated and it looks like it's in edit mode so to prevent
+7:32 that from happening you can right click and then go into size and properties and
+7:36 then under position and layout select disable resizing and moving you can see
+7:40 the pull handles are now gone I can still work with the slicer but now if I click the outer edge
+7:48 I can't move it it doesn't look like it's in edit mode so let me undo that
+7:52 because I want to show you how to manage the slicer connections so as I said
+7:57 slices can connect to more than one pivot table and that means you can
+8:01 control the filtering on multiple pivot tables with a single slicer to control
+8:06 the pivot tables that that slicer is connected to we can right click on the
+8:10 slicer and then go into report connections if you're using Excel 201010
+8:15 then this will say pivot table connections but it's in the same
+8:18 position in this list so in here I have a list of all the pivot tables in my
+8:21 file and the sheets that they're on and I can check the boxes for the pivot
+8:27 tables that I want this particular slicer to filter so if I wanted it to
+8:31 also filter the slices on the insert slices sheet then I can check those
+8:35 boxes now it's always a good idea to give your pivot tables recognizable
+8:40 names and that will help you identify them when you're working with the BR
+8:43 Port connections so try and avoid the generic pivot table default names if you
+8:48 can an easy way to rename your pivot table is to rightclick on any cell and
+8:54 then go into pivot table options and up here you can pop in a new
+8:59 name you'll also find that on the pivot table tools tab in the pivot table name
+9:04 box up here now if a pivot table isn't in your report connections list and
+9:09 you'd expect it to be then it will suggest that the problem with that pivot
+9:13 table is it doesn't share the same pivot cache as the pivot table that this
+9:18 slicer is connected to so a pivot table cache is created when you insert a pivot
+9:24 table Excel takes a copy of the data and it holds it in memory and that's called
+9:31 the pivot cache in order for a pivot table to share the pivot cache of
+9:36 another pivot table it has to use that same Source data so if you have two
+9:42 different sheets with different data on it and you've created two pivot tables
+9:47 from each of those sheets then those pivot tables won't share the same pivot
+9:51 cache and you can't use one slice to control them the only way to do that is
+9:56 to use power pivot or the data model to create one cache so if your pivot table's not in
+10:06 this list and you'd expect it to be because it shares the same Source data
+10:11 then you'll need to recreate that pivot table that's missing from the list and
+10:15 the way I suggest to do that is to copy an existing pivot table that is in your
+10:20 list of connections and then modify that that will ensure that they share the
+10:25 same pivot cache now in the file that you can download with this video I've
+10:30 got some more information on the pivot cache so you can learn about that now
+10:34 the last thing I want to cover are the slicer settings so let's rightclick the
+10:38 slicer and go into slicer settings here we can change the name for the slicer
+10:43 although that doesn't really have much effect it doesn't it's not visible in
+10:47 the slicer itself the name up here on the slice of header is altered here so
+10:53 we can change the caption or we can remove that header Al together and if I
+10:57 remove that header then the caption the multi selector and the clear filters
+11:00 will be removed so you might want to consider that carefully cuz not being
+11:05 able to remove the filters in one go may be inconvenient if you have lots of
+11:09 items in your slicer the other thing we can do is
+11:14 Alter the sort order and if you want to sort them in a particular order other
+11:19 than alphabetically then you can use a custom list to sort them here we can
+11:22 hide items with no data so let me click okay there you can see my header's gone
+11:29 but if I select an item in this slicer you can see my items with no data are
+11:32 grade out so if I edit my slicer settings for this slicer and choose to hide items with no
+11:39 data then these items will not be in the list let's click okay so now you can see
+11:44 it appears like I only have three subcategories and that's because I
+11:47 filtered bikes if I choose clothing I get a different list back in the slic of
+11:53 settings is one more thing instead of hiding items with no data then the
+11:56 default is to visually indicate items with no data by graying out the buttons
+12:01 and it will show items with no data last this last one here show items deleted
+12:08 from the data source if your Source data changes and say you no longer have a
+12:14 category for bikes by default bikes will still be included in the slicer but it
+12:19 will be gray out because we've got visually indicate items with no data now
+12:24 I personally don't think there's any point in showing items that are deleted
+12:29 from the data source still in the slice I think that's a bit confusing so I like
+12:33 to deselect that and click okay so that is slices in a nutshell have some fun
+12:38 with them I'm sure your users will love how intuitive they are and don't forget
+12:45 to download the workbook it's got the stepbystep instructions in there for you
+12:49 share it with your colleagues and share the slice of love if you enjoyed this
+12:54 video please click the like button and thanks for watching

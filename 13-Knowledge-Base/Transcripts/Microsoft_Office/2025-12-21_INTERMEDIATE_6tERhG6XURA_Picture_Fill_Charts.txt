@@ -1,0 +1,225 @@
+Title: Captivating Excel Charts: Use Stylish Picture Fills to Enhance Data Visualization
+Channel: MyOnlineTrainingHub
+Video ID: 6tERhG6XURA
+URL: https://www.youtube.com/watch?v=6tERhG6XURA
+Duration: 9:00
+Level: INTERMEDIATE
+Application: Microsoft Excel
+Topics: Picture Fill Charts, Stacked Column Charts, Area Charts, Plot Area, Helper Column, Data Labels, Stock Images, Image Formatting, Recolor, Gap Width, Infographics, Data Visualization, Chart Formatting, Microsoft 365
+Ingested: 2025-12-21
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 when building reports it's important
+0:02 that people not only understand what
+0:04 you're saying but also remember it
+0:07 picture fill charts are a simple way to
+0:09 make your data visualizations more
+0:11 captivating and memorable you can create
+0:14 them with column charts or area charts
+0:16 let's take a look this technique is easy
+0:19 to do with area charts but column charts
+0:22 require a bit more wrangling the trick
+0:24 is to use a stacked column chart the
+0:27 image is placed in the plot area and the
+0:30 top series hides the image above the
+0:32 main series that we can see on the
+0:34 bottom the data table here contains the
+0:37 year and member numbers that I want to
+0:39 visualize the helper column contains the
+0:42 dummy series which is calculated by
+0:44 adding 20% to the maximum of the members
+0:48 column minus the current row member
+0:51 number this way the total of the two
+0:53 colums is the same for every year and
+0:57 that makes the height of our columns
+0:58 equal I'm just going to delete that
+1:01 let's select the data and then on the
+1:04 insert tab going to insert a stacked
+1:09 column let's just bring it up here
+1:11 closer to the data and I'll make it a
+1:13 bit bigger the first thing is the year
+1:16 has been interpreted as a series rather
+1:18 than the access labels let's right click
+1:21 and select data to fix
+1:24 it so here with year selected I'm just
+1:27 going to remove it and then I want to
+1:29 edit the horizontal or category access
+1:31 labels and here I'm going to select the
+1:34 year
+1:36 values and that fix those two issues
+1:39 next I want to set the Gap width on the
+1:42 columns so that there's zero Gap width
+1:44 so control one to open the formatting
+1:46 Pane and let me just drag it over from
+1:48 the dock so it's closer to the Chart so
+1:51 we want the Gap width to be
+1:53 zero and then I'm just going to turn off
+1:57 the chart title grid lines and L
+2:00 you can add a title to your chart if you
+2:02 want I'm going to leave it out for the
+2:04 purpose of this
+2:05 example next I want to fill the helper
+2:08 series with the same color as my chart
+2:10 fill so if your chart has a specific
+2:13 fill color then you'd match this top
+2:15 series to that mine is white so we're
+2:18 just going to format them in white and
+2:21 then the bottom columns I'm going to set
+2:24 the fill color to no fill so that when I
+2:26 put my image in we can see it through
+2:28 the columns now the chart appears empty
+2:31 but don't worry it is all there next we
+2:34 need to choose a picture to use but keep
+2:36 in mind that if the picture has a lot
+2:38 going on the reader will be too busy
+2:40 looking at the nice picture instead of
+2:42 reading and interpreting your chart for
+2:45 example I find this one distracting
+2:47 because the light parts of the image
+2:49 above the Horizon are quite different to
+2:51 the Lavender Fields below so instead of
+2:53 drawing your eye to the top of the
+2:55 columns as it should your eye is drawn
+2:57 to the image now I'm going to to use a
+3:00 Microsoft stock image that I can get by
+3:02 the insert tab pictures stock images and
+3:07 these come free with Microsoft 365 if
+3:09 you don't have Microsoft 365 then you
+3:11 can get an image from iock photo or a
+3:14 similar image sharing service I want to
+3:17 find a picture of a
+3:19 meadow and I want this one here so we'll
+3:22 insert that now it is a bit
+3:26 busy and a bit too colorful so I'm going
+3:28 to use the picture formatting tools
+3:30 available on the picture format Tab and
+3:33 then I'm going to recolor it and I could
+3:35 use one of these defaults but I'm going
+3:38 to go in and set my own color and
+3:41 there's one here that I used earlier so
+3:43 I'm just going to go with this lavender
+3:46 color now with my picture ready I'm
+3:48 going to copy it to the clipboard and
+3:49 I'll just move it down here out of the
+3:51 way now you might be tempted to select
+3:54 the columns and then go into the fill
+3:57 and picture or Texture fill and then
+4:00 copy it from my clipboard but what
+4:02 happens is it squishes the whole image
+4:05 into each column and it looks terrible
+4:08 so we don't want that I'm going to
+4:10 contrl Z to undo that instead what I
+4:13 want is the plot area and it's a bit
+4:16 tricky to select sometimes so I'm just
+4:18 going to click the drop down select it
+4:20 from the list here and then under fill I
+4:23 want picture or Texture it's already
+4:26 copied to my clipboard if you haven't
+4:28 copied a picture to your clipboard you
+4:30 can insert it and you can browse to your
+4:33 computer or a local network the stock
+4:35 images which is where I got my picture
+4:37 from online pictures or even
+4:41 icons I've got it already on my
+4:43 clipboard so I'm just going to click
+4:45 clipboard and my image is sitting in the
+4:48 plot area behind my column so there's my
+4:50 top series and my bottom series now I
+4:53 need to hide this section at the top so
+4:55 I'm going to adjust my vertical axis so
+4:58 that it stops at 2,000 instead of 2 and
+5:01 1/2 th000 and that way it's sitting
+5:04 behind the columns now I need to make
+5:07 these look more like columns at the
+5:09 moment it's just one Big Blob so with
+5:11 them selected I'm going to format the
+5:14 outline in white and we just need to
+5:18 make it thicker so we'll give it this 4
+5:19 and 1/2 point and now we have a column
+5:22 chart with an image that spans all of
+5:25 the columns now I'd like to add labels
+5:28 to this chart but the labels won't stand
+5:30 out on the top of this picture and
+5:32 because it's a stacked column chart I
+5:34 can't set the labels to sit above the
+5:36 columns what I can do is I can borrow
+5:39 these columns and put my labels in there
+5:42 so let's go and do that data labels more
+5:46 options and then in here I want no lader
+5:50 lines I don't want the value for the
+5:52 helper column I want to choose value
+5:55 from these cells which is the value for
+5:58 the bottom columns
+6:00 click okay there they are let's sit them
+6:03 inside the base so they're currently
+6:06 sitting inside the base of the helper
+6:08 columns which is also above my main
+6:11 series now that I've got the columns
+6:14 labeled I don't also need to see this
+6:16 vertical axis so let's go down and set
+6:19 the label position to none we also need
+6:23 to go in and put no fill for this line
+6:28 here otherwise it will show Shar and
+6:30 there you have a column chart with an
+6:32 image fill that spans the chart just
+6:35 keep in mind that we've fixed the
+6:37 maximum height for the vertical axis so
+6:39 if these values change you may need to
+6:42 alter that
+6:43 axis area charts can also have a picture
+6:47 fill and it's much easier to set up here
+6:49 I've got Microsoft share prices for the
+6:51 past year now I don't need a helper
+6:53 column for this data so I can just go
+6:55 ahead and insert a regular
+6:58 chart
+7:00 so we want an area
+7:02 chart let's bring it over here and I'll
+7:04 make it a bit bigger to apply the
+7:07 picture simply select the area and then
+7:10 on the fill picture or Texture it's
+7:13 remember the one from my clipboard I'm
+7:15 going to choose a different one so let's
+7:17 go and find a stock image and we'll
+7:20 search for images related to
+7:23 computer now it's important that the
+7:25 image you choose won't be too affected
+7:28 if it's distorted cuz it will be
+7:29 compressed to fit the dimensions of the
+7:31 chart I'm going to choose this one here
+7:34 it's a bit
+7:35 abstract and there you go now if you
+7:38 want to give the area a bit more
+7:40 definition you can add the price series
+7:42 again before I do that I'm just going to
+7:45 go and remove the title and the grid
+7:47 lines and then I'm just going to select
+7:50 all the prices again copied them to my
+7:53 clipboard click on the chart crl V to
+7:56 paste now I want to change the series
+7:59 time type here so in the chart design
+8:01 change chart type this one I want to be
+8:05 a
+8:05 line and click okay so we can leave it
+8:09 Orange it's a bit in your face so let's
+8:12 tone that down we'll make it a solid
+8:15 line and we might set it to this bright
+8:17 blue color and I'll just make the line a
+8:20 bit thinner that just makes the ulations
+8:23 easier to
+8:24 see I hope you found this tutorial
+8:27 useful keep in mind that picture filter
+8:29 charts are suitable for infographics and
+8:31 fun reports but I wouldn't necessarily
+8:34 use them in corporate style reports okay
+8:36 go ahead and download the Excel file
+8:39 containing the completed charts for this
+8:41 lesson from the link here and if you
+8:43 like this video please give it a thumbs
+8:45 up and subscribe to our channel for more
+8:48 and why not share it with your friends
+8:50 who might also find it useful thanks for
+8:53 [Music]
+8:58 watching
+8:59 [Music]

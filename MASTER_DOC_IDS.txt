@@ -1,0 +1,51 @@
+TRAJANUS USA - MASTER DOCUMENT IDs
+Generated: 2025-11-24 12:06:08
+============================================================
+
+MASTER_DOC_IDS = {
+    'Technical_Journal': '1iPZAmi2bYBRmDnsgwZK3UZFCsB_YHj9RvRtKWJqDb2Q',
+    'Personal_Diary': '1HKOisNN8A5rf9YdFJnJSdgH326bdJTun2rDqObNvrM8',
+    'Session_Summary': '1ug6hyU9kE-n369M0lr1ZAElaphfpP3IfNL3duCtnXu0',
+    'Testing_Errors_Log': '1EWpjJs11y-87Qoe5o17cQuRwLaF_3ES9muNySbTr1aY',
+    'Operational_Protocols': '19X1HYAdbENfdX20ovJ-hQs8y7ng6gtRUpGjsOf79g5s',
+    'POV': '1XXmy7ONIIylHyNEq7NGyavf7zbz5SYqeBJXKPsQI6cs',
+    'Code_Repository': '1m7dZk14AEUYm4b_Vmb0Lz32AuRVBhNBwBuXIA3yj1jg',
+    'Website_Development': '1uCKYhOkq6Rg-CIo24cRHMCZp8-PJSD2mXu1QIxC-hq4',
+    'Decisions_Log': '1SOKbNJHFgN3nd7gLSGd5NFW5Ws3AT7KuCN6JK7pEC_Y',
+    'Process_Documentation': '1n1hyNVRm8oZS63ydoVch0qqpmm6EmK2fjn5O02xpyKY',
+}
+
+============================================================
+DOCUMENT URLS:
+============================================================
+
+Technical_Journal:
+  https://docs.google.com/document/d/1iPZAmi2bYBRmDnsgwZK3UZFCsB_YHj9RvRtKWJqDb2Q/edit
+
+Personal_Diary:
+  https://docs.google.com/document/d/1HKOisNN8A5rf9YdFJnJSdgH326bdJTun2rDqObNvrM8/edit
+
+Session_Summary:
+  https://docs.google.com/document/d/1ug6hyU9kE-n369M0lr1ZAElaphfpP3IfNL3duCtnXu0/edit
+
+Testing_Errors_Log:
+  https://docs.google.com/document/d/1EWpjJs11y-87Qoe5o17cQuRwLaF_3ES9muNySbTr1aY/edit
+
+Operational_Protocols:
+  https://docs.google.com/document/d/19X1HYAdbENfdX20ovJ-hQs8y7ng6gtRUpGjsOf79g5s/edit
+
+POV:
+  https://docs.google.com/document/d/1XXmy7ONIIylHyNEq7NGyavf7zbz5SYqeBJXKPsQI6cs/edit
+
+Code_Repository:
+  https://docs.google.com/document/d/1m7dZk14AEUYm4b_Vmb0Lz32AuRVBhNBwBuXIA3yj1jg/edit
+
+Website_Development:
+  https://docs.google.com/document/d/1uCKYhOkq6Rg-CIo24cRHMCZp8-PJSD2mXu1QIxC-hq4/edit
+
+Decisions_Log:
+  https://docs.google.com/document/d/1SOKbNJHFgN3nd7gLSGd5NFW5Ws3AT7KuCN6JK7pEC_Y/edit
+
+Process_Documentation:
+  https://docs.google.com/document/d/1n1hyNVRm8oZS63ydoVch0qqpmm6EmK2fjn5O02xpyKY/edit
+

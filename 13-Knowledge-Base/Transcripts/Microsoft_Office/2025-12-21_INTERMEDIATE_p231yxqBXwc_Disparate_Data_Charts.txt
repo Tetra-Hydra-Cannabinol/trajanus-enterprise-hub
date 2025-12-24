@@ -1,0 +1,151 @@
+Title: Is your line chart lying? 4 ways to correctly chart disparate data.
+Channel: MyOnlineTrainingHub
+Video ID: p231yxqBXwc
+URL: https://www.youtube.com/watch?v=p231yxqBXwc
+Duration: 6:04
+Level: INTERMEDIATE
+Application: Microsoft Excel
+Topics: Logarithmic Scale, Secondary Axis, Panel Charts, Indexed Charts, Data Visualization, Disparate Data, Chart Interpretation, Index Numbers, Data Labels, Chart Comparison, Visual Misleading, Growth Rate Analysis, Revenue vs Profit, Log Scale
+Ingested: 2025-12-21
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 charts enable us to identify Trends
+0:02 patterns and relationships in our data
+0:04 at a glance however they can also
+0:07 mislead Us in this video we're going to
+0:10 look at plotting disparate data in line
+0:12 charts and how they can easily portray
+0:14 the wrong message and we'll look at the
+0:15 options that you have available to
+0:17 ensure you don't mislead your audience
+0:19 when plotting this type of
+0:21 data this line chart plots the trend of
+0:23 revenue and profit over time it looks
+0:26 like revenue is growing faster than
+0:27 profit after all revenue shows a steady
+0:30 incline whereas profits quite flapped
+0:33 presenting a chart like this is going to
+0:35 raise questions like what's eating up
+0:37 all the revenue did our cost of goods
+0:39 sold increase or overheads increase and
+0:42 the answer is neither it's simply a case
+0:45 of Relativity a 10% increase on 2
+0:47 million is always going to be a bigger
+0:49 number than a 10% increase on 200,000
+0:52 and when you plot disparate data that
+0:54 continues to grow over time even at the
+0:57 same rate the gap's going to widen
+1:05 if we set the vertical axis to use a log
+1:07 scale which we can do by selecting the
+1:09 axis control one to open the formatting
+1:12 pane let me drag it over into site and
+1:15 then under access options we can check
+1:18 the box for logarithmic scale and we can
+1:20 see that revenue and profit are actually
+1:22 growing at similar rates using a log
+1:25 scale is one option to prevent line
+1:27 chart lies but some people find these a
+1:30 bit confusing to interpret so let's look
+1:32 at another
+1:39 chart now we can edit the series options
+1:42 to plot the profit on the secondary axis
+1:45 select the line control1 and then under
+1:48 series options secondary
+1:51 AIS now we also need access titles to
+1:54 make it clear so let's add
+1:56 those and there's a load of fapping
+1:59 about while we type them in and we don't
+2:02 need one for the
+2:03 dates Now using a secondary axis in
+2:06 these instances is a popular choice
+2:08 however among data visualization gurus
+2:11 they're discouraged because they're
+2:12 difficult to quickly see which access is
+2:14 for which line the other problem they
+2:17 pose is since they use different scales
+2:20 they can result in an unclear message in
+2:23 this chart the lines for revenue and
+2:24 profit follow a similar upward Trend but
+2:26 we can't compare the actual growth rate
+2:28 of one against the other
+2:30 the uneducated chart reader may even
+2:32 make the incorrect assumption that
+2:34 profit is performing better than Revenue
+2:37 because the profit line ends at a higher
+2:39 Point irrespective of the scales now we
+2:42 humans make Split Second assumptions
+2:44 based on what we see often without even
+2:46 realizing we need to be mindful of this
+2:48 and try to present data in a way that's
+2:51 quick to interpret but also consider any
+2:53 misinformation they might inadvertently
+2:56 convey now a compromise might be to add
+2:59 data label to the end of these lines
+3:01 with the start and end dollar values of
+3:03 the revenue and profit percentage growth
+3:05 but it will start to get a bit cluttered
+3:07 so let's look at some other
+3:14 options panel charts which in their
+3:17 basic form are simply two separate
+3:19 charts as I've got here enable you to
+3:22 clearly see the growth in each series
+3:24 and the separate AIS scales enable
+3:26 quicker interpretation than the
+3:28 secondary AIS charts however there's
+3:30 still a large gap between the lines
+3:32 which makes it difficult to compare them
+3:34 again this could also be aided by adding
+3:36 labels for percentage
+3:43 growth now this chart plots the change
+3:46 in revenue and profit values over time
+3:48 relative to the starting position in
+3:51 2011 these values are known as index
+3:54 numbers and I'll explain more on that in
+3:56 a moment now this chart tells a
+3:58 completely different story to the
+3:59 original line chart here we can clearly
+4:01 see that the growth rate of revenue and
+4:03 profit have followed a fairly similar
+4:05 pattern and in 2022 it's almost the
+4:09 same we calculate the index by saying
+4:13 that in 2011 our base period both
+4:16 revenue and profit were 100 or 100% and
+4:20 from there we calculate the change for
+4:23 each year since 2011 since L D5 we can
+4:26 see that the index revenue is 114 which
+4:29 is the same as saying that the revenue
+4:31 in 2012 is 14% higher than it was in
+4:34 2011 likewise the profit in 2012 is 7%
+4:38 less than it was in 2011 and each
+4:41 subsequent year is also compared to 2011
+4:43 to come up with the index value for that
+4:46 year the formula is simply B4 / B4 and
+4:50 we've absolute referenced the
+4:52 denominator Times by 100 and then we
+4:55 copy it down so D5 contains B5 divid B4
+4:59 and so on you can see here I've also
+5:03 added some labels that explicitly call
+5:05 out the values for the last year and the
+5:08 percentage it is increased over time if
+5:11 we look in the formula by you can see
+5:13 this label is linked to cell
+5:17 j6 likewise for the profit it's linked
+5:21 to sell j7 and those sells simply
+5:23 contain a text
+5:26 formula we could also use these labels
+5:28 on some of the other
+5:31 charts so there you have four different
+5:34 ways you can chart disparate data
+5:36 remember to be mindful that your charts
+5:38 aren't misleading your audience while
+5:40 ensuring they're still quick and easy to
+5:42 interpret I hope you found this tutorial
+5:44 useful you can download the Excel file
+5:47 for this lesson from the link here and
+5:49 if you like this video please give it a
+5:51 thumbs up and subscribe to our channel
+5:53 for more and why not share it with your
+5:55 friends who might also find it useful
+5:57 thanks for watching
+6:02 [Music]

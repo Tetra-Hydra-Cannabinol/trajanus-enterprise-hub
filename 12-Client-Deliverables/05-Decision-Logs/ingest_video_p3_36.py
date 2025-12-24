@@ -1,0 +1,365 @@
+"""
+Ingest Playlist 3 video 36 (TqBYfMxVTc4) - How to Instantly Improve Your Excel Charts [Watch This!]
+"""
+
+import os
+from datetime import datetime
+from supabase import create_client
+
+def load_env():
+    env_path = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\.env'
+    env_vars = {}
+    with open(env_path, 'r', encoding='utf-8-sig') as f:
+        for line in f:
+            line = line.strip()
+            if line and '=' in line and not line.startswith('#'):
+                key, value = line.split('=', 1)
+                env_vars[key.strip()] = value.strip()
+    return env_vars
+
+env = load_env()
+supabase = create_client(env['SUPABASE_URL'], env['SUPABASE_ANON_KEY'])
+
+video_id = 'TqBYfMxVTc4'
+title = "How to Instantly Improve Your Excel Charts [Watch This!]"
+channel = 'MyOnlineTrainingHub'
+duration = '11:15'
+topics = ['Circle Progress Charts', 'Doughnut Charts', 'Pivot Tables', 'Slicers', 'Calculated Fields', 'Secondary Axis', 'SEQUENCE Function', 'Format Painter', 'Text Boxes', 'Thermometer Charts', 'Bullet Charts', 'Data Visualization', 'Chart Formatting', 'Interactive Charts', 'Series Formatting', 'Transparency']
+
+transcript = """0:00 I'll let you in on a secret your charts
+0:03 are boring that's why people aren't
+0:05 reading your
+0:08 reports this is so
+0:13 boring well probably maybe in this video
+0:19 I'll show you a couple of ways you can
+0:20 create Dynamic Circle charts that
+0:22 quickly convey progress in a powerful
+0:24 and interesting way the downside is they
+0:27 do take up a lot of space so I'll also
+0:29 point to some Alternatives that aren't
+0:31 space hogs for this example I'll be
+0:34 using some ratings data for a bike
+0:36 company and the data is stored in a
+0:39 table and we can see it's called table
+0:41 one now I'm going to insert a pivot
+0:44 table onto an existing worksheet I'll
+0:47 just pop it there and the pivot table
+0:49 facilitates the interactivity through
+0:51 slices now if you don't need your charts
+0:53 to be interactive then you can skip this
+0:55 step I want to summarize the ratings by
+0:59 product and and I'm going to right click
+1:01 and add the category as a slicer let's
+1:04 just bring it up here for now the pivot
+1:06 table instead of summing the ratings
+1:08 let's average them so we're going to
+1:09 summarize the values by
+1:11 average and let's go ahead and format
+1:14 the numbers as a percentage with no
+1:16 decimal
+1:17 places now I don't need the grand total
+1:20 so I'll right click and remove that and
+1:22 I'm only going to do charts for each
+1:25 category at a time so if I filter by
+1:27 category you can see each category only
+1:30 has four items now I also need a column
+1:33 for the balance to take me up to 100% so
+1:37 let's go ahead and add that as a new
+1:41 calculated
+1:42 field we'll call the field rating Bal
+1:46 and the formula is 1 minus the rating
+1:50 double click to add it to the formula
+1:52 click add to insert the field and okay
+1:57 and there it is in my pivot table you
+1:59 can leave leave it at sum of that's fine
+2:02 we can actually Tidy Up The Heading
+2:04 let's delete the sum of and notice I've
+2:06 still got a space at the front that's
+2:08 just going to differentiate the header
+2:10 name from the field name it won't let
+2:12 you duplicate the name of the field
+2:15 let's also change this to rating
+2:19 percent and we can just make these
+2:21 columns a little narrower okay next I
+2:24 need some values for the segments and
+2:26 the segments in the chart can represent
+2:28 Milestones they can Aid interpretation
+2:31 or simply draw attention for this
+2:34 example I want 30 equal size segments
+2:37 and this requires another series we'll
+2:40 call it segments and to generate the
+2:42 series I'm going to use the sequence
+2:44 function to return a list of 30 values
+2:47 going to skip the columns argument and
+2:49 start at zero minus a sequence of
+2:53 another 30 rows starting at minus one
+2:57 and this is just going to give me a list
+2:59 of ones so rather than the sequence
+3:01 function incrementing the values that
+3:03 are returned just gives me 31s now if
+3:06 you don't have the sequence function you
+3:08 can simply select 30 cells type a one in
+3:11 control and enter to enter one in each
+3:14 cell now another option instead of the
+3:17 same size segments is you can change the
+3:19 values in each segment to vary their
+3:22 sizes to reflect Milestones with the
+3:24 total adding up to 100 so for example
+3:27 the first segment might be 20% the next
+3:30 30% and then 40 and 10 just keep in mind
+3:34 that if you use this approach you'll
+3:35 also need to add labels to each segment
+3:38 to help people understand what those
+3:40 segments represent I'm going to just
+3:43 create 30 equal siiz segments so we'll
+3:45 leave it at that and to start I'm going
+3:49 to just select the segments and insert
+3:52 under pie chart we've got
+3:54 donut let's bring that over here closer
+3:58 in fact while I'm here I'm just going to
+3:59 to fix the slicer format so that it's
+4:02 four columns wide that's just going to
+4:04 make it horizontal we'll go into the
+4:06 slicer settings and turn off the header
+4:09 and let's just resize it to give them
+4:12 more space all right now I can bring my
+4:14 chart up here now I don't need the
+4:17 legend so let's turn that off next I
+4:20 want to format the segment color so on
+4:22 the format tab I can choose the shape
+4:24 fill or I can control one to open the
+4:27 formatting Pane and that's what I prefer
+4:29 to use so here for the segments I want a
+4:33 solid
+4:34 fill and I'm going to go with this
+4:36 petrol color and then for the Border I
+4:39 want a solid white border and that's
+4:42 just going to allow each segment to
+4:44 appear separate next I'm going to link
+4:47 the chart title to the cell in my pivot
+4:51 table for my first chart so with it
+4:54 selected press enter let's just make
+4:57 this chart a little narrower so so that
+4:59 the chart area is in line with roughly
+5:03 in line with the size of the
+5:06 chart Okay so we've got our segments
+5:09 next I need to add the rating values so
+5:12 with the chart selected I'm going to
+5:14 right click select data and add a series
+5:19 the series name is in this cell and the
+5:21 series values are these two we'll click
+5:24 okay and okay and notice the two series
+5:28 aren't sitting on top of each each other
+5:29 which is what I actually want so I'm
+5:31 going to select one of them and then on
+5:33 the chart design tab we're going to
+5:35 change the chart type and in here we're
+5:37 going to put the helmet series on the
+5:39 secondary axis and that's going to place
+5:41 it on top of the segment Series so click
+5:44 okay now I need to help that series
+5:47 underneath shine through so I'm going to
+5:49 select the top series and to just select
+5:53 the 95% section of the segment I'm going
+5:55 to select it again and then under the
+5:58 fill I want no fill and then for the
+6:01 balance select that separately I want
+6:04 that to be a solid white fill but we're
+6:07 going to make it transparent
+6:10 25% so my chart's coming along let's do
+6:13 some more formatting in order to copy
+6:16 this I want to get rid of the border on
+6:18 the chart shape so no fail for the shape
+6:22 and no outline that's just going to
+6:24 allow the charts to sort of overlap one
+6:26 another and get them closer together
+6:29 let's also format this in keeping with
+6:31 my theme so on the Home tab I'm going to
+6:33 change the font color to match my chart
+6:36 let's give the font a different style
+6:39 and we'll make it a bit bigger so now
+6:41 that I've got my first chart complete I
+6:43 can copy it three times for my other
+6:46 products so close this pane holding down
+6:48 control and shift I'm going to left
+6:50 click and drag to copy it three times
+6:54 and notice that they're quite close to
+6:56 one another and they're actually
+6:57 overlapping but because there's no
+7:00 border and no background they're not
+7:02 covering each other all right now all I
+7:05 need to do is change each charts that's
+7:08 picking up the next product in the pivot
+7:11 table and notice that the formatting
+7:13 gets lost but we'll fix that with a
+7:15 clever trick in a moment all right so
+7:17 there's my three charts let's copy the
+7:20 formatting from this first one so
+7:21 selecting the outer edge of the chart
+7:23 crl C to copy select the next chart just
+7:27 the outer edge paste SP special and then
+7:31 formats let's repeat that for the other
+7:34 ones paste special Now shortcut here is
+7:38 just double click formats that selects
+7:41 it and closes the dialogue box at the
+7:44 same time all right now I need to link
+7:48 my chart titles to my other
+7:52 products and when you copy the
+7:54 formatting it loses the formula that was
+7:57 in the chart title origin orally so we
+7:59 just have to add them back in and as a
+8:02 Finishing Touch let's insert a text box
+8:06 to display the percentage so with the
+8:10 edge of the text box selected let's
+8:12 equals and I can't select the cell in
+8:16 the pivot table cuz you can see it puts
+8:17 in the get pivot data formula and you
+8:20 can't link a formula to a text box so
+8:22 I'm going to click just outside and
+8:24 change that to C4 and let's go ahead and
+8:28 Center that we'll make it much bigger
+8:31 let's change the font first in keeping
+8:34 with my theme I'll make it the same
+8:37 color and then let's change the format
+8:40 so it's got no fill and no outline and
+8:42 then let's left click and drag to copy
+8:44 it across change that one to C5 it'll
+8:47 lose the formatting but don't worry
+8:48 we'll fix that in a moment with our
+8:50 clever trick this one is
+8:54 C6 and the last one is
+8:58 C7 all right let's get the format here
+9:02 so with it selected double click the
+9:04 format painter and then just click on
+9:06 each one and escape to release the
+9:09 format let's make the slicer a bit
+9:12 bigger in keeping with the width of the
+9:14 charts and let's go ahead and give it a
+9:17 color in keeping with my chart colors
+9:20 and now I select different category in
+9:23 the slicer we get a different set of
+9:27 results now I'm just going to right
+9:30 click and go into pivot table options
+9:32 I'm going to turn off autofit so that
+9:35 when I select an item in the slicer my
+9:38 worksheet doesn't jump
+9:40 around and there you have a pretty cool
+9:43 effect interactive Circle progress
+9:47 charts we can also create Circle
+9:49 progress charts without segments using
+9:51 the same data layout and of course we
+9:53 don't need the segment series at all you
+9:56 might like to make the donut size larger
+9:58 so instead of instead of 75% 85 and
+10:01 you'll also notice that for this series
+10:03 that's the remaining balance instead of
+10:06 formatting it in white I formatted it
+10:08 with the same color but given it a 50%
+10:11 transparency as cool as Circle progress
+10:13 charts are they do take up a lot of
+10:15 space and while you can make them
+10:17 smaller sometimes you just can't make
+10:19 them small enough in which case we have
+10:22 some other options here with a simple
+10:24 column chart we can create a thermometer
+10:26 effect the average rating has The Fill
+10:29 color and the balance has no fill giving
+10:33 it that thermometer look and this is a
+10:36 stacked column chart with these we can
+10:38 make them much smaller so they can fit
+10:40 into really tight
+10:42 spaces or if you have qualitative bands
+10:45 a bullet chart might be a better option
+10:48 now there are links to tutorials for
+10:50 both of these charts in the video
+10:52 description I hope you found this
+10:54 tutorial useful you can download the
+10:56 example Excel file from the link here
+10:59 and if you like this video please give
+11:00 it a thumbs up and subscribe to our
+11:02 channel for more and why not share with
+11:05 your friends who might also find it
+11:07 useful thanks for
+11:09 [Music]
+11:14 watching"""
+
+# Save transcript
+archive_dir = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\Knowledge_Archive\Transcripts\Microsoft_Office'
+os.makedirs(archive_dir, exist_ok=True)
+
+header = f"""Title: {title}
+Channel: {channel}
+Video ID: {video_id}
+URL: https://www.youtube.com/watch?v={video_id}
+Duration: {duration}
+Level: INTERMEDIATE
+Application: Microsoft Excel
+Topics: {', '.join(topics)}
+Ingested: {datetime.now().strftime('%Y-%m-%d')}
+Source: Playwright Browser Extraction
+{'='*78}
+
+"""
+
+filename = f"{datetime.now().strftime('%Y-%m-%d')}_INTERMEDIATE_{video_id}_Circle_Progress_Charts.txt"
+filepath = os.path.join(archive_dir, filename)
+
+with open(filepath, 'w', encoding='utf-8') as f:
+    f.write(header + transcript)
+
+print(f'Transcript saved: {filename}')
+
+# Chunk and ingest
+def chunk_text(text, chunk_size=3000):
+    chunks = []
+    current = ''
+    for line in text.split('\n'):
+        if len(current) + len(line) + 1 <= chunk_size:
+            current = current + '\n' + line if current else line
+        else:
+            if current:
+                chunks.append(current.strip())
+            current = line
+    if current.strip():
+        chunks.append(current.strip())
+    return chunks
+
+url = f'https://www.youtube.com/watch?v={video_id}'
+chunks = chunk_text(transcript)
+
+full_metadata = {
+    'channel': channel,
+    'video_id': video_id,
+    'duration': duration,
+    'level': 'INTERMEDIATE',
+    'application': 'Microsoft Excel',
+    'topics': topics,
+    'source': 'YouTube Transcript',
+    'ingested_date': datetime.now().strftime('%Y-%m-%d'),
+    'content_type': 'youtube_tutorial',
+    'category': 'Microsoft_Office'
+}
+
+inserted = 0
+for i, chunk in enumerate(chunks):
+    summary = chunk[:200].replace('\n', ' ').strip()
+    if len(chunk) > 200:
+        summary += '...'
+
+    record = {
+        'url': url,
+        'chunk_number': i + 1,
+        'title': title,
+        'summary': summary,
+        'content': chunk,
+        'metadata': full_metadata
+    }
+
+    try:
+        supabase.table('knowledge_base').insert(record).execute()
+        inserted += 1
+        print(f'  Chunk {i+1}/{len(chunks)} inserted')
+    except Exception as e:
+        print(f'  Error chunk {i+1}: {e}')
+
+print(f'\nTotal: {inserted} chunks inserted to Supabase')

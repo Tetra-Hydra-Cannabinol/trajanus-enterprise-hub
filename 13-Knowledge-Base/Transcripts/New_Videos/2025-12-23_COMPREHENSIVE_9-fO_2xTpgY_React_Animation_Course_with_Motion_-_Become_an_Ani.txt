@@ -1,0 +1,1750 @@
+Title: React Animation Course with Motion - Become an Animations Pro in 1 Hour
+Channel: PedroTech
+Video ID: 9-fO_2xTpgY
+URL: https://www.youtube.com/watch?v=9-fO_2xTpgY
+Duration: 64:11
+Level: COMPREHENSIVE
+Ingested: 2025-12-23
+Source: yt-dlp Auto-Generated Captions
+==============================================================================
+
+WEBVTT
+Kind: captions
+Language: en
+Most people jump into editing animations
+in React with tons of confusion. They
+mix random CSS transitions, copy paste
+snippets from Stack Overflow, or give up
+because nothing feels smooth or
+professional. Or worse, they avoid
+animations entirely because they think
+it's too hard or only for web designers.
+So today, I am going to fix that. In
+this video, I am teaching you everything
+you actually need to know to become an
+animation pro in React using Motion, the
+library powering some of the cleanest,
+smoothest UI animations on the internet.
+We'll cover the essentials, advanced
+patterns, and build real components step
+by step so you can level up your UI
+instantly. Now, quick pause because if
+you're either building sites or apps,
+you might be feeling this. Your cloud
+platform isn't actually keeping up.
+Maybe you've hit limits on
+collaborators, run into surprise bills,
+or wasted time juggling way too many
+services just to keep a single project
+online. It slows you down, and it kills
+momentum. That's where today's sponsor,
+Savala, comes in. It's an all-in-one
+developer platform with zero artificial
+limits, unlimited collaborators,
+unlimited parallel builds, and no
+restrictive tiers forcing you to
+upgrade. Your team scales without pay
+walls getting in the way. Zavala also
+runs on Google Kubernetes Engine across
+25 regions for rock solid reliability.
+That means that your static sites are
+served through Cloudflare's 260 plus
+edge network. So they load instantly
+anywhere in the world. Plus everything
+you need is under one roof. That means
+manage databases, object storage,
+preview environments, and advanced CI/CD
+pipelines, all with simple usage-based
+pricing. So you only pay for what you
+actually use. And because it is backed
+by Kinsta, you're going to get
+enterprisegrade security and real
+developer support at any time you need.
+So if you're interested in checking them
+out, try Savala today with $50 in free
+credit by clicking the link in the
+description. Again, thank you so much
+Savala for sponsoring this video and
+let's get into it. Now, to start things
+off, we need to create our React
+application. So in order to do that,
+we're going to open up our terminal
+inside of a project that I opened up
+inside of VS Code. And I want to run the
+command npx create vit. And I want to
+install uh with the latest version of
+create vit. Now it is going to ask us if
+we want to install the latest version.
+I'm going to press y and it's going to
+ask us for a project name. I'm going to
+put dot so that it creates the project
+inside of the folder that I'm already
+inside of. Then I'm going to select
+react as the framework. I'm going to
+select JavaScript. You can use
+TypeScript. You can use whatever else
+option you want, but I'll choose
+JavaScript to make it inclusive for
+everyone. Then I'll choose no for roll
+down vit and yes to install uh all
+packages and start the website. Now when
+that's done, I'll be back. Perfect. As
+you can see, our project is running on
+the local host 5173. And if I were to
+open up that exact URL, I would see the
+project running. Now, I want to divide
+the screen so that you guys can see what
+we're building while we are building.
+And I think this should be perfectly
+fine. Now the first thing we need to do
+is we need to install the motion
+library. Now like I've said in the
+beginning of this video, motion is kind
+of the same thing as frame motion which
+uh is the most popular animation library
+in the react ecosystem and one of the
+most popular in the JavaScript ecosystem
+as a whole. And it used to be called
+frame motion. There's still framework
+motion as a company. There's a company
+called framer and motion is just now a
+subset of framer motion. and it's the
+animation library. It's the same thing.
+So you don't if you see a tutorial
+saying frame of motion and a tutorial
+saying motion, it's going to be pretty
+much the exact same thing. Now the first
+thing we want to do is we need to
+install the motion package. So I'm going
+to run npm install and I'm going to
+install motion. Now when that's done
+installing, we're going to open up our
+uh app.jsx, which is the entry point of
+our React application. And I'm just
+going to remove everything here. We're
+not going to do uh we're not going to
+deal with any of that. We're going to
+start from absolute scratch so that you
+guys can understand everything. So here
+is our website, right? What we want to
+the first thing you need to understand
+in order to create animations in React
+using motion is that you have to kind of
+restructure your mind around how you
+create different elements in your page.
+So if I wanted to create a div with an
+H1 tag over here in normal React, I
+would do this. I would say div and then
+create an h1 tag that then says
+something like hello world right and
+this is fine now if I want to make this
+exact uh elements be animated by using
+the motion library I have to make a very
+simple change I have to import at the
+top over here the motion uh package from
+motion/react and I need to transform
+each of these uh elements into a motion
+element now to do that you literally
+just come behind the name of the element
+and add the word motion and a dot right
+before it. So you do this both on the uh
+starting uh tag and on the closing tag.
+And you can do it on all elements
+including the ones inside of it as well.
+I can make this into an H1 tag that has
+emotion. Now what does this mean? It
+means that you're basically setting this
+component, this element up for being a
+animated element. So you can't animate
+an element in your page if it doesn't
+have this motion before it. This is not
+only good because uh you're able to uh
+animate the element by using the
+package, but also because it makes it
+super easy for you to know which parts
+of your code is animated and which parts
+aren't because if they are blue, at
+least with my uh theme that I have over
+here or if they have the word motion
+before it, you know it's an animated
+element. Now, I want to explain to you
+guys and start things off with the most
+simple animation we can make. We're
+going to make it such that this hello
+world text over here is going to fade
+into the page. If you look at it right
+now, if I refresh this, absolutely
+nothing happens. There's no animation.
+Nothing happens. Now, to make it such
+that it actually does that, we have to
+set some uh configuration to this
+animation. Now, with the motion library,
+there are a couple configurations that
+you need to always understand. When you
+create an animation, you have to think
+about it this way. An animation has an a
+starting point, an end point, and a
+method of animating. Just like you would
+in CSS, you have to set what the element
+that you're animating is going to look
+like in the beginning of the animation,
+what it's going to look like in the end
+of the animation, and how it's going to
+get from the beginning to the end. So
+like uh fade in is a type of u method.
+Um also the amount of time that it takes
+for that animation to happen, all that
+kind of stuff. Now to do that with
+motion it's very simple. You need to
+pass to define how your animation should
+start. You pass in the initial prop. Now
+this initial prop sets the starting
+animation state. If we want to make this
+look like it's fading in. Think about
+what fading in means. It means that in
+the beginning it's invisible and in the
+end it is visible. So what I can do is I
+can actually set some CSS properties for
+this element at the initial state. And
+if fading in means that you are
+initially invisible, we know that that
+means that the opacity of the element is
+going to be zero. That's what it means.
+So by setting the initial to have an
+opacity of zero, we're setting that in
+the initial part of this animation, it's
+going to be invisible. Now that means
+that if I refresh the page, because we
+we haven't set an end state, you see
+that it technically always is invisible.
+But that's going to change because what
+we can do next is we can put what is
+going to happen at the final stage of
+this animation. Now you might imagine
+you might think that it's called final
+but it's actually a different prop. It's
+the animate prop. And the animate prop
+allows you to define how this element is
+going to look at the end. Now since we
+are going from zero opacity to being
+fully visible, you might expect that at
+the end state this opacity is going to
+be equal to one. Perfect. Now you see
+that it does do that. Now when I refresh
+this, there isn't really much change.
+You see that it does have a small fade
+in effect, which is cool and all.
+However, it's very quick and it's barely
+visible. So what we want to do is we
+want to define how this animation is
+going to play out. That includes a bunch
+of different things. But most
+importantly right now, what we want to
+focus on is how to control how long this
+animation is going to take. And to do
+that, we need to pass the transition
+prop. So the transition prop allows you
+to control this kind of stuff. Now, what
+kind of specific thing does it allow you
+to control? Well, it allows you to give
+a specific duration for this animation.
+Let's try to make it uh I don't know 2
+seconds long so that it's very visible
+for you guys to to see. Well, you put
+this in actual seconds. It's not in
+milliseconds like you might expect
+because of how coding is. You put it in
+seconds. So, if I put two over here,
+it's going to take 2 seconds for this
+animation to work. If I refresh this,
+you see that it does take 2 seconds to
+go from zero to one. If I were to put
+this as 10, it's going to take even more
+time. But if I want to make it um a fair
+value, if I were to put this kind of
+animation in a website, I think
+something in the lines of 0.8 seconds
+actually is the perfect amount of time.
+So, it looks like it's just a fading
+effect that happens quickly, but it's
+definitely visible. Perfect. Now you
+guys understand the very basic of how to
+create an animation in React using
+motion. Now let's uh increase the
+difficulty of this by just a little bit.
+Let's make this animation slightly more
+complex. Now how are we going to do
+that? Well, let's make it such that for
+example uh instead of just fading in uh
+from opacity 0 to one, we actually make
+it such that it has some movement to it.
+And what do I mean by movement? Let's
+there's different ways in which you can
+make this work. You can actually make
+this text slide in from the sides. So,
+make it go from left to right. Or the
+way I like to do it is making it go from
+a little bit higher up to down as if
+it's settling into the page. Now, how do
+you do that? Well, to do that, you have
+to utilize a property here in the
+animation called the position of it.
+Right? Now, you have an XY plan, which
+is the X defines the horizontal
+positioning and the Y defines the uh
+vertical positioning. Now uh it's not as
+it's not exactly how you would imagine
+because in CSS when you define
+positioning as absolute um you tend to
+think about it in the in the sense of
+pixels from the the top left positioning
+here we want to think about uh what the
+position is going to be based on its
+final location which is here right in
+the center of the page right so what
+does that mean if I want to make this
+text uh start over here and then finally
+end up over here if I come here and I
+put a y-value, whatever I put over here
+is going to be the distance from the
+final position um in pixels. So for
+example, if the final position is here,
+which is 50% of the screen, right? And I
+were to put like 100 here, then you
+would get this y position, add 100 to
+it, so it would be around here. And that
+would be the start positioning. The
+final position, we want it to be
+actually where it is right now, right?
+So there's no distance from it. So you
+can put a y equal to zero, which
+basically means that it's going to start
+100 pixels lower than what it's supposed
+to be and it's going to end zero pixels
+lower than what it's supposed to be,
+which means it's going to end up where
+we put the element. If I do this and I
+refresh the page, you see that it does
+do that. Now, I also like to make it go
+from up to down. So all you have to do
+to make that happen is put a negative
+value because then it's going to start
+100 pixels above. So if I refresh this,
+you see that it does that. Now 100
+pixels for me seems like too much. I
+feel like that kind of Yeah, similar to
+the uh duration. I feel like it's
+something that needs to be subtle. So
+instead of 100, let's put something like
+40. And then you see that it looks a lot
+more smooth. Now you can also make it
+from the left to right. So if you use an
+X value over here, you see that if I
+refresh this, it slides in from the
+left. And a lot of people like that kind
+of animations. It just depends on what
+part of your website you are working
+with. Let's start with the Y though. And
+here's how you actually make an
+animation with more than one kind of
+change. Now, you might not notice this
+because this is the first time you're
+working with animation, but the thing is
+this animation actually looks a little
+bit janky. And what I mean by that is
+it's actually not really smooth and we
+want to make it a little bit more
+professional. To do that, we have a
+property in the transition prop over
+here called ease. And ease allows you to
+control how the animation is going to
+accelerate and decelerate over time.
+It's not actually where the animation
+goes because you know that's handled
+with this true props. It's not uh how
+long it takes because we do that with
+the duration. It's just the rhythm of
+the movement of the animation and that's
+super important. Think of it as like a
+shape of the motion of your animation.
+You sometimes might not want to start
+with a full speed instantly and
+sometimes you don't want to end the
+animation very abruptly. Sometimes you
+want to do it like this. You want to
+start the animation slow, get fast in
+the middle of it, and then end slow.
+Now, there's a couple ways you can do
+this, but the main way to do this is you
+pass an ease property over here. Now,
+there's a bunch of options you can put
+here. I'll go over some of them. The
+main one is linear, right? Because
+linear is the uh type that kind of is
+right now. It basically tells the
+animation to move at the exact same
+speed the whole time. And that's what
+makes it look a bit janky. makes it look
+robotic because um you're you
+technically only want to use this if
+you're doing animation for stuff like
+progress animations or like loading bars
+because then it is actually linear but
+for most animations this ends up looking
+robotic. Now again I know it's very
+subtle and you might not be noticing any
+issues here but look what happens when
+we put the is in property. Now what does
+this do? Well it basically tells the
+animation to start slow and end fast.
+So, it's like accelerating from a stop.
+This is great for elements entering on a
+downward or falling type motion, which
+is exactly what we have over here. If I
+refresh this, you'll see that it starts
+low and then it ends fast. It kind of
+looks like it's literally falling on
+gravity. If I remove this, you'll see
+that it's not like that anymore. It's
+actually just normal. Now, by this, it
+makes it a lot better. And I would use
+it only in this kind of situation. Now,
+we kind of have the opposite as well. We
+have the ease out uh animation. And what
+this does is it starts fast and it ends
+slow. It's like breaking to a gentle
+stop. So I would say that this is very
+common. If you're using it for like a
+hero text, like in your website, you
+have a hero section, the first thing
+that appears on your page. You want to
+use this and you want to make it feel
+soft and natural. Here's how it would
+look. It literally starts fast and it
+just ends slowly. It's also good if
+we're doing the opposite of this, which
+is it's going up just like this.
+Perfect. Now finally there is a
+combination of both of them which is the
+ease in out which tells the animation to
+start slow speed up in the middle and
+then slow down again in the end which
+makes it look very cinematic. If I do
+this you'll see start slow go fast slow
+again. Now there's not a lot of space
+here. So actually I'm going to make it a
+bit longer for you guys to see. So start
+slow ends up slow again. And this like I
+said makes it feel cinematic. It's great
+for like page transitions when you're
+opening a modal or when you're doing I
+don't know any kind of fancy stuff. At
+the end of the day, it's up to your pref
+how you prefer it. However, the standard
+is for you to use mostly the ease out
+animation or the isin animation. Now,
+let's talk about hovering and tapping
+interactions. Now, if you have worked
+with CSS in the past, you know that um
+you can set hovering characteristics
+like I just made this button over here.
+Uh I made sure to put the motion in
+front of it so that it becomes animated.
+And because I am in a normal V project,
+it already has some CSS that comes with
+it as you can see. And based on that
+CSS, it made this button that when you
+hover it, it has this blue outline. When
+I tap on it, it does something as well.
+It changes the uh the ring around it.
+Now, if you think about it, an animation
+library in React is just basically a way
+for you to write easier CSS because at
+the end of the day, all of that converts
+into CSS because you can do any kind of
+animation using CSS. It's just a bit too
+complicated. And sometimes you don't
+want to write CSS, you want to focus on
+writing React. And that's what you can
+do with this kind of animation
+libraries, including simple stuff like
+hovering and tapping events. Now, what
+do I mean by that? Well, I can set any
+kind of characteristics to this element
+uh on both hovering and tapping by using
+properties of this motion uh div or this
+motion button over here. For example, if
+I want to make it such that this button
+becomes larger uh when I hover it, I can
+pass in the while hover property. Now,
+what I put in here is I can put the CSS
+that I want to have in effect when I'm
+hovering this uh element. So if I want
+to make it grow 5% bigger when I hover
+it, I can set a scale of 1.05, which all
+it stands for is it becomes 1.05 times
+bigger. Now when I hover it, you see it
+does have that effect. It gets a lot
+bigger. If I make this 1.55, you can
+notice it even more. Right? Now, you can
+do other things as well. You can even
+move this element. I can make it such
+that when I hover it, the yaxis of it is
+gonna actually uh go down two pixels. So
+when I hover it, it's very hard to see,
+but it does move it. If I make it 20, it
+moves up. As you can see, it's kind of
+jumps up. Now, this replaces having to
+put a hover effect on your CSS. And you
+can do the exact same thing, but for
+tapping. So, I'll copy this. I'll paste
+it again. And the tapping event also
+starts with while, but then it's while
+tap. And what you can do is for example,
+usually when you have a button like this
+and you have a I'll make it smaller.
+I'll make it 1.05 and then I'll make
+this two. You see it's kind of smooth.
+Um when you tap, you want to make the
+button be smaller, right? So what I want
+to do is I'll make it such that when I
+tap it, it's going to be 0.9 of its
+original scale. So it's a little bit
+bigger. I tap on it, it gets smaller.
+See? Now the Y direction here, when I
+tap on it, I want it to actually go up.
+This is a classic combination for a
+button. I hover it, it kind of jumps up
+a bit and it becomes a little bit
+bigger. And when I tap on it, it goes a
+little bit down, right? So, as if I'm
+literally tapping on a button on my
+keyboard. Now, this is great. I always
+do this for my buttons cuz it makes it a
+lot smoother. And you can actually even
+specify more of how you want this
+animation to work. For example, remember
+when we were talking about ease and how
+the animation uh the process in which uh
+the animation speed happens can be
+changed and it's linear by default.
+Well, right now this kind of animation
+is linear and we don't want that because
+like I said, what our goal here is to
+make clicking on buttons look like we're
+clicking on a button on an actual
+keyboard. And what happens when you're
+in real world? Well, a keyboard has to
+abide to actual physics. So you can
+change the way in which this transition
+happens and specify the kind of
+animation physics you want to utilize in
+it. Now to do that you have to give a
+type to the transition. And as you can
+see there are a couple types. I'll go
+over some of them. Now the main one is
+the spring type. And basically it means
+that the animation will move like a real
+physical spring. A spring if you don't
+know is just like a like a how do you
+even say that? It's like an elastic
+object that you can like move. You can
+put it under strats. You can press it
+and you and it bounces back. So, it's an
+actual spring. And what that does is
+that it's uh a spring usually overshoots
+how it bounces back. It has that actual
+bounce. And it feels a lot natural. And
+because it's real physics, you don't
+have to set an animation to how long you
+want this animation to work because in
+physics, uh, physics defines that,
+right? So, if I were to hover this or to
+press it, it actually feels more
+realistic. Now, I know all of that is a
+bit difficult to see right off the bat,
+but you you'll be able to get notice of
+that as you move on with your
+animations. And also, because you can
+change a little bit about uh how this
+animation is, for example, a spring is
+just that elastic thing that I talked to
+you guys about that you can press and it
+bounces back. Uh you can actually define
+how stiff or how tight that spring is
+which means that it might make it an
+animation faster, more aggressive or it
+can make it go softer. To do that you
+can pass an stiffness property and the
+stiffness is a value. Uh you can play
+around with the values of stiffness.
+It's a number as you can see. Uh higher
+values will create more sudden movement.
+Uh by default it's at 100. [snorts]
+But if you want to make it, for example,
+very very snappy, you can set it to 300.
+It's quite good for UI buttons. You'll
+see that when I press on it, it's a lot
+more snappy, right? It looks like it's a
+real spring, which is pretty cool. If I
+want to set it to like, if I want to set
+it to like 900, you'll see it's a lot
+more abrupt, right? It does look like a
+spring, but it's it's not like a real
+button. When I set it to something
+lower, like below 100, like 50, then
+it's barely moving cuz then it's a ve
+it's a very small spring that doesn't
+really bounce. So, I think 300 is the
+perfect amount for buttons in your UI.
+Now, there's more that you can do. You
+can also control how quickly the spring
+will settle because springs, they
+obviously bounce, but then they keep
+bouncing because they are a spring and
+then until physics stops them. And the
+name for that is damping. And you can
+set a damping amount, which like I said,
+just controls how quickly it's going to
+settle. And if you put a low damping, it
+means it will bounce a lot. Uh maybe if
+you put low enough, it will never stop
+bouncing after you click on it. If you
+put if you put a high amount, it's going
+to bounce very little. So if you click
+here on damping, you see that for
+damping, the default is 10. If you set
+it to zero, the spring will just
+oscillate forever. Now, let's see how
+that looks. If I put it to zero and I
+press it, you see it will keep bouncing
+forever. Now, to stop that, I'll refresh
+and I'll set it to something uh low but
+like not zero. I'll put it at five.
+You'll see that it'll keep bouncing, but
+then eventually it will stop. If I put
+it at two, it'll keep bouncing and
+eventually it stops, but it takes
+longer. Now, the perfect place for me to
+put this is 15. That's what I think is
+the perfect place for buttons where it
+it bounces just a bit but it doesn't
+make it like uh you know it doesn't
+annoy the person who is using that
+button. It looks realistic. Now one of
+the things I like to do is I like to
+create an animated button on all of my
+animated projects. Now this button is a
+component and the only difference here
+is actually let me just change this is
+the fact that uh it is perfectly
+reusable. Why? Because first of all, if
+I want to change the label of the
+button, I can just uh pass a different
+children here and then it will change it
+down here. That means that I can have
+multiple buttons uh that has the same
+kind of property to it, but um why did I
+write that? Okay, this but they have
+different labels. And the second thing
+is I can actually make it such that the
+animation properties can also be very
+easily changed. So I set a prop here for
+the stiffness and the damping. And I set
+the default values that I like which is
+315 as the default values in the prop.
+But then whenever I want to change this
+for example if I wanted to make this uh
+second button over here have a stiffness
+of I don't know actually I'll put a
+damping of zero. Then this one looks
+like this. But then this one has a
+damping of zero and continues
+infinitely. You know what I mean? So, I
+always recommend making something like
+this so that it makes it easier for you
+to uh just keep making the same
+elements, the same kind of animations,
+but reusing them throughout your
+application. Okay. Now, we're going to
+talk about one of the topics that most
+people when they're learning animation,
+especially using motion as the framework
+they get confused about. And this is
+what differentiates you from uh like
+being just a beginner who understands
+animation and actually leveling up. And
+what I'm talking about is we're going to
+learn about variance and staggered
+animations. Now, what are variance?
+Variance is kind of like a named set of
+animation states. So, you have your
+animation and you have a uh a set of the
+different states of that animation and
+you can apply those to a component and
+also all of their childrens. To test
+this out, you see we have here a feature
+list, right? This component over here.
+All it does is it does one of the things
+that is most common in React which is
+you have a list of some sort of data
+some sort of data. Here we have just
+strings which is some features and we're
+looping through that list by using the
+map function and uh we're doing that in
+an unordered list and rendering a list
+item for each of the features. Right now
+what if I want to have an animation on
+every single children of this list? So
+on every single item of this list, um I
+would want there to be some sort of
+animation. Uh I could obviously import
+the motion class over here, which is
+what I'm going to do. Import motion from
+motion/react.
+And I could, for example, make it such
+that this list item is now a motion.list
+item just like this motion.list item.
+And picture this. Imagine that I want to
+make it such that they fade in the
+simple animation that we've seen before.
+I could set an initial value over here
+for this list item to have an opacity of
+zero. And then I can pass the animate
+which is the final state to have an
+opacity of one. Great. Now if I refresh
+this, you'll see that it does uh fade
+in. I can put a duration here uh through
+the uh transition property and I'll give
+a duration of I don't know 1 second so
+it's more clear. Perfect. But there's an
+issue here. This is a list. And usually
+when you have a list, you don't want it
+to show the entire list at once. If you
+look at every single website that has
+cool animations and they have a list of
+things appearing on the screen in the
+screen, you'll see that each of them
+appear like one by one. It doesn't
+actually appear all at once. It appears
+in a sequential order. For example, this
+is my real website. It's my course
+platform where I have courses on React
+and Nex.js. And if I get to the landing
+page of one of the courses, you see that
+while it's showing the curriculum, it
+actually has this staggered animation
+where it only fades in the next uh part
+of the curriculum when I scroll down to
+it. Now, to do something like that, it's
+actually pretty simple. However, it
+confuses a lot of people. But before we
+actually get to do that, you guys truly
+need to understand how variants work.
+And to actually explain that, I took out
+the same logic we had here where we're
+mapping through this list. And I
+actually wrote them individually. Why
+did I do that? Well, because sometimes
+you're not going to have a list. And
+sometimes you actually are going to have
+elements that are in your own uh
+component that use the same kind of
+animation. However, they're not all
+being mapped in a single u map function.
+So you want to reuse an animation inside
+of the same component without having to
+manually copy this and put it here every
+single time. Now to do this we use a
+variant and a variant what it will do is
+it will unlock a coordination between
+the parent and the children. So in this
+case over here we have a parent which is
+this uh unordered list and we also have
+this children which is the list item. So
+if I were to remove this for now and I
+were to turn this into a list, right, a
+motion list, then there might be some
+parts of the animation that are uh for
+the unordered list and then some parts
+of the animation that are for the actual
+list items inside of it. And maybe they
+need to interact together. Like for
+example, we might have an animation on
+this unordered list that uh takes the
+list from uh the top to the bottom,
+right? Something like this. And then
+when I refresh this, you'll see that it
+goes down to up. But there's also the
+individual animations inside of each of
+these elements. By utilizing variance,
+you're able to control have the parent,
+which is this item, uh control when the
+children will animate. and the children
+just says what animation they want to
+do. This is great for stuff like menus,
+dropdowns, hero sections, lists just
+like the one we have over here and so
+on. Now, I understand if it's a bit
+confusing because it is always confusing
+when it's the first time. However, let's
+start using a variant to make this a lot
+better. To start off, we want to get all
+of this kind of animation that we have
+here and we want to create a container
+for our variant. Usually I like to make
+them outside of the component just
+because I don't want to uh get it
+confusing inside of this component I
+created outside over here. We're going
+to call it container and it's an object
+which is going to contain the um
+information for the entire animation of
+both the parent and the children. So
+we'll start off by passing the following
+value and we do this by giving names for
+each state of our animation. So, we know
+that at the start of this animation, the
+container is going to be hidden because
+it it kind of fades in. And then at the
+end, it's going to be visible. Let's
+start with that. So, I'm going to give
+names to the two different states of the
+animation. The first one is hidden and
+the second one is visible. Now, it's
+important for you to understand this two
+over here are not special keywords for
+motion. They're just labels that you
+give. You can call whatever you want,
+but make it obviously a name that makes
+sense to what your animation is going to
+look like. Now then what I want to do is
+I want to put the actual properties that
+I want to um have in the animation for
+each individual state. For the hidden
+for example I want the items to have an
+opacity of zero. Right? And for the
+visible I want to have the opacity of
+one. But also what you can do which is
+really cool is you can actually pass in
+a transition in here. And there's a
+property inside of the transition object
+called stagger children which is
+especially useful for this kind of
+situations. Now what is this stagger
+children? It basically makes it such
+that when you have this entire
+component, right, this entire animation
+with a parent and a children, the
+container will fade in and then when it
+fades in, it's going to trigger the
+start of the animation for its
+children's. And we can actually put a
+delay in between the time it's going to
+take between what the child is going to
+wait to start the animation when it is
+triggered. So you put a value over here
+in seconds. I'll put 0. I don't know.
+I'll put one actually because I feel
+like that will be more visible for you
+guys to see. And you'll be able to get
+that beautiful cascade effect that I
+showed you guys for my website. Now,
+this is the variant for the container.
+And the container is going to be the
+parent. This over here. Now, what you
+want to do is also create a variant for
+the child. Now, I'm going to call it a
+I'll put it over here. I'm going to call
+item because it's the actual item inside
+of the list. And we want to have the
+same names for the animation states. So
+hidden and visible. Now for the
+individual items, we don't have we don't
+want to like we don't care if it's the
+same exact animation. And here we do
+have the same animation where it says it
+goes from 0 to one. But we can make
+something else. We can also add for
+example make it such that the items go
+from the bottom up. So I'll do that uh Y
+transition where it starts at 20 uh
+below and then it goes to the original
+position at zero. And obviously because
+this is the children, we don't need to
+put this stagger children property that
+only goes to the container. And to apply
+this, we don't need to do all of this
+anymore. We actually can just pass these
+two properties into the parent and the
+children. Now what are the properties?
+Well, the container we're going to pass
+as a variant to the parent and then the
+item we're going to pass as a variant to
+the children. And you'll see that what
+happens now is if I refresh this and
+what you'll notice now is that when I
+refresh this, nothing happens. Why
+didn't it happen? Because how is the
+animation supposed to know which of the
+two states are the initial and the end?
+Right? Now, here's the kicker. This is
+what you need to do. Now in the parent
+you still want to pass the initial prop
+and the um enemy prop but instead of
+actually passing the values now you can
+pass the name of the animation states so
+that you don't always have to pass those
+actual props directly in here. So I can
+say that in both variants the hidden is
+the initial state and the visible is the
+animate state which is the final state.
+You see that now with this, if I refresh
+this, not only it animates in the
+parent, but also every item, every
+children inside of this container will
+have a 1 second delay to trigger the
+animation of the children appearing in.
+And you see how cool this looks, right?
+Starts the first one and then it has
+this beautiful uh staggering. Now, most
+times you don't want to have it 1 second
+cuz that's uh that's to be fair a lot.
+What I like to do is something on the
+range of 0.15 seconds and then it looks
+like this. It's similar to what you guys
+saw on my actual website and it makes it
+look a thousand times better. Now the
+next thing we want to do is we learned
+about this stagger children property and
+obviously as you might understand it
+staggers the children after the parent
+starts animating and the parent is is
+the entire list in itself right [snorts]
+but there's also another property we can
+add called delay children which actually
+adds a delay before any of the children
+starts animating now to use a delay
+children you pass it just like the
+stagger children over here and then I'm
+going to pass say delay children
+property and I'll give a value to it.
+I'm going to give 1 seconds again so
+that it becomes a lot clearer. And what
+this means is it's going to wait 1
+second before the children even starts.
+So what this means is I'll refresh this.
+Nothing happens. Waits 1 second and then
+the actual children start. I'll make
+this five so it's even more clear.
+Refresh. Nothing appears. Wait 5 seconds
+and then the children will appear.
+Perfect. So why like what is this useful
+for? Obviously, it's all useful for
+lists. But specifically, the delayed
+children is very useful for situations
+like this, like if you have an
+onboarding UI you have for your website.
+If you have any walkthroughs, timelines,
+lists like I had on my website, any I
+don't know, dashboards, card steps, all
+that kind of stuff that you might have
+on your website. This is a great use
+case. Now, it's time for us to get into
+the really fun stuff. And of course, I'm
+talking about animating items to be
+dragged around and played with inside of
+your website. Now, what do I mean by
+that? You have all heard of drag and
+drop. Obviously, there are several
+websites that use drag and drop
+functionality for a variety of different
+reasons. A lot of times is for uploading
+images. A lot of times is if you have
+like a Trello type website, you utilize
+it in order to drag and drop items into
+different boards uh and stuff like that,
+right? You have a lot of use cases. Now
+what I want to do is I want to be able
+to have this um div over here in my
+screen. I created an extra component
+called dragable cord. You can check in
+the code in the description. And I also
+made one thing. I made it such that
+there is a class name on it. This one
+doesn't really matter but the one at the
+bottom definitely does the card one. I
+added this CSS over here. Very simple.
+CSS just makes a rectangle and it has
+the little cursor that changes into the
+grabbing one. Now, what I want to be
+able to do is I want to be able to allow
+ourselves to grab this item and move it
+around. How do I do that? Well, right
+off the bat, uh, we already have the div
+being a motion div because, of course,
+everything that is animated in motion is
+going to have a motion inside of it. But
+to actually allow it to drag, it's super
+simple. All I have to do is I just have
+to set the property drag equal to true.
+That's all I have to do. And yeah, I can
+drag this. It's as easy as that. I can
+throw it out of the window. I can bring
+it down and then lose it. I can do
+whatever I want. Uh, obviously there's
+some physics to it, like how fast you
+move it matters. How fast you drop it
+matters. If I want to just throw it out,
+I can just do that and then it flies
+out. But you can obviously specify all
+of that. Most importantly, if you're
+working with drag and drop, 99% of the
+time, there's constraints that you want
+to put so that, for example, this
+doesn't happen. You don't want to lose
+items in your page. Right now, to do
+that, it's pretty pretty simple. The
+first thing you need to put is a
+property called drag constraints. And
+what are drag constraints? Well, this
+defines the boundaries of the card of
+where it's allowed to move. So, this
+allows us to pass an object that has a
+property for the left boundary, the
+right boundary, the top, and the bottom.
+Now, I also didn't put any values to it,
+so it's going to break, but I actually
+was hoping I can just do this so you
+guys can see it better. But I have to
+put the values first. Okay, let's
+imagine I want to create a I only want
+to allow ourselves to drag the item.
+I'll even remove this for now. I only
+want to allow ourselves to move the item
+80 pixels to the left. So, what I do is
+I set the drag constraint for left to be
+negative 80 pixels or negative 80. Why
+do I do negative? Well, because since
+it's the left, it is negative. Same
+thing with uh top, right? Top is
+negative, bottom is positive, right is
+positive because it starts from the top
+left. That's how you should think of
+this. um this graph that is your your
+page right and as you can see this does
+happen if I try to move 80 pixels more
+it doesn't allow it bounces back right
+uh I can move everywhere I want on the
+right on the top but on the left 80
+pixels it doesn't allow me to now to
+define 80 pixels on the right I can just
+give right and then say 80 and then same
+thing will happen now I can't move 80 to
+the left and I can't move 80 to the
+right I can still move up and down now
+I'll make the up and down be around the
+same. I'll make the top begative 80 cuz
+it's top and the bottom be 80 cuz it's
+bottom. Now I can move it around in here
+but there's a clear block in which I
+can't move this thing around. So we we
+successfully defined the constraints of
+this drag. Now let me just make the top
+and bottom slightly less just cuz I want
+to have more space to be able to test
+some other stuff. So I can move a little
+bit more. Actually this made it a little
+bit less. Let me make it more. Let me
+make it um I don't know actually I'll
+make the top and bottom bad but I'll
+make this be like 130. And then this
+I'll make 130 as well. So we can move
+more to the left and right. Perfect. Now
+I want to actually change how stretchy
+this drag feels because I can stretch
+very far away when I hit the boundaries.
+Right. I said I couldn't go past this
+but I am really passing this. It does
+come back but I am passing. So this
+property which is the stretchiness is
+actually named the drag elastic and it
+allows you to define the amount of
+elasticity that your drag is going to
+have. So when you pass here a drag
+elastic you're able to pass in a value
+between zero and one. Zero being there's
+no elasticity. And you'll notice
+immediately see I can't drag past this.
+Uh it stops right at where the boundary
+is. And one means the most elastic. So,
+it's almost like a rubber band if you
+have it right. You can pull it out. It
+feels like there's no boundary, but it
+does have a boundary. It does bounce
+back. Now, I personally like to keep it
+at around 0.2 just because I feel like
+that gives a tiny bit of elasticity and
+it feels responsive, but not like it's a
+cartoon like thing. You know, you can't
+move all the way there, but it also
+doesn't stop immediately and feels kind
+of sketchy. So, this is perfect. Now,
+this is pretty much everything you need
+to understand about dragging. Um, a lot
+of people assume it's going to be hard,
+but to be honest, just define your
+constraints, allow drag to happen, and
+you can specify your drag elasticity.
+And that's pretty much it. Now, the next
+thing we want to learn is about how to
+actually define when your animation is
+going to start based on when it when you
+want it to appear. So, you can have a
+bunch of elements in your page, but
+sometimes those elements are not
+visible. And to be honest, you don't
+want the animation to start at a part of
+your page that you're not really looking
+at. You only want it to start if you see
+it, right? Also, you can choose when the
+animation is going to mount or unmount.
+And you can can conditionally render
+that animation depending on whatever
+functionality or properties you want to
+define. Now, to understand that, I
+created this component over here. It's
+called dismissible alert, and it's a
+pretty simple component. It already has
+some small animations with things that
+we've learned so far. Um, and all it
+does is it has this button which when
+you click it shows uh part like a a div
+with some alert like uh CSS. It's just
+red and it says that this is an animated
+alert as if you were getting like an
+error snack bar at the top. It's just to
+show that you can show it uh and it when
+I when I when it mounts right when I
+show it by clicking the toggle alert it
+has a small fade in animation appearing.
+But one thing you might have noticed is
+that when I unmount it by clicking the
+toggle alert again, it just disappears.
+Why does it disappear? Well, because
+that's how React works, right? When you
+unmount a component, it instantly
+disappears from the screen and the
+animation won't trigger. And that's kind
+of bad because when you want something
+to disappear, when you want a div to
+disappear, you want there to be an
+animation to it as well, like an exit
+animation. And to do that, you can
+actually do it pretty simply by
+utilizing a component that exists in
+motion called the animate presence
+component. This component allows you to
+animate items, when they appear, when
+they exit, and you can even specify when
+you want to wait for an exit animation
+before actually removing it from the
+DOM. Now, we've learned about the first
+two state controls for your animation.
+The initial state, the animate state,
+but we never talked about how you can
+actually animate an item exiting from
+your DOM. To do that, you pass in the
+exit uh state control. Now, imagine that
+we want to do kind of something like
+this. We want to go back to what it was
+before. If the initial state has the
+item being 10 pixels lower and being
+invisible, then it becomes visible and
+being at its original position. When it
+exits, I want to go back to where it was
+at its initial state. Now, you see, even
+though we put that, it doesn't work. It
+still is instantly removed. Now, the
+reason for that is because we have to
+use that component called animate
+presence. So, I'm going to pass here
+animate presence and I'm going to wrap
+around this uh conditional rendered
+conditionally rendered uh motion div
+with the animate presence component. And
+you'll notice that now if I were to
+toggle this out, it has that fade out
+animation just like it has the fade in.
+Now, you can do some more with this. You
+can specify some more things. For
+example, you can set a mode to this
+animate presence. If you click here,
+you'll see that there are um three
+different options for mode. There is
+sync, pop layout, and weight. Now, what
+do they mean? Well, sync is the default
+one, and it just says that elements
+animate in and out as soon as they are
+added or removed. Now, the one I want to
+show you guys more is this wait because
+it basically tells it such that upcoming
+elements have to wait for the previous
+elements exit animation to finish for a
+perfect animation sequence. Now, for an
+animation like ours, the sync is
+perfectly fine. It doesn't need anything
+else. But check this out. This other
+component, which I think would benefit
+from having the the weight mode. So,
+picture this component. This is a
+component that shows, for example, two
+animations that are in sequence from
+each other. I called it step switcher.
+But imagine it being like this. You're
+having a tutorial on your website.
+There's a you launch a new feature and
+you have a tutorial where it goes from
+one state to the other and there's
+animations when going from one state to
+the other. So you could do something
+like this, right? You have a button
+where you can toggle the step of this
+animation. This is step one. And then
+when I click it, you see it goes to step
+two. And then I can click it and it goes
+back to step one because in this case
+it's only two steps and it goes
+circular, right? But as you can see, I
+set the animate presence mode to be
+weight. Why did I do that? Because if we
+don't and we have this sequence of
+animations, right, where it's like the
+first animation over here and then the
+second animation, if we don't put that
+and it's in sync, what's going to happen
+is both animations are going to overlap
+and look messy. So, let's see this
+because remember this is the first card
+and it has an exit animation, but the
+second card also has an like an an
+animation that is when it fades in. So,
+we don't want both of them to happen at
+the same time. And that's the issue
+here. Here, if I toggle step, you'll see
+that both of them are going to happen at
+the same time. By putting the wait,
+you're basically saying wait for the
+step one animation to fade out first and
+only when it's done, we're going to
+start the animation for step two, so
+that they don't actually overlap like
+they were before. So, this is a very
+specific case, but it's important for
+you to understand or else it will look
+very messy as you can see um in the case
+in which this has an animation of sync,
+which is the default one. Right now the
+last one which is the pop layout one. I
+think it's it's kind of like I've never
+used it before. So it's it's a very
+minimal use case. However, you can see
+over here it basically makes it such
+that when you have an element that is
+exiting h they are kind of like popped
+from your layout which makes it such
+that if you have siblings right next to
+it so multiple steps appear at the same
+time they will have a more smoother
+animation. Now, we're going to learn
+about another super important topic,
+which is layout animations. And this is
+one of the coolest parts of motion
+because a lot of times you don't want to
+be manually writing the initial and end
+states for your animation. And having
+some sort of automatic animation feels
+like legit magic when you're building
+your app. So, what is this? What is this
+automagic uh called layout animations?
+Well, motion has this prop that you can
+add to your motion divs and motion
+elements called layout. And what it does
+is it basically becomes aware of the
+element size, its position, and how
+those things are going to change over
+time. So, it tries to infer what kind of
+animation you want to put uh based on
+that. So, it automatically animates
+between the previous layout and the new
+one when it actually changes. Now, this
+is amazing because it's basically
+motion's built-in version of like when
+you don't want to have to manually write
+your components and animate them. It
+does it automatically for you. So, we
+have here an example of this component
+called com collapsible list. It's a very
+simple component. It has a list of three
+items as you can see over here. And it
+in each item when I click on it, it
+actually expands the item and it shows
+the section, right? So, I can expand
+each section and it shows this little
+text inside of it. You've seen stuff
+like this multiple times in multiple
+websites. But, as you can see, when I
+expand it, it's very not nice, right?
+It's not smooth at all. It's instant.
+And I could obviously change the sizing,
+the the duration of of it going from one
+state to the other. But I don't want to
+do any of that. What I want to do
+instead is because when you apply that
+layout item in here, motion will
+automatically detect its size and will
+detect that it changed in size. Here's
+what's going to happen by adding that
+and clicking this as it expands. It
+actually adds in a cool smooth animation
+to the entire layout because of that. So
+this animation with the layout is going
+to be triggered when either the element
+grows or shrinks when it appears or
+disappears or where an element moves
+because something like its children's
+have uh changed around it. And it makes
+it such that it's super easy for us to
+add smooth animations like this without
+having to worry about the exact values
+we want to pass. So honestly a lot of
+times you can just slap the layout
+property onto your motion div, see how
+it looks. If it looks like you wanted it
+to look, then you don't have to worry
+about anything else. You just let it
+like that. Now, if you want to have more
+granular control over how the animation
+is, then don't use the layout and use uh
+the animate and the um initial props
+that we've talked about before. Now, we
+only apply the layout to the outer div
+as you can see over here. But we can
+also pass a layout to the children,
+which is the collapsible part over here.
+I can add a layout here. And what this
+means is that now when I expand this
+there is an inner animation inside of it
+as well. Uh so when it appears the
+parent will grow smoothly to match it.
+Also when it disappears the parent will
+shrink smoothly as well. Also any other
+element in this animation will try to
+have the cleanest transition possible.
+Now there's some things that I think are
+a bit bad. Like you'll see obviously
+this becomes kind of jarring and when I
+do that it becomes too big. I don't
+know. Sometimes the text appears from
+the right, but that's because it's
+trying its best. Now, like I said, if
+you want to control that kind of stuff,
+don't use layout. But if you want to
+make your life easier, you can use it as
+well. Now, before we move forward, there
+are a couple different properties that
+you're going to be seeing and using a
+lot. However, I couldn't really fit in
+any of the topics that we've learned
+before. So, I want to quickly just give
+you guys a real life example of when you
+might want to use them. And what I'm
+talking about is animations that are
+infinite or they repeat in one way or
+another. To explain that, I created this
+component over here called live badge.
+It's like a live badge. As if I know
+some of you guys might know I'm a
+software engineer for Twitch. So it's a
+live stream website. And we have
+something like this where it indicates a
+user is live. And it has this little
+pulsing animation over here. As you can
+see, every time I refresh the page, it
+pulses. And that's good because it it
+helps like give the feeling to the user
+that whoever is streaming right now is
+live. Now, you want this to actually be
+running forever, not just the first time
+the user sees it. You want this pulsing
+animation, which by the way, the way I
+made it was I just made the scale of the
+item be 1, then 1.15, then one. If
+you're not familiar with scale and the
+animate, you can actually put an array
+of values and it will move through
+those. For example, I could come here
+and I could make this be four and then
+make it be 1.2 and then make it be one.
+And then look how the animation goes,
+right? It's a sequence of how big and
+small you want the item to be until the
+end where it goes back to one. Now, what
+I want to happen is I want to keep it
+like this. So, it just grows slightly
+and then it goes back to its size. And I
+want to make it such that it will repeat
+infinitely. Now, how do I do that? Well,
+to do that, you can do it very easily
+actually. First of all, in the
+transition properties over here, there
+is a property called repeat. And this
+value here for repeat, it requires a
+number. This is the number of times you
+want to repeat the transition. So if I
+want to put it as like four, you'll see
+that when I refresh this, it's going to
+pulse once, pulse twice, three times,
+four times, and then stop. You repeat it
+four times. The first one isn't the
+isn't counted. I can put like a huge
+number here, and it will look like it's
+infinite. However, that's not good. What
+you can pass instead is literally
+infinity. And infinity will make it so
+that it poses for an infinite amount of
+time. Now, you can also do the animation
+in a couple different ways. You can
+actually put a repeat type. And a repeat
+type is actually you can either make the
+animation in a loop, in a mirror, or in
+reverse. Reverse basically means it's
+going to pulse backwards. So, as you can
+see, it's kind of hard to see, but it's
+pulsing in a reverse order from what it
+was before. Now, if I put here as
+mirror, you'll see that it's kind of
+hard to see, but it kind of switches the
+initial and end states alternatively.
+So, it would be kind of like it's going
+from forward to reverse to reverse to
+forward. Now, I'll keep it as reverse
+cuz I think it looks kind of cool. And
+you can even put a delay on the repeat
+so that it waits a bit longer between
+each pulse. If you put like a repeat
+delay of one, you'll see that when I
+refresh this, it does one, waits one
+second, repeats again, waits 1 second,
+repeats again. With stuff like this, I
+think it's good just because you don't
+want to be pulsing forever. You can even
+put a repeat delay of 5 seconds and then
+it pulses one, waits 5 seconds, and then
+obviously then it pulses again just to
+grab the attention of the user. So, this
+is infinite animations. It's really
+quick. Just wanted to add it in here
+before we move on to a little bit more
+complicated topics. And yeah, that's
+basically it. Now I want to explain the
+final topic which is how to animate
+transitions in between one page to the
+other. I've made a video about this I
+think 3 years ago or even more to be
+honest and it it did pretty well back
+then. I remember being super excited but
+that was so long ago and a lot has
+changed and I wanted to include it in
+this video because it seemed like a lot
+of you guys loved it. Now what I'm
+talking about is transitioning between
+when you change a route to the other. So
+to do that you need to have a routing
+library installed. Now, if you're using
+React without Nex.js, for example, you
+have to install that library, and we are
+going to do that. We're going to be
+using React Router as our library of
+choice. Now, I've installed it, and I
+need to set it up. So, to set up React
+Router, I'll come here to our app.jsx
+where we were showing all of our
+previous components. And this isn't
+really a tutorial for React Router. So,
+I'm going to go a little bit faster
+here. But to set up some routes in your
+page, you're just going to import from
+React Router the browser router
+component, the routes component, the
+route component, and the link component.
+Then we'll come down here and I'll
+replace this with the browser router.
+Then just for styling purposes, I'm
+going to define here a div, and I'm
+going to give it a class name of app.
+Then inside of this div, we're going to
+actually create a simple navbar which is
+going to have a div with some links.
+Each the link will just take you to a
+different page. Right? That's what it's
+supposed to be. And for this project,
+we're just going to have three different
+pages. We're going to have a homepage.
+We're going to have a about page and a
+contact page. I'm not going to show
+myself writing them just because we are
+only focused on the transition, but I'll
+create them. And then I'll put here the
+path to each of them. So the homepage
+will be the initial URL. The about page
+is going to be the about routes and then
+the contact page is going to be the
+contact route. Now I am using some CSS
+here just to make it look better. I'll
+show you guys the CSS but the class name
+is going to be nav. Then this class name
+is going to be nav links. Perfect. Now
+to make it simple, I'm actually going to
+create the different components for the
+different routes inside of this file.
+I'm not going to get out of this file. I
+know it's just so that I can keep
+everything as simple as possible. I'm
+also going to comment all of this out.
+Now, the way I'm going to do this is
+I'll create here, for example, the
+homepage component. This is what the
+page is going to show. And I'm going to
+return something simple. I'm going to
+return here a an H2 tag that says home
+and just a paragraph that says welcome.
+Switch between pages to see the
+transition. Then I want to copy this
+homepage and paste it two more times.
+We're going to make the about page and
+then this will change to about. And then
+I'll make this be the contact page and
+this will change to contact. Perfect. So
+we have the three different pages. Now
+in order for us to make those the
+switching in between those routes
+actually happen, I want to first just
+paste all of the CSS so that it just
+looks a little bit better. It doesn't
+really change the animation. It's just
+going to look better. So I'm going to go
+here to our app.c CSS and I've been
+adding CSS to this file which you guys
+can get if you want to have the same
+kind of animations that I've had with
+the same kind of styles. But I'm going
+to add some stuff to here to make it
+such that it applies the styles that we
+have. Perfect. As you can see over here,
+I added a bunch of CSS that are related
+to this page and I created this
+beautiful website. Now, nothing happens
+when I go to the different routes, but
+we'll see that happening soon. So the
+next thing we need to do in order to
+make the pages have a transition is I
+actually want to create a separate
+component which is going to be the
+component that handles those those
+transitions. So I'm going to create here
+the animated routes component and I'm
+going to call that component in right
+below our nav because that's where we
+want to show the routes. Now the
+animated routes component is where it's
+going to contain the logic for showing
+those routes. So we're going to have
+this routes component over here which
+defines the different routes and we're
+going to define each route by using the
+route component that we imported at the
+top. Now first we want to show the route
+with the path empty slash which is the
+route for the homepage. So we're going
+to render here the homepage. Now we're
+going to render this as well and we're
+going to show the other two the about
+page and the contact page. and change
+this to say about and then change this
+to say context. Now, so far so good.
+Everything seems to be just like you
+would in a normal uh React router
+project. I can move between the pages
+and all the routes now show up. Now, how
+do I animate this? Well, the first thing
+we need to do is because we are
+animating something in and out. Remember
+what we have to do? We have to use the
+animate presence component. So, animate
+presence component. and I'm going to
+wrap all of our routes around with it.
+Now, this animate presence component.
+Now, like we've learned before, the best
+scenario for here for this animate
+process presence component is to pass a
+mode equal to weight because then it
+will only render one component at a
+time. And when we have a a transition to
+for a route to leave, we don't want the
+transition for the other route to appear
+to overlap. So we're going to pass the
+weight over here so that when you
+transition from one route to the other,
+there is a move in and a move out
+animation. Now the way we actually
+trigger this is pretty interesting. What
+we have to do is we have to get the
+location of where the user is by
+utilizing the use location hook from
+React Router. Now this use location
+hooks gives us this object called
+location. And it's not important for you
+to understand. Just know that you need
+to pass this inside of the routes
+definition over here. as the location
+and then you have to pass in a key which
+is going to be the location.pathname.
+Finally, we are able to have a
+transition but as you can see it is
+broken because there's one more thing we
+need to do and what is that? Well, we're
+going to create a another component
+which is going to be the page transition
+component. It's going to be a wrapper
+component. So, I'm going to call it page
+transition, and it's going to take in
+some children. And I'm going to wrap
+every single one of our routes that we
+call over here with this page transition
+component just like this. Now, I'll wrap
+this one as well. And it becomes a bit
+annoying cuz it keeps pasting. And I'll
+wrap this one as well. Perfect. Now,
+this is what we should see. Each of our
+routes should have this page transition.
+Now, what is going inside of this page
+transition? Well, here is where we
+define the actual animation and we're
+going to define it by using a
+motion.main, but you can use whatever
+other element you want to wrap around
+your page. Now, I have a class name for
+a page. It's called page. So, I'm going
+to put that and inside of it, I want to
+render the children, which is the actual
+route. Now, what kind of animation do we
+want to put on this page transition?
+Well, I'm going to put an initial like
+we always do. I'm going to put an
+animate as well, which is the final
+state. And we also want to have a fade
+out animation. So, I'm going to put an
+exit as well. Finally, we want to be
+very specific with how long our page
+transitions work. So, I'm going to put a
+transition. And I think we're good to
+go. Now, let's start writing how we want
+this animation to look. You see how it's
+white? Why do you think so? Why do you
+think that's happening? It's because we
+basically told that the animated routes
+should have a transition, but we never
+actually established it. So, initially
+the transition there's never an like a
+transition to show the page. But that's
+what we're going to do now, right?
+That's why it's completely white. Now,
+what we're going to put for the initial
+is that initially it's going to look
+like this. The opacity of the page is
+going to be zero. And then in the end,
+we're going to make it such that the
+opacity is one. Then for the exit, I'm
+going to set the opacity to be back to
+zero. And I'm going to set a duration to
+this transition. I'm going to make the
+duration be around 0.35
+seconds. Now, as you can see, it loaded
+the page and it has an actual animation.
+If I were to move between pages, there
+is an animation that occurs. Now, it's a
+very small animation. It just like hides
+the page and shows the page again. Now,
+we can make it even better. We can put
+an ease here, which I think is one of
+the first things we learned. I'm going
+to put the ease out and you'll see that
+I feel like that gives a better
+animation because then it becomes a lot
+smoother as you can see because we
+change the pace of the animation as it
+happens. Now, I also want to make it
+such that it's a bit more clear like I
+want to move the items from in the Y
+direction so that it actually looks like
+actually on the X direction. Sorry. And
+to do that I can pass here an X property
+in the initial to be something like 50.
+A X profit property on the final to be
+zero. And then on the exit I'm actually
+going to do even further. I'm going to
+make it be negative 50 because then what
+you'll see is that it has this switch
+animation where it looks like it's
+moving from one to the other. Right now
+sometimes not good if you're moving
+backwards but as you can see this looks
+fine. Now, a lot of people don't like it
+to be as abrupt as that. So, you can
+actually change this to look however you
+want. Sometimes when you have a card
+like this, this actual card over here
+for the page, I think this is what is
+doing that. It actually looks more fine
+as you can see when you move pages. But
+I actually like it how it looks like
+this. And this is pretty much it for how
+you create your page transitions. And
+this is also pretty much it for this
+entire animation course. Now, I wanted
+to make this course where I go into
+detail about every single aspect of
+creating animations in React. And if you
+want to utilize this knowledge now to
+create your own animations, I have a
+video where I show myself writing
+creating an entire developer portfolio
+using React and CSS and it's completely
+animated using framer motion or or just
+motion right now. If you want to check
+it out, I posted it a couple months ago.
+I'll put the link for that in the
+description or it will just appear as
+the next video in this video. Now, if
+you enjoyed this video, please leave a
+like down below and comment what you
+want to see next. Again, thank you so
+much Savala for sponsoring this video.
+They are a great service. I've been
+talking about them for a very long time
+now. So, I highly recommend you guys
+checking them out. Again, click the link
+in the description if you do want to use
+their service. And yeah, that's that's
+pretty much it. If you want to learn
+React as a complete beginner, I have my
+ReactJS Ultra course for beginners and
+we are preparing to add a lot more
+modules as well into that course. So if
+you are interested, just click the link
+in the description. It will be there.
+And again, thank you so much everyone
+for watching and I see you guys next
+time.
+[music]

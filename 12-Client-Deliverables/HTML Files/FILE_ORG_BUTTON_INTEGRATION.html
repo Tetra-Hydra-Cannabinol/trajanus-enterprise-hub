@@ -1,0 +1,275 @@
+<!-- 
+FILE ORGANIZATION BUTTON INTEGRATION
+Add this code to index.html in the Developer Toolkit section
+-->
+
+<!-- CSS for File Organization Button -->
+<style>
+.file-org-button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.file-org-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.file-org-button:active {
+    transform: translateY(0);
+}
+
+.file-org-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+}
+
+.file-org-modal.active {
+    display: flex;
+}
+
+.file-org-content {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.file-org-status {
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.file-org-status.analyzing {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+}
+
+.file-org-status.ready {
+    background: #d1ecf1;
+    border-left: 4px solid #17a2b8;
+}
+
+.file-org-status.executing {
+    background: #cce5ff;
+    border-left: 4px solid #0066cc;
+}
+
+.file-org-status.success {
+    background: #d4edda;
+    border-left: 4px solid #28a745;
+}
+
+.file-org-status.error {
+    background: #f8d7da;
+    border-left: 4px solid #dc3545;
+}
+
+.file-org-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.file-org-actions button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.approve-btn {
+    background: #28a745;
+    color: white;
+}
+
+.approve-btn:hover {
+    background: #218838;
+}
+
+.cancel-btn {
+    background: #6c757d;
+    color: white;
+}
+
+.cancel-btn:hover {
+    background: #5a6268;
+}
+</style>
+
+<!-- HTML for Button and Modal -->
+<div class="utility-button">
+    <button class="file-org-button" onclick="organizeEOSFiles()">
+        📁 Organize EOS Files
+    </button>
+</div>
+
+<!-- Modal for File Organization -->
+<div id="fileOrgModal" class="file-org-modal">
+    <div class="file-org-content">
+        <h2>EOS File Organization</h2>
+        <div id="fileOrgStatus" class="file-org-status">
+            Ready to organize files...
+        </div>
+        <div id="fileOrgActions" class="file-org-actions" style="display: none;">
+            <button class="approve-btn" onclick="executeFileOrganization()">
+                ✓ Approve & Execute
+            </button>
+            <button class="cancel-btn" onclick="closeFileOrgModal()">
+                ✗ Cancel
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript Functions -->
+<script>
+// Global variable to track current organization session
+let currentOrgSession = null;
+
+async function organizeEOSFiles() {
+    const modal = document.getElementById('fileOrgModal');
+    const status = document.getElementById('fileOrgStatus');
+    const actions = document.getElementById('fileOrgActions');
+    
+    // Show modal
+    modal.classList.add('active');
+    status.className = 'file-org-status analyzing';
+    status.innerHTML = '🔍 Analyzing files...<br>Scanning latest EOS folder...';
+    actions.style.display = 'none';
+    
+    try {
+        // Call Knowmad-6 executor via Electron IPC
+        const result = await window.electronAPI.runCommand(
+            'python knowmad_6_eos_executor.py --analyze-only'
+        );
+        
+        // Parse result
+        if (result.includes('ERROR')) {
+            status.className = 'file-org-status error';
+            status.innerHTML = `❌ Analysis failed:<br><pre>${result}</pre>`;
+            return;
+        }
+        
+        // Show report
+        const reportPath = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\FILE_ORGANIZATION_REPORT.txt';
+        const report = await window.electronAPI.readFile(reportPath);
+        
+        status.className = 'file-org-status ready';
+        status.innerHTML = `
+            <strong>✓ Analysis complete</strong><br><br>
+            <pre style="max-height: 300px; overflow-y: auto; background: #f8f9fa; padding: 10px; border-radius: 4px;">${report}</pre>
+            <br>
+            <strong>Review the proposed file moves above.</strong>
+        `;
+        
+        // Show action buttons
+        actions.style.display = 'flex';
+        
+    } catch (error) {
+        status.className = 'file-org-status error';
+        status.innerHTML = `❌ Error: ${error.message}`;
+    }
+}
+
+async function executeFileOrganization() {
+    const status = document.getElementById('fileOrgStatus');
+    const actions = document.getElementById('fileOrgActions');
+    
+    // Hide actions, show executing
+    actions.style.display = 'none';
+    status.className = 'file-org-status executing';
+    status.innerHTML = '🚀 Executing file moves...<br>Moving files to proper locations...';
+    
+    try {
+        // Execute via Knowmad-6
+        const result = await window.electronAPI.runCommand(
+            'python knowmad_6_eos_executor.py --auto-approve'
+        );
+        
+        if (result.includes('ERROR') || result.includes('failed')) {
+            status.className = 'file-org-status error';
+            status.innerHTML = `❌ Execution failed:<br><pre>${result}</pre>`;
+            return;
+        }
+        
+        // Success
+        status.className = 'file-org-status success';
+        status.innerHTML = `
+            ✅ <strong>File organization complete!</strong><br><br>
+            Files have been moved to their proper locations:<br>
+            <ul style="text-align: left; margin-left: 20px;">
+                <li>Session Summaries → 03-Living-Documents/Session-Summaries</li>
+                <li>Technical Journals → 03-Living-Documents/Technical-Journal</li>
+                <li>Personal Diaries → 03-Living-Documents/Personal-Diary</li>
+                <li>Code Repositories → 03-Living-Documents/Code-Repository</li>
+                <li>User Guides → 06-User-Guides</li>
+            </ul>
+            <br>
+            <button onclick="closeFileOrgModal()" style="padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer;">
+                Done
+            </button>
+        `;
+        
+    } catch (error) {
+        status.className = 'file-org-status error';
+        status.innerHTML = `❌ Error: ${error.message}`;
+    }
+}
+
+function closeFileOrgModal() {
+    const modal = document.getElementById('fileOrgModal');
+    modal.classList.remove('active');
+}
+
+// Close modal when clicking outside
+document.getElementById('fileOrgModal')?.addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeFileOrgModal();
+    }
+});
+</script>
+
+<!-- 
+INTEGRATION INSTRUCTIONS:
+
+1. Add the CSS to your existing <style> section
+2. Add the button HTML to your Developer Toolkit section
+3. Add the modal HTML before closing </body>
+4. Add the JavaScript to your existing <script> section
+
+PLACEMENT IN INDEX.HTML:
+- Button goes in: Developer Toolkit section (around line 800-900)
+- Modal goes in: Near end of <body> (around line 7300)
+- Scripts go in: Main JavaScript section (around line 3000-7000)
+-->

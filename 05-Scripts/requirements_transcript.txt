@@ -1,0 +1,18 @@
+# YouTube Transcript Extractor Dependencies
+# Install with: pip install -r requirements_transcript.txt
+
+# Browser automation (version 1.40.0+ required for stable async API)
+playwright>=1.40.0
+
+# Standard library modules used (no install needed):
+# - asyncio (built-in)
+# - json (built-in)
+# - re (built-in)
+# - sys (built-in)
+# - os (built-in)
+# - datetime (built-in)
+# - pathlib (built-in)
+
+# After pip install, run:
+#   playwright install chromium
+# to download the Chromium browser binary (~200MB)

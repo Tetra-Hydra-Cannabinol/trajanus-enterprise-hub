@@ -1,0 +1,1438 @@
+Title: Good Bye Electron, Hello Rust + Tauri! - Andreas Lillebø Holm - NDC TechTown 2025
+Channel: NDC Conferences
+Video ID: 2xsrudVGPGs
+URL: https://www.youtube.com/watch?v=2xsrudVGPGs
+Duration: 65:40
+Level: COMPREHENSIVE
+Ingested: 2025-12-23
+Source: yt-dlp Auto-Generated Captions
+==============================================================================
+
+WEBVTT
+Kind: captions
+Language: en
+Okay. Um, welcome everyone uh to my talk
+about goodbye electron Hello Tori plus
+rest.
+Um, a little bit about myself. Um, I'm a
+soft developer since 2009. I've been
+working mostly in the C++ audio
+processing real time world. Uh so I'm
+not really into this web framework
+necessarily directly but I have been
+making a lot of user interfaces
+and most user interfaces that we make in
+our company needs to have some form of
+uh interability with the customer and it
+usually is based on web at at least from
+our side. So in our work we kind of
+touch upon that uh all the time. Uh
+today I'm working in a company called
+Squarehead Technology and uh uh we are
+making a product uh that is a microphone
+array. Basically you have the hexagon
+shaped area here. It consists of several
+hundred microphones and with that
+technology we can pinpoint where sound
+is coming from. uh and that way we can
+kind of make an image of sound and we
+can do tracking in the sound based on
+frequencies and we can start finding
+audio objects. So this is a completely
+embedded product that we make in our
+house. Uh with this we combine this with
+machine learning technology and then we
+can try to figure out what kind of
+events or classes these audio events
+are. Uh so we have this drone detection
+product and we also have artillery
+detection products that we make with the
+same technology and we also uh make
+products within other kind of uh
+industries. We do it for industrial
+purpose to find anomaly in high uh high
+decibel level environments basically
+where microphone arrays have a have a
+thing.
+Um so back to my talk. Um
+uh basically uh every product that you
+make, if you're making an embedded
+product or you're making something that
+is really smart, you need some form of
+way to present that to the user. And um
+and and since we are making these
+embedded things, we do always have to
+wrap these things around something that
+can make this interactability with the
+user. And um I've been doing this for
+many years. So we've done this all
+through kind of you can do native
+development where you do a native uh C++
+uh engine. For instance, we I've been
+making Linux GTK applications and uh
+MacOSS applications and all these
+things. And uh every time we do this, it
+always comes with a cost that okay, we
+only target one platform and not the
+other platforms. And if you want to move
+the same functionality to different
+users, you have to do it again at least.
+Um and I hope to give you some examples
+here with some crossplatform
+uh frameworks that you can use for that
+purpose where you only have to write
+once to um to to reach all your users.
+So uh I will go through kind of the
+state of how what are in this world of
+crossplatform desktop development. Um
+I'm going to talk specifically about
+Electron because that has kind of became
+the standard for that purpose. Um I'm
+going to go through uh how to can be a
+better solution at least it addresses
+some of the issues that we have seen
+with Electron. Um, and I'm going to use
+Square Ed's kind of adoption to Tori as
+some examples because we have already
+started using Tori for these kind of
+applications so that we can move faster
+in the development process.
+So it's 2025.
+Why do we want native desktop
+development anymore? aren't kind of any
+everyone just using web now. So you have
+the cloud, you can make a software as a
+service kind of solution or you can just
+embed a web view on your embedded
+product yourself. So there's is there
+any need for this? So I'm wondering is
+how many of you are actually writing
+native desktop applications?
+Oh, we have some. And what frameworks
+are people using? Who is using cute for
+instance? Cute. Yeah. Uh who are using
+electron?
+No one. It's more like in the web. Oh
+yeah, we have one. And who are anyone
+using Tori already?
+No. Uh so yeah, so cute is kind of one
+way of doing that and it has been around
+for very many years. Uh and it's a very
+good framework for that. uh but you do
+need C++ developers to write that and uh
+often I find it easier to find web
+developers to hire for that purpose and
+and I think it also moves a bit faster
+with the web uh development
+um so um
+and that's why there has kind of been a
+major shift in the past few years where
+web developers tend to want to reach
+beyond just the browser they already
+have this crossplatform platform
+dependency and they don't really see why
+they can't do that with a desktop as it.
+So they increasingly want this desktop
+reach. They want to build with the same
+technology that they can use for all the
+browsers in the world. They want to just
+okay if we do need a native desktop
+application, why don't we use the web
+framework for that? And uh we do want a
+native app because in many ways you do
+need some native functionality. Uh and
+very often you want to interact with the
+user in the most natural way and they're
+used to kind of using the window
+technology, the menus and everything
+that they are already familiar with. And
+uh you also sometimes need to interact a
+lot with files on the system. You want
+to maybe access some USB devices and you
+want to touch upon things that aren't
+that easily done uh through the web uh
+only.
+In addition, um when you do write a
+software as a service kind of you're
+kind of online and uh in many cases that
+is not always possible. You might want
+to have something that works in an
+offline state as well. And as you see,
+we come from the defense industry and
+giving them something that relies on
+internet is not an option. And that is
+in many other application as well. And I
+think also uh that if you do rely on
+performance, you still might want to
+have a native application for that as
+well where you can utilize more native
+uh code and closer to the hardware.
+Um so um in many years electron became
+the default and kind of solved this
+cross crossplatform development uh and
+and kind of stepped in. I think it kind
+of came in at the right time and it kind
+of became the standard just because it
+pro provided the solution and uh and I
+think that's kind of why it has kind of
+evol
+gone into this default mode where oh
+yeah you need crossplatform development
+okay go for electron kind of state so
+isn't a solution then to use electron uh
+I would say yes in many purposes you can
+do that And I think it's a very good
+tool for that. And uh and uh I will go
+through a bit about electron before I
+touch upon maybe some of the issues with
+electron. Uh so what is electron? So
+electron is kind of very easy to start
+tech stack with with the chromium engine
+that you build into your application and
+you use uh the NodeJS as the framework
+for the back end. Basically, it's very
+similar to a server uh architecture
+where you have a server hosting a front
+end basically and you can write uh the
+server back end in the NodeJS language
+and then you write the front end in
+whatever you choose of the front- end
+language react view whatever um and it's
+very familiar from this front-end
+perspective. So it's a lot of web
+developers will recognize this pattern
+immediately and kind of oh this is great
+we can do this and we can make an app
+very easily just by
+using the tools you're already familiar
+with. Um so you write the same language
+in the back end as well as in the front
+end. Basically it's based on JavaScript
+or TypeScript
+uh type of language. So you don't really
+need to learn two languages to write
+both the back end and the front end. So
+um it's it's convenient.
+Uh it's it was released in 2013 and it
+was originally called atom shell was
+kind of the
+before it kind of migrated into this
+electron name a few years later. So um
+and uh to be honest electron has a huge
+adoption. So almost every app I use and
+I find is used out there is using
+electron. So here you have some example
+in Discord, Microsoft Teams, Figma,
+Title, Splice, Slack. All of these are
+using Electron today. So it's it's uh
+it's essential to know that Electron is
+a very good tool for actually making
+these and there are lots of great apps
+out there using Electron and working
+great with Electron.
+So
+I say goodbye to Electron. So there must
+be some pain points to the Electron.
+Um and yes, there are some uh things
+with Electron that people tend to not
+like. Um,
+so I'm going to go through a few of
+them. So you have uh this is just for
+this is kind of benchmark but it's not
+really a benchmark. It's just my my way
+of kind of seeing this issue. Uh so this
+is running on my Mac. This the hello
+world example from both Tori and from
+Electron running with activity monitors.
+It's not very scientific at all, but uh
+this shows just the default memory usage
+of a standard app basically. So you have
+the Tori app on the left side, you have
+the Electron on the right side, and
+immediately you see that it starts off
+with using a lot more memory uh than the
+Tori side. So this is one of the critics
+of of the electron that it's using a lot
+of memory and tends to seem a a little
+bit heavy kind of uh when you run it. Uh
+so this is one of the pain points. So
+the other side is kind of the bundle
+size of electron. Um so if you compare
+Tori with Electron you see it's it's a
+huge difference basically and this is
+due to that when you build electron
+uh you have to build in the whole
+Chromium uh engine uh browser engine
+within your application. So kind of you
+pack the whole chromium and you ship
+that to your customers while Tori does
+it in a different way. I will come back
+to that. So uh so that means even if you
+make the tiniest little app that you
+just want to do one simple thing so you
+still have to ship 263 megabytes of of
+application to to your customer. It it's
+not necessarily that bad because
+everyone can download pretty large sizes
+today.
+Um the this the the next issue is kind
+of the one that made us not choose
+Electron and that's more the security
+concerns of Electron. Um so every time
+you make this backend front end
+uh in communication between the back end
+and the front end in the electron app
+you have to kind of set up a system
+there where you can communicate between
+the processes. So it's called
+interprocess communication IPC uh short
+for that. Um, and that NodeJS bridge
+that you send back and forth data
+introduces a vulnerability vector. It's
+not it's not impossible to make it safe.
+Uh, so you can make it safe, but I think
+the code and the framework makes it too
+easy to make something that isn't
+secure. Uh, so I will give you some
+examples of what I mean by this. Uh, so
+this is just a very simple example. This
+is the front end on the on the electron
+app using TypeScript. So this is kind of
+one way of sending data. So you can call
+the require electron and you get the IPC
+renderer. This is the the front end part
+of it where you can send data back to
+the back end of the application and you
+call send with a command and some
+parameters. Basically
+on the on the back end you can do the
+same. you can listen on this uh event
+and you can do something with it and
+then you can send it back basically and
+then the front end can return listen for
+that response basically
+and it seems pretty straightforward yes
+works pretty nice but the problem is
+that if I can write something that says
+require electron why can't I just embed
+a third party library where I use the
+require electron and I start listening
+on your app because you use my third
+party and then I can suddenly interrupt
+the communication. So that's kind of the
+the thing and this is this is legal to
+write in electron. It's not recommended
+but it's legal. Uh so you can do this
+and this and this is the other way
+around. So you can also just have the
+the back end send messages to the front
+end where you send status updates. So
+this is just when you loaded the the web
+web window you send okay we're connected
+the back end is ready and you can on the
+front end listen for that message. So
+both of these kind of are unsafe ways of
+doing it but completely legal and it's
+due to that there are some parameters
+that when you build the application you
+have to kind of set them correctly to
+make all the security parameters right.
+So when you have the node integration to
+true, you enable the require in the
+renderer
+uh and that makes every front end uh
+script possible to call the require. Uh
+and also uh you have this context
+isolation which kind of is what uh you
+need to set to protect
+uh the the the the front end to actually
+uh expose these um these uh APIs that
+you can use to call back and forth.
+So to fix this, you have to kind of do
+uh you have to put a preloadjs
+and basically create your own API and
+you have to flip the switches of the the
+boolean so that they're true and okay,
+now we're good because now we made this
+thing. Okay, I'll write my preloadjs API
+and and that works basically if you do
+it exactly like that.
+uh because then you can have on the
+front end you can call get this electron
+API where you can start calling things
+and this is the safe way of doing this
+because the preload is only in injected
+into your code basically and not other
+code
+but still in this way of doing it you
+can do this which is you just expose the
+IPC render directly so it's still
+possible to just do the wrong thing
+even though I made this secure thing I
+can just okay I just make the API a bit
+simple so that it's more flexible on the
+front end side you can say like this and
+and this also exposes a security risk
+because you expose the IPC render on and
+then you can start using that one as an
+attack vector into the application and
+also if you even try to do it right but
+you expose the event from the call back
+the events parent actually owns the IPC
+render so even that is unsafe so it's
+not that it's so the point is that it's
+completely fine to do this safe but the
+library isn't really helping you to make
+it safe you have to kind of know about
+these things you have to read the
+documentation do the right thing and
+then you're safe um so that's kind of
+the NodeJS bridge vulnerability in the
+electron framework
+Um the other vulnerability that I will
+bring up is the chro chromium security
+concerns because when you make an
+application in electron you have said
+okay we take the whole chromium
+framework and we ship that to the
+customer
+and basically that means you're the
+browser vendor now
+so if chromium engine has a zero day bug
+in its in in in this code, it's your
+responsibility to fix it because you've
+shipped version XXY XY set of that
+library and if that contains a
+vulnerability,
+you have to fix it. So the shipped
+chromium is basically your
+responsibility now and that means that
+you have to patch it and make sure
+you're up to date with that one and uh
+you need to make up app updates with all
+the security updates coming from the
+chromium uh yourself. You don't get any
+help from from the operating system with
+this. It's it's your job to do that. And
+that means you have lots of continuous
+updates that you need to be aware of.
+you I need to follow these uh things and
+it leads very often to a developer
+fatigue where you need to kind of
+maintain this all the time and I also
+believe you get a user fatigue because
+you have to ship updates of your
+applications all the time. So every time
+you launch the app you oh there's a new
+update okay I need to update and then
+people start skipping the updates
+basically because they're too tired of
+that. And just to indicate a little bit,
+so here's a very list of the latest
+patches on Chromium for the last month
+and a half or something. So, so there's
+not there's a lot of things going into
+this and and the major uh app vendor
+that has used Electron
+uh has solved this issue by just
+releasing at dates. basically they have
+okay every month we release an update
+because we just have to continuously
+deliver new updates and you just do it
+on date but if and that's the big
+companies basically Slack and such they
+can do that but if you make an app of
+that you have to do the same thing and
+maybe that's not something that suits
+the development process in your company
+right so that's electron so what is Tori
+then is that just another framework
+coming with its own flaws or is does
+this solve kind of these issues that we
+have with electron? So, a little bit
+about Tori. So, Tori is kind of u a
+framework for creating crossplatform de
+applications.
+It's pretty similar to Electron but does
+it in a somewhat different way
+basically. Uh so, you can access all the
+information on that website tori.app. Um
+it's in version 2.25
+oh 225
+uh now uh and it's been around since
+2020. So it's a bit newer and and uh
+hasn't been around that long. So the
+adoption for Tori hasn't come that much
+yet. Uh but I do believe the arc browser
+for instance is built on Tori. I do
+believe that and there's coming up more
+applications that kind of built on this
+framework.
+Um so how does Tori work under the hood?
+So uh it wraps two rest libraries
+basically.
+Uh so it wraps the towel uh library
+which is a library that is written in
+rest to handle window management in an
+operating system and this is a
+crossplatform
+uh uh library. So it operates on all all
+the major uh major platforms. Um it also
+has a ry uh which is the wrapper around
+the system web view basically. Uh so
+that's why it's called ty because they
+say to yeah so that's kind of where the
+name comes from. Uh there's definitely
+more rust code underneath and the toria
+includes a lot of rust code in itself as
+well. Uh but these are kind of the
+frameworks that it kind of based on and
+and it has support for Windows, Mac OS
+and Linux. Uh very similar to Electron.
+So you can build the application once
+and ship and do all of those. Uh it does
+also have additional support for iOS and
+Android. Uh I have not tested that one
+and we have not kind of gone that way in
+our company yet, but is is uh a thing
+that we're looking for possible use of
+in the future because if we can build
+everything once and we can ship on all
+devices, that will be amazing. But I
+don't believe it until it actually
+works. But uh because mobile tends to be
+quite different from desktop and I don't
+always think that it makes sense to
+build something targets all but yeah
+maybe maybe in the future.
+Um so the web framework of Tori is kind
+of you have a lightweight native shell
+that is built on this uh uh tow
+tow and and uh it launches a web view
+within that uh that window basically uh
+and it bends the system web view instead
+of chromium and so the chrome no the
+chromium is not included you use the OS
+own rendering engine and uh every
+operating system has one uh uh web
+rendering system already in built into
+the operating system. So for Windows it
+uses the web view 2 framework for
+instance for Mac OS it uses the WK web
+view uh framework and on Linux it uses
+web kit GTK basically. So it uses
+whatever is on the platform and I think
+that also says it uses whatever is
+optimized for that platform as well
+because these frameworks are are are the
+OS part of the operating system. So they
+are optimized for that platform. They're
+kind of secure fixed through the
+operating system and uh that means kind
+of I think that could be a better
+solution. Um there are some some
+negativity to that as well because when
+you do ship the chromium in electron
+you kind of only need to test your web
+code towards the chromium engine
+while on this one you actually have to
+test on this and there might be some
+differences uh and you might have some
+issues with this but it's pretty similar
+to actually launching a website because
+then you already have to test against
+multiple browsers and this is similar to
+that kind of uh job basically and I
+think you always need to test your
+application on all the platforms that
+you want to deploy anyway. So
+um so rest powers the back end.
+Uh so basically all the back end of the
+application of the Tori is in rest. Uh
+there's no choice there. Now I know
+there's some talk about embedding some
+C++ there but uh uh there's nothing that
+works yet. Um and and uh and basically
+you can choose whatever framework you
+want on the front end side react react
+or friends is what I'm saying is so
+react is the most common I think but
+there are multiple versions of web
+framework that you can use that powers
+the UI and and for me that's one of the
+good things about this because I do do
+believe that the backend should be in a
+performant language and I think Rust is
+very performant for this purpose.
+uh but I do believe also that the front
+end has an advantage that it comes from
+the web world because I think the
+iteration of developing on the web
+platform is faster and I think you can
+move faster and then I also think you
+can use also different engineers for
+that as well. So you can have people
+excellent in web and user design can
+work on that part of it and then you can
+have other people working on the
+performant thing. So I think you can say
+it's a very good mix of performance and
+flexibility in that uh in that uh
+in that com combination basically. Um
+so uh I talked a bit about the secure
+thing in electron. So what has Tori done
+to kind of prevent the same
+vulnerability?
+So
+um Tori has come with this as a target
+when they made this framework basically.
+So uh one thing that you can kind of
+expose more in more detail than what you
+could in electron in electron you could
+for instance say that okay I want file
+system access. Uh but in in Tor they
+have gone with the same kind of uh
+permission but you can say also specify
+where in the file system you can so you
+can even aim your application. Okay, I
+want only for the configured directivity
+or or something. You can specify exactly
+where you want this application to have
+access. So you have more fine grain
+runtime permissions that you explicitly
+has to set. So you can yeah design your
+application to not do stupid things.
+Um it has secure IPC via message
+passing. So basically
+it does not use share memory. So it uses
+two processes and sends data back and
+forth between the back end and the front
+end. And both of these are written in
+Rust. Uh and basically that means that
+it's easier to kind of reject
+unauthorized or malformed messages in
+that process and there's no shared
+memories. You can't actually exploit
+directly at least
+uh if you send something that is not the
+correct thing.
+uh it has an invoke key protection and
+that means when you do build your web
+code with the Tori uh uh framework it
+injects an authorization key into your
+front end and the back end. So that
+means when that key is compiled in and
+uh you built your app, it's not exposed
+anywhere else. So if you do have some
+rogue scripts that uh suddenly come into
+your uh application somehow they are not
+built with the same invoke key. So that
+means that it's blocked uh directly if
+you don't have the right access key to
+it.
+Um it just blocks iframes and other
+origin restrictions. There's no
+workaround. So you can't do that
+basically. Uh so uh so that just
+minimizes the attack surface uh that you
+have in your application.
+Uh it's built on rust so we all love
+rust. So it's safer by design uh I think
+and and at least if you compare it to
+the typescript nodejs uh uh framework
+there
+and there is also ongoing security
+audits. So there are regular third-party
+audits on the releases of Tori so that
+they at least have a mechanism for
+addressing security concerns with each
+release.
+Um
+so a little bit details about this fine
+grain runtime access. So this is kind of
+just an example of uh you have a
+tory.json JSON file that you need to
+specify what you want to give access to
+in your application. So in this example
+you have uh you say something about the
+fs file system uh you says uh you can't
+read all you can read and write and you
+can write it within this config scope
+and you have to write it like this
+because it's crossplatform. So config
+means some different uh ts on the
+different operating system that Tori has
+chosen that this is the so so on the Mac
+for instance you have user library
+application support and app name and you
+have the different on the other
+um and you can also do this even more
+specified you can kind of do the scope
+by setting just okay config with this
+directory or some other directory and
+that means that you're allowed to access
+just that one, but you're kind of not
+allowed to reach any of the other uh uh
+file system uh locations on your system.
+Uh so if you look at how the Tori
+architecture is so you have the user
+interface the web view rest core and OS
+that's kind of the main um parts of the
+Tori framework and and the web view and
+the rest core has this message passing
+so the IPC communication and you do that
+we add the invoke command from the web
+view to the rest core and that means
+that you have invoked and that command
+maps to a rest command uh And the other
+way around you have uh a rest can emit
+events and the front end can set up a
+handler to kind of respond on that
+event. Uh so that means you have the
+full circle of communication between the
+front end and the back end which you do
+need to make an application at least if
+you make an application that does
+something with the operating system like
+reading a file writing something or
+running an algorithm in rest for
+encryption or something that rest is
+suited for. Um so some code examples. Um
+so here you have uh the TypeScript side
+uh where you can import this at Tori
+apps API core and you get the invoke
+from that one. This is what I'm talking
+about when I talked about the invoke key
+protection. If you try to do this and
+you don't have the invoke key, it will
+just fail with an exception. So you
+can't do that in any third party library
+that you include or something from a
+different source than what you have
+already included in your application. So
+but if you are in your application you
+can use this invoke and you can send
+greet and I put my name in there name
+Andreas and you want to do something
+with that and listen for the message and
+I've just done a console log here. So um
+on the rest side um you have to define
+your API basically and to define the API
+there are some things you do need to
+make connect. So you you have this
+hashtag tory command macro which is what
+you kind of mark it as this is going to
+be exposed and you write a function
+signature uh like the one that you want
+to have and uh you see that it says uh
+okay it takes a string and it does
+something with that one and returns that
+with this format exclamation mark
+and in in addition you have to kind of
+map this into the invoke handler as as
+well. So you have to put it into the API
+when you build the application. So you
+put in the greet function that you m
+into the invoke handler. So this is what
+you do to allow the greet command to be
+allowed to call from the from the front
+end. Basically
+um when you do this uh there's the
+strict type checking. So if you do greet
+with a capital G for instance, you type
+something wrong, it will fail on the on
+the JavaScript f side and it actually
+will give you a good error message
+actually. Command greet not found. So it
+it says something about that okay this
+is not working and even if you call
+greet and you don't have the function
+signature right where you miss the
+parameters for it would say invalid
+unhandled promise rejection invalid args
+name for command greet command greet
+missing required key name so so it
+actually kind of gives you a sane error
+message and this is kind of the malfor
+message rejection that Tori handles for
+you um so you have to be correct
+Basically
+um for the other way this is how you do
+the listen same with the atory apps API
+event this is blocked if you don't have
+this invoke key so you can't do this in
+in code that is not your own and you
+call the listen and you can respond to
+an event there and from the Tori side
+you do the same here you call window
+emit and then you can send the message
+back to the front end um you can on you
+see that you call it on the window. So
+basically if your app have multiple
+windows you can choose which window you
+want to call back basically or send
+messages to. Um so that's kind of how it
+works.
+Um okay I'm going to talk a bit about
+how you build build the Tori
+application. Uh so when you have kind of
+made your application and you've written
+your source code for both the rest and
+the front end uh the build process is
+that you compile the front end react um
+or usually you compile it. You don't
+need to because it depends on what
+framework you're using but I would
+recommend that you use TypeScript and
+compile it. Um but and then you compile
+it to static files. So that's basically
+HTML, CSS, JavaScript, these compiled
+units that you use in a typical front
+end
+and uh the rest side you compile that to
+a single library. So all the rest code
+is compiled separately from that and
+then what you do uh in the end is that
+you bundle these two together
+and so they're not kind of it's not like
+a library and then a lot of CSS
+JavaScript files in your application
+they're compiled into a binary so
+everything is in that binary
+so uh in the application you have then a
+native executable and the web resources
+when you load the application is already
+in memory. So when you load the
+application, you have loaded all the web
+resources that you need to present your
+u view. And this is kind of essential
+for having an app that is has native
+feel because you need it to be fast and
+feel good. And when you have everything
+in memory, it's it's very fast to load
+all these resources. And that's why it
+feels a bit faster when you open that
+application. The view is there
+basically.
+So to show you just this uh is um how an
+application bundle on Mac OS looks like.
+You have the boiler plate with the P
+list and the icon that is required for a
+Mac app but everything else is in one
+binary basically when you ship the
+application.
+Um so that means that you have a when
+you build this you have a native app
+ready for distribution. You have a
+self-contained single executable that
+contains everything you need for your
+application. Uh it's smaller, it's
+faster, and it's fully offline capable.
+So nothing is kind of loaded. You don't
+have this electron where you run a your
+own little server within the application
+and just loads it from there. Everything
+is just in memory and fast. Uh you do
+get crossplatform installers for
+Windows, Mac OS, Linux like you should.
+So you you build it to themsi
+DMG or the deb uh which is what you need
+to give it to your uh users
+and you can run it through the signable
+uh signable the signing for each
+platform that you need to securely
+distribute and update your application.
+So that means that you can build it
+directly and run it and provide it to
+your customers.
+Um there's another thing that uh we
+inquid tend to use in the Tori framework
+and that is what we refer to as sidecar
+in Tori. Uh so a sidecar is basically
+another application that you want to run
+because uh you want it to also use
+something else that you have made. And
+this is essential for us in squared
+because we have a lot of C++ code and we
+have a lot of audio processing code that
+we already want to utilize. And
+basically with this sidecar process we
+can combine the application the Tori
+application with some other application
+that we already have to run certain
+things. and in Tori this is kind of
+built in thing into the framework so
+that you can actually embed
+uh other applications in in your
+application. So how you do that is that
+you can specify that you have some
+binaries that you want to include when
+you distribute the application. uh you
+just define it like that and in the Tori
+code you can choose whether you want to
+run those sidecar applications from
+either the rest side of the code or from
+the front end side of the code. So you
+can choose what fits in your
+application. So some examples of how you
+can do that. So this is uh Tori uh this
+is the rest side running the sidecar. So
+you can spawn this sidecar and start
+this is like a demon. So you just launch
+a demon next to your application that
+does some handling. For us that will be
+for instance talking to the microphone
+area getting all the microphone data to
+your application and process it to some
+form of uh audio that you want to
+present in your application. Basically
+uh if you see the same examples this is
+uh more like a oneshot uh example. This
+is from the front end side. If you just
+wanna okay I have a CLI that I just want
+to trigger sometimes to do certain
+operations for instance you can do it
+like this. You can execute it and then
+get the standard out standard error
+whatever from the that one and you can
+also do the demon uh spawning from the
+front end itself so that you can start
+it uh from that side as well.
+Uh so but there are some caveats to this
+because how about architecture and
+platform differences because if you have
+a crossplatform uh and you want to have
+a sidec car uh isn't that conflicting in
+some way? Yeah, it is. So, so don't do
+this if you don't need to because if you
+have uh if you want to make uh the
+sidecard work on Mac OS, Linux and
+Windows, you have to actually build the
+application for all those and pack the
+right version and maybe the right
+architecture as well. So, uh I would not
+recommend to do this if you don't need
+it. But in some ways it might be
+necessary. Let's say you build an
+application that does image processing
+for instance. Maybe you want to include
+image magic but you don't want the user
+to install image magic for instance. You
+can pack the image magic CLI into your
+application and just use it within that
+application for instance. So it opens
+some flexibility but yeah there are some
+things um and you should be aware that
+if you actually make this sidecar and
+you say you set up a socket API or web
+API or something that communicates to
+the front end
+uh you have basically disregarded the
+rest security. Uh so you should be aware
+of that and maybe not do that or maybe
+do it but do it in a secure way at
+least.
+Uh so to just summarize a bit about the
+differences between Tori and Rust. So
+the major issues that you can see is the
+bundle size is larger on Electron than
+on Tori. You have the runtime Chrome
+plus NodeJS and you have the native web
+view plus REST on the Tori side. Memory
+usage tend to be higher on on electron
+and lower on the Tori side. The security
+model I will say loosely sandbox is what
+I would say. You can get it right but
+it's not really always right. And you
+have the IPC bridge and rest safety
+where there's no there's no way of
+getting around that basically.
+Um you have the npm ecosystem on the
+electron on the to side you have rest
+crates and plugins where you can use the
+standard rest libraries like s the Tokyo
+and these things and also some Tori
+plugins that can help you do things. uh
+you have the sidecar support. You can
+obviously do that in electron as well by
+packing it but it's more built in into
+the Tori and the language is front end
+is is JavaScript TypeScript and the back
+end is JavaScript TypeScript and RS on
+the Tori side. So this is kind of the
+comparison chart of this.
+Okay. So why did squared adopt Tori? Um
+so uh as I said we make this product um
+which is a microphone ar and uh it
+consists of very many parts of the
+system. So we have hardware for sampling
+microphones. We have hardware for
+getting cameras working GPS working
+maybe some m human machine interface uh
+on it. But in principle there's a CPU
+inside there that runs our code
+basically and and that code is um based
+on our tech stack which is basically we
+have a YTO operating system. We have a
+C++ engine that does all the data
+handling and storage and processing.
+uh we build an API on top of that one
+and uh and what we have had until now is
+that each device has their own web
+interface basically that has kind of
+been our tech stack. Um and that's a
+very flexible uh tech stack and it's a
+natural one basically. So it works
+really fine uh when you want to access
+one of our microphone arrays. So this is
+just one of our user interfaces that
+looks at the fan in the ceiling seeing
+sound for instance. Um but the problem
+is uh when you do have multiple arrays
+okay
+should I have one view from each
+doesn't really work or okay I can I can
+access one of them and they can send
+data from the others for instance I can
+access it through this API bridge and
+they can say where the other are okay so
+it works kind of we and we made some UIs
+like this where you can kind of combine
+data streams from multiple arrays but
+still within one web browser. Okay. Ah,
+it works.
+Um, but then suddenly we
+start accessing things on different
+networks and they don't really know
+about each other and then we start kind
+of to see that ah there's an issue.
+Okay, we need to have one client on each
+of the connected arrays. We can't really
+combine it. Um there's an obvious
+solution. You can use the cloud for
+instance uh where you make the aries
+connect to the cloud. Ah that solves the
+issue. But I've told you already we're
+in a defense industry. So we can't
+really use the cloud or internet for
+anything. Uh so that's not really an
+option for our case. Um so that's mean
+we had to do some architectural change
+and and uh that's where we kind of saw
+okay let's see let's move the web
+interface out of the embedded device
+that can be an option because
+uh then we can at least access the APIs
+from each of our sensors and create a
+unified user experience when you look at
+the whole system because we're expanding
+from selling one and one unit to have
+like more and more units. Um, and that's
+where the Tori application comes in
+because basically we can very seamlessly
+just move our code into the Tory
+application because it's the same it's
+the same text stack. So you can use our
+React directly almost into that
+application. Have to do some changes
+obviously but but uh in theory we can do
+that. Um and the way we have done it is
+that we use this sidecar. Um we use the
+sidecar for multiple purposes actually
+but in this example we use the sidecar
+to handle all the API connections to all
+our distributed sensors. So that the
+front end code in the Tori doesn't
+really need to handle that. It can only
+access the sidecar and get all the
+information uh unified from that part.
+So the sidecar basically has a database
+of uh everything needed to create our
+user experience. So the sidecar
+communicates with all the different uh
+uh units that we have and uh the Tory
+application can focus on making a great
+user experience for the user. So that uh
+that means that even though we lose one
+of the sensors
+let's say one of them goes down because
+of battery or some other uh reason uh we
+can still use the system because in the
+other one if the node that we actually
+used to connect to all the others went
+down you went down the whole network for
+instance. In this case we can have like
+an offline status. Okay, this one went
+out of battery or this one was uh was
+not working anymore. And we can also
+kind of also add all the events that we
+have got from all of these. We have a
+place to store them as well. So we can
+store them on the on the Tori side of
+the application. So that means that we
+can actually start making a user
+experience that handles the whole
+network and we can start utilizing the
+Tori web framework
+to to make this user experience fast and
+we can iterate on that part very fast
+and one of our develop one of our team
+can work on kind of working on that part
+and we can switch to other teams to work
+on the connection part or the audio
+processing part and these
+Um uh in addition we use it for because
+we make hardware products. So and the
+hardware kind of consist of very many
+parts that we need to combine and we
+need to uh scale our production and we
+need to make test systems for all this.
+And we also started using Tori for that
+purpose so that we can write all these
+test components in Rust as well. so that
+we can uh start utilizing that language
+for that purpose as well. So we start
+writing to applications for kind of
+having the view of the fact the
+production workflow so we can ship that
+to manufacturers that can kind of
+produce our products and we can make all
+the test tools with the same framework
+and we find Tori to work really well for
+this as well. uh and using the web to
+actually make the user experience for a
+factory uh production is really nice I
+think. Um so that kind of means that you
+can build this architecture for just
+testing purpose as well when you
+manufacture.
+Okay. So what challenges have squared
+experienced when we have kind of gone
+from this? So we started with this
+actually
+uh let's say nine months ago I think and
+we already have a few applications
+running on Tori today that we use in
+production. Uh so it hasn't taken that
+long to actually build it but um we most
+of my developers uh come either from C++
+or the web world basically. So Rust was
+not anything anyone knew actually. uh
+but uh so it was a bit of learning curve
+to start with the rest framework but
+uh we ended up writing a lot of the side
+cars in rust in the end. So I think most
+of my engineers actually liked rest a
+lot and at least the ones that came from
+the C++ world already they kind of found
+rest to be an interesting and very nice
+language to learn. Um we did have some
+problems with uh system dependencies
+were missing on target machines because
+we install our application on uh other
+users computer and uh sometimes
+we had to bundle the native dependencies
+to support offline install
+uh because when we say we need to on
+Windows for instance we also say we need
+the web view two to be installed and if
+if it's not installed installer goes on
+the internet to to fetch it. Uh but then
+if it doesn't have internet you can't
+fetch it. So it ended up with us we had
+to embed the web view 2 installer within
+our application. So in a way we kind of
+had to add some uh something to our
+application to increase the size. But
+the advantage anyways is that once it is
+installed, the operating system takes
+over the responsibility to update it. So
+if you do have that machine online, it
+says it needs to be updated. So So it's
+just the first install that needed to be
+fixed like this. Um some developer
+experience that we love. Um
+coming from having developed C++
+applications for desktop for many years
+actually going into this web uh workflow
+is pretty nice I think. So you have we
+we're using bun for running scripts and
+dev servers. So when you have a
+development of the Tori application you
+run the dev server there and you use bun
+for actually running it up up and down.
+It's very very fast. So you can iterate
+on it very fast and you also use we use
+va for instant front end re builds with
+the typescript react stack and that
+means basically you can you can uh you
+can write your front end code save and
+then sometimes you you just saved and
+you should wait for the application but
+in in the instant you used to switch to
+modus it was already updated so that's
+kind of very different from compiling
+the C++ and waiting for the application
+to launch kind of. So, so using this web
+technology is is very very fast and has
+a very efficient developer workflow.
+Uh we can do that with the rest as well.
+Uh so the rest backend supports hot
+reloading with this cargo watch package.
+So even when you just change your rest
+code, save it, it recompiles and launch
+the new application with that rest
+package inside it as well. So that is
+also very very fast. So I think this
+developer experience is something that
+is uh something that we like very much
+and it's very fast to iterate on the app
+and the back end is fully debugable with
+the rest tooling set and you have all
+the cargo like all the crates that you
+need for rest development and these
+things. So, so I think that is kind of
+our experience is that that's a very
+easy way and very fast way for us to
+move to develop new things and it hasn't
+taken us very long to adopt to this kind
+of uh technology to work with this uh
+framework.
+So, how do I choose if Tori is something
+for my company?
+Um
+uh I would say if you do need some
+lightweight apps I would definitely
+recommend Tori above Electron but there
+are obviously other frameworks you can
+also use for this.
+um if you have strong operating system
+integration, I think the the the the IPC
+communication and the the performance of
+the rest is very nice and it works
+really seamlessly. I think that's one of
+the things you should consider at least
+and if you do have security critical
+tools I think having a framework that
+helps you make safe code is a very huge
+advantage.
+And so when do you want to stick with
+electron?
+I would say in web heavy applications if
+you don't really need the back end of
+the application and you only use the
+front end to actually access other parts
+to log into some other cloud service or
+something I think electron is very very
+suited for that. Um, and I also think
+you also easily more easily can get
+people that like that web flow as well
+and can kind of
+fastly get into that development mode.
+And also this if you have heavy browser
+dependencies if you use on specific
+parts of the chromium you can also think
+that it's it might be easier to use
+electron uh so that you only have one
+chromium engine to support in your code
+basically. So that's kind of my
+opinions, but there are probably a lots
+of pros and cons with both of them and
+you should consider that when you do
+choose and I also think cute is
+something that you absolutely should
+think about. Uh but it has some
+completely other things to think about.
+Um so the future is native plus web is
+what I think and uh Electron walked so
+Tori could run is what I would say.
+Electron came in ma made the pot and
+then Tori came and fixed a lot of the
+issues. Uh is is my interpretation of
+how we have adopted to Tori.
+Thank you very much.
+Any questions?
+You were first.
+&gt;&gt; Fine. I was wondering about the security
+aspect. You mentioned there's a key
+that's used for invoke. Can you
+elaborate a bit on that? And then the
+other thing that I wasn't sure I really
+understand is when you bundle the
+TypeScript JavaScript inside the
+application, would you still be able to
+pick into the application binary and
+change some of that code eventually, you
+know, changing what you're calling in
+the back end. So you still have that
+sort of like vector to, you know,
+communicate with the back intended,
+right?
+&gt;&gt; Okay. So the question is uh the first
+one was uh if could elaborate a little
+bit on how the key works.
+&gt;&gt; Now the key the invoke key. Okay, I'll
+take that one first. Uh so the invoke
+key is something that is generated in
+the build process and compile in. I
+don't know the exact details on how they
+do it uh that you need to read the
+documentation on. Uh but this this is
+kind of the whole security mechanism of
+this rest. So basically you have the the
+the the tow and the vry that kind of
+builds in this on each of the rest sides
+basically and it is it is the rest
+communication that handles this uh this
+key uh but I don't know exactly the
+details how they do it that I need to
+read the documentation on
+&gt;&gt; the second part maybe like my
+understanding was you want to prevent
+third party clients from accessing the
+back end using the same API right but if
+you already have access to the binary of
+the actual
+would you be able to inject some code
+into the actual JavaScript that's
+bundled in the binary to still access
+the back? So the question is if that you
+could if you have access to the native
+binary if you can access that one and
+inject something into the application
+&gt;&gt; some JavaScript in there you can
+actually
+&gt;&gt; yeah so so basically I think this is
+something that is used on the operate
+operating system side because you when
+you distribute this app you sign the
+binary so you can't easily modify that
+binary uh but Even though you could do
+that, you as if you bypass that signing
+mechanism and you use an unsigned
+application, you might be able to go
+into that one, find the JavaScript file,
+edit it, and then make a new binary. But
+but that's kind of the operating system
+that wants you to protect from that part
+of the system. Yeah. But if you do
+accept uh unauthorized binaries, you
+risk doing that obviously. Yeah. Yeah.
+kind of on that same
+uh path. Uh so in Electron are are is
+the worry like because if you download
+code from the internet obviously you
+have to know what it's doing or else
+you're vulnerable. But is it more like
+are we worried about specific third
+party dependencies that are broken or
+are we worried about like the user has
+another script on their system that's
+malicious that could kind of get in the
+way?
+&gt;&gt; Yeah. So the question is how Electron
+can be vulnerable from external scripts.
+So
+very often when I see web developers uh
+sometimes they tend to just use a
+framework that they reference with the
+internet for instance. Uh so that is one
+part where you can inject something
+externally where they use okay I just
+use some framework that is referenced on
+the internet and I just use it directly
+into my application without thinking
+really. Uh that is one way you could do
+that. There's also ways where you can
+actually if you open web pages within uh
+within the application like in iframe
+that is also one way you could
+potentially inject something but I don't
+know if you it's yeah I don't know
+exactly the details how prone you are
+for that but there are also things that
+you could run like uh if you have
+inserts of uh certain uh text or
+something you could potentially that
+could also be injected in some way. But
+these are kind of things that you very
+often are aware of and try to avoid as
+much as you can. So it's not very common
+I think but there might be some
+loopholes in an application if you don't
+think about it.
+&gt;&gt; And then the other question I had was
+how is the web standard support with
+these web kit like platform kits? I
+know.
+&gt;&gt; So the question is how is the web
+standard in relations to all these web
+kits on the platform itself? Um so my
+experience with that is that they're
+pretty well uh well handled but they
+tend to be one version behind kind of if
+you if you think of it. So if you have
+like the modern web browser has
+capability A and B which is very new you
+don't need necessarily have that on the
+on the on the embedded one. So they they
+seem to be like a little bit lagging
+behind. Uh so they're not the most
+modern but that was more a problem
+before. I think when you now use React
+and other frameworks they kind of just
+wrap all these things. Uh before when
+you had to use jQuery to kind of hold
+for all these things then you were more
+prone for these issues I think and I
+think it's not really a huge issue.
+&gt;&gt; Yeah. My question is you had the invoke
+call uh where you pass like the name as
+a string and then the arguments is just
+like a JavaScript object. Um but the
+rust is that you're calling into
+eventually it's compiled statically. So
+I guess theoretically you could generate
+like JavaScript shim functions and then
+generate like TypeScript types for that
+so that in your editor you kind of know
+all of the backend calls and it all just
+works. if there's any support for that
+or if it's like something they're
+considering. So the question is uh so in
+the invoke command you just send a
+javascript parameters into this invoke
+command uh so that and they're kind of
+handled on the rest side into some rest
+uh types basically and the question is
+if there are some ways of handle that
+between the typescript and the rest and
+to be honest I don't know exactly how we
+handle that I guess it works for simple
+types uh in a way because they're kind
+of created Uh but if it works for more
+other types, I'm not sure.
+&gt;&gt; Like you could uh automatically describe
+those types um generate TypeScript
+definitions from the Rust calls and then
+have like autocomp completion just work
+for your invoke calls.
+&gt;&gt; Yeah, I believe that should be possible
+but I do not know the details of it
+unfortunately.
+&gt;&gt; Yeah. uh how can you do automatic
+testing on the front end and the back
+end?
+So the question is how can you do
+automatic testing and front end on the
+back end and front end in the
+application
+&gt;&gt; or in your development environments
+&gt;&gt; um
+you have some unit test frameworks that
+you can do that but I have not gone into
+the automatic testing too much so I
+can't really explain how you can do that
+uh but I'm pretty sure there are some
+ways of doing it but I do not know so
+Okay, thank you very much.

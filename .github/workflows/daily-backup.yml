@@ -1,0 +1,31 @@
+name: Daily Backup Automation
+
+on:
+  schedule:
+    - cron: '0 4 * * *'  # 4 AM daily
+  workflow_dispatch:
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Create backup archive
+      run: |
+        DATE=$(date +%Y-%m-%d)
+        zip -r "trajanus-backup-$DATE.zip" . \
+          -x "*.git*" \
+          -x "node_modules/*" \
+          -x "*.zip"
+
+    - name: Upload to backup branch
+      run: |
+        git config user.name "Backup Bot"
+        git config user.email "backup@trajanus.com"
+        git checkout -b backup-$(date +%Y-%m-%d) || true
+        git add *.zip
+        git commit -m "Automated backup $(date +%Y-%m-%d)"
+        git push origin backup-$(date +%Y-%m-%d)

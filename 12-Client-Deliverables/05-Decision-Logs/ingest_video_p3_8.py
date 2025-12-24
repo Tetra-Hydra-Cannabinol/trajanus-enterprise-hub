@@ -1,0 +1,312 @@
+"""
+Ingest Playlist 3 video 8 (rSVfLLWuSro) - CUSTOM Excel Bar Chart with Vertical Line for AVERAGE, TARGET etc.
+"""
+
+import os
+from datetime import datetime
+from supabase import create_client
+
+def load_env():
+    env_path = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\.env'
+    env_vars = {}
+    with open(env_path, 'r', encoding='utf-8-sig') as f:
+        for line in f:
+            line = line.strip()
+            if line and '=' in line and not line.startswith('#'):
+                key, value = line.split('=', 1)
+                env_vars[key.strip()] = value.strip()
+    return env_vars
+
+env = load_env()
+supabase = create_client(env['SUPABASE_URL'], env['SUPABASE_ANON_KEY'])
+
+video_id = 'rSVfLLWuSro'
+title = "CUSTOM Excel Bar Chart with Vertical Line for AVERAGE, TARGET etc."
+channel = 'MyOnlineTrainingHub'
+duration = '8:54'
+topics = ['Bar Charts', 'Vertical Lines', 'Small Multiples', 'Trend Lines', 'Secondary Axis', 'Series Overlap', 'Data Labels', 'Chart Formatting', 'Legend Creation', 'Chart Title Linking', 'Gap Width']
+
+transcript = """0:03 this is an example of a small multiples
+0:05 chart it uses data from bank of americ
+0:08 meril Lynch and it was originally
+0:10 created in Tableau by Emily tessero I'm
+0:13 going to look at how we create this same
+0:15 chart in Excel and one of the challenges
+0:17 in Excel is getting this vertical line
+0:20 inside of a bar chart now this looks
+0:22 like one chart but it's actually in
+0:24 illusion it's a series of individual bar
+0:27 charts and I've just stacked them close
+0:29 together so they look like one my data
+0:32 is on this sheet here and you'll see I
+0:34 have a separate table of data for each
+0:37 spend
+0:38 category I've got my actual value the
+0:41 maximum and the average and if we look
+0:44 at the chart here the actual values are
+0:46 the gray bars the maximum are green and
+0:48 the average are the dash line so to
+0:51 insert one of these charts I need to
+0:53 select just the actual and Max first
+0:55 we'll
+0:56 insert a 2d bar chart I need to set this
+1:00 series to overlap so we'll do that
+1:03 control one to format the data series
+1:05 we'll set the overlap to 100% And while
+1:08 we're here let's set the Gap width to 30
+1:10 it's just going to make the bars a bit
+1:12 wider next we need to add the average so
+1:16 I'm going to select the data including
+1:18 the header contrl C select the outer
+1:21 edge of the chart and then on the Home
+1:23 tab I going to paste special this opens
+1:26 the chart paste special dialog box we're
+1:28 going to add a new series with the Y
+1:30 values in the columns and the series
+1:32 name is in the first row so click okay
+1:36 this is our average series now the first
+1:38 thing I need to do is put it on the
+1:39 secondary axis now we need to make sure
+1:42 these axes are set to the same size so
+1:45 let's change the maximum to 2 and now
+1:48 they're the same size it just make sure
+1:50 that the alignment of this is correct
+1:53 now I want to add a trend line to these
+1:56 gray bars so we'll click the plus and I
+1:59 want a linear trend
+2:01 line now I'm just going to do a little
+2:04 bit of formatting cuz I want to get rid
+2:05 of that Legend it's taking up too much
+2:07 space I don't need my horizontal
+2:10 axes because I'm going to add data
+2:13 labels I just want to add the data
+2:15 labels to the blue Series so let's put
+2:17 them inside the
+2:19 base okay that'll do for now now we can
+2:23 just see the trend line there I want to
+2:25 hide these gray bars so control one I'm
+2:29 going to set them to no fill now I can
+2:32 select my trend line and let's go about
+2:34 formatting that we'll make it a darker
+2:35 shade of gray change the dash to a bit
+2:39 wider and I want the trend line to
+2:42 extend to the top and bottom of the bars
+2:45 so let's make a change to the forward
+2:48 forecast and make that 10 and now it
+2:51 touches the top and bottom we can tidy
+2:53 up the chart a little bit more let's get
+2:56 rid of the grid lines cuz we've got
+2:58 these labels we don't need them so I'm
+3:00 just selecting them I'll press the
+3:01 delete key let's format the font white
+3:05 so it's easier to read and I want my
+3:08 vertical axis sorted in the opposite
+3:11 order as you can see in my data it
+3:13 starts with Millennials and ends in
+3:15 traditionalist so this is currently back
+3:16 to front so I'm going to control one to
+3:19 open the format access dialog box and
+3:21 I'm going to choose categories in
+3:23 reverse order now I can do a little bit
+3:26 more formatting maybe I want my fill for
+3:28 these bars to be
+3:30 a gray color and let's make this one
+3:33 Exel green for the
+3:35 maximum all we need to do now is link
+3:38 the chart title so with it selected in
+3:40 the formula bar I'm going to type equals
+3:43 and then choose the cell with the label
+3:44 press enter and now it's linked to that
+3:47 cell if I change that cell it will feed
+3:49 through to my chart let's get rid of the
+3:51 border on the outside of the chart so
+3:53 that we can align them closer together
+3:56 and I'll just make it a bit
+3:58 smaller and we'll see how we go about
+4:00 making the next one so basically I want
+4:03 to duplicate this chart so with the
+4:05 outside selected crl D to duplicate now
+4:09 you can see it's selected and it's still
+4:11 referencing these cells so let's just
+4:13 left click and drag them all I need to
+4:16 do now is I can't left click and drag
+4:18 that but I can rightclick and go into
+4:20 select data and I can just edit that
+4:23 cell so instead of that one I want that
+4:26 one and for this one instead of that one
+4:29 I want that
+4:30 one and average probably doesn't really
+4:33 matter for the label but I like to keep
+4:35 everything together I'll click okay I
+4:39 just need to hide these again so let's
+4:40 set them to no fill and we can set our
+4:43 series colors I think there's a bug in
+4:46 mine it should copy the colors but I'm
+4:48 on an Insider build of XL which means
+4:52 sometimes it's a little bit uh
+4:54 unpredictable shall we say so let's
+4:56 change that to excel Green Oh and I've
+4:58 lost my data lat Labs goodness me so
+5:01 we'll put
+5:02 them inside the
+5:06 base and we'll format that in
+5:09 white and let's link this to cell
+5:13 14
+5:14 14 now because I want to align these
+5:18 beside one another I want to reuse this
+5:20 axis rather than having it repeat so
+5:23 let's just hide the axis we'll turn the
+5:26 labels to none and now they line side by
+5:30 side let's close that I can also align
+5:33 my chart title to the left just to be
+5:38 consistent okay so the last thing I need
+5:40 to do is give my chart a title overall
+5:44 because I've got multiple charts and
+5:46 create a legend cuz the legend that
+5:48 comes with the chart is too noisy
+5:50 particularly with the trend lines so
+5:52 let's just use some shapes I need a text
+5:56 box for the chart
+5:58 title
+6:00 and let's set the font we'll use a
+6:05 light and we'll make it a bit bigger
+6:08 okay so that's my chart title we'll get
+6:11 rid of the border on that so that
+6:14 it's not
+6:16 visible okay chart title is done we just
+6:20 need a legend now so I'm going to
+6:24 insert a box that will represent my Max
+6:27 bars so let's set that fil to green and
+6:30 no
+6:32 outline and we'll insert a dash
+6:37 line so I'm just holding down the shift
+6:39 key to make sure the line is drawn
+6:41 straight so let's change the format uh
+6:45 actually it's this dark gray and we want
+6:48 it a bit thicker and it's annoying that
+6:51 you have to keep going to this drop down
+6:53 and dash line actually it looks like it
+6:56 needs to be much thicker let's change it
+6:58 to that one okay so now we just need to
+7:01 label these and we can use a text box
+7:04 for that so I'll insert another text
+7:07 box this will be the
+7:12 average let's make the font smaller and
+7:16 the Box a bit bigger
+7:19 okay we'll just align them and we'll get
+7:23 rid of the
+7:28 Border and we'll get rid of the
+7:31 fill and I'll just copy this average box
+7:34 and reuse it for the
+7:39 max okay so we just need to do a little
+7:42 bit of a
+7:44 lining and we're done so you need to
+7:47 obviously rinse and repeat this
+7:49 particular chart for the rest of the
+7:52 categories and then align them all
+7:54 beside each other make sure that the
+7:57 horizontal axis values are the same same
+7:59 in each chart so that they're
+8:01 consistently sized one thing you might
+8:03 want to consider and it wasn't done in
+8:06 Emily's original chart but notice that
+8:09 this 10% bar is much bigger than this
+8:11 15% bar and that's fine if you're
+8:14 comparing vertical data which in this
+8:16 case we are but if you wanted to compare
+8:18 one chart to the next then you might
+8:20 want to consider making all of the axis
+8:22 lengths the same I think it's fine in
+8:24 this scenario but just bear that in mind
+8:26 to be consistent if you were to position
+8:29 these vertically then you want to make
+8:31 sure that these scales were
+8:34 identical okay so that is how you insert
+8:38 a vertical line in a bar chart in Excel
+8:41 you can go ahead and download the
+8:42 workbook there'll be a link in the video
+8:44 description and if you like this video
+8:46 please click the Thumbs Up And subscribe
+8:49 to my channel thanks for
+8:53 watching"""
+
+# Save transcript
+archive_dir = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\Knowledge_Archive\Transcripts\Microsoft_Office'
+os.makedirs(archive_dir, exist_ok=True)
+
+header = f"""Title: {title}
+Channel: {channel}
+Video ID: {video_id}
+URL: https://www.youtube.com/watch?v={video_id}
+Duration: {duration}
+Level: INTERMEDIATE
+Application: Microsoft Excel
+Topics: {', '.join(topics)}
+Ingested: {datetime.now().strftime('%Y-%m-%d')}
+Source: Playwright Browser Extraction
+{'='*78}
+
+"""
+
+filename = f"{datetime.now().strftime('%Y-%m-%d')}_INTERMEDIATE_{video_id}_Bar_Chart_Vertical_Line.txt"
+filepath = os.path.join(archive_dir, filename)
+
+with open(filepath, 'w', encoding='utf-8') as f:
+    f.write(header + transcript)
+
+print(f'Transcript saved: {filename}')
+
+# Chunk and ingest
+def chunk_text(text, chunk_size=3000):
+    chunks = []
+    current = ''
+    for line in text.split('\n'):
+        if len(current) + len(line) + 1 <= chunk_size:
+            current = current + '\n' + line if current else line
+        else:
+            if current:
+                chunks.append(current.strip())
+            current = line
+    if current.strip():
+        chunks.append(current.strip())
+    return chunks
+
+url = f'https://www.youtube.com/watch?v={video_id}'
+chunks = chunk_text(transcript)
+
+full_metadata = {
+    'channel': channel,
+    'video_id': video_id,
+    'duration': duration,
+    'level': 'INTERMEDIATE',
+    'application': 'Microsoft Excel',
+    'topics': topics,
+    'source': 'YouTube Transcript',
+    'ingested_date': datetime.now().strftime('%Y-%m-%d'),
+    'content_type': 'youtube_tutorial',
+    'category': 'Microsoft_Office'
+}
+
+inserted = 0
+for i, chunk in enumerate(chunks):
+    summary = chunk[:200].replace('\n', ' ').strip()
+    if len(chunk) > 200:
+        summary += '...'
+
+    record = {
+        'url': url,
+        'chunk_number': i + 1,
+        'title': title,
+        'summary': summary,
+        'content': chunk,
+        'metadata': full_metadata
+    }
+
+    try:
+        supabase.table('knowledge_base').insert(record).execute()
+        inserted += 1
+        print(f'  Chunk {i+1}/{len(chunks)} inserted')
+    except Exception as e:
+        print(f'  Error chunk {i+1}: {e}')
+
+print(f'\nTotal: {inserted} chunks inserted to Supabase')

@@ -1,0 +1,372 @@
+Title: 15 Excel Settings Changes That Make a Difference (+Cheat Sheet)
+Channel: MyOnlineTrainingHub
+Video ID: Xa10Eb8pOuc
+URL: https://www.youtube.com/watch?v=Xa10Eb8pOuc
+Duration: 16:50
+Level: INTERMEDIATE
+Application: Excel
+Topics: Excel Settings, Options Configuration, Leading Zeros, Table Structured References, Gridlines, AutoCorrect, Copilot Settings, PivotTable Defaults, GETPIVOTDATA, Backward Compatibility, Clipboard, Ruler Units, Auto-open Files, Hyperlinks, Select Objects, Focus Cell
+Ingested: 2025-12-20
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 Raise your hand if Excel's default
+settings have ever driven you just
+0:04 a little bit crazy. Maybe it's those leading
+zeros disappearing from your invoice numbers,
+0:09 the GETPIVOTDATA function inserting itself
+whenever you reference a PivotTable,
+0:14 or that new Copilot icon following your every
+move. You see, Excel's default settings are
+0:19 built for the average user — but you and I,
+we're not average. So, in this video, I'm going
+0:25 to show you 15 simple but game-changing Excel
+settings you absolutely need to change right now.
+0:30 Watch the video carefully because I'll be sharing
+a free resource you can open anytime you need a
+0:35 quick reminder of these settings, so
+you never need to Google them again.
+0:39 You enter a phone number like 075551234
+and Excel drops the leading zero. Now,
+0:47 there are a few ways to prevent this. For one-off
+entries, you can simply type an apostrophe,
+0:52 then type the number and press Enter. And
+this forces the format to become text. The
+0:58 apostrophe isn't visible on the face of the
+cell, but if you look in the formula bar,
+1:02 you can see it there. Plus, we have the telltale
+left alignment to indicate this is now text,
+1:08 and Excel is warning you that this looks
+like a number and it wants to convert
+1:12 it. Obviously, we can just ignore
+the error, and there's our number.
+1:17 However, if you have a lot of numbers to enter
+like this, having to enter an apostrophe first
+1:21 is annoying. Instead, in later versions
+of Excel, you can now turn this automatic
+1:26 conversion off via the File tab, down at
+the bottom — Options — and then under Data,
+1:33 down at the bottom, we've got Automatic
+Data Conversion, and simply uncheck "Remove
+1:38 leading zeros and convert to a number".
+Click OK. And now when I type it in,
+1:44 it remains as I typed it. Again, we get
+the warning, which we need to ignore.
+1:49 Now, if you don't see that
+option in your version of Excel,
+1:52 the other option is to simply format the
+cells as text, via the dropdown here at
+1:57 the bottom — Text. Then when you type
+in the number, it remains as I typed it.
+2:02 Now, if you're entering phone numbers, you
+might prefer to insert spaces to make them
+2:06 easier to read. And you can do that by simply
+typing in a space as you enter it. But that
+2:12 requires extra typing, so the other option is
+to create a custom number format. Ctrl + 1 to
+2:18 open the formatting pane. On the Number tab,
+at the bottom, we've got Custom. In here,
+2:23 simply type in zeros with spaces that represent
+the numbers in your phone number. Click OK. And
+2:30 now, if I type it in with no spaces, Excel
+automatically adds them for me. Notice also
+2:37 that this is a number, and if we look in the
+formula bar, you can see it's dropped the zero,
+2:42 but it's padded with a zero at the front
+because of the custom number format. So,
+2:46 you just need to decide which format of
+number is going to work best for you.
+2:50 If you work with data in Tables, you'll have
+likely seen a formula like this and thought,
+2:55 "Wait, what is this sorcery?" When you reference
+cells in Tables, Excel automatically uses the
+3:02 Table Structured References. Personally, I love
+them — but if you find them confusing or annoying,
+3:07 you'll be pleased to know that you can
+turn them off in the Options settings.
+3:11 Now, another way we can access the Options is
+using the keyboard shortcuts Alt F T Here, we want
+3:19 the Formulas tab, and we want to deselect "Use
+table names in formulae". Click OK. And now if
+3:26 I type in my SUM formula and reference the Profit
+column, you can see it puts in the cell references
+3:32 rather than the Table Structured Reference.
+It returns the same result, so happy days.
+3:38 You build a beautiful dashboard or summary
+report, but those light grey gridlines make it
+3:43 look unfinished. To turn them off, go to the
+View tab, and then deselect Gridlines. Now,
+3:49 if you want to go the extra mile, head to the
+Page Layout tab and click on Background. Here,
+3:55 you can browse to a custom background
+file to really make your report pop.
+4:00 Your reports instantly look more
+professional and intentional — clean visuals,
+4:06 better first impressions, especially when
+sharing files with clients or your boss.
+4:10 You're typing the same long phrases or technical
+terms over and over, like "Quarterly Revenue
+4:17 Report" or "My Online Training Hub". It's tedious
+and typos sneak in when you least expect them.
+4:24 If we open up the Options — remember, the
+shortcut is Alt F T — and then under Proofing,
+4:31 we can go into AutoCorrect Options, and here
+we can create our own shortcuts. For example,
+4:38 I'm going to replace "RR" with "Quarterly
+Revenue Report". Click Add. Let's do the
+4:45 same for "My Online Training Hub". We're going to
+shorten it to "MOTH". Click Add. Click OK and OK.
+4:52 Now, when I type in "MOTH", it automatically
+puts in "My Online Training Hub". "RR" gives me
+4:58 "Quarterly Revenue Report". It's like having
+custom keyboard shortcuts — less typing,
+5:03 fewer typos, and way more efficiency, especially
+if you work with repetitive names or phrases.
+5:09 A quick pause — if you're watching this and
+thinking, "Okay, these settings are great, but
+5:14 I still feel like I'm just scratching the surface
+with Excel." You're not alone. A lot of people get
+5:19 stuck trying to piece things together with YouTube
+videos and random Googling — and it just takes
+5:24 forever. That's actually why I created my Excel
+Expert course. It's everything I wish I had when I
+5:30 was learning Excel — structured lessons, hands-on,
+files to practice with, and guidance when you need
+5:36 it to help you stop guessing and actually feel
+confident with the powerful stuff in Excel.
+5:41 So, if you want to go beyond the settings
+and really upgrade your skills — whether
+5:46 it's for your job, a promotion, or just to
+finally feel like the Excel expert on your
+5:50 team — there's a link in the description and
+pinned comment where you can check it out.
+5:54 All right, let's get back to the settings.
+5:58 If you're using the latest version
+of Excel with Microsoft 365, you may
+6:02 have noticed the new Copilot icon popping up
+all the time, even when you're not using it.
+6:08 It's visually distracting and gets
+in the way. Luckily, in the Options,
+6:13 we have a new Copilot tab. So, Alt F T — Copilot.
+Here we can check the box to "Show Copilot
+6:20 icon only for highly relevant suggestions". Click
+OK. And now it's gone — thank goodness. Of course,
+6:28 you can still use Copilot — it's available on the
+Home tab, over on the far right. Click on it, and
+6:33 it brings up the Copilot task pane. So, it's not
+gone for good — it's just not annoying anymore.
+6:38 Every time you insert a PivotTable,
+Excel defaults to the Compact Layout,
+6:43 so you waste time switching to Tabular Layout,
+turning off Subtotals, etc., just to get the
+6:49 layout you actually want. So, to fix this, we'll
+go back into Options — Alt F T. On the Data tab,
+6:56 we've got "Make changes to the default layout
+of PivotTables". Edit the default layout. And
+7:02 here we can import a layout. So, I can just import
+this one that I've already set up the way I want,
+7:07 or you can use the dropdowns here to choose
+the different settings if you want something
+7:12 slightly different. We can also access the
+PivotTable Options, where there are some
+7:16 further settings that we can set as the default.
+I'm going to import this one. Click OK and OK.
+7:23 And now let's clear this PivotTable. We'll go and
+insert another PivotTable — I want Country in the
+7:29 columns, Segment, Product, and Units Sold. And
+just like that, it's picked up my default layout.
+7:35 By the way, if you have Microsoft 365, you'll
+notice the PivotTable value fields now inherit
+7:40 the number formatting of the source data. So we
+can see there's our Units Sold column — it's set
+7:46 to comma separator with no zeros. And if we look
+at the PivotTable, it's picked it up — perfect.
+7:52 If you work with PivotTables, you'll no
+doubt have referenced a cell in a PivotTable,
+7:56 and instead of a normal cell reference like I5,
+we get the cumbersome GETPIVOTDATA function. Let's
+8:03 say we want to calculate this as a percentage of
+the grand total. We'll format it as a percentage,
+8:09 and then we copy it down. And what happens? We get
+the same result on every row. And that's because
+8:14 the formula is hard-keyed — which is a pain.
+The good news is we can turn this setting off.
+8:21 Simply select the PivotTable. On the PivotTable
+Analyze tab, on the far left we've got Options,
+8:27 and we can deselect "Generate GETPIVOTDATA". Now,
+if I type in my formula, you can see we get the
+8:33 regular cell reference, and I can easily
+copy it down to get my results — perfect.
+8:42 That said, there are a lot of benefits to
+using GETPIVOTDATA, which I cover in the
+8:47 video linked in the description. So I recommend
+you give it a chance and check out the video.
+8:52 If you're using the latest version of
+Excel with all the fancy new functions,
+8:56 and you share your file with someone on an older
+version, they'll get a nasty surprise if they try
+9:01 to edit a formula or they trigger a recalculation.
+So, to avoid this, you can make sure your files
+9:07 are backward compatible via the File tab — Info —
+and then under "Inspect Workbook", we can "Check
+9:13 for Issues" and "Check Compatibility". We get
+this dialogue box, and we can click here and
+9:20 choose the versions of Excel that we want to check
+backward compatibility for. I only want to go back
+9:26 as far as 2019, and you can see we've got a few
+issues. It tells us the location, the sheet name,
+9:34 we can click on Find and it will take us to
+the cell or object that's the issue. We can
+9:39 also click on the Help link to understand more
+about it and what alternate options you have.
+9:44 We can "Check compatibility when saving this
+workbook", and if you have a lot of issues,
+9:49 you might find copying them to a new sheet handy,
+because then you can work through them one by one.
+9:55 You copy one thing, and Excel forgets the last
+thing you copied. And if you need to paste several
+10:00 things into different places, you can waste a lot
+of time flipping back and forth. The solution?
+10:06 Let me show you. Go to the Home tab, click on
+the little launch icon here in the bottom-right
+10:11 corner of the Clipboard group — and this opens
+the Clipboard. It can store up to 24 copied items.
+10:18 For example, I've broken a long formula
+into steps to make it easier to write.
+10:23 Now I'm happy it calculates correctly, I want to
+consolidate these three formulas into one. So,
+10:28 I'm going to select the first one — including
+equals — Ctrl + C to copy. It's now on the
+10:33 Clipboard. Escape. Let's go to the next one
+— I only need up to the equal sign for this
+10:39 one — Ctrl + C. Escape. And the last one
+— again, just up to the equal sign. So,
+10:45 now we've got the three components of my
+formula. I can go to the cell that I want
+10:50 to paste them in. In the formula bar, click
+on each element. So, I want this formula,
+10:56 and then I'm subtracting the WEEKDAY, and
+instead of referencing step 2's formula,
+11:02 I'm going to insert this one. Press Enter. And now
+I get my formula consolidated into one. And the
+11:10 Clipboard has made it super quick and easy for me
+to copy those different elements of the formula.
+11:15 Now, the nice thing about the Clipboard is you
+can copy text or images from other Office apps,
+11:20 your web browser, wherever — and they'll
+be available for you to paste as required.
+11:26 If you're using Excel for labels or templates or
+anything design-related, the default ruler units
+11:32 might not match what you need. First of all, you
+need to turn the ruler on, and we do that via the
+11:37 View tab, and we want the Page Layout view. You
+also need to make sure that in the Show group,
+11:42 Ruler is checked — and we can see it at the
+top of the screen there. The column width and
+11:47 row height are now in your default units. If
+I right-click and edit the column width, you
+11:52 can see my default unit is "centimetres", but we
+can change the units via the File tab — Options.
+11:58 Let's use the keyboard shortcut, and then under
+Advanced, I'm going to scroll down to the Display
+12:04 section. And here we've got Ruler Units. I've got
+my default units set, but I can choose inches,
+12:10 centimetres, or millimetres. I'm going to leave it
+at my default, 'cause that's perfect for my needs.
+12:16 If you want to turn the ruler off, you
+can simply deselect it here — or going
+12:21 back to Normal View will just display
+the regular row and column labels.
+12:26 If you open the same Excel files every single day,
+you waste precious minutes hunting them down and
+12:31 opening them manually. Instead, set them up to
+automatically open when you start Excel. Simply
+12:38 place them all in a folder together, then copy the
+path to that folder. You can right-click and "Copy
+12:44 as Path", or you can see the keyboard shortcut is
+Ctrl + Shift + C. Once you've got the folder path
+12:50 copied, go back to Excel, go into your Options —
+Alt F T — then under Advanced, scroll all the way
+12:57 to the bottom, and then under the General group,
+we've got "At startup, open all files in". And
+13:03 Ctrl + V to paste in your folder path. Now, you'll
+notice there's double quotes surrounding it — so
+13:08 delete them. Go to the front and delete that one
+as well. Click OK. And next time you open Excel,
+13:15 it's going to open all the files in that folder
+— ready for action without any extra clicks.
+13:21 When you type in a website or email address,
+Excel instantly turns it into a clickable
+13:26 blue hyperlink. That might be what you
+want, but if not, it just looks messy,
+13:31 replaces your formatting, and if you're
+working with raw data, it's just not helpful.
+13:36 To turn this default off, go to the Options
+— Alt F T — and then under Proofing,
+13:42 we've got AutoCorrect Options, and
+then under "AutoFormat As You Type",
+13:46 we've got "Internet and network paths
+with hyperlinks". Deselect that. Click OK,
+13:52 and OK. And now, when you type in your URL, web
+address, or email address, it won't convert them.
+14:00 If you work with objects like shapes or icons or
+images — like these ones here — that are layered
+14:06 on top of one another, it can be frustrating
+selecting them one by one, especially if they're
+14:11 overlapping. Instead, on the Home tab under Find
+& Select, you can convert your mouse to Select
+14:18 Objects mode. Then you can left-click and drag to
+select objects — you can move them around as one.
+14:25 You simply have to enclose the whole
+object to ensure you've grabbed all of it.
+14:30 To exit Select Objects mode, you can go back
+to Find & Select and click it again — or you
+14:36 can just press Escape, and now your mouse is
+back to normal. Now, another shortcut if you
+14:41 just want to select all objects on your page is to
+select one, and then Ctrl + A to select them all.
+14:48 If you use the Edge browser, you may have noticed
+that it defaults to opening Excel files in Excel
+14:53 for the web — which is super annoying if your
+file contains features that aren't available
+14:57 in Excel Online yet. To fix this in Microsoft
+Edge, click on the ellipsis in the top right,
+15:04 go into Settings, and then on the left, select
+Downloads. And here, turn off "Open Office files
+15:13 in the browser". This tells Edge not to open
+Excel, Word, or PowerPoint files in the browser,
+15:19 but to download them instead — letting
+you open them in the desktop app.
+15:24 If you work with large spreadsheets, the
+Focus Cell feature — available to Microsoft
+15:28 365 users — highlights the row and column of
+the selected cell, making it easier to trace
+15:34 data across large ranges. You activate it on
+the View tab, and then Focus Cell. And now,
+15:40 wherever you click, it's going to be easy
+to see at a glance — highlighting the active
+15:46 row and column of your selected cell. You
+can also select a color of your choice
+15:51 via the dropdown here — you can see we
+have the whole palette to choose from.
+15:55 You'll notice there's also "Show auto highlight".
+Let me demonstrate how that works. We'll turn
+16:00 Focus Cell off, and then if I Ctrl + F to use
+the Find dialog box, and we'll find "Paseo",
+16:07 Find Next — it enables Focus Cell when in Find
+mode, making it easy to see the selected cell in
+16:14 your worksheet. Once you go out of the Find
+dialog box, you can see Focus Cell is off.
+16:20 Excel is now finally set up to work for you — not
+against you. And like I promised at the beginning,
+16:26 you don't need to remember all these
+settings — I've put together a free
+16:29 cheat sheet with everything we covered
+today. You can keep it to hand as a
+16:33 quick reference guide — and the link's
+in the description and pinned comment.
+16:38 If you want to take things a step further and
+make your most-used tools just one click away,
+16:43 check out this video next on a totally underrated
+16:46 Excel feature that can save you a
+ton of time. I'll see you there.

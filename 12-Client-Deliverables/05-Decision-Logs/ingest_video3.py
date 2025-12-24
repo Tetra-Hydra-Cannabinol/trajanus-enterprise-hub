@@ -1,0 +1,480 @@
+"""
+Ingest video 3 (yC9fVxUBZ_g) - Excel: 8 AI Game-Changers!
+"""
+
+import os
+import json
+from datetime import datetime
+
+# Supabase setup
+from supabase import create_client
+
+def load_env():
+    env_path = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\.env'
+    env_vars = {}
+    with open(env_path, 'r', encoding='utf-8-sig') as f:
+        for line in f:
+            line = line.strip()
+            if line and '=' in line and not line.startswith('#'):
+                key, value = line.split('=', 1)
+                env_vars[key.strip()] = value.strip()
+    return env_vars
+
+env = load_env()
+supabase = create_client(env['SUPABASE_URL'], env['SUPABASE_ANON_KEY'])
+
+# Video metadata
+video_id = 'yC9fVxUBZ_g'
+title = 'Excel: 8 AI Game-Changers!'
+channel = 'MyOnlineTrainingHub'
+duration = '13:26'
+topics = ['Excel AI Tools', 'Data Cleaning', 'Flash Fill', 'Power Query', 'PivotTables', 'Charts', 'Analyze Data', 'Forecasting', 'Excel Labs', 'Formula by Example']
+
+# Transcript content
+transcript = """0:00 Excel has a load of AI tools already built in
+0:03 that we can use to improve productivity
+0:05 and make our lives easier.
+0:07 There are AI tools that will clean data
+0:10 analyze it for you,
+0:12 create automatic forecasts
+0:14 and even write custom lambda functions,
+0:17 and that's all before copilot gets added.
+0:20 Ah! I told you, not yet.
+0:23 Sorry. Bit keen!
+0:25 Plus I'm going to show you a tool that is
+0:27 so new it's still in development,
+0:29 so stay tuned to the end.
+0:31 Let's start with the data cleaning tools.
+0:33 Here I have a list of names that I want to split
+0:36 into separate columns.
+0:37 With flash fill,
+0:38 I can simply give it an example or 2,
+0:40 and Excel will give me a preview of what it thinks
+0:43 I need. All I need to do is press Enter to accept it.
+0:47 The only catch is I have to do one column at a time,
+0:50 but in the scheme of things that's no big deal.
+0:53 If you have some inconsistent data,
+0:55 you can give an example of the different permutations
+0:59 and then trigger Flash Fill
+1:00 using the keyboard shortcut CTRL+E
+1:03 Pretty cool and you can see here.
+1:06 Flash Fill also works with dates.
+1:08 There are a
+1:09 load more examples in my comprehensive Flash Fill
+1:12 video here. Now
+1:13 the downside of Flash Fill
+1:14 is that if your data changes
+1:16 you have to manually trigger the Flash Fill again.
+1:19 So if you expect your data to update
+1:21 then Power Query's column from example
+1:24 is going to be more efficient. Here I've
+1:26 got a table
+1:26 where the name and position are concatenated
+1:29 in one column,
+1:29 which is a big no no.
+1:31 Let's go ahead and load the data to Power Query.
+1:33 It's already in a table,
+1:34 so all I need to do is go to the data tab and load it
+1:38 from table range.
+1:40 I want to add a column that extracts the position
+1:42 so I'm going to go to the add column tab
+1:44 and then column from examples,
+1:46 and all I need to do is give it an example
+1:48 of the result that I want,
+1:50 and just like that, it's detected the pattern.
+1:53 In this case it is pretty easy because it is
+1:55 already comma separated
+1:57 in the name and position column,
+1:58 but what's really cool
+1:59 is that it's showing me the formula
+2:01 that it's going to use.
+2:02 All I need to do here is click okay
+2:05 and it adds the column for me.
+2:07 Let's rename it and I'm good to close and load
+2:09 so we'll go close and load to
+2:13 we'll put it on this worksheet.
+2:15 I'll just pop it over here
+2:17 and there's my data in the correct format.
+2:20 Now the beauty of this is
+2:22 if I add a record to my source data,
+2:25 all I need to do is right-click my query table
+2:27 and refresh
+2:29 and boom, there's my record.
+2:31 All right, all right.
+2:32 That was an easy example.
+2:33 Let's look at something harder.
+2:36 Here I have a table of meeting rooms
+2:37 and when they're booked. I'd.
+2:39 like to count the number of days each room is booked.
+2:42 Let's load the data to power query.
+2:45 Remember here
+2:45 I want to count the number of days
+2:47 the meeting rooms are booked.
+2:49 Meeting room one is booked 2 days this week
+2:53 and meeting room 2 is booked one day
+2:56 so we're going to have to give this a few examples.
+2:59 It thinks it's detected a pattern,
+3:00 but we can see meeting room 3 is booked every day,
+3:03 so let's fix that
+3:06 and it's correctly detected the rest.
+3:08 But what's really cool
+3:10 is it's written the formula for me
+3:12 and we can see here
+3:13 it's using the List.NonNullCount function.
+3:16 I didn't even need to know about that function.
+3:19 All I need to do now is click ok,
+3:21 It's added my count column
+3:22 and put the formula in for me.
+3:25 All I need to do now is close & load to.
+3:30 We'll put this on the same worksheet
+3:31 and I'll just pop it
+3:32 one column to the right of my table
+3:34 so it's out of the way.
+3:36 So there are just a couple of examples
+3:38 but Power Query can work with all sorts of data
+3:41 including dates,
+3:42 time, arithmetic and more,
+3:45 so be sure to give it a go
+3:46 next time you're
+3:47 adding columns or cleaning data in Power Query.
+3:51 If you're not sure how to analyze your data
+3:53 or you're new to pivot tables,
+3:55 then recommended pivot tables,
+3:56 will analyze your data and make some
+3:59 suggestions. Just point and click!
+4:02 Simply select a cell in the table
+4:04 and then on the insert tab
+4:06 you want recommended pivot tables.
+4:08 It opens up in a pane on the right hand side.
+4:11 I'm just going to left click and drag it out
+4:13 and bring it closer to my data.
+4:15 Excel analyzes your data for you
+4:17 and identifies
+4:18 possible ways you might want to summarize it.
+4:20 Click on the insert buttons,
+4:22 either new sheet or existing sheet
+4:24 at the bottom of each suggested pivot table.
+4:28 You can see there's 10 altogether.
+4:29 I can click on this to show all 10 results.
+4:33 Let's choose a pivot table,
+4:35 I'll put it on an existing sheet
+4:38 and just here beside my data
+4:42 and now I can work with this
+4:43 just like any other pivot table,
+4:45 changing the formatting. For example,
+4:47 let's get rid of the decimal places.
+4:50 I can add more fields if I want,
+4:52 you can see it works just like a regular pivot table
+4:54 because it is.
+4:56 I just haven't had to do all the work of
+4:57 building it from scratch,
+4:59 and if I want more recommended pivot tables,
+5:01 I can just continue scrolling through
+5:03 and choose the next one.
+5:06 Similarly recommended charts
+5:08 make suggestions based on your data.
+5:10 You'll find it on the insert tab
+5:11 and then recommended charts.
+5:14 It can suggest regular charts or pivot charts
+5:17 it just depends on the data.
+5:19 Selecting a chart on the left gives you a preview
+5:22 on the right.
+5:23 and when you've chosen the one you want, simply click ok,
+5:27 and now I can work with this like any old chart.
+5:29 For example, let's say
+5:31 I want to get rid of my horizontal axis,
+5:34 add data labels, and I'll get rid of the grid lines.
+5:37 Job done.
+5:39 Analyze Data is an
+5:40 AI powered service that automatically
+5:42 identifies patterns,
+5:43 correlations and outliers in your data
+5:46 and provides you with charts and pivot tables
+5:48 you can insert into your workbook.
+5:51 And because it's powered by machine learning,
+5:54 it will provide increasingly
+5:56 advanced analysis as usage grows.
+5:59 So try it out.
+6:00 I like to use Analyze Data
+6:02 when I receive a new data set
+6:03 that I'm not familiar with.
+6:05 Ideally your data should be in a tabular layout
+6:08 and formatted in an Excel table
+6:10 like I have here
+6:11 the more category type columns in your data set,
+6:14 the more opportunities Excel has to group the data
+6:17 and find interesting correlations,
+6:19 trends and patterns.
+6:21 You'll find analyze data on the home tab of the ribbon
+6:24 and over on the far right.
+6:26 It opens in a task pane and you can left
+6:28 click and drag to pull it out closer to your data.
+6:31 The first suggestion is a pivot table.
+6:34 I can go ahead and insert it.
+6:36 I've also got some charts. It looks for trends, patterns,
+6:40 outliers and correlations.
+6:43 There's some more results here. Let's expand that.
+6:48 Once you choose the chart you want,
+6:50 go ahead and insert it and
+6:51 then you can just work with it like any other chart.
+6:55 If you don't like the one you've chosen,
+6:56 simply click on it and press Delete.
+7:00 Now, one of the cool things about analyze data is
+7:03 you can also ask a question using natural language.
+7:06 For example, let's say
+7:08 I want to display the total visitors by destination
+7:12 as a column chart.
+7:14 It's going to generate a pivot chart
+7:15 that looks pretty good.
+7:16 I'll
+7:17 insert pivot chart
+7:19 we can see here.
+7:19 It's inserted a new sheet that contains my pivot table
+7:23 and the pivot chart.
+7:25 Excel Forecast Sheets automatically
+7:27 generate formulas to predict
+7:29 the future values
+7:30 and present the results in a nice chart for you.
+7:33 They require historical
+7:34 time based data in a tabular layout
+7:36 that contains a column with dates
+7:38 or times at consistent intervals
+7:40 and a column for the values.
+7:43 Creating a forecast is super easy.
+7:45 Go to the data tab
+7:47 and then forecast sheet
+7:51 at the dialogue box,
+7:52 here you can set the confidence intervals,
+7:54 seasonality, and various other things.
+7:57 I'll leave them at the defaults.
+7:59 You can experiment with them yourself,
+8:01 I'll click create, it
+8:02 inserts a new sheet in the file
+8:03 containing a copy of your data,
+8:05 the formulas and a chart. Pretty easy, huh?
+8:09 For a comprehensive video on forecast sheets,
+8:11 check out this one.
+8:13 Excel Labs,
+8:14 formerly called the Advanced Formula Environment,
+8:17 can convert formulas to
+8:18 custom lambda functions from examples
+8:21 in the grid. Here in columns C to E, I have.
+8:24 3 separate formulas
+8:26 to extract the product code from column B.
+8:29 I want to convert these formulas into a lambda function
+8:32 that I can use again and again
+8:33 so I don't have to remember how to write these long
+8:36 complicated formulas.
+8:38 If you haven't already got Excel Labs installed,
+8:40 you can do so via the Home tab and then Add ins.
+8:45 Click on Get Add Ins to search for it
+8:48 here, type in Excel Labs
+8:50 and press Enter. There it is.
+8:53 I'll close that down because I've already installed it.
+8:56 It appears on your Home tab,
+8:57 so click on Excel Labs
+9:00 the first time you use it
+9:01 you have to choose it from the Excel Labs pane,
+9:04 but you can choose.
+9:06 Remember this choice
+9:06 so next time it goes straight to it.
+9:09 I'll go ahead and open it.
+9:11 Let's left click and drag it out
+9:13 so it's closer to the formula
+9:15 to create a custom function using Excel Labs.
+9:18 Go to the names tab
+9:19 and then click on the icon of the grid with the
+9:21 little plus sign.
+9:23 We're going to add a function from grid.
+9:25 The range containing the calculation
+9:27 are the 3 cells that have my formulas,
+9:30 the cells to treat as parameters. That's cell B5
+9:33 which is the cell containing the text I want to split
+9:37 and the output cell is E5.
+9:39 That's the cell that contains the final result.
+9:42 Let's preview it.
+9:45 I'll give it a bit more space,
+9:46 so there's my function
+9:48 I haven't had to write a single line of code.
+9:51 Amazing!
+9:51 It's taken the 3 separate formulas from the cells
+9:55 and written the lambda for me.
+9:57 We can change the function name.
+9:58 For example, let's get rid of the underscore.
+10:01 I'll go ahead and create it.
+10:03 You can see it there listed in my functions tab,
+10:05 let's use it in the grid
+10:09 equals Product
+10:11 and you can see it appears in the autocomplete list.
+10:13 I can simply use my arrow keys to navigate
+10:16 and TAB to select it.
+10:17 The string is in cell B5,
+10:20 I'll close parentheses and there's the result.
+10:23 I'll double click to copy it down
+10:25 just like a regular formula.
+10:26 Amazing! I haven't needed to know how to write a lambda
+10:31 to create my own custom function
+10:33 and it travels with this workbook, so any Microsoft 365
+10:36 users you share it with can also use it.
+10:40 Now there's a load more to the
+10:41 Excel Labs Advanced Formula
+10:43 Environment that you should check out
+10:44 in the video here.
+10:46 We just saw Excel write
+10:48 a complicated lambda formula based on formulas I'd
+10:51 already written,
+10:53 but how about having Excel do all the work from scratch?
+10:57 Now that would be life changing.
+10:59 Now, the features I'm about to show you are so new
+11:02 it's still in development
+11:04 and they're currently
+11:05 only available in Excel Online for all US
+11:08 English users of Microsoft 365
+11:10 with a personal or family subscription.
+11:14 Let's take a look.
+11:15 Let's look at splitting
+11:16 this text into first name and last name columns.
+11:19 I'll just give it a couple of examples.
+11:21 It's detected a pattern
+11:23 and is suggesting I use a formula.
+11:25 If you think it's going to get the formula right,
+11:27 you can jump to click
+11:28 Apply. Incredible! Notice it also corrects the case,
+11:33 detecting that I also want upper case first initial.
+11:36 We can see it's built
+11:37 into the formula with the use of the PROPER function.
+11:39 Let's see how it handles the surname.
+11:43 Let's take a look at the formula this time.
+11:45 Now this is a bit more complicated
+11:47 because it's realized that some names
+11:49 have a middle initial
+11:50 and it needs to allow for that
+11:52 it hasn't handled the case sensitivity here,
+11:55 and that's probably
+11:55 because I didn't get to give it the example for Bond,
+11:58 but I can go ahead and fix the ones it got wrong
+12:01 and it's detected that the formula needs modifying
+12:04 and we can see here it's added the PROPER function
+12:08 and notice it's updated the formula
+12:10 for all the cells in the column
+12:12 autocorrecting itself.
+12:15 It can also rearrange data.
+12:17 For example.
+12:17 Here I might want my phone numbers separated
+12:20 with a hyphen between each set of 3 digits.
+12:24 Let's give it a few examples
+12:27 and we'll take a look at the formula.
+12:29 That formula is quite long.
+12:31 It's a bit hard to get my head around,
+12:32 so let's take a gamble and see what it looks like.
+12:36 Looks like it got it right.
+12:38 It's correctly added the hyphen between each
+12:40 set of 3 digits.
+12:42 Good to go.
+12:44 Formula by example can also handle math equations.
+12:48 It's triggered when it detects the manual entry of data
+12:51 that it thinks it can calculate with a formula.
+12:54 It's detected that I appear to be multiplying
+12:56 the quantity times the price
+12:58 and we can see here.
+12:59 It's even corrected my hard keyed entries
+13:02 with the formulas
+13:03 and that way, if I change anything in the table,
+13:06 it's going to feed through to that column and
+13:08 update automatically.
+13:09 Incredible, that's just a few examples,
+13:12 but check out the video
+13:13 here for my comprehensive tutorial on formula
+13:16 by example. For other cool things it can do. Well
+13:19 that wraps up the 8
+13:21 current AI tools available in Excel.
+13:23 You can download the file for this tutorial
+13:25 from the link here
+13:26 and try them out for yourself.
+13:28 If you like this video,
+13:29 please give it a thumbs up
+13:30 and subscribe to our channel for more
+13:32 and why not share with your friends who might
+13:34 also find it useful.
+13:36 Thanks for watching."""
+
+# Save transcript to archive
+archive_dir = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\Knowledge_Archive\Transcripts\Microsoft_Office'
+os.makedirs(archive_dir, exist_ok=True)
+
+header = f"""Title: {title}
+Channel: {channel}
+Video ID: {video_id}
+URL: https://www.youtube.com/watch?v={video_id}
+Duration: {duration}
+Level: INTERMEDIATE
+Application: Microsoft Excel
+Topics: {', '.join(topics)}
+Ingested: {datetime.now().strftime('%Y-%m-%d')}
+Source: Playwright Browser Extraction
+{'='*78}
+
+"""
+
+filename = f"{datetime.now().strftime('%Y-%m-%d')}_INTERMEDIATE_{video_id}_Excel_8_AI_Game_Changers.txt"
+filepath = os.path.join(archive_dir, filename)
+
+with open(filepath, 'w', encoding='utf-8') as f:
+    f.write(header + transcript)
+
+print(f'Transcript saved: {filename}')
+
+# Chunk and ingest to Supabase
+def chunk_text(text, chunk_size=3000):
+    chunks = []
+    current = ''
+    for line in text.split('\n'):
+        if len(current) + len(line) + 1 <= chunk_size:
+            current = current + '\n' + line if current else line
+        else:
+            if current:
+                chunks.append(current.strip())
+            current = line
+    if current.strip():
+        chunks.append(current.strip())
+    return chunks
+
+url = f'https://www.youtube.com/watch?v={video_id}'
+chunks = chunk_text(transcript)
+
+full_metadata = {
+    'channel': channel,
+    'video_id': video_id,
+    'duration': duration,
+    'level': 'INTERMEDIATE',
+    'application': 'Microsoft Excel',
+    'topics': topics,
+    'source': 'YouTube Transcript',
+    'ingested_date': datetime.now().strftime('%Y-%m-%d'),
+    'content_type': 'youtube_tutorial',
+    'category': 'Microsoft_Office'
+}
+
+inserted = 0
+for i, chunk in enumerate(chunks):
+    summary = chunk[:200].replace('\n', ' ').strip()
+    if len(chunk) > 200:
+        summary += '...'
+
+    record = {
+        'url': url,
+        'chunk_number': i + 1,
+        'title': title,
+        'summary': summary,
+        'content': chunk,
+        'metadata': full_metadata
+    }
+
+    try:
+        supabase.table('knowledge_base').insert(record).execute()
+        inserted += 1
+        print(f'  Chunk {i+1}/{len(chunks)} inserted')
+    except Exception as e:
+        print(f'  Error chunk {i+1}: {e}')
+
+print(f'\nTotal: {inserted} chunks inserted to Supabase')

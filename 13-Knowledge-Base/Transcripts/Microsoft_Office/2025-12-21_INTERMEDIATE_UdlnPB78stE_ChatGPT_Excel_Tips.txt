@@ -1,0 +1,209 @@
+Title: ChatGPT For Excel: Tips & Tricks to 10X Your Productivity
+Channel: MyOnlineTrainingHub
+Video ID: UdlnPB78stE
+URL: https://www.youtube.com/watch?v=UdlnPB78stE
+Duration: 9:02
+Level: INTERMEDIATE
+Application: Microsoft Excel
+Topics: ChatGPT, Excel Formulas, MAX Function, INDEX MATCH, XLOOKUP, IFERROR, FILTER Function, VBA Macros, Keyboard Shortcuts, Productivity
+Ingested: 2025-12-21
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 Today, we're going to be exploring ways you
+can leverage ChatGPT to transform the way
+0:04 you work with Excel. Imagine having formulas
+effortlessly crafted for you and uncovering
+0:09 shortcuts to make everything simpler. But
+before we dive into our first example,
+0:14 I've got a quick question for you. What's the
+one Excel task or formula that always seems
+0:19 to stump you? Share your answers in the comments.
+I'm curious to see what challenges you face.
+0:24 Here I have a dataset containing
+the sales for a coffee shop,
+0:28 selling six types of coffee. Now let's say I
+0:31 want to find out what the maximum sales revenue
+was from any coffee, but I have no clue which
+0:37 Excel function to use. Let's open ChatGPT
+side by side Excel. I'll use the Windows shortcut,
+0:42 key, windows and the left arrow to dock Excel
+to the left side and then select ChatGPT for
+0:49 the right side. In the message box, I'll ask my
+question, "What Excel formula should I use to
+0:55 find the maximum value in a
+column?" And just like that,
+1:00 it replies with the answer. And it says here,
+1:02 replace A1 to A10 with the actual range where your
+1:05 data is located. Let's try
+it, I'll copy the code and
+1:09 paste it into Excel and replace this range with
+the cells in my table. And there we go. Of course,
+1:16 now I want to know what the best-selling coffee
+was, so let's ask ChatGPT. "What formula would I
+1:21 use to find the product that had the maximum
+sales where the product is in cells C4 to C9 and
+1:27 the sales values are in D4 to D9, I'm using
+Microsoft 365?" Specifying the cell references
+1:33 here saves me having to modify the formula that
+ChatGPT returns and telling it what version of
+1:38 Excel I have, helps it know what functions I can
+use. It suggests the INDEX and MATCH functions,
+1:44 which can be a bit daunting. So let's ask it if
+there's an easier formula I can use. Okay, it's
+1:52 suggesting XLOOKUP and that'll partly be
+because I told it I have Microsoft 365 and
+1:57 it knows this function is available to me. So
+you can see that follow-up questions to ChatGPT
+2:02 are a great way for beginners to rapidly
+become experts at Excel. Here, within seconds
+2:07 we found two solutions to one problem, something
+that can often take many years to discover on
+2:12 your own. Alright, I'll copy
+the formula and enter it in
+2:16 my spreadsheet and I can see the best-selling
+2:19 coffee is Frappe. Chances are you run into formula
+errors working with Excel, I've definitely had my
+2:24 fair share. It happens to all of us. The great
+thing is ChatGPT can help us out. It's not only
+2:30 good at creating formulas, but also
+at fixing those pesky errors. Suppose
+2:35 beginning the new year, our
+coffee shop is going to add
+2:38 four more types of coffees to its
+menu. I've created a spreadsheet to
+2:42 record the sales. There are four columns in my
+table and I've calculated the average revenue
+2:47 per coffee in column D, But as you can see, the
+four new coffee types have no prior sales. So my
+2:53 formula returns a #DIV/0! error. Now the error
+will resolve when I enter sales for those coffees,
+2:59 but the errors are off-putting, so let's see if
+we can hide them. "In my sales data table. I'm
+3:05 trying to calculate the average revenue per item
+in range D4 to D13. The formula in D4 is B4/C4,
+3:14 but it's giving #DIV/0! error when sales are
+zero. How can I fix this?" Okay. It's suggesting
+3:21 using the IFERROR function. Let's copy it and
+I'll paste it into my table. Job done! Now we have
+3:27 "N/A" instead of ugly #DIV/0! errors. Of course,
+you could also replace now with a 0 if you prefer.
+3:33 Returning the appropriate formula or debugging a
+formula is just the beginning. ChatGPT is capable
+3:39 of much more. Imagine the new coffee shop has now
+expanded into five countries. We've gone global!
+3:46 And now my spreadsheet contains consolidated sales
+for the last two months. There's also another
+3:51 sheet someone else inserted that only shows sales
+from Canada for Frappe, which was our bestselling
+3:57 coffee, remember? It uses a FILTER formula, but
+it looks a bit complicated. So let's ask it to
+4:03 explain this Excel formula step by step and then
+I'll copy the formula and paste it into ChatGPT.
+4:12 Specifying step by step in the prompt ensures
+I'll get a breakdown of each component rather
+4:16 than just a general overview. Okay, point 1 says
+FILTER(Data!A:D,..., is the main structure of the
+4:24 formula which filters a specified range based on
+certain conditions. Point 2 explains this part of
+4:30 the formula is filter criteria Data!A:A, checks
+if the values in column A equal "Canada" and
+4:37 Data!B:B checks if the values
+in column B equal "Frappe".
+4:41 2 boolean arrays are multiplied together using an
+4:43 * which acts as a logical AND operation. This
+means that only rows that both conditions
+4:49 are true will pass through the filter and point 3
+"Canada has no Frappe sales" is value to display
+4:55 If no rows meet the filter criteria and then it
+goes on to summarize further. But now at least
+5:01 it doesn't look so daunting, and I think I can
+modify it to suit my requirements. For example,
+5:07 let's change it to Turkish Coffee and I'll add
+another condition where sales on the Data sheet
+5:14 column C are greater than 10,000. There we go!
+Remember, if you make a mistake, you can always
+5:22 ask ChatGPT to fix it for you. As you can see,
+ChatGPT is extremely helpful when you're working
+5:29 on a spreadsheet you inherited from someone
+else, making it super quick to get up to speed.
+5:34 Speaking of help, if you're still finding Excel
+a bit daunting, I've got the solution for you.
+5:39 Check out my range of Excel courses designed
+5:41 to take you from beginner to
+pro in no time. You can find
+5:44 them all by clicking the first link in the video
+description. One of the easiest ways to save time
+5:48 in Excel is with keyboard shortcuts, but with over
+200 shortcuts. It's a lot to remember. But ChatGPT
+5:55 can recall them in seconds, for example, AutoSum
+is one of the most versatile shortcuts, but if
+6:01 you don't use it regularly, it's easy to forget.
+I'll ask ChatGPT, "What's the Excel keyboard
+6:07 shortcut to quickly add up
+numbers in a column in Excel?"
+6:12 The answer is ALT+ =. Notice,
+6:15 it's also given me the Mac shortcut as
+a bonus. Let's try it out ALT+ = Tada!
+6:22 If you like shortcuts, be sure to download my
+6:24 "Periodic Table of Shortcuts" from
+the link in the video description.
+6:27 There's a version for Windows
+and a version for Mac. Macros
+6:31 function as your dedicated Excel helpers,
+6:33 automating repetitive tasks.
+They're written using Visual
+6:36 Basic for Applications or VBA for short, and
+6:39 they're capable of handling tasks ranging from
+6:42 basic formatting to complex
+calculations, with the click
+6:45 of a button. I've created a PivotTable to help
+me quickly analyze my global coffee shop empire,
+6:50 and I share this report with some investors.
+I have an assistant updating the source data,
+6:55 but I want to make sure the PivotTables are
+always up to date and that requires a manual click
+6:59 of the refresh button. And while it's not hard
+or time-consuming, it's critical that it's not
+7:04 forgotten. The last thing I want is my investors
+getting a report that's out of date. Now,
+7:08 I'm sure I can do this with VBA, but I'm not
+a programmer, so let's ask ChatGPT to help.
+7:14 "Create VBA code to refresh PivotTable1 located
+in the VBA_Pivot sheet when the Data sheet in the
+7:20 same workbook is no longer active. I'm a beginner
+7:24 and I need to know the steps
+to save the VBA in my file."
+7:27 Again, I'm telling you the names I think it
+will need to reference in the VBA code that
+7:32 way I have less edits to make and in mentioning
+my level of ability it'll give me more detailed
+7:38 instructions to ensure I can use the code that
+it provides. Alright, it's written some VBA code
+7:44 and it explains how to add it to my workbook.
+So, let's follow the steps and see if it works.
+7:49 I'll copy the code, and then I'm back in Excel.
+7:53 Step 1 is ALT+ F11 to open
+the Visual Basic Editor.
+7:57 Step 2 is open the Project
+Explorer with Control + R.
+8:02 Step 3, expand the workbook,
+but mine's already expanded.
+8:06 Step 4 is right-click 'ThisWorkbook' and select
+'View Code'. Step 5 is paste in the VBA code
+8:13 and then close the VBA editor. Okay, to test it
+out, I'll edit the values for Canada for January,
+8:21 so make a note of the amount here and on the
+Data sheet, I'll change the value for Canada
+8:27 Cuban Espresso. And as I navigate away from
+the date sheet, the pivot tables should update.
+8:35 And you can see the amount for Canada for January
+has changed. Just keep in mind that when you
+8:39 add VBA to your file, you have to save it as
+a .xlsm file type. As it explains here. Now,
+8:46 VBA is the original way to automate tasks in
+Excel and it still used a lot, but it can't
+8:51 execute in Excel online. Whereas the newer way to
+automate tasks using Office Scripts can. So check
+8:57 out this video next. Don't forget to like and
+subscribe and I'll see you in the next video.

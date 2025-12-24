@@ -1,0 +1,290 @@
+"""
+Ingest Playlist 3 video 15 (9WVI62yP_70) - Highlight High and Low Points/Max and Min in Excel Line and Column Charts
+"""
+
+import os
+from datetime import datetime
+from supabase import create_client
+
+def load_env():
+    env_path = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\.env'
+    env_vars = {}
+    with open(env_path, 'r', encoding='utf-8-sig') as f:
+        for line in f:
+            line = line.strip()
+            if line and '=' in line and not line.startswith('#'):
+                key, value = line.split('=', 1)
+                env_vars[key.strip()] = value.strip()
+    return env_vars
+
+env = load_env()
+supabase = create_client(env['SUPABASE_URL'], env['SUPABASE_ANON_KEY'])
+
+video_id = '9WVI62yP_70'
+title = "Highlight High and Low Points/Max and Min in Excel Line and Column Charts"
+channel = 'MyOnlineTrainingHub'
+duration = '7:36'
+topics = ['Max Min Highlighting', 'Line Charts', 'Column Charts', 'IF Formula', 'Series Overlap', 'Data Labels', 'Custom Number Format', 'Chart Formatting', 'Automatic Updates', 'Excel Tables']
+
+transcript = """0:00 highlighting the minimum and maximum in
+0:02 a line chart can help Focus your reader
+0:04 attention now we can manually select
+0:07 points or columns and change the color
+0:09 and that's fine for static charts but if
+0:11 your chart gets updated then you'll want
+0:13 to automate the process let me show you
+0:16 how in my data table I have two extra
+0:19 columns one for the maximum value and
+0:21 one for the minimum and you can see in
+0:24 the formula bar that the max column is
+0:26 checking whether the value in the sales
+0:28 column is the maximum and if it's not it
+0:31 returns a zero likewise for the minimum
+0:35 formula okay let's insert a column
+0:43 chart and I'll make it a little
+0:47 bigger we can see here that we've got
+0:49 the three series The Sals the dark green
+0:53 the maximum and the minimum and
+0:55 obviously there's only one bar for the
+0:56 maximum and the minimum now we want to
+0:59 overlap lap these columns so that the
+1:01 Max and Min columns sit on top of the
+1:03 sales ones so I'm going to control one
+1:06 to open the format data series Pane and
+1:08 in series overlap I want 100% and let's
+1:12 make the Gap width 50 so that the
+1:14 columns are a bit wider the next thing I
+1:16 want to do is color my columns let's
+1:19 make the sales values a little paler so
+1:22 we'll go with a gray
+1:24 color this one here and that will help
+1:27 our Max and minimum columns to stand out
+1:30 we can also format them now I've got a
+1:32 bit of a bug in my excel at the moment
+1:34 so I'm going to choose the max series
+1:37 from this drop down here and you can see
+1:39 it's selected in the table but it
+1:41 doesn't appear to be selected in the
+1:42 chart but if you watch like magic it
+1:46 will change color so we're going to
+1:47 format it in this teal color and let's
+1:50 do the same for the minimum Series so
+1:53 I'll select it and this one you can see
+1:55 it's selected in the chart and you can
+1:57 also see the series selected here let's
+2:00 make this one this orange color okay
+2:04 let's also add some labels just to these
+2:06 Minimax Series so want data labels
+2:09 outside the end we'll do the same for
+2:13 the
+2:14 Max and outside the end now notice that
+2:20 all of the other bars that don't have a
+2:22 value that are zero values also have
+2:24 these zero labels and they're looking a
+2:26 bit ugly so one way to hide them is to
+2:29 format the numbers in our source data
+2:32 with a custom number format that hides
+2:34 the zero so I'm going to control one to
+2:36 open the format cells dialogue box and
+2:39 then I want a custom format and here I
+2:42 want a single digit for the positive the
+2:44 negative will be a single digit and then
+2:48 for my zero value I'm not going to add a
+2:51 format I'm going to leave it blank and
+2:53 that will effectively hide the zeros
+2:55 click okay now they're gone from my
+2:57 table and they're also gone from my ch
+2:59 chart
+3:00 labels let's format these chart labels
+3:03 so that they're in keeping with the
+3:05 columns so this one's orange and I'm
+3:07 just going to make it bold so it's
+3:09 easier to read and this one will make
+3:12 the teal color and also bold so all
+3:16 we're left to do is tidy up the chart a
+3:18 I'll delete the grid lines let's pop the
+3:21 legend at the top and I'll just bring it
+3:25 up here onto the right hand side and
+3:27 we'll move the label the chart title
+3:29 across to the
+3:31 left and that will give us a little bit
+3:33 more room for our chart
+3:36 information so that's the column chart
+3:39 now if my data were to change for
+3:40 example if this value was now 100 you'll
+3:44 see the chart will automatically update
+3:47 and my highlighting for the max value
+3:48 has moved likewise let's make this one
+3:51 45 and my highlighting automatically
+3:54 update and if you were to add more data
+3:57 the chart will automatically pick it up
+3:59 and these formulas will be copied down
+4:01 because my data is formatted in an Excel
+4:04 table so once you set everything up it's
+4:06 low
+4:08 maintenance okay let's take a look at
+4:10 the line chart
+4:12 option again in my table I have two
+4:15 extra columns one for the maximum and
+4:17 one for the minimum however this time if
+4:20 the value on the current row isn't the
+4:21 maximum or the minimum depending on the
+4:23 column it will return the hash and a
+4:25 error and we return hash and a errors
+4:28 because these don't get plotted in line
+4:30 charts whereas a zero value like I used
+4:32 in the column chart previously that
+4:35 would result in the line dipping down to
+4:37 the horizontal axis and we don't want
+4:38 that so let's go ahead and insert the
+4:44 chart and for this I want the line chart
+4:47 with
+4:48 markers and again I'll just make it a
+4:50 bit
+4:51 bigger so we can see there's a small dot
+4:54 that's hard to distinguish for the max
+4:56 value and one for the minimum let's go
+4:59 go ahead and format these lines so I'm
+5:02 going to use the format tab here change
+5:05 the shape fill and shape outline for the
+5:07 sales values then I'm going to select my
+5:11 maximum value again it's not showing up
+5:13 as selected here in the chart but we can
+5:15 see it's selected in the table so I'm
+5:18 going to control one to open the format
+5:20 Pane and on the Paint Bucket here for
+5:23 this series I don't want to show a line
+5:24 at all I want to show the marker and
+5:28 let's choose one of the buil markers the
+5:30 dot is fine we'll make it bigger so I
+5:32 want it size
+5:33 11 and then I don't want any fill but I
+5:37 want my border to be a solid line and
+5:40 this is the maximum value so going to go
+5:41 with this teal color and I'm just going
+5:44 to make the line a bit thicker so it's
+5:45 easier to
+5:46 see so that's my maximum we need to
+5:50 rinse and repeat for the minimum so
+5:52 let's go ahead and select that Series so
+5:55 here I
+5:56 want for my line no line the marker will
+6:00 be the built-in marker at size 11 we
+6:04 want no fill and a solid Border in the
+6:07 orange color and we'll thicken the line
+6:10 up so it's easier to see and again let's
+6:12 add some data labels for these markers
+6:15 so this one I want it to be below
+6:17 because it's always going to be the
+6:19 minimum I want the label to be sit at
+6:21 the bottom and let's go ahead and do the
+6:24 same for the maximum value and this time
+6:28 we want the label to be
+6:30 above and let's also apply the
+6:33 formatting go with the tail color and
+6:35 bold and this one needs to be
+6:39 orange and
+6:41 bold so what we need to do now is tidy
+6:43 up the chart like we did before We'll
+6:45 add the legend back to the top and I'll
+6:49 just left click and drag it to the right
+6:50 hand side and we'll move the chart title
+6:53 across to the
+6:56 left this will give us more room for our
+6:58 chart
+7:00 and just like with the column chart if I
+7:02 change one of these values it
+7:04 automatically updates in the chart so I
+7:06 don't have to do any further maintenance
+7:09 once my chart is set up and linked to
+7:11 the table you can download the file for
+7:14 this lesson from the link here a big
+7:16 thank you to fellow XL MVP John Peltier
+7:19 who showed me this technique I hope you
+7:21 can make use of it if you like this
+7:23 video please give it a thumbs up and
+7:25 subscribe to my channel for more and why
+7:28 not share it with your friends who might
+7:29 also find it useful thanks for
+7:35 watching"""
+
+# Save transcript
+archive_dir = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\Knowledge_Archive\Transcripts\Microsoft_Office'
+os.makedirs(archive_dir, exist_ok=True)
+
+header = f"""Title: {title}
+Channel: {channel}
+Video ID: {video_id}
+URL: https://www.youtube.com/watch?v={video_id}
+Duration: {duration}
+Level: INTERMEDIATE
+Application: Microsoft Excel
+Topics: {', '.join(topics)}
+Ingested: {datetime.now().strftime('%Y-%m-%d')}
+Source: Playwright Browser Extraction
+{'='*78}
+
+"""
+
+filename = f"{datetime.now().strftime('%Y-%m-%d')}_INTERMEDIATE_{video_id}_Max_Min_Highlighting.txt"
+filepath = os.path.join(archive_dir, filename)
+
+with open(filepath, 'w', encoding='utf-8') as f:
+    f.write(header + transcript)
+
+print(f'Transcript saved: {filename}')
+
+# Chunk and ingest
+def chunk_text(text, chunk_size=3000):
+    chunks = []
+    current = ''
+    for line in text.split('\n'):
+        if len(current) + len(line) + 1 <= chunk_size:
+            current = current + '\n' + line if current else line
+        else:
+            if current:
+                chunks.append(current.strip())
+            current = line
+    if current.strip():
+        chunks.append(current.strip())
+    return chunks
+
+url = f'https://www.youtube.com/watch?v={video_id}'
+chunks = chunk_text(transcript)
+
+full_metadata = {
+    'channel': channel,
+    'video_id': video_id,
+    'duration': duration,
+    'level': 'INTERMEDIATE',
+    'application': 'Microsoft Excel',
+    'topics': topics,
+    'source': 'YouTube Transcript',
+    'ingested_date': datetime.now().strftime('%Y-%m-%d'),
+    'content_type': 'youtube_tutorial',
+    'category': 'Microsoft_Office'
+}
+
+inserted = 0
+for i, chunk in enumerate(chunks):
+    summary = chunk[:200].replace('\n', ' ').strip()
+    if len(chunk) > 200:
+        summary += '...'
+
+    record = {
+        'url': url,
+        'chunk_number': i + 1,
+        'title': title,
+        'summary': summary,
+        'content': chunk,
+        'metadata': full_metadata
+    }
+
+    try:
+        supabase.table('knowledge_base').insert(record).execute()
+        inserted += 1
+        print(f'  Chunk {i+1}/{len(chunks)} inserted')
+    except Exception as e:
+        print(f'  Error chunk {i+1}: {e}')
+
+print(f'\nTotal: {inserted} chunks inserted to Supabase')

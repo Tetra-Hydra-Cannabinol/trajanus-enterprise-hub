@@ -1,0 +1,415 @@
+"""
+Ingest Playlist 3 video 20 (jqH8T8Aezd0) - Easy Excel Waffle Charts..Better than Pies and Doughnuts!
+"""
+
+import os
+from datetime import datetime
+from supabase import create_client
+
+def load_env():
+    env_path = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\.env'
+    env_vars = {}
+    with open(env_path, 'r', encoding='utf-8-sig') as f:
+        for line in f:
+            line = line.strip()
+            if line and '=' in line and not line.startswith('#'):
+                key, value = line.split('=', 1)
+                env_vars[key.strip()] = value.strip()
+    return env_vars
+
+env = load_env()
+supabase = create_client(env['SUPABASE_URL'], env['SUPABASE_ANON_KEY'])
+
+video_id = 'jqH8T8Aezd0'
+title = "Easy Excel Waffle Charts..Better than Pies and Doughnuts!"
+channel = 'MyOnlineTrainingHub'
+duration = '13:55'
+topics = ['Waffle Charts', 'Conditional Formatting', 'SORT Function', 'SEQUENCE Function', 'Dynamic Arrays', 'COLUMNS Function', 'ROWS Function', 'Relative Waffle Charts', 'Absolute Waffle Charts', 'Symbol Characters', 'Text Boxes', 'Color Coding', 'Parts to Whole Visualization', 'Formula Techniques']
+
+transcript = """0:00 waffle charts are a popular way to
+0:01 visually display parts to a ho and
+0:04 they're a good alternative to fellow
+0:05 pastry based charts like the pie and dut
+0:09 particularly if you're wanting to
+0:10 display small segments which often end
+0:13 up as a tiny Slither in a pie or a donut
+0:16 chart however that doesn't mean you
+0:18 should get carried away with the number
+0:20 of categories you display in Waffle
+0:22 charts I still recommend no more than
+0:25 three after that just becomes too
+0:27 difficult to compare the parts now there
+0:30 there are a couple of ways we can build
+0:31 waffle charts in Excel and in this
+0:33 example we'll look at conditional
+0:34 formatting individual
+0:36 cells we'll start with a waffle chart
+0:39 that adds up to 100 or 100% using a 10x1
+0:43 grid of cells this is also known as
+0:46 relative waffle chart the US Senate data
+0:49 I have here works well for this example
+0:51 because there are 100 senators of course
+0:53 it also works well for data that adds up
+0:55 to 100% now each cell in the waffle
+0:59 chart is numbered from 1 through to 100
+1:01 counting up from the bottom left and
+1:04 working left to right now I have
+1:06 Microsoft 365 so I'm going to use the
+1:08 sort and sequence Dynamic array
+1:10 functions to generate the numbers but if
+1:12 you don't have 365 I'm going to show you
+1:15 an alternate formula in a moment so
+1:17 equals sort
+1:19 sequence I want 10 rows 10 columns I
+1:23 want to start at one and count up by one
+1:27 and I'm going to sort it I'm going to
+1:30 skip the sort index argument but I want
+1:32 the sort order to be minus one which is
+1:36 descending and because I have Dynamic
+1:38 arrays it spills the results to the
+1:40 cells below and to the right you can see
+1:42 it starts in the bottom left at one and
+1:44 counts up to 100 now the alternate
+1:48 formula if you don't have Dynamic arrays
+1:50 is to use columns and rows so here we're
+1:53 going to start in column
+1:56 1 and we're going to go through to
+1:59 column 10
+2:00 notice my absolute
+2:02 referencing + 10 * rows and here I want
+2:08 starting at Row
+2:10 one through to row
+2:14 10 minus one close parentheses you can
+2:18 see this has returned the same value
+2:20 that I have in the top left cell of my
+2:22 sort and sequence formula so all I need
+2:24 to do now is copy it down 10 rows and
+2:27 across 10 columns
+2:30 and I get the same results so this is
+2:33 the alternate formula if you don't have
+2:35 Dynamic arrays let me just select those
+2:37 cells and delete that and we'll work
+2:40 with this data set the next thing I want
+2:43 to do is resize The Columns and rows to
+2:45 make each cell a small square so let's
+2:49 select the columns right click column
+2:52 width the column width is
+2:53 one and the row height is going to be 10
+3:01 now you can still see that I have
+3:02 numbers in there I could hide them with
+3:04 some font formatting or I could just
+3:06 make the font really big and then it
+3:08 can't display it anyway next I'll set
+3:11 all the cells to have a gray fill color
+3:14 and we'll give those cells a border
+3:17 that's white so I'll just go into more
+3:18 borders I prefer to do it this way I
+3:21 want white and I want the outline and
+3:24 inside to be
+3:26 white and there's my 10x10 grid and I'm
+3:29 ready to set the conditional formatting
+3:31 rules so the first thing to do is select
+3:33 all of the cells and then on the Home
+3:35 tab of the ribbon conditional
+3:38 formatting new rule and here I want use
+3:41 a formula to determine which cells to
+3:44 format so here I want to start with the
+3:47 top left cell I'm going to remove the
+3:50 absolute referencing by pressing F4
+3:52 three times I want to check that this
+3:55 cell value is less than or equal to the
+3:59 democrat's value plus the Republicans
+4:01 value I need to add Democrats to
+4:04 Republicans because my Republicans
+4:06 series is going to sh up second or on
+4:09 top of the Democrats
+4:10 values so this is the Republican value
+4:14 so here I want the fill color to be
+4:17 read and now all I need to do is repeat
+4:20 that conditional formatting for the
+4:23 Democrats which are blue again select
+4:26 the first cell remove the absolute
+4:28 referencing check that it's less than or
+4:31 equal to the democrat's values set the
+4:34 formatting fill to
+4:38 blue and then we have a visual
+4:41 representation of how many seats overall
+4:44 are for women and the breakdown of those
+4:46 seats between Democrats and Republicans
+4:49 now if we look at the conditional
+4:51 formatting manager you can see that the
+4:53 order of the rules is blue is applied
+4:56 first and then red if you don't have
+4:59 your rules in the right order it's not
+5:01 going to display correctly but you can
+5:03 easily rearrange them using the up and
+5:05 down arrows in the conditional
+5:07 formatting rules manager so I'll click
+5:10 okay and the last thing I want to do is
+5:13 give my chart a label now because the
+5:15 column widths up here are tiny I like to
+5:19 use a text box so we'll go to the insert
+5:21 tab shapes text box and you just draw in
+5:26 the text box and type in your title
+5:35 all and you can use color coding to help
+5:38 your reader interpret the
+5:39 [Music]
+5:41 chart it also means you don't need to
+5:44 have a legend let's remove the border
+5:47 from the text box so we're going to
+5:49 shape outline no outline now normally
+5:52 you'd have all these workings on another
+5:54 sheet I've kept them here just so that
+5:56 we can see it in context as I'm building
+5:59 building the waffle chart just move that
+6:02 into
+6:07 place absolute waffle charts don't
+6:10 necessarily add up to 100 instead each
+6:13 square or dot in the chart represents
+6:15 one unit with the total number of
+6:17 squares or dots adding up to the total
+6:19 data for example there are 435 people
+6:23 who make up the United States House of
+6:25 Representatives and I want to create a
+6:27 waffle chart that has a segment for each
+6:30 person so let's go back to the working
+6:32 file for the video here I've already
+6:35 sized the column width and row height to
+6:38 suit my
+6:39 needs again I need to number each cell
+6:42 and I can use sort and sequence to do
+6:45 that here I want 20 rows and the number
+6:49 of columns could vary based on my data
+6:52 and one way to calculate that is to use
+6:54 Round Up to take the total number and
+6:58 divide it by say the same number of rows
+7:01 that you have doesn't necessarily mean
+7:02 it will come out as a square and as
+7:04 you'll see in this case I want to round
+7:07 it to zero decimal places and for the
+7:11 sequence I want to start at one and step
+7:13 by one again we're going to skip the
+7:15 sort index and sort in descending
+7:19 order so the data has spilled you can't
+7:22 see the numbers because the font is too
+7:25 big to see in the cells but if we
+7:28 enlarge them for a moment you can see
+7:32 I've got 440 numbers and they start at
+7:35 one now obviously I only need 435 so
+7:39 these ones are redundant and we'll hide
+7:41 them with conditional formatting I'm
+7:43 just going to contrl zed to undo that so
+7:46 that my numbers are hidden again now the
+7:48 rules here are slightly different
+7:49 because remember I only want to
+7:51 highlight or shade 435 of the cells so
+7:55 I'm going to use conditional formatting
+7:57 for the gray fill color as well so again
+8:00 we want a new rule using a formula so
+8:03 this is where the first cell remove the
+8:06 absolute referencing is less than or
+8:08 equal to a total
+8:11 number we want to format these cells
+8:13 with a gray fill color with a white
+8:19 border click okay and okay and there I
+8:23 have my 435 segments now I can apply the
+8:27 conditional formatting for the red and
+8:29 blue again we're going to display the
+8:31 Democrats at the bottom and then the
+8:33 Republicans next so we'll start with
+8:36 Republicans new rule based on a formula
+8:40 again where this cell remove the
+8:42 absolute reference is less than or equal
+8:45 to Democrats plus Republicans we want
+8:48 the format fill to be
+8:52 red and let's repeat for the
+8:57 blue remove the absolute
+9:00 referencing is less than or equal to the
+9:02 number of Democrats we want to format it
+9:05 in
+9:06 blue now this example uses the sort and
+9:09 sequence Dynamic array functions but you
+9:12 can also build this using the columns
+9:13 and row functions so similar to before
+9:16 we want to start in A1 through to A1 for
+9:21 the first cell and you can see I haven't
+9:23 made the second reference to A1 absolute
+9:26 that's important so that when we copy it
+9:28 it increment correctly now I've got 22
+9:31 columns times
+9:33 rows and again starting in Row 1 through
+9:38 to
+9:39 a20 -1 close
+9:42 parentheses now let's copy this formula
+9:45 because it's not a dynamic array it
+9:47 doesn't spill and if I make the columns
+9:50 wider you can see the numbers so there's
+9:52 my 440 values generated using columns
+9:56 and rows that's for earlier versions of
+9:58 excel C now another option we have
+10:01 instead of showing the squares is to
+10:03 show a symbol like a DOT and we can grab
+10:06 one of those from the insert tab symbol
+10:10 and in the dialog box here I've got a
+10:12 DOT that I've used before there are
+10:14 other shapes and symbols that you could
+10:16 use you can scroll through and have a
+10:18 look what's available I'm going to stick
+10:20 with the dot so I'll click close with it
+10:22 selected crl C to copy and then escape
+10:26 cuz I don't actually want it in that
+10:27 cell so here I can use an if formula to
+10:31 test if this value is less than or equal
+10:34 to this value F4 to Absolute if it is
+10:38 return the dot otherwise return blank
+10:42 close my if so you can see it's returned
+10:44 a DOT now all I need to do is copy and
+10:47 paste that to the remaining cells you
+10:50 can see these cells are the values that
+10:53 are greater than 435 so they don't get a
+10:56 DOT and because the DOT is essentially a
+11:00 font I can use the font color to format
+11:03 it in a shade of gray now the
+11:06 conditional formatting is slightly more
+11:07 complex but first let's just resize the
+11:10 column
+11:12 widths back to
+11:14 one and what I want to do is copy the
+11:17 formula in here for columns and rows
+11:20 this formula returns a number remember
+11:22 if I press F9 you can see this cell is
+11:25 value 419 so I want to copy that formula
+11:29 and then select all of my cells that I
+11:31 want to conditionally format and again
+11:34 we're going to apply a new rule based on
+11:36 a formula and here I need to paste in
+11:39 that formula that I copied that's going
+11:42 to give me the value to compare to check
+11:44 whether it's less than or equal to so
+11:47 the first format is for red so we want
+11:50 to check that it's less than or equal to
+11:52 Democrats plus Republicans vales if it
+11:56 is I want to format the font remember
+11:58 the dot is a font and I want it to be
+12:02 red click okay and okay so there we have
+12:06 the Republicans formatted let's repeat
+12:09 for the Democrats again equals paste in
+12:12 the formula less than or equals 2 the
+12:16 Democrats
+12:17 figure and this one the format font
+12:20 color is
+12:22 blue and lastly because my column widths
+12:26 are tiny I'm going to insert a 10 text
+12:29 box for the chart
+12:37 title and like before let's use some
+12:41 color coding to help our readers
+12:43 interpret the chart without the need of
+12:46 a
+12:49 legend make this font
+12:51 [Music]
+12:54 gray and
+12:56 bold then you can resize it
+12:59 let's remove the
+13:01 border and the title is the same for
+13:04 both so just holding down control and
+13:06 shift I'm left clicking and dragging to
+13:08 make a copy of that chart
+13:11 [Music]
+13:13 title in these examples you'll have
+13:16 noticed that each segment represents a
+13:18 whole number or a whole percentage point
+13:21 with this technique it's not possible to
+13:23 show fractions of a percentage point but
+13:26 in next week's video I'll demonstrate an
+13:28 alternate way to Bell waffle charts that
+13:30 get around this limitation well I hope
+13:33 you found this technique useful you can
+13:36 download the Excel file for this lesson
+13:38 from the link here and if you like this
+13:40 video please give it a thumbs up and
+13:42 subscribe to my channel for more and why
+13:44 not share it with your friends who might
+13:46 also find it useful thanks for
+13:50 [Music]
+13:54 watching"""
+
+# Save transcript
+archive_dir = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\Knowledge_Archive\Transcripts\Microsoft_Office'
+os.makedirs(archive_dir, exist_ok=True)
+
+header = f"""Title: {title}
+Channel: {channel}
+Video ID: {video_id}
+URL: https://www.youtube.com/watch?v={video_id}
+Duration: {duration}
+Level: INTERMEDIATE
+Application: Microsoft Excel
+Topics: {', '.join(topics)}
+Ingested: {datetime.now().strftime('%Y-%m-%d')}
+Source: Playwright Browser Extraction
+{'='*78}
+
+"""
+
+filename = f"{datetime.now().strftime('%Y-%m-%d')}_INTERMEDIATE_{video_id}_Waffle_Charts.txt"
+filepath = os.path.join(archive_dir, filename)
+
+with open(filepath, 'w', encoding='utf-8') as f:
+    f.write(header + transcript)
+
+print(f'Transcript saved: {filename}')
+
+# Chunk and ingest
+def chunk_text(text, chunk_size=3000):
+    chunks = []
+    current = ''
+    for line in text.split('\n'):
+        if len(current) + len(line) + 1 <= chunk_size:
+            current = current + '\n' + line if current else line
+        else:
+            if current:
+                chunks.append(current.strip())
+            current = line
+    if current.strip():
+        chunks.append(current.strip())
+    return chunks
+
+url = f'https://www.youtube.com/watch?v={video_id}'
+chunks = chunk_text(transcript)
+
+full_metadata = {
+    'channel': channel,
+    'video_id': video_id,
+    'duration': duration,
+    'level': 'INTERMEDIATE',
+    'application': 'Microsoft Excel',
+    'topics': topics,
+    'source': 'YouTube Transcript',
+    'ingested_date': datetime.now().strftime('%Y-%m-%d'),
+    'content_type': 'youtube_tutorial',
+    'category': 'Microsoft_Office'
+}
+
+inserted = 0
+for i, chunk in enumerate(chunks):
+    summary = chunk[:200].replace('\n', ' ').strip()
+    if len(chunk) > 200:
+        summary += '...'
+
+    record = {
+        'url': url,
+        'chunk_number': i + 1,
+        'title': title,
+        'summary': summary,
+        'content': chunk,
+        'metadata': full_metadata
+    }
+
+    try:
+        supabase.table('knowledge_base').insert(record).execute()
+        inserted += 1
+        print(f'  Chunk {i+1}/{len(chunks)} inserted')
+    except Exception as e:
+        print(f'  Error chunk {i+1}: {e}')
+
+print(f'\nTotal: {inserted} chunks inserted to Supabase')

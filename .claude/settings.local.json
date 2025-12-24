@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm start)",
+      "Bash(ls:*)",
+      "Bash(timeout 15 npm start)",
+      "Bash(timeout 10 npm start)",
+      "Bash(tree:*)",
+      "Bash(timeout 8 npm start)",
+      "Bash(dir:*)"
+    ]
+  }
+}

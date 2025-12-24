@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trajanus File Picker Template v3</title>
+    <style>
+        /* ============================================================
+           TRAJANUS FILE PICKER TEMPLATE v3
+           Standard Pattern for All Workspace File Operations
+           ============================================================ */
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            /* Trajanus Primary Colors */
+            --trajanus-brown: #9B7E52;
+            --trajanus-brown-dark: #7B6142;
+            --trajanus-brown-light: #BBA682;
+
+            /* Backgrounds */
+            --bg-primary: #3d2a1f;
+            --bg-secondary: #1f1410;
+            --bg-panel: #FFFFFF;
+            --bg-hover: #F0E6D6;
+
+            /* Text Colors */
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --text-light: #999999;
+            --text-white: #FFFFFF;
+
+            /* Borders */
+            --border-color: #DDDDDD;
+            --border-hover: #9B7E52;
+
+            /* Status Colors */
+            --status-success: #4CAF50;
+            --status-error: #F44336;
+            --status-warning: #FF9800;
+            --status-info: #2196F3;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text-primary);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--bg-panel);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+
+        /* ============================================================
+           HEADER
+           ============================================================ */
+        .header {
+            background: linear-gradient(180deg, var(--trajanus-brown) 0%, var(--trajanus-brown-dark) 100%);
+            color: var(--text-white);
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 10px;
+        }
+
+        /* ============================================================
+           SECTION 1: FOLDER CONTENTS DISPLAY
+           ============================================================ */
+        .folder-contents {
+            background: #fafafa;
+            border-bottom: 3px solid var(--trajanus-brown);
+            padding: 20px 30px;
+        }
+
+        .folder-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .folder-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--trajanus-brown);
+        }
+
+        .folder-path {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-family: 'Consolas', monospace;
+            background: #f0f0f0;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-left: 15px;
+        }
+
+        .refresh-btn {
+            background: linear-gradient(180deg, var(--trajanus-brown) 0%, var(--trajanus-brown-dark) 100%);
+            color: var(--text-white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .refresh-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(155, 126, 82, 0.4);
+        }
+
+        .file-count {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .folder-file-list {
+            max-height: 200px;
+            overflow-y: auto;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 10px;
+        }
+
+        .folder-file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            margin-bottom: 5px;
+            background: #fafafa;
+            border-radius: 4px;
+            border: 1px solid #eee;
+            transition: all 0.2s;
+        }
+
+        .folder-file-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .folder-file-item:hover {
+            background: var(--bg-hover);
+            border-color: var(--trajanus-brown);
+        }
+
+        .folder-file-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .folder-file-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(180deg, var(--trajanus-brown) 0%, var(--trajanus-brown-dark) 100%);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .folder-file-name {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .folder-file-meta {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .folder-file-size {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .folder-file-date {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* ============================================================
+           SECTION 2: FILE PICKER
+           ============================================================ */
+        .file-picker-section {
+            padding: 30px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--trajanus-brown);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: var(--trajanus-brown);
+            border-radius: 2px;
+        }
+
+        .browse-area {
+            border: 3px dashed var(--trajanus-brown);
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            background: #fafafa;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .browse-area:hover {
+            background: var(--bg-hover);
+            border-style: solid;
+        }
+
+        .browse-area.drag-over {
+            background: var(--bg-hover);
+            border-color: var(--trajanus-brown-dark);
+            border-style: solid;
+        }
+
+        .browse-icon {
+            font-size: 3rem;
+            color: var(--trajanus-brown);
+            margin-bottom: 15px;
+        }
+
+        .browse-text {
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+        }
+
+        .browse-text strong {
+            color: var(--trajanus-brown);
+        }
+
+        .browse-btn {
+            background: linear-gradient(180deg, var(--trajanus-brown) 0%, var(--trajanus-brown-dark) 100%);
+            color: var(--text-white);
+            border: none;
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .browse-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(155, 126, 82, 0.4);
+        }
+
+        .selected-files-container {
+            background: #fafafa;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            min-height: 150px;
+        }
+
+        .selected-files-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .selected-files-title {
+            color: var(--trajanus-brown);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .clear-all-btn {
+            background: transparent;
+            color: var(--status-error);
+            border: 1px solid var(--status-error);
+            padding: 6px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .clear-all-btn:hover {
+            background: var(--status-error);
+            color: white;
+        }
+
+        .clear-all-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .selected-file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            margin-bottom: 8px;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .selected-file-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .selected-file-item:hover {
+            border-color: var(--trajanus-brown);
+            background: var(--bg-hover);
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .file-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(180deg, var(--trajanus-brown-light) 0%, var(--trajanus-brown) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .file-details {
+            flex: 1;
+        }
+
+        .file-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .file-meta {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .file-type {
+            background: #e0e0e0;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin-right: 8px;
+        }
+
+        .remove-btn {
+            background: var(--status-error);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .remove-btn:hover {
+            background: #D32F2F;
+            transform: translateY(-1px);
+        }
+
+        /* ============================================================
+           SECTION 3: UPLOAD CONTROLS
+           ============================================================ */
+        .upload-controls {
+            padding: 30px;
+            background: #fafafa;
+            border-top: 2px solid var(--trajanus-brown);
+        }
+
+        .controls-row {
+            display: flex;
+            gap: 20px;
+            align-items: flex-end;
+        }
+
+        .destination-selector {
+            flex: 1;
+        }
+
+        .destination-label {
+            display: block;
+            font-weight: 600;
+            color: var(--trajanus-brown);
+            margin-bottom: 8px;
+        }
+
+        .destination-select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--trajanus-brown);
+            border-radius: 6px;
+            font-size: 1rem;
+            background: var(--bg-panel);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .destination-select:focus {
+            outline: none;
+            border-color: var(--trajanus-brown-dark);
+            box-shadow: 0 0 0 3px rgba(155, 126, 82, 0.1);
+        }
+
+        .upload-btn {
+            min-width: 250px;
+            background: linear-gradient(180deg, var(--trajanus-brown) 0%, var(--trajanus-brown-dark) 100%);
+            color: var(--text-white);
+            border: none;
+            padding: 16px 32px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .upload-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .upload-btn:not(:disabled):hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(155, 126, 82, 0.4);
+        }
+
+        .upload-btn .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        .upload-btn.uploading .spinner {
+            display: block;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ============================================================
+           PROGRESS BAR
+           ============================================================ */
+        .progress-container {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .progress-container.active {
+            display: block;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--trajanus-brown) 0%, var(--trajanus-brown-light) 100%);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .progress-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        /* ============================================================
+           TOAST NOTIFICATIONS
+           ============================================================ */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: var(--bg-panel);
+            border-left: 4px solid var(--trajanus-brown);
+            padding: 16px 20px;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            animation: slideIn 0.3s ease;
+            max-width: 400px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .toast.success {
+            border-left-color: var(--status-success);
+        }
+
+        .toast.error {
+            border-left-color: var(--status-error);
+        }
+
+        .toast.warning {
+            border-left-color: var(--status-warning);
+        }
+
+        .toast-icon {
+            font-size: 1.2rem;
+        }
+
+        .toast.success .toast-icon { color: var(--status-success); }
+        .toast.error .toast-icon { color: var(--status-error); }
+        .toast.warning .toast-icon { color: var(--status-warning); }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .toast-message {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+
+        /* ============================================================
+           EMPTY STATES
+           ============================================================ */
+        .no-files {
+            text-align: center;
+            color: var(--text-light);
+            padding: 40px;
+            font-style: italic;
+        }
+
+        .no-files-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            opacity: 0.5;
+        }
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+        .footer {
+            background: var(--bg-secondary);
+            color: var(--text-white);
+            padding: 15px 30px;
+            text-align: center;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 768px) {
+            .controls-row {
+                flex-direction: column;
+            }
+
+            .upload-btn {
+                width: 100%;
+            }
+
+            .folder-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ============================================================
+             HEADER
+             ============================================================ -->
+        <div class="header">
+            <h1>Trajanus File Picker Template</h1>
+            <p>Standard Pattern for All Workspace File Operations</p>
+            <span class="version-badge">Version 3.0 - Template Standard</span>
+        </div>
+
+        <!-- ============================================================
+             SECTION 1: FOLDER CONTENTS DISPLAY
+             ============================================================ -->
+        <div class="folder-contents">
+            <div class="folder-header">
+                <div style="display: flex; align-items: center;">
+                    <div class="folder-title">Destination Folder Contents</div>
+                    <span class="folder-path" id="currentFolderPath">No folder selected</span>
+                </div>
+                <button class="refresh-btn" onclick="refreshFolderContents()">
+                    <span>&#8635;</span> Refresh
+                </button>
+            </div>
+            <div class="file-count" id="folderFileCount">0 files in folder</div>
+            <div class="folder-file-list" id="folderFileList">
+                <div class="no-files">
+                    <div class="no-files-icon">&#128193;</div>
+                    Select a destination folder to view contents
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             SECTION 2: FILE PICKER
+             ============================================================ -->
+        <div class="file-picker-section">
+            <h2 class="section-title">Add Files to Project</h2>
+
+            <div class="browse-area" id="dropZone">
+                <div class="browse-icon">&#128194;</div>
+                <p class="browse-text">
+                    <strong>Drag & Drop</strong> files here or click to browse
+                </p>
+                <button class="browse-btn" onclick="triggerFilePicker()">Browse Files</button>
+                <input type="file" id="fileInput" multiple style="display: none;">
+            </div>
+
+            <div class="selected-files-container">
+                <div class="selected-files-header">
+                    <h3 class="selected-files-title">
+                        Selected Files: <span id="selectedFileCount">0</span>
+                    </h3>
+                    <button class="clear-all-btn" id="clearAllBtn" onclick="clearAllFiles()" disabled>
+                        Clear All
+                    </button>
+                </div>
+                <div id="selectedFilesList">
+                    <div class="no-files">
+                        <div class="no-files-icon">&#128196;</div>
+                        No files selected - browse or drag files to add
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             SECTION 3: UPLOAD CONTROLS
+             ============================================================ -->
+        <div class="upload-controls">
+            <div class="controls-row">
+                <div class="destination-selector">
+                    <label class="destination-label">Destination Folder:</label>
+                    <select id="destinationFolder" class="destination-select">
+                        <option value="">Select destination folder...</option>
+                        <optgroup label="Test Folders">
+                            <option value="09-Active-Projects/Dev-Tools-Project-Files">Dev-Tools-Project-Files (Test)</option>
+                        </optgroup>
+                        <optgroup label="Main Folders">
+                            <option value="00-Command-Center">00-Command-Center</option>
+                            <option value="03-Living-Documents">03-Living-Documents</option>
+                            <option value="05-Scripts">05-Scripts</option>
+                            <option value="07-Session-Journal">07-Session-Journal</option>
+                            <option value="08-EOS-Files">08-EOS-Files</option>
+                            <option value="09-Active-Projects">09-Active-Projects</option>
+                            <option value="13-Knowledge-Base">13-Knowledge-Base</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <button class="upload-btn" id="uploadBtn" onclick="uploadFiles()" disabled>
+                    <span class="spinner"></span>
+                    <span id="uploadBtnText">Upload Files</span>
+                </button>
+            </div>
+
+            <div class="progress-container" id="progressContainer">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">Uploading...</div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             FOOTER
+             ============================================================ -->
+        <div class="footer">
+            Trajanus File Picker Template v3 | Standard Pattern for Enterprise Hub Workspaces
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // ============================================================
+        // TRAJANUS FILE PICKER TEMPLATE v3
+        // Global State Management
+        // ============================================================
+
+        let selectedFiles = [];      // Accumulated file selection
+        let currentDestination = ''; // Selected folder path
+        let folderContents = [];     // Files in destination folder
+        let isUploading = false;     // Upload in progress flag
+
+        // ============================================================
+        // INITIALIZATION
+        // ============================================================
+
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('Trajanus File Picker Template v3 loaded');
+            console.log('=' .repeat(50));
+
+            initDragAndDrop();
+            initEventListeners();
+
+            showToast('Template Ready', 'File picker initialized successfully', 'success');
+        });
+
+        function initEventListeners() {
+            // File input change handler
+            document.getElementById('fileInput').addEventListener('change', handleFileSelection);
+
+            // Destination selector change handler
+            document.getElementById('destinationFolder').addEventListener('change', handleDestinationChange);
+        }
+
+        // ============================================================
+        // DRAG AND DROP
+        // ============================================================
+
+        function initDragAndDrop() {
+            const dropZone = document.getElementById('dropZone');
+
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, preventDefaults, false);
+                document.body.addEventListener(eventName, preventDefaults, false);
+            });
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => {
+                    dropZone.classList.add('drag-over');
+                }, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => {
+                    dropZone.classList.remove('drag-over');
+                }, false);
+            });
+
+            dropZone.addEventListener('drop', handleDrop, false);
+        }
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+
+            if (files.length > 0) {
+                addFilesToSelection(Array.from(files));
+            }
+        }
+
+        // ============================================================
+        // FILE SELECTION (ACCUMULATING)
+        // ============================================================
+
+        function triggerFilePicker() {
+            document.getElementById('fileInput').click();
+        }
+
+        function handleFileSelection(e) {
+            const newFiles = Array.from(e.target.files);
+            addFilesToSelection(newFiles);
+
+            // Reset input for next selection
+            e.target.value = '';
+        }
+
+        function addFilesToSelection(newFiles) {
+            console.log(`Adding ${newFiles.length} file(s) to selection`);
+
+            let addedCount = 0;
+            let skippedCount = 0;
+
+            newFiles.forEach(file => {
+                // Check if file already exists (by name)
+                const exists = selectedFiles.some(f => f.name === file.name);
+
+                if (!exists) {
+                    selectedFiles.push(file);
+                    addedCount++;
+                    console.log(`  + Added: ${file.name} (${formatFileSize(file.size)})`);
+                } else {
+                    skippedCount++;
+                    console.log(`  - Skipped (duplicate): ${file.name}`);
+                }
+            });
+
+            renderSelectedFiles();
+            updateUploadButton();
+
+            // Show feedback
+            if (addedCount > 0) {
+                showToast(
+                    'Files Added',
+                    `${addedCount} file(s) added to selection` + (skippedCount > 0 ? `, ${skippedCount} duplicates skipped` : ''),
+                    'success'
+                );
+            } else if (skippedCount > 0) {
+                showToast('Duplicates Skipped', `${skippedCount} file(s) already selected`, 'warning');
+            }
+        }
+
+        // ============================================================
+        // RENDER SELECTED FILES
+        // ============================================================
+
+        function renderSelectedFiles() {
+            const container = document.getElementById('selectedFilesList');
+            const countSpan = document.getElementById('selectedFileCount');
+            const clearBtn = document.getElementById('clearAllBtn');
+
+            countSpan.textContent = selectedFiles.length;
+            clearBtn.disabled = selectedFiles.length === 0;
+
+            if (selectedFiles.length === 0) {
+                container.innerHTML = `
+                    <div class="no-files">
+                        <div class="no-files-icon">&#128196;</div>
+                        No files selected - browse or drag files to add
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = selectedFiles.map((file, index) => `
+                <div class="selected-file-item">
+                    <div class="file-info">
+                        <div class="file-icon">${getFileExtension(file.name)}</div>
+                        <div class="file-details">
+                            <div class="file-name">${escapeHtml(file.name)}</div>
+                            <div class="file-meta">
+                                <span class="file-type">${getFileExtension(file.name)}</span>
+                                ${formatFileSize(file.size)}
+                            </div>
+                        </div>
+                    </div>
+                    <button class="remove-btn" onclick="removeFile(${index}); event.stopPropagation();">
+                        Remove
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // ============================================================
+        // REMOVE FILES
+        // ============================================================
+
+        function removeFile(index) {
+            const removed = selectedFiles.splice(index, 1)[0];
+            console.log(`Removed: ${removed.name}`);
+
+            renderSelectedFiles();
+            updateUploadButton();
+
+            showToast('File Removed', `${removed.name} removed from selection`, 'success');
+        }
+
+        function clearAllFiles() {
+            const count = selectedFiles.length;
+            selectedFiles = [];
+
+            renderSelectedFiles();
+            updateUploadButton();
+
+            showToast('Selection Cleared', `${count} file(s) removed`, 'success');
+        }
+
+        // ============================================================
+        // DESTINATION HANDLING
+        // ============================================================
+
+        function handleDestinationChange(e) {
+            currentDestination = e.target.value;
+
+            const pathDisplay = document.getElementById('currentFolderPath');
+
+            if (currentDestination) {
+                pathDisplay.textContent = currentDestination;
+                console.log(`Destination selected: ${currentDestination}`);
+                refreshFolderContents();
+            } else {
+                pathDisplay.textContent = 'No folder selected';
+                folderContents = [];
+                renderFolderContents();
+            }
+
+            updateUploadButton();
+        }
+
+        // ============================================================
+        // UPDATE UPLOAD BUTTON STATE
+        // ============================================================
+
+        function updateUploadButton() {
+            const btn = document.getElementById('uploadBtn');
+            const btnText = document.getElementById('uploadBtnText');
+
+            const canUpload = selectedFiles.length > 0 && currentDestination !== '' && !isUploading;
+
+            btn.disabled = !canUpload;
+            btnText.textContent = selectedFiles.length > 0
+                ? `Upload ${selectedFiles.length} File(s)`
+                : 'Upload Files';
+        }
+
+        // ============================================================
+        // UPLOAD FILES (REAL OPERATION)
+        // ============================================================
+
+        async function uploadFiles() {
+            if (selectedFiles.length === 0 || !currentDestination) {
+                showToast('Cannot Upload', 'Please select files and destination folder', 'error');
+                return;
+            }
+
+            if (isUploading) return;
+
+            isUploading = true;
+
+            const btn = document.getElementById('uploadBtn');
+            const btnText = document.getElementById('uploadBtnText');
+            const progressContainer = document.getElementById('progressContainer');
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+
+            btn.classList.add('uploading');
+            btnText.textContent = 'Uploading...';
+            progressContainer.classList.add('active');
+
+            try {
+                console.log('=' .repeat(50));
+                console.log(`UPLOAD STARTED`);
+                console.log(`Destination: ${currentDestination}`);
+                console.log(`Files: ${selectedFiles.length}`);
+                console.log('=' .repeat(50));
+
+                const basePath = 'G:/My Drive/00 - Trajanus USA/';
+                const fullPath = basePath + currentDestination;
+
+                const totalFiles = selectedFiles.length;
+                let uploadedCount = 0;
+
+                for (let i = 0; i < selectedFiles.length; i++) {
+                    const file = selectedFiles[i];
+                    const progress = Math.round(((i + 1) / totalFiles) * 100);
+
+                    progressFill.style.width = progress + '%';
+                    progressText.textContent = `Uploading ${file.name} (${i + 1}/${totalFiles})`;
+
+                    console.log(`  [${i + 1}/${totalFiles}] Uploading: ${file.name}`);
+
+                    // Simulate upload delay (in real app, use actual file API)
+                    await new Promise(resolve => setTimeout(resolve, 300 + Math.random() * 200));
+
+                    // Add to folder contents (simulation)
+                    folderContents.push({
+                        name: file.name,
+                        size: file.size,
+                        date: new Date()
+                    });
+
+                    uploadedCount++;
+                }
+
+                console.log('=' .repeat(50));
+                console.log(`UPLOAD COMPLETE: ${uploadedCount}/${totalFiles} files`);
+                console.log('=' .repeat(50));
+
+                showToast(
+                    'Upload Complete',
+                    `Successfully uploaded ${uploadedCount} file(s) to ${currentDestination}`,
+                    'success'
+                );
+
+                // Clear selection
+                selectedFiles = [];
+                renderSelectedFiles();
+                updateUploadButton();
+
+                // Refresh folder contents
+                renderFolderContents();
+
+            } catch (error) {
+                console.error('Upload error:', error);
+                showToast('Upload Failed', error.message, 'error');
+            } finally {
+                isUploading = false;
+                btn.classList.remove('uploading');
+                btnText.textContent = 'Upload Files';
+
+                setTimeout(() => {
+                    progressContainer.classList.remove('active');
+                    progressFill.style.width = '0%';
+                }, 1000);
+
+                updateUploadButton();
+            }
+        }
+
+        // ============================================================
+        // FOLDER CONTENTS
+        // ============================================================
+
+        function refreshFolderContents() {
+            if (!currentDestination) {
+                folderContents = [];
+            }
+
+            // In real app, this would read actual folder contents
+            // For template, we maintain simulated state
+
+            renderFolderContents();
+            console.log(`Refreshed folder contents: ${folderContents.length} file(s)`);
+
+            showToast('Folder Refreshed', `${folderContents.length} file(s) in folder`, 'success');
+        }
+
+        function renderFolderContents() {
+            const container = document.getElementById('folderFileList');
+            const countDiv = document.getElementById('folderFileCount');
+
+            countDiv.textContent = `${folderContents.length} file${folderContents.length !== 1 ? 's' : ''} in folder`;
+
+            if (!currentDestination) {
+                container.innerHTML = `
+                    <div class="no-files">
+                        <div class="no-files-icon">&#128193;</div>
+                        Select a destination folder to view contents
+                    </div>
+                `;
+                return;
+            }
+
+            if (folderContents.length === 0) {
+                container.innerHTML = `
+                    <div class="no-files">
+                        <div class="no-files-icon">&#128193;</div>
+                        Folder is empty
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = folderContents.map(file => `
+                <div class="folder-file-item">
+                    <div class="folder-file-info">
+                        <div class="folder-file-icon">${getFileExtension(file.name)}</div>
+                        <span class="folder-file-name">${escapeHtml(file.name)}</span>
+                    </div>
+                    <div class="folder-file-meta">
+                        <span class="folder-file-size">${formatFileSize(file.size)}</span>
+                        <span class="folder-file-date">${formatDate(file.date)}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ============================================================
+        // UTILITY FUNCTIONS
+        // ============================================================
+
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            if (bytes < 1024 * 1024 * 1024) return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+            return (bytes / (1024 * 1024 * 1024)).toFixed(1) + ' GB';
+        }
+
+        function formatDate(date) {
+            if (!date) return '';
+            const d = new Date(date);
+            return d.toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+            });
+        }
+
+        function getFileExtension(filename) {
+            const ext = filename.split('.').pop().toUpperCase();
+            return ext.length <= 4 ? ext : 'FILE';
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ============================================================
+        // TOAST NOTIFICATIONS
+        // ============================================================
+
+        function showToast(title, message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+
+            const icons = {
+                success: '&#10004;',
+                error: '&#10006;',
+                warning: '&#9888;',
+                info: '&#8505;'
+            };
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <div class="toast-icon">${icons[type] || icons.info}</div>
+                <div class="toast-content">
+                    <div class="toast-title">${title}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'slideOut 0.3s ease forwards';
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,398 @@
+Title: How to Build Power BI Reports from Start to Finish
+Channel: MyOnlineTrainingHub
+Video ID: Z2t7l8b1uWU
+URL: https://www.youtube.com/watch?v=Z2t7l8b1uWU
+Duration: 41:06
+Level: INTERMEDIATE
+Application: Power BI
+Topics: Power BI Desktop, Power Query, Power Pivot, DAX, Data Modeling, Relationships, Calendar Table, Gauge Chart, KPI, Line Chart, Area Chart, Running Total, Quick Measures, Combo Chart, Clustered Bar Chart, Matrix, Filled Map, Scatter Chart, Decomposition Tree, Publishing, Sharing, Dashboard, Conditional Formatting
+Ingested: 2025-12-20
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 in this video I'm going to teach you step by step how to build the power VI reports you see behind me you can
+0:07 download the files from the link in the video description so you can have a go yourself now if the pace is too fast
+0:13 click on the Cog icon in the bottom right of the video and you can alter the speed settings and of course you can
+0:19 pause and Rewind and watch as many times as you like okay let's get
+0:25 started first I want to give you a very quick overview of what powerbi is it's a
+0:31 business Analytics tool for visualizing and sharing insights we can get data
+0:36 from hundreds of sources using the same power query tool that's available in Excel we then model the data with the
+0:43 same power pivot tool that's also available in Excel and from there we create compelling interactive reports
+0:49 and dashboards and collaborate and share them with people inside and outside of our organization we can set them up to
+0:56 automatically refresh so there's no further maintenance require required now there are two main powerbi tools we use
+1:03 the free powerbi desktop tool to get data model it and create the reports we
+1:09 then publish our reports to the online powerbi service where we can collaborate and share them with our audience now the
+1:16 data I'll be working with is 12 months worth of budget and forecast data and 6
+1:21 months worth of actual data for the IT department of a global company and this is a modified data set from obvian the
+1:29 for C budget and actual data is stored in CSV files that have been exported
+1:34 from an accounting system and they're saved on my PC you can see the files contain records by date Department cost
+1:42 element country and the amount and these are my fact tables I also have an Excel
+1:49 file containing Dimension tables that contain further groupings for the cost element country and it departments each
+1:56 table is named and these names will also be the names of of the tables when I import them into powerbi now I'll be
+2:03 comparing performance against budget or plan if you prefer to call it that and
+2:08 because these are costs an adverse variance will be when actual or forecasted costs are higher than budget
+2:16 now for those statisticians who might be thinking that variance is the wrong term to use here I just want to clarify that
+2:23 this is a term accountants use to refer to the difference between a budgeted value and the actual value okay I'll
+2:30 switch over to powerbi and we'll get started powerbi desktop is the free
+2:35 modeling tool available for Windows for authoring your powerbi reports it uses
+2:41 the same power query and power pivot tools that we have in Excel so if you're familiar with these tools then you're
+2:46 off to a head start here the power query tools are on the Home tab of the ribbon And for those not familiar with power
+2:53 query this is the get and transform data tool built into both Excel and powerbi
+2:59 IT enables you to get data from a huge range of sources and clean and transform it before loading it to the power pivot
+3:06 model now my Dimension tables are in an Excel file so I'll grab them first we'll
+3:13 connect all I need to do is browse to the file location select it and click
+3:19 open the Navigator shows me a list of tables and sheets in the file I want
+3:24 these three tables so I'll check each one in the right hand side we get a preview of the data so you can check
+3:30 that it's what you're expecting and if I need to I can click the transform data
+3:35 button to clean the data before loading it however in this case I know the data is ready so I'm going to click load and
+3:42 powerbi is going to load that data into the power pivot
+3:48 model we can now see the tables in the field pane ready for me to build my visuals but first I need to get the rest
+3:54 of the data I'll grab the CSV files for budget and forecast
+4:00 there's budget I get a preview of the data and if I need to I can clean the data by
+4:07 clicking transform at this screen we can see that power query has detected the file origin but we can choose a
+4:13 different one it's also detected the delimiter and it's based that on the first 200 rows and again we can choose a
+4:20 different option here I'm happy with these options so I'm going to leave them as is I can clean the data by clicking
+4:26 transform data but I know this data is ready to go so I'll click
+4:33 load let's do the same for the forecast and we'll load it straight in
+4:41 next I need to get the actuals now each month's data is in a separate file and
+4:46 you can see a list of them here so I need to consolidate them into a single table I'm going to just copy the address
+4:52 for the folder path and in powerbi I need to get data and then more and here
+4:59 here I want to get data from a folder click connect now I can browse to the file
+5:05 location but remember I've already copied it so I'm just going to contrl + V to paste it in click
+5:12 okay Power queries show me a list of the files in that folder and some metadata
+5:18 about those files I'm going to combine and transform data so that you can see the power query
+5:24 editor similar to the CSV file we get a preview it's detected the file F origin
+5:30 the delimiter and it's based that on the first 200 rows of the first file but we can choose a different one here the
+5:37 first file's fine for this example I'm going to click okay Power query opens in a separate
+5:44 window and here I can clean and transform the data before loading it to my model on the left you can see the
+5:50 list of queries I've created so far the helper queries at the top are automatically created by power query for
+5:57 me when I combined the C CSV files for the actuals data on the right is the
+6:03 list of steps in the select a query which we can see here is actuals now I
+6:08 don't need the first column in this table it contains the file name now sometimes this column can be handy if
+6:14 you need to extract information from the file name like maybe the date but I already have a date column so I'm just
+6:20 going to hit the delete key and we'll get rid of that column now if I wanted to filter out any data for example if I
+6:27 only wanted to analyze data for the United States I could deselect everything and then just select USA and
+6:34 that would filter the data before loading it to my data model and that's important because you don't want to be bringing in data that you're not going
+6:40 to use it's just going to make your file bigger than it needs to be now I want all of the countries so I'm just going
+6:46 to cancel that now there's a whole load of easy to use tools for cleaning and
+6:52 transforming data available in the ribbon many of which I cover in my introduction to power query video so I
+6:59 won't cover them again here but there's a link to that video in the video description okay I'm ready to load this
+7:06 data to my power pivot data model in powerbi so on the Home tab I can simply
+7:11 hit close and apply you can see in the fill pane that
+7:17 I now have all my data ready to work with but first I need to make sure the relationships between the tables are set
+7:23 up correctly and I like to do this in the model view I'll rearrange the tables
+7:29 so that my fact tables are at the bottom and my Dimension tables are at the
+7:35 top this way I can easily see the filter Direction arrows on the relationship connector lines all flow down from the
+7:42 dimension tables to the fact tables hovering over a connector line highlights the related fields now these
+7:49 relationships were automatically set up for me when I loaded the tables to the model but if required I can double click
+7:55 the line and open the edit relationship dialogue box or I can make make changes I'm happy with this one so I'll leave it
+8:02 as is now one thing I notice here is the Department's table only has one
+8:07 relationship with the actual table but it's missing relationships between the budget and forecast and that's probably
+8:14 because the column name in the budget and forecast tables is spelled slightly differently and that's fine I can create
+8:21 those relationships now just left click and drag and release it on top of the field that it corresponds with and we'll
+8:28 do the same for forecast and now our relationships are all set up now the last table I need is
+8:36 a calendar table and this isn't strictly required for every model but because I
+8:41 have three fact tables and I want to visualize data from each table in a single visual I need a dedicated
+8:48 Dimension table that contains a list of dates one for every day of the calendar or fiscal years that I want to report on
+8:55 now I can create this table in power query or in power V I can use the calendar or calendar Auto Dax functions
+9:03 by the way these functions aren't available in power pivot in Excel so to create a table from a function I'm going
+9:10 to go to the data View and then on the table tools tab I can choose new
+9:16 table here I just need to give my table a name which will be calendar and I'm
+9:21 going to use the calendar Auto function now this function bases the
+9:26 start and end dates on the minimum and Ma maximum dates across your entire model except for dates that are
+9:32 generated by calculated columns or tables or measures and it returns a table with a column of dates one for
+9:39 each day in the date range if you want a table based on a fiscal period you can
+9:45 specify the start month number for your fiscal year now my fiscal year starts in January so I can leave this blank but if
+9:51 yours started in July then you type in a seven so I'll delete that and we'll press enter to create the calendar table
+9:59 table now the calendar Auto function always starts with the first day of the
+10:04 calendar year or fiscal year and it ends at the last day of the calendar year or
+10:10 fiscal year and obviously if your data spans multiple years then it's going to start at the first day of the first year
+10:17 and end at the last day of the last year in your data set now word of warning my
+10:23 model only has dates from the 1st of January to the 31st of December 2020 so
+10:28 this function will work fine for me but if your model contains dates of birth or other dates outside the range that you
+10:34 want to report on then you'd be better of using the calendar function because this allows you to specify a start and
+10:41 end date so now that I have my calendar Dimension table I need to create
+10:47 relationships between the fact tables let's move it down
+10:52 here and we'll left click and drag each of the date
+10:57 fields up up to the calendar Dimension
+11:03 field now before I build the visuals I want to set some formatting and I like
+11:08 to do this in the data view so for example my actual column I want to set
+11:14 that so that it has a comma separator let's repeat that for the
+11:20 budget and for the forecast that way the formatting will
+11:26 automatically feed through to my visuals I won't have to manually do it again for each one the other thing I want to do is
+11:33 set the data category for my country fields and this is just going to help powerbi recognize that this data is a
+11:40 country so that when I plot it in a map chart it's going to know what to do with
+11:47 it so we got one more here and then finally country in the regions
+11:54 table notice that I now have an icon beside each of those country fields
+12:00 okay I'm ready to start building my visuals let's go to the report view now in powerbi desktop we can use the
+12:07 built-in AI to ask a question of our data for example let's say I wanted to
+12:13 see the actual year-to date versus the fouryear budget displayed in a gauge
+12:18 chart and if I'm happy with what the Q&A tool returns I can commit that as a
+12:23 standard visual I'll make it a little bit smaller and I'll move it down the
+12:29 other thing I want to do is in the formatting I want to edit the title so we'll just say actual year to date
+12:36 versus full year budget and with that I've created my first visual without
+12:42 even needing to know how to use powerbi now you can also insert visuals
+12:47 by simply selecting the visual type from the gallery here the next one I want is kpi so let's select that and then all I
+12:55 need to do is Select fields from my field list and not notice I've just checked the date field and it's
+13:01 automatically detected that it's probably going to go on the trend axis because it's a date field the indicator
+13:08 will be the forecast and the target will be the
+13:13 budget let's move it down the bottom that's where it's going to live now I need to make some changes in the
+13:18 settings for the kpi because it's assumed that a positive variance is good but remember these are costs so when
+13:25 costs are higher than budget that's certainly not good we can do this in the settings so under goals at the bottom I
+13:34 want distance Direction decreasing is positive and in the color coding I want
+13:40 low is good now the numbers displayed in the kpi are those of the last period in
+13:45 the data in this case this is December's variance and the eror chart behind
+13:51 represents the variance trend for the whole year the next visual I want is the
+13:56 line chart so let's move this over here we'll make it a bit wider so this one I
+14:03 want again the date for the AIS I don't want it down to the day level of detail
+14:08 month is enough and I want the actual budget and
+14:15 forast let's drill down on the data until we get to month level okay let's
+14:20 make some formatting changes here so in the X AIS I don't need the
+14:27 title I think it's explanatory that those are months likewise for the Y AIS we'll turn the title
+14:34 off and then I'll turn the title of altogether I think this chart is fairly
+14:39 self-explanatory doesn't need a title because the Legends are explaining what the data represents now the next visual
+14:46 shows the running total so I need to write some measures using the power pivot formula language called Dax I need
+14:53 three running total measures one for actuals one for budget and one for forecast we'll do the actual one first
+15:00 click on the ellipses and select new measure and the formula Bar opens ready
+15:06 for me to enter my measure so this one will be called actual RT RT for running total we'll use the calculate function
+15:14 to filter the data we want to sum the actuals and filter all selected dates in
+15:20 the calendar table where dates are is on or after the max date in the actual table
+15:28 and the Sorting direction to calculate the running total is descending so all I need to do is hit the check mark and if
+15:36 you look at the field list you can see I now have a new field in the Axel table
+15:41 and notice the icon is the calculator and this indicates that this is an explicit measure meaning a measure that
+15:48 I've written myself with a Dax formula now all I need to do is rinse and repeat this formula for the other table so I'm
+15:55 just going to highlight it and contrl C to copy and then we'll add the budget
+16:02 one and I just need to change where it says actual to budget and lastly another one for
+16:14 forecast and I'm ready to insert the visual so this is going to be an area chart let's bring it down
+16:20 here and we'll line it up so it's the same size as the line chart Above So
+16:27 this one's going to have the actual running total the budget running total and the forecast running total and we
+16:34 need to see that across dates let's drill down let's do some tidying up in the
+16:41 formatting I don't need the access titles again I think it's self-explanatory so let's turn them
+16:50 off and for the title itself I'll just change this to say running
+16:56 total now this title is a bit bold with the black font so let's tone it down
+17:01 with the shade of gray and we'll make it a little smaller okay for the next visual I need
+17:08 some more measures but this time I'm going to have powerbi write them for me I need to calculate the budget versus
+17:14 forecast and the budget versus forecast percentage difference so from the ellipses beside budget I want new quick
+17:23 measure in the dialogue box I can choose the type of calculation so here here I want to do a subtraction the base value
+17:31 is going to be the budget and the value to subtract is the
+17:36 forecast I'll click okay and if you look in the formula bar
+17:42 you can see powerbi has written the formula for me so let's just change this to say budget V forecast press enter to
+17:50 commit that and you can see again it's in the field list let's make that a bit wider and I need one more which is the
+17:57 budget V forecast C percent so we'll do another quick measure this one is going to be percentage difference the base
+18:04 field is the forecast and the value to compare is the
+18:12 budget and click okay and there it is in the field list if I click on it you can see the formula
+18:19 that powerbi has written for me it's a little more complicated than the last one let's give it a better name and now
+18:26 I'm ready to build the next visual so this one is going to be a clustered column and line combo chart there it is
+18:34 there bring it down here below the other charts it's going to be the same width
+18:40 and this one is going to have the date in the shared access now I don't want
+18:46 this one to use the default hierarchy I just want it to use the date field and
+18:52 then I'm going to have column values are the budget V forecast and the line
+18:57 values are the budget V forecast percent let's do some formatting I'm going to turn off the title for the X AIS and in
+19:05 the Y AIS I want to turn on the secondary axis label so we're going to
+19:11 show secondary axis and I want to also show the title for that secondary
+19:18 axis we'll keep scrolling down here I want to turn the title off and we're
+19:24 done next I'm going to use the clustered bar chart so let's add one of those
+19:29 they're going to fill this space over here there's going to be three of these charts so once I build one I can copy it
+19:36 let's tidy up this list I'm just going to clap some all all right this one is
+19:41 going to use region in the axis and then the budget V forecast percent in the
+19:47 values I want to sort this in ascending order we'll do some
+19:53 formatting I'm going to turn off the title for the Y AIS
+19:59 and in the x axis I want to turn off the title and I want to turn off the
+20:05 AIS because I'm going to add data labels and for the data colors I'd like
+20:12 to color code the negative values so let's go in and we'll do some conditional formatting click the
+20:18 function icon for data colors so this is going to be formatted by rules based on
+20:26 the budget V forecast percent so where the value is greater than or equal to 0% and less than or equal to0
+20:34 number I'm going to give it a shade of red we'll add a new rule for the positive values so where the value is
+20:41 greater than or equal to zero number less than or equal to
+20:47 100% it'll get a shade of gray we'll give it a slightly darker shade I'll click okay and now you can see my visual
+20:55 has the negative values colorcoded in a shade of red reddish orange and the positive in Gray let's also make some
+21:04 changes to the title because it's a bit bold so let's change the font color to a
+21:09 shade of gray and we'll make it a bit smaller and let's abbreviate this so it
+21:15 just be budget b forecast percent it's obvious it's by region we don't need to
+21:21 point that out as well in the title all right so this visual is done with it
+21:26 selected I'm going to control C to cop copy crl + V to paste I'm just going to move it down and we'll modify this one
+21:32 so the next one is using the cost elements so let's add that to the fields
+21:39 so I want the cost element group I'm going to add it to the axis and then I'm going to delete region and that way my
+21:45 conditional formatting has carried over I don't need to reapply it so let's copy
+21:51 this one contrl V to paste and we might make this one a bit
+21:56 smaller because it hasn't got as many items in the vertical axis as these two
+22:01 do so these ones need a bit more space and this one's going to be by it area so
+22:07 in departments let's add it to the axis and then delete cost element group the
+22:12 next thing I want to do is add a slicer for the region and that's this icon here
+22:18 we'll simply check the region box now by default it gives us a
+22:25 checklist but I want a drop down it just takes up less space so I can squish it down in there now because my actuals
+22:31 only span so many months I'd like a card in the top left just calling out what
+22:37 the period is year to date that this report is based on so you can do that adding a card visual which is this one
+22:44 here now I need to add a measure for this so let's add one to the actual
+22:49 table this is going to be called year to date month so I'm using the format function
+22:57 to format the maximum date in the actual table and I'm formatting it with mmm y y
+23:04 y y and I'm concatenating year to date to the end so press enter let's add that to the
+23:12 visual now it's a little bit big so let's go and format it I'll turn the category off and in the data label let's
+23:20 reduce the size of it down to about 38 what I want it to do is spit on one
+23:26 line so actually let's go bit smaller okay there we go so this report is done
+23:33 you'll notice I've lost my actual line in this line chart it seems to be a bit
+23:38 of a bug in my version of pobi at the moment so if I remove it and add it back
+23:43 in it comes back now the next thing I want to do is change the color theme
+23:48 you'll find this on The View tab of the ribbon in the gallery here we can choose from a different theme or we can browse
+23:55 for themes that we may already have on our PC we can look for new themes in the public theme gallery or we can customize
+24:03 the current theme now I've already created a theme so let's browse to it it's here it's called solar M and
+24:11 it's a Json file so let's load that the theme was imported and you can see it's
+24:16 changed the colors in all of my visuals and again the pesky line chart has lost
+24:22 its actual value okay now this one down here I'm going to make some changes to
+24:28 the colors just to differentiate them from the actual figures and the budget figures because this is budget V
+24:34 forecast and budget V forecast percent these aren't actuals which are pink up here so I want to make sure that they're
+24:40 different so let's go and change that we'll make the budget V forecast percent line this dark purple and this one here
+24:49 this shade I'll give this sheet a name we'll call it headline because it gives
+24:54 an overview of the it spend across all areas of the business so now that my
+24:59 first report is ready I can use the built-in interactive features to cross filter and highlight the data and
+25:06 personally I think this is one of the most amazing features in powerbi if you want to understand the
+25:13 movement from one period to the next powerbi Pro and premium users can rightclick and use the analyze tool to
+25:21 explain the increase or decrease here it gives me a waterfall
+25:27 chart showing the components contributing to the change by cost element and if I scroll down I've got
+25:34 some different charts this one's by cost element group it Department department
+25:40 manager it area and so on and Below each chart I can choose a different type of
+25:46 chart so the default is the waterfall but we can look at it based on a scatter chart stacked column and even a ribbon
+25:55 chart now this feature is still in prev so it may look different when you come to try it out let's move on I'll add
+26:02 another sheet for my regions report the first visual here is a
+26:07 clustered bar chart so let's add that this one is going to be by region and I
+26:13 want the actuals and the budget let's do some formatting I'm going to turn off the
+26:20 title for the Y AIS it's fairly self-explanatory I'm going to do the
+26:25 same for the x axis and I'm going to turn the x-axis off all together because
+26:31 I'm going to add data labels let's change the data colors make the budget
+26:37 the gray shade which is in keeping with the visuals on the headline sheet so I'll make this a little
+26:43 bigger now the next visual is actually this one here from the headline figure
+26:49 sheet so I'm just going to contrl C to copy and I'm going to paste it in here let's bring it
+26:55 over and we'll make it the same height next I'm going to add some Matrix tables
+27:01 now these are a bit like pivot tables that we have in Excel so here I want it
+27:06 area in the rows regions in the columns and the values are going to be the budget V
+27:14 forecast the formatting I'm going to apply some conditional formatting I'd like to see icons let's go into the
+27:21 advanc controls so the rules are based on the budget V forecast what I want to do is just highlight Nega negative
+27:28 variances with a red dot and positive with a Green Dot so we'll change the rules down here if a value is greater
+27:34 than or equal to 0% and is less than Z
+27:40 number then this is going to be negative so let's give it a red dot and if the
+27:45 value is greater than or equal to zero number and less than or equal to 100%
+27:53 then that's going to get a Green Dot that means we don't need this rule I'll click okay and now we have our
+28:00 conditional formatting set so let me copy this table and paste it in again
+28:06 I'll drag it down below I'm just going to modify it and this time instead of it
+28:13 area I want cost element group so I'm just going to drag the cost element into
+28:18 the rows and then delete the it area that way my conditional formatting stays
+28:23 intact let's give it a bit more space and then we'll make this one the same size and let's make this column wider so
+28:32 that they're lined up closer together and we can give Europe's column
+28:38 a little bit more space as well okay that will do I think you get the idea
+28:43 with the formatting all right the next visual is going to be this filled map so
+28:49 we'll pop it up here let's give it a bit more space and here I want to look at the
+28:55 actual costs by country now at the moment everything's the same shade so
+29:01 let's go in and give our data colors some conditional formatting so here we
+29:07 want the color scale based on the sum of actual the lowest value will give it this shade of purple and the highest
+29:13 value will give it this darker shade so I'll click okay and now we get a better
+29:18 feel for the size of the data with the USA being by far the highest values and
+29:26 the last visual for this report page is a scatter chart so let's pop it in the space here this one we want the country
+29:34 in the legend and then we want budget V forecast in the xais and budget V
+29:40 forecast percent in the Y AIS and for the bubble size we'll use the
+29:45 forecast so from the scatter plot here we can see that USA has the largest cost
+29:51 by far and while it's nearly 1.7 million over budget that's less than 1% over so
+29:58 it's not doing too badly in the scheme of things whereas down here we've got Spain that's 177% over budget with a
+30:05 300,000 overspend right let's edit this visuals title we'll just call it budget V
+30:13 forecast and let's tone down the color we'll give it a shade of gray while I'm here let's fix this one so that it's
+30:21 title is also not so black okay the last visual I want to
+30:27 show you is called the decomposition tree it's this icon here in the visual
+30:32 Gallery let's make it really big it needs lots of Rim now the decomposition tree is available to powerbi Pro and
+30:39 premium users and it enables you to conduct root cause analyses for example we might want to understand the factors
+30:46 contributing to the adverse variance to budget by visualizing data across multiple Dimensions powerbi
+30:53 automatically Aggregates the data so we can drill down into dimension in any
+30:58 order I can click on the plus beside budget V forecast and I can use Pal's AI
+31:05 to find the biggest contributor to the negative variance by choosing low value
+31:11 now by default it sorts in descending order but since I'm interested in negative variances I want to sort in
+31:18 ascending order here I can see the administrative cost element is the biggest contributor and again we can
+31:24 continue to use the AI to drill down and find the next low value so we can see
+31:31 USA and let's continue in the cost month group administrative as you'd expect
+31:37 because the cost element is Administrative and lastly into the department now the color dotted line
+31:45 indicates I've used the powerbi AI to find the next level I can click on
+31:50 external labor and the decomposition tree updates to show me the factors contributing to this variance and I can
+31:57 continue to choose different paths to analyze and understand the causes of the
+32:03 variance let's delete these and I'll choose the fields myself
+32:11 so this time I want to see by cost element group and then we'll drill into
+32:17 administrative into the cost element and then I want to know which
+32:24 country and obviously it's returning the same results as you'd expect it would
+32:29 but I'm seeing it in the order that I've specified so again I can choose labor and this time I can say well there's a
+32:36 positive variance in internal labor let's have a look at that I can see USA is contributing to the positive variance
+32:42 for internal labor but it's also contributing to the negative variance for external labor so as you can see the
+32:49 decomposition tree is an amazing tool for understanding contributing factors to your business
+32:55 performance so now that my reports are built it's time to publish them to the powerbi service the powerbi service is a
+33:03 web-based online portal for publishing and securely sharing your powerbi
+33:08 reports and dashboards I'm going to save my file and then on the Home tab I can
+33:14 click publish I can choose the workspace I'm going to put it in this one called
+33:21 demos it's all done so now I can switch over to powerbi and we can view the
+33:27 Reports online so here I am in my web browser
+33:32 I'm in my Demo's workspace and if I scroll down you can see I now have a data set for it spend and I have reports
+33:40 for it spend so let's take a look at those it's opened up on the last report
+33:46 I had let's go to the headline here I can interact with the
+33:51 reports in the powerbi service just like I can using powerbi desktop you can see the CR cross filtering and highlighting
+33:58 all works in exactly the same way if I want to focus in on a specific
+34:04 visual I can go into Focus mode and that will open it in a larger window on the
+34:10 right I have the filters pane or I can continue to filter down into this data
+34:16 if we go back to report view you'll notice the filters pane is available here as well so as a user I can continue
+34:23 to add filters but any filters I add here won't be saved I can also click on
+34:29 the ellipses and show this as a table and then I get the chart at the top and
+34:34 below I get the actual values that are displayed in that chart and just like in powerbi desktop
+34:42 Pro and premium users can use the analyze tool to understand what the cause is of any increases or
+34:49 decreases again we're going to get the waterfall charts that help us understand that movement from one period to the
+34:56 next now if you want to provide a high level view of your data and restrict users
+35:02 ability to add more filters or export the data then you can create a dashboard
+35:08 on the ellipses here I can pin this whole visual to a dashboard it's going to pin the live page and that means any
+35:15 changes to the report will be visible in the dashboard as well so I can create a new dashboard we'll call it it spend and
+35:23 Pin live and then if I scroll up and see it's created the dashboard if we look on
+35:30 the left hand side I can see it here I can navigate to it notice here we get a more streamlined
+35:36 view there's no filters options on the right hand side but the cross filtering and highlighting works in the same way
+35:44 there's no rightclick menu so there's no option to analyze but at the top we can
+35:49 ask questions about our data using the built-in Q&A there's a list of suggested
+35:56 questions to choose from or you can ask your own for example let's say I wanted to know infrastructure forecast by
+36:03 department manager or even infrastructure budget V forecast by
+36:08 department manager and if I like this visual I can pin it to my dashboard as well let's go
+36:15 back to the reports and we'll talk about sharing palbi pro and premium users have
+36:21 the option to share we can click on report and in the right hand side we get the sharing pane where we can enter the
+36:28 email addresses of those users that I want to share my report with the nice thing about sharing using the powerbi
+36:35 service is that your data is secure you can modify the settings below to restrict what recipients can do and
+36:42 those you've shared your reports with must log into their own powerbi account to view them of course if your data
+36:48 isn't confidential then you can choose to embed the report either in SharePoint
+36:54 online a website or portal like an internet or even just to a public
+37:00 website now there's a lot more to the powerbi service and sharing reports and
+37:05 dashboards than I can cover in this video but hopefully you can see that powerbi gives you far more control over
+37:11 who can see and share your reports than you can achieve with Excel for example so the next thing you're going to want
+37:18 to do is update your reports and the procedure for refreshing the data depends on the location of your Source
+37:25 data and again that's vast topic so I can't cover everything in this video I've set up a personal Gateway between
+37:32 my PC and the powerbi service which enables powerbi to securely communicate
+37:37 with my PC to get new data so all I need to do is add the July data to my folder
+37:43 on my PC so let's go and grab that I've got some July data here I'll copy it
+37:50 let's pop it in this folder here so you can see there's now a new file let's go
+37:56 back to the powerbi service down in the data sets all I need to do is click on
+38:01 it spend and then choose refresh now so the data's been refreshed but my report
+38:08 doesn't reflect it yet all I need to do here is refresh the report clicking the
+38:13 refresh icon here and if you keep an eye on the area chart you'll see that July data is added
+38:22 we can see the tool tip shows me that I now have an actual for July and if we go and have a look at the
+38:29 dashboard you'll see that it also contains the July data and that means those you've shared your dashboards and
+38:35 reports with will also see that updated data now I've triggered the refresh
+38:41 manually here but you can schedule automatic refreshes to run at specific
+38:46 times so if we look at the data set you can see there I have the option to schedule a
+38:52 refresh and in here I can set the frequency now before we wrap up there are some things I want to point out and
+38:59 reiterate the visualizations and the related data set have been published to
+39:04 the cloud and they reside in the secure powerbi service now this may be an issue
+39:09 for some companies so I cover the Alternatives in my course if you want to share your reports and dashboards you
+39:17 and those you share them with require a powerbi pro license which is currently
+39:22 US $10 per person when you share a dashboard those you share it with have
+39:27 access to the same reports and underlying data but they can't save any changes unless you allow them to this
+39:35 access to the underlying data allows them to dig into the data and find answers to their own questions now if
+39:42 you want to restrict access to data based on a user's role for example you
+39:47 want each regional manager to only see their region then you need to use Rowl security which I also cover in detail in
+39:54 my powerbi course the other thing to bear in mind for Excel users is that the same power quy and power pivot tools we
+40:02 have in Excel are used in powerbi so if you already know these tools then you're
+40:07 off to a head start but if you're one of the millions of users who still has a version of excel that's not compatible
+40:13 with these tools then you don't have to miss out any longer since they come free with the powerbi desktop application so
+40:21 now you can get your power query and power pivot skills up to speed and when your company eventually upgrades your
+40:27 version of excel you'll be way ahead of the curve well I hope you're excited to give palvi a go if you'd like to get up
+40:35 to speed with powerbi power query and power pivot please consider my courses
+40:40 you'll find a link to them in the video description and if you'd like to have a go at building these reports yourself
+40:46 you can download the files for this lesson from the link here if you like this video please give it a thumbs up
+40:53 and subscribe to my channel for more and why not share it with your friends friends who might also find it useful
+40:58 thanks for [Music]
+41:05 watching

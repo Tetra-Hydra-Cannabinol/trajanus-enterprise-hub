@@ -1,0 +1,166 @@
+{
+  "10-AI-Development": {
+    "id": "1aCbSlrRoP6kV_3su3VQ1TYyq-l8mMe4J",
+    "subcategories": {
+      "Agents": {
+        "id": "1kgLBJb9qiYgSwvsHJMPbk28ilcD_kI9l",
+        "subcategories": {
+          "Claude-Agent-SDK": "1b1JCfWvqyFLkDKlKiW3WdQU6wJypq9Kv",
+          "Multi-Agent-Systems": "1f1cFMw-jZU8PDfZNchOzmx8RjHk7XUR3",
+          "Agent-Patterns": "1qZ4tdNnFgRtkOZrGc0uk4Pl8rGzJQicQ"
+        }
+      },
+      "RAG-Systems": {
+        "id": "1eKOozE3dVn1H8DoCN-A1RJKK8n97cdIv",
+        "subcategories": {
+          "Chunking-Strategies": "1g8cWhnfjtY7bX56K1--kkIhJQoHJ6jhS",
+          "Retrieval-Optimization": "1T4sEzwkx6WC_jNEx5YayhX10GUoWn3wP",
+          "RAG-Monitoring": "1PAv3Dy2d90rWOGR97q2WYFb55Y3h1qv5"
+        }
+      },
+      "Vector-Databases": {
+        "id": "1TuwZ-058WeiMxF56G6T2UtZRJ-9nNoVc",
+        "subcategories": {
+          "Pgvector": "1s1h_rMK9Ia5efWcHzzx8T3cNMPjGT6D5",
+          "Embeddings": "1fip5OsfBj5pDVH31VjgYvcNsl11h0gJL"
+        }
+      },
+      "MCP-Protocol": {
+        "id": "1GVDi6QpZJBrvmnbVtbV7iFHGd51aHkSe",
+        "subcategories": {
+          "MCP-Servers": "1TQbvGaKtnIQTAra9l0vfetFWBv3iIKcy",
+          "MCP-Integration": "16En7jTTiS51Po5DNCeLhlVmAYQ0ZnGhH",
+          "MCP-Best-Practices": "1JuFDyC8f7iYT3AIIzEN6v9qbJGSI9I9P"
+        }
+      },
+      "Claude-Specific": {
+        "id": "1j1SQiBYaGzPlpleXZ3_95MrSCQv-SjAf",
+        "subcategories": {
+          "Claude-Updates": "1GyPA31gYZpocOla3Gr6jBzt91ooBtm3V",
+          "Claude-API": "1LaER9a9IVAS3dZAEcbYV3IXfVMPrxklx",
+          "Claude-Code-Tool": "1uVpyxFxr1BSjaldDog1uPKoB3z_paEWM"
+        }
+      },
+      "Playwright-Testing": {
+        "id": "1vvEFjJjRf3vPV-VpYYc2oLD32tHpoE78",
+        "subcategories": {
+          "Screenshots": "1324J_fckom2Ws3OvytHAYKzQfz_jfcaE",
+          "Testing-Guides": "1G17R_pVwiy-psk42Q4v8ydCrKsBtXsvR"
+        }
+      },
+      "Supabase-AI": {
+        "id": "13IPEjT-5VEcNL5vM9e51Q3qOKGl1tbhB",
+        "subcategories": {
+          "Connection-Management": "1sdK6qrsv9kpB0YVLEgxz8j4C8I1zCxw1",
+          "Row-Level-Security": "1Z6_Q7l4U4OdLsIqVsIV5y4gTWoP6cMRx"
+        }
+      },
+      "Google-Cloud-APIs": {
+        "id": "1eoZtTVg3RJvNY026TnipL_tSaZtdKaa-",
+        "subcategories": {
+          "Drive-Storage": "1jXSUywgnzMeS9-cQvE9B2m_8rzO4SytH"
+        }
+      },
+      "Uncategorized": {
+        "id": "19cxLHAf-lkjLujcb7HpaMEK1fawnWG0D",
+        "subcategories": {}
+      }
+    }
+  },
+  "11-Software-Tools": {
+    "id": "1Us9tVnbsJSpXgEzZ3y68W_hkgIowWAn2",
+    "subcategories": {
+      "Electron": {
+        "id": "1H7Lfjneqv478z8mUBIkKq6gH6G5mfQ3M",
+        "subcategories": {
+          "IPC-Communication": "1PPdpRBOeMZjGPe-jeU8YDus1vcFjmv8L",
+          "Python-Integration": "1XliY7ZYkvT2BK9znqRAlB21krOXrdwA1",
+          "Security-Architecture": "1jogfH2eGR_ysW0F5tFHwUeWQRJEWQMMx"
+        }
+      },
+      "Google-APIs": {
+        "id": "18YsmQVwKIKpJJ--81e9wdjQQpnt7iDrG",
+        "subcategories": {
+          "Drive-API": "1x33bUq2gZPblGSNuA_KAj_Mj9wNVjODH",
+          "Docs-API": "1nRnNL-E00GcHcXNYxrOSm2hEV6lBhQJJ"
+        }
+      },
+      "Python-Development": {
+        "id": "1E5-NdqbSMCv1Clk31s_9EW-zPVQRLpDk",
+        "subcategories": {
+          "Subprocess": "1LY0l0sWYmkQyTfegL6kkPFIDH_qCMcyV",
+          "Security": "1_isNjE_2XyeTDfyhWEHwedHALanVTsh_"
+        }
+      },
+      "JavaScript-Libraries": {
+        "id": "1kta2Yp_WzpzFdiP95TxxHOlC16QCNzRm",
+        "subcategories": {
+          "File-Management": "1OAThF0V98lqoCWj1WNSaZN81JgIerk8Y",
+          "Frameworks": "1qYvZ99wVJH0uItQKUvUiFzovVHDDxF3X"
+        }
+      },
+      "Supabase-Tools": {
+        "id": "1sD2WUO3bWoQwPfko6kC2IlX19uR_Neo5",
+        "subcategories": {}
+      },
+      "Uncategorized": {
+        "id": "1Q27Byx5VfD62XDCIabnkxL-iBHXIfuN9",
+        "subcategories": {}
+      }
+    }
+  },
+  "12-Technical-Guides": {
+    "id": "1KXvtF8m0fJree--dmnavM_xRS6Yg1YhN",
+    "subcategories": {
+      "Setup-Installation": {
+        "id": "1ZEbD_z0WU6cdiOg4XKmQsEPl7mRrNNFE",
+        "subcategories": {}
+      },
+      "Configuration": {
+        "id": "11JkOX-MX51GukGqRpdkxzAzJeMtZ31Eo",
+        "subcategories": {}
+      },
+      "Node-Documentation": {
+        "id": "1asWuTBmhwq0pdcldn6ruUscwOG7appL8",
+        "subcategories": {}
+      },
+      "Python-Guides": {
+        "id": "1Rtz9Q_vR7F5oVY1SbjEahBA4hY8f2ubf",
+        "subcategories": {}
+      },
+      "Documentation-Standards": {
+        "id": "18zYKAKpC17WtqjC6WxtH1ro9DVFdPQDB",
+        "subcategories": {}
+      },
+      "Uncategorized": {
+        "id": "1UKfI1NXxKdBluxP9XgDsBrgC9EsZaE0B",
+        "subcategories": {}
+      }
+    }
+  },
+  "13-QCM-Quality": {
+    "id": "1R-Xq2G6OHmtRxpX_bcKC736VyV7GNN7r",
+    "subcategories": {
+      "Submittal-Review": {
+        "id": "1NMEJktULSq4YMbjQTID0NxUZfF4w8AK8",
+        "subcategories": {}
+      },
+      "Inspection-Procedures": {
+        "id": "1bDkF-3LDdQgKn8Fpu7Afi3DMZKn6Fn9C",
+        "subcategories": {}
+      },
+      "Testing-Requirements": {
+        "id": "1-otfwkHhq8kjgVAQfEEpV97SgYgeBwSx",
+        "subcategories": {}
+      },
+      "Documentation": {
+        "id": "1xjM8HsbA4ItEwWw2vZ7RpxcjkoV1MD_w",
+        "subcategories": {}
+      },
+      "Uncategorized": {
+        "id": "1Uy9tJ0jurUOnKC5C7ZHp_oYcM_dprzQ0",
+        "subcategories": {}
+      }
+    }
+  }
+}

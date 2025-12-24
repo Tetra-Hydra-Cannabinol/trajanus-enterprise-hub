@@ -1,0 +1,387 @@
+Title: How to Clean, Merge, and Transform Data in Power BI
+Channel: Simon Sez IT
+Video ID: vWmUfzVQSuY
+URL: https://www.youtube.com/watch?v=vWmUfzVQSuY
+Duration: 39:27
+Level: INTERMEDIATE
+Application: Power BI, Power Query
+Topics: Power Query Editor, ETL Process, Data Cleaning, Data Types, Null Values, Split Columns, Merge Columns, Grouping Data, Unpivot, Data Transformation, Excel Tables
+Ingested: 2025-12-20
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:09 Hi everyone and a warm welcome to PowerBI tips to clean, merge and transform data. So without further ado,
+0:16 let me introduce you to today's instructor Dave Casuto. Now Dave has two
+0:21 master degrees instructional technologies and organizational psychology. He's trained countless learners face tof face as well as many
+0:28 others with his online courses. He's created more than 25 courses for Simon Says It already with a lot more on the
+0:35 way. And I'll pass it over to you now, Dave. Thank you, Ben. And thank you everybody for joining us. Very excited to usher
+0:42 you here into this wonderful world of both PowerBI as well as Power Query. Got
+0:48 quite a bit to discuss and as Ben suggested, you should have received the files that we'll be working with. So
+0:54 certainly feel free to follow along or go ahead and practice them yourselves, but definitely there's going to be quite
+1:00 a bit that we're going to be covering. There's a chance we might not get to all of the files and all the different exercises, but you will have access to
+1:07 these Excel documents for you to be able to practice. So this is what we're going to be covering. Cleaning up data, data
+1:14 types, looking at null values and the data health. We'll be splitting and merging columns. I want to talk about
+1:20 grouping. also talk about something really important called unpivot. Okay, that's it sounds it's a weird word, but
+1:26 sometimes the data doesn't come in the way we want it to. So, we have to actually make it so it becomes
+1:32 reportable. We'll talk about appending queries as well as merging queries. I'm just going to go ahead and just show you
+1:38 kind of where we're going to be kind of working from. If we go over to our class
+1:43 files, you can see here how we have one through five here. And then this, by the way, is the PowerPoint that I'm working
+1:49 off right now. if you want ever want to refer back to what we can do. And then we also have number six if we get to
+1:55 that that has a bunch of files in there. All right, so if you're ready to go, let's go.
+2:06 PowerBI is more than just one program. It's actually quite a few kind of built into it. So let's just kind of talk
+2:12 about what those kind of main components are just you have an idea if you are ever going into PowerBI and you get a
+2:18 little bit confused when you sort of jump into another quote unquote program. So it's broken out into number one
+2:24 PowerBI desktop and we're going to be starting from PowerBI desktop and then once we start getting data from the
+2:31 outside we're going to be going into the Power Query editor. Okay, so there's a lot of words there, a lot of syllables,
+2:38 but basically that's going to help us do what we call extracting and transforming
+2:43 and also shaping and loading our data. We'll talk a little bit more about that in a little bit, but it's essentially
+2:48 going to make our data ready for reports. That's kind of what we're trying to do here. And then some stuff that we're not going to cover, but just
+2:54 to kind of give you again a little bit of background and understanding is the online version called the PowerBI
+3:01 service. Okay? Okay. And that's also PowerBI, but it's only it's web- based,
+3:06 right? And there's a few more features you can do in terms of publishing and commenting and all this good stuff
+3:12 that's all online. It goes out into the Microsoft servers. And naturally, you do
+3:17 have an app for all these things as well. Just kind of giving you an idea, we're going to be spending the majority of our time in Power Query editor. And
+3:24 believe it or not, that's where 70% of a lot of your content and activity happens. So, a little bit about what
+3:31 Power Query Editor is going to allow us to do. It's a tool to perform transformations, right? I'm going to
+3:36 talk a little bit more about that a little bit. You might hear this acronym of ETL a lot when you are talking about
+3:43 business intelligence, when you're talking about Power Query Editor, okay, of extract, transform, and load. So, it
+3:50 allows you to kind of take the data that maybe you've gotten, let's say, from, you know, a data dump from Oracle or
+3:56 some other like Salesforce or something like that or even like Google and maybe it's not ready to be viewed in Excel
+4:04 yet. You need to clean it up, right? You need to maybe remove some rows, right? You need to promote something to a
+4:10 header, something like that. And you want to make sure everything is nice and clean for when you actually do start
+4:15 doing your reports. Okay? Okay, that's what we call cleaning and shaping of your data. And believe it or not, this is where a lot of your stuff happens
+4:22 before you ever do any reports, any visualizations at all. So again, just to give you an idea, we have something
+4:28 called the ETL process funnel. So this first one is extract the data. We're
+4:33 just getting data from our sources. In our class, we're going to keep it nice and simple and it's just going to be
+4:39 about Excel files, but it could be CSV, it could be text, it could be SQL, could
+4:45 be Oracle, it could be from the web. So, if you have access to all of these, you're extracting a data from those
+4:50 places. And then we transform it. And that's going to be a lot of what we're going to talk about today, cleaning and
+4:56 shaping your data. And what does that mean? We're making it ready to be reportable. Because sometimes if you try
+5:02 to do something on some data, it may not work because it's just hasn't been
+5:08 shaped, right? It hasn't been sort of format that's ready to kind of show as a report because it just doesn't calculate
+5:14 that way, right? Maybe something needs to be a number, something like that. Now, naturally, a lot of this stuff could be done in Excel when you bring it
+5:21 in as well, but many people choose to do it in Power Query. And then finally, we load the data, right? because we're sort
+5:26 of like in a little mini sort of subfactory before we bring it into PowerBI in that
+5:33 transform phase in Power Query. Then ultimately bring it into PowerBI which is going to allow us to do reports few
+5:41 other things as well and do some what we call data modeling to then sort of create what we call relationships
+5:47 between our data. And when our process again we're going to focus mostly on the cleaning and transforming
+5:59 When you open up PowerBI, you may have to log in, right? You may actually have to have a premium enterprise account.
+6:06 So, if you're not able to log in, that possibly why. But right away, they kind of this select a data source to start
+6:12 your report. So, you can see right away I could just go right to Excel if I want to. I could do a blank report if I want
+6:18 to. Maybe some of you are working with some other data outside of that. And then notice they are very good about
+6:24 giving you sample data as well if you wanted to do that, right? If you wanted to play around with it and see what you
+6:29 could do. But I'm just going to go right away over here to Excel. And then it's going to pop up over into my class
+6:34 folder. And then I'm just going to double click on this number one. And then we're going to wait. It's going to say connecting. It's talking to it. And
+6:41 it's going to take us to something called the navigator. Do you see here? I'm in the navigator. And then it makes it very simple because I just have one
+6:48 data set here. Okay. Now, when I click on it, right, notice I'm clicking on the little check mark here. It's going to
+6:54 give me a little preview of it. Now, down in the lower right, I have the ability to either load it up right away
+7:00 or I can transform it. Well, this is not loadable. It is loadable, but I wouldn't
+7:05 consider this ready to be loaded because I need to clean things up a little bit. So, when you say transform, it means
+7:12 it's going to sidestep PowerBI for right now and take us into Power Query. They
+7:18 kind of work hand in hand. Know it feels a little bit weird to be going to another program so soon, but this is the
+7:24 process. So, I'm going to go ahead and transform it. We're going to be transforming every single one of those files, okay? Because you'll notice here
+7:30 it says employee information, column 2, column 3, I have null values. So, things are not really perfect right now. So,
+7:38 we're going to go ahead and fix that. So, I'm going to go over here to transform data. And now, if you'll
+7:43 notice way up on top here, how it says now I'm in my Power Query editor. So they're kind of partnering with each
+7:49 other now. So let's go ahead and just kind of take a look a little bit of kind of how things are kind of navigated
+7:55 here. We have our ribbon up on top, right? And notice how we have all these tabs up on top here as well. We have
+8:00 home, which has a lot of really helpful features here for us. We have transform, which also has a lot of helpful features
+8:07 that we're going to be getting into. Also add column, also a few things here. Okay, it looks a lot like Excel, but it
+8:13 definitely behaves differently. Over here on the lefth hand side, it does tell me what is the name of the sheet
+8:18 that I'm referring back to. And just note that you can always rightclick on any of these things. You'll notice here
+8:24 there's quite a bit of options here if you wanted to delete, rename, right? All kinds of good stuff here if we wanted to
+8:30 copy this and do another one there. So that's where you're going to possibly be doing some more interfacing. One thing
+8:36 that's really important is this applied steps. So, as I continue to do things,
+8:42 you're going to see that there's going to be more and more of these growing here. This is essentially a history of
+8:48 all the things that I have done. So, as I make some changes, you'll notice that this is going to start to grow. There's
+8:54 no undo feature in Power Query. And notice it's already kind of done a few things. There's source, navigation,
+9:00 promoted headers, change type. Okay, it's already kind of done some things for me already. So just keep an eye on
+9:05 this because it is also good about if I ever wanted to go back, I changed my mind, I can always kind of click on
+9:11 these and say, "Hey, listen, I don't want to do that step." Now, what we're going to do is we're going to first of all just get rid of these null values.
+9:17 Now, a couple of different ways I can do this, and I'll talk about this in other exercises, too, is number one, notice
+9:23 how I have employee information, and then I just have this little drop-own menu. You'll see that it's just like Excel. If you're familiar with Excel,
+9:30 it's going to show me all of my employees in this case, right? because I'm in this particular column here. But
+9:35 notice there's also this null right here. So if it says null, we just get rid of that and it's going to go away.
+9:41 So let me just show you that right now. I'm going to click okay. And then that kind of cleans that up. And then you can
+9:46 also see how it tells me here it's filtered the rows. I'll go ahead and click on that and I'll bring it right
+9:52 back. I clicked on the X and it brings it right back. So that's a really nice probably familiar way that you might
+9:58 want to get rid of those if it is in fact a null value. But let me just going to go ahead and show you a different way
+10:03 that's very sort of power query oriented. We're going to go over here to the home tab and I'm going to say remove
+10:11 rows. Okay. And then notice how I can remove top rows, remove bottom rows, remove duplicates, right? Remove errors,
+10:18 all this stuff here. So this is a really important one depending on the situation that you're working with. I'm just going
+10:25 to very simply say remove top rows. And then what it does, it asks me, well, how many do you want to specify how many to
+10:32 remove from the top? And really the only thing I care about is just this top one row. That's it. So then I'm going to
+10:38 click okay. That goes away. Now the next thing I want to do is I want to make it
+10:43 so this name, employee code, etc. is going to be these headers, right? And I
+10:49 need to essentially like promote them so they become the headers, not column 2, 3, etc. So now I'm going to stay in my
+10:56 home tab. You'll see that there's something. It says use first row as headers. I click on that dropdown and
+11:02 then notice you see I've got a few different options here. I'm just going to just choose that. That now gets promoted. Beautiful. Super happy with
+11:09 that. So that's going to be just probably a common thing that a lot of us do there. So just keep that in mind.
+11:14 Each of these has their own sort of like data type if you will, right? You can see how this is 1 2 3. This is an
+11:22 employee code. Does that need to be a number? Maybe, maybe not. So, I can very easily change that from something to
+11:28 something else. This is ABC. That's just text. If I scroll to the right, notice that says 1 2 3 for earnings. That's
+11:35 numbers. So, let's go ahead and just see. Let's just say I don't want this to actually be numbers. Numbers imply that
+11:42 there's going to be some type of like calculation of sorts, right? So, it actually is not going to be calculated.
+11:47 So, I'm just going to go ahead and click on my little one, two, three. And you know what? This is just going to be plain old text. So, I'm just going to go
+11:52 ahead and say replace current that step of whatever that was to change the type. So, that's fine. And you can see doesn't
+11:58 really change too much except when I click away, it now says one, two, three. For here, this one, two, three. Just
+12:04 going to go ahead and click on that one. You may want to change this. Let's say for example, fixed decimal number,
+12:10 right? Notice this make to a dollars. I'll go ahead and do that. And now you can see it's going to be some dollars
+12:15 there if you wanted to do that. So, I'm just going to keep that there for right now. And I'm pretty good with at least
+12:20 doing that level of cleanup. Let's go ahead and do a couple other things. Let's go ahead and I'm going to just do
+12:27 some kind of basic stuff here. So, for example, what I'd like to do is I'm going to make it so all of these are
+12:33 going to be all in uppercase. So, now for my department, I want to make all these uppercase. So, what I'm going to
+12:39 do is I'm going to go over here to transform and I have this option for text column inside of my transform tab.
+12:47 And then you'll see here I have this format and there's a lot of different format stuff I can do. And some of you
+12:53 may have seen this in Excel like where you have to do a formula to do that like lower and upper or proper. There's even
+13:00 trim that kind of thing. I'm just going to very simply make all this uppercase. And then notice how that makes it
+13:07 uppercase. And then once again you can see it says uppercase text. Cool. So I can see that there. So it's very simple.
+13:13 The hardest part for a lot of us is going to be probably remembering where the things are because they can be a
+13:19 little bit buried and sometimes even named a little bit weird. You know, you're like format. Well, I know
+13:24 formats, but there's not a lot of like kind of familiar format things that you might expect. So, it's just going to
+13:30 take a little bit of time to kind of familiarize yourself with it.
+13:39 Now what I'm going to do is I want to make it so I'm going to split my first
+13:44 and last name here. You can see here I want to make this first and last name in
+13:49 separate because I'd like to actually let's say sort it and alphabetize it by last name and first name, right? Or I
+13:56 want to alphabetize it by last name. I can't do that. My neighbor right here inside of this transform text column
+14:03 grouping is split column. And you can see here they've given us a lot of options here, right? By delimiter, by
+14:10 number of characters, by positions, by lowercase. I mean, there's so many different things depending on your
+14:16 scenario. For the most part, it's going to be usually a delimiter, right? So a delimiter could be a comma, could be a
+14:23 semicolon. In our case, it's going to be a space. So because our delimiter is
+14:28 basically saying between these two words, right? There is a space and I want to split them. So then therefore
+14:35 we're going to have Malcolm in one and Pingo and another, Shannon and one, Lee in another column. So I'm going to say
+14:41 by delimiter and this pops up and it recognizes, right? Okay, what's the delimiter you want to do? But notice if
+14:46 I click on it, I got colon, comma, etc. All these things here and then split at
+14:52 what? I got space split at each occurrence of the delimiter. That's kind of nice because let's say there was like
+14:58 middle names or something like that. You might want to have that there. Okay, so I'm pretty much good to go and click
+15:04 okay. And now you can see how it has now split them. Very easy to do right now
+15:10 and also very effective. So let's now rename these because this is name one that says name two. Super easy to
+15:17 rename. Just simply doubleclick on the column header. I'm just going to type out first name. Double click on this
+15:24 one. It's going to be last name. Great. Now I'm all set up there. Okay. Now, if I wanted to, let's say, for example, do
+15:31 what I just said in terms of sorting, just notice here my little drop down. First choice right there is ascending
+15:38 and descending. And now you can see, beautiful. I've got it all sorted out the way that I want to go. And it even
+15:43 tells me here that this is now being sorted out. So, you're going to want to practice that. And you're going to see again, it's not that difficult to do.
+15:50 Sometimes it's going to be a little bit just kind of challenging to get to where we want to go. All right, I'm going to go back to my employee code. Now, what
+15:56 I'm going to do in this case is I'm going to make a new column. I'm going to do something a little bit different. My
+16:03 goal is to make it so these employee codes, I don't actually want it to read
+16:09 this way. This is a little bit challenging for people. It's kind of lost. And now we're kind of creating a
+16:14 whole new naming convention. So, let me just show you what I mean here. So I'm going to go over to here to add column.
+16:20 And there's this really very valuable option here where we have here columns from examples. Use example to create a
+16:27 new column in this table. So notice I've selected my sort of like source of what
+16:33 my example is going to be. I'm going to click on my little dropdown. I'm going to say do a new column based off of the
+16:40 selection. So it has some sort of like context for us to work on here. So I'm going to go ahead and say from
+16:46 selection. Okay. And then on the far right hand side, it now just says column one. That's the part that'll probably
+16:52 throw you off a little bit because you're like, well, where what just happened? Nothing happened really. Well, I have to go over here and I have to
+16:59 give it an example, right? I have to give it a little bit of a hint of what I want, right? So, I'm going to just type
+17:05 out I'm going to go right to here. I'm gonna type out EMP_00001.
+17:12 Right? So, it's like, hey, you know what? based off of that one we saw, I actually want to add on the two leading zeros and the M and the underscore.
+17:19 That's my example. So now when I hit enter, look at this magical thing that just happened here. It understood what I
+17:26 wanted to do based off of that example, right? And it kind of took everything
+17:31 there based on that context. So now when I click okay, I'll be able to see this right there. And I'm going to move this
+17:38 over to where this was before. You can kind of compare the two of them. Now, I don't need this one anymore because I
+17:44 have this one here, right? So, I've just now improved upon it within Power Query. So, I'm just going to go ahead and
+17:50 rightclick. I'm going to say remove. Again, notice all the options we have here when we do a right click. There's
+17:57 even transform that we saw before, right? Some other ones there. Change type, some other ones there. You can see
+18:02 lots and lots of stuff we can do here. Just going to go ahead and say remove. And then notice how this stays intact.
+18:08 And now I'm going to rename where it says merged into employee code. All
+18:15 right. So lot of things we can do here. So again, what are we doing? We're cleaning up. We're shaping. We're doing
+18:21 all kinds of good stuff here.
+18:29 I want to show you some stuff to really kind of take a look at the integrity of your data. So, in case you're ever
+18:35 seeing some kind of weird stuff, you can go to this view tab and you can see how
+18:41 there's this column quality, column distribution, and column profile. Okay, this is just maybe something to show
+18:47 your manager or you can kind of like sleep easy at night. When I click on these guys here, you're going to notice
+18:52 how some stuff's now going to pop up. I'll just kind of show them all at this point. You can see here that when I
+18:59 click on first name, some things change down here. You can see here all these lovely graphics appear that I have 100%
+19:05 valid data. There's no null values, anything like there's no errors. Beautiful. So, if I just kind of back
+19:11 out of this for a second, notice how that's what this distribution does, right? How many kind of distinct and
+19:17 unique ones that's maybe not really valuable for me. So, I can get that away. Column profile. That's what's
+19:22 going to show for this particular one. Notice how I'm able to see that I have this much for Lee, James, Pingo. When I
+19:30 go over to here to let's just say region, notice how this is showing me, hey, you know what? I've got more east,
+19:35 west, south, etc. So, this column profile is showing based on the context
+19:41 of what I've clicked on. Here's another one for all of my individual departments. Right? So, really nice.
+19:48 Could be very valuable for you. Very good. So, I can remove this right now. I don't always have to have that there,
+19:53 but some people like to have it just depending on your data, depending on your manager, you know, your clients.
+20:00 It's just nice to know. So, once again, we go to view and then we can turn these three on.
+20:08 Hi from everyone at Simon Says It, we hope you're enjoying this training lesson. Please like this video to show
+20:15 your support for the channel. If you want to take your learning further, earn a certificate for this course, and gain
+20:22 access to over 200 courses, ad free, click up there and go to simon
+20:28 saysit.com. Thanks for watching and back to the
+20:33 course.
+20:39 Now, the next thing I'm going to do is I'm going to show you how we can do what we call grouping our data. But before we
+20:45 do that, I want to duplicate what I have here because I actually want to make two
+20:51 different versions of this. Right? So, I'm just go ahead and rightclick on this and I'm going to go ahead and duplicate.
+20:57 Right? So, I'm going to have these two of the same essentially. And I'll just call this empty data. I'll just call
+21:04 this complete. Okay. And then I'll rename this one after I actually do something to it. What I'm going to do
+21:10 this time is I'm going to go over to here to my home tab. And I'd actually like to create a different sort of way
+21:16 of looking at this cuz I need to know, for example, let's say, how many people do I have in each region? How many
+21:23 people do I have in each department? Or maybe I want to do some math around how
+21:28 much am I paying people per department, something like that. But I want to be able to kind of create sort of an
+21:34 aggregation around it. Let me show you what I mean. So, I'm going to go to this new one that I just duplicated. I'm going to stay within the home tab. I'm
+21:41 going to go over here to group by. Group rows in this table based on the values in the currently selected columns,
+21:48 right? Well, what's the one I'm selecting here? Let's go ahead and do region. And I'm going to say group by.
+21:53 And this is going to pop up here. And you can see here it's like, well, what do I want to do? Well, I have region. That's great. Count the rows. Okay. And
+22:01 I'm pretty much like good to go at this point because I just really want to know how many I have per region. So, I really
+22:07 don't even need to do too much, right? So, I click on okay. And now you can see I have a separate table that's done this
+22:14 beautiful aggregation for me. Then notice how right it's now this is still intact where this one right has created
+22:22 a whole new thing for me. Kind of nice isn't it? So let's go ahead and do another one. I'll go ahead and duplicate the original. Let's go ahead and do it.
+22:29 Let's just say for our department I'm going to say group by by department.
+22:35 Okay. And then this time I'm going to go ahead and say sum. And what am I summing? I'm going to sum up the
+22:41 earnings. So, I changed the operation, right? Before it was set to count, but I
+22:47 want to know, hey, listen, how much are we paying people within each department? I want to be able to kind of create a
+22:52 whole new thing for that. So, I'm going to go ahead and click okay. You can see how nice that is, right? It tells me
+22:58 human resources are paying 374,000 accounts, 954,000. Great. And we have that there. So, let's go ahead and
+23:04 rename these. I'll just very simply doubleclick. I'll just say region count.
+23:10 Okay. And then I'll just say department salary total. So we can have that there.
+23:17 Very nice. Now certainly I don't want this to say count, right? So I can rename that. I'll just say salary total.
+23:26 And now that's looking pretty good. So now we actually have a nice little set of stories to tell. Now we've kind of
+23:32 really come sort of like full circle. What I do now is I go over back to my home tab and I'm going to say close and
+23:40 apply. Close the query editor window and apply any pending changes. I'm going to simply click on that. Now you can see
+23:47 it's bringing in all three of those tables that I've just created. And we're actually in PowerBI right now, right?
+23:53 And it seems a little antilimatic because it's kind of like, wait, what just happened? like nothing happened
+23:59 because by default when it takes us into PowerBI, it takes us into what we call
+24:04 our visuals view, our reporting view. So, let's just kind of take a little kind of overview of now that we're in
+24:11 PowerBI, how things will look a little different because you have to kind of adjust your your vision a little bit.
+24:16 So, on the left hand side, we've got these tabs here. Now, currently, I'm in this report view. So, nothing's
+24:21 happening here, but at some point, I might want to do some visualization around this. But now if I click on this
+24:27 one, my table view, right, we'll be able to see my stuff on the right hand side. I'll be able to see, oh, that's really
+24:33 nice. I click on that, it's like, oh, okay, cool. Now I'm able to see everything that I've done because again,
+24:39 this is my table view. If I go to my report view, once again, there's nothing there. But in the future, if I ever
+24:45 wanted to, I could actually start bringing in some of this content into my
+24:52 report view. So, if I wanted to just say, "Hey, here's all my departments." Boom. It's going to start doing a nice
+24:57 little report for me, right? I'll say salary total then. Okay, that's really nice, right? It's like, okay, so that's
+25:04 at least kind of like got some of the stuff here. Notice how we have three
+25:09 different columns here now that we're in PowerBI. We've got the data source that we're working with, and we have all of
+25:15 our amazing visualization options we may want to work with, including the ability
+25:20 to adjust what are going to be the columns. Well, I don't actually need to have like salary total, for example. So,
+25:27 I can go ahead and just kind of play around with all these things here and then put in whatever I want, you know, for all these. Just really depending on
+25:34 how you want to do that. But so far so good. But then, of course, I may not want this to be my visualization. So, I
+25:41 can then change it. I think possibly I need to I think this is maybe a good lesson here. I would need to see are
+25:47 these coming in as proper numbers here. So in case things are not kind of operating the way we want them to, we
+25:54 may need to go back and adjust them. So that's what we're going to kind of come back sort of full circle on. Okay?
+26:00 Because I want you to understand that like the data that we started with, we may want to kind of edit and transform
+26:07 the data again. Okay? So let's talk about this. Now, when we are in PowerBI,
+26:14 we may want to come back or need to come back to Power Query to continue to clean
+26:20 up our data. So, what we do, right, if I'm looking at this right here, we're
+26:25 going to go over to here to home. Okay. And what we have to do is we have to go back to transform. Remember the T
+26:32 in the ETL, right? We can go back to it. And again, if I hover my mouse over, it's going to say, "Use the Power Query
+26:38 Editor to connect, prepare, and transform your data." So, I'm going to click on that. And now, this is going to
+26:44 take me back to here, exactly where I was before. Okay? And you can see I can
+26:49 play around with all these guys here, right? Maybe I want to make this into, you know, whatever I had before, fixed
+26:55 decimal, and all that stuff. And then I can start playing with it over and over and over again. So, you can see there's
+27:01 a lot we can do here. We go back to this one. Okay. And again, anything you want to kind of play around with, you have
+27:07 the ability to do that. And then when you're finished, you say close and load.
+27:17 So what we're going to do now is we're going to bring in a new data set all together. And I'll show you from a
+27:23 different perspective this time. Earlier when we started, we started from the new workbook, right? You see that we went
+27:30 from an Excel workbook. Now, what we're going to do is we're going to say new blank report. So, you can see just a
+27:36 different perspective to essentially accomplish the same thing because notice I'm back to where it kind of showed me
+27:42 before where I was in a blank PowerBI document. And again, notice here there's
+27:47 no data here, but this time I'm starting from the kind of the same kind of familiar place we just were. I'm going
+27:53 to say import data from Excel. We're essentially going to accomplish the same goal just in a different way. So you can
+28:00 kind of train your eyes to know that there's different ways to do it in case somebody else shows you slightly
+28:06 different way. This time I'm going to go here to the split columns. Now notice
+28:11 how I have the word table in here. There's a reason why I have that word table here. And let me just back out of
+28:17 this for one second because I want you to see that this particular document,
+28:23 right? This original source document, this actually has what we call a table
+28:29 applied to this data set within Excel, right? It's like an official thing with a capital T. And notice how we have some
+28:35 extra spaces up on top here. It's not going to matter in this case because this data set is in fact a table. Okay?
+28:44 And that's a good practice we want to have. For the first one that I showed you, I did not do that practice and that
+28:50 was kind of intentional. This particular one is a table called office supplies
+28:56 table, right? And you're going to see that I also have this product sheet for the whole sheet. This is not the thing I
+29:02 want to focus on. The thing I really want to focus on is the office supplies table because then this encapsulates
+29:10 just this data. I could even have three separate tables kind of next to each
+29:15 other and PowerBI and Power Query are going to be smart enough to then extract
+29:21 out just that data set. Let me show you what I mean. I'm going to get my data one more time. All right. And then it's
+29:26 going to take me to my navigator. I'm showing you good practices. You'll see why in just a second. Okay. So, here
+29:33 they are. Here is my table. Notice I've labeled the tbl. And let's take a look at this one. This is the good guy. See?
+29:40 Nice and clean. Just like that. Love that. And then let's take a look at this one. And by the way, you won't see it
+29:46 unless you click on the check mark here. Or you won't be able to import it unless you do the check mark. You can view it here. But notice this one has all the
+29:52 null values and stuff because this brings in the whole thing, right? Not necessarily what I want. So we want to
+30:00 make sure that we understand that. And now we're going to bring in the correct one. All I'm going to do now is just say
+30:05 transform because I do want to transform this. This is brought in nice and clean because it was a table. I didn't have to
+30:13 worry about all that other nonsense there, right? So, that's a really kind of important thing there. So, just
+30:19 keeping that in mind. Let's go ahead. We're going to do a few other things here. And we're going to make it so
+30:25 we're going to extract out some stuff within our date column because I'd really actually like to have my the days
+30:32 and then also the quarter and then the year set up here. Okay. Okay. So, what I'm going to do is I'm just going to
+30:38 very simply duplicate this column here. So, I'm going to bring this over to the far left so I can at least see it.
+30:44 Notice how this is a date format. And I want to make it so for this particular one, it actually says the name of the
+30:51 month. And I also want to show say the quarter and then maybe a separate one for the year. Okay. So, right now it
+30:58 recognizes the date. I'm going to go to my transform tab now and come over here where it says date. and it recognizes
+31:05 this is the date. But notice I am transforming this to make it so it's going to extract out all these options.
+31:12 I have every year, start of the year, month, quarter of the year, etc. I want
+31:17 to do name of the month. Let's go ahead and do that. And now you can see how it's extracted that out. Isn't that so
+31:24 neat? See, I've got just the name of the month right there. That would be very difficult to do otherwise. Let's go
+31:29 ahead and do another duplicate. I'll bring this back over here. And then we'll do the same thing. I want to show
+31:36 what quarter it is and see all the options we have here. Quarter of the year. And now I know that July is in the
+31:43 third quarter. If I keep scrolling down, you might see it change a little bit. We have a lot of data here. So once we
+31:48 bring it in, we'll be able to see all the data. But we know that that's right. So I'm going to go ahead and just call this month. And I'm going to call this
+31:55 quarter. Now, why would I even want to do this? Well, when I'm actually doing my report, my boss, my clients, it's
+32:03 really important for them to be able to know, well, what the quarter is, right? Or we want to kind of organize it in a
+32:08 certain way, whatever it is for you. It's important for you to view it in such a way that now we have the ability
+32:14 to do that. Okay, let's do that one more time. We'll do it for the year. And again, you can see here, I'm going to
+32:20 now duplicate. All right. And then I'll just bring this here one more time. You can see here is year. And I'll just
+32:27 rename that toy year. And again, bring this over. So now I'll have a nice
+32:32 little story all queued up and ready to go for all of these here. So now we have
+32:38 everything we need here. Now just note also again if I wanted to split columns, I can do that same thing here. Just
+32:43 remembering or I could do that right from transform, if I want to make this first and last, I can do that. Just the
+32:49 same thing. And also if I want to do a new column by example, I can do that as well. there's anything else here
+32:55 available to us. For example, I wanted to say that we have my product ID and
+33:01 printer. So, I can give you kind of a different sort of viewpoint around these. This time, I want to combine the
+33:08 name of the item and the PD ID into one.
+33:14 So, I have to first select both of these. Okay? Okay. And I'm going to then do a brand new column based off of these
+33:22 examples. It's very important we understand that. What is the example we want to do? Well, we actually have to
+33:29 select it first, right? We have to select both of these. So, my ultimate goal is to do printer KL00001,
+33:35 whiteboard KL00002, etc. Okay? Or the opposite. Doesn't matter. What I'm going to do is again
+33:41 highlight both columns. Go over to here to add column. And once again, we're going to see we have columns from
+33:48 examples. Okay. So, I'm going to choose that. And then you're going to say from selection. New thing's going to pop up
+33:54 again. And now we're going to see we're going to have I'll just do printer. Just start typing
+34:01 KL00001. Hit enter. And now look at that magic. It's brought in whiteboard KL00002,
+34:09 office chair KL00003, etc. Pretty amazing. So I'll just call this product
+34:16 merged. And then you can put that wherever you want right there. So very very slick. And now we've got something
+34:21 that we can work with. So okay, once again, what am I going to do? I'm going to say close and apply. I bring that
+34:28 back. And I've got a new data set for me to work with. Okay. And then there's my data set. Again, I can't see it until I
+34:34 go over here to table view and I'll be able to see everything I've got here. Now, in this case, one thing I may want
+34:41 to do is also make it so my commission is coming in as percentages. So, notice
+34:47 I have this here and I'm in PowerBI. And you can see here under my column tools,
+34:52 I can actually make this into a percentage. See that? So, you have some of these other kind of formatting
+34:58 options even in PowerBI. So, I'll go ahead and save this. Okay,
+35:03 I'll just call this products. And now that is now saved as a PowerBI
+35:09 document. And again, I have all these options here. And then when you're ready to do some kind of report, you have the
+35:15 ability to do your reports just right from here. So you can see if I wanted to, let's just say, for example, bring
+35:22 in my item. Let's see my items show up. And then
+35:27 I'll just choose quantity. And now see that shows up. And now let's go ahead and do a nice little graphic here. And
+35:35 there you have it. Right. So you see I wasn't able to do that potentially but now I have the ability to do that now
+35:40 that it's brought into it. So PowerBI needed to lean on Power Query first of all clean up all my data. Now I can do
+35:47 my visualizations.
+35:55 I want to show you one last thing and this is something that can confuses people sometimes and this is called the
+36:02 unpivot tools. If I go back to my kind of original data, right? If we take a
+36:08 look at this data set here that this right now as it stands will not be able
+36:16 to be kind of put into a report for us, right? Because we're not actually seeing
+36:22 everything in sort of a column right now because we have columns and rows. We
+36:27 need to do is we need to kind of like unpivot it. That's the term they use to kind of like extract this out from where
+36:35 it is. So, we're going to go ahead and do a brand new one. And we're going to bring in our fourth file. And that's
+36:42 going to be our unpivot data. Okay. And there it is. Just called sheet one. And we bring this in here. Right now, if we
+36:48 were to try to load this and we try to do report, we're going to have problems. So, let me go over here to transform.
+36:55 And what I need to do is kind of make it so every sort of Midwest and January,
+37:01 February, they all kind of have their own sort of individual data set for us to work with. So what I'm going to do is
+37:07 I'm going to click on the region column, go over to here to my transform tab, and
+37:14 then notice there's this unpivot columns, and I'm going to go ahead and unpivot other column. So let me just
+37:20 show you what this is going to look like, right? I choose that. And now notice my data. See that? How they all
+37:27 have a representation where they didn't before. And now they're all kind of like partnered with the data to tell a
+37:34 similar story, but now there's more data spilled out for me to look at. Let me go ahead and just show you the original
+37:40 again. So you see here it is. And then notice here's all my months and all my
+37:45 regions. But right now, all my regions, even though I can see the numbers going this way, PowerBI will not be able to
+37:52 read it unless I pivot it down. So each of these months then also have their own
+37:58 individual label. So let me do that one more time. I'm going to click on region, go to transform, unpivot columns,
+38:05 unpivot other columns. Now we'll be able to see. Okay, great. Now we have this here. I'm going to go ahead and change
+38:11 this to months. And I'll call this sales. And now I'm able to actually work
+38:17 with something where I wouldn't be able to work with before. So again, if your data is not cooperating, it doesn't come
+38:23 in the way you want it to, just know that you may have to unpivot it. Okay, so I go back to home. I'll go ahead and
+38:29 say close and load. And now I'll be able to see right here. Here's all my data
+38:36 all brought in. Can see it all right there. My months, my regions, everything all happy. And if I wanted to do a
+38:41 report right now, I'll be able to do that a lot easier, right? So I just say region right all spilled out and there's
+38:48 my data would not have been able to do that before I can even sort start ch start to combine all these guys here
+38:54 really nice and then do all kinds of different charts etc.
+39:04 Well congratulations everyone for completing this course. So hope you enjoyed this class. Hope you learned a
+39:10 lot and we look forward to seeing you in future lessons. Thanks everyone.
+39:15 What was your favorite part of this tutorial? We would love to hear your thoughts in the comments. Visit the
+39:21 Simon SaysIt channel, explore our videos and training sessions, and decide what you want to learn next.

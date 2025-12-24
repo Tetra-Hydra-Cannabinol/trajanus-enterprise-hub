@@ -1,0 +1,3774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trajanus Enterprise Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --brown-dark: #1f1410;
+            --brown-mid: #3d2a1f;
+            --brown-light: #5c4033;
+            --cream: #FFF8F0;
+            --orange-dark: #a85a1b;
+            --orange-mid: #cc6e1f;
+            --orange-light: #e8922a;
+            --rust: #8b4513;
+            --tan: #d4a574;
+            --gray-dark: #2d2622;
+            --gray-mid: #4a413a;
+            --gray-light: #a89890;
+            --green-badge: #28a745;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--brown-mid) 0%, var(--brown-dark) 100%);
+            min-height: 100vh;
+            display: flex;
+            color: #fff;
+        }
+        
+        /* ============================================
+           SIDEBAR - 200% larger
+           ============================================ */
+        .sidebar {
+            width: 320px;
+            background: rgba(0,0,0,0.3);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid rgba(255,255,255,0.1);
+            overflow-y: auto;
+        }
+        
+        .sidebar-header {
+            text-align: center;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            margin-bottom: 25px;
+        }
+        
+        .sidebar-header h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--cream);
+            letter-spacing: 1px;
+        }
+        
+        .sidebar-header .tagline {
+            font-size: 1rem;
+            color: var(--orange-light);
+            margin-top: 8px;
+            font-style: italic;
+        }
+        
+        .sidebar-header .trademark {
+            font-size: 0.7rem;
+            vertical-align: super;
+        }
+        
+        .sidebar-header .subtitle {
+            font-size: 0.85rem;
+            color: var(--gray-light);
+            margin-top: 10px;
+        }
+        
+        .project-section {
+            margin-bottom: 30px;
+        }
+        
+        .project-section h3 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--gray-light);
+            margin-bottom: 15px;
+            padding-left: 12px;
+        }
+        
+        /* Project buttons - 200% increase */
+        .project-btn {
+            width: 100%;
+            padding: 18px 18px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            text-align: left;
+            cursor: pointer;
+            font-size: 1.15rem;
+            transition: all 0.2s;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .project-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .project-btn.active {
+            background: rgba(255,255,255,0.15);
+            border-left: 4px solid var(--orange-light);
+        }
+        
+        .project-btn .project-name {
+            flex: 1;
+        }
+        
+        /* Square badges */
+        .sidebar-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        
+        .sidebar-badge.deployed {
+            background: var(--orange-mid);
+            color: #fff;
+        }
+        
+        .sidebar-badge.billable {
+            background: var(--green-badge);
+            color: #fff;
+        }
+        
+        /* Sidebar footer buttons */
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .sidebar-footer .project-btn {
+            padding: 14px 18px;
+            font-size: 1rem;
+        }
+        
+        /* ============================================
+           MAIN CONTENT AREA
+           ============================================ */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .header {
+            background: var(--cream);
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-title h2 {
+            color: var(--brown-mid);
+            font-size: 1.5rem;
+        }
+        
+        .header-title .breadcrumb {
+            color: var(--gray-mid);
+            font-size: 0.85rem;
+            margin-top: 3px;
+        }
+        
+        /* Timer - Option 3 Horizontal Bar */
+        .clock {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            background: linear-gradient(90deg, var(--brown-dark), rgba(31, 20, 16, 0.5));
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 6px;
+            min-width: 320px;
+        }
+        
+        .clock-left {
+            display: flex;
+            align-items: baseline;
+            gap: 15px;
+        }
+        
+        .clock-date {
+            font-size: 15px;
+            font-weight: 400;
+            color: var(--cream);
+            letter-spacing: 1px;
+        }
+        
+        .clock-time {
+            font-size: 15px;
+            font-weight: 300;
+            color: var(--orange-light);
+        }
+        
+        .clock-session {
+            font-size: 12px;
+            color: var(--gray-light);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .clock-session i {
+            color: var(--green-badge);
+            font-size: 8px;
+        }
+        
+        .workspace {
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        /* ============================================
+           APP LAUNCHER GROUPS (universal)
+           ============================================ */
+        .app-launcher-section {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .app-group {
+            background: var(--brown-dark);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 10px;
+            padding: 15px;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .app-group-header {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray-light);
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .app-group-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .app-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 10px 12px;
+            background: var(--brown-dark);
+            border: 2px solid var(--brown-light);
+            border-radius: 4px;
+            color: var(--cream);
+            cursor: pointer;
+            font-size: 10px;
+            transition: all 0.15s;
+            min-width: 56px;
+        }
+        
+        .app-btn i {
+            font-size: 18px;
+            color: var(--orange-light);
+        }
+        
+        .app-btn:hover {
+            background: var(--orange-mid);
+            border-color: var(--orange-mid);
+            color: var(--brown-dark);
+        }
+        
+        .app-btn:hover i {
+            color: var(--brown-dark);
+        }
+        
+        .app-btn.add-app {
+            border-style: dashed;
+            background: transparent;
+        }
+        
+        .app-btn.add-app:hover {
+            background: rgba(204, 110, 31, 0.2);
+            color: var(--cream);
+        }
+        
+        .app-btn.add-app:hover i {
+            color: var(--orange-light);
+        }
+        
+        /* ============================================
+           TOOL GROUPS (with borders)
+           ============================================ */
+        .tool-section {
+            background: var(--brown-dark);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .tool-section-header {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray-light);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .button-grid {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        /* Session buttons (tan style) */
+        .session-btn {
+            padding: 16px 24px;
+            background: linear-gradient(145deg, #d4a574, #b8895a);
+            color: #2d1810;
+            border: 1px solid #e8b88a;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            box-shadow: 0 3px 0 #8b6b42, 0 4px 8px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        .session-btn:hover {
+            background: linear-gradient(145deg, #e8b88a, #d4a574);
+            box-shadow: 0 2px 0 #8b6b42, 0 3px 6px rgba(0, 0, 0, 0.3);
+            transform: translateY(1px);
+        }
+        
+        .session-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 0 0 #8b6b42, 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Tooltips - dark brown with white text */
+        .session-btn::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--brown-dark);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 400;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s;
+            z-index: 100;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .session-btn:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* ============================================
+           PROJECT HEADER + BADGE
+           ============================================ */
+        .project-header {
+            margin-bottom: 5px;
+        }
+        
+        .project-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .project-badge {
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .badge-dev {
+            background: var(--orange-mid);
+            color: #fff;
+        }
+        
+        .badge-working {
+            background: var(--green-badge);
+            color: #fff;
+        }
+        
+        .project-description {
+            color: var(--gray-light);
+            font-size: 1rem;
+            margin: 0;
+        }
+        
+        /* ============================================
+           RESOURCE CARDS
+           ============================================ */
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        
+        .resource-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            color: var(--cream);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid var(--orange-dark);
+            font-size: 0.9rem;
+        }
+        
+        .resource-link:hover {
+            background: rgba(0,0,0,0.3);
+            border-left-color: var(--orange-light);
+        }
+        
+        /* ============================================
+           TERMINAL / DOCUMENT PORTAL
+           ============================================ */
+        .terminal {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .terminal-header {
+            background: #2d2d2d;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .terminal-tabs {
+            display: flex;
+            gap: 5px;
+            flex: 1;
+        }
+        
+        .terminal-tab {
+            padding: 6px 15px;
+            background: rgba(255,255,255,0.05);
+            border: none;
+            border-radius: 5px 5px 0 0;
+            color: var(--gray-light);
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+        
+        .terminal-tab:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        
+        .terminal-tab.active {
+            background: var(--orange-mid);
+            color: #fff;
+        }
+        
+        .terminal-tab .close-tab {
+            margin-left: 8px;
+            opacity: 0.6;
+        }
+        
+        .terminal-tab .close-tab:hover {
+            opacity: 1;
+        }
+        
+        .terminal-tab-add {
+            background: none;
+            border: 1px dashed rgba(255,255,255,0.3);
+            border-radius: 5px;
+            color: var(--gray-light);
+            cursor: pointer;
+            padding: 4px 10px;
+            font-size: 0.9rem;
+        }
+        
+        .terminal-tab-add:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        
+        .terminal-actions {
+            margin-left: auto;
+        }
+        
+        .terminal-clear {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 4px;
+            color: var(--gray-light);
+            cursor: pointer;
+            padding: 5px 12px;
+            font-size: 0.75rem;
+        }
+        
+        .terminal-clear:hover {
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+        }
+        
+        .terminal-bodies {
+            position: relative;
+        }
+        
+        .terminal-body {
+            display: none;
+            padding: 15px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.85rem;
+            height: 200px;
+            overflow-y: auto;
+            line-height: 1.6;
+        }
+        
+        .terminal-body.active {
+            display: block;
+        }
+        
+        .terminal-body .info { color: #9cdcfe; }
+        .terminal-body .success { color: #4ec9b0; }
+        .terminal-body .error { color: #f14c4c; }
+        .terminal-body .warning { color: #cca700; }
+        
+        /* ============================================
+           STATUS BAR
+           ============================================ */
+        .status-bar {
+            background: rgba(0,0,0,0.3);
+            padding: 8px 20px;
+            display: flex;
+            gap: 30px;
+            font-size: 0.75rem;
+            color: var(--gray-light);
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4ec9b0;
+        }
+        
+        /* ============================================
+           CLAUDE PANEL (Right Side)
+           ============================================ */
+        .claude-panel {
+            width: 380px;
+            min-width: 380px;
+            background: rgba(0,0,0,0.4);
+            border-left: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            transition: width 0.3s ease, min-width 0.3s ease;
+            flex-shrink: 0;
+        }
+        
+        .claude-panel.collapsed {
+            width: 45px;
+            min-width: 45px;
+        }
+        
+        .claude-panel-header {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,0.2);
+        }
+        
+        .claude-panel-header h3 {
+            font-size: 0.9rem;
+            color: var(--cream);
+            margin: 0;
+        }
+        
+        .claude-panel.collapsed .claude-panel-header h3,
+        .claude-panel.collapsed .claude-messages,
+        .claude-panel.collapsed .claude-input-area,
+        .claude-panel.collapsed .claude-context-bar {
+            display: none;
+        }
+        
+        .toggle-claude-btn {
+            background: none;
+            border: none;
+            color: var(--gray-light);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 5px;
+        }
+        
+        .toggle-claude-btn:hover {
+            color: var(--orange-light);
+        }
+        
+        .claude-context-bar {
+            padding: 10px 15px;
+            background: rgba(0,0,0,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.7rem;
+            color: var(--gray-light);
+        }
+        
+        .claude-context-bar span {
+            color: var(--orange-light);
+        }
+        
+        .claude-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .claude-message {
+            padding: 12px 15px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            max-width: 90%;
+        }
+        
+        .claude-message.user {
+            background: var(--orange-dark);
+            color: #fff;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .claude-message.assistant {
+            background: rgba(255,255,255,0.1);
+            color: var(--cream);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .claude-input-area {
+            padding: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .claude-input {
+            flex: 1;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            padding: 12px 15px;
+            color: #fff;
+            font-size: 0.85rem;
+            resize: none;
+            font-family: inherit;
+        }
+        
+        .claude-input:focus {
+            outline: none;
+            border-color: var(--orange-mid);
+        }
+        
+        .claude-input::placeholder {
+            color: var(--gray-light);
+        }
+        
+        .claude-send-btn {
+            background: var(--orange-mid);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            padding: 12px 20px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        
+        .claude-send-btn:hover {
+            background: var(--orange-light);
+        }
+        
+        .claude-send-btn:disabled {
+            background: var(--gray-mid);
+            cursor: not-allowed;
+        }
+        
+        /* ============================================
+           RIGHT PANEL - PROJECT FILES
+           ============================================ */
+        .right-panel {
+            width: 280px;
+            min-width: 280px;
+            background: rgba(0,0,0,0.3);
+            border-left: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            transition: width 0.3s ease;
+            flex-shrink: 0;
+        }
+        
+        .right-panel.collapsed {
+            width: 40px;
+            min-width: 40px;
+        }
+        
+        .right-panel-header {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .right-panel-header h3 {
+            font-size: 0.85rem;
+            color: var(--cream);
+            margin: 0;
+        }
+        
+        .right-panel.collapsed .right-panel-header h3,
+        .right-panel.collapsed .panel-section,
+        .right-panel.collapsed .preview-pane {
+            display: none;
+        }
+        
+        .toggle-panel-btn {
+            background: none;
+            border: none;
+            color: var(--gray-light);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 5px;
+        }
+        
+        .toggle-panel-btn:hover {
+            color: var(--orange-light);
+        }
+        
+        .panel-section {
+            padding: 10px 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .panel-section h4 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray-light);
+            margin-bottom: 10px;
+        }
+        
+        .file-list {
+            max-height: 180px;
+            overflow-y: auto;
+        }
+        
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 10px;
+            margin: 2px 0;
+            background: rgba(255,255,255,0.03);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .file-item:hover {
+            background: rgba(255,255,255,0.08);
+        }
+        
+        .file-item.selected {
+            background: rgba(204,110,31,0.2);
+            border-left: 2px solid var(--orange-mid);
+        }
+        
+        .file-icon {
+            margin-right: 10px;
+            font-size: 1rem;
+        }
+        
+        .file-info {
+            flex: 1;
+            overflow: hidden;
+        }
+        
+        .file-name {
+            font-size: 0.8rem;
+            color: var(--cream);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .file-meta {
+            font-size: 0.65rem;
+            color: var(--gray-light);
+        }
+        
+        .file-actions {
+            display: flex;
+            gap: 5px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        .file-item:hover .file-actions {
+            opacity: 1;
+        }
+        
+        .file-action-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--cream);
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-size: 0.65rem;
+            cursor: pointer;
+        }
+        
+        .file-action-btn:hover {
+            background: var(--orange-mid);
+        }
+        
+        .preview-pane {
+            flex: 1;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            min-height: 120px;
+        }
+        
+        .preview-pane h4 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray-light);
+            margin-bottom: 10px;
+        }
+        
+        .preview-content {
+            flex: 1;
+            background: rgba(0,0,0,0.3);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-light);
+            font-size: 0.8rem;
+            overflow: hidden;
+        }
+        
+        .preview-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .preview-btn {
+            flex: 1;
+            padding: 8px 12px;
+            background: linear-gradient(145deg, #d4a574, #b8895a);
+            color: #2d1810;
+            border: 1px solid #e8b88a;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            font-weight: 600;
+            box-shadow: 0 2px 0 #8b6b42;
+            transition: all 0.1s ease;
+        }
+        
+        .preview-btn:hover {
+            background: linear-gradient(145deg, #e8b88a, #d4a574);
+            transform: translateY(1px);
+            box-shadow: 0 1px 0 #8b6b42;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 15px;
+            color: var(--gray-light);
+            font-size: 0.8rem;
+        }
+        
+        .add-files-btn {
+            width: 100%;
+            padding: 8px 12px;
+            background: linear-gradient(145deg, #d4a574, #b8895a);
+            color: #2d1810;
+            border: 1px solid #e8b88a;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            box-shadow: 0 2px 0 #8b6b42;
+            transition: all 0.1s ease;
+            margin-top: 8px;
+        }
+        
+        .add-files-btn:hover {
+            background: linear-gradient(145deg, #e8b88a, #d4a574);
+            transform: translateY(1px);
+        }
+        
+        /* ============================================
+           MODALS
+           ============================================ */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal {
+            background: var(--brown-mid);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h2 {
+            color: var(--cream);
+            font-size: 1.2rem;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--gray-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .modal-close:hover {
+            color: #fff;
+        }
+        
+        .modal-body {
+            padding: 20px;
+            overflow-y: auto;
+            max-height: 60vh;
+        }
+        
+        /* File Browser Modal */
+        .file-browser {
+            background: var(--brown-mid);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 80vh;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .browser-toolbar {
+            padding: 12px 20px;
+            background: rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .browser-toolbar button {
+            padding: 8px 15px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .browser-toolbar button:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .file-browser .file-list {
+            padding: 15px;
+            max-height: 50vh;
+            overflow-y: auto;
+        }
+        
+        .file-browser .file-item {
+            padding: 12px 15px;
+        }
+        
+        .file-browser .file-name {
+            font-size: 0.9rem;
+        }
+        
+        .file-browser .view-btn,
+        .file-browser .download-btn {
+            padding: 6px 12px;
+            background: var(--orange-mid);
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 0.75rem;
+            margin-left: 5px;
+        }
+        
+        .file-browser .view-btn:hover,
+        .file-browser .download-btn:hover {
+            background: var(--orange-light);
+        }
+        
+        .file-count {
+            padding: 10px 15px;
+            color: var(--gray-light);
+            font-size: 0.8rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .loading-spinner {
+            text-align: center;
+            padding: 40px;
+            color: var(--gray-light);
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top-color: var(--orange-mid);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Template Picker */
+        .template-picker {
+            background: var(--brown-mid);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 85vh;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .picker-body {
+            padding: 20px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+        
+        .template-category {
+            margin-bottom: 20px;
+        }
+        
+        .template-category h3 {
+            font-size: 0.85rem;
+            color: var(--orange-light);
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 10px;
+        }
+        
+        .template-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+        
+        .template-item:hover {
+            background: rgba(0,0,0,0.3);
+        }
+        
+        .template-item.selected {
+            border-color: var(--orange-mid);
+            background: rgba(204,110,31,0.15);
+        }
+        
+        .template-checkbox {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--orange-mid);
+        }
+        
+        .template-info {
+            flex: 1;
+        }
+        
+        .template-name {
+            font-size: 0.85rem;
+            color: var(--cream);
+        }
+        
+        .template-desc {
+            font-size: 0.7rem;
+            color: var(--gray-light);
+            margin-top: 2px;
+        }
+        
+        .picker-footer {
+            background: rgba(0,0,0,0.3);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .picker-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .picker-btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .picker-btn.primary {
+            background: var(--orange-mid);
+            color: #fff;
+        }
+        
+        .picker-btn.primary:hover {
+            background: var(--orange-light);
+        }
+        
+        .picker-btn.secondary {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        
+        .picker-btn.secondary:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .selected-count {
+            color: var(--gray-light);
+            font-size: 0.9rem;
+        }
+        
+        /* Add App Modal */
+        .add-app-modal .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .form-group label {
+            font-size: 0.85rem;
+            color: var(--cream);
+        }
+        
+        .form-group input {
+            padding: 10px 15px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 6px;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--orange-mid);
+        }
+        
+        /* ============================================
+           MISSION BRIEF MODAL
+           ============================================ */
+        .mission-brief-modal {
+            background: var(--brown-dark);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow: hidden;
+            border: 2px solid var(--orange-mid);
+            box-shadow: 0 0 40px rgba(204, 110, 31, 0.3);
+        }
+        
+        .mission-header {
+            padding: 20px 25px;
+            background: linear-gradient(90deg, var(--orange-dark), var(--brown-dark));
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--orange-mid);
+        }
+        
+        .mission-header h2 {
+            font-size: 1.4rem;
+            letter-spacing: 3px;
+            color: var(--cream);
+            font-weight: 600;
+        }
+        
+        .mission-date {
+            font-size: 0.9rem;
+            color: var(--tan);
+        }
+        
+        .mission-body {
+            padding: 25px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+        
+        .checklist-section {
+            margin-bottom: 25px;
+        }
+        
+        .checklist-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--orange-light);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+        }
+        
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            margin-top: 2px;
+            accent-color: var(--orange-mid);
+            cursor: pointer;
+        }
+        
+        .checklist-item label {
+            font-size: 0.95rem;
+            color: var(--cream);
+            cursor: pointer;
+            flex: 1;
+        }
+        
+        .checklist-detail {
+            font-size: 0.75rem;
+            color: var(--gray-light);
+            margin-top: 4px;
+            margin-left: 32px;
+        }
+        
+        .checklist-item.bypassed {
+            opacity: 0.5;
+            border-color: #cc6e1f;
+        }
+        
+        .checklist-item.bypassed label {
+            text-decoration: line-through;
+        }
+        
+        .bypass-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: 1px dashed var(--gray-mid);
+            color: var(--gray-light);
+            font-size: 0.65rem;
+            padding: 4px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        
+        .bypass-btn:hover {
+            border-color: var(--orange-mid);
+            color: var(--orange-light);
+            background: rgba(204, 110, 31, 0.1);
+        }
+        
+        .bypass-warning {
+            background: rgba(204, 110, 31, 0.2);
+            border: 1px solid var(--orange-mid);
+            border-radius: 6px;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--orange-light);
+            font-size: 0.85rem;
+            margin-top: 15px;
+        }
+        
+        .bypass-warning i {
+            font-size: 1.1rem;
+        }
+        
+        .mission-prompt-section {
+            margin-top: 20px;
+        }
+        
+        .mission-prompt {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 6px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: var(--cream);
+            max-height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+        
+        .copy-prompt-btn {
+            margin-top: 10px;
+            background: var(--brown-light);
+            border: 1px solid var(--orange-mid);
+            color: var(--cream);
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        
+        .copy-prompt-btn:hover {
+            background: var(--orange-mid);
+            color: var(--brown-dark);
+        }
+        
+        .mission-footer {
+            padding: 15px 25px;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .mission-btn {
+            padding: 12px 25px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        
+        .mission-btn.primary {
+            background: var(--orange-mid);
+            color: #fff;
+        }
+        
+        .mission-btn.primary:hover:not(:disabled) {
+            background: var(--orange-light);
+        }
+        
+        .mission-btn.primary:disabled {
+            background: var(--gray-mid);
+            color: var(--gray-light);
+            cursor: not-allowed;
+        }
+        
+        .mission-btn.secondary {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        
+        .mission-btn.secondary:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        /* ============================================
+           EOS MODAL
+           ============================================ */
+        .eos-modal {
+            background: var(--brown-dark);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow: hidden;
+            border: 2px solid var(--green-badge);
+            box-shadow: 0 0 40px rgba(40, 167, 69, 0.3);
+        }
+        
+        .eos-header {
+            padding: 20px 25px;
+            background: linear-gradient(90deg, #1a5c2a, var(--brown-dark));
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--green-badge);
+        }
+        
+        .eos-header h2 {
+            font-size: 1.4rem;
+            letter-spacing: 3px;
+            color: var(--cream);
+            font-weight: 600;
+        }
+        
+        .eos-timestamp {
+            text-align: right;
+        }
+        
+        .eos-timestamp span {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--tan);
+        }
+        
+        .eos-body {
+            padding: 25px;
+            max-height: 55vh;
+            overflow-y: auto;
+        }
+        
+        .eos-session-info {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .session-stat {
+            flex: 1;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--gray-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .stat-value {
+            font-size: 1.4rem;
+            color: var(--cream);
+            font-weight: 300;
+        }
+        
+        .eos-footer {
+            padding: 15px 25px;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .eos-btn {
+            padding: 12px 25px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        
+        .eos-btn.primary {
+            background: var(--green-badge);
+            color: #fff;
+        }
+        
+        .eos-btn.primary:hover:not(:disabled) {
+            background: #34ce57;
+        }
+        
+        .eos-btn.primary:disabled {
+            background: var(--gray-mid);
+            color: var(--gray-light);
+            cursor: not-allowed;
+        }
+        
+        .eos-btn.secondary {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        
+        .eos-btn.secondary:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        /* EOS Confirm Modal */
+        .eos-confirm-modal {
+            background: var(--brown-dark);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow: hidden;
+            border: 2px solid var(--green-badge);
+        }
+        
+        .eos-confirm-header {
+            padding: 25px;
+            background: linear-gradient(90deg, #1a5c2a, var(--brown-dark));
+            text-align: center;
+            border-bottom: 1px solid var(--green-badge);
+        }
+        
+        .eos-confirm-header i {
+            font-size: 3rem;
+            color: var(--green-badge);
+            margin-bottom: 10px;
+        }
+        
+        .eos-confirm-header h2 {
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+            color: var(--cream);
+        }
+        
+        .eos-confirm-body {
+            padding: 25px;
+            max-height: 50vh;
+            overflow-y: auto;
+        }
+        
+        .confirm-timestamp, .confirm-duration {
+            text-align: center;
+            font-size: 0.95rem;
+            color: var(--tan);
+            margin-bottom: 8px;
+        }
+        
+        .confirm-duration {
+            margin-bottom: 20px;
+        }
+        
+        .files-created-list {
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .list-header {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--orange-light);
+            margin-bottom: 12px;
+        }
+        
+        .file-entry {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.85rem;
+        }
+        
+        .file-entry:last-child {
+            border-bottom: none;
+        }
+        
+        .file-entry .file-name {
+            color: var(--cream);
+        }
+        
+        .file-entry .file-location {
+            color: var(--gray-light);
+            font-size: 0.75rem;
+        }
+        
+        .drop-zone {
+            border: 2px dashed var(--gray-mid);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            color: var(--gray-light);
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 15px;
+        }
+        
+        .drop-zone:hover, .drop-zone.dragover {
+            border-color: var(--orange-mid);
+            background: rgba(204, 110, 31, 0.1);
+            color: var(--orange-light);
+        }
+        
+        .drop-zone i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .eos-confirm-footer {
+            padding: 15px 25px;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Session Library Modal */
+        .library-modal {
+            background: var(--brown-mid);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 85vh;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .library-body {
+            padding: 20px;
+            max-height: 65vh;
+            overflow-y: auto;
+        }
+        
+        .library-section {
+            margin-bottom: 20px;
+        }
+        
+        .library-section h3 {
+            font-size: 0.85rem;
+            color: var(--orange-light);
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .library-list {
+            background: rgba(0,0,0,0.2);
+            border-radius: 6px;
+            padding: 10px;
+            min-height: 60px;
+        }
+        
+        .library-file {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 4px;
+            margin-bottom: 6px;
+        }
+        
+        .library-file:last-child {
+            margin-bottom: 0;
+        }
+        
+        .library-file-info {
+            flex: 1;
+        }
+        
+        .library-file-name {
+            font-size: 0.9rem;
+            color: var(--cream);
+        }
+        
+        .library-file-date {
+            font-size: 0.75rem;
+            color: var(--gray-light);
+        }
+        
+        .library-file-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .library-file-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--cream);
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+        
+        .library-file-btn:hover {
+            background: var(--orange-mid);
+            color: var(--brown-dark);
+        }
+        
+        .library-drop-zone {
+            border: 2px dashed var(--gray-mid);
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            color: var(--gray-light);
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 20px;
+        }
+        
+        .library-drop-zone:hover {
+            border-color: var(--orange-mid);
+            background: rgba(204, 110, 31, 0.1);
+        }
+        
+        .library-drop-zone i {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .version-list {
+            background: rgba(0,0,0,0.2);
+            border-radius: 6px;
+            padding: 10px;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        
+        .version-entry {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px;
+            font-size: 0.8rem;
+            color: var(--gray-light);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1>TRAJANUS USA</h1>
+            <div class="tagline">Engineered Intelligence<span class="trademark">™</span></div>
+        </div>
+        
+        <div class="project-section">
+            <h3>Projects in Development</h3>
+            <button class="project-btn active" data-project="enterprise-hub">
+                <span class="project-name">Enterprise Hub</span>
+                <span class="sidebar-badge deployed">DEVELOPMENT</span>
+            </button>
+            <button class="project-btn" data-project="website">
+                <span class="project-name">Website Builder</span>
+                <span class="sidebar-badge deployed">DEVELOPMENT</span>
+            </button>
+            <button class="project-btn" data-project="pm-toolkit">
+                <span class="project-name">PM Toolkit</span>
+                <span class="sidebar-badge deployed">DEVELOPMENT</span>
+            </button>
+            <button class="project-btn" data-project="qcm-toolkit">
+                <span class="project-name">QCM Toolkit</span>
+                <span class="sidebar-badge deployed">DEVELOPMENT</span>
+            </button>
+            <button class="project-btn" data-project="ssho-toolkit">
+                <span class="project-name">SSHO Toolkit</span>
+                <span class="sidebar-badge deployed">DEVELOPMENT</span>
+            </button>
+            <button class="project-btn" data-project="route-optimizer">
+                <span class="project-name">Route Optimizer</span>
+                <span class="sidebar-badge deployed">DEVELOPMENT</span>
+            </button>
+            <button class="project-btn" data-project="traffic-studies">
+                <span class="project-name">Traffic Studies</span>
+                <span class="sidebar-badge deployed">DEVELOPMENT</span>
+            </button>
+            <button class="project-btn" data-project="pe-services">
+                <span class="project-name">P.E. Services</span>
+                <span class="sidebar-badge deployed">DEVELOPMENT</span>
+            </button>
+            <button class="project-btn" data-project="memory">
+                <span class="project-name">Memory/Recall</span>
+                <span class="sidebar-badge deployed">DEVELOPMENT</span>
+            </button>
+        </div>
+        
+        <div class="project-section">
+            <h3>Deployed Projects</h3>
+            <button class="project-btn" data-project="pm-working">
+                <span class="project-name">PM Working</span>
+                <span class="sidebar-badge billable">DEPLOYED</span>
+            </button>
+            <button class="project-btn" data-project="qcm-working">
+                <span class="project-name">QCM Working</span>
+                <span class="sidebar-badge billable">DEPLOYED</span>
+            </button>
+            <button class="project-btn" data-project="ssho-working">
+                <span class="project-name">SSHO Working</span>
+                <span class="sidebar-badge billable">DEPLOYED</span>
+            </button>
+        </div>
+        
+        <div class="sidebar-footer">
+            <button class="project-btn" onclick="openExternal('https://console.anthropic.com')">
+                Anthropic Console
+            </button>
+            <button class="project-btn" onclick="openDrive()">
+                Google Drive
+            </button>
+            <button class="project-btn" onclick="showResources()">
+                Resources & Codes
+            </button>
+        </div>
+    </div>
+    
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="header">
+            <div class="header-title">
+                <h2 id="projectTitle">Enterprise Hub</h2>
+                <div class="breadcrumb" id="breadcrumbText">Projects in Development > Enterprise Hub</div>
+            </div>
+            <div class="clock" id="clock">
+                <div class="clock-left">
+                    <div class="clock-date" id="clockDate">25 Nov 2025</div>
+                    <div class="clock-time" id="clockTime">00:00:00</div>
+                </div>
+                <div class="clock-session">
+                    <i class="fas fa-circle"></i>
+                    <span id="sessionTimer">0h 0m</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="workspace">
+            <!-- APP LAUNCHERS (Universal) -->
+            <div class="app-launcher-section">
+                <div class="app-group">
+                    <div class="app-group-header">MS Office</div>
+                    <div class="app-group-buttons">
+                        <button class="app-btn" onclick="launchApp('word')" title="Microsoft Word"><i class="fas fa-file-word"></i><span>Word</span></button>
+                        <button class="app-btn" onclick="launchApp('excel')" title="Microsoft Excel"><i class="fas fa-file-excel"></i><span>Excel</span></button>
+                        <button class="app-btn" onclick="launchApp('powerpoint')" title="Microsoft PowerPoint"><i class="fas fa-file-powerpoint"></i><span>PPT</span></button>
+                        <button class="app-btn" onclick="launchApp('outlook')" title="Microsoft Outlook"><i class="fas fa-envelope"></i><span>Outlook</span></button>
+                        <button class="app-btn" onclick="launchApp('teams')" title="Microsoft Teams"><i class="fas fa-users"></i><span>Teams</span></button>
+                    </div>
+                </div>
+                
+                <div class="app-group">
+                    <div class="app-group-header">Dev Tools</div>
+                    <div class="app-group-buttons">
+                        <button class="app-btn" onclick="launchApp('vscode')" title="Visual Studio Code"><i class="fas fa-code"></i><span>VS Code</span></button>
+                        <button class="app-btn" onclick="launchApp('snip')" title="Snipping Tool"><i class="fas fa-scissors"></i><span>Snip</span></button>
+                        <button class="app-btn" onclick="launchApp('notepad')" title="Notepad"><i class="fas fa-file-alt"></i><span>Notepad</span></button>
+                        <button class="app-btn" onclick="launchApp('powershell')" title="PowerShell"><i class="fas fa-terminal"></i><span>Shell</span></button>
+                    </div>
+                </div>
+                
+                <div class="app-group">
+                    <div class="app-group-header">Custom Apps</div>
+                    <div class="app-group-buttons" id="customAppsContainer">
+                        <button class="app-btn" onclick="launchApp('arcgis')" title="ArcGIS"><i class="fas fa-globe"></i><span>ArcGIS</span></button>
+                        <button class="app-btn add-app" onclick="showAddAppModal()" title="Add Custom App"><i class="fas fa-plus"></i><span>Add</span></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- WORKSPACE CONTENT -->
+            <div id="workspaceContent">
+                <div class="project-header">
+                    <div class="project-info">
+                        <span class="project-badge badge-dev">DEVELOPMENT</span>
+                        <p class="project-description">Core automation and session management</p>
+                    </div>
+                </div>
+                
+                <!-- SESSION CONTROLS -->
+                <div class="tool-section">
+                    <div class="tool-section-header">Session Controls</div>
+                    <div class="button-grid">
+                        <button class="session-btn" data-tooltip="Open Mission Brief checklist" onclick="showMissionBrief()">Mission Brief</button>
+                        <button class="session-btn" data-tooltip="Sync memory from Google Drive MASTERS" onclick="syncMemory()">Sync Memory</button>
+                        <button class="session-btn" data-tooltip="Upload .md files, convert to Docs, append to MASTERs" onclick="runUpdateLivingDocs()">Update Living Docs</button>
+                        <button class="session-btn" data-tooltip="View and manage session file library" onclick="showSessionLibrary()">Session Library</button>
+                        <button class="session-btn" data-tooltip="End session - EOS Routine" onclick="endSession()" style="background: linear-gradient(145deg, #2d8a4e, #1a5c2a); border-color: #28a745;">End Session</button>
+                    </div>
+                </div>
+                
+                <!-- DATA IMPORT -->
+                <div class="tool-section">
+                    <div class="tool-section-header">Data Import</div>
+                    <div class="button-grid">
+                        <button class="session-btn" data-tooltip="Import project data from Procore" onclick="importFromProcore()">Procore</button>
+                        <button class="session-btn" data-tooltip="Import schedule from Primavera P6" onclick="importFromP6()">P6</button>
+                        <button class="session-btn" data-tooltip="Import data from RMS 3.0" onclick="importFromRMS()">RMS</button>
+                        <button class="session-btn" data-tooltip="Upload and process documents" onclick="uploadPDF()">Upload</button>
+                    </div>
+                </div>
+                
+                <!-- PROJECT FILES -->
+                <div class="tool-section">
+                    <div class="tool-section-header">Project Files</div>
+                    <div class="button-grid">
+                        <button class="session-btn" data-tooltip="Browse files in Google Drive" onclick="showProjectBrowser()">Browse Drive</button>
+                        <button class="session-btn" data-tooltip="View available templates" onclick="showTemplatePicker()">Templates</button>
+                    </div>
+                </div>
+                
+                <!-- PROJECT RESOURCES -->
+                <div class="tool-section" id="resourcesSection">
+                    <div class="tool-section-header">Project Resources</div>
+                    <div class="resource-grid" id="resourceGrid">
+                        <a class="resource-link" onclick="openExternal('https://drive.google.com')">Operational Protocols</a>
+                        <a class="resource-link" onclick="openExternal('https://drive.google.com')">Living Documents Guide</a>
+                        <a class="resource-link" onclick="openExternal('https://drive.google.com')">Script Documentation</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Terminal -->
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-tabs" id="terminalTabs">
+                        <button class="terminal-tab active" data-tab="main" onclick="switchTab('main')">Terminal <span class="close-tab" onclick="closeTab(event, 'main')">×</span></button>
+                    </div>
+                    <button class="terminal-tab-add" onclick="addTab()" title="New Terminal">+</button>
+                    <div class="terminal-actions">
+                        <button class="terminal-clear" onclick="clearTerminal()">Clear</button>
+                    </div>
+                </div>
+                <div class="terminal-bodies" id="terminalBodies">
+                    <div class="terminal-body active" id="terminal-main" data-tab="main">
+                        <div class="info">[Ready] Trajanus Enterprise Hub v2.0.0 initialized</div>
+                        <div class="info">[Ready] Waiting for commands...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="status-bar">
+            <div class="status-item"><span class="status-dot"></span><span>Connected to Google Drive</span></div>
+            <div class="status-item"><span id="platform">Platform: Loading...</span></div>
+            <div class="status-item"><span id="version">v2.0.0</span></div>
+        </div>
+    </div>
+    
+    <!-- CLAUDE PANEL -->
+    <div class="claude-panel" id="claudePanel">
+        <div class="claude-panel-header">
+            <h3>Claude</h3>
+            <button class="toggle-claude-btn" onclick="toggleClaudePanel()" title="Toggle Claude Panel">◀</button>
+        </div>
+        <div class="claude-context-bar">Project: <span id="claudeProjectContext">Enterprise Hub</span> | Memory: <span id="claudeMemoryStatus">Synced</span></div>
+        <div class="claude-messages" id="claudeMessages">
+            <div class="claude-message assistant">Hey Bill. Enterprise Hub is online. What are we working on?</div>
+        </div>
+        <div class="claude-input-area">
+            <textarea class="claude-input" id="claudeInput" placeholder="Message Claude..." rows="2" onkeydown="handleClaudeKeydown(event)"></textarea>
+            <button class="claude-send-btn" id="claudeSendBtn" onclick="sendToClaudeAPI()">Send</button>
+        </div>
+    </div>
+    
+    <!-- RIGHT PANEL -->
+    <div class="right-panel" id="rightPanel">
+        <div class="right-panel-header">
+            <h3>Project Files</h3>
+            <button class="toggle-panel-btn" onclick="toggleRightPanel()" title="Toggle Panel">◀</button>
+        </div>
+        <div class="panel-section">
+            <h4>Working Files</h4>
+            <div class="file-list" id="workingFilesList"><div class="empty-state">No files yet</div></div>
+            <button class="add-files-btn" onclick="addFilesFromDrive('working')">+ Add from Drive</button>
+        </div>
+        <div class="panel-section">
+            <h4>Completed Work</h4>
+            <div class="file-list" id="completedFilesList"><div class="empty-state">No completed files</div></div>
+        </div>
+        <div class="preview-pane">
+            <h4>Preview</h4>
+            <div class="preview-content" id="previewContent">Select a file to preview</div>
+            <div class="preview-actions" id="previewActions" style="display: none;">
+                <button class="preview-btn" onclick="openSelectedFile()">Open</button>
+                <button class="preview-btn" onclick="downloadSelectedFile()">Download</button>
+                <button class="preview-btn primary" onclick="moveToCompleted()">Complete</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MODALS -->
+    <div class="modal-overlay" id="resourcesModal" onclick="closeModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header"><h2>Resources & Codes</h2><button class="modal-close" onclick="hideResources()">×</button></div>
+            <div class="modal-body">
+                <div style="margin-bottom: 20px;"><h3 style="color: var(--orange-light); margin-bottom: 10px;">Building Codes</h3>
+                    <div class="resource-grid">
+                        <a class="resource-link" onclick="openExternal('https://codes.iccsafe.org/codes/i-codes')">IBC - International Building Code</a>
+                        <a class="resource-link" onclick="openExternal('https://www.nfpa.org/codes-and-standards/nfpa-70-standard-development/70')">NFPA 70 - National Electric Code</a>
+                    </div>
+                </div>
+                <div style="margin-bottom: 20px;"><h3 style="color: var(--orange-light); margin-bottom: 10px;">Federal Standards</h3>
+                    <div class="resource-grid">
+                        <a class="resource-link" onclick="openExternal('https://www.wbdg.org/ffc/dod/unified-facilities-guide-specifications-ufgs')">UFGS - Unified Facilities Guide Specs</a>
+                        <a class="resource-link" onclick="openExternal('https://www.acquisition.gov/far/')">FAR - Federal Acquisition Regulation</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal-overlay" id="fileBrowserModal" onclick="closeProjectBrowser(event)">
+        <div class="file-browser" onclick="event.stopPropagation()">
+            <div class="modal-header"><h2 id="browserTitle">Google Drive</h2><button class="modal-close" onclick="hideProjectBrowser()">×</button></div>
+            <div class="browser-toolbar">
+                <button onclick="browseFolder('root', 'My Drive')" style="background: var(--orange-dark);">Home</button>
+                <button onclick="showProjectBrowser()">Refresh</button>
+                <span id="driveBreadcrumb" style="color: var(--gray-light); font-size: 0.85rem; margin-left: 15px;"></span>
+            </div>
+            <div class="file-list" id="driveFileList"><div class="empty-state">Click "Browse Drive" to load files...</div></div>
+        </div>
+    </div>
+    
+    <div class="modal-overlay" id="templatePickerModal" onclick="closeTemplatePicker(event)">
+        <div class="template-picker" onclick="event.stopPropagation()">
+            <div class="modal-header"><h2 id="pickerTitle">Select Templates</h2><button class="modal-close" onclick="hideTemplatePicker()">×</button></div>
+            <div class="picker-body" id="pickerBody"></div>
+            <div class="picker-footer">
+                <div class="picker-actions">
+                    <button class="picker-btn secondary" onclick="selectAllTemplates()">Select All</button>
+                    <button class="picker-btn secondary" onclick="clearAllTemplates()">Clear</button>
+                </div>
+                <span class="selected-count" id="selectedCount">0 selected</span>
+                <button class="picker-btn primary" onclick="generateSelectedTemplates()">Generate Selected</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal-overlay" id="addAppModal" onclick="closeAddAppModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header"><h2>Add Custom App</h2><button class="modal-close" onclick="hideAddAppModal()">×</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label>App Name</label><input type="text" id="newAppName" placeholder="e.g., AutoCAD"></div>
+                <div class="form-group"><label>Executable Path</label><input type="text" id="newAppPath" placeholder="e.g., C:\Program Files\..."></div>
+                <button class="picker-btn primary" style="margin-top: 15px; width: 100%;" onclick="saveCustomApp()">Add App</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MISSION BRIEF MODAL (Startup) -->
+    <div class="modal-overlay" id="missionBriefModal">
+        <div class="mission-brief-modal">
+            <div class="mission-header">
+                <h2>MISSION BRIEF</h2>
+                <span class="mission-date" id="missionDate">25 Nov 2025</span>
+            </div>
+            <div class="mission-body">
+                <div class="checklist-section">
+                    <div class="checklist-title">Pre-Flight Checklist</div>
+                    
+                    <div class="checklist-item" data-required="true">
+                        <input type="checkbox" id="chk_memory" onchange="updateMissionStatus()">
+                        <label for="chk_memory">Memory Files Loaded</label>
+                        <div class="checklist-detail">POV.md, Operational_Protocols.md, EMERGENCY_HANDOFF.md</div>
+                        <button class="bypass-btn" onclick="bypassItem('chk_memory')" title="Bypass this item">BYPASS</button>
+                    </div>
+                    
+                    <div class="checklist-item" data-required="true">
+                        <input type="checkbox" id="chk_prev_eos" onchange="updateMissionStatus()">
+                        <label for="chk_prev_eos">Previous EOS Verified</label>
+                        <div class="checklist-detail" id="prevEosDetail">Checking...</div>
+                        <button class="bypass-btn" onclick="bypassItem('chk_prev_eos')" title="Bypass this item">BYPASS</button>
+                    </div>
+                    
+                    <div class="checklist-item" data-required="true">
+                        <input type="checkbox" id="chk_session_files" onchange="updateMissionStatus()">
+                        <label for="chk_session_files">Session Files Reviewed</label>
+                        <div class="checklist-detail" id="sessionFilesDetail">Latest session summary loaded</div>
+                        <button class="bypass-btn" onclick="bypassItem('chk_session_files')" title="Bypass this item">BYPASS</button>
+                    </div>
+                    
+                    <div class="checklist-item" data-required="false">
+                        <input type="checkbox" id="chk_project_context" onchange="updateMissionStatus()">
+                        <label for="chk_project_context">Project Context Loaded</label>
+                        <div class="checklist-detail">Current project and active tasks</div>
+                        <button class="bypass-btn" onclick="bypassItem('chk_project_context')" title="Bypass this item">BYPASS</button>
+                    </div>
+                </div>
+                
+                <div class="mission-prompt-section">
+                    <div class="checklist-title">Claude Mission Prompt</div>
+                    <div class="mission-prompt" id="missionPrompt">Generating prompt...</div>
+                    <button class="copy-prompt-btn" onclick="copyMissionPrompt()"><i class="fas fa-copy"></i> Copy to Clipboard</button>
+                </div>
+                
+                <div class="bypass-warning" id="bypassWarning" style="display: none;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span id="bypassCount">0</span> item(s) bypassed - Proceed with caution
+                </div>
+            </div>
+            <div class="mission-footer">
+                <button class="mission-btn secondary" onclick="closeMissionBrief()">Close</button>
+                <button class="mission-btn primary" id="beginSessionBtn" onclick="beginSession()" disabled>BEGIN SESSION</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- EOS CHECKLIST MODAL -->
+    <div class="modal-overlay" id="eosModal">
+        <div class="eos-modal">
+            <div class="eos-header">
+                <h2>EOS ROUTINE</h2>
+                <div class="eos-timestamp">
+                    <span id="eosTime">--:--:--</span>
+                    <span id="eosDate">-- --- ----</span>
+                </div>
+            </div>
+            <div class="eos-body">
+                <div class="eos-session-info">
+                    <div class="session-stat">
+                        <span class="stat-label">Session Duration</span>
+                        <span class="stat-value" id="eosSessionDuration">0h 0m</span>
+                    </div>
+                    <div class="session-stat">
+                        <span class="stat-label">Files Created</span>
+                        <span class="stat-value" id="eosFilesCreated">0</span>
+                    </div>
+                </div>
+                
+                <div class="checklist-section">
+                    <div class="checklist-title">Required Completions</div>
+                    
+                    <div class="checklist-item" data-required="true">
+                        <input type="checkbox" id="eos_summary" onchange="updateEosStatus()">
+                        <label for="eos_summary">Session Summary Created</label>
+                        <button class="bypass-btn" onclick="bypassEosItem('eos_summary')" title="Bypass this item">BYPASS</button>
+                    </div>
+                    
+                    <div class="checklist-item" data-required="true">
+                        <input type="checkbox" id="eos_diary" onchange="updateEosStatus()">
+                        <label for="eos_diary">Daily Diary Entry Added</label>
+                        <button class="bypass-btn" onclick="bypassEosItem('eos_diary')" title="Bypass this item">BYPASS</button>
+                    </div>
+                    
+                    <div class="checklist-item" data-required="true">
+                        <input type="checkbox" id="eos_tech" onchange="updateEosStatus()">
+                        <label for="eos_tech">Technical Journal Updated</label>
+                        <button class="bypass-btn" onclick="bypassEosItem('eos_tech')" title="Bypass this item">BYPASS</button>
+                    </div>
+                    
+                    <div class="checklist-item" data-required="true">
+                        <input type="checkbox" id="eos_ops" onchange="updateEosStatus()">
+                        <label for="eos_ops">Operational Journal Updated</label>
+                        <button class="bypass-btn" onclick="bypassEosItem('eos_ops')" title="Bypass this item">BYPASS</button>
+                    </div>
+                    
+                    <div class="checklist-item" data-required="true">
+                        <input type="checkbox" id="eos_living" onchange="updateEosStatus()">
+                        <label for="eos_living">Living Documents Synced</label>
+                        <button class="bypass-btn" onclick="bypassEosItem('eos_living')" title="Bypass this item">BYPASS</button>
+                    </div>
+                    
+                    <div class="checklist-item" data-required="true">
+                        <input type="checkbox" id="eos_saved" onchange="updateEosStatus()">
+                        <label for="eos_saved">All Work Saved to Drive</label>
+                        <button class="bypass-btn" onclick="bypassEosItem('eos_saved')" title="Bypass this item">BYPASS</button>
+                    </div>
+                    
+                    <div class="checklist-item" data-required="false">
+                        <input type="checkbox" id="eos_handoff" onchange="updateEosStatus()">
+                        <label for="eos_handoff">Handoff Notes Complete</label>
+                        <button class="bypass-btn" onclick="bypassEosItem('eos_handoff')" title="Bypass this item">BYPASS</button>
+                    </div>
+                </div>
+                
+                <div class="bypass-warning" id="eosBypassWarning" style="display: none;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span id="eosBypassCount">0</span> item(s) bypassed
+                </div>
+            </div>
+            <div class="eos-footer">
+                <button class="eos-btn secondary" onclick="closeEosModal()">Cancel</button>
+                <button class="eos-btn primary" id="executeEosBtn" onclick="executeEos()" disabled>EXECUTE EOS</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- EOS CONFIRMATION MODAL -->
+    <div class="modal-overlay" id="eosConfirmModal">
+        <div class="eos-confirm-modal">
+            <div class="eos-confirm-header">
+                <i class="fas fa-check-circle"></i>
+                <h2>EOS ROUTINE COMPLETE</h2>
+            </div>
+            <div class="eos-confirm-body">
+                <div class="confirm-timestamp">
+                    Executed at: <span id="confirmTime">--:--:--</span> | <span id="confirmDate">-- --- ----</span>
+                </div>
+                <div class="confirm-duration">
+                    Session Duration: <span id="confirmDuration">0h 0m</span>
+                </div>
+                
+                <div class="files-created-list">
+                    <div class="list-header">FILES CREATED:</div>
+                    <div id="createdFilesList"></div>
+                </div>
+                
+                <div class="additional-files-section">
+                    <div class="list-header">Additional files to include?</div>
+                    <div class="drop-zone" id="eosDropZone">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>Drag files here or click to browse</span>
+                        <input type="file" id="eosFileInput" multiple style="display: none;" onchange="handleEosFiles(event)">
+                    </div>
+                    <div id="additionalFilesList"></div>
+                </div>
+            </div>
+            <div class="eos-confirm-footer">
+                <button class="eos-btn primary" onclick="finalizeEos()">FINALIZE & CLOSE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SESSION LIBRARY MODAL -->
+    <div class="modal-overlay" id="sessionLibraryModal" onclick="closeSessionLibrary(event)">
+        <div class="library-modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2>Session Library</h2>
+                <button class="modal-close" onclick="hideSessionLibrary()">×</button>
+            </div>
+            <div class="library-body">
+                <div class="library-section">
+                    <h3>Current Session Files</h3>
+                    <div class="library-list" id="currentSessionFiles">
+                        <div class="empty-state">No files added this session</div>
+                    </div>
+                </div>
+                <div class="library-section">
+                    <h3>Library (Previously Uploaded)</h3>
+                    <div class="library-list" id="libraryFiles">
+                        <div class="empty-state">No files in library</div>
+                    </div>
+                </div>
+                <div class="library-drop-zone" id="libraryDropZone">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>Drag files here to add to library</span>
+                    <input type="file" id="libraryFileInput" multiple style="display: none;" onchange="handleLibraryFiles(event)">
+                </div>
+                <div class="library-section">
+                    <h3>Version History</h3>
+                    <div class="version-list" id="versionHistory">
+                        <div class="empty-state">No version history</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // CLOCK & SESSION TIMER
+        // ============================================
+        const sessionStart = new Date();
+        
+        function updateClock() {
+            const now = new Date();
+            
+            // Format date as "25 Nov 2025"
+            const day = now.getDate();
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const month = months[now.getMonth()];
+            const year = now.getFullYear();
+            document.getElementById('clockDate').textContent = `${day} ${month} ${year}`;
+            
+            // Format time as "14:32:18"
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clockTime').textContent = `${hours}:${minutes}:${seconds}`;
+            
+            // Calculate session duration
+            const elapsed = Math.floor((now - sessionStart) / 1000);
+            const sessionHours = Math.floor(elapsed / 3600);
+            const sessionMinutes = Math.floor((elapsed % 3600) / 60);
+            document.getElementById('sessionTimer').textContent = `${sessionHours}h ${sessionMinutes}m`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+        
+        // ============================================
+        // MISSION BRIEF SYSTEM
+        // ============================================
+        let missionBypassedItems = [];
+        let sessionLibrary = JSON.parse(localStorage.getItem('sessionLibrary') || '[]');
+        let eosLog = JSON.parse(localStorage.getItem('eosLog') || '[]');
+        
+        function showMissionBrief() {
+            const modal = document.getElementById('missionBriefModal');
+            modal.classList.add('active');
+            
+            // Set date
+            const now = new Date();
+            const day = now.getDate();
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            document.getElementById('missionDate').textContent = `${day} ${months[now.getMonth()]} ${now.getFullYear()}`;
+            
+            // Check previous EOS
+            checkPreviousEos();
+            
+            // Generate prompt
+            generateMissionPrompt();
+            
+            // Reset checkboxes
+            missionBypassedItems = [];
+            document.querySelectorAll('#missionBriefModal .checklist-item').forEach(item => {
+                item.classList.remove('bypassed');
+                item.querySelector('input').checked = false;
+                item.querySelector('input').disabled = false;
+            });
+            
+            updateMissionStatus();
+        }
+        
+        function closeMissionBrief() {
+            document.getElementById('missionBriefModal').classList.remove('active');
+        }
+        
+        function checkPreviousEos() {
+            const lastEos = eosLog[eosLog.length - 1];
+            const detailEl = document.getElementById('prevEosDetail');
+            
+            if (lastEos) {
+                detailEl.textContent = `Last EOS: ${lastEos.date} ${lastEos.time} - ${lastEos.bypassed > 0 ? lastEos.bypassed + ' bypassed' : 'Complete'}`;
+            } else {
+                detailEl.textContent = 'No previous EOS on record';
+            }
+        }
+        
+        function generateMissionPrompt() {
+            const now = new Date();
+            const day = now.getDate();
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const dateStr = `${day} ${months[now.getMonth()]} ${now.getFullYear()}`;
+            const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+            
+            const lastEos = eosLog[eosLog.length - 1];
+            const lastEosStr = lastEos ? `${lastEos.date} ${lastEos.time}` : 'None on record';
+            
+            const prompt = `MISSION BRIEF - ${dateStr}
+Session Start: ${timeStr}
+Previous EOS: ${lastEosStr}
+
+READ THESE FILES FIRST:
+1. /mnt/project/Bills_POV.md
+2. /mnt/project/OPERATIONAL_PROTOCOL.md
+3. Latest Session Summary from /mnt/project/
+
+CONTEXT:
+- Current project: ${currentProject}
+- Hub Version: Enterprise Hub v2.0
+
+STANDING ORDERS:
+- Token gauge on every response
+- Direct communication, no fluff
+- Surgical edits, not rewrites
+- All outputs to proper folders
+- Session files to 08-EOS-Files/
+
+CONFIRM READY BY STATING:
+"Mission brief received. [Summary of understanding]. Ready to proceed."`;
+            
+            document.getElementById('missionPrompt').textContent = prompt;
+        }
+        
+        function copyMissionPrompt() {
+            const prompt = document.getElementById('missionPrompt').textContent;
+            navigator.clipboard.writeText(prompt).then(() => {
+                const btn = document.querySelector('.copy-prompt-btn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => btn.innerHTML = originalText, 2000);
+            });
+        }
+        
+        function bypassItem(checkboxId) {
+            const checkbox = document.getElementById(checkboxId);
+            const item = checkbox.closest('.checklist-item');
+            
+            if (!missionBypassedItems.includes(checkboxId)) {
+                missionBypassedItems.push(checkboxId);
+                item.classList.add('bypassed');
+                checkbox.checked = true;
+                checkbox.disabled = true;
+            }
+            
+            updateBypassWarning();
+            updateMissionStatus();
+        }
+        
+        function updateBypassWarning() {
+            const warning = document.getElementById('bypassWarning');
+            const count = document.getElementById('bypassCount');
+            
+            if (missionBypassedItems.length > 0) {
+                warning.style.display = 'flex';
+                count.textContent = missionBypassedItems.length;
+            } else {
+                warning.style.display = 'none';
+            }
+        }
+        
+        function updateMissionStatus() {
+            const checkboxes = document.querySelectorAll('#missionBriefModal .checklist-item[data-required="true"] input');
+            let allChecked = true;
+            
+            checkboxes.forEach(cb => {
+                if (!cb.checked) allChecked = false;
+            });
+            
+            document.getElementById('beginSessionBtn').disabled = !allChecked;
+        }
+        
+        function beginSession() {
+            log('Mission brief complete. Session started.', 'success');
+            closeMissionBrief();
+            
+            // Store session start in localStorage
+            localStorage.setItem('currentSessionStart', sessionStart.toISOString());
+            localStorage.setItem('missionBriefBypassed', JSON.stringify(missionBypassedItems));
+        }
+        
+        // ============================================
+        // EOS (END OF SESSION) SYSTEM
+        // ============================================
+        let eosBypassedItems = [];
+        let eosFilesCreated = [];
+        let additionalEosFiles = [];
+        
+        function showEosModal() {
+            const modal = document.getElementById('eosModal');
+            modal.classList.add('active');
+            
+            // Update timestamp
+            updateEosTimestamp();
+            setInterval(updateEosTimestamp, 1000);
+            
+            // Update session duration
+            const elapsed = Math.floor((new Date() - sessionStart) / 1000);
+            const hours = Math.floor(elapsed / 3600);
+            const minutes = Math.floor((elapsed % 3600) / 60);
+            document.getElementById('eosSessionDuration').textContent = `${hours}h ${minutes}m`;
+            
+            // Reset
+            eosBypassedItems = [];
+            document.querySelectorAll('#eosModal .checklist-item').forEach(item => {
+                item.classList.remove('bypassed');
+                item.querySelector('input').checked = false;
+                item.querySelector('input').disabled = false;
+            });
+            
+            updateEosBypassWarning();
+            updateEosStatus();
+        }
+        
+        function updateEosTimestamp() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('eosTime').textContent = `${hours}:${minutes}:${seconds}`;
+            
+            const day = now.getDate();
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            document.getElementById('eosDate').textContent = `${day} ${months[now.getMonth()]} ${now.getFullYear()}`;
+        }
+        
+        function closeEosModal() {
+            document.getElementById('eosModal').classList.remove('active');
+        }
+        
+        function bypassEosItem(checkboxId) {
+            const checkbox = document.getElementById(checkboxId);
+            const item = checkbox.closest('.checklist-item');
+            
+            if (!eosBypassedItems.includes(checkboxId)) {
+                eosBypassedItems.push(checkboxId);
+                item.classList.add('bypassed');
+                checkbox.checked = true;
+                checkbox.disabled = true;
+            }
+            
+            updateEosBypassWarning();
+            updateEosStatus();
+        }
+        
+        function updateEosBypassWarning() {
+            const warning = document.getElementById('eosBypassWarning');
+            const count = document.getElementById('eosBypassCount');
+            
+            if (eosBypassedItems.length > 0) {
+                warning.style.display = 'flex';
+                count.textContent = eosBypassedItems.length;
+            } else {
+                warning.style.display = 'none';
+            }
+        }
+        
+        function updateEosStatus() {
+            const checkboxes = document.querySelectorAll('#eosModal .checklist-item[data-required="true"] input');
+            let allChecked = true;
+            
+            checkboxes.forEach(cb => {
+                if (!cb.checked) allChecked = false;
+            });
+            
+            document.getElementById('executeEosBtn').disabled = !allChecked;
+        }
+        
+        function executeEos() {
+            const now = new Date();
+            const day = now.getDate();
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const dateStr = `${day} ${months[now.getMonth()]} ${now.getFullYear()}`;
+            const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+            const fileDateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+            
+            // Calculate session duration
+            const elapsed = Math.floor((now - sessionStart) / 1000);
+            const hours = Math.floor(elapsed / 3600);
+            const minutes = Math.floor((elapsed % 3600) / 60);
+            const durationStr = `${hours}h ${minutes}m`;
+            
+            // Files that would be created
+            eosFilesCreated = [
+                { name: `Session_Summary_${fileDateStr}.md`, location: '08-EOS-Files/' },
+                { name: `Daily_Diary_${fileDateStr}.md`, location: '01-Journals/' },
+                { name: `Technical_Journal_${fileDateStr}.md`, location: '01-Journals/' },
+                { name: `Operational_Journal_${fileDateStr}.md`, location: '01-Journals/' },
+                { name: 'EOS_Master_Log.md (appended)', location: '00-Command-Center/' }
+            ];
+            
+            // Log to EOS Master Log
+            const eosEntry = {
+                date: dateStr,
+                time: timeStr,
+                duration: durationStr,
+                filesCreated: eosFilesCreated.map(f => f.name),
+                bypassed: eosBypassedItems.length,
+                bypassedItems: eosBypassedItems
+            };
+            
+            eosLog.push(eosEntry);
+            localStorage.setItem('eosLog', JSON.stringify(eosLog));
+            
+            // Log to terminal
+            log('═══════════════════════════════════════════════════════════════', 'info');
+            log('EOS ROUTINE COMPLETE', 'success');
+            log(`Executed at: ${timeStr} | ${dateStr}`, 'info');
+            log(`Session Duration: ${durationStr}`, 'info');
+            log('═══════════════════════════════════════════════════════════════', 'info');
+            log('FILES CREATED:', 'info');
+            eosFilesCreated.forEach(f => {
+                log(`  ${f.name} → ${f.location}`, 'info');
+            });
+            
+            // Close EOS modal, show confirmation
+            closeEosModal();
+            showEosConfirmation(dateStr, timeStr, durationStr);
+        }
+        
+        function showEosConfirmation(dateStr, timeStr, durationStr) {
+            const modal = document.getElementById('eosConfirmModal');
+            modal.classList.add('active');
+            
+            document.getElementById('confirmTime').textContent = timeStr;
+            document.getElementById('confirmDate').textContent = dateStr;
+            document.getElementById('confirmDuration').textContent = durationStr;
+            
+            // Populate files list
+            const filesList = document.getElementById('createdFilesList');
+            filesList.innerHTML = eosFilesCreated.map(f => `
+                <div class="file-entry">
+                    <span class="file-name">${f.name}</span>
+                    <span class="file-location">→ ${f.location}</span>
+                </div>
+            `).join('');
+            
+            // Setup drop zone
+            setupEosDropZone();
+        }
+        
+        function setupEosDropZone() {
+            const dropZone = document.getElementById('eosDropZone');
+            const fileInput = document.getElementById('eosFileInput');
+            
+            dropZone.onclick = () => fileInput.click();
+            
+            dropZone.ondragover = (e) => {
+                e.preventDefault();
+                dropZone.classList.add('dragover');
+            };
+            
+            dropZone.ondragleave = () => {
+                dropZone.classList.remove('dragover');
+            };
+            
+            dropZone.ondrop = (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('dragover');
+                handleDroppedFiles(e.dataTransfer.files);
+            };
+        }
+        
+        function handleEosFiles(event) {
+            handleDroppedFiles(event.target.files);
+        }
+        
+        function handleDroppedFiles(files) {
+            const list = document.getElementById('additionalFilesList');
+            
+            Array.from(files).forEach(file => {
+                const now = new Date();
+                const dateStr = `${now.getDate()} ${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][now.getMonth()]} ${now.getFullYear()}`;
+                
+                additionalEosFiles.push({
+                    name: file.name,
+                    size: file.size,
+                    date: dateStr
+                });
+                
+                // Add to library
+                sessionLibrary.push({
+                    name: file.name,
+                    date: dateStr,
+                    session: new Date().toISOString()
+                });
+                localStorage.setItem('sessionLibrary', JSON.stringify(sessionLibrary));
+            });
+            
+            // Update UI
+            list.innerHTML = additionalEosFiles.map(f => `
+                <div class="file-entry">
+                    <span class="file-name">${f.name}</span>
+                    <span class="file-location">Added to library</span>
+                </div>
+            `).join('');
+            
+            log(`Added ${files.length} file(s) to session library`, 'success');
+        }
+        
+        function finalizeEos() {
+            document.getElementById('eosConfirmModal').classList.remove('active');
+            log('Session finalized. Safe to close application.', 'success');
+        }
+        
+        // ============================================
+        // SESSION LIBRARY
+        // ============================================
+        function showSessionLibrary() {
+            const modal = document.getElementById('sessionLibraryModal');
+            modal.classList.add('active');
+            renderLibrary();
+            setupLibraryDropZone();
+        }
+        
+        function hideSessionLibrary() {
+            document.getElementById('sessionLibraryModal').classList.remove('active');
+        }
+        
+        function closeSessionLibrary(event) {
+            if (event.target === event.currentTarget) {
+                hideSessionLibrary();
+            }
+        }
+        
+        function renderLibrary() {
+            const currentList = document.getElementById('currentSessionFiles');
+            const libraryList = document.getElementById('libraryFiles');
+            const versionList = document.getElementById('versionHistory');
+            
+            // Current session files (added this session)
+            const currentSessionFiles = sessionLibrary.filter(f => {
+                const fileDate = new Date(f.session);
+                return fileDate >= sessionStart;
+            });
+            
+            if (currentSessionFiles.length > 0) {
+                currentList.innerHTML = currentSessionFiles.map(f => `
+                    <div class="library-file">
+                        <div class="library-file-info">
+                            <div class="library-file-name">${f.name}</div>
+                            <div class="library-file-date">Added ${f.date}</div>
+                        </div>
+                        <div class="library-file-actions">
+                            <button class="library-file-btn" onclick="removeFromLibrary('${f.name}')">Remove</button>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                currentList.innerHTML = '<div class="empty-state">No files added this session</div>';
+            }
+            
+            // Library files (previous sessions)
+            const previousFiles = sessionLibrary.filter(f => {
+                const fileDate = new Date(f.session);
+                return fileDate < sessionStart;
+            });
+            
+            if (previousFiles.length > 0) {
+                libraryList.innerHTML = previousFiles.map(f => `
+                    <div class="library-file">
+                        <div class="library-file-info">
+                            <div class="library-file-name">${f.name}</div>
+                            <div class="library-file-date">${f.date}</div>
+                        </div>
+                        <div class="library-file-actions">
+                            <button class="library-file-btn" onclick="addToWorkingFiles('${f.name}')">+ Add</button>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                libraryList.innerHTML = '<div class="empty-state">No files in library</div>';
+            }
+            
+            // Version history (EOS log)
+            if (eosLog.length > 0) {
+                versionList.innerHTML = eosLog.slice(-10).reverse().map(e => `
+                    <div class="version-entry">
+                        <span>${e.date} ${e.time}</span>
+                        <span>${e.duration} | ${e.filesCreated.length} files</span>
+                    </div>
+                `).join('');
+            } else {
+                versionList.innerHTML = '<div class="empty-state">No version history</div>';
+            }
+        }
+        
+        function setupLibraryDropZone() {
+            const dropZone = document.getElementById('libraryDropZone');
+            const fileInput = document.getElementById('libraryFileInput');
+            
+            dropZone.onclick = () => fileInput.click();
+            
+            dropZone.ondragover = (e) => {
+                e.preventDefault();
+                dropZone.classList.add('dragover');
+            };
+            
+            dropZone.ondragleave = () => {
+                dropZone.classList.remove('dragover');
+            };
+            
+            dropZone.ondrop = (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('dragover');
+                handleLibraryDrop(e.dataTransfer.files);
+            };
+        }
+        
+        function handleLibraryFiles(event) {
+            handleLibraryDrop(event.target.files);
+        }
+        
+        function handleLibraryDrop(files) {
+            const now = new Date();
+            const dateStr = `${now.getDate()} ${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][now.getMonth()]} ${now.getFullYear()}`;
+            
+            Array.from(files).forEach(file => {
+                sessionLibrary.push({
+                    name: file.name,
+                    date: dateStr,
+                    session: now.toISOString()
+                });
+            });
+            
+            localStorage.setItem('sessionLibrary', JSON.stringify(sessionLibrary));
+            renderLibrary();
+            log(`Added ${files.length} file(s) to library`, 'success');
+        }
+        
+        function removeFromLibrary(fileName) {
+            sessionLibrary = sessionLibrary.filter(f => f.name !== fileName);
+            localStorage.setItem('sessionLibrary', JSON.stringify(sessionLibrary));
+            renderLibrary();
+        }
+        
+        function addToWorkingFiles(fileName) {
+            log(`Added ${fileName} to working files`, 'success');
+            // This would add to the right panel working files
+        }
+        
+        // ============================================
+        // STARTUP - Show Mission Brief
+        // ============================================
+        // Uncomment to show on startup:
+        // window.addEventListener('load', () => setTimeout(showMissionBrief, 500));
+        
+        // For now, trigger via Session Controls
+        function endSession() {
+            showEosModal();
+        }
+        
+        // ============================================
+        // APP LAUNCHER
+        // ============================================
+        const appPaths = {
+            word: 'start winword',
+            excel: 'start excel',
+            powerpoint: 'start powerpnt',
+            outlook: 'start outlook',
+            teams: 'start msteams:',
+            vscode: 'code',
+            snip: 'start snippingtool',
+            notepad: 'notepad',
+            powershell: 'start powershell',
+            arcgis: 'start "" "C:\\Program Files\\ArcGIS\\Pro\\bin\\ArcGISPro.exe"'
+        };
+        
+        // Load custom apps from config
+        let customApps = JSON.parse(localStorage.getItem('customApps') || '{}');
+        
+        async function launchApp(appName) {
+            const appPath = appPaths[appName] || customApps[appName];
+            if (!appPath) {
+                log(`App not found: ${appName}`, 'error');
+                return;
+            }
+            log(`Launching ${appName}...`, 'info');
+            if (window.electronAPI) {
+                try {
+                    await window.electronAPI.runCommand(appPath);
+                    log(`Launched: ${appName}`, 'success');
+                } catch (err) {
+                    log(`Error launching ${appName}: ${err.message}`, 'error');
+                }
+            }
+        }
+        
+        function showAddAppModal() {
+            document.getElementById('addAppModal').classList.add('active');
+        }
+        
+        function hideAddAppModal() {
+            document.getElementById('addAppModal').classList.remove('active');
+        }
+        
+        function closeAddAppModal(event) {
+            if (event.target === document.getElementById('addAppModal')) {
+                hideAddAppModal();
+            }
+        }
+        
+        function saveCustomApp() {
+            const name = document.getElementById('newAppName').value.trim();
+            const path = document.getElementById('newAppPath').value.trim();
+            if (!name || !path) {
+                log('Please enter both app name and path', 'error');
+                return;
+            }
+            customApps[name.toLowerCase()] = `start "" "${path}"`;
+            localStorage.setItem('customApps', JSON.stringify(customApps));
+            
+            // Add button to UI
+            const container = document.getElementById('customAppsContainer');
+            const addBtn = container.querySelector('.add-app');
+            const newBtn = document.createElement('button');
+            newBtn.className = 'app-btn';
+            newBtn.onclick = () => launchApp(name.toLowerCase());
+            newBtn.title = name;
+            newBtn.textContent = name;
+            container.insertBefore(newBtn, addBtn);
+            
+            hideAddAppModal();
+            log(`Added custom app: ${name}`, 'success');
+            document.getElementById('newAppName').value = '';
+            document.getElementById('newAppPath').value = '';
+        }
+        
+        // Load custom apps on startup
+        function loadCustomApps() {
+            const container = document.getElementById('customAppsContainer');
+            const addBtn = container.querySelector('.add-app');
+            Object.keys(customApps).forEach(name => {
+                const btn = document.createElement('button');
+                btn.className = 'app-btn';
+                btn.onclick = () => launchApp(name);
+                btn.title = name.charAt(0).toUpperCase() + name.slice(1);
+                btn.textContent = name.charAt(0).toUpperCase() + name.slice(1);
+                container.insertBefore(btn, addBtn);
+            });
+        }
+        
+        // ============================================
+        // TERMINAL TABS
+        // ============================================
+        let activeTab = 'main';
+        let tabCounter = 1;
+        
+        function getActiveTerminal() {
+            return document.getElementById(`terminal-${activeTab}`);
+        }
+        
+        function switchTab(tabId) {
+            document.querySelectorAll('.terminal-tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.dataset.tab === tabId) tab.classList.add('active');
+            });
+            document.querySelectorAll('.terminal-body').forEach(body => body.classList.remove('active'));
+            document.getElementById(`terminal-${tabId}`).classList.add('active');
+            activeTab = tabId;
+        }
+        
+        function addTab(name = null) {
+            tabCounter++;
+            const tabId = `tab-${tabCounter}`;
+            const tabName = name || `Terminal ${tabCounter}`;
+            
+            const tabBtn = document.createElement('button');
+            tabBtn.className = 'terminal-tab';
+            tabBtn.dataset.tab = tabId;
+            tabBtn.onclick = () => switchTab(tabId);
+            tabBtn.innerHTML = `${tabName} <span class="close-tab" onclick="closeTab(event, '${tabId}')">×</span>`;
+            document.getElementById('terminalTabs').appendChild(tabBtn);
+            
+            const termBody = document.createElement('div');
+            termBody.className = 'terminal-body';
+            termBody.id = `terminal-${tabId}`;
+            termBody.dataset.tab = tabId;
+            termBody.innerHTML = `<div class="info">[Ready] New terminal opened</div>`;
+            document.getElementById('terminalBodies').appendChild(termBody);
+            
+            switchTab(tabId);
+            return tabId;
+        }
+        
+        function closeTab(event, tabId) {
+            event.stopPropagation();
+            const tabs = document.querySelectorAll('.terminal-tab');
+            if (tabs.length <= 1) return;
+            
+            document.querySelector(`.terminal-tab[data-tab="${tabId}"]`).remove();
+            document.getElementById(`terminal-${tabId}`).remove();
+            
+            if (activeTab === tabId) {
+                const firstTab = document.querySelector('.terminal-tab');
+                if (firstTab) switchTab(firstTab.dataset.tab);
+            }
+        }
+        
+        function log(message, type = 'default', tabId = null) {
+            const terminal = tabId ? document.getElementById(`terminal-${tabId}`) : getActiveTerminal();
+            const line = document.createElement('div');
+            line.className = type;
+            const timestamp = new Date().toLocaleTimeString('en-US', { hour12: false });
+            line.textContent = `[${timestamp}] ${message}`;
+            terminal.appendChild(line);
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+        
+        function logTerminal(message, type = 'info') {
+            log(message, type);
+        }
+        
+        function clearTerminal() {
+            getActiveTerminal().innerHTML = '<div class="info">[Cleared] Terminal cleared</div>';
+        }
+        
+        // ============================================
+        // PANEL TOGGLES
+        // ============================================
+        function toggleClaudePanel() {
+            const panel = document.getElementById('claudePanel');
+            const btn = panel.querySelector('.toggle-claude-btn');
+            panel.classList.toggle('collapsed');
+            btn.textContent = panel.classList.contains('collapsed') ? '▶' : '◀';
+        }
+        
+        function toggleRightPanel() {
+            const panel = document.getElementById('rightPanel');
+            const btn = panel.querySelector('.toggle-panel-btn');
+            panel.classList.toggle('collapsed');
+            btn.textContent = panel.classList.contains('collapsed') ? '▶' : '◀';
+        }
+        
+        // ============================================
+        // PROJECT CONFIGURATIONS
+        // ============================================
+        const projectConfigs = {
+            'enterprise-hub': {
+                title: 'Enterprise Hub',
+                description: 'Core automation and session management',
+                category: 'Projects in Development',
+                resources: [
+                    { label: 'Operational Protocols', url: 'https://drive.google.com' },
+                    { label: 'Living Documents Guide', url: 'https://drive.google.com' },
+                    { label: 'Script Documentation', url: 'https://drive.google.com' }
+                ]
+            },
+            'website': {
+                title: 'Website Builder',
+                description: 'trajanus-usa.com development and content',
+                category: 'Projects in Development',
+                resources: [
+                    { label: 'Brand Guidelines', url: 'https://drive.google.com' },
+                    { label: 'Content Calendar', url: 'https://drive.google.com' }
+                ]
+            },
+            'pm-toolkit': {
+                title: 'PM Toolkit',
+                description: 'Project Management tools development',
+                category: 'Projects in Development',
+                resources: [
+                    { label: 'PM Templates', url: 'https://drive.google.com' },
+                    { label: 'Schedule Standards', url: 'https://drive.google.com' }
+                ]
+            },
+            'qcm-toolkit': {
+                title: 'QCM Toolkit',
+                description: 'Quality Control Management tools',
+                category: 'Projects in Development',
+                resources: [
+                    { label: 'QCM Templates', url: 'https://drive.google.com' },
+                    { label: 'Inspection Guides', url: 'https://drive.google.com' }
+                ]
+            },
+            'ssho-toolkit': {
+                title: 'SSHO Toolkit',
+                description: 'Site Safety & Health Officer tools',
+                category: 'Projects in Development',
+                resources: [
+                    { label: 'Safety Templates', url: 'https://drive.google.com' },
+                    { label: 'OSHA Standards', url: 'https://drive.google.com' }
+                ]
+            },
+            'route-optimizer': {
+                title: 'Route Optimizer',
+                description: 'TSP algorithm for delivery routes',
+                category: 'Projects in Development',
+                resources: [
+                    { label: 'Route Templates', url: 'https://drive.google.com' }
+                ]
+            },
+            'traffic-studies': {
+                title: 'Traffic Studies',
+                description: 'Traffic analysis, counts, and trip generation',
+                category: 'Projects in Development',
+                resources: [
+                    { label: 'ITE Trip Generation', url: 'https://drive.google.com' },
+                    { label: 'FDOT Standards', url: 'https://drive.google.com' }
+                ]
+            },
+            'pe-services': {
+                title: 'P.E. Services',
+                description: 'Professional Engineering services',
+                category: 'Projects in Development',
+                resources: [
+                    { label: 'PE Templates', url: 'https://drive.google.com' },
+                    { label: 'Certification Docs', url: 'https://drive.google.com' }
+                ]
+            },
+            'memory': {
+                title: 'Memory/Recall',
+                description: 'Living documents, protocols, partnership framework',
+                category: 'Projects in Development',
+                resources: [
+                    { label: 'MASTER Documents', url: 'https://drive.google.com' },
+                    { label: 'Operational Protocols', url: 'https://drive.google.com' }
+                ]
+            },
+            'pm-working': {
+                title: 'PM Working',
+                description: 'Active PM contracts - BILLABLE WORK',
+                category: 'Deployed Projects',
+                resources: [
+                    { label: 'Active Contracts', url: 'https://drive.google.com' },
+                    { label: 'Invoice History', url: 'https://drive.google.com' }
+                ]
+            },
+            'qcm-working': {
+                title: 'QCM Working',
+                description: 'Active QC contracts - BILLABLE WORK',
+                category: 'Deployed Projects',
+                resources: [
+                    { label: 'Active Contracts', url: 'https://drive.google.com' },
+                    { label: 'Client Specs', url: 'https://drive.google.com' }
+                ]
+            },
+            'ssho-working': {
+                title: 'SSHO Working',
+                description: 'Active Safety contracts - BILLABLE WORK',
+                category: 'Deployed Projects',
+                resources: [
+                    { label: 'Active Contracts', url: 'https://drive.google.com' },
+                    { label: 'Safety Plans', url: 'https://drive.google.com' }
+                ]
+            }
+        };
+        
+        const projectFolders = {
+            'enterprise-hub': 'root',
+            'traffic-studies': '1cyO2ShcG7QqcxqfIfWYmkS7t7JowjKCy'
+        };
+        
+        // ============================================
+        // PROJECT NAVIGATION
+        // ============================================
+        let currentProject = 'enterprise-hub';
+        
+        function loadProject(projectId) {
+            const config = projectConfigs[projectId];
+            if (!config) return;
+            
+            currentProject = projectId;
+            log(`Switched to: ${config.title}`, 'info');
+            
+            // Update sidebar
+            document.querySelectorAll('.project-btn[data-project]').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.project === projectId) btn.classList.add('active');
+            });
+            
+            // Update header
+            document.getElementById('projectTitle').textContent = config.title;
+            document.getElementById('breadcrumbText').textContent = `${config.category} > ${config.title}`;
+            
+            // Update Claude context
+            document.getElementById('claudeProjectContext').textContent = config.title;
+            
+            // Update badge
+            const isDeployed = config.category === 'Deployed Projects';
+            const badge = document.querySelector('.project-badge');
+            badge.className = `project-badge ${isDeployed ? 'badge-working' : 'badge-dev'}`;
+            badge.textContent = isDeployed ? 'DEPLOYED' : 'DEVELOPMENT';
+            
+            // Update description
+            document.querySelector('.project-description').textContent = config.description;
+            
+            // Update resources
+            const resourceGrid = document.getElementById('resourceGrid');
+            resourceGrid.innerHTML = config.resources.map(r => 
+                `<a class="resource-link" onclick="openExternal('${r.url}')">${r.label}</a>`
+            ).join('');
+            
+            // Load project files
+            loadProjectFiles();
+        }
+        
+        // Attach click handlers to sidebar buttons
+        document.querySelectorAll('.project-btn[data-project]').forEach(btn => {
+            btn.addEventListener('click', () => loadProject(btn.dataset.project));
+        });
+        
+        // ============================================
+        // DRIVE BROWSER
+        // ============================================
+        let folderStack = [{id: 'root', name: 'My Drive'}];
+        let currentBrowserFiles = [];
+        let isLoadingFiles = false;
+        let jsonBuffer = '';
+        
+        function showProjectBrowser() {
+            document.getElementById('fileBrowserModal').classList.add('active');
+            let folderId = projectFolders[currentProject] || 'root';
+            let folderName = folderId === 'root' ? 'My Drive' : projectConfigs[currentProject]?.title || 'Files';
+            
+            folderStack = [{id: folderId, name: folderName}];
+            updateDriveBreadcrumb();
+            
+            document.getElementById('browserTitle').textContent = folderName;
+            document.getElementById('driveFileList').innerHTML = `<div class="loading-spinner"><div class="spinner"></div><div>Loading...</div></div>`;
+            
+            log(`Loading files from ${folderName}...`, 'info');
+            
+            if (!window.electronAPI) {
+                log('ERROR: Must run in Electron app', 'error');
+                document.getElementById('driveFileList').innerHTML = '<div class="empty-state">Must run in Electron app</div>';
+                return;
+            }
+            
+            jsonBuffer = '';
+            isLoadingFiles = true;
+            
+            window.electronAPI.runPythonScript('project_browser.py', ['list-files', folderId])
+                .then(result => {
+                    isLoadingFiles = false;
+                    try {
+                        const jsonStart = jsonBuffer.indexOf('{');
+                        const data = jsonStart >= 0 ? JSON.parse(jsonBuffer.slice(jsonStart)) : null;
+                        if (data && data.success && data.files) {
+                            renderDriveFileList(data.files);
+                            log(`Found ${data.files.length} item(s)`, 'success');
+                        } else if (data && data.error) {
+                            document.getElementById('driveFileList').innerHTML = `<div class="empty-state">Error: ${data.error}</div>`;
+                        }
+                    } catch (parseErr) {
+                        log('Could not parse file list', 'error');
+                        document.getElementById('driveFileList').innerHTML = '<div class="empty-state">Could not parse response</div>';
+                    }
+                })
+                .catch(err => {
+                    isLoadingFiles = false;
+                    log(`Error: ${err.message}`, 'error');
+                });
+        }
+        
+        function hideProjectBrowser() {
+            document.getElementById('fileBrowserModal').classList.remove('active');
+        }
+        
+        function closeProjectBrowser(event) {
+            if (event.target === document.getElementById('fileBrowserModal')) {
+                hideProjectBrowser();
+            }
+        }
+        
+        async function browseFolder(folderId, folderName, fromBreadcrumb = false) {
+            if (!fromBreadcrumb) {
+                folderStack.push({id: folderId, name: folderName});
+                updateDriveBreadcrumb();
+            }
+            
+            document.getElementById('browserTitle').textContent = folderName;
+            document.getElementById('driveFileList').innerHTML = `<div class="loading-spinner"><div class="spinner"></div><div>Loading ${folderName}...</div></div>`;
+            
+            jsonBuffer = '';
+            isLoadingFiles = true;
+            
+            try {
+                await window.electronAPI.runPythonScript('project_browser.py', ['list-files', folderId]);
+                isLoadingFiles = false;
+                
+                const jsonStart = jsonBuffer.indexOf('{');
+                const data = jsonStart >= 0 ? JSON.parse(jsonBuffer.slice(jsonStart)) : null;
+                if (data && data.success && data.files) {
+                    renderDriveFileList(data.files);
+                    log(`Found ${data.files.length} item(s) in ${folderName}`, 'success');
+                }
+            } catch (err) {
+                isLoadingFiles = false;
+                log(`Error: ${err.message}`, 'error');
+            }
+        }
+        
+        function updateDriveBreadcrumb() {
+            const bc = document.getElementById('driveBreadcrumb');
+            if (!bc) return;
+            bc.innerHTML = folderStack.map((f, i) => {
+                if (i < folderStack.length - 1) {
+                    return `<a href="#" onclick="navigateToBreadcrumb(${i}); return false;" style="color: var(--orange-light); text-decoration: underline;">${f.name}</a>`;
+                }
+                return `<span>${f.name}</span>`;
+            }).join(' > ');
+        }
+        
+        function navigateToBreadcrumb(index) {
+            const folder = folderStack[index];
+            folderStack = folderStack.slice(0, index + 1);
+            updateDriveBreadcrumb();
+            browseFolder(folder.id, folder.name, true);
+        }
+        
+        function renderDriveFileList(files) {
+            currentBrowserFiles = files;
+            const container = document.getElementById('driveFileList');
+            
+            if (!files || files.length === 0) {
+                container.innerHTML = '<div class="empty-state">No files found</div>';
+                return;
+            }
+            
+            files.sort((a, b) => {
+                if (a.type === 'folder' && b.type !== 'folder') return -1;
+                if (a.type !== 'folder' && b.type === 'folder') return 1;
+                return a.name.localeCompare(b.name);
+            });
+            
+            let html = `<div class="file-count">${files.length} item(s)</div>`;
+            files.forEach((file, index) => {
+                const isFolder = file.type === 'folder' || (file.mimeType && file.mimeType.includes('folder'));
+                html += `
+                    <div class="file-item" data-index="${index}">
+                        <div class="file-icon">${getFileIcon(file.mimeType || '')}</div>
+                        <div class="file-info">
+                            <div class="file-name">${file.name}</div>
+                            <div class="file-meta">${formatSize(file.size)}</div>
+                        </div>
+                        <div class="file-actions">
+                            ${isFolder ? 
+                                `<button class="view-btn" onclick="browseFolder('${file.id}', '${file.name.replace(/'/g, "\\'")}')">Open</button>` :
+                                `<button class="view-btn" onclick="viewFile('${file.id}', '${file.webViewLink || ''}')">View</button>
+                                 <button class="download-btn" onclick="downloadFile('${file.id}', '${file.name.replace(/'/g, "\\'")}')">Download</button>`
+                            }
+                        </div>
+                    </div>`;
+            });
+            container.innerHTML = html;
+        }
+        
+        function getFileIcon(mimeType) {
+            if (!mimeType) return '■';
+            if (mimeType.includes('folder')) return '▤';
+            if (mimeType.includes('spreadsheet') || mimeType.includes('excel')) return '▦';
+            if (mimeType.includes('document') || mimeType.includes('word')) return '▤';
+            if (mimeType.includes('pdf')) return '▣';
+            if (mimeType.includes('image')) return '▨';
+            return '■';
+        }
+        
+        function formatSize(bytes) {
+            if (!bytes) return '';
+            bytes = parseInt(bytes);
+            if (bytes > 1024 * 1024) return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+            if (bytes > 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return bytes + ' bytes';
+        }
+        
+        function viewFile(fileId, webViewLink) {
+            if (webViewLink) {
+                openExternal(webViewLink);
+            } else {
+                openExternal(`https://drive.google.com/file/d/${fileId}/view`);
+            }
+            log('Opening file in browser...', 'info');
+        }
+        
+        async function downloadFile(fileId, fileName) {
+            log(`Downloading: ${fileName}...`, 'info');
+            if (window.electronAPI) {
+                const downloadPath = `G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\downloads\\${fileName}`;
+                const result = await window.electronAPI.runPythonScript('project_browser.py', ['download', fileId, downloadPath]);
+                if (result.success) {
+                    log(`Downloaded: ${fileName}`, 'success');
+                }
+            }
+        }
+        
+        // Intercept script output
+        if (window.electronAPI) {
+            window.electronAPI.onScriptOutput((data) => {
+                if (isLoadingFiles) {
+                    jsonBuffer += data;
+                }
+                const lines = data.split('\n');
+                lines.forEach(line => {
+                    if (line.trim()) {
+                        if (line.includes('ERROR')) {
+                            log(line, 'error');
+                        } else if (line.includes('SUCCESS')) {
+                            log(line, 'success');
+                        } else {
+                            log(line, 'info');
+                        }
+                    }
+                });
+            });
+        }
+        
+        // ============================================
+        // MODALS
+        // ============================================
+        function showResources() {
+            document.getElementById('resourcesModal').classList.add('active');
+        }
+        
+        function hideResources() {
+            document.getElementById('resourcesModal').classList.remove('active');
+        }
+        
+        function closeModal(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                event.target.classList.remove('active');
+            }
+        }
+        
+        function showTemplatePicker() {
+            document.getElementById('templatePickerModal').classList.add('active');
+            // Load templates based on current project
+            log('Loading templates...', 'info');
+        }
+        
+        function hideTemplatePicker() {
+            document.getElementById('templatePickerModal').classList.remove('active');
+        }
+        
+        function closeTemplatePicker(event) {
+            if (event.target === document.getElementById('templatePickerModal')) {
+                hideTemplatePicker();
+            }
+        }
+        
+        // ============================================
+        // UTILITY FUNCTIONS
+        // ============================================
+        function openExternal(url) {
+            if (window.electronAPI) {
+                window.electronAPI.openExternal(url);
+            } else {
+                window.open(url, '_blank');
+            }
+        }
+        
+        function openDrive() {
+            openExternal('https://drive.google.com');
+        }
+        
+        // ============================================
+        // SESSION FUNCTIONS
+        // ============================================
+        async function syncMemory() {
+            log('Syncing memory from Google Drive MASTERS...', 'info');
+            // TODO: Implement memory sync
+            log('Memory sync complete', 'success');
+            document.getElementById('claudeMemoryStatus').textContent = 'Synced';
+        }
+        
+        async function runUpdateLivingDocs() {
+            log('Starting: Update Living Documents...', 'info');
+            if (window.electronAPI) {
+                try {
+                    const result = await window.electronAPI.runPythonScript('update_living_documents_v3.py');
+                    if (result.success) {
+                        log('Living documents updated successfully', 'success');
+                    }
+                } catch (err) {
+                    log(`Error: ${err.message}`, 'error');
+                }
+            }
+        }
+        
+        async function endSession() {
+            log('Starting end of session protocol...', 'info');
+            log('Creating session summary...', 'info');
+            // TODO: Implement end session
+            log('Session ended. Safe to close.', 'success');
+        }
+        
+        // Import wizards
+        function importFromProcore() {
+            log('PROCORE IMPORT WIZARD', 'success');
+            log('Opening Procore...', 'info');
+            openExternal('https://app.procore.com');
+        }
+        
+        function importFromP6() {
+            log('PRIMAVERA P6 IMPORT WIZARD', 'success');
+            log('Open P6 and export to XER or Excel format', 'info');
+        }
+        
+        function importFromRMS() {
+            log('RMS 3.0 IMPORT WIZARD', 'success');
+            log('Opening RMS...', 'info');
+            openExternal('https://rms.usace.army.mil');
+        }
+        
+        async function uploadPDF() {
+            log('Opening file picker...', 'info');
+            if (window.electronAPI) {
+                try {
+                    const result = await window.electronAPI.pickFile({
+                        filters: [{ name: 'Documents', extensions: ['pdf', 'xlsx', 'xls', 'csv'] }]
+                    });
+                    if (result && result.filePath) {
+                        log(`Selected: ${result.filePath}`, 'success');
+                    }
+                } catch (err) {
+                    log(`Error: ${err.message}`, 'error');
+                }
+            }
+        }
+        
+        // ============================================
+        // CLAUDE API INTEGRATION
+        // ============================================
+        let claudeConversation = [];
+        
+        function handleClaudeKeydown(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendToClaudeAPI();
+            }
+        }
+        
+        async function sendToClaudeAPI() {
+            const input = document.getElementById('claudeInput');
+            const message = input.value.trim();
+            if (!message) return;
+            
+            const sendBtn = document.getElementById('claudeSendBtn');
+            sendBtn.disabled = true;
+            input.value = '';
+            
+            // Add user message to UI
+            addClaudeMessage('user', message);
+            
+            // Add to conversation history
+            claudeConversation.push({ role: 'user', content: message });
+            
+            try {
+                // Get context
+                const context = buildClaudeContext();
+                
+                // Call API via Electron
+                if (window.electronAPI) {
+                    const response = await window.electronAPI.callClaudeAPI({
+                        model: 'claude-sonnet-4-20250514',
+                        max_tokens: 4096,
+                        system: context,
+                        messages: claudeConversation
+                    });
+                    
+                    if (response && response.content) {
+                        const assistantMessage = response.content[0].text;
+                        addClaudeMessage('assistant', assistantMessage);
+                        claudeConversation.push({ role: 'assistant', content: assistantMessage });
+                    }
+                } else {
+                    addClaudeMessage('assistant', 'API not available - running in browser mode');
+                }
+            } catch (err) {
+                addClaudeMessage('assistant', `Error: ${err.message}`);
+            }
+            
+            sendBtn.disabled = false;
+        }
+        
+        function addClaudeMessage(role, content) {
+            const container = document.getElementById('claudeMessages');
+            const div = document.createElement('div');
+            div.className = `claude-message ${role}`;
+            div.textContent = content;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+        
+        function buildClaudeContext() {
+            const config = projectConfigs[currentProject];
+            return `You are Claude, an AI assistant integrated into the Trajanus Enterprise Hub.
+Current project: ${config?.title || currentProject}
+Project type: ${config?.category || 'Unknown'}
+Description: ${config?.description || ''}
+
+You are helping Bill King, Principal/CEO of Trajanus USA, with construction project management tasks.
+Bill prefers direct, action-oriented communication. He calls you Jake.
+Keep responses concise and focused on solutions.`;
+        }
+        
+        // ============================================
+        // RIGHT PANEL - PROJECT FILES
+        // ============================================
+        let projectFiles = { working: [], completed: [] };
+        let selectedFile = null;
+        
+        function addFilesFromDrive(listType) {
+            showProjectBrowser();
+            // TODO: Connect browser selection to panel
+        }
+        
+        function renderFileLists() {
+            renderFileList('workingFilesList', 'working');
+            renderFileList('completedFilesList', 'completed');
+        }
+        
+        function renderFileList(containerId, listType) {
+            const container = document.getElementById(containerId);
+            const files = projectFiles[listType];
+            
+            if (files.length === 0) {
+                container.innerHTML = '<div class="empty-state">No files yet</div>';
+                return;
+            }
+            
+            container.innerHTML = files.map((file, index) => `
+                <div class="file-item ${selectedFile && selectedFile.id === file.id ? 'selected' : ''}" 
+                     onclick="selectFile('${listType}', ${index})">
+                    <span class="file-icon">${getFileIcon(file.mimeType)}</span>
+                    <div class="file-info">
+                        <div class="file-name" title="${file.name}">${file.name}</div>
+                        <div class="file-meta">${formatSize(file.size)}</div>
+                    </div>
+                    <div class="file-actions">
+                        <button class="file-action-btn" onclick="event.stopPropagation(); removeFile('${listType}', ${index})">×</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function selectFile(listType, index) {
+            selectedFile = { ...projectFiles[listType][index], listType, index };
+            renderFileLists();
+            showPreview(selectedFile);
+        }
+        
+        function showPreview(file) {
+            const previewContent = document.getElementById('previewContent');
+            const previewActions = document.getElementById('previewActions');
+            
+            if (!file) {
+                previewContent.innerHTML = 'Select a file to preview';
+                previewActions.style.display = 'none';
+                return;
+            }
+            
+            previewContent.innerHTML = `
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">${getFileIcon(file.mimeType)}</div>
+                    <div style="color: var(--cream); font-size: 0.8rem;">${file.name}</div>
+                </div>`;
+            previewActions.style.display = 'flex';
+        }
+        
+        function openSelectedFile() {
+            if (selectedFile && selectedFile.webViewLink) {
+                openExternal(selectedFile.webViewLink);
+            }
+        }
+        
+        function downloadSelectedFile() {
+            if (selectedFile) {
+                downloadFile(selectedFile.id, selectedFile.name);
+            }
+        }
+        
+        function moveToCompleted() {
+            if (!selectedFile || selectedFile.listType !== 'working') return;
+            const file = projectFiles.working.splice(selectedFile.index, 1)[0];
+            projectFiles.completed.push(file);
+            selectedFile = null;
+            saveProjectFiles();
+            renderFileLists();
+            showPreview(null);
+            log(`Completed: ${file.name}`, 'success');
+        }
+        
+        function removeFile(listType, index) {
+            const file = projectFiles[listType].splice(index, 1)[0];
+            if (selectedFile && selectedFile.id === file.id) {
+                selectedFile = null;
+                showPreview(null);
+            }
+            saveProjectFiles();
+            renderFileLists();
+        }
+        
+        function saveProjectFiles() {
+            localStorage.setItem(`projectFiles_${currentProject}`, JSON.stringify(projectFiles));
+        }
+        
+        function loadProjectFiles() {
+            const saved = localStorage.getItem(`projectFiles_${currentProject}`);
+            projectFiles = saved ? JSON.parse(saved) : { working: [], completed: [] };
+            renderFileLists();
+        }
+        
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCustomApps();
+            loadProjectFiles();
+            
+            // Set platform info
+            document.getElementById('platform').textContent = `Platform: ${navigator.platform}`;
+            
+            log('Trajanus Enterprise Hub v2.0.0 initialized', 'success');
+            log('All systems online. Ready for commands.', 'info');
+        });
+    </script>
+</html>

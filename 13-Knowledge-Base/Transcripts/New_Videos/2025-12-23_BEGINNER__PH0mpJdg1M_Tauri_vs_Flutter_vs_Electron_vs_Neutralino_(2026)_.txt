@@ -1,0 +1,116 @@
+Title: Tauri vs Flutter vs Electron vs Neutralino (2026): Which Is The Best Desktop App Framework?
+Channel: YourTechGuru
+Video ID: _PH0mpJdg1M
+URL: https://www.youtube.com/watch?v=_PH0mpJdg1M
+Duration: 4:11
+Level: BEGINNER
+Ingested: 2025-12-23
+Source: yt-dlp Auto-Generated Captions
+==============================================================================
+
+WEBVTT
+Kind: captions
+Language: en
+In this video, we're comparing Tari,
+Flutter, Electron, and Neutralino. Four
+popular frameworks for building
+cross-platform desktop apps. These tools
+all let developers write one codebase
+and ship to Windows, Mac OS, and Linux.
+But their performance, memory footprint,
+and developer experience differ
+dramatically.
+Let's see which one feels the fastest,
+the lightest, and the most practical
+going into 2026.
+Starting with Tari, this Rust based
+framework has surged in popularity
+because it keeps things lightweight.
+Instead of bundling Chromium like
+Electron, it wraps your app in the
+systems native web view, often cutting
+app sizes to under 10 megabytes. In real
+benchmarks, Tari's memory usage can be 5
+to 10 times lower than Electrons for
+equivalent apps. That's partially
+because tar's backend runs in Rust,
+eliminating the node.es runtime
+overhead. But performance can depend on
+the native web view quality on older
+Windows builds or Linux distros. Some
+users report slower rendering or
+inconsistent behavior compared to Mac
+OS. Security conscious teams like Tari
+because its Rust code prevents memory
+leaks and sandboxing is rigorous. The
+learning curve, however, is steeper,
+especially if you're not familiar with
+Rust tooling, and hot reload setups
+aren't as mature as Flutters or
+Electrons. Next up, Flutter Desktop.
+While originally built for mobile,
+Flutter has become increasingly solid
+for desktop in 2025.
+It compiles to native machine code with
+Dart, and on benchmark tests, UI
+rendering is impressively stable at 120
+frames per second with near zero frame
+jank. The key advantage is pixel perfect
+control. Your UI looks the same across
+systems because it draws directly using
+Skia rather than relying on web views.
+That's a double-edged sword, though.
+Apps tend to be larger, and access to
+system native menus, file dialogues, or
+tray integration still feels a bit
+bolted on. The ecosystem is rich, but
+some plugins simply don't translate well
+from mobile. Developers on Reddit often
+mention that while Flutter desktop apps
+feel smooth, they consume more CPU
+sitting idle than Tari or Neutralino
+builds, likely due to its rendering
+engine constantly redrawing elements.
+Electron, the veteran in this space,
+remains the most mature and feature
+option thanks to its deep node.js and
+Chromium integration. Apps like VS Code
+and Slack still prove its reliability.
+The downside is wellknown resource
+usage.
+Running a Chromium instance for every
+window means even a small Electron app
+can consume hundreds of megabytes of
+RAM.
+That said, optimizations like context
+sharing and code splitting can mitigate
+this. Many production teams keep using
+Electron because of its predictable
+packaging pipeline, vast npm ecosystem,
+and consistent cross-platform behavior.
+In contrast, Neutralino takes a
+minimalist approach. Think of it as
+Toriite. It avoids shipping Chromium,
+producing binaries under 5 megabytes,
+but lacks Tar's security features and
+still suffers from limited native API
+coverage. Some developers on Hacker News
+note that Neutralino can feel fragile in
+heavyduty apps, especially those
+requiring native menus or advanced
+integrations.
+So, which one wins for sheer
+performance? Tari leads its Rust core
+and use of native web views make it feel
+snappy and memory efficient. Flutter
+offers unmatched design consistency and
+buttery rendering. Perfect for UI heavy
+apps or startups already using Flutter
+for mobile. Electron remains the most
+dependable for large scale plug-in rich
+ecosystems while Neutralino fits
+ultraight hobby level projects. Your
+choice depends on what you trade. Speed,
+control, ecosystem, or complexity. If
+performance and efficiency top your
+list, Tori is the one to watch in 2026.

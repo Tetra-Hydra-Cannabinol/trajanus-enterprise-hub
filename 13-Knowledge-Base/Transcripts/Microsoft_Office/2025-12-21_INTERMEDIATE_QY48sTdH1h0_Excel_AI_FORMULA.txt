@@ -1,0 +1,166 @@
+Title: Excel AI FORMULA To Save You Hours of Work (NEW)
+Channel: MyOnlineTrainingHub
+Video ID: QY48sTdH1h0
+URL: https://www.youtube.com/watch?v=QY48sTdH1h0
+Duration: 9:16
+Level: INTERMEDIATE
+Application: Microsoft Excel
+Topics: AI, LABS.GENERATIVEAI, ChatGPT, OpenAI, Excel formulas, automation
+Ingested: 2025-12-21
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 Excel now has an AI function called LABS.GENERATIVEAI that allows you to
+0:05 write your prompt in a formula. It can also reference cells in the worksheet.
+0:10 It runs on OpenAI, so essentially, it's just like having ChatGPT in a formula.
+0:15 It's available in Excel 2021 or later, or
+0:19 the Microsoft 365 license, and I'll show you how to install it.
+0:22 But first, let's take a look at some of the cool things you can do with it.
+0:26 Here, I'm going to use it to return the airport codes for this list of cities.
+0:30 Simply type in =LABS.GENERATIVEAI, and then enter the prompt in double quotes. I want
+0:36 it to return only the three-letter airport code for:
+0:41 and then with an & reference the
+0:43 airport name in column J. And just like that, we have a list of airport codes.
+0:48 And because it's a formula, I can edit
+0:50 the values being referenced and it will fetch new data.
+0:52 For example, I'll change Toronto to Sydney and Kingsford-Smith. And there we go!
+0:59 The key is in how specific you are with the prompt.
+1:01 If I simply asked for the airport code,
+1:03 it would most likely return a whole sentence preceding the code,
+1:06 which is not what I want.
+1:07 Alternatively, I can limit the number of characters returned using the
+1:11 max_token argument. Roughly speaking,
+1:13 one token equals four characters in English.
+1:16 So, if I edit the prompt and remove the
+1:18 specification to return only a three-letter airport code,
+1:22 and then add a max_token of one, I should get the three-letter codes.
+1:27 But, as you can see, the max_token isn't being respected.
+1:29 We can also use LABS.GENERATIVEAI to return tables and lists of results.
+1:35 For example, let's say you need a list of all the states in
+1:37 the USA along with their abbreviations,
+1:40 instead of copying them from the web, you can simply use the LABS.GENERATIVEAI function.
+1:45 So, starting with the LABS function,
+1:46 I want to, "return a comma-separated list of the 50 states
+1:52 in the United States of America, with no leading text."
+1:58 Now, I need to wrap it in a TEXTSPLIT function
+2:00 to separate each state name into its own cell. My delimiter is a comma followed by a space.
+2:07 And then, I need to use TRANSPOSE to spill the results down a column.
+2:11 Now, keep in mind, the more data you request, the longer it takes.
+2:16 And there we go!
+2:17 Alright! Next, I'll write another formula to return the
+2:20 state abbreviation. And again, I need
+2:23 to be clear that it doesn't include any leading text.
+2:27 And then concatenate the state name.
+2:30 Now, you might be tempted to use the spilled array operator here
+2:32 to reference the state names,
+2:34 but the GENERATIVEAI function can't reference spilled arrays.
+2:38 So instead, I'm going to reference one cell at a time, and copy it down.
+2:43 And there I have a list of the states and their abbreviation. Of course, ideally,
+2:49 I'd ask it to return a two-column table containing the state name and abbreviation,
+2:53 but I found that it wouldn't separate the state and the abbreviation with a
+2:57 common delimiter, despite me asking. So two separate formulas was the next best thing.
+3:02 While extracting lists of data from the web is one application,
+3:06 LABS.GENERATIVEAI can also create
+3:08 new content for you. Let's say you're
+3:10 starting an online gadget store. You want to list 100 products
+3:14 in the store
+3:14 and you need a short description for each of them. You can go ahead,
+3:17 and write them yourself, or use LABS.GENERATIVEAI to do it for you.
+3:22 You can also look at the product
+3:23 specifications from the web using this function. Let's take a look.
+3:27 Here, I have a list of Samsung phones. I'm going to use the LABS function to,
+3:32 "return a short description for this product"
+3:35 and concatenate the product name. Notice here, I can also use table
+3:40 structured references. In the next, I'll use the temperature argument
+3:44 to reduce the amount
+3:45 of randomness of the results.
+3:47 Now, at zero, the model should almost always return the same
+3:50 results. However, there is no guarantee.
+3:53 And now I have a list of products and their descriptions,
+3:56 let's get the specs. Again, =LABS.GENERATIVEAI("get the specs for" and
+4:03 concatenate the product name. I'll use the temperature argument to reduce the
+4:07 randomness with zero. Now it can take a little while to return text-heavy
+4:12 responses. So, you have to be patient. And now you can see, it's done a pretty good job,
+4:16 except there are a couple of phones it doesn't think
+4:19 are released yet, even though they are.
+4:22 And here's the first problem.
+4:23 The AI models are only updated periodically, so the output can lag
+4:27 real-time information, which might not be an issue for you,
+4:30 but something to be mindful of.
+4:32 Another use for the function is conducting sentiment analysis of your text.
+4:36 For example, here I have some comments from one of my videos
+4:38 on BYCOL and BYROW. And I'm going to ask it to
+4:42 analyze and classify them into "positive",
+4:44 "negative", and "neutral". =LABS.GENERATIVEAI("use one word
+4:50 to summarize this text into positive, negative or neutral"
+4:58 and concatenate comment column.
+5:01 Now, there's a lot of text for it to sift through, so this can take a little while. And there we go!
+5:06 It does a pretty good job, but it struggles to know
+5:08 what to do when there's both positive and negative
+5:10 comments, as in the case of row 9.
+5:13 I'd probably classify this as neutral because ultimately,
+5:16 they're complaining about Excel, as opposed to my video.
+5:19 Because the function can reference a cell,
+5:21 we can ask it to explain formulas that are in files we might have inherited or
+5:25 simply can't remember writing.
+5:26 Here I have a SUMIFS formula that's referencing an Excel table, using
+5:30 structured references, which makes it pretty easy to follow,
+5:34 but if you're not familiar
+5:35 with SUMIFS, then LABS.GENERATIVEAI
+5:38 can certainly help. I'm going to ask it to "explain this formula step by step."
+5:45 Now, if I just reference the cell, it's going to see the result,
+5:48 which is 209,400. So, I need to use the FORMULATEXT function to expose the
+5:55 formula that's in the cell. And I'll use the model argument to specify using GPT-4,
+6:02 which will hopefully be better at understanding and explaining formulas than the default model.
+6:07 Okay, this formula is used in Excel for specific conditional summing. It explains,
+6:12 this is an Excel function that sums cells that meet multiple criteria,
+6:16 and then it talks about the different ranges
+6:18 being referenced, and then the last sentence,
+6:22 "So the formula sums of values in the sales column of
+6:25 the sales data table with a corresponding value,
+6:27 in the category column matches the value in cell C6."
+6:31 So, you can see, it did a pretty good job!
+6:33 I also used to explain a more complex LAMBDA formula
+6:37 that calculates income tax based on a progressive tax
+6:40 system. And sometimes, it did a great job
+6:42 and other times it seemed a bit lazy and just stopped
+6:45 half-way through, which may be due to my settings, which I'll explain a bit more on, in a moment.
+6:50 The function is available to Excel 2021 Microsoft 365 users in the Excel Labs Add-in.
+6:57 Now, if you haven't already got the add-in, go to the Home Tab > Add-ins > More Add-ins
+7:03 and search for Excel Labs, and then click add. It will then be available on the
+7:09 far right of the Home Tab of the ribbon.
+7:11 Click open and under "Configure API key", it explains that
+7:16 you have to register an OpenAI account and enter your API key. There's a link that will
+7:22 take you to get your API key. If you don't already have one, then in the settings you
+7:27 can specify the default model, temperature,
+7:31 maximum output length, which is measured in tokens,
+7:35 and if you hover over the slider,
+7:37 an explanation of each setting pops up. So, I'll leave you to read
+7:41 through them. Of course, you can override these settings
+7:44 using the optional arguments in the formula.
+7:47 If you get the #BUSY! error that eventually results to a #N/A error,
+7:51 it can mean one of two things.
+7:53 You've either exceeded your daily token limits or you need
+7:56 to add funds to your OpenAI account.
+7:59 When you set up your OpenAI account, you get some credit
+8:02 that last 30 days. But once you use it all or it expires,
+8:05 you need to then add funds to your account.
+8:08 You'll find this information under the Usage tab when you're logged into OpenAI.
+8:12 Now, if your account is funded and you're still getting the errors, then it will be a token limit.
+8:17 In which case, you can try changing the model in the settings.
+8:21 The LABS.GENERATIVEAI formulas appear
+8:24 for the most part to be volatile - recalculating every time any other formulas on the sheet are
+8:30 edited, or structural changes like inserting or deleting
+8:33 rows and columns are made.
+8:35 To avoid this, paste output as values, or
+8:38 while writing the formulas, put the workbook into manual calculation
+8:42 mode, via the Formulas tab.
+8:44 Just don't forget to recalculate using the F9 key or Shift + F9 to only
+8:48 recalculate the active worksheet,
+8:50 or by putting the workbook back into automatic calculation mode.
+8:54 The LABS.GENERATIVEAI function is just one way you can leverage AI inside Excel,
+9:00 but there are actually loads of AI features available
+9:02 which I've covered here and here,
+9:05 so check out those videos next.
+9:07 Thanks for watching. Don't forget to like and
+9:09 subscribe for more and I'll see you in the next video.

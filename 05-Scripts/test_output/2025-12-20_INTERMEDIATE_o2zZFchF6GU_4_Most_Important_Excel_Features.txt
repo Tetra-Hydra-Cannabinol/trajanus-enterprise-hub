@@ -1,0 +1,170 @@
+Title: The 4 Most Important Excel Features Ever Released (MUST Know)
+Channel: MyOnlineTrainingHub
+Video ID: o2zZFchF6GU
+URL: https://www.youtube.com/watch?v=o2zZFchF6GU
+Duration: 13:30
+Level: INTERMEDIATE
+Application: Excel
+Topics: PivotTables, Excel Tables, Power Query, Dynamic Arrays, AGGREGATE, SUMIFS, PIVOTBY, Data Analysis
+Ingested: 2025-12-20
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 Excel just turned 40 and to celebrate, I'm sharing the four game-changing skills and hidden
+0:06 tips from each decade that still pay off today. Master these and everything else gets easier.
+0:12 1993 was the year PivotTables were born. And I've got a tip for you,
+0:16 I'll bet you haven't seen before.
+0:18 By the way, if you're not already using PivotTables,
+0:20 check out this video to get started. Here I have some sales data with
+0:24 various attributes we can aggregate it by. It's perfect for a PivotTable.
+0:29 So on the Insert tab, we'll insert a PivotTable. Got a sheet ready to
+0:34 insert it on, which is 1990s when PivotTables came out. And we'll
+0:38 pop it in cell B8. Let's left click and drag the field list over closer.
+0:44 Now I want to see the sales by product. I also want to see the percentage of sales by
+0:49 product. So I'm going to left click and drag the sales field into the Values area again.
+0:54 And this time, right click, Show Values As, Percentage of Grand Total.
+1:00 Let's give this a new heading, percent of total. And just like that, I've got
+1:05 my sales summarized by product, and I can see the percentage each product is of the total.
+1:10 Now, let's say I want to filter the data by country, segment,
+1:14 discount band, and manager. The modern way is to insert slicers for these fields. So,
+1:19 let's grab those. Click okay. And there's my slicers.
+1:24 But you can see they take up a lot of room. So I'm going to press delete and get rid of them. And
+1:29 instead we'll add these fields as filters. So I want manager, segment, country, and discount band.
+1:38 And you can see the default layout here is to have all the filters stacked on top of one another. But
+1:44 if I right click the PivotTable and go into the PivotTable Options on the Layout and Format tab,
+1:50 I can choose to display fields in Report Filter Area down then over is the default.
+1:55 But instead we can do over then down or we can just change the number of fields per
+2:01 column to two. Click okay. And now I have my filters across multiple columns taking
+2:08 up less vertical space. And this is great if your PivotTables are also quite wide.
+2:13 Can you believe that PivotTables arrived in the '90s and they still do the heavy lifting today?
+2:18 2007 saw the introduction of Excel Tables. This was an upgrade to the old Lists feature. Fun fact,
+2:25 the keyboard shortcut to insert a table is Ctrl+T, but you can also use the old list shortcut Ctrl+L.
+2:32 Another way to insert a table and apply a specific style in one go is via the Home
+2:37 tab and then Format as Table. Here we have the gallery with all the built-in styles. You can
+2:43 also create your own custom style. I'm going to go with this green style in keeping with my theme.
+2:49 It's detected that my data has headers. I'll click okay. And I'm ready to go.
+2:54 Tables come with loads of handy built-in features like filter buttons. And we can
+2:59 turn on automatic totals. Let me scroll to the bottom and then check the box for Total
+3:04 Row. Here we can choose from different types of aggregation. The default is SUM.
+3:08 You can see we've got AVERAGE, COUNT, COUNT NUMBERS, and so on.
+3:12 But having the total at the bottom is a bit of a pain. Instead, I'll turn it off,
+3:16 and we'll go back to the top, and I'll insert a formula up here. I'll use the
+3:21 AGGREGATE function, which will allow me to ignore rows that are filtered out.
+3:26 So, I want to SUM, we can see that's number 9. Then, I want to ignore hidden
+3:32 rows and nested SUBTOTAL and AGGREGATE functions. That's 1.
+3:36 And then all I need to do is tell it which range of cells I want to SUM.
+3:40 Let's just left click and drag that out of the way so I can select the sales column.
+3:44 Notice in the formula instead of the difficult to read cell references,
+3:49 we get the table structured reference which is made up of the table name and the column label
+3:54 and that's way easier to make sense of. Close parentheses. Press Enter. And there's my total.
+4:00 Let's add a label here. And that job's done. And if I filter the data,
+4:05 let's remove everything but 2025. You can see my AGGREGATE formula automatically adjusts.
+4:12 Now, another way we can filter tables is with slicers. So, with the table selected on the
+4:17 Table Design tab, we can insert slicers. Let's say I want a slicer for the category.
+4:23 Click okay. Let's color code it in keeping with my theme. And I'm going to give it four
+4:29 columns. And that will just allow me to make it a bit wider and pop it up here above my table.
+4:36 Let's give it a bit more space. And we'll make it the same width as the
+4:40 table. So now I can left click on any of the categories and automatically
+4:45 filter my table. Let's remove the filter from the year field.
+4:49 And now we get all the data for components, clothing, bikes,
+4:54 and accessories. And I can left click and drag to select multiple. All the while, my
+4:58 AGGREGATE formula is updating. And these features make them super quick and easy to work with.
+5:04 But the most useful feature by far is how they automatically expand to include the new
+5:09 data. For example, let's filter the table for bikes so we can see the bottom of the table.
+5:15 And then on the very next row below the bottom of the table, I can add in new data for bikes.
+5:20 Let's add in data for 2026. We'll make it for bikes and cargo bikes.
+5:27 We'll make it 5,000. And you can see the table range has expanded to include that new
+5:32 row. My AGGREGATE formula has expanded to automatically include it because it's
+5:37 picking up all the data in the sales column, all without me having to lift a finger.
+5:43 So you can see formatting your data as a table isn't just about
+5:46 fancy formatting. It's data integrity, automatic updates, and instant filters.
+5:52 Power Query was first released as an add-in in Excel 2010,
+5:55 enabling us to automate the boring and laborious tasks of gathering and
+5:59 cleaning messy data. And that meant we could update our reports with one click.
+6:04 It's quite common to receive your data in a monthly CSV,
+6:07 text, or Excel file. As you can see, I have here. Let's open one. And you can
+6:13 see each file contains the revenue data by region for the month. Now these are
+6:17 small sample sets but your files are likely to be many columns and thousands of rows.
+6:22 With Power Query I can simply point it to this folder and have it gather
+6:26 all the data into one table and then next month I can add the new CSV file
+6:31 to this same folder and automatically include it. So let me show you how.
+6:36 Back in Excel on the Data tab of the ribbon in the Get and Transform Data group you'll
+6:41 find the Power Query tools. Now under the Get Data drop-down we have all the data sources we
+6:46 can use Power Query to get data from including databases, online sources, Fabric, and so on.
+6:53 I want to get data from a file and then from folder. Simply navigate to the folder, click open
+7:01 and here we can see a list of the files in that folder and various metadata relating to that file.
+7:07 At the bottom, I can combine, load, or transform the data. And under the Combine drop-down,
+7:13 we can combine and transform the data. Go straight to Combine and Load or Combine and Load To, which
+7:19 will allow you to select where you want to load it to. Let's go into Combine and Transform Data.
+7:25 This is going to open the Power Query Editor window, and we'll just have a quick look at
+7:29 what options are available. The first thing it asks is whether it's detected the region
+7:34 correctly. And we get a preview of the data here. It looks fine. So I'm going to click okay.
+7:40 Here in the Power Query Editor window on the left, we have the queries that
+7:44 were automatically created to combine the files. In the center, we have a preview
+7:48 of the data. And you can see here we've got the data from each month's CSV file.
+7:53 In the ribbon, we've got various tools to clean and transform the data like removing
+7:58 rows, splitting columns, and grouping the data. And on the Transform tab, there's even more common
+8:04 data cleaning tools like unpivoting columns, filling up or down, replacing values, and so on.
+8:11 Now, this data is pretty tidy. However, I have got the file name included in the table, which
+8:16 I don't need. So, with that column selected, I'm just going to press the delete key to remove it.
+8:22 Now over on the right we can see the Applied Steps pane and this lists all
+8:25 the steps that have been taken so far. They've been recorded much like a macro
+8:30 and this means we can use this query again next month when we get the new CSV file.
+8:35 So once you've finished cleaning the data go to the Home tab, Close and Load and you want
+8:40 Close and Load To. This is going to allow you to choose where to import the data.
+8:45 The default is a table in the current workbook, but you can go straight to a PivotTable report,
+8:50 PivotChart, or create a connection and load it to the data model, aka Power Pivot.
+8:56 I'm going to load it direct to a PivotTable report. That's going to help keep my file size
+9:00 small because I won't have the data in a table in the worksheet and a PivotTable. I'll click okay,
+9:08 and we get the field list with the three fields. So I can summarize my data by date,
+9:13 region, and let's look at the revenue. You can see it's automatically grouped the data by months.
+9:20 So when next month comes around, all I need to do is place the new
+9:23 file in the same folder. There's July's data. Go back to Excel,
+9:28 right click on the PivotTable, and refresh. And just like that, we now have July's data.
+9:35 And of course, if you have multiple reports connected to the query, you can update them
+9:39 all in one go via the Data tab and then Refresh All. With Power Query, you have scalable automatic
+9:45 data cleaning and gathering every time, so you can spend more time on the fun stuff.
+9:50 And our most recent feature, Dynamic Arrays, is no less impressive. Dynamic Arrays changed
+9:55 the way formulas return results, going from a single cell to being able to return multiple
+9:59 results that automatically spill and resize as your data changes.
+10:04 No helper columns and no messing around with Ctrl+Shift+Enter.
+10:08 For example, we can easily build a summary of this table by year and category. I'll
+10:13 start with the UNIQUE function and I want to get a list of the years. Close parentheses.
+10:19 However, it would be good if they were sorted. So, let's edit that and wrap
+10:23 that in the SORT function. Press Enter. And now the years are sorted correctly.
+10:28 By the way, I've got some conditional formatting on these cells to reveal the
+10:31 borders when I entered that first formula. It's not part of the formula functionality.
+10:36 Next, we want to list the categories across the columns. So, I'm going to start with the
+10:40 TRANSPOSE function, and I want them sorted. And I just need to grab a UNIQUE list of the
+10:46 categories from the category column. Close UNIQUE, close SORT, close TRANSPOSE. And that's done.
+10:53 And now I can simply use SUMIFS to aggregate the sales. The first criteria range is my year
+11:01 and the criteria is the spilled array in this cell here. Now in order to reference
+11:07 the spilled array, I can simply reference that first cell and then place a hash on
+11:12 the end. Notice it's now picking up all the cells in that spilled array.
+11:17 And by doing this, when I add new data to this table, that spilled array is
+11:21 going to grow by one year. And my SUMIFS formula will automatically include it.
+11:26 Next is the criteria range for the categories. And where are those listed? In this spilled
+11:32 array here. So it's the first cell followed by the hash. Close parenthesis on SUMIFS.
+11:38 Press Enter. And just like that, we've got a dynamic summary of our data that
+11:42 will automatically update and expand as new data is added to this table.
+11:47 Now another way we can build this summary is with the new PIVOTBY function which effectively
+11:51 builds a PivotTable with a single formula. The first argument are the row fields. So we
+11:56 want the years in the rows. Then the columns we want the categories. The values we want
+12:02 to aggregate are the sales and the function where we can choose from these functions or
+12:06 we can write our own LAMBDA. I just want to SUM them. So we're going to use SUM.
+12:11 And then there's some further optional arguments. But I can stop here and get a PivotTable with
+12:16 the row and column labels automatically sorted. And I have totals for my columns and
+12:23 rows. Again, I've got some conditional formatting to reveal the cell borders.
+12:27 But perhaps the best feature of these Dynamic Array formulas is the way they automatically
+12:32 adapt as we add more data. I'm just going to freeze the panes here. So on the View tab,
+12:38 going to Freeze Panes so that I can scroll to the bottom of the table.
+12:43 And keep your eye on the summary tables because in the very next
+12:46 row underneath the table, I'm going to add data for 2026. Just going to copy it down from the
+12:52 row above. And as my table expands, so did my summary tables, which is very cool.
+13:00 Each of these features are great on their own, but you can see the real
+13:03 power of Excel comes when we combine them to make dynamic reports and tools.
+13:08 But here's the thing. Features are only half the story. The other half is how you set up
+13:12 Excel itself. Small changes in your settings can completely change the way you work day-to-day.
+13:18 So, if you want to keep building on what we've covered today,
+13:21 check out this video next. It'll show you the exact settings I recommend. Plus,
+13:25 there's a free cheat sheet to make them easy to apply. So, click here and I'll walk you through.

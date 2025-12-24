@@ -1,0 +1,262 @@
+Title: Excel Pyramid Charts 3 Ways - Great for Demographic Data
+Channel: MyOnlineTrainingHub
+Video ID: s4QJVW3SfBw
+URL: https://www.youtube.com/watch?v=s4QJVW3SfBw
+Duration: 10:45
+Level: INTERMEDIATE
+Application: Microsoft Excel
+Topics: Pyramid Charts, Demographic Data, Bar Charts, Conditional Formatting, Data Bars, Paste Special, Negative Values, Series Overlap, Gap Width, Axis Formatting, Custom Number Format, Reverse Order, Two Chart Method, Chart Alignment, Column Width
+Ingested: 2025-12-21
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 pyramid charts are useful for
+0:02 visualizing demographic data across
+0:04 multiple categories they're easy to
+0:06 build using bar charts or conditional
+0:08 formatting but there are a few rules you
+0:10 must follow depending on the approach
+0:12 you choose let's take a look the easiest
+0:15 way to create a pyramid chart is with a
+0:18 bar chart the trick is to convert the
+0:20 values for the leftand series to
+0:22 negatives so they sit on the left side
+0:24 of the vertical axis in this example
+0:27 I'll put the male data on the left and I
+0:29 can easily convert the values to
+0:31 negatives using paste special I need to
+0:34 enter minus one into an empty cell and
+0:36 then contrl + C to copy it select the
+0:39 values that I want to convert paste
+0:43 special and then in here I want values
+0:46 and
+0:48 multiply now the values are all negative
+0:51 I can delete the minus one in this cell
+0:53 it's done its job I'll select the data
+0:57 and then
+0:58 insert and then we just want the 2D bar
+1:02 chart first thing I want to do is set
+1:04 the series to overlap one another so
+1:07 with any part of the chart selected
+1:09 control one to open the formatting pane
+1:12 let me bring it over here so it's beside
+1:13 the chart here I want the series overlap
+1:16 to be 100% and I'm also going to change
+1:19 the Gap width to 50% that just makes the
+1:21 bars a little wider now you notice that
+1:25 the vertical axis is incorrectly
+1:28 displaying just number instead of the
+1:30 year and that's because the year has
+1:32 been picked up as a series so let's fix
+1:34 that I'm going to right click the chart
+1:36 select
+1:38 data here I want to remove the year and
+1:42 for the access labels here I'm going to
+1:43 edit it and pick up the years you can
+1:47 see in the chart behind it's now
+1:48 displaying
+1:50 correctly you'll notice that my pyramid
+1:53 is upside down and there's a couple of
+1:55 ways you can fix this either by sorting
+1:57 the data in descending order order or
+2:00 you can set the chart axis to display
+2:03 the categories in reverse order when you
+2:06 do this then you also have to switch the
+2:09 horizontal axis so that the labels are
+2:12 now positioned high now it's
+2:15 counterintuitive what you've got to keep
+2:17 in mind is that a bar chart is a column
+2:20 chart on its side essentially so in this
+2:22 case high is actually low I also want to
+2:26 position my vertical axis to the left so
+2:30 let's go in and change the position of
+2:32 this to low now notice that we have
+2:35 negative values for the male side of the
+2:37 pyramid and that's because our source
+2:39 data are negatives but that was just a
+2:41 trick to get the bars to sit on the left
+2:43 hand side of the chart so let's change
+2:45 the number format of the horizontal
+2:48 axis and we can use a custom number
+2:51 format and I've already got some in my
+2:54 list I'm also going to scale it to
+2:56 Millions so select this one here if you
+2:58 don't have this format in your list you
+3:01 can type the format in here and then add
+3:04 it I'm also going to change the colors
+3:07 of my male and female series I'm going
+3:09 to avoid the stereotypical colors and
+3:12 instead for male I'm going to go with
+3:14 this green and for female I'm going to
+3:17 go with
+3:19 orange let's give the chart a title and
+3:22 I'm done so you can see it's fairly easy
+3:24 to build a pyramid chart using a regular
+3:26 old bar chart however what if you prefer
+3:29 the vertical access labels to sit in the
+3:31 middle of the bars let's take a look
+3:34 again with this technique The Source
+3:36 data requires the left hand series to be
+3:39 negative values which they already are
+3:41 here I'll start by selecting the data
+3:44 insert and then I want the 2D bar chart
+3:48 let's bring it up here into this space
+3:50 and I'll make it a little bigger I'll
+3:52 start with the vertical axis we're going
+3:54 to position them in reverse
+3:57 order let's switch this now so that
+4:01 labels are high we'll set the number
+4:05 formatting as well while I'm
+4:07 here again I want a custom number
+4:10 format and this time I'm just going to
+4:13 pick this format the first part is the
+4:16 positive value format and the second
+4:18 part is the negative value format notice
+4:21 they're identical I'm going to change
+4:23 the Gap width just to make the bars a
+4:26 bit wider I don't need to worry about
+4:28 the series overlapping you'll see in a
+4:30 moment it doesn't affect the chart I'm
+4:33 going to enter a space in the chart
+4:35 title I want the chart title to be blank
+4:37 but I don't want to delete it because I
+4:39 want to retain the space above the plot
+4:41 area to put in a manual title later so
+4:44 I'm just going to type in a space and
+4:46 that hides the title in this one I'd
+4:48 like my Legend to sit at the top so
+4:51 let's change that now I'm ready to
+4:54 duplicate this chart so with it selected
+4:56 contrl D to duplicate now I've got two
+5:00 two one here and one here I want to
+5:03 delete the female series from this chart
+5:06 on the left and in this one delete the
+5:10 mail Series so just selecting the bars
+5:11 and pressing the delete key gets rid of
+5:14 it let's make them not so
+5:19 big and I'll move this
+5:22 over now I want to remove the outline
+5:25 and the fill from each of the charts you
+5:27 have to do this one at a time on the
+5:29 formatting pane I want no fill and no
+5:33 outline and then this one the
+5:36 same I don't want the vertical axis in
+5:39 this chart so we're just going to remove
+5:41 it no primary vertical axis what this
+5:45 allows me to do is position the charts
+5:47 on top of one another now what I want to
+5:49 do is line up the vertical grid lines so
+5:53 that they're in the same place in each
+5:55 chart and I'm doing this so that the
+5:58 scale is the same and That's essential
+6:00 to being able to compare these charts
+6:02 light for light let's just move this
+6:04 over so I've got some more room for my
+6:06 two charts the next thing I want to do
+6:09 is make sure that the horizontal axis in
+6:11 each chart is the same so here the
+6:14 minimum maximum major and minor and then
+6:18 if I click on this one they're exactly
+6:21 the same the only difference being is
+6:22 now the minimum is zero instead of the
+6:25 maximum that's obviously because this is
+6:27 the positive data and this one's the
+6:30 negative data if they're not the same
+6:32 then you need to hard key the values to
+6:35 ensure they're the same otherwise you
+6:36 can't compare like for like and That's
+6:38 essential in making sure that your
+6:40 charts convey the true picture of the
+6:43 data lastly let's insert a text box for
+6:47 the chart
+6:50 title I'm just going to format that font
+6:52 in a shade of gray we'll make it a bit
+6:57 bigger and a bit wider
+7:03 let's Center it in that text box and
+7:05 then I'll get rid of the shape outline
+7:07 on the text box so it just sits above
+7:09 the chart you might also like to move
+7:12 the Legends over so that they're aligned
+7:15 above the data so there you have a
+7:18 pyramid chart with the versical axis in
+7:20 the center now another way we can create
+7:23 pyramid chart is with conditional
+7:26 formatting with conditional formatting
+7:28 data bars there's no need to convert one
+7:30 series to negative values we can simply
+7:33 select the first series and then on the
+7:35 Home tab conditional formatting data
+7:38 bars and I'll choose this solid fill we
+7:42 need to edit the format so we're going
+7:43 to manage
+7:44 rules and then I'll bring the rule
+7:47 manager over and double click the rule
+7:49 to open it and here I can edit it so
+7:53 here I want the maximum to be based on a
+7:56 formula and that formula is the maximum
+7:59 of both the male and female values
+8:02 that's going to ensure that the axes on
+8:05 both sides are the same scale so you
+8:07 want to be comparing like with like I'm
+8:09 going to change the color to this green
+8:12 shade and the bar Direction here I want
+8:15 it to run right to left and click okay
+8:19 and okay and we've done the male side
+8:22 all I need to do is repeat that for the
+8:24 female so again data bars solid fill
+8:28 we'll go in and edit the
+8:30 rule here again I want formula and it's
+8:34 the same
+8:35 formula maximum of both
+8:38 series and we'll go with this orange
+8:41 color I don't need to change the bar
+8:43 Direction click okay and okay and we're
+8:46 done now you'll notice that conditional
+8:48 formatting data bars don't have a
+8:50 horizontal axis so you may prefer to
+8:52 leave the numbers visible in the cells I
+8:55 like to align them close to the center
+8:57 line but it's important that the numbers
+8:59 themselves are still right aligned to
+9:01 one another so we can do this using the
+9:03 indent button and just click it until it
+9:05 moves across let's align the
+9:09 label and for the male series I'm just
+9:12 going to bump it slightly to the left
+9:14 just to take it away from that vertical
+9:16 axis so that the male and female values
+9:19 are equidistance from that vertical axis
+9:21 and it's as simple as that now you may
+9:24 prefer to have the vertical axis labels
+9:26 in the center of the bars in which case
+9:29 I'll just copy this and paste it over
+9:31 here and then we'll move them so I'm
+9:33 just going to hold down shift and left
+9:36 click and drag and you can see the
+9:38 vertical bar where it's going to insert
+9:40 the values insert them this one here
+9:44 these columns are slightly different
+9:45 width so let's reduce the indentation
+9:49 and then we have our pyramid chart with
+9:50 the vertical axis labels in the center
+9:53 now with both of these charts it's
+9:55 really important that the column width
+9:57 is the same so you just right click
+9:59 and make sure that it's showing a number
+10:01 there if it's not showing a number there
+10:03 then that will indicate that one of the
+10:04 columns is slightly different so you can
+10:06 just type in the value that you want
+10:08 click okay when you have two columns
+10:11 side by side you can simply resize them
+10:13 with a left click of your mouse so there
+10:17 you have three different ways to create
+10:19 pyramid charts in
+10:21 Excel I hope you found these techniques
+10:23 useful you can download the Excel file
+10:26 for this lesson from the link here and
+10:28 if you like this video video please give
+10:30 it a thumbs up and subscribe to my
+10:32 channel for more and why not share it
+10:34 with your friends who might also find it
+10:36 useful thanks for watching

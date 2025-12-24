@@ -1,0 +1,228 @@
+Working crawler:
+
+
+# MISSION: Create and Run YouTube Office Tutorial Crawler
+
+## CONTEXT
+Bill has NordVPN connected (US - Atlanta). We need to create a YouTube crawler to download 50+ Office tutorial transcripts for permanent knowledge base ingestion.
+
+## FILE TO CREATE
+Location: `G:/My Drive/00 - Trajanus USA/00-Command-Center/05-Scripts/youtube_office_crawler.py`
+
+## REQUIRED DEPENDENCIES
+```bash
+pip install google-api-python-client youtube-transcript-api --break-system-packages
+```
+
+## YOUTUBE API KEY
+Get from environment variable: `$env:YOUTUBE_API_KEY`
+If not set, prompt user to get free key from: https://console.cloud.google.com/apis/credentials
+
+## SEARCH QUERIES (25 queries, 2 results each = 50 videos)
+
+**Excel (10 queries):**
+1. "Excel pivot tables tutorial advanced Leila Gharani"
+2. "Excel pivot charts dashboard"
+3. "Excel data analysis business reports"
+4. "Excel earned value analysis"
+5. "Excel dashboard design slicers"
+6. "Excel calculated fields pivot table"
+7. "Excel conditional formatting business"
+8. "Excel waterfall chart"
+9. "Excel print formatting professional"
+10. "Excel data validation tutorial"
+
+**Word (8 queries):**
+1. "Word professional report formatting"
+2. "Word styles templates business"
+3. "Word table of contents automated"
+4. "Word headers footers sections"
+5. "Word page numbering sections"
+6. "Word tables professional formatting"
+7. "Word embedding Excel charts"
+8. "Word building blocks quick parts"
+
+**PowerPoint (5 queries):**
+1. "PowerPoint professional presentations business"
+2. "PowerPoint master slides templates"
+3. "PowerPoint charts from Excel"
+4. "PowerPoint SmartArt diagrams"
+5. "PowerPoint export PDF quality"
+
+**Integration (2 queries):**
+1. "Excel Word integration mail merge"
+2. "Office templates business reports"
+
+## OUTPUT DIRECTORY
+`G:/My Drive/00 - Trajanus USA/01-Morning-Sessions/Research/Microsoft_Office_Tutorials/`
+
+## SCRIPT REQUIREMENTS
+
+1. **Search YouTube** for each query (2 results per query)
+2. **Get transcripts** using youtube-transcript-api
+3. **Skip videos** without transcripts (don't fail)
+4. **Save transcripts** as .txt files with format: `{video_id}_{sanitized_title}.txt`
+5. **Progress reporting** - print status for each video
+6. **Rate limiting** - 1 second delay between requests
+7. **Error handling** - continue on errors, don't crash
+8. **Final report** - count of successful downloads
+
+## PYTHON SCRIPT STRUCTURE
+```python
+import os
+import sys
+from googleapiclient.discovery import build
+from youtube_transcript_api import YouTubeTranscriptApi
+import time
+import re
+
+# API Key
+YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY')
+if not YOUTUBE_API_KEY:
+    print("ERROR: YOUTUBE_API_KEY environment variable not set")
+    print("Get free key from: https://console.cloud.google.com/apis/credentials")
+    sys.exit(1)
+
+# Output directory
+OUTPUT_DIR = "G:/My Drive/00 - Trajanus USA/01-Morning-Sessions/Research/Microsoft_Office_Tutorials"
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+# Search queries
+QUERIES = [
+    # Excel (10)
+    "Excel pivot tables tutorial advanced Leila Gharani",
+    "Excel pivot charts dashboard",
+    # ... (add all 25 queries)
+]
+
+def sanitize_filename(text):
+    """Remove invalid filename characters"""
+    return re.sub(r'[<>:"/\\|?*]', '', text)[:50]
+
+def search_youtube(query, max_results=2):
+    """Search YouTube and return video IDs and titles"""
+    youtube = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
+    try:
+        request = youtube.search().list(
+            q=query,
+            part='snippet',
+            type='video',
+            maxResults=max_results,
+            relevanceLanguage='en',
+            videoDuration='medium'  # 4-20 minutes
+        )
+        response = request.execute()
+        
+        results = []
+        for item in response.get('items', []):
+            video_id = item['id']['videoId']
+            title = item['snippet']['title']
+            results.append((video_id, title))
+        
+        return results
+    except Exception as e:
+        print(f"Error searching for '{query}': {e}")
+        return []
+
+def get_transcript(video_id):
+    """Get transcript for video"""
+    try:
+        transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
+        transcript_text = ' '.join([entry['text'] for entry in transcript_list])
+        return transcript_text
+    except Exception as e:
+        return None
+
+def main():
+    print(f"\n{'='*60}")
+    print(f"MICROSOFT OFFICE TUTORIAL CRAWLER")
+    print(f"{'='*60}\n")
+    print(f"Output directory: {OUTPUT_DIR}")
+    print(f"Total queries: {len(QUERIES)}")
+    print(f"Expected videos: {len(QUERIES) * 2}\n")
+    
+    total_searched = 0
+    total_downloaded = 0
+    
+    for i, query in enumerate(QUERIES, 1):
+        print(f"\n[{i}/{len(QUERIES)}] Searching: {query[:60]}...")
+        
+        video_results = search_youtube(query, max_results=2)
+        
+        for video_id, title in video_results:
+            total_searched += 1
+            print(f"  [{video_id}] {title[:50]}...")
+            
+            transcript = get_transcript(video_id)
+            
+            if transcript:
+                safe_title = sanitize_filename(title)
+                filename = f"{video_id}_{safe_title}.txt"
+                filepath = os.path.join(OUTPUT_DIR, filename)
+                
+                with open(filepath, 'w', encoding='utf-8') as f:
+                    f.write(f"Title: {title}\n")
+                    f.write(f"Video ID: {video_id}\n")
+                    f.write(f"URL: https://www.youtube.com/watch?v={video_id}\n")
+                    f.write(f"Query: {query}\n")
+                    f.write(f"\n{'='*60}\n\n")
+                    f.write(transcript)
+                
+                file_size = len(transcript) // 1024
+                total_downloaded += 1
+                print(f"    ✓ Downloaded ({file_size} KB)")
+            else:
+                print(f"    ✗ No transcript available")
+            
+            time.sleep(1)  # Rate limit
+    
+    print(f"\n{'='*60}")
+    print(f"CRAWL COMPLETE")
+    print(f"{'='*60}")
+    print(f"Videos searched: {total_searched}")
+    print(f"Transcripts downloaded: {total_downloaded}")
+    print(f"Success rate: {(total_downloaded/total_searched)*100:.1f}%")
+    print(f"Output: {OUTPUT_DIR}\n")
+
+if __name__ == '__main__':
+    main()
+```
+
+## EXECUTION STEPS
+
+1. **Check API key exists**
+```bash
+   echo $env:YOUTUBE_API_KEY
+```
+
+2. **Install dependencies** (if needed)
+```bash
+   pip install google-api-python-client youtube-transcript-api --break-system-packages
+```
+
+3. **Run crawler**
+```bash
+   cd "G:/My Drive/00 - Trajanus USA/00-Command-Center/05-Scripts"
+   python youtube_office_crawler.py
+```
+
+4. **Monitor progress** - should take 30-45 minutes
+
+5. **Verify output**
+```bash
+   cd "G:/My Drive/00 - Trajanus USA/01-Morning-Sessions/Research/Microsoft_Office_Tutorials"
+   ls | Measure-Object
+```
+
+## SUCCESS CRITERIA
+- ✅ 40-50 transcript files downloaded (80%+ success rate expected)
+- ✅ Files are 5KB-100KB each
+- ✅ No fatal errors (skipping individual videos is fine)
+- ✅ Output directory populated
+- ✅ Ready for Supabase ingestion
+
+## DELIVERABLES
+1. Working youtube_office_crawler.py
+2. 40-50 Office tutorial transcripts
+3. Summary report of downloads
+4. Ready for next step (Supabase ingestion)

@@ -1,0 +1,216 @@
+Title: NEW AI Formula Editor INSIDE Excel WRITES FORMULAS FOR YOU!
+Channel: MyOnlineTrainingHub
+Video ID: vhOHxMjrF7c
+URL: https://www.youtube.com/watch?v=vhOHxMjrF7c
+Duration: 8:39
+Level: INTERMEDIATE
+Application: Excel
+Topics: AI Formula Editor, Excel Add-in, Formula Generation, Formula Explanation, OpenAI Codex, GPT-3, Structured References, COUNTIFS, SUMPRODUCT, IFS Function
+Ingested: 2025-12-20
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 writing Excel formulas is one of the
+0:02 most important tasks to master in Excel
+0:05 but it can be a mindfield trying to get
+0:07 your head around all the functions
+0:09 available and knowing which one to use
+0:11 for the task at hand but now with this
+0:13 free AI aided formula editor you can
+0:16 have it write the formulas for you from
+0:18 inside Excel it can also explain how
+0:21 existing formulas work and suggest
+0:24 improvements and tutorials to help you
+0:26 learn let's take a look the editor is
+0:29 free to download from the insert tab get
+0:34 addins and then simply enter AI aided
+0:37 formula editor click on
+0:40 search and it's this first one here
+0:42 click add agree to the terms and
+0:45 conditions and click continue I've
+0:47 already inserted it so I'm going to
+0:50 close out of here and you'll notice I've
+0:52 got a new tab on my ribbon containing
+0:54 the tools it's the first one here the
+0:57 other two we've got documentation and
+0:59 then help desk if you want to get in
+1:00 touch with the developers so let's open
+1:03 it up it opens a pane on the right hand
+1:05 side and you can use the pull handle
+1:07 here to make it wider or you can left
+1:10 click and drag it from the top and bring
+1:12 it out into a separate floating
+1:15 window to activate the AI generator part
+1:19 click on the button here and then we get
+1:21 the field at the top where we can
+1:23 describe our formula so let's give it a
+1:25 go the table here is called table one
+1:28 and I want to count the number of
+1:31 components where sales are greater than
+1:34 3,000 so I'm going to describe my
+1:38 formula now I've used the table name and
+1:41 column names because it's in a Excel
+1:43 table so I want it to use the structured
+1:45 references however if your data is not
+1:48 in an Excel table then you'd enter in
+1:50 the cell references here in this case it
+1:53 would be D2 through to
+1:55 d18 and the category column would be B2
+1:59 through to B18 18 so I've entered in my
+2:01 formula description I can click the
+2:03 submit button or I can use the keyboard
+2:05 shortcut control enter and AI is going
+2:09 away and it's figuring out how to write
+2:11 my formula and there it is notice it's
+2:15 nicely laid out and colorcoded making it
+2:17 really easy to read you can click on the
+2:19 thumbs up or thumbs down to give the AI
+2:21 feedback and if you don't get the answer
+2:23 you want you can click the submit button
+2:25 again or you might want to reord your
+2:28 description to make it clear
+2:31 now if I want to use the formula I
+2:32 simply click the arrow button to write
+2:34 it to the cell notice that in the
+2:36 formula bar that it hasn't applied this
+2:38 nice formatting that we see down here
+2:40 you can copy it out if you prefer and
+2:43 paste it in and now if we make the
+2:45 formula bar wider you can see it there
+2:48 in the cell the color coding disappears
+2:50 unless you're in edit mode if you want
+2:53 the formula explained you can select it
+2:55 all and hover over the blue section you
+2:58 can see it's loading the
+3:00 explanation it's told me the result is
+3:03 three and then in plain English it
+3:05 explains what the formula is doing so
+3:07 it's super helpful alternatively you can
+3:10 click on the comment icon here and then
+3:13 down in the console you'll see it's
+3:16 evaluated it and it'll be thinking about
+3:19 the explanation and there it is there
+3:22 and that will stay there until you clear
+3:23 it let's clear that so that it's ready
+3:26 for our next example in the right
+3:28 formula section you can also write your
+3:30 own formula so let's say I prefer to do
+3:33 this with some product I wouldn't but
+3:35 let's just go with it for this example
+3:38 notice it doesn't have the Intellis
+3:39 sense doesn't autocomplete for me so I
+3:43 want where table one sales are greater
+3:46 than
+3:47 3,000 and table on category equals
+3:52 components now I haven't formatted it
+3:55 very nicely so we can click on this
+3:56 button here and it will apply the
+3:58 formatting let's just make window a
+4:00 little bit bigger and if I want to use
+4:03 that formula I can click the arrow key
+4:05 to write it to the cell that's selected
+4:07 again it hasn't brought in the
+4:08 formatting with all the carriage returns
+4:10 so we can copy it out and paste it
+4:12 directly in the formula
+4:19 bar the AI AED formula editor can also
+4:22 help you understand formulas simply
+4:25 select the cell containing the formula
+4:28 I'm going to turn off the AI generator
+4:30 part cuz I don't need that anymore I'm
+4:31 just working with the current cell
+4:33 formula and then I can select it all and
+4:36 hover my mouse over it it comes up with
+4:39 the result it also gives me a suggestion
+4:42 of how I can improve the formula and it
+4:45 explains what the formula is currently
+4:48 doing like we saw previously we can also
+4:50 click on the comment icon here and then
+4:53 go down to the console and see the
+4:55 results there if that's
+4:57 easier if you're working with with large
+5:00 formulas that have lots of nested
+5:01 functions you can collapse parts of it
+5:04 to make it easier to work
+5:06 with you can also pin a formula so
+5:09 clicking on the pin icon here I can then
+5:11 navigate to another formula so I can go
+5:13 over to this sheet here I can look at
+5:16 this cell but notice that it doesn't
+5:18 replace the formula that it's displaying
+5:21 so I'm able to bring this formula with
+5:23 me and if I wanted to I could select a
+5:26 cell and write it to a different cell
+5:29 this is if you want to copy the formula
+5:30 to another cell or when you're
+5:32 troubleshooting other formulas that
+5:34 might be linked for
+5:39 example if the formula can be simplified
+5:41 or modified it will display a yellow
+5:43 wavy line under the relevant sections
+5:46 and hovering over this displays the
+5:48 current formula and the suggested
+5:50 alternative so we can see here it's
+5:52 suggesting that we replace the nested IF
+5:55 function with the newer ifs function we
+5:58 can also see a video tutorial it's going
+6:00 to take us to YouTube if we want to
+6:03 navigate specifically to the problem
+6:05 area you can use the shortcut key alt f8
+6:08 or click the link so here it's told me
+6:11 this is one of one problems the netive
+6:13 functions can be replaced by ifs pretty
+6:17 cool huh now if we want to go ahead and
+6:20 use the suggested formula you can copy
+6:22 it out of the dialogue box here and then
+6:26 paste it into the formula bar
+6:31 and notice the yellow wavy Line's gone
+6:33 away it's happy with this version of the
+6:35 formula now currently this feature is
+6:38 limited to a specific list of scenarios
+6:40 and it's not available for all functions
+6:42 so don't be surprised if it doesn't pop
+6:44 up when you might expect it
+6:49 to the AI tool behind the formula editor
+6:52 is based on open AI codex which is a
+6:55 descendant of gpt3 and the same AI that
+6:58 powers GitHub Hub co-pilot that means
+7:01 it's not familiar with information post
+7:03 2021 and it isn't aware of some of the
+7:06 new functions Excel has like text split
+7:08 Etc that were added in
+7:11 2022 for example if I ask it to write a
+7:14 formula that splits text after each
+7:17 comma it returns this convoluted trim
+7:20 mid substitute formula I'm not even sure
+7:23 if it'll work let's pop it in no it
+7:25 doesn't it only returns speaker it's not
+7:27 aware that we have text split but if you
+7:29 have a version of excel that does you
+7:31 can actually ask it to use text spit and
+7:36 click
+7:37 submit and it manages to write it
+7:40 correctly it just won't use it unless
+7:42 you prompt it to keep in mind that open
+7:45 AI codex is still being developed So
+7:48 currently it won't get every answer
+7:50 right and it's not great at Super
+7:53 Advanced formulas like lambdas however
+7:55 over time it will improve and in the
+7:57 meantime if it doesn't give you the
+7:59 desired answer you can click the submit
+8:01 button again to try and get a different
+8:04 response if not try rephrasing your
+8:07 question and providing more specific
+8:10 instructions obviously the clearer your
+8:12 question the more likely you are to get
+8:14 the correct answer I hope you found this
+8:17 tutorial useful go ahead and download
+8:19 the AI AED formula editor and try it out
+8:23 if you like this video please give it a
+8:24 thumbs up and subscribe to our channel
+8:26 for more and why not share it with your
+8:28 friends who might also find it useful
+8:31 thanks for
+8:32 [Music]
+8:38 watching

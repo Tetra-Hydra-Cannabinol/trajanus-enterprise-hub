@@ -1,0 +1,698 @@
+Title: Build a voice agent with LangChain
+Channel: LangChain
+Video ID: kDPzdyX76cg
+URL: https://www.youtube.com/watch?v=kDPzdyX76cg
+Duration: 24:19
+Level: INTERMEDIATE
+Ingested: 2025-12-23
+Source: yt-dlp Auto-Generated Captions
+==============================================================================
+
+WEBVTT
+Kind: captions
+Language: en
+Hey everyone, it's Hunter from
+Langchain. Today I'm going to show you
+how to build an end toend voice agent
+using a lang chain agent and some other
+patterns that we found helpful when
+working with multimodal agents. But
+before we get into that, I want to show
+you exactly what you're going to be
+building. So we have this demo site here
+and the idea here is that you are
+interacting with a voice agent that
+works for a sandwich store where you're
+going to order a sandwich from it. And
+we'll get into why it's so sandwich here
+in a second. Um, but the other thing to
+call out is, uh, we also have this voice
+sandwich demo repo here that's going to
+cover, uh, everything that we're going
+to cover in this video. Um, where we
+have reference implementations in both
+Python and TypeScript for the for the
+voice agent, as well as some
+integrations with some popular providers
+that you can go poke through. But just
+to show the demo off, hey, can I order a
+sandwich?
+&gt;&gt; Of course, I'd love to help. What meat
+would you like? We have turkey, ham, or
+roast beef.
+&gt;&gt; Could I do a roast beef sandwich with
+lettuce and tomato?
+&gt;&gt; Perfect. Would you like to add cheese?
+We have Swiss, cheddar, or privol?
+&gt;&gt; Nope, that's it.
+&gt;&gt; Great. Let me confirm your order. Your
+order is confirmed. Your sandwich will
+be ready soon. Thanks for ordering.
+&gt;&gt; And that's the gist of it. You can see
+that there was a couple of things
+happening here as we were having a
+conversation with the agent. Um, again,
+you can see it's transcribing all my
+words, keeping track of them. The
+agent's responding in real time. Um, the
+other thing is that we could see the
+different tools that the agent is
+calling. Uh, so in this instance, it's
+adding the sandwich that I want to order
+to the order. Um, as well as this
+confirm order, um, which is actually
+going to confirm the order. Um, and you
+can see we also have some other things
+that sort of detail how the latency
+works um, between for the entire voice
+agent flow. We'll get into more why
+latency is important here in a second.
+Uh, but just to just to get into some of
+the code uh, here you can see uh, we
+we'll get into a little bit more in
+depth into this file a little bit later.
+U, you can see the basics of it is that
+we have this add to order tool, this
+confirm order tool. Uh we also have a
+system prompt that dictates how it
+should behave as well as some
+constraints for its output etc etc. Um
+as well as this uh and then we have this
+create agent pattern here. And if you
+don't know this create agent uh function
+is a new pattern that we rolled out as a
+part of our lane chain 1.0 release. Um
+and it's a it's a way to have a
+pre-built tool calling agent uh that you
+can use. You can see here this is where
+we're defining our tools. Uh the other
+thing that we can get into here is uh
+adding some middleware into this agent,
+which we'll get into why that's
+important for voice agents here in a
+bit. Um but that's the basics of it.
+Okay, now that we've seen what we're
+going to be building, as well as some of
+the basics of how the agent are defined,
+uh I want to get into more of the inner
+workings of how the voice component
+works. Um and before we do that, I think
+it would be helpful to go over some of
+the highle details like what are voice
+agents? Um what are some of the
+considerations to take in when building
+voice agents? Things to look out for.
+what have we learned when building our
+own voice agents, etc., etc. So, just to
+start off, what are voice agents? You
+can think of a voice agent much like a
+normal a normal text agent where you're
+able to pass text in. Usually, you're
+typing on your keyboard to do that. Um,
+but instead, you're using spoken word in
+order to in order to interact with the
+agent. This is helpful for other cases
+where text agents aren't totally
+suitable. Uh so you can think of like
+customer support where someone rings in
+and wants to have their question
+answered or someone wants to order a
+sandwich and you don't have the staff to
+uh take the order. Um so this is where
+you know voice as an input is is
+especially handy. And much like normal
+text agents uh there are certain things
+that make it work well uh once you get
+past the demo phase and when you want to
+move it into production. So, as we're
+designing a voice agent, it's helpful to
+keep in mind what are the things that we
+need to optimize for when we go to make
+this successful.
+One of those and probably arguably the
+biggest one is latency. Uh, you know,
+when you're talking with someone
+normally, it takes about 250 to 750
+milliseconds when you're done talking
+for someone to uh respond. So if an
+agent is taking longer than that to to
+come up with a response, then the
+conversation is going to sound sluggish
+and and noticeable and it might hurt
+your adoption.
+Uh the other thing with uh voice agents
+is controllability. Uh they need certain
+behaviors bespoke from text agents in
+order for it to produce useful
+responses.
+Um and this also extends into things
+like context management. If you don't
+have uh the appropriate context, the
+agent's either going to get slower or
+it's going to produce responses that
+don't work well within the context of a
+uh voice conversation.
+The other thing is observability. When
+much like normal text agents, if you're
+taking this to production, you want to
+optimize and make sure that you aren't
+regressing uh as your agent gets used.
+Um, and this is this is already a
+problem with normal text agents, but
+with uh speech agents, it becomes uh
+even worse because the thing you're also
+evaluating what an LLM is producing, but
+also how are people engaging with the uh
+agent as well as you know, you need to
+optimize for latency. How do I make sure
+that my agent is returning responses in
+a in a timely manner? Um, etc., etc. Um,
+and there are some metrics out in the
+voice agent building world uh that kind
+of illustrate this. Time to first bite,
+that's how long it takes for as soon as
+an agent is done talking or as soon as a
+user is done talking, when do I hear
+audio in my ears? Uh, that's what time
+to first bite is. Transcription
+accuracy, that's u, you know, as I'm
+speaking, how accurate are my words
+being represented to the agent? As well
+as turn detection, you know, when am I
+when am I done talking and I want the
+agent to start producing a response.
+There's there's a couple of more like
+these, but just to illustrate,
+you have to control the you have to have
+observability into what the agent is
+producing. But now with voice agents,
+you have these other concerns that you
+have to bring into account.
+And this is all to answer the question
+of how do I know if my voice agent is
+hitting the marks and how do I make sure
+that people are actually using it
+effectively.
+So how do voice agents actually work? Uh
+there's there's sort of two schools of
+thought that come to when when building
+voice agents. Uh there's method one
+which is uh what we call the sandwich
+and that's why the demo was a sandwich
+ordering agent is because we're dealing
+with a sandwich. Um and the basic idea
+is you have some kind of user input
+that's just somebody talking. It goes
+into what's called a VAD or a voice
+audio detection model. um that's its
+responsibility is to detect when uh the
+user is done talking. It's going to pass
+that to a speech to text model which is
+going to transcribe the text. It's then
+going to give it to an agent which is
+actually going to call the tools, do the
+reasoning, etc., etc. It's going to take
+whatever the output is there and put it
+in the text to speech engine. So, this
+is actually giving the agent a voice.
+And from there, we pass that back to the
+back to the user.
+The second uh train of thought is um
+when building voice agents is using
+real-time models. And what real-time
+models are is uh we just skip all the
+steps in between. The agent is pretty
+much going to handle everything front to
+back um including the speech to text,
+the text to speech, um makes it pretty
+easy.
+So it begs the question, which one
+should I use for my particular use case?
+While it might seem pretty intuitive to
+just reach for a real-time model,
+there's actually a couple of pros and
+cons that that come with both approaches
+that you should consider when building
+out a voice agent. Uh so with the
+sandwich method, it notably probably the
+biggest thing is that latency will be
+slower than real time. This is because
+real-time models handle everything end
+to end whereas we're in effect calling
+three different models with the sandwich
+approach.
+Um, the thing that differentiates the
+sandwich is that I can use the latest
+and greatest reasoning models uh in
+order to uh handle the reasoning part of
+my agent. So when uh OpenAI comes out
+with GPT6 and I want to be able to use
+that inside of my agent, um I'm stuck
+behind OpenAI porting the GPT6 reasoning
+enhancements over to their latest and
+greatest real-time model. Um which has
+always been sort of lagging behind.
+The other thing is model flexibility. uh
+like I mentioned you you're toying with
+three different models at this stage. Uh
+which means that you know you you can
+swap out different components uh to
+iterate on your agent over time as as
+different needs come up. Uh the other
+thing is that you can reuse existing
+text agents. Um so you can you can test
+certain behaviors well uh using a
+keyboard and relatively easy uh
+relatively easily port that over into a
+voice paradigm. Um, and there there are
+some considerations to take into
+account, namely with how the agent
+responds and things like that. Um, but
+for the most part, the agent logic that
+you have inside of a text agent can be
+reused inside of a voice agent.
+Uh, and then the other thing with the
+sandwich method is that intent detection
+isn't standard. The thing that's kind of
+novel about real-time models is that it
+can understand tone and intent from the
+user uh just based on the audio stream
+and and able it's able to influence its
+responses that way.
+And then just to look at the
+counterpoints for the real-time models
+is that latency is pretty much next to
+none. The speech to text and the
+reasoning and the text to speech steps
+are all a part of one inference
+pipeline. So that makes the latency of
+the agent audio output next to none.
+Um and then like I mentioned real-time
+models uh have historically always been
+lagging behind LLMs. So if you want to
+be able to use the latest and greatest,
+then real-time models uh are are lacking
+in some regards. The other thing is that
+almost everything is usually owned by
+one provider. Um and but there are a lot
+of players in the voice space uh that
+deal with speech to text and text to
+speech. Um so to be able to pick and
+choose uh the best and the the best and
+the greatest there um you don't really
+have that optionality with real time
+since uh the real time model owns the
+entire pipeline.
+The other thing is that there are some
+notable differences between text agents
+and um real-time agents. Uh so you have
+to take into consideration that there's
+there's different tests you need to run,
+different behaviors you need to bake in
+to real-time models. Um it's not always
+as transferable from the reasoning of a
+normal text agent.
+The other thing is real time models,
+they can understand tone and intent. Um
+which maybe that's important. Um but
+there are some certain methods with the
+sandwich method that you can also mimic
+that uh in tone and intent detection.
+And genu generally we've seen that uh
+people that are using the sandwich
+method are are usually happier campers
+uh just because they they can hit a
+ceiling with real-time models. Um
+whereas with the sandwich method you are
+you're much more flexible and you could
+still achieve the same latency
+requirements with a sandwich method with
+a sandwich agent instead of a real-time
+agent.
+So, now that we've gone over the
+different patterns, uh, let's talk about
+how you actually build a sandwich style
+of agent. There's a couple of different
+components that you need to bring, and
+we've touched on them very briefly, but
+uh, just to go down the list, you need
+to bring a speechto text model. This is
+the thing that will actually synthesize
+the speech that your user has into
+something that you can give to an LLM.
+Uh, there's the agent portion of it.
+This is this can be any number of
+things. This could be a langraph agent.
+This could be a lane chain agent. Uh,
+this can be anything you want. Text to
+speech. This is actually uh taking
+whatever the agent output is and giving
+it a voice and voice uh voice activity
+detection. That's the thing I mentioned
+where we need to detect at some point
+when the user has uh has stopped
+talking.
+And then another maybe more novel thing
+uh that's that's a unique challenge for
+voice agents is how do I actually move
+audio to and from the client? And while
+you would think that's pretty intuitive,
+there's actually a couple of different
+considerations there which we'll get
+into.
+So to go over speech to text, um there's
+just a couple of things to look out for.
+Uh streaming inputs to speech to text is
+critical. Again, the thing that we're
+optimizing here for most is latency. Um
+so if you were to take whatever the
+buffered responses and just pass that
+into speech to text, that has some
+additional latency considerations. And
+thankfully, a lot of speechto text
+providers let you stream inputs into the
+uh into the speech to text model.
+Um, another thing is that you want to
+make sure that your uh your speech to
+text model is accurate. If the model is
+misrepresenting someone, uh, that has a
+lot of knock-on effects as you go down
+the chain.
+Uh, there's other things you need to
+consider here like background noise, uh,
+you know, localization and, you know,
+some special phrases or tonage. Uh, that
+is these are all important
+considerations when working with speech
+to text. And there's some popular
+providers that we like notably deepgram
+assembly AI that's what we're using in
+the demo and whisper uh from open AI is
+also is also suitable.
+Uh the next part is the actual reasoning
+part of your agent and this is where you
+can use uh patterns that we've adopted
+for text agents. So this is our create
+agent pattern plus middleware um to
+easily add voice agent behaviors. Um the
+middleware portion of that is especially
+crucial because you can design a
+middleware that works well for your
+voice stack. plug that into any text
+agent and you can expect it to work
+reasonably well.
+Uh the next thing is being able to
+stream agent output much like being able
+to stream speechtoext input. Uh these
+are all super critical things for
+latency. So it's important that you're
+also streaming the agent output uh into
+the texttospech model. Uh and the other
+thing is that you want to carefully
+prompt that you want to make the agent
+respond concisely. If you have longtail
+conversations much like a text input can
+or a text agent will output uh that can
+bore the user.
+Uh the other thing is tool calls add
+latency. So the thing that we might have
+done in the voice agent demo is have a
+tool that would fetch the stock
+availability of certain items. We
+wouldn't want to do that here. we'd
+actually want to bake that into the
+system prompt because adding another uh
+tool call turn can add latency and and
+sort of mitigate the uh experience.
+Uh the next is the text to speech model.
+So again, this is actually giving your
+agent a voice. Uh and you there's a lot
+of text to speech providers that let you
+take the agent output and um put it into
+a text to speech model and start getting
+audio before the agent is complete,
+which is a pretty novel thing. Again,
+this really keys down on latency, which
+is what we're optimizing for here.
+Uh, and this is where sort of
+optionality is important. Uh, the
+quality and the control that different
+providers will give you will will sign
+will vary significantly.
+Uh, there's some there's some providers
+that we like, notably Cartisia, 11 Labs,
+PlayHT, and OpenAI are all good
+texttospech models that we've worked
+with. The other thing is voice audio
+detection. Uh this is a little bit more
+of a a niche thing, but it's still a
+very important part of the pipeline. Um
+this is when we're going to detect that
+a turn was what we we call a turn
+effectively like someone says something.
+As soon as that's done, we give it to
+the agent. That that's a turn. So we we
+need to detect when the user has stopped
+talking. And this is where a VAD model
+comes in.
+Uh and this is the this is the other
+thing that handles interruptions. you
+know, if your agent is talking and you
+interrupt it, uh, this is the thing that
+will sort of
+produce the signal that the agent needs
+to needs to stop talking. Uh, another
+thing to consider here is that VAD
+models are usually pretty light. So,
+bringing a local one um into the
+process, you wouldn't really want to
+rely on a remote VAD service. Uh, just
+again to optimize for latency.
+Uh, and another thing is that some
+speech to text providers already have
+this built in. So in this example, we
+were using assembly AI which has a VAD
+model built into it. So the more that we
+can defer to uh one process, then that
+that's great.
+Uh the other thing to consider when
+working with voice agents is how audio
+moves between uh the user and the agent.
+A couple of approaches that we've seen
+uh there's a technology called WebRTC
+um that is sort of like the golden
+standard for working with voice agents.
+Uh the things here is that it's the most
+performant, it's the easiest to scale.
+However, it's the more complex variety
+of websockets. Um, and if you've worked
+with websockets before, then this will
+seem pretty familiar. It will add us a
+slight bit of latency, but conceptually
+it's a lot easier to model and to build
+off of. And then telefanany, this is the
+most complex uh but this is, you know,
+enabling you to actually call your agent
+like but that has a phone number. Um, so
+it is a complex endeavor, but it does
+enable those phone interactions.
+Uh the thing that we've seen a lot of
+success with is using managed
+infrastructure. So there's some
+off-the-shelf providers for uh like
+LiveKit and Daily that do WebRTC and
+websockets really well. Uh Twilio
+handles a lot of telefan stuff. Um
+rolling your own is is a a pretty
+complicated endeavor. So uh when you're
+assessing the build versus buy scenario,
+then this is this is one angle to
+consider it from. So how do we actually
+use this? um we kind of need to go back
+to the agent example and the the
+pipeline. So you can see that we have
+all the components of the pipeline here
+in order. Um I'll show you exactly how
+we're using it in our voice agent demo.
+So the basics of it kind of like how we
+had we have these input events. Uh the
+way that we're organizing data through
+the pipeline is is through an event. Um
+so we have these input events here. Uh
+so we're we're taking the user input,
+we're passing it to the VAD model.
+when that VAD model comes through, what
+we're going to do is we're going to pass
+the input events plus the buffer events
+to the speechto text model. Um, so
+effectively we get the same input here
+and here. The difference between the
+input that we get here and here is that
+we're also specifying when the audio
+should be buffered.
+Uh, and very similarly, we're also going
+to we're going to pass those events
+through to the agent. And then
+crucially, we're also adding the
+transcription events onto here as well.
+Um, and then same thing, we're going to
+go through here. The the agent is also
+going to react to emissions by this
+speechto text step uh and pass it on to
+the text to speech step.
+And crucially, same thing happens uh
+when we go to give things back to the
+client. It has the entire event stream
+at every step. So has the input events,
+buffer events, speechto text events,
+agent events, and the text to speech
+events. Um, and usually to play it in
+the year, the only thing that we really
+need is the text to speech events. Um,
+but if you're like like in that client
+example where you could see the tools
+being executed, um, we we pass all of
+that information to the client. Uh, so
+why why do we do it this way? Uh, one
+notable thing is that the downstream of
+steps can react to events without
+waiting. Uh so for instance if I wanted
+to interrupt an agent as it was
+executing say it got something wrong and
+I wanted to correct it. Uh the thing
+that we need to do here is we need to
+effectively skip the speech to text step
+even the agent step um and interrupt the
+output stream so the agent won't
+continuously try to respond while we
+know it's in an interrupted state. Uh
+the other thing like I mentioned is that
+clients may be interested in more than
+just the audio output. So like if we
+were trying to paint tool calls or or
+some other some other thing that we
+needed to do with these pipeline events,
+we could do that with this aggregated
+stream.
+The other thing is is the only thing
+that we need to watch is this last step.
+So we can we can iterate over this last
+step like we had and we could see every
+part of the process and and pick out
+exactly what's happened which is really
+important for that observability. like I
+mentioned.
+Um, and this is also a pattern that's
+applicable beyond voice agents. So, you
+know, conversation voice agent where you
+can have a back and forth with an agent
+isn't the only use case for a multimodal
+agent. Um, you know, I mentioned with
+real-time models, uh, it could be a it
+could understand intent and tone.
+Another thing you might consider when
+building a voice agent is to mimic
+something where you have a step that
+will try to understand the intent and
+the tone using some kind of local model
+or something and pass that as context
+onto the agent step.
+Um, another example is maybe you have a
+uh thing that takes capture of your
+screen and your audio at the same time,
+feeds that into an agent and then you
+have uh some kind of note-taking
+mechanism. this event streaming pattern
+is applicable uh beyond just the
+conversational voice agent. So now that
+we've gone over things at a high level,
+I want to go into actually how this is
+implemented and show you through some of
+the code to to illustrate what's
+happening uh with our demo. Uh so you
+can see this is the agent definition
+that we had here. Um I'm going to skip
+past this for a second. This will look
+new but I just want to start from the
+front back of what are the what are the
+components and how do we illustrate that
+inside of the uh agent.
+So you can see the thing that we have
+here is we have this websocket endpoint.
+So a client's going to connect to this
+agent through websockets. Uh the thing
+that we have here is we have this input
+stream and this input stream is going to
+be the audio bytes that we get from the
+microphone um to you know actually pass
+it to the pass it to the agent.
+And the way that we do this, we're using
+Hono uh within TypeScript. The way that
+websockets work here is that we return
+an object that defines how the websocket
+connection should behave. Uh so what
+we're saying is that when we receive a
+message, we're going to look for the
+data and we're going to push it onto
+this event stream. So as audio events
+arrive, we're going to push it to to
+this stream.
+And what we're going to do here is we're
+going to take that input stream and
+we're going to give it as input into
+this speech dete stream. So, kind of
+like we mentioned, we're taking the
+audio input, giving it to the speech to
+text. Uh, and what that's going to do is
+it's going to produce its own speech to
+text events and that's going to be
+represented in this transcript event
+stream. What we're going to do with that
+transcript event stream is give it as
+input into the agent stream, which what
+that's going to do is it's going to pass
+through the speechtoext events, but it's
+also going to add its own agent events.
+So, this is where the responses are
+going to be contained uh that we can
+give to the text speech model.
+And then similarly we take that agent
+event stream and give it as input to the
+texttospech stream. What that's going to
+do is it's going to look for the agent
+events. Whenever it encounters any it's
+going to output texttospech events. So
+it's going to call the service produce
+the events uh and add it uh to this
+texttospech stream. And then what we do
+with that is once we have all of these
+events orchestrated together we are
+going to just send them to the client.
+So, we're iterating over every event in
+the event stream and sending them to the
+socket.
+So, that's the basics of how that works.
+Um, I'm not going to get too into detail
+with how the in individual inputs and
+the outputs work inside of the uh demo
+here. I'd encourage you to go through
+and poke through these uh by yourself.
+But the important thing to illustrate
+here is that we just have a generator
+function that takes in an async iterator
+as input. So this is the audio stream
+for the speech to text step. For the
+agent stream, we're just taking in our
+event type. So this is this voice agent
+event is uh all the different types that
+a voice agent can emit. Um and then same
+thing here, taking a similar event
+stream into text to speech uh and then
+eventually giving that back to our
+client which knows how to paint uh those
+emissions of events super well. And
+congratulations, you know how to build
+your very own voice agent. If you have
+any questions or comments, feel free to
+ask them. And if not, we're excited to
+see what you go build.

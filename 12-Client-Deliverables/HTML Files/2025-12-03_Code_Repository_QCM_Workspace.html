@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCM Toolkit Workspace - Trajanus Enterprise Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* ============================================
+           COLOR SCHEME
+           ============================================ */
+        :root {
+            --brown-dark: #1f1410;
+            --brown-mid: #3d2a1f;
+            --brown-light: #5c4033;
+            --cream: #FFF8F0;
+            --orange-dark: #a85a1b;
+            --orange-mid: #cc6e1f;
+            --orange-light: #e8922a;
+            --tan: #d4a574;
+            --gray-dark: #2d2622;
+            --gray-mid: #4a413a;
+            --gray-light: #a89890;
+            --green-badge: #28a745;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--brown-mid) 0%, var(--brown-dark) 100%);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: var(--cream);
+            overflow: hidden;
+        }
+        
+        /* ============================================
+           TOP NAVIGATION
+           ============================================ */
+        .workspace-nav {
+            background: rgba(0,0,0,0.4);
+            padding: 15px 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-shrink: 0;
+        }
+        
+        .back-btn {
+            background: linear-gradient(180deg, var(--orange-mid) 0%, var(--orange-dark) 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            box-shadow: 
+                0 4px 6px rgba(0,0,0,0.3),
+                0 1px 3px rgba(0,0,0,0.2),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        
+        .back-btn:hover {
+            background: linear-gradient(180deg, var(--orange-light) 0%, var(--orange-mid) 100%);
+            transform: translateX(-3px) translateY(-2px);
+            box-shadow: 
+                0 6px 12px rgba(0,0,0,0.4),
+                0 3px 6px rgba(0,0,0,0.3),
+                inset 0 1px 0 rgba(255,255,255,0.15);
+        }
+        
+        .back-btn:active {
+            transform: translateX(-3px) translateY(0);
+            box-shadow: 
+                0 2px 4px rgba(0,0,0,0.3),
+                0 1px 2px rgba(0,0,0,0.2),
+                inset 0 1px 0 rgba(0,0,0,0.1);
+        }
+        
+        .workspace-nav h1 {
+            font-size: 1.5rem;
+            color: var(--cream);
+            font-weight: 600;
+        }
+        
+        .workspace-nav .description {
+            font-size: 0.95rem;
+            color: var(--orange-light);
+            font-weight: 400;
+        }
+        
+        /* ============================================
+           MAIN WORKSPACE CONTAINER
+           ============================================ */
+        .workspace-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            overflow: hidden;
+        }
+        
+        /* Selected Files Display (above panels) */
+        .selected-files-bar {
+            padding: 12px 15px;
+            background: rgba(0,0,0,0.3);
+            border-bottom: 1px solid rgba(204, 110, 31, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+        
+        /* Script Buttons Bar (between nav and selected files) */
+        .script-buttons-bar {
+            padding: 12px 15px;
+            background: rgba(0,0,0,0.25);
+            border-bottom: 1px solid rgba(204, 110, 31, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+        }
+        
+        .script-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.3s;
+            background: linear-gradient(180deg, var(--orange-mid) 0%, var(--orange-dark) 100%);
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            box-shadow: 
+                0 2px 4px rgba(0,0,0,0.3),
+                0 1px 2px rgba(0,0,0,0.2),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        
+        .script-btn:hover {
+            transform: translateY(-1px);
+            background: linear-gradient(180deg, var(--orange-light) 0%, var(--orange-mid) 100%);
+            box-shadow: 
+                0 4px 8px rgba(0,0,0,0.4),
+                0 2px 4px rgba(0,0,0,0.3),
+                inset 0 1px 0 rgba(255,255,255,0.15);
+        }
+        
+        .script-btn:active {
+            transform: translateY(0);
+            box-shadow: 
+                0 1px 2px rgba(0,0,0,0.3),
+                inset 0 1px 0 rgba(0,0,0,0.1);
+        }
+        
+        /* Document Browser Bottom Buttons */
+        .browser-actions {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(204, 110, 31, 0.3);
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        
+        .browser-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.3s;
+            background: linear-gradient(180deg, var(--orange-mid) 0%, var(--orange-dark) 100%);
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            box-shadow: 
+                0 3px 5px rgba(0,0,0,0.3),
+                0 1px 2px rgba(0,0,0,0.2),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        
+        .browser-btn:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(180deg, var(--orange-light) 0%, var(--orange-mid) 100%);
+            box-shadow: 
+                0 5px 10px rgba(0,0,0,0.4),
+                0 2px 4px rgba(0,0,0,0.3),
+                inset 0 1px 0 rgba(255,255,255,0.15);
+        }
+        
+        .browser-btn:active {
+            transform: translateY(0);
+            box-shadow: 
+                0 2px 3px rgba(0,0,0,0.3),
+                inset 0 1px 0 rgba(0,0,0,0.1);
+        }
+        
+        .browser-btn.active {
+            background: linear-gradient(180deg, var(--green-badge) 0%, #1e7e34 100%);
+        }
+        
+        .selected-files-label {
+            color: var(--orange-light);
+            font-weight: 600;
+        }
+        
+        .selected-files-list {
+            flex: 1;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .selected-file-chip {
+            background: rgba(204, 110, 31, 0.3);
+            padding: 6px 12px;
+            border-radius: 4px;
+            color: var(--cream);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .selected-file-chip:hover {
+            background: rgba(204, 110, 31, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .selected-file-chip.active {
+            background: var(--orange-mid);
+            box-shadow: 0 2px 8px rgba(204, 110, 31, 0.4);
+        }
+        
+        /* ============================================
+           4-PANEL WORKSPACE (dynamic columns)
+           ============================================ */
+        .workspace-panels {
+            display: grid;
+            grid-template-columns: 1fr 0.8fr 1fr 1.2fr;
+            gap: 15px;
+            padding: 15px;
+            flex: 1;
+            overflow: hidden;
+            min-height: 0;
+        }
+        
+        .workspace-panel.hidden {
+            display: none;
+        }
+        
+        .workspace-panel {
+            background: rgba(45, 24, 16, 0.6);
+            border: 1px solid rgba(204, 110, 31, 0.3);
+            border-radius: 6px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            min-height: 0;
+        }
+        
+        .panel-header {
+            font-weight: 600;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--orange-light);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            border-bottom: 1px solid rgba(204, 110, 31, 0.3);
+            padding-bottom: 8px;
+            flex-shrink: 0;
+        }
+        
+        .panel-content {
+            flex: 1;
+            overflow-y: auto;
+            min-height: 0;
+        }
+        
+        /* Document Browser Panel */
+        .breadcrumb {
+            background: rgba(31, 20, 16, 0.8);
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex-wrap: wrap;
+            flex-shrink: 0;
+        }
+        
+        .breadcrumb-item {
+            color: var(--orange-light);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .breadcrumb-item:hover {
+            color: #fff;
+        }
+        
+        .breadcrumb-item:not(:last-child):after {
+            content: " >";
+            color: var(--gray-light);
+            margin-left: 5px;
+        }
+        
+        .file-list {
+            flex: 1;
+            overflow-y: auto;
+            min-height: 0;
+        }
+        
+        /* Review Instructions Panel */
+        .template-select {
+            width: 100%;
+            padding: 10px;
+            background: rgba(31, 20, 16, 0.8);
+            color: var(--cream);
+            border: 1px solid rgba(204, 110, 31, 0.3);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        
+        .template-select:focus {
+            outline: none;
+            border-color: var(--orange-light);
+        }
+        
+        .instructions-area {
+            flex: 1;
+            background: rgba(31, 20, 16, 0.8);
+            color: #fff;
+            border: 1px solid rgba(204, 110, 31, 0.3);
+            border-radius: 4px;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            resize: none;
+            line-height: 1.5;
+            min-height: 0;
+        }
+        
+        .instructions-area:focus {
+            outline: none;
+            border-color: var(--orange-light);
+        }
+        
+        .instructions-area::placeholder {
+            color: var(--gray-light);
+            opacity: 0.6;
+        }
+        
+        .char-count {
+            margin-top: 8px;
+            font-size: 0.75rem;
+            color: #fff;
+            text-align: right;
+            flex-shrink: 0;
+        }
+        
+        /* Selected Documents Panel */
+        .selected-list {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            min-height: 0;
+        }
+        
+        .queue-summary {
+            padding: 8px 12px;
+            background: rgba(31, 20, 16, 0.8);
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        
+        /* Claude Interface Panel */
+        .claude-interface {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+        
+        /* Report Templates Panel */
+        .report-templates {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+        
+        .report-category {
+            margin-bottom: 15px;
+            flex-shrink: 0;
+        }
+        
+        .report-category-title {
+            font-weight: 600;
+            color: var(--orange-light);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid rgba(204, 110, 31, 0.2);
+        }
+        
+        .report-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        
+        .report-item {
+            padding: 8px 12px;
+            background: rgba(31, 20, 16, 0.6);
+            border: 1px solid rgba(204, 110, 31, 0.2);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+            color: var(--cream);
+        }
+        
+        .report-item:hover {
+            background: rgba(204, 110, 31, 0.3);
+            border-color: rgba(204, 110, 31, 0.5);
+            transform: translateX(3px);
+        }
+        
+        .report-item.selected {
+            background: var(--orange-mid);
+            border-color: var(--orange-light);
+        }
+        
+        .claude-status {
+            padding: 8px 12px;
+            background: rgba(31, 20, 16, 0.8);
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        
+        .claude-status.waiting {
+            color: var(--gray-light);
+        }
+        
+        .claude-status.processing {
+            color: var(--orange-light);
+        }
+        
+        .claude-status.complete {
+            color: var(--green-badge);
+        }
+        
+        .claude-chat-area {
+            flex: 1;
+            background: rgba(31, 20, 16, 0.8);
+            border: 1px solid rgba(204, 110, 31, 0.3);
+            border-radius: 4px;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 0;
+        }
+        
+        .claude-placeholder {
+            color: var(--gray-light);
+        }
+        
+        .claude-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--orange-light);
+        }
+        
+        /* ============================================
+           ACTION BUTTONS
+           ============================================ */
+        .workspace-actions {
+            padding: 15px;
+            border-top: 1px solid rgba(204, 110, 31, 0.3);
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        
+        .action-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.3s;
+            position: relative;
+            background: linear-gradient(180deg, var(--orange-mid) 0%, var(--orange-dark) 100%);
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            box-shadow: 
+                0 4px 6px rgba(0,0,0,0.3),
+                0 1px 3px rgba(0,0,0,0.2),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(180deg, var(--orange-light) 0%, var(--orange-mid) 100%);
+            box-shadow: 
+                0 6px 12px rgba(0,0,0,0.4),
+                0 3px 6px rgba(0,0,0,0.3),
+                inset 0 1px 0 rgba(255,255,255,0.15);
+        }
+        
+        .action-btn:active {
+            transform: translateY(0);
+            box-shadow: 
+                0 2px 4px rgba(0,0,0,0.3),
+                0 1px 2px rgba(0,0,0,0.2),
+                inset 0 1px 0 rgba(0,0,0,0.1);
+        }
+        
+        /* Tooltip styling */
+        .action-btn[title]:hover::after {
+            content: attr(title);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 8px;
+            padding: 8px 12px;
+            background: rgba(0,0,0,0.9);
+            color: var(--cream);
+            border-radius: 4px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        .action-btn[title]:hover::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 2px;
+            border: 6px solid transparent;
+            border-top-color: rgba(0,0,0,0.9);
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        /* ============================================
+           TERMINAL
+           ============================================ */
+        .terminal-container {
+            height: 250px;
+            background: rgba(0,0,0,0.6);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            transition: height 0.3s;
+        }
+        
+        .terminal-container.collapsed {
+            height: 40px;
+        }
+        
+        .terminal-header {
+            padding: 10px 15px;
+            background: rgba(0,0,0,0.4);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        
+        .terminal-toggle {
+            background: none;
+            border: none;
+            color: var(--cream);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s;
+        }
+        
+        .terminal-container.collapsed .terminal-toggle {
+            transform: rotate(-90deg);
+        }
+        
+        .terminal-title {
+            font-weight: 500;
+            color: var(--cream);
+            flex: 1;
+        }
+        
+        .terminal-clear {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--cream);
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+        
+        .terminal-clear:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .terminal-output {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--cream);
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="workspace-nav">
+        <button class="back-btn" onclick="backToHome()">
+            <i class="fas fa-arrow-left"></i>
+            Back to Home
+        </button>
+        <h1>QCM Toolkit Workspace</h1>
+        <span class="description">
+            Document analysis and report preparation with Trajanus EI™ integration
+        </span>
+    </nav>
+
+    <!-- Main Workspace -->
+    <div class="workspace-main">
+        <!-- Script Buttons Bar -->
+        <div class="script-buttons-bar">
+            <button class="script-btn" title="Import templates for common review scenarios">Load Template</button>
+            <button class="script-btn" title="Run automated compliance check on selected documents">Compliance Check</button>
+            <button class="script-btn" title="Generate submittal register from selected files">Generate Register</button>
+            <button class="script-btn" title="Batch rename files according to naming convention">Batch Rename</button>
+            <button class="script-btn" title="Export current workspace configuration">Export Config</button>
+            <div style="flex: 1;"></div>
+            <button class="script-btn" title="Add a pre-configured column to workspace">Add Column</button>
+            <button class="script-btn" title="Remove a column from workspace">Remove Column</button>
+        </div>
+        
+        <!-- Selected Files Bar -->
+        <div class="selected-files-bar">
+            <span class="selected-files-label">Selected Files:</span>
+            <div class="selected-files-list" id="selectedFilesBar">
+                <span style="color: var(--gray-light); font-size: 0.85rem;">No files selected</span>
+            </div>
+        </div>
+        
+        <!-- 4-Panel Workspace -->
+        <div class="workspace-panels">
+            <!-- Panel 1: Document Browser (visible by default) -->
+            <div class="workspace-panel" id="documentBrowserPanel">
+                <div class="panel-header">Document Browser</div>
+                <div class="breadcrumb" id="breadcrumb">
+                    <span class="breadcrumb-item">My Drive</span>
+                </div>
+                <div class="panel-content file-list" id="fileList">
+                    <div class="info" style="padding: 20px; text-align: center;">
+                        Navigate to your project folder to select documents
+                    </div>
+                </div>
+                <div class="browser-actions">
+                    <button class="browser-btn" id="selectionCompleteBtn" onclick="toggleSelectionMode()" title="Switch to viewing selected files">
+                        Selection Complete
+                    </button>
+                    <button class="browser-btn" onclick="addMoreFiles()" title="Add more files from Google Drive">
+                        Add Files
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Panel 2: Selected Documents (hidden by default, replaces browser when active) -->
+            <div class="workspace-panel hidden" id="selectedDocumentsPanel">
+                <div class="panel-header">
+                    Selected Documents (<span id="selectedCount">0</span>)
+                </div>
+                <div class="panel-content selected-list" id="selectedList">
+                    <div class="info" style="padding: 20px; text-align: center;">
+                        No documents selected yet
+                    </div>
+                </div>
+                <div class="queue-summary">
+                    Total Size: <span id="totalSize">0 MB</span>
+                </div>
+                <div class="browser-actions">
+                    <button class="browser-btn" onclick="toggleSelectionMode()" title="Return to browsing Google Drive">
+                        Back to Drive
+                    </button>
+                    <button class="browser-btn" onclick="addMoreFiles()" title="Add more files from Google Drive">
+                        Add Files
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Panel 3: Report Templates -->
+            <div class="workspace-panel" id="reportTemplatesPanel">
+                <div class="panel-header">Report Templates</div>
+                <div class="panel-content" style="overflow-y: auto;">
+                    <div class="report-category">
+                        <div class="report-category-title">QCM Reports</div>
+                        <div class="report-list">
+                            <div class="report-item" onclick="selectReport('qcm-submittal')">Submittal Review Report</div>
+                            <div class="report-item" onclick="selectReport('qcm-inspection')">Daily Inspection Report</div>
+                            <div class="report-item" onclick="selectReport('qcm-deficiency')">Deficiency Log</div>
+                            <div class="report-item" onclick="selectReport('qcm-material')">Material Testing Report</div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-category">
+                        <div class="report-category-title">Progress Reports</div>
+                        <div class="report-list">
+                            <div class="report-item" onclick="selectReport('progress-weekly')">Weekly Progress Report</div>
+                            <div class="report-item" onclick="selectReport('progress-monthly')">Monthly Status Report</div>
+                            <div class="report-item" onclick="selectReport('progress-milestone')">Milestone Completion</div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-category">
+                        <div class="report-category-title">Compliance Documents</div>
+                        <div class="report-list">
+                            <div class="report-item" onclick="selectReport('compliance-rfi')">RFI Response</div>
+                            <div class="report-item" onclick="selectReport('compliance-change')">Change Order Summary</div>
+                            <div class="report-item" onclick="selectReport('compliance-close')">Closeout Documentation</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Panel 4: Review Instructions -->
+            <div class="workspace-panel">
+                <div class="panel-header">Review Instructions</div>
+                <select id="templateSelect" class="template-select">
+                    <option value="">Select a template...</option>
+                    <option value="shop-drawing">Shop Drawing Review</option>
+                    <option value="product-data">Product Data Review</option>
+                    <option value="spec-compliance">Specification Compliance</option>
+                    <option value="structural">Structural Review</option>
+                    <option value="mep">MEP Coordination Review</option>
+                </select>
+                <textarea id="instructions" class="instructions-area" placeholder="Write detailed review instructions for Claude...
+
+Example:
+Review the selected shop drawings for:
+1. Compliance with contract specifications
+2. Dimensional accuracy
+3. Material specifications
+4. Fabrication details
+5. Any deviations from contract requirements
+
+Provide specific references to spec sections and drawing numbers."></textarea>
+                <div class="char-count">
+                    <span id="charCount">0</span> characters
+                </div>
+            </div>
+            
+            <!-- Panel 5: Trajanus EI -->
+            <div class="workspace-panel">
+                <div class="panel-header">Trajanus EI™</div>
+                <div class="claude-status waiting" id="claudeStatus">WAITING</div>
+                <div class="panel-content claude-chat-area" id="claudeChat">
+                    <div class="claude-placeholder">
+                        <i class="fas fa-robot"></i>
+                        <div style="font-size: 1.1rem; color: var(--orange-light); font-weight: 500; margin-bottom: 10px;">
+                            Trajanus EI™ Interface
+                        </div>
+                        <div style="font-size: 0.9rem; color: #fff; line-height: 1.6;">
+                            Select documents and add review instructions, then click<br>
+                            <strong>"Submit to Trajanus EI™ for Review"</strong><br>
+                            to see detailed analysis results here.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="workspace-actions">
+            <button class="action-btn" 
+                    onclick="sendToClaudeReview()" 
+                    title="Send selected documents to Claude for review with the provided instructions">
+                Submit to Trajanus EI™ for Review
+            </button>
+            <button class="action-btn" 
+                    onclick="saveSetup()" 
+                    title="Save current workspace configuration (selected files, instructions, template selection)">
+                Save Setup
+            </button>
+            <button class="action-btn" 
+                    onclick="loadSetup()" 
+                    title="Load a previously saved workspace configuration">
+                Load Saved Setup
+            </button>
+            <button class="action-btn" 
+                    onclick="clearWorkspace()" 
+                    title="Clear all selections and reset workspace to initial state">
+                Clear Workspace
+            </button>
+        </div>
+    </div>
+
+    <!-- Terminal -->
+    <div class="terminal-container" id="terminal">
+        <div class="terminal-header">
+            <button class="terminal-toggle" onclick="toggleTerminal()">▼</button>
+            <span class="terminal-title">Terminal</span>
+            <button class="terminal-clear" onclick="clearTerminal()">Clear</button>
+        </div>
+        <div class="terminal-output" id="terminalOutput">
+            <div>Trajanus Enterprise Hub Terminal v1.0</div>
+            <div>Type 'help' for available commands</div>
+            <div>&gt; _</div>
+        </div>
+    </div>
+
+    <script>
+        // State management
+        let selectedFiles = [];
+        let browserMode = 'drive'; // 'drive' or 'selected'
+        let selectedReport = null;
+        let activeColumns = ['browser', 'instructions', 'selected', 'reports', 'ei'];
+        let workspaceState = {
+            selectedFiles: [],
+            instructions: '',
+            templateSelection: '',
+            selectedReport: null,
+            activeColumns: ['browser', 'instructions', 'selected', 'reports', 'ei'],
+            timestamp: null
+        };
+        
+        // Browser Mode Toggle
+        function toggleSelectionMode() {
+            const browserPanel = document.getElementById('documentBrowserPanel');
+            const selectedPanel = document.getElementById('selectedDocumentsPanel');
+            
+            if (browserMode === 'drive') {
+                // Switch to Selected Documents view - REPLACE the browser panel
+                browserMode = 'selected';
+                browserPanel.classList.add('hidden');
+                selectedPanel.classList.remove('hidden');
+                
+                logToTerminal('Switched to Selected Documents view');
+            } else {
+                // Switch back to Document Browser - REPLACE the selected panel
+                browserMode = 'drive';
+                selectedPanel.classList.add('hidden');
+                browserPanel.classList.remove('hidden');
+                
+                logToTerminal('Switched to Google Drive browser');
+            }
+        }
+        
+        function addMoreFiles() {
+            if (browserMode === 'selected') {
+                toggleSelectionMode(); // Switch back to drive mode
+                logToTerminal('Switched to Drive browser to add more files');
+            } else {
+                logToTerminal('Browse your Google Drive to add files');
+                alert('Google Drive file picker will be integrated here.\n\nFor now, demo files are auto-loaded on page load.');
+            }
+        }
+        
+        function viewFile(fileName) {
+            logToTerminal(`Viewing file: ${fileName}`);
+            // File preview functionality will be added
+            alert(`File preview for: ${fileName}\n\nPreview functionality will be integrated next.`);
+        }
+        
+        // Update selected files display in both top bar and Selected Documents panel
+        function updateSelectedFilesDisplay() {
+            const bar = document.getElementById('selectedFilesBar');
+            const list = document.getElementById('selectedList');
+            
+            if (selectedFiles.length === 0) {
+                bar.innerHTML = '<span style="color: var(--gray-light); font-size: 0.85rem;">No files selected</span>';
+                list.innerHTML = '<div class="info" style="padding: 20px; text-align: center;">No documents selected yet</div>';
+            } else {
+                // Update top bar
+                bar.innerHTML = selectedFiles.map(file => 
+                    `<div class="selected-file-chip" onclick="selectFileInPanel('${file.name}')">${file.name}</div>`
+                ).join('');
+                
+                // Update Selected Documents panel
+                list.innerHTML = selectedFiles.map(file => 
+                    `<div style="padding: 12px; border-bottom: 1px solid rgba(204,110,31,0.2); display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="viewFile('${file.name}')">
+                        <div>
+                            <div style="font-weight: 500; color: var(--cream);">${file.name}</div>
+                            <div style="font-size: 0.8rem; color: var(--gray-light);">${(file.size / 1024 / 1024).toFixed(2)} MB</div>
+                        </div>
+                        <button onclick="event.stopPropagation(); removeFileFromSelection('${file.name}')" style="background: var(--orange-mid); border: none; color: white; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; font-weight: 600;">Remove</button>
+                    </div>`
+                ).join('');
+            }
+        }
+        
+        // Navigation
+        function backToHome() {
+            window.location.href = 'index.html';
+        }
+        
+        // Terminal Functions
+        function toggleTerminal() {
+            const terminal = document.getElementById('terminal');
+            terminal.classList.toggle('collapsed');
+        }
+        
+        function clearTerminal() {
+            const output = document.getElementById('terminalOutput');
+            output.innerHTML = '<div>Terminal cleared</div><div>&gt; _</div>';
+        }
+        
+        // Character Counter
+        const instructionsArea = document.getElementById('instructions');
+        const charCount = document.getElementById('charCount');
+        
+        instructionsArea.addEventListener('input', function() {
+            charCount.textContent = this.value.length;
+            workspaceState.instructions = this.value;
+        });
+        
+        // Template selector
+        const templateSelect = document.getElementById('templateSelect');
+        templateSelect.addEventListener('change', function() {
+            workspaceState.templateSelection = this.value;
+            logToTerminal(`Template selected: ${this.options[this.selectedIndex].text}`);
+        });
+        
+        // File Selection System
+        function addFileToSelection(fileName, fileSize) {
+            if (!selectedFiles.find(f => f.name === fileName)) {
+                selectedFiles.push({ name: fileName, size: fileSize });
+                updateSelectedFilesDisplay();
+                updateSelectedCount();
+                logToTerminal(`Added file: ${fileName}`);
+            }
+        }
+        
+        function removeFileFromSelection(fileName) {
+            selectedFiles = selectedFiles.filter(f => f.name !== fileName);
+            updateSelectedFilesDisplay();
+            updateSelectedCount();
+            logToTerminal(`Removed file: ${fileName}`);
+        }
+        
+        
+        function selectFileInPanel(fileName) {
+            const chips = document.querySelectorAll('.selected-file-chip');
+            chips.forEach(chip => {
+                if (chip.textContent === fileName) {
+                    chip.classList.toggle('active');
+                }
+            });
+            logToTerminal(`Viewing file: ${fileName}`);
+        }
+        
+        function updateSelectedCount() {
+            document.getElementById('selectedCount').textContent = selectedFiles.length;
+            const totalSize = selectedFiles.reduce((sum, f) => sum + (f.size || 0), 0);
+            document.getElementById('totalSize').textContent = `${(totalSize / 1024 / 1024).toFixed(2)} MB`;
+        }
+        
+        function logToTerminal(message) {
+            const output = document.getElementById('terminalOutput');
+            const timestamp = new Date().toLocaleTimeString();
+            output.innerHTML += `<div>[${timestamp}] ${message}</div>`;
+            output.scrollTop = output.scrollHeight;
+        }
+        
+        // Workspace Functions
+        function sendToClaudeReview() {
+            if (selectedFiles.length === 0) {
+                alert('Please select at least one document for review');
+                logToTerminal('ERROR: No documents selected');
+                return;
+            }
+            
+            if (!workspaceState.instructions.trim()) {
+                alert('Please provide review instructions');
+                logToTerminal('ERROR: No review instructions provided');
+                return;
+            }
+            
+            const status = document.getElementById('claudeStatus');
+            const chat = document.getElementById('claudeChat');
+            
+            status.className = 'claude-status processing';
+            status.textContent = 'PROCESSING...';
+            
+            logToTerminal(`Sending ${selectedFiles.length} document(s) to Trajanus EI™ for review`);
+            logToTerminal(`Instructions length: ${workspaceState.instructions.length} characters`);
+            
+            chat.innerHTML = `
+                <div style="color: var(--orange-light); font-size: 1rem; margin-bottom: 10px;">
+                    <i class="fas fa-spinner fa-spin"></i> Trajanus EI™ Processing...
+                </div>
+                <div style="color: var(--gray-light); font-size: 0.9rem;">
+                    Analyzing ${selectedFiles.length} document(s)<br>
+                    EI™ integration will be implemented next
+                </div>
+            `;
+            
+            // Placeholder for actual Claude integration
+            setTimeout(() => {
+                status.className = 'claude-status complete';
+                status.textContent = 'COMPLETE';
+                chat.innerHTML = `
+                    <div style="padding: 20px; text-align: left; color: var(--cream);">
+                        <h3 style="color: var(--orange-light); margin-bottom: 15px;">Trajanus EI™ Analysis Results (Demo)</h3>
+                        <p style="margin-bottom: 10px;">Documents reviewed: ${selectedFiles.map(f => f.name).join(', ')}</p>
+                        <p style="margin-bottom: 10px;">Template: ${workspaceState.templateSelection || 'Custom'}</p>
+                        <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 4px; margin-top: 15px;">
+                            <strong>Trajanus EI™ analysis will appear here once integration is complete.</strong>
+                        </div>
+                    </div>
+                `;
+                logToTerminal('Review complete (demo mode)');
+            }, 2000);
+        }
+        
+        function saveSetup() {
+            workspaceState.selectedFiles = selectedFiles;
+            workspaceState.selectedReport = selectedReport;
+            workspaceState.activeColumns = activeColumns;
+            workspaceState.timestamp = new Date().toISOString();
+            
+            const stateJson = JSON.stringify(workspaceState, null, 2);
+            const blob = new Blob([stateJson], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `qcm-workspace-setup-${Date.now()}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            logToTerminal('Workspace setup saved to file (includes column configuration)');
+            alert('Workspace setup saved successfully!\n\nIncludes:\n- Selected files\n- Instructions\n- Template selection\n- Report template\n- Column configuration');
+        }
+        
+        function loadSetup() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = e => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = event => {
+                    try {
+                        const loadedState = JSON.parse(event.target.result);
+                        workspaceState = loadedState;
+                        selectedFiles = loadedState.selectedFiles || [];
+                        selectedReport = loadedState.selectedReport || null;
+                        activeColumns = loadedState.activeColumns || ['browser', 'instructions', 'selected', 'reports', 'ei'];
+                        
+                        document.getElementById('instructions').value = loadedState.instructions || '';
+                        document.getElementById('templateSelect').value = loadedState.templateSelection || '';
+                        charCount.textContent = (loadedState.instructions || '').length;
+                        
+                        // Restore report selection
+                        if (selectedReport) {
+                            document.querySelectorAll('.report-item').forEach(item => {
+                                if (item.getAttribute('onclick').includes(selectedReport)) {
+                                    item.classList.add('selected');
+                                }
+                            });
+                        }
+                        
+                        updateSelectedFilesDisplay();
+                        updateSelectedCount();
+                        logToTerminal('Workspace setup loaded successfully (including column configuration)');
+                        alert('Workspace setup loaded!\n\nNote: Column changes require page reload to take effect.');
+                    } catch (err) {
+                        logToTerminal('ERROR: Failed to load workspace setup');
+                        alert('Error loading setup file');
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+        
+        function clearWorkspace() {
+            if (confirm('Clear all workspace data? This cannot be undone.')) {
+                selectedFiles = [];
+                selectedReport = null;
+                workspaceState = {
+                    selectedFiles: [],
+                    instructions: '',
+                    templateSelection: '',
+                    selectedReport: null,
+                    activeColumns: activeColumns,
+                    timestamp: null
+                };
+                document.getElementById('instructions').value = '';
+                document.getElementById('templateSelect').value = '';
+                document.getElementById('charCount').textContent = '0';
+                document.getElementById('claudeStatus').className = 'claude-status waiting';
+                document.getElementById('claudeStatus').textContent = 'WAITING';
+                document.getElementById('claudeChat').innerHTML = `
+                    <div class="claude-placeholder">
+                        <i class="fas fa-robot"></i>
+                        <div style="font-size: 1.1rem; color: var(--orange-light); font-weight: 500; margin-bottom: 10px;">
+                            Trajanus EI™ Interface
+                        </div>
+                        <div style="font-size: 0.9rem; color: #fff; line-height: 1.6;">
+                            Select documents and add review instructions, then click<br>
+                            <strong>"Submit to Trajanus EI™ for Review"</strong><br>
+                            to see detailed analysis results here.
+                        </div>
+                    </div>
+                `;
+                // Clear report selection
+                document.querySelectorAll('.report-item').forEach(item => {
+                    item.classList.remove('selected');
+                });
+                updateSelectedFilesDisplay();
+                updateSelectedCount();
+                logToTerminal('Workspace cleared (report selection reset)');
+            }
+        }
+        
+        // Demo: Add some sample files on load for testing
+        window.addEventListener('load', function() {
+            logToTerminal('QCM Toolkit Workspace initialized');
+            logToTerminal('Ready for document review');
+            
+            // Demo files for testing
+            addFileToSelection('Shop_Drawing_001.pdf', 2.3 * 1024 * 1024);
+            addFileToSelection('Product_Data_Spec.pdf', 1.1 * 1024 * 1024);
+            addFileToSelection('Structural_Calcs.pdf', 3.7 * 1024 * 1024);
+            
+            // Add script button event listeners
+            document.querySelectorAll('.script-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const btnText = this.textContent.trim();
+                    if (btnText === 'Load Template') loadTemplate();
+                    else if (btnText === 'Compliance Check') runComplianceCheck();
+                    else if (btnText === 'Generate Register') generateRegister();
+                    else if (btnText === 'Batch Rename') batchRename();
+                    else if (btnText === 'Export Config') exportConfig();
+                    else if (btnText === 'Add Column') addColumn();
+                    else if (btnText === 'Remove Column') removeColumn();
+                });
+            });
+        });
+        
+        // Script Button Functions
+        function loadTemplate() {
+            const templates = {
+                'shop-drawing': `Review the selected shop drawings for:
+1. Compliance with contract specifications (Section [XX])
+2. Dimensional accuracy per drawing requirements
+3. Material specifications and manufacturer approvals
+4. Fabrication and installation details
+5. Connection details and structural coordination
+6. Any deviations from contract requirements
+
+Provide specific references to spec sections and drawing numbers.`,
+                'product-data': `Review the submitted product data for:
+1. Manufacturer on approved list
+2. Product specifications match contract requirements
+3. Performance criteria and testing data included
+4. Required certifications and warranties provided
+5. Installation instructions and maintenance requirements
+6. Color/finish samples if applicable
+
+Reference applicable specification sections.`,
+                'spec-compliance': `Review for specification compliance:
+1. Verify all specified requirements are met
+2. Check material standards and grades
+3. Confirm testing and quality control procedures
+4. Review installation and workmanship standards
+5. Verify warranty and maintenance requirements
+6. Note any substitutions or deviations
+
+Cite specific specification section numbers.`,
+                'structural': `Structural review checklist:
+1. Load calculations and design criteria
+2. Material specifications and grades
+3. Connection details and fastener specifications
+4. Welding procedures and inspection requirements
+5. Coordination with architectural and MEP drawings
+6. Code compliance verification
+
+Reference applicable building codes and standards.`,
+                'mep': `MEP Coordination review:
+1. Equipment specifications and performance data
+2. Spatial coordination with structure and architecture
+3. Utility connections and service requirements
+4. Control systems and integration requirements
+5. Access and maintenance clearances
+6. Energy efficiency and code compliance
+
+Note any coordination issues or conflicts.`
+            };
+            
+            const selected = document.getElementById('templateSelect').value;
+            const instructions = document.getElementById('instructions');
+            
+            if (selected && templates[selected]) {
+                instructions.value = templates[selected];
+                document.getElementById('charCount').textContent = instructions.value.length;
+                workspaceState.instructions = instructions.value;
+                logToTerminal(`Loaded template: ${selected}`);
+            } else {
+                alert('Please select a template from the dropdown first');
+                logToTerminal('ERROR: No template selected');
+            }
+        }
+        
+        function runComplianceCheck() {
+            if (selectedFiles.length === 0) {
+                alert('Please select files before running compliance check');
+                logToTerminal('ERROR: No files selected for compliance check');
+                return;
+            }
+            
+            logToTerminal('Running compliance check...');
+            logToTerminal(`Checking ${selectedFiles.length} files`);
+            
+            // Simulate compliance check
+            setTimeout(() => {
+                const results = selectedFiles.map(file => ({
+                    name: file.name,
+                    status: Math.random() > 0.3 ? 'PASS' : 'REVIEW REQUIRED'
+                }));
+                
+                let report = 'COMPLIANCE CHECK RESULTS:\n\n';
+                results.forEach(r => {
+                    report += `${r.name}: ${r.status}\n`;
+                    logToTerminal(`${r.name}: ${r.status}`);
+                });
+                
+                alert(report);
+                logToTerminal('Compliance check complete');
+            }, 1000);
+        }
+        
+        function generateRegister() {
+            if (selectedFiles.length === 0) {
+                alert('Please select files before generating register');
+                logToTerminal('ERROR: No files selected for register');
+                return;
+            }
+            
+            logToTerminal('Generating submittal register...');
+            
+            // Create CSV register
+            let csv = 'Submittal Number,Document Name,File Size (MB),Date Added,Status\n';
+            selectedFiles.forEach((file, index) => {
+                const submittalNum = `S-${String(index + 1).padStart(3, '0')}`;
+                const size = (file.size / 1024 / 1024).toFixed(2);
+                const date = new Date().toLocaleDateString();
+                csv += `${submittalNum},"${file.name}",${size},${date},Pending Review\n`;
+            });
+            
+            // Download CSV
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Submittal_Register_${Date.now()}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            logToTerminal(`Generated register with ${selectedFiles.length} items`);
+            alert(`Submittal register generated with ${selectedFiles.length} items`);
+        }
+        
+        function batchRename() {
+            if (selectedFiles.length === 0) {
+                alert('Please select files before batch renaming');
+                logToTerminal('ERROR: No files selected for batch rename');
+                return;
+            }
+            
+            const prefix = prompt('Enter prefix for batch rename:', 'QCM-SUB-');
+            if (!prefix) {
+                logToTerminal('Batch rename cancelled');
+                return;
+            }
+            
+            logToTerminal(`Batch renaming ${selectedFiles.length} files...`);
+            
+            selectedFiles.forEach((file, index) => {
+                const newName = `${prefix}${String(index + 1).padStart(3, '0')}_${file.name}`;
+                logToTerminal(`Rename: ${file.name} → ${newName}`);
+            });
+            
+            alert(`Batch rename complete!\n\nPreview:\n${selectedFiles[0].name}\n  → ${prefix}001_${selectedFiles[0].name}\n\nCheck terminal for full list.`);
+            logToTerminal('Batch rename complete (demo mode - actual files not modified)');
+        }
+        
+        function exportConfig() {
+            const config = {
+                workspace: 'QCM Toolkit',
+                version: '2.0.0',
+                timestamp: new Date().toISOString(),
+                selectedFiles: selectedFiles,
+                instructions: workspaceState.instructions,
+                templateSelection: workspaceState.templateSelection,
+                selectedReport: selectedReport,
+                activeColumns: activeColumns,
+                settings: {
+                    browserMode: browserMode,
+                    fileCount: selectedFiles.length
+                }
+            };
+            
+            const json = JSON.stringify(config, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `QCM_Config_${Date.now()}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            logToTerminal('Configuration exported successfully (includes column layout)');
+            alert('Workspace configuration exported!');
+        }
+        
+        // Report Template Selection
+        function selectReport(reportType) {
+            // Remove selection from all report items
+            document.querySelectorAll('.report-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            // Add selection to clicked item
+            event.target.classList.add('selected');
+            selectedReport = reportType;
+            workspaceState.selectedReport = reportType;
+            
+            const reportNames = {
+                'qcm-submittal': 'Submittal Review Report',
+                'qcm-inspection': 'Daily Inspection Report',
+                'qcm-deficiency': 'Deficiency Log',
+                'qcm-material': 'Material Testing Report',
+                'progress-weekly': 'Weekly Progress Report',
+                'progress-monthly': 'Monthly Status Report',
+                'progress-milestone': 'Milestone Completion',
+                'compliance-rfi': 'RFI Response',
+                'compliance-change': 'Change Order Summary',
+                'compliance-close': 'Closeout Documentation'
+            };
+            
+            logToTerminal(`Selected report template: ${reportNames[reportType]}`);
+        }
+        
+        // Column Management
+        function addColumn() {
+            const availableColumns = {
+                'browser': 'Document Browser',
+                'instructions': 'Review Instructions',
+                'selected': 'Selected Documents',
+                'reports': 'Report Templates',
+                'schedule': 'Schedule Analysis',
+                'budget': 'Budget Tracking',
+                'safety': 'Safety Compliance',
+                'ei': 'Trajanus EI™'
+            };
+            
+            // Get columns not currently active
+            const inactive = Object.keys(availableColumns).filter(col => !activeColumns.includes(col));
+            
+            if (inactive.length === 0) {
+                alert('All available columns are already active');
+                logToTerminal('ERROR: No columns available to add');
+                return;
+            }
+            
+            let options = 'Select column to add:\n\n';
+            inactive.forEach((col, i) => {
+                options += `${i + 1}. ${availableColumns[col]}\n`;
+            });
+            
+            const choice = prompt(options + '\nEnter number:');
+            const index = parseInt(choice) - 1;
+            
+            if (index >= 0 && index < inactive.length) {
+                const colToAdd = inactive[index];
+                activeColumns.push(colToAdd);
+                workspaceState.activeColumns = activeColumns;
+                logToTerminal(`Added column: ${availableColumns[colToAdd]}`);
+                alert(`Column "${availableColumns[colToAdd]}" will be added.\n\nNote: Save this setup and reload to see changes.`);
+            } else {
+                logToTerminal('Column add cancelled');
+            }
+        }
+        
+        function removeColumn() {
+            if (activeColumns.length <= 2) {
+                alert('Cannot remove - minimum 2 columns required');
+                logToTerminal('ERROR: Minimum column count reached');
+                return;
+            }
+            
+            const columnNames = {
+                'browser': 'Document Browser',
+                'instructions': 'Review Instructions',
+                'selected': 'Selected Documents',
+                'reports': 'Report Templates',
+                'schedule': 'Schedule Analysis',
+                'budget': 'Budget Tracking',
+                'safety': 'Safety Compliance',
+                'ei': 'Trajanus EI™'
+            };
+            
+            let options = 'Select column to remove:\n\n';
+            activeColumns.forEach((col, i) => {
+                options += `${i + 1}. ${columnNames[col]}\n`;
+            });
+            
+            const choice = prompt(options + '\nEnter number:');
+            const index = parseInt(choice) - 1;
+            
+            if (index >= 0 && index < activeColumns.length) {
+                const colToRemove = activeColumns[index];
+                activeColumns.splice(index, 1);
+                workspaceState.activeColumns = activeColumns;
+                logToTerminal(`Removed column: ${columnNames[colToRemove]}`);
+                alert(`Column "${columnNames[colToRemove]}" will be removed.\n\nNote: Save this setup and reload to see changes.`);
+            } else {
+                logToTerminal('Column remove cancelled');
+            }
+        }
+    </script>
+</body>
+</html>

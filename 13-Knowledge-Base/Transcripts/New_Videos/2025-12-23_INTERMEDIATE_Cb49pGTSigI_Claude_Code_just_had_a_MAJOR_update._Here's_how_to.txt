@@ -1,0 +1,436 @@
+Title: Claude Code just had a MAJOR update. Here's how to use it.
+Channel: Alex Finn
+Video ID: Cb49pGTSigI
+URL: https://www.youtube.com/watch?v=Cb49pGTSigI
+Duration: 14:27
+Level: INTERMEDIATE
+Ingested: 2025-12-23
+Source: yt-dlp Auto-Generated Captions
+==============================================================================
+
+WEBVTT
+Kind: captions
+Language: en
+Over the past month, Anthropic has
+released a ton of secret updates to
+Claude Code that you would only find out
+about if you were following specific
+Twitter accounts. In this video, I'm
+going to go over all those secret
+updates that you probably missed that
+will completely change how you use
+Claude Code and make it way better. If
+you use Claude Code, this is going to be
+the most important video you watch this
+month. I promise you whether you're a
+beginner or a pro, you will be using
+Claude Code completely differently after
+these 10 updates. Let's get into it. So,
+this one is a great one and that is the
+ability to resume past Claude Code
+sessions. If you're anything like me,
+you've had tons of conversations with
+Claude Code that has context you don't
+want to miss out on. You reset your
+computer and all that context
+disappears. Well, no more. If you type
+into your terminal claude dashres,
+hit enter, it will bring up all your
+past sessions you had with Claude Code
+for the project you're working on. So,
+for the sake of demonstration this
+video, I'm going to show you this
+project management tool I'm building out
+right now that helps you manage all my
+projects in Claude Code. So, I have all
+my past sessions here that I've had with
+Claude. So, what I'm going to do is I'm
+going to hit resume on my past session.
+And all the context I had and all the
+conversation I had from that session is
+now completely resumed. So, now I don't
+have to go back and fill in clawed code
+with all the past context every time I
+reset my computer or my Visual Studio
+Code. This is massive and this is going
+to make it so much easier to get back
+into past conversations you have and not
+miss out on any of the context you had
+before. I put the command to resume your
+sessions down below in the description.
+All the commands and all the changes I
+go over will be down in the description
+below. So, feel free to pause and copy
+and paste that into like your Apple
+notes. Okay. So, say we resumed our past
+session and there's a ton of context in
+there. When you get a lot of context
+into Claude code and starts filling up
+your window, it actually can make Claude
+hallucinate a lot more than it does
+before. I hear a lot of people on X
+complain right now, oh, Claude's getting
+worse. No, that's a skill issue. they're
+just not managing their context well.
+But how do you manage your context
+better if you start seeing worse
+performance with claude? What you want
+to do is use their brand new slash
+command slashcontext. This is going to
+help you visualize what is currently in
+your context right now. So I'm going to
+run that and again slashcontext I'll put
+down below and you'll be able to see
+here now in this really nice
+visualization what is taking up your
+entire context window. So you can see
+here the system prompt is taking up a
+good amount of context. That's because I
+have a ton of clawed rules. All the
+tools we're using, the messages we've
+done so far. This is actually taking up
+the most context with 32% is the past
+messages. So, if I wanted to free up
+context right now, I would just go in
+here and I would do slashclear. And that
+would clear the message history since
+right now it's taking up the most
+context. So, if you start to see
+degraded performance in Claude, do
+slashcontext. See what's taking up all
+the space. Maybe it's your system
+message. Maybe it's your past messages
+in the conversation and then you can
+take care of it from there. If it's the
+past messages, just do slash clear just
+like I did here. Which takes me to the
+next big update that they released in
+the last few weeks and that is slash
+stats. It's another brand new slash
+command. So, one of the biggest
+complaints I hear about Claude as well
+is people don't know how many tokens
+they've used up at their plan. Are they
+getting to the end of their plan? Are
+they going to have to upgrade to a more
+expensive plan? Well, now you'll be able
+to see exactly how much usage you've had
+in your plan. If you do slashstats, it
+will show you all your usage for that
+time period. You can see all your
+interesting stats here. How many tokens
+you've used, so are you getting to your
+limit on tokens, your streaks, how many
+sessions you've had, your active days,
+your peak hours. You can even hit tab
+and see the different models you've been
+using. As you can see, once Opus
+dropped, it was game over. I was using
+Opus tremendously more. So you can see a
+lot of your usage here, how many tokens
+you've used and if you're getting up to
+your current limits and if you need to
+upgrade or not. Slash stats, keep tabs
+on that. It's also just fun to see your
+numbers and see how much you're using
+Claude and which models you're using. If
+you run slash stats right now, let me
+know down below what your usage looks
+like. How many days in a row have you
+used Claude Code? I'd be really curious
+to see. So a second ago, we were talking
+about resuming sessions. This is
+something you need to be doing often
+because if you're anything like me,
+you're also doing multiple sessions at
+once. I like to have multiple claude
+codes open so I can work on different
+features at the same time. Well, one
+really awesome thing they just added in
+their recent holiday updates is the
+ability to actually name sessions so
+that when you resume old sessions, like
+I showed you at the beginning of this
+video, you can see very clearly what you
+were doing in each session because you
+can give it those custom names. All you
+need to do to name your sessions is do
+slash rename and then give it a name for
+your session. So for this one, I was
+working on the cananban board of our
+project management. So I'm going to call
+it cananban and I'm going to hit enter.
+And now our session is now called
+cananban. So if I go to a new terminal
+here and I do claude slashres
+and hit enter, we can see our new name
+session canband that we were using just
+a second ago with all 246 messages. So,
+this is really important to do if you're
+doing multiple sessions, which I think
+you should be doing. When you're waiting
+for one session to build out a feature,
+it's really good not to get distracted,
+not to look at Tik Tok. Open up another
+session, start working on another
+feature. Make sure to give it its own
+name with slashreame. And again, all
+these slash commands, all these updates
+down below in the description so you
+don't have to forget any of these. The
+next update they made is great if you
+often make mistakes when working with
+cloud code. This is something I do a
+lot. I do a lot of experimentation. I
+have a change around features to see how
+it works and sometimes I mess up and I
+give it a bad command. So, for instance,
+in this project management tool, I want
+to experiment with the colors and notes.
+I made it blue. I don't like the blue.
+It's not really standing out against the
+black background. So, let's rewind this.
+In a brand new update to Claude Code
+they just released, you can now rewind
+super easily any changes you made that
+were mistakes. You do this by hitting
+escape twice. Double escape and it goes
+back and it gives you these rewind
+options. And what I can do is I can go
+back and I can say rewind to the rename
+canban which was one step before the
+changing of the colors of the notes. I'm
+going to hit enter on that and I'm going
+to say restore the code and the
+conversation. So it's going to forget
+any of the conversation after and it's
+going to restore all the code and I'm
+going to hit enter and boom just like
+that we are back and it's at the rename
+canban and I can hit enter on that and
+we are back to that one step before
+changing all the colors to blue. This is
+amazing. If you make mistakes often, if
+you experiment, you should be
+experimenting a ton ever since they
+released this double escape feature.
+It's given me a lot more freedom to try
+new things. So, double escape, an
+awesome way to rewind if you make any
+mistakes at all. The next update is a
+big one and it brings back a much loved
+feature that's kind of been experimented
+with, taken out, put back in. Well, it's
+fully back. Ultra Think is totally back
+into Claude Code and you need to be
+using it. What Ultra Think is is the
+ability to force Claude code to work
+extra hard on tough problems. And I've
+been using this a lot and let me tell
+you, you get way better results when
+using Ultra Think. So, as you can see
+here, I want to add a calendar to our
+app. I want it to be beautiful. I want
+Claude to work extra hard on it. So, I
+said add a beautiful calendar section to
+our app using the design skill. Ultra
+think about this. And for the record, if
+you don't have the design skill yet,
+I'll put a link down below. You need to
+install the Claw design skill. I'm
+thinking about doing an entire video
+dedicated to Claude skills. If you want
+that, let me know down in the replies as
+well. But the key here is I said Ultra
+Think and as you can see, they put it in
+like the rainbow colors. All you need to
+do in any of your messages is type the
+term Ultraink and it will force Claude
+Code to think very very hard about what
+it's doing and put more effort in the
+creation. Hitting enter on that will
+start the process and it is going to
+make sure that this calendar looks way
+better than it would before. I wouldn't
+use ultrathink on every single prompt
+you do. It's going to take a lot longer
+and you're probably going to burn a lot
+more tokens than you need to. But any
+prompts you give where you're doing a
+complex task or you're solving a complex
+bug, I would 100% use Ultraink because
+you're going to get noticeably better
+results. This is a really good feature
+to use when you're kind of building out
+the base of your app after the first
+planning phase because you're going to
+get a way better base to your app. Use
+Ultra Think again down below in
+description. The next big feature they
+released over these last few weeks that
+I absolutely loved is the ability to
+create custom memories. So before
+anytime you wanted Claude to remember
+something, you had to go into your
+Clawude rules and put it there. But that
+could be challenging at times. I don't
+always remember to put things into
+Claude rules or claude rules can get
+very crowded and disorganized if you're
+adding a ton in there. So what I like to
+do when I have small things I want
+Claude to remember in its process is to
+create custom memories for it. So for
+instance, I want Claude to use the
+design skill anytime it changes the UI.
+And I wanted to remember that for the
+rest of time that I'm working on this
+app. So what you want to do to create
+custom memories for Claude is you're
+going to do the hashtag which changes
+you to memory mode. So you can say add
+to memory and then we're going to say
+always use the design skill when
+changing the UI. And then I'm going to
+hit enter. And now it's going to
+memorize this. I want to put it into the
+project memory. So you can do user
+memory or project memory. I want it to
+remember it just for this project. I'm
+going to hit enter there. And now
+anytime we change the UI in this
+project, it is going to use that design
+skill. I actually highly recommend you
+copy exactly what I just did. Now, go
+pause this video, go into Claude Code,
+do hashtag, and then type in use the
+design skill anytime you change the UI
+because the design skill is so freaking
+good. It's going to make your app look
+so much better. So, custom memories.
+Anytime you want Claude to remember
+something that does every single time in
+its process, make sure to use custom
+memories. I highly recommend you do the
+design skill memory I just did and you
+can use it moving forward. This next
+update is a tip for the risktakers out
+there, but this is putting Claude into
+YOLO mode. This is the mode it goes into
+when you don't want to ask you for
+permission anymore. I'm going to be
+completely honest with you. Claude for
+me hasn't made mistakes in months. And I
+know that might sound crazy, but when
+you get so used to Claude code that you
+know how it works, you know how it
+operates, you know how to talk to it,
+you really don't mess up with anymore.
+Opus 45 has gotten so smart. I don't
+mess up. So, I like to use yolo mode.
+And the way to do that is you put in
+this command claude-dangerously
+skip permissions. And then you hit enter
+on that. And that's going to put Claude
+in yolo mode. I'm going to hit accept on
+this. I would only recommend using this.
+If you are super used to claude codes,
+if you're on the pro side of Claude
+code, I would do this. This saves me a
+ton of time. I like to give Claude
+longunning tasks where I can hit enter
+and walk away and I don't have to keep
+hitting accept except accept over and
+over again. This allows me to just do
+that and treat Claude as an independent
+employee. I put the command down below.
+If you're Claude pro, copy that. If
+you're an amateur or you're a beginner,
+I'd say spend a month or two getting
+used to Opus and how it works and the
+right prompts to give it. And then when
+you're comfortable, you can use this
+command. I'll put that down below.
+Claude yolo mode. Really, really helpful
+for saving time. The next big update,
+and this is a huge one, basically adds
+an entire app store to Claude Code, is
+slashplugins. If you do slashplugins,
+hit enter. You now have an entire
+basically store of skills and plugins
+and MCPs you can put right into Claude
+Code very, very easily. I would highly
+recommend if you haven't yet, go in
+here, do slashplugins, and go down to
+front-end design. This is the plugin you
+need if you're building any sort of app.
+my UIs with my apps I built are a
+thousand times better because of this
+skill. So if you haven't installed this
+yet, do slashplugins, go and discover,
+go down to front-end design and install
+that. But there's so many other ones. If
+you use GitHub a ton, if you use any of
+these others, Figma, linear, notion, you
+have a ton of plugins and MCPs you can
+get installed with one click that will
+make it so much easier to work between
+all your different tools. I couldn't
+recommend enough. check out the plug-in
+store and see if you use any of these
+integrations inside the plug-in store.
+At the very least, get the front-end
+design skill installed. The last update
+we'll go over here is saving your
+prompts. If you're anything like me, you
+come up with an idea, you write a prompt
+out, and then right before you hit
+enter, you realize you need to do
+something else right before you send
+that prompt, and you sit there and you
+hold backspace for five minutes while it
+deletes your prompt. You don't have to
+do that anymore. Say you write out a
+prompt. I want you to build out a
+calendar and I realize I need to do
+something else first. You can now hit
+CtrlS. That will stash your prompt. And
+now after I say something like add a
+light mode to the app and hit enter, it
+will take my stash prompt and put it
+back into the line here so I can send it
+after. No more sitting there and hitting
+backspace for five minutes at a time to
+get rid of your prompts. Now you can
+just stash your prompt, go in, write
+whatever else you need to do, and then
+your stash prompt will then
+automatically be placed inside your
+command line so you can use it again.
+This has saved me so much time. I will
+put that down below as well. S to stash
+your prompt. Those were the big changes
+from the last month and they're adding a
+ton more as we speak. They've been
+adding new ones every single day. I'm
+going to keep an eye on them. I'm going
+to create more follow-up videos over the
+next few weeks going over all the
+additional changes they're coming out
+with. Make sure to stay on top of this
+by subscribing, turning on
+notifications, and leaving a like down
+below. I also live stream Monday,
+Wednesday, Friday at 11:00 a.m. Pacific
+Standard Time. If you want to see me
+build apps out in real time with Claude
+Code as well, so appreciative you watch
+the video. Let me know in the replies
+which of these updates will be the most
+helpful for you. I'm curious which ones
+you're going to use. Thank you so much
+for watching the channel. Every single
+view and like and all that means the
+world to me. It's an honor to be
+creating you educational content. I will
+see you in the next

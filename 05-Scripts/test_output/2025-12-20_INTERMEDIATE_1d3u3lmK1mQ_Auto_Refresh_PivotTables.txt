@@ -1,0 +1,242 @@
+Title: Auto Refresh PivotTables & Queries - without VBA!
+Channel: MyOnlineTrainingHub
+Video ID: 1d3u3lmK1mQ
+URL: https://www.youtube.com/watch?v=1d3u3lmK1mQ
+Duration: 9:36
+Level: INTERMEDIATE
+Application: Excel
+Topics: Auto Refresh, PivotTables, Power Query, Power Pivot, Data Model, VBA, Connection Properties, Refresh Interval, Query Properties, External Data
+Ingested: 2025-12-20
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 in this tutorial we're going to look at
+0:01 the options we have available to Auto
+0:04 refresh pivot tables in Excel without
+0:06 using VBA now the process differs
+0:09 depending on whether you use power query
+0:11 to get the data or not beware though
+0:14 because not all pivot tables based on
+0:16 power query data will Auto refresh and
+0:19 I'll show you what prevents it and a
+0:20 common mistake to avoid I'll also show
+0:23 you the VBA method required for regular
+0:25 pivot tables in this first scenario
+0:28 we're going to use power query to get
+0:30 the data and either load it to the power
+0:32 pivot data model or direct to a pivot
+0:34 table for example I'm going to grab this
+0:37 data so on the data tab from sheet put
+0:40 it into Power query we'll call this PQ
+0:44 to PP so it's going from Power query to
+0:46 power pivot and I'm going to close and
+0:49 load
+0:50 two and in here I just want to create a
+0:52 connection and add it to the data model
+0:56 so now my data is in power pivot I can
+0:59 insert a pivot table from the data model
+1:03 we pop it on this
+1:04 worksheet and I just want to look at the
+1:07 category and
+1:09 sales now with the cell in the pivot
+1:11 table selected open the data Tab and
+1:14 then choose properties if that button
+1:17 does nothing then right click on the
+1:19 query in the query Pane and open
+1:21 properties from there and you can see
+1:24 here I have the option to refresh it as
+1:26 frequently as every minute and or
+1:29 refresh it when I open the file I'll
+1:32 just cancel that cuz that will drive me
+1:34 crazy refreshing every minute the next
+1:37 example I want to show you is that in
+1:39 later versions of excel you can load
+1:41 direct from Power query to a pivot table
+1:44 or pivot chart and this loads the data
+1:46 into the pivot table cache and that
+1:48 allows you to build regular pivot tables
+1:50 as opposed to loading the data to the
+1:52 power pivot data model so let's get the
+1:55 data with power
+1:57 query this is going to be power query to
+2:00 pivot table and I want to close and load
+2:03 to and you can see in this dialogue box
+2:06 I can choose pivot table report or pivot
+2:08 chart now this dialog box is only
+2:11 available in later versions of excel so
+2:13 if you don't see these options then you
+2:15 can't activate it I'm sorry I'm going to
+2:17 load it to a pivot table report and
+2:19 we'll put it on a new
+2:20 worksheet so again we'll look at
+2:22 category
+2:24 sales and then on the data tab you can
+2:26 try the properties button in this case
+2:28 it works notice it's opening the query
+2:31 properties again I can set the refresh
+2:33 interval and refresh data when opening
+2:36 the
+2:37 file the next scenario is where you get
+2:40 data with power query and load it to a
+2:42 table in the Excel file and then from
+2:44 there you create a pivot table so let's
+2:46 do that we'll get the data with the
+2:48 power query so this is going from Power
+2:50 query to a table to a pivot
+2:54 table close and load two this time we're
+2:58 putting it in a table file first and
+3:00 we'll put it on a new
+3:01 worksheet and then from here I can
+3:03 summarize with pivot table so it's
+3:05 reading the data in the table we'll put
+3:08 it on this
+3:10 sheet again sales by
+3:13 category so now I have my pivot table
+3:16 selected on the data tab of the ribbon
+3:18 properties is grayed out but I can
+3:21 rightclick on the query and open the
+3:24 properties and again I've got the
+3:26 refresh options however in this case
+3:30 this is only going to refresh the query
+3:33 which will in turn update the table but
+3:35 it won't update the pivot
+3:40 table now another problem with creating
+3:43 pivot tables from queries loaded to
+3:45 tables like this is that when you use
+3:47 refresh all on the data tab to refresh
+3:49 both queries and pivot tables the pivot
+3:52 table refreshes before the query has had
+3:54 time to load the updated data into the
+3:56 table this means you have to refresh all
+3:59 twice once for the queries to update the
+4:01 tables and then again for the pivot
+4:03 tables to get the updated data so the
+4:06 bottom line is you should avoid loading
+4:09 data to a table that you want to use in
+4:11 a pivot table instead load it direct to
+4:14 the pivot table or pivot chart if you
+4:16 have that option in your version of
+4:19 excel now best practice is to import
+4:22 data to power pivot via power query but
+4:26 since Excel allows you to import the
+4:28 data direct to power pivot we'll look at
+4:30 that next I have my data here I can go
+4:33 to the power pivot Tab and add it
+4:35 directly to the data model alternatively
+4:38 I can insert a pivot table and here I
+4:41 can choose to add this to the data model
+4:44 let's pop the pivot table on this
+4:46 worksheet and we'll bring the field list
+4:49 over close to the pivot table again
+4:51 we'll look at sales by category so my
+4:54 data is loaded into the power pivot data
+4:56 model that means this pivot table is a
+4:58 power pivot pivot table table when I go
+5:00 to the data Tab and open the queries and
+5:03 connections you can see I've got two
+5:05 here one for the data model and one for
+5:08 the connection to the source data so
+5:10 with the cell in the pivot table
+5:12 selected I can open the properties
+5:14 notice that it brings up connection
+5:16 properties rather than query properties
+5:19 and here I can set the refresh interval
+5:21 or refresh data when opening the
+5:25 file the next scenario is where you
+5:27 connect a regular pivot table direct to
+5:30 Source data that's external to your
+5:32 pivot table file it could be another
+5:34 Excel workbook CSV or text files or even
+5:37 a database for example on the insert tab
+5:40 I can go pivot table from external data
+5:43 source and in here I can choose a
+5:46 connection so I can select one of the
+5:48 ones I've used before or browse to
+5:51 more here I'm going to choose an access
+5:54 database and I'm going to analyze the
+5:56 data in the orders table put it on this
+6:00 worksheet and we'll look
+6:04 at ship mode and shipping amount so
+6:08 there's my pivot table if we go to the
+6:10 data Tab and we look at properties you
+6:14 can see it brings up the connection
+6:15 properties dialog box and again I can
+6:17 set my refresh interval and or have it
+6:20 refresh when I open the file now this
+6:24 technique is only suitable for data
+6:26 that's already in the perfect tabular
+6:28 format as you'd find in an access
+6:30 database if you need to clean and
+6:32 transform your data then you should use
+6:33 power query to get the data first so
+6:37 that wraps up the built-in Auto refresh
+6:39 options we have for pivot tables just be
+6:42 careful because each time the auto
+6:44 refresh triggers Excel becomes
+6:46 temporarily unresponsive and it takes
+6:48 Focus away from the cell or object that
+6:50 you're working on and this can be super
+6:52 annoying if you're entering data or
+6:54 making other changes to your file when
+6:56 the refresh triggers so don't get
+6:58 carried away set the refresh frequency
+7:00 to twoo
+7:01 often now what happens if you haven't
+7:05 used power query or power pivot instead
+7:08 you've built a regular pivot table Based
+7:10 on data in the current file as is often
+7:12 the case where your Source data is
+7:13 regularly updated by users entering data
+7:17 well in this scenario you can use VBA to
+7:19 automatically refresh pivot tables in
+7:22 the file when the user moves away from
+7:24 the source data sheet to any other sheet
+7:26 in the file the Assumption here is that
+7:28 the pivot tables would need refreshing
+7:30 when that user deselects The Source data
+7:32 sheet because it's possible they change
+7:34 something in the source data so let's
+7:37 create a pivot table from this
+7:41 data we'll pop it on sheet one
+7:45 here and again we'll look
+7:49 at sales by category so there's our
+7:52 pivot table it's connected to this
+7:54 Source data sheet on this sheet here
+7:56 I've got some notes which contains the
+7:58 VBA code there are two pieces that you
+8:00 need the first part is specific to the
+8:03 sheet containing your data so I'm just
+8:05 going to select and contrl C to copy the
+8:07 code and then on the developer tab I can
+8:10 open the Visual Basic editor or use
+8:12 keyboard shortcut alt f11 now this code
+8:16 goes in the module for the sheet that
+8:18 contains your Source data so double
+8:20 click that contrl V to paste it in let's
+8:23 go back and the next piece of code
+8:26 refreshes all pivot tables in the file
+8:28 so control to copy that back to the
+8:31 Visual Basic editor this code goes in
+8:34 this workbook so I'll paste it in there
+8:38 let's close the Visual Basic editor now
+8:41 you need to save the file as a xlsm so
+8:44 that the VBA is saved in the file so
+8:46 let's do that F12 to save
+8:49 as change the file type to macro enable
+8:54 workbook and save now what will happen
+8:57 is when I change something in here so
+8:59 let's make this 5,000 so this is in the
+9:01 category called components when I click
+9:03 on sheet one which contains my pivot
+9:05 table you see in a blink of an eye the
+9:08 pivot table has
+9:12 updated I hope you found these
+9:14 techniques useful you can download the
+9:16 file for this lesson containing the VBA
+9:18 from the link here and if you like this
+9:21 video please give it a thumbs up and
+9:23 subscribe to our channel for more and
+9:25 why not share it with your friends who
+9:27 might also find it useful thanks for
+9:30 [Music]
+9:35 watching

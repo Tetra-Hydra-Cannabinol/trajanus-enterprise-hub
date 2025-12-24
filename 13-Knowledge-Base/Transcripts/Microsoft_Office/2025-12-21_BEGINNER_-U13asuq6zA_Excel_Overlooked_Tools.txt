@@ -1,0 +1,268 @@
+Title: 5 Excel Tools Most Users Never Think to Use (Files Included)
+Channel: MyOnlineTrainingHub
+Video ID: -U13asuq6zA
+URL: https://www.youtube.com/watch?v=-U13asuq6zA
+Duration: 12:33
+Level: BEGINNER
+Application: Microsoft Excel
+Topics: Group/Ungroup Columns, Data Tab, Paste Special, Multiply Values, Skip Blanks, Clipboard, Windows Clipboard, Very Hidden Sheets, Developer Tab, VBA Properties, Custom Number Formats, Symbols, Conditional Formatting, Icon Sets, Productivity
+Ingested: 2025-12-21
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 What if I told you there are Excel tools
+you're probably not using that could
+0:04 instantly improve your workflow? Hidden
+within Excel, sometimes in plain sight,
+0:09 are game-changing tools that most users
+overlook. Today, I'm going to show you how
+0:13 to master them to transform your productivity.
+Now, my favorite is number three. Don't forget
+0:18 to let me know in the comments which one
+you like the most and how you plan to use
+0:22 it. I've also included the example file, and
+you'll find the link in the video description.
+0:28 If you work with large spreadsheets that are
+particularly wide, you might have a habit of
+0:32 hiding columns so that you have more space
+to work with. But then, if you need them,
+0:37 you have to unhide them and then hide them again,
+and it can become tiresome. A quicker way is to
+0:43 simply select the columns or rows that you want
+to hide, and then on the Data tab of the ribbon,
+0:49 click Group. And now, I've got this group button;
+I can quickly hide and unhide the columns as I
+0:55 need. You can have multiple groups, you can even
+have multiple layers of groups. So, for example,
+1:00 I can group these columns as well, and now I can
+just hide them or I can hide all of them. We also
+1:08 have these buttons on the left here that quickly
+collapse all and expand all buttons, and you
+1:13 can have up to eight groups. Now, if you need to
+ungroup any columns or rows, simply select them,
+1:19 click Ungroup, and again until they're all gone.
+Now, for homework, you can try grouping the rows.
+1:27 Most people use Paste Special
+to paste formulas as values,
+1:30 but there are a load of other super useful tools
+hiding in plain sight in the Paste Special dialog
+1:35 box that you could be missing out on. Here I
+have a series of negative values that I want
+1:40 to convert into positive values. I can do
+it easily enough by adding a formula that
+1:46 multiplies the value by minus one, and then I
+copy it down and then copy that across and paste
+1:53 it as values. But that is a load of work, so the
+quicker way to do it is to type in an empty cell,
+2:00 minus one, copy that cell, select the values,
+paste special, multiply, job done. What if you
+2:11 want to convert these values to percentages?
+Well, we can apply the percentage formatting,
+2:16 but that's usually not what you'd expect, so let's
+undo that. An easy way is to type 1% into a cell,
+2:23 copy that, select the cells, paste special,
+multiply, click OK, and now they're percentages.
+2:33 Here I have a series of values that I
+want to copy across to column H. Now,
+2:37 I could copy them one by one, skipping the cells
+that don't have values, but the quicker way is
+2:44 to select them all, Ctrl+C to copy, select the
+range you want to paste them to, paste special,
+2:52 and then skip blanks, click OK. Now, I can
+clearly see column H is updated without
+2:59 affecting the cells containing blanks that
+were also copied. So, there you have three
+3:04 useful Paste Special tools, but take some
+time to try out the others for homework.
+3:08 The copying and pasting tips don't end there.
+Normally, we copy and paste, then if we perform
+3:13 another action, the clipboard is cleared. But
+there's a little-known way we can store multiple
+3:18 items on the clipboard for pasting whenever we
+need. On the Home tab of the ribbon, we have the
+3:23 Clipboard group of tools with copy, paste, etc.,
+and in the bottom right of this group, we've got
+3:28 an icon that opens the Clipboard. This opens the
+Clipboard in a task pane on the left, and when the
+3:34 Clipboard is open, it keeps a list of up to the
+last 24 items that you've copied or cut. These
+3:41 can be from any app across Windows and include
+text, values, images, etc. It's super handy if
+3:49 you want to repeatedly paste multiple items. So,
+for example, here I might want to put some emojis
+3:55 beside values that I'm happy with and others
+that I'm unhappy with, and I can do that quickly
+4:01 and easily without having to constantly copy and
+paste or insert emojis from somewhere else. Now,
+4:08 you can keep the Clipboard tidy by clicking on the
+drop-down here and deleting any items that you're
+4:13 not going to need to use again. Alternatively, you
+can click Clear All and start from scratch. In the
+4:19 bottom left, we have Options, and here there are
+various settings for how you want to work with
+4:24 the Clipboard, including an option to have it
+open automatically when you press Ctrl+C twice.
+4:31 You'll find this same Clipboard in all Office
+apps, but there's also a Windows Clipboard that's
+4:36 independent. You open it by pressing the Windows
+key and V. This opens a separate task pane that
+4:42 floats above the canvas, and to insert an item,
+simply click on it once and in it goes. However,
+4:49 once you select an item or you click away from
+the Windows Clipboard, it closes. You've got to
+4:54 press Windows+V again to open it, which can be a
+bit of a pain. However, one of the nice features
+4:59 we have with this Clipboard is we can pin an item.
+Now, this doesn't pin it to the top of the list,
+5:05 but it does retain it in the event that you
+clear the Clipboard by pressing Clear All.
+5:09 While we're here, notice we also have symbols,
+and they're grouped into most frequently used,
+5:16 general punctuation, currency symbols, and
+more. We also have kaomojis, GIFs, emojis,
+5:23 and most recently used. Shout out to fellow
+MVP Wyn Hopkins for the Windows+V shortcut that
+5:29 opens this task pane. Now, if you like
+the floating feature of the task pane,
+5:34 you can always left-click and drag the Clipboard
+out, and now it's a floating task pane. The
+5:40 thing I like about this Clipboard is it doesn't
+disappear if you select a cell in the worksheet.
+5:47 We often need to hide sheets in our workbooks
+to keep them tidy by hiding workings and prevent
+5:52 users from accidentally breaking our formulas or
+to keep information confidential. But there's a
+5:58 problem with the way most users hide sheets.
+Let me show you. When you right-click and hide
+6:03 a sheet, it's no longer available to navigate to,
+which is great. However, if you right-click any of
+6:09 the other sheet tabs, you'll notice Unhide is now
+available, and this is like a red rag to a bull as
+6:15 some users will be intrigued to know what you're
+keeping from them, and they can simply click on it
+6:20 and unhide the sheet. Now, you can protect the
+workbook structure. For example, if I hide the
+6:26 sheet and then on the Review tab, I can protect
+the workbook. I can even add a password and click
+6:32 OK, and then if I right-click any sheet tabs,
+both Hide and Unhide are unavailable. But there's
+6:39 another way I prefer to do it, which doesn't alert
+the user to the fact that there's anything hidden.
+6:45 So, let's unhide that and we'll try again. For
+this, you'll need the Developer tab. If you don't
+6:50 see it, right-click, go into Customize the Ribbon,
+and then make sure Developer is selected here
+6:57 and click OK. What we want to do is go into the
+Visual Basic editor. Alternatively, you can press
+7:03 the keyboard shortcut Alt+F11. This opens the
+Visual Basic for Applications task pane. In here,
+7:09 you want to locate the sheet here that you want
+to hide, and then in the Properties pane below,
+7:15 and if you don't see it, go to the View tab and
+choose Properties Window. Then, at the bottom,
+7:21 we're going to change the visibility
+property from Visible to Very Hidden,
+7:27 and if you keep an eye on the sheet down below,
+you'll see it disappears. Now, if we go back to
+7:33 Excel and right-click, you can see Unhide is
+still grayed out, so the users are none the
+7:39 wiser that anything is hidden. Now, to bring the
+sheet back, go back into the Visual Basic editor,
+7:44 select the sheet from the list, click on the
+drop-down, and change it back to Sheet Visible,
+7:50 and now it's back. Of course, none of this
+is entirely secure because Excel sheet and
+7:55 workbook protection can be removed, so don't
+rely on this for super confidential data.
+8:00 When working with data, it can be time-consuming
+to interpret key information in a sea of numbers,
+8:06 and we risk missing key insights. Thankfully,
+Excel has some clever ways we can make our lives
+8:12 easier. Here I've calculated the year-on-year
+percentage change, and while it clearly shows
+8:17 which are positive variances and negative, this
+may not be intuitive for someone who doesn't work
+8:22 in finance. Another way we can visually indicate
+the direction of the change is with symbols. We'll
+8:28 start by selecting an empty cell, and then on the
+Insert tab of the ribbon, click Symbol. Here, make
+8:34 sure Geometric Shapes is selected in the subset,
+and then I'm just going to double-click on the up
+8:40 triangle and the down triangle to insert them. You
+can see them in the cell behind. Click Close. Now,
+8:46 I'm just going to select them and Ctrl+C to copy
+them to my Clipboard. I'm going to escape out of
+8:52 there. What I'm going to do is apply a custom
+number format to these cells. So, Ctrl+1 to
+8:57 open the formatting pane, and then Custom. Up
+here, it's already got Percentage applied, so
+9:04 I'm just going to modify this format. I'm going to
+add a space, Ctrl+V to paste in my symbols. Now,
+9:11 this is my positive percentage, and then I'm going
+to add a semicolon, and that's going to separate
+9:19 it from my negative format, which is going to
+be a percentage with a downward triangle. You
+9:24 can see we get a preview for the first cell, and
+then click OK. Just like that, I now have visual
+9:31 indicators that clearly show whether the change
+is upward or downward. Custom number formats are
+9:37 a vast topic with so many cool things you can do,
+and I've put together a comprehensive guide and
+9:43 cheat sheet that you can download from the link
+in the video description, so be sure to grab that.
+9:48 Another tool we can use to make it quick
+to interpret our data and identify patterns
+9:52 is conditional formatting, and there are loads
+of built-in options for quick results. Taking the
+9:57 previous example, we can make it even quicker
+to interpret by color-coding the variances.
+10:02 I'll start by selecting the cells, then on the
+Home tab of the ribbon, Conditional Formatting,
+10:08 Highlight Cells Rules, Greater Than. For the
+cells greater than zero, I'm going to format
+10:15 with a customized format, which is with a
+font color of this dark green. Click OK,
+10:23 and OK. Let's repeat for the negative variances.
+So, cells that are less than zero. Click on the
+10:33 drop-down, Customize Format, and in here, I'm
+going to go with purple. You could go with the
+10:39 traditional red and green for good and bad, but
+this purple color is more easily accessible for
+10:45 those with color vision deficiencies. Click OK,
+and OK. Now, of course, you could set up a third
+10:51 format for zero values if you want. If I click
+away, you can see with the color coding, it's
+10:58 even faster to interpret and easily pick out the
+negative results that might need our attention.
+11:03 Another way we could visually indicate the
+variances is with conditional formatting icons.
+11:08 I'll select the cells, and then again on the
+Home tab of the ribbon, Conditional Formatting,
+11:12 Icon Set. We've got this up and down triangle
+here. I'll select that one, and then I'm just
+11:18 going to go back in and manage the rules. Click
+on this one, Edit Rule. It's currently applying
+11:25 the formatting based on a percentile, so we've got
+38% that's a positive change set to neutral. We
+11:32 need to change that. We do that by choosing Number
+here. So, when the value is greater than or equal
+11:38 to zero, it's going to get a green triangle. Then
+we want to change this also to Number. When it's
+11:43 less than zero and greater than or equal to zero,
+it's going to get the yellow dash. When it's less
+11:48 than zero, it's going to get the triangle. Click
+OK, and OK. There we go. Now, unfortunately,
+11:56 you can't change the color of these triangles,
+so if you need to make your files accessible,
+12:01 then the previous example with the symbols is
+better. Another thing I like about using the
+12:06 symbols in the custom number formats is you can
+also use these in chart labels, as you can see
+12:12 here. Whereas there's no conditional formatting
+for charts themselves. Conditional formatting
+12:17 is another tool that has myriad built-in options,
+but the real power comes when you know how to use
+12:22 formulas to apply formats. So, in this video,
+I take you under the hood to reveal how Excel
+12:28 uses formulas in conditional formatting,
+so check that out next. I'll see you there.

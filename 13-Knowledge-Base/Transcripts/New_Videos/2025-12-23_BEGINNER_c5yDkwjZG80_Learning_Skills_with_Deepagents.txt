@@ -1,0 +1,234 @@
+Title: Learning Skills with Deepagents
+Channel: LangChain
+Video ID: c5yDkwjZG80
+URL: https://www.youtube.com/watch?v=c5yDkwjZG80
+Duration: 8:01
+Level: BEGINNER
+Ingested: 2025-12-23
+Source: yt-dlp Auto-Generated Captions
+==============================================================================
+
+WEBVTT
+Kind: captions
+Language: en
+Hey, this is Lance. I want to talk about
+continual learning with agents in
+particular showing some examples with
+deep agents. So, Le has a really nice
+post on this theme of continual learning
+in token space and it makes the argument
+that a big gap between AI agents and
+humans as we know is ability to learn.
+Humans continually learn and improve
+over time. Agents knowledge is typically
+fixed and doesn't have the same adaptive
+capability. Now, there's different ways
+to teach AI systems to learn. So one is
+learning via weight updates and this
+involves training a model updating its
+weights to encapsulate or capture some
+knowledge and of course it is costly and
+challenging. Now the nice thing about
+LMS is that they of course have context
+increasingly large context windows in
+fact and this idea of learning in
+context is a really interesting theme
+that's been explored quite a bit. So
+here's a diagram kind of showcasing this
+learning loop and a few different themes
+here. So we have an agent in this case
+it's a deep agent. Now as the agent does
+things we capture in the case of deep
+agents those trajectories in langmouth
+as traces
+and a very interesting theme that's
+emerged across a lot of different papers
+blog posts is this idea of reflection
+over trajectories which can be very
+easily done using lang and our recent
+utility called lang fetch. So you can
+grab recent trajectories that the deep
+agent has performed and do reflection
+over them. And this reflection can have
+a few different flavors. You can reflect
+over past trajectories to update
+memories. So those are like facts or
+preferences, things you want the agent
+to learn. You can also reflect over
+trajectories to actually update the core
+agent instruction. And a third thing you
+can do is reflect over the trajectories
+to learn new skills. And when I talk
+about skills, I'm talking very
+specifically about the formulation of
+skills as defined by Enthropic, which is
+basically folders that contain a skillmd
+file, which have some particular
+instructions and potentially scripts
+that accompany them that tell the agent
+how to do different things. Now, these
+three different categories have been
+explored quite a bit. So, prompt
+optimization is not a new thing. There's
+been a huge amount of work on this.
+We've done a lot on it. I do want to
+call out the Jeep work which is quite
+interesting and that talks specifically
+about prompt optimization in language
+space by reflecting on prior agent
+trajectories. So it's exactly this
+principle that we're talking about here.
+So that's kind of theme one. Theme two
+is reflecting over trajectories to
+update memories. We just put a video out
+on that showing how to do that with deep
+agents. And I have a little blog post on
+my little claw diary system that does
+exactly that. So that's theme two. Now
+theme three is what I actually want to
+talk about here.
+And let recently put out a nice blog
+post on this theme of skill learning and
+it's really related to the other two.
+It's simply reflecting over trajectories
+but in this case to learn skills and
+I'll show example of that right now. So
+the first thing to note is I have an
+example skill creator skill and if you
+look in the deep agents repo you'll see
+libs deep agent CLI example skills
+skills creator skill. You can see the
+markdown here, view file.
+And this skill is taken directly from
+the anthropic skill creator. It's
+credited as such. And it's just adapted
+slightly for deep agents, but it
+basically explains in general how to
+create new skills with the deep agent
+CLI. And so all you need to do is in
+your terminal just copy that skill to
+your deep agent skills directory. And
+once you've done that, just run deep
+agent skills list. And you can see that
+skill creator skill is added to your
+skills. Now when you kick off the deep
+agent CLI you can specify two
+environment variables that are
+interesting. I talked about this in a
+prior video but you can specify the deep
+agents project. This is actually where
+the deep agent itself will log all its
+traces which is very useful for this
+reflection stuff. And you also can log
+the langu project just the project for
+any code execution for example using the
+bash tool that the deep agent will
+perform. So it's nice to separate those
+out. And this langu project, wherever
+you name it, will have all your deep
+agent threads saved. I've done some
+prior work with my particular deep
+agent. I make sure that environment
+variable set and I can run lengths with
+fetch to grab recent threads from my
+deep agent and look at them and save
+them locally if I want. I run this and I
+can look at what's in that folder.
+I just save my most recent thread. There
+it is. And I can just look at that
+thread. Nice.
+And in this particular session, I was
+talking about this utility called
+Langmith Fetch. Now, here's an example
+of a session I had with my DB agent that
+I want to reflect over and actually
+capture what I talk about and what's
+learned into a persistent skill that I
+can reuse repeatedly. Let me show how to
+do that. I'll go ahead and start my deep
+agent. Cool. Now, when I start my deep
+agent, a few things are interesting to
+note. the model will be displayed.
+That's great. You'll see that the agent
+traces are being saved to this Linux
+project and any code execution is saved
+to a different project. That's great.
+That's just a nice clarity on the model
+that's being used as well as where
+tracing is going. Cool. Now remember
+that skill creator skill has been
+automatically loaded. We saw that when
+we ran deep agent skills.
+And so I can just say something like
+this very simply.
+Read the JSON in the most recent thread
+directory, which I already pulled down.
+Reflect on it carefully and use the
+insights to create a new deep agent
+skill. Let's try this out. Cool. Reads
+the file. Great.
+Perfect. So, it's reading the skill
+creator skill right now. Very nice.
+Cool. Create a to-do to make a new
+skill. This is perfect. Look at this.
+It's using colin shell tool to create a
+new skill. Very nice. I approved the
+creation of that
+folder. It will then go to its to-do
+list and say, "Okay, create a skill.md."
+Very nice.
+Okay, this is great. So, what it did was
+it reflected over that thread. In the
+thread, I talked about using this
+particular utility. It reflected over it
+and says, "Okay, I'm going to capture
+those insights into a persistent skill
+that is saved locally and can be loaded
+into any future deep agent session." It
+creates a skill.md file. You can see
+that is all done here. Very nice. and
+explains the utility how it works. It
+gives the EML front matter which will
+automatically be loaded into context
+anytime you can start a deep agent and I
+approve that. I say I like that very
+nice it wrote the skill and d file it
+will validate it. So this is another
+nice thing that skill creator skill
+actually has a validation script that
+will test to ensure that the skilld file
+is val is formatted correctly. Very
+nice. And again credit to anthropic
+because they created that general
+purpose skill greater skill. I'm just
+reusing it and I approve its final
+validation and it appears that the task
+is done. So it's apparently created a
+new skill for me. Now let's test that by
+start stopping deep agents and rerun
+deep agent skills list and we can see
+our new langu fetch skill is here.
+Amazing. So it's created, it's saved and
+now I can repeatedly use this particular
+utility very easily within my deep agent
+sessions without having to respppecify
+what this thing is, how it works. is now
+encapsulated as a skill as a persistent
+standard operating procedure for
+grabbing Langmith traces. This is a
+great example of skill learning. It's
+very easily doable with Langmith CLI.
+And just to kind of wrap up here, it
+just it's a third leg of this continual
+learning loop that's very much emerging.
+It's very early, but it's very
+interesting to think about ways that
+these agents can reflect over their past
+trajectories to learn things. be it
+facts, memories, be it skills, or even
+be it improving their own instructions
+via prompt optimizations. This is kind
+of a a general framing of the way you
+can think about continual learning in
+token space. And hopefully this is a
+useful quick overview. Thanks.

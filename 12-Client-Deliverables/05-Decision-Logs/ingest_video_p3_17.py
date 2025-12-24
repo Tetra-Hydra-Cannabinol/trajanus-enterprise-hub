@@ -1,0 +1,366 @@
+"""
+Ingest Playlist 3 video 17 (QJwOsmt0KHI) - Excel Dot Plots, Dumbbells and Lollipop Charts Made Easy!
+"""
+
+import os
+from datetime import datetime
+from supabase import create_client
+
+def load_env():
+    env_path = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\.env'
+    env_vars = {}
+    with open(env_path, 'r', encoding='utf-8-sig') as f:
+        for line in f:
+            line = line.strip()
+            if line and '=' in line and not line.startswith('#'):
+                key, value = line.split('=', 1)
+                env_vars[key.strip()] = value.strip()
+    return env_vars
+
+env = load_env()
+supabase = create_client(env['SUPABASE_URL'], env['SUPABASE_ANON_KEY'])
+
+video_id = 'QJwOsmt0KHI'
+title = "Excel Dot Plots, Dumbbells and Lollipop Charts Made Easy!"
+channel = 'MyOnlineTrainingHub'
+duration = '10:49'
+topics = ['Dot Plot Charts', 'Dumbbell Charts', 'Lollipop Charts', 'Scatter Charts', 'Error Bars', 'Data Labels', 'Chart Formatting', 'Axis Configuration', 'Value from Cells', 'Marker Options', 'Chart Comparison', 'Bar Chart Alternatives']
+
+transcript = """0:00 Excel dotplots dumbbells and lollipop
+0:03 charts are good for comparing one two or
+0:05 three points of data for example year on
+0:08 year before after or a versus B and they
+0:12 make a nice change from column or bar
+0:14 charts and they're less cluttered also
+0:17 because the dots aren't anchored to the
+0:19 axis Baseline we're not required to
+0:21 start the axis at zero like we do with
+0:23 the column or bar chart unfortunately
+0:26 dotplot dumbbell and lollipop charts
+0:28 aren't available from the insert chart
+0:30 menu so in this video I'll show you how
+0:32 to build
+0:33 them we'll take a look at dot plots
+0:36 first here I've got my data and the
+0:38 spacing simply assigns each department
+0:40 to a row in your chart so they're nicely
+0:42 vertically distributed you can change
+0:45 the spacing to seeit your needs so I'm
+0:47 going to select the data in columns B
+0:49 and C and then we'll insert a scatter
+0:52 plot I'll just bring it up into view the
+0:55 first thing I want to do is rename this
+0:58 series so I'm going to right click
+1:00 select data we'll edit the spacing so
+1:03 instead of it referencing the spacing
+1:05 cell it's going to reference the year
+1:07 label and click okay and okay now I want
+1:11 to edit the vertical axis so that the
+1:13 maximum is 2.5 so I'm just with it
+1:16 selected control1 to open the formatting
+1:19 so in here I want
+1:21 2.5 and that just aligns my last dot
+1:24 with the very top of the chart now I
+1:26 want to hide the vertical axis so we'll
+1:28 just go in here and deselect primary
+1:32 vertical now if you want to emphasize
+1:35 the difference between the dots we can
+1:37 adjust the starting point for the
+1:39 horizontal axis let me close that we'll
+1:41 go into the axis options and in here
+1:44 we'll set the minimum as 600 we get a
+1:47 better feel for the difference from one
+1:49 dot to the next now I'm going to remove
+1:52 all of the grid lines and then we'll
+1:55 format the dots so with the dots
+1:58 selected going going to format the day
+2:00 Series so I want to alter the fill and
+2:02 line so we're going into the paint
+2:04 bucket and then on the marker in options
+2:07 I'm going to use the built-in marker but
+2:09 I'm going to make it much bigger we'll
+2:11 make it size 13 we'll give it a solid
+2:13 fill it's automatically selected white
+2:16 and that's the color I want the outline
+2:19 or the Border will make it solid let's
+2:22 change the color to this Bluey green
+2:24 color and we'll make the width of the
+2:26 line
+2:28 thicker now I'll line need to do is add
+2:30 some labels so go in here add labels I
+2:34 want to go into more
+2:36 options and in here I don't want the Y
+2:39 value I want the x value we don't need
+2:42 lead the lines but I'd also like to have
+2:44 the department names so I'm going to use
+2:46 value from sales this is new in Excel
+2:48 2013 so if you've got 2013 or later
+2:51 you'll have this option so I'm selecting
+2:54 the department names we'll click okay we
+2:57 just need to give our chart a little bit
+3:00 more room for those
+3:02 labels and there we have our DOT plot
+3:06 chart now lollipop charts get their name
+3:10 from The Leader line that draws your eye
+3:11 to the dot and because of this I think
+3:14 you should start your access at zero for
+3:16 the same reasons we do with bar and
+3:18 column charts and I'll talk more about
+3:20 these reasons at the end they require
+3:23 the same steps as the dock plot but
+3:25 instead of using horizontal grid lines
+3:27 we use error bars now to save time on
+3:29 modify this Dot Plot chart that I've got
+3:31 here and I'll just bring it over the top
+3:33 of the lollipop so first of all I don't
+3:36 need the horizontal grid lines so let's
+3:38 remove those and then I'm going to add
+3:41 the arrow bars I'm going to go Arrow
+3:44 bars and then more options now by
+3:46 default it's going to put in a vertical
+3:48 Arrow bar I want to change the
+3:51 horizontal Arrow bar so I want this one
+3:53 with the
+3:54 X and now I have the horizontal araar
+3:57 settings I can choose minus no cap and
+4:01 down here for percentage I want that to
+4:03 be 100 and now you can see the lollipop
+4:06 stalk I can select these vertical error
+4:09 bars and press the delete key CU we
+4:11 don't need those anymore another thing I
+4:14 might do is move these labels and put
+4:16 them to the right of the
+4:20 dots and now we have our lollipop chart
+4:23 so I can change the name up
+4:26 here remember to make sure that your
+4:28 lollipop chart starts at
+4:31 zero now dumbbell charts which are
+4:34 sometimes called DNA charts require the
+4:36 same steps as a dotplot except they have
+4:38 a second series for the other year we
+4:41 also need to calculate the difference
+4:43 between the years and place those values
+4:45 in their respective columns and these
+4:48 become the positive error values and the
+4:50 negative error values you can see the
+4:52 formula in the formula bar you can
+4:54 download the file to get a closer look
+4:57 I'm not going to go into detail on that
+4:58 formula here
+5:00 so let's go about creating our charts
+5:02 like I said they're the same as the
+5:04 dotplot so we'll start off by inserting
+5:06 a scatter chart and I'll just move it
+5:09 down here so we can see our data behind
+5:12 now I need to add a series for 2016 so
+5:15 right click select data add the series
+5:19 name will be 2016 the values are the
+5:22 values for 2016 and the Y series values
+5:26 are our spacing values so click okay now
+5:30 while I'm in here I'm just going to edit
+5:32 the name in here so instead of
+5:34 referencing this cell we'll select the
+5:36 label for the X values so click okay and
+5:40 okay again and now you can see we've got
+5:43 our two Series in the chart let's
+5:45 continue to tidy it up a little get rid
+5:48 of the grid lines we're going to use
+5:50 errow bars let's set this vertical axis
+5:53 control one to open the access options
+5:56 we want to make the maximum 2 and 1/2
+6:00 off and now we can hide that so let's go
+6:02 in here and we'll turn off the primary
+6:05 vertical axis now I just need to format
+6:08 the dots like I did before so we go into
+6:11 the Paint Bucket
+6:13 marker marker options builtin size 13
+6:18 obviously you can change the size to
+6:19 something else if it suits you better I
+6:22 want solid fill in white and I'll have a
+6:25 solid border and let's make it thicker
+6:29 and then I just need to rinse and repeat
+6:32 for the next marker so again builtin
+6:35 13 solid
+6:37 fill in white and then solid line this
+6:41 one I'll change it to Green so that it's
+6:44 different and let's make it
+6:47 thicker so there's our dots now unlike
+6:51 the column and bar charts and the
+6:52 lollipop charts I don't need to start my
+6:54 horizontal axis at zero so let's change
+6:57 the minimum to 600 100 that just gives a
+7:01 bit more space between our dots I'm also
+7:03 going to bring this chart area down here
+7:05 a little so there's bit more room for
+7:07 the dots so I'm ready to add my error
+7:10 bars and remember I'm going to be
+7:11 referencing these helper columns here so
+7:14 I'm going to select the 2016 series and
+7:17 then we'll add error bars but we'll go
+7:20 into more options it defaults to the
+7:23 vertical Arrow bar so let me choose the
+7:26 X Arrow bar and in here I can change the
+7:30 settings so I want both again I want no
+7:34 cap this time I'm going to have a custom
+7:37 value so I'm going to click on specify
+7:39 value and this is where I select my
+7:41 positive error and my negative errors
+7:46 and click okay now we've got the
+7:48 horizontal error bars let me select the
+7:50 vertical ones I'll press delete to get
+7:52 rid of them and that gives us the
+7:55 dumbbell
+7:56 appearance let's add some labels so
+7:58 we'll go in add data labels we need to
+8:01 obviously go into more options so we can
+8:04 modify them a bit here I want the x
+8:07 value not the Y values and I don't need
+8:10 lead lines let's put these ones to the
+8:13 right and let's also add a value from
+8:17 the cells so that we can have the
+8:18 department names
+8:20 included now we just need to give it a
+8:22 bit more
+8:24 space now I just need to modify these
+8:27 labels for the 2016 Series so again we
+8:30 want the x value not the Y value we
+8:33 don't need lead lines and these ones are
+8:35 Al line left now all looks great except
+8:38 for Department D where the 2016 value is
+8:42 greater than the 2017 value so we're
+8:44 going to need to manually modify just
+8:47 these labels so I'm going to click on
+8:48 them once and then click on it again to
+8:51 select just Department D's this one I'll
+8:54 set to the
+8:55 right and this one I'm going to set to
+8:58 the left
+9:00 and then you have the dumbbell chart now
+9:03 with all of these cool charts you might
+9:05 be wondering which one to use and your
+9:07 choice will depend on the point that you
+9:09 want to
+9:10 emphasize keep in mind that dotplots
+9:13 lollipops and dumbbell charts are an
+9:15 alternative to bar and column charts
+9:17 which enable you to quickly compare the
+9:19 size of one Department to the next and
+9:21 compare one period to the next for each
+9:24 department but you must always start a
+9:26 bar or column chart access at zero other
+9:29 wise you can mislead the difference from
+9:31 one bar to the next for example if we
+9:33 look at these two bar charts they plot
+9:35 exactly the same data but the second
+9:37 chart's access starts at 600 million and
+9:40 looking at Department a it appears that
+9:42 their sales in 2017 are double that of
+9:45 2016 and it's because we subconsciously
+9:48 compare the lengths of the bars dot
+9:51 plots on the other hand allow
+9:53 comparisons between departments with
+9:55 more emphasis on the difference because
+9:57 we don't have to start the axis as zero
+9:59 and because they're not anchored to the
+10:01 axis we rely on the labels and their
+10:04 position on the axis to make comparisons
+10:06 so there's less chance of misleading the
+10:09 reader now lollipops are a slightly less
+10:11 clutter take on a bar chart but because
+10:14 they're anchored to the access you
+10:15 should ensure it starts zero and lastly
+10:19 dumbbell charts emphasize the change
+10:21 from one point to the next with some
+10:23 comparison between departments and the
+10:26 axis here can also start above zero
+10:28 because they aren't anchored you can
+10:30 download the Excel file for this lesson
+10:32 from the link here I hope you can make
+10:34 use of these charts if you like this
+10:36 video please give it a thumbs up and
+10:38 subscribe to my channel for more and
+10:40 don't forget to share it with your
+10:41 friends who might also find it useful
+10:44 thanks for
+10:48 watching"""
+
+# Save transcript
+archive_dir = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\Knowledge_Archive\Transcripts\Microsoft_Office'
+os.makedirs(archive_dir, exist_ok=True)
+
+header = f"""Title: {title}
+Channel: {channel}
+Video ID: {video_id}
+URL: https://www.youtube.com/watch?v={video_id}
+Duration: {duration}
+Level: INTERMEDIATE
+Application: Microsoft Excel
+Topics: {', '.join(topics)}
+Ingested: {datetime.now().strftime('%Y-%m-%d')}
+Source: Playwright Browser Extraction
+{'='*78}
+
+"""
+
+filename = f"{datetime.now().strftime('%Y-%m-%d')}_INTERMEDIATE_{video_id}_Dot_Plot_Dumbbell_Lollipop.txt"
+filepath = os.path.join(archive_dir, filename)
+
+with open(filepath, 'w', encoding='utf-8') as f:
+    f.write(header + transcript)
+
+print(f'Transcript saved: {filename}')
+
+# Chunk and ingest
+def chunk_text(text, chunk_size=3000):
+    chunks = []
+    current = ''
+    for line in text.split('\n'):
+        if len(current) + len(line) + 1 <= chunk_size:
+            current = current + '\n' + line if current else line
+        else:
+            if current:
+                chunks.append(current.strip())
+            current = line
+    if current.strip():
+        chunks.append(current.strip())
+    return chunks
+
+url = f'https://www.youtube.com/watch?v={video_id}'
+chunks = chunk_text(transcript)
+
+full_metadata = {
+    'channel': channel,
+    'video_id': video_id,
+    'duration': duration,
+    'level': 'INTERMEDIATE',
+    'application': 'Microsoft Excel',
+    'topics': topics,
+    'source': 'YouTube Transcript',
+    'ingested_date': datetime.now().strftime('%Y-%m-%d'),
+    'content_type': 'youtube_tutorial',
+    'category': 'Microsoft_Office'
+}
+
+inserted = 0
+for i, chunk in enumerate(chunks):
+    summary = chunk[:200].replace('\n', ' ').strip()
+    if len(chunk) > 200:
+        summary += '...'
+
+    record = {
+        'url': url,
+        'chunk_number': i + 1,
+        'title': title,
+        'summary': summary,
+        'content': chunk,
+        'metadata': full_metadata
+    }
+
+    try:
+        supabase.table('knowledge_base').insert(record).execute()
+        inserted += 1
+        print(f'  Chunk {i+1}/{len(chunks)} inserted')
+    except Exception as e:
+        print(f'  Error chunk {i+1}: {e}')
+
+print(f'\nTotal: {inserted} chunks inserted to Supabase')

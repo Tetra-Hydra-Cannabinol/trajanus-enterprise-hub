@@ -1,0 +1,275 @@
+Title: Excel Slopegraphs
+Channel: MyOnlineTrainingHub
+Video ID: OvPKjmWLiF0
+URL: https://www.youtube.com/watch?v=OvPKjmWLiF0
+Duration: 11:51
+Level: INTERMEDIATE
+Application: Microsoft Excel
+Topics: Slopegraphs, Edward Tufte, Line Charts, Data Labels, Chart Formatting, Time Comparison, Label Alignment, Series Name, Plot Area, Chart Elements, Data Visualization, Trend Comparison, Pull Handles, Dummy Series, Table Graphics
+Ingested: 2025-12-21
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:03 in this video we're going to look at
+0:05 creating the slope graphs using Excel a
+0:08 slope graphs were first introduced by
+0:10 Edward tufty in his book the visual
+0:13 display of quantitative information back
+0:15 in 1983 where he referred to them as
+0:18 table Graphics the more catchy term
+0:21 slope graphs came much later and slope
+0:24 graphs are useful for comparing change
+0:26 over time for example the slope graph
+0:28 here shows the change in long-term
+0:30 health conditions from 2001 through to
+0:34 2014 2015 for Australia now I've messed
+0:37 with the data a little for this example
+0:39 so don't go making any business
+0:41 decisions based on this chart
+0:44 unfortunately slope graphs are very
+0:46 similar to a line chart that has just
+0:48 two points for each line now
+0:50 unfortunately the labeling of these two
+0:53 points which is one of the main
+0:54 attributes of a slope slope graph is not
+0:57 so easy I've found some ways to Wrangle
+1:01 Excel to create slope graphs and a
+1:03 shortcut if you're happy with something
+1:05 that's almost a slope graph so let's get
+1:08 started I've got a blank sheet here just
+1:11 with my data so the first thing we do is
+1:14 select the data down to the bottom of
+1:18 the main Series this series of numbers
+1:22 here in column C and rows 16 through
+1:25 25 is just for our second set of value
+1:29 labels
+1:30 and we'll pick those up in a moment but
+1:33 in order to get the chart laid out
+1:34 correctly when we insert it we want to
+1:37 select just that part of the data and
+1:39 then insert and a regular 2D line
+1:42 chart so here we we need to right click
+1:45 on the chart and select data we need to
+1:48 switch the row and column so if I show
+1:50 you what happens when we switch row and
+1:53 column now I have my lines are a bit
+1:57 squished I'll click okay and we'll
+1:59 delete the Legend now we have a bit more
+2:01 room let's just make it a bit
+2:04 bigger I want to delete these grid lines
+2:07 so just left click on them press delete
+2:10 likewise with the vertical axis click on
+2:13 it and press delete and now the fun
+2:15 begins the labeling so I'm recording
+2:17 this in Xcel 2013 and if you're using
+2:20 Xcel 2016 then this will be the same but
+2:23 if you're using Excel 2007 or 2010 then
+2:27 you'll need to click on your chart and
+2:28 then up in the chart tools you'll have a
+2:30 tab for layout I think it is so up there
+2:33 you'll find the chart elements I'm going
+2:37 to click on the plus here and I'm going
+2:39 to add data labels I'm going to click on
+2:42 the arrow and go more options so if
+2:45 you're using 2017 or 2010 you want to go
+2:47 to more options and that will open the
+2:50 dialogue box which will have similar
+2:52 settings to what you see here so now
+2:54 that I've added my labels you see the
+2:56 default is the value label on each end
+2:59 of of the line or at each point it just
+3:01 happens to be the end cuz I only have
+3:03 two points for each line and the very
+3:07 top labels are selected so the changes I
+3:10 make now in these options over here will
+3:14 only be applied to the first two points
+3:17 and this is the annoying part because
+3:18 you actually have to repeat this for
+3:20 every point and you have to do it
+3:22 manually so what we want to do is add
+3:24 the series name deselect the leader
+3:27 lines change the separator to a space as
+3:30 opposed to a comma and the reason we
+3:32 want to do this is you see with the
+3:34 separator as a comma the value wraps
+3:37 onto the next line when you use a space
+3:40 you're able to actually make that label
+3:43 stretch across just one line so there's
+3:45 no wrapping I have to resize the boxes
+3:48 to do that but we'll come to that in a
+3:50 moment for now I just want to add the
+3:52 series name remove the leader lines
+3:55 change the separator to a space and left
+3:58 align label
+4:00 so you'll see they're both left aligned
+4:02 and this one here is the one we actually
+4:04 want left aligned and this one here we
+4:07 want right aligned what I'm going to do
+4:10 though is I'm going to work through all
+4:12 the uh labels on the left and then we'll
+4:15 come to the labels on the right so back
+4:18 to my label
+4:20 options and in here I'm going to use my
+4:23 arrow keys so at the moment my top
+4:27 labels are selected if I use the up
+4:29 Arrow it moves me down to the next set
+4:32 and I can just apply the same settings
+4:36 we'll select the next
+4:38 one now you need to repeat this for each
+4:41 one so I'm going to pause the video and
+4:44 quickly go through and make all these
+4:46 changes so that you don't have to watch
+4:48 me do it one by one cuz it get quite
+4:51 boring okay so I've modified all of my
+4:54 labels so they now show the series name
+4:56 and the value I'm just going to make my
+4:59 chart a bit
+5:00 wider and a little
+5:03 taller so now the fun begins because we
+5:06 need to resize some of these labels that
+5:10 are wrapping and any that overlap so
+5:12 when I left click on the labels both are
+5:15 selected if I left click once more and
+5:18 it's not a double click it's just two
+5:19 slow left clicks I then have pull
+5:22 handles and this is in 2013 and 2016 if
+5:26 you're using Excel 20110 then you don't
+5:30 have these pull handles that are
+5:32 available on the second left click what
+5:34 you have to do is make your chart really
+5:36 really wide and then select the plot
+5:39 area and make that a bit smaller so that
+5:42 your lines oops so that your lines
+5:46 aren't really really wide okay so you
+5:48 just need to mess about with it until
+5:51 you get it how you want I'm going to
+5:52 undo that cuz that's for 2010 and in
+5:55 2013 I have the luxury of the two left
+5:58 clicks and then the pool handles allow
+5:59 me to make them wider so basically you
+6:03 need to spend a bit of time resizing all
+6:06 of these boxes and the chart until you
+6:09 get it laid out the way you want so I'll
+6:13 skip on to the ones that are over
+6:15 lapping each other and two left clicks
+6:20 and then I can hold down my shift key
+6:22 and I can move it and it will stay
+6:25 aligned to the right or left more easily
+6:29 so that's the back problems and that's
+6:31 21 and shortsightedness is 20.8 so I
+6:34 want back problems above
+6:38 shortsightedness and then we'll use the
+6:41 arrow keys to select the other one there
+6:44 we go so just move them so they're not
+6:47 sitting on top of each other don't worry
+6:49 about the right hand side at this point
+6:52 you might need to move some of these so
+6:54 that they're closer to the line and it's
+6:58 a big fiddly problem you want to get
+7:01 some supplies because you'll get hungry
+7:04 it will take you ages so this is really
+7:05 a labor of love this chart it's not
+7:08 something you want to just quickly whip
+7:09 up okay so you'll go through and do all
+7:12 of those changes to the left and make
+7:15 them all aligned nicely and then you'll
+7:18 want to go and modify the right and this
+7:20 is where the second series of values
+7:23 comes in So at the moment the Val the
+7:26 labels on the left are a single label
+7:29 that contains the series name and the
+7:30 series value and so are the ones on the
+7:33 right the problem is we want the order
+7:36 of the labels on the right to show
+7:38 number or value and then series name if
+7:40 we look at the other one you can see
+7:43 it's the value and then the series name
+7:45 and what you'll see is these are
+7:47 actually two separate labels one on the
+7:51 right is the series name and then we
+7:53 have a separate one for the value and
+7:56 these values come from this set of
+7:59 numbers here and that's all because we
+8:01 can't change the order these are
+8:02 displayed in so what we need to do is
+8:05 expand our Series so I've clicked in the
+8:07 plot area of the chart and I'm going to
+8:11 drag the blue marker down and now I have
+8:16 two sets of labels on the right you can
+8:17 see I've got the value labels now and
+8:19 those ones I've just added plus I've got
+8:22 this label that contains the series and
+8:24 the value so I'm going to left click on
+8:27 the series on the right or the label on
+8:29 the right right and I'm going to modify
+8:31 that to remove the value and then I'm
+8:35 going to right align it you'll see it's
+8:37 overlapped the value and I just need to
+8:41 hold down the shift key and drag it
+8:43 across to the
+8:44 right so that it's not sitting on top of
+8:48 the number and then you simply rinse and
+8:51 repeat
+8:53 oops remove the value and align right
+8:58 and then hold down shift left click and
+9:01 drag it
+9:02 across so you do this for each
+9:06 one and if you've got lots and lots of
+9:09 lines it could take you a while
+9:11 basically that's how you get the
+9:13 labeling in a slope graph to lay out the
+9:17 correct way in Excel it's a bit of a
+9:19 hack of a line chart with a dummy series
+9:22 of labels or values for the right hand
+9:26 value
+9:27 labels so the next thing you want to do
+9:29 is make sure that your chart colors are
+9:32 not making it look like a pile of Pickup
+9:35 Sticks so perhaps pick something more
+9:37 neutral maybe Shades of Gray or blue and
+9:41 if you want to you can highlight one or
+9:43 two points although the degree of the
+9:46 line should draw the reader's eye to
+9:49 those particular points but you can add
+9:53 some emphasis just don't go crazy with
+9:56 the
+9:57 colors now if you'd prefer something
+10:00 that is a bit less labor intensive then
+10:03 you could leave your points so or your
+10:07 labels on the right so that they
+10:09 are displaying as the series name and
+10:13 then the value like this one here and
+10:16 then you don't need this extra set of
+10:20 data you can just simply select the
+10:23 right hand label and set it to the right
+10:27 although I think it's not as effective
+10:29 as having the value at the very ends of
+10:32 the lines and it is a bit of a a shift
+10:35 from tuft's original design for the
+10:37 slope graph but if you'll press for time
+10:39 then that might be a suitable option for
+10:42 you you'll also want to make the length
+10:45 of the line a bit shorter than what I
+10:46 have here so bear that in mind try and
+10:49 get the length of the line right before
+10:51 you mess about with all your formatting
+10:53 of your labels because reducing the
+10:55 width of your chart will have an effect
+10:58 on where those labels are positioned and
+11:02 now that I've reduced my plot area it
+11:04 looks like my chart is not aligned to my
+11:07 chart area or my actual lines are not
+11:11 centered so a simple way to avoid that
+11:14 appearance is just to remove the outline
+11:16 from the chart Al together and you can
+11:18 move the chart title over to the left or
+11:21 manually Center it if we remove the grid
+11:25 lines from the page now you can't tell
+11:28 that the chart isn't aligned in the
+11:30 chart
+11:31 area Okay so there's a way to create
+11:35 slope gross in Excel it's quite
+11:38 laborious but they are very effective
+11:40 for showing the degree of change in data
+11:43 over time so they're worth the effort in
+11:45 certain situations

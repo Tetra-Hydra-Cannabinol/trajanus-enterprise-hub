@@ -1,0 +1,2875 @@
+Title: Building apps LIVE with new Claude Code updates!
+Channel: Alex Finn
+Video ID: hfJE3mlBEfU
+URL: https://www.youtube.com/watch?v=hfJE3mlBEfU
+Duration: 117:25
+Level: COMPREHENSIVE
+Ingested: 2025-12-23
+Source: yt-dlp Auto-Generated Captions
+==============================================================================
+
+WEBVTT
+Kind: captions
+Language: en
+Today we are going to build out a full
+startup live on stream using Claude Code
+and all the new features they just
+launched. They released a ton. We'll go
+over the new features real quick. And
+then we are going to go over building
+and launching the Vibecoded app store.
+We are so close to launching this. So
+buckle in, get in the chat, get in the
+replies, say hello to everyone watching
+this live stream. We're going to do so
+many cool things on here. You're going
+to love it. You're gonna enjoy it. I
+can't wait to get into it with you.
+There's been so many changes to Claude
+Code over the last few weeks. For those
+who've been missing out, they've been
+doing the advent of uh Claude Code on X.
+They've been doing the advent of Claude
+Code on X and they've had so many
+changes. Let's go into those changes. I
+want to go into those changes that
+they've done. We will start off there.
+then we will get into the uh building of
+the app. Let me pull open these changes.
+Here we go.
+Let me share my screen. Hope everyone
+had a great weekend. I did not sleep a
+wink last night. I am running on zero
+hours of sleep. Zero hours of sleep. Uh
+this is truly after being sick all last
+week and then doing this live stream
+with zero sleep. It is a truly
+impressive performance from me. All
+right, let's see what we got here. Wasim
+2K with the first to like. Thank you,
+Wasim. Leave the likes down below. Let's
+blow this party up. We had a huge video
+this morning. So I created a video this
+morning. We'll get into the building of
+the app. We'll get into Claude code in
+just a second. Patience, my friends.
+We're going to get into the changes to
+Claude Code first. Uh there have been
+massive massive change. I think they've
+had like 20 different updates and
+changes over the last uh few weeks. I
+picked out my top 10
+changes which I'll go over here. I put
+them on my last video which is blowing
+up. My last video is blowing up. I
+posted it this morning. If you haven't
+checked out my latest Claude Code video,
+make sure to do that right after this.
+Uh it is blowing up right now though.
+You guys want to see the numbers? We're
+way above average on the Claude Code
+video we posted this morning. Way above
+average. 6.2,000 in the first four
+hours. Not bad. It goes over my top 10
+changes of Claude Code over the last few
+weeks. Uh bunch of changes. Some of
+these are older, some of these are
+newer, but these are all some sort of
+recent changes they've announced. No
+sleep. You'll hallucinate with Claude
+and I'm here for it. Yeah, this might be
+a uh a drunk uh live coding session. a
+drunk as in no sleep live coding
+session. Resume old sessions. When you
+go in a project and run this command,
+you'll see all your old Claude. So now
+you can resume old sessions, right? You
+open up Claude, you reset your computer,
+and it lost all its contacts from your
+previous session. Now you can do dash
+resume claud-res
+and it will resume your last session or
+any of your older sessions you choose,
+which is pretty sick.
+I hope your health is fine now. I am
+healthy. I think I don't feel sick
+anymore. I just have a crazy cough. I
+have a lingering cough. I don't know. Is
+this CO? Do I have COVID? Was this
+entire video just flagged because I said
+the word COVID? I don't know. I don't
+know. But that is where I am at
+currently. Happy Monday, brother.
+Cheers. Shout out. You got any grapes?
+Representing the Twitch community.
+Twitch community is growing. Don't sleep
+on the Twitch community. I don't
+advertise it at all. It seems to be
+growing organically. That's great. Glad
+you are alive, my friend. Well, I'm not
+close to death, but
+uh tough tough week of sleep when you're
+really sick. Claude Code is cooking
+crazy good. Yeah, I don't get the people
+on X saying uh it's nerfed. So many
+people on X saying Claude Code's nerfed.
+I'm building out some crazy stuff with
+Claude Code recently. Some crazy stuff.
+And it's performing great for me. I
+don't know. What are people complaining
+about? Is it? Do you guys feel like
+Claude Code's gotten stupider? Let me
+know in the replies. If you're watching
+the replay, let me know in the replies.
+Do you feel like Claude Code's gotten
+stupider? If you're watching it live,
+let me know in the chat. Do you feel
+like Claude codes got gone ster? I
+haven't felt it getting stupider. It
+feels totally normal to me. I have been
+building some incredible things right
+now that it it's continuously blown me
+away since it's launched. It's
+continuously blown me away since Opus 45
+launched. Ever since Opus 45 dropped,
+I've been nothing but blown away. I
+really think it's the greatest
+technology I've ever used in my entire
+life and by by far. Claude is 4.5 inside
+claude code is the greatest technology
+I've ever used in my life. By far
+and it's done nothing but get better for
+me. So I don't understand the people
+saying it's getting stupider. I feel
+like compaction is very aggressive now.
+Are you see uh I am seeing that I am
+seeing compaction is getting more
+aggressive where it seems to be
+compacting a lot more. I'm going to be
+honest. I don't do the best context
+management. And what I mean by that is
+I'm not clearing a ton. I'm not opening
+up separate sessions for a bunch of like
+for very delineated tasks. So I could do
+a better job of uh I think context
+management myself
+as some nerds call it context
+engineering or something. Bologoney. Uh
+but it does appear that compaction is
+getting more aggressive, but I haven't
+seen like
+a downturn in uh performance because of
+it. It compacts more. I have to sit
+there for a couple extra seconds every
+once in a while because it's compacting
+more. Uh but I I I don't I haven't seen
+like a downturn in performance
+cuz there aren't people on X just bots.
+Uh correct. [laughter]
+There's there's I mean there's humans
+there's humans on X but they're bot
+humans. It it seems like it seems like
+half the people in X are bots. The other
+half are people that are just bots. Like
+as in like they just repeat stuff and
+don't think for themselves. They don't
+think independently.
+Nope. Working great. Using it right now
+in the background. Quite the opposite.
+That's what I'm talking about ASAP,
+Carl. That's how I think people should
+be using this live stream. Use it as a
+vibe coding session, right? You can hang
+out with me and see what I'm doing and
+learn stuff and I teach you stuff and no
+one teaches it better on YouTube. We
+have the number one vibe coding channel
+on YouTube by far. Number one vibe
+coding channel on YouTube by far. But
+you can also use this just as kind of
+background noise to vibe code
+here
+out
+built your own things in claude code.
+Use this as inspiration. Say hello to
+the chat. Share your idea in the chat.
+They go, "Wow, that's amazing idea. I
+love that. I want to be your first
+customer or I want to be your
+co-founder." That'd be the dream of how
+this live stream works. So, I'm I'm ASAP
+Carl. Love it. Love it that you're uh
+vibing while I vibe. No, I think it's
+the opposite. It's getting smarter. Heck
+was optimizing 3D mods for me last
+night. Who knew? Kyle Travis KC, what
+are you doing
+for 3D models? What are you What are you
+building? I'm I'm curious because I want
+to build a game. I have like 10
+different projects I'm working on. Uh,
+one of the ones I want to build is a 3D
+game. A top-own 3D game,
+top down 3D shooting game. I have like a
+genius idea for uh, right now I'm doing
+Claude Code connected to Unity where I
+have it connected to a Unity project,
+but it's very it's kind of tedious. It
+automates a good amount of it for me,
+but a lot of the model stuff is not
+automated. So, I'm curious, what are you
+doing with Claude Code and 3D models?
+Tell me what you're doing if you don't
+mind. I'm curious.
+Someone tweeted yesterday about a
+claude code uh Unreal Engine MCP server
+and I'm going to experiment with that
+today. As you can see, I have the tab up
+here for an Unreal Engine MCP server. Uh
+I'm said that you can uh use Cloud Code
+to build 3D models, which would automate
+a lot of this process for me. So, I'm
+curious what you're doing.
+I had to delete my memory steering and
+start fresh. I think my old markdowns
+from when I tried to fix old problems
+and making it do crazy things.
+Yeah, you have to you have to update
+your markdowns and your claw rules
+often. As Claude evolves and changes,
+you got to update your rules with them
+because it starts doing some things
+better, some things worse. So, that's a
+good call. It's a good call you got any
+grapes. Definitely not nerfed. I've been
+using to orchestrate Gemini 3 flash
+agent has it's been amazing. Gemini
+Flash is an incredible value. See, this
+is what's up. Finnfam is smart. FinFam
+is next level. If you're watching this
+live stream right now, you're next level
+thinker. You're next level, right?
+You're not one of these bots on X
+saying, "Oh, Claude Code's degraded.
+Claude Code's degraded." That's a skill
+issue. If Claude code is degraded for
+you, that's a skill issue. Us in the
+Finnf Fam, people watch this live
+stream, we don't have skill issues,
+right? If you watch this live stream,
+you're going to be a master of Claude
+code. You're going to be next level.
+You're not going to see performance
+degradations. Okay. Same. I've never
+noticed any degra. Yeah, we're 100% not
+noticing any degradation here. It's been
+working fine for me. I'm convinced
+people are just hating on it for
+engagement. There's I think there's
+multiple reasons people hate on Claude
+Code on [music] X. One, cuz they're
+idiots. They just don't know how to use
+Claude Code. That's reason number one.
+Two, engagement. So, they're just rage
+baiting for engagement. And three, and
+this one's a lot more pertinent than you
+can imagine. Pertinent. Great
+vocabulary, this guy.
+A lot of people are getting paid by AI
+companies. And not disclo, we talked
+about this last week, but I think a lot
+of people, I'm not even joking,
+are being paid to hate on Claude Code.
+I'm not joking. I think there are a lot
+of people getting paid by other AI
+companies, other vibe coding tools to
+hate on Claude Code.
+There is so much money in this game that
+you can't imagine. The corruption from a
+lot of content creators is sickening.
+There's a lot of corruption in the
+content creation game for AI where they
+don't disclose sponsorships. They don't
+disclose they're getting paid. They're
+getting paid to hate on tools. They're
+getting paid to crap on tools. They're
+getting paid to promote tools and they
+don't disclose it. They don't disclose
+it. That's illegal. That's illegal.
+That's a crime in a lot of content
+creators on X on YouTube. Uh
+I mean, I'd call it selling out, but
+it's not even selling out. It's just
+crime. It's crime. If you don't
+disclose, you're getting paid. It's a
+crime.
+I watch your claw. New commands. I
+implemented those commands my project
+today. Context. Yeah. Slashcontext is
+great. The memories, the hashtagmemories
+one is great, especially for the design
+skill. I I find Claude Code doesn't use
+the design skill enough. The design
+skill is incredible. It's an
+unbelievable skill. Uh, use the design
+skill and having it put in memory to use
+the design skill anytime it changes the
+UI has been helpful.
+It compacts when you use up your
+context. Not much room for it to get
+more aggressive. No. Um,
+I just have noticed that it compacts way
+more often. I just have noticed that.
+So, I don't know if it's becoming less
+efficient with context. If I'm doing
+things wrong, it's a skill issue on my
+part where I'm using context up quicker.
+I'm not complaining. It hasn't nothing's
+degraded. Just something I've noticed.
+What percent of the time do you spend on
+optimizing improving your cloud code
+workflows versus building your projects?
+I'm going to be honest, 95% building, 5%
+optimizing. Um, I try my best to spend
+time on the optimizing, improving,
+studying side of that. I buy I have
+machine learning books out the wall.
+Like I this is not just for claude code.
+This is for everything AI. Like I think
+it's important to study AI and
+understand on a deep level how it works
+and like do the studying part, but I'm
+going to be honest, I find the building
+part significantly more fun.
+I just enjoy building a lot more than I
+do optimizing. And I think a side effect
+of building is you actually organically
+learn how to optimize as you go. And so,
+um, I'd say 95, if not 99% building and
+then 1% to 5% optimizing. And then I
+learn how to optimize as I go. And I
+just carve out some time to spend
+healthy uh amounts of time during the
+day consuming content around AI, whether
+that's podcast, blog post, tweets. And
+when I say healthy, what I mean by that
+is not doom scrolling, not reading rage
+bait, not reading stuff that's trying to
+destroy your brain, not reading
+undisclosed shills. Um, I have a very
+curated content feed when it comes to AI
+as well that helps me optimize, but most
+of my time is spent building. I just
+love building.
+I don't think you're going to become a
+billionaire off studying and optimizing.
+I think you become a billionaire off
+building and creating things and putting
+it out in the world. [music] So that is
+what I'm doing. I've seen a downturn.
+Feels like cursor Q2 than Claude. Uh
+feel keeps taking the simple comment out
+rather than fix. So I know what you're
+talking about when it comes to cursor
+Q2, right? It seems right when Claude
+code came out, cursor went to [&nbsp;__&nbsp;] for
+me. Try not to curse as much. Uh right
+when we were transitioning from like
+Sonnet 35 to Sonnet 37, right when
+Claude Code dropped for me, cursor was
+basically unusable. I was like literally
+punching holes in my desk. I was so
+upset at it because it would go in bug
+holes and error holes and loops and
+[music] it would it wouldn't be able to
+fix things.
+And then clawed code comes out [music]
+and it blew my mind and it was way
+better. I never went back to cursor
+since then. But I I I mean I think
+Claude Code has had downturns. I think
+like June of this year Claude Code had a
+downturn. maybe went like halfway
+through 37 where it just became like
+super frustrating and unusable and I was
+going on like Reddit boards. I hate
+Reddit, but I was going on Reddit boards
+like what the hell's going on? Uh, but
+since Opus 45, I'm going to be honest,
+I haven't had a single downturn. Opus 45
+has been I don't want to call it
+flawless, but I kind of want to call it
+flawless. It's been kind of flawless for
+me. Tell us about our product marketing
+strategy after vibe coding our MVP
+product. Create content.
+I mean, you have two there's two paths.
+If you want to get customers, there's
+two paths, right?
+Paid and unpaid advertising. So, you can
+do paid advertising where you pay for
+ads on Instagram, YouTube, Tik Tok,
+whatever. And then you have unpaid
+advertising which is organic,
+which is free.
+creating content, doing what I'm doing
+literally right now as you watch me. I'm
+live streaming. I'm building a
+community. I don't have anything to sell
+you right now other than maybe Vibe
+Coding Academy, my uh community where I
+have the courses and weekly calls and
+stuff like that and hackathons,
+right? But like when I build and ship
+products, I've already shipped creator.
+When I ship my next product, I'm just
+going to come on this live stream and
+tell you about it and probably get a few
+customers for it. So, there's the unpaid
+side, which is content. I'm gonna be
+honest with you, I strongly prefer the
+unpaid side because when you do the
+unpaid side, you're doing more than just
+selling products. You're building
+community. You're building you're
+building so much, right? It's so high
+leverage. Building an organic community
+through content is so high leverage,
+it'll blow your mind, right? Let's look
+at my earnings on YouTube.
+Like, I'm not only building a
+distribution channel where I can sell my
+products. I can sell my community, where
+I can sell my educational content,
+right? It's also earning its own money
+on top of that,
+right? We have $4,600 in the last month
+off YouTube ads.
+Boom. So, not only am I selling products
+through my distribution, not only am I
+building community, not only I getting
+more eyes and building, [music] you
+know, a huge advertising channel, but
+it's also making money itself.
+So, even if I didn't sell a damn thing,
+I'd be making a living off this, right?
+So, that's pretty amazing. And this is
+just YouTube. There's also X, which
+makes I think like $2,400 a month in
+advertising. Then there's like the
+subscriptions on there and and all that.
+So, even if I didn't sell a damn thing,
+it'd be good. So, tell us about our
+product marketing strategy after Vibe
+coding our MVP. I think building a
+content channel is as good as it
+possibly can get. If you want to go the
+best route, I think uh YouTube's the
+best content distribution route. If you
+want to go the easiest route, I think X
+is the easiest route because all you got
+to do is write tweets. Takes like a
+minute to write a tweet and you press
+send and you get views and engagement
+and clicks and likes. So you want the
+hard route, which is the best YouTube.
+If you want the easiest route, which is
+the best to start, X.
+If you like to dance and shake your ass,
+I don't know, maybe do Tik Tok. If you
+like to put on bikinis, I don't know, go
+on Instagram. It's up to you. But that's
+what uh the product marketing strategy
+would be. We'll get to vibe coding in a
+second here. We're just w We're just
+warming up the crowd. You know what I'm
+saying? We're warming up the crowd.
+We're answering questions. We're talking
+Claude. We're talking vibe code. We're
+talking bikinis.
+More updates to Claude Code recently.
+See what takes up your context. Running
+this command shows you what takes up
+your context window. Great to use when
+Claude is hallucinating a lot or not
+cooperating. Slashcontext. Run
+slashcontext and claude code and you'll
+see what's taking up your context. If
+you're using Claude code right now while
+you're watching this live stream, why
+don't you just type in slashcontext
+right now. See what's going on.
+Did you just call us the FinnFam? Says
+relax sleep2712. Relax and sleep 27.
+Yes, I did. That's the name of the
+community is the FinnFam [music]
+community. If you're watching this,
+you're part of the Finn fam. If you
+don't want to be part of the Finn fam,
+you can see your way out. Relax and
+sleep. You can go relax and sleep. If
+you don't want to be a part of the Finn
+fam,
+yeah, I think when people get to a
+certain point and they need more skill
+to get to the last mile and they don't
+know what to do, need to implement some
+skills, clean up memory. Yep.
+Non-Claude bots. I don't understand. If
+someone's hating on Claude Code,
+they are either really stupid
+or
+a paid actor. That's it. There Claude
+Code is so obviously the best product in
+this space. It's so obvious. And I'm not
+getting paid by Anthropic. Anthropic
+doesn't even talk to me. There's no one.
+The only AI company that actively
+reaches out to me is Google.
+And I spend very little time shilling
+Google on this channel,
+right? So I'm unbiased.
+Anthropic does not reach out to me. Open
+AAI does not reach out to me. Google's
+the only company that reaches out to me,
+which is very nice of them. Shout out
+Google. Shout out that multi- trillion
+dollar Goliath Google because they reach
+out to me. Anthropic does not. And I'm
+going to say it right now. Anthropic is
+so clearly the best product in the
+[music] space. Claude Coat. It's so
+obvious.
+Would I still like it if Anthropic
+reached out said, "Hey, shout out to
+you, Alex. Shout out you for doing
+nothing but pumping our bags 24/7."
+I would hate it.
+I wouldn't hate it.
+Uh, it's still great, but this certainly
+does seem to happen a lot more. But I
+guess it's not a big deal. Will there be
+some coding or just spitting hate? Says
+Carol Song. All right, dude. Chill.
+Let's code. Chill.
+Chill. Let's code. Huh?
+Let me pull open the Vibe Code app store
+we're building. Eh,
+where is it at? I'm pulling it open.
+Everyone relax. Everyone relax.
+Here we go.
+What are we working on? The the the
+Carol song of the world ask. What are
+you working on? Uh we're working on a
+vibecoded app store and a store where
+any you guys any of you guys watching
+here can go in submit your own apps that
+you're building. We had a question five
+minutes ago where guys said, "Hey, what
+happens when I MVP build my own app? How
+do I get customers?" Vibecoded app
+store. You'll be able to do it. You'll
+be able to submit your app here and get
+your first customers. We only have a few
+more details we're going to add here.
+We're adding We're going to change a few
+more things
+and then we're going to launch it and
+you guys can submit your apps. It's also
+a social network in a way. There's a
+community section where you can add, you
+know, what are you doing in Claude Code?
+What are you doing here? You can you can
+talk to each other, chat. Side note,
+anything you want to see in here, let me
+know. Put in the chat. I'll add it.
+We'll build it out right now. We'll make
+this interactive. You anything you want
+in the vibe coded app store or community
+section, let me know. I'll put it in.
+I love your CE CEO co-pilot flow. Do you
+have your own set of instructions for it
+or just ask Claude on demand? Well, so I
+use chat GBT 52 as the co-pilot
+and I use a project in chat GPT. Uh I
+use a project that has like a bunch of
+documents I created that has information
+about, you know, my many lines of
+business, my content, all that. Uh so I
+would recommend doing that. If you
+prefer Claude for chatting, I prefer
+chat GBT for chatting. But if you prefer
+Claude for chatting, uh you can use
+Claude, start a project there. But I
+would start a project in your chatbot of
+choice. Add a bunch of documents on what
+you're building, what content you write,
+your lines of business, whatever it is.
+And then start a chat in that project
+and say, "Hey, you're my co-pilot CEO
+for this project I'm building. I'm going
+to ask you questions. You ready?" Uh and
+that's how you use that chat. I like
+Chad GBT because their memories are the
+best in the industry. It remembers the
+most stuff about me. It remembers
+conversations from months ago. I love
+the memory uh features.
+Um but you can use whatever you want for
+the CEO.
+You should search about autoclaw. Crazy
+good. What the hell's autoclaw? Auto
+claude.
+Auto claude.
+Auto claude. It's an autorecker in
+France.
+What? Maybe not them. Uh, autonomous
+multi session AI.
+Who's this guy? Andy. Andy Mick.
+Andre Mickelson.
+Well, he's doing a good job of
+promoting. You search AutoCloud, all you
+see is his face and then you go to the
+GitHub for AutoCloud and it's by him.
+So, he's doing a good job promoting his
+product at least. [music] Uh, is this
+guy who did the No, Sergio Santos 3840,
+but might be Andre Mick.
+Uh, what's AutoClaude? AutoClaude, your
+AI coding companion. Build features, fix
+bugs, ship faster with autonomous agents
+that plan, code, and validate for you.
+It's a desktop app that supercharges
+your AI coding workflow. Whether you're
+a vibe code or just getting started,
+autonomous task describe what you want
+to build and agents handle. Planning,
+coding, validation. Agent terminals. Run
+cloud code up to 12 terminal. They clean
+layout. Smart naming based on context
+and oneclick task injection. Safe by
+default. So what is this? Just a canband
+board that's connected to cloud code.
+Can't you use linear MCP to do the same
+thing or am I confused? I guess this has
+terminals built in. So if you want an
+integrated terminal, I guess this is an
+advantage.
+Uh I had an idea about building a
+project management tool for vibe coders
+that was something like this where it's
+connected to your cloud code. Oh, on the
+small screen here that where you where
+it's like a canband board connected to
+quad code and you just move cards over
+and it kind of runs it and does it for
+you.
+I'm going to be honest. Um,
+my thought process when it comes to
+adding more tools to my tool stack,
+whether it's tools like this, MCP,
+skills, anything.
+I'm kind of like Elon Musk when it comes
+to like hiring.
+Elon Musk's process for hiring is a lot
+uh is very similar to my process for
+adding tools like this, which is I like
+am ruthlessly efficient. I just don't
+add things for the sake of adding
+things. Like it's like, okay, if I'm
+going to hire you as a tool, I'm going
+to hire you as an MCP. Like, you better
+improve my workflow so outrageously
+much. It's worth the complexity of
+adding you on. I'm going to be honest. I
+don't know if a cananband board that
+just automated that's just automate
+itself uh adds the efficiency I'm
+looking for.
+Like I don't think this so dramatically
+changes how I work that it's like okay I
+need to add this and make my workflow
+more complex by adding it. You know for
+me I open up a terminal and I talk to
+claude code
+right that is my workflow. What's your
+workflow Alex for claude code? My
+workflow for claude code if you want to
+know is um
+it's this I'll show you I'll show you my
+entire workflow in one screen. [music]
+Here's my entire workflow. Uh it's I
+open up claude code in the terminal and
+then I talk to it. Right? Any complexity
+that want that's going to be added on
+top of that it needs to so dramatically
+improve what I'm doing that it's worth
+it. For me, the design skill, the claude
+code design skill is worth the added
+complexity cuz it makes my UI so much
+better that it's worth it for me to type
+in, hey, make sure to use the design
+skill. I'm adding complexity by saying,
+"Hey, use the design skill." And to me,
+it's worth that added complexity because
+the designs are so nice. Am I going to
+open up a canban board and like update
+cards
+so that like it automatically goes
+through the cards? I don't know. I think
+I like the workflow of me talking to
+Claude Code better. I think I like the
+workflow of going in here and talking to
+Claude Code and saying build this for me
+a lot more. I enjoy that. I enjoy
+telling Claude Code to do things and
+then it does those things and I watch it
+do those things. I enjoy that. I don't
+know if I need it to be 100% automated.
+Speaking of that though, how many views
+this guy getting on his videos?
+Auto clawed 28,000 views in the last
+five days.
+Shout out Andre Mickelson.
+Got a good camera. He's looking good. I
+like the lighting. I like the studio
+setup here. He's looking good. Kind of
+like that.
+He's looking good. He's getting views.
+People are liking this. 28,000 views in
+5 days for the AI AI coding on steroids.
+That's a good That's a good title.
+That's a good title. That's good. That's
+good. That's good. Tasteful. That's
+tasteful clickbait. AI coding on
+steroids. I got to I'm going to steal
+that. Andre, if you're watching, I'm
+stealing that. I don't know how I'm
+stealing it. I got to think of a
+subject. I'm gonna think of a subject
+that fits into AI coding on steroids.
+I'm going to take it. Uh what's his uh
+thumbnails look like.
+They're all right. They could be better.
+They could be better. Thumbnails aren't
+great. Thumbnails aren't great. They
+could be better. Yeah. It's why he had
+that banger 28K, but only 110 views. 100
+views. 136 views. Got to work on the
+thumbnails. Andre, this is how you start
+to operate when you become a content
+creator. here. This is how you see
+things. This is how you see things.
+Cursor AI tutorial vibe coding for
+beginners. Not a good title. Stream
+highlights. No one's going to click 68
+views. It's not surprising you only 68
+views. All right,
+it's your content review. If more of you
+guys start making content, I'll start
+doing more of those, but I have a
+feeling not many of you are huge content
+creators. So, let's go back to building.
+Huh.
+Have you done any iOS apps? I've been
+using Kur to help me then with Swift.
+Yeah, it's great. I I haven't launched
+any iOS apps, but using cursor cla code
+to build iOS apps is fantastic. I got a
+couple videos on it.
+Books, where we're going with ML, we
+don't need books. Well, funny thing is
+I'm reading books about ML.
+Have you seen the anti- vibe coding
+folks recently? Yeah, me neither. There
+are anti- vibe coding people, but
+they're just like idiots. Alex, can you
+do full walkthrough on Claude Skills
+agents? I'm seeing some exciting stuff
+in the space. I can't fully wrap my mind
+about. I'm getting a lot of asked
+recently on on videos for Claude skills.
+Do you guys want to see more videos on
+Claude skills?
+I was planning a video. This might be my
+next one. I was planning a video on like
+eight Claude skills you need to
+implement and how to use them. Is that
+what you're looking for from a Claude
+skills video or do you want more highle
+this is why claude skills are so
+powerful? What are you looking for from
+a Claude skills video? Let me know. They
+are tracking the issue in the current
+version clock but the people claiming
+it's an Opus 45 nerf just don't
+understand the difference between the
+coding agent rap. Yeah, I agree with you
+SNBart. I think I think if you've seen
+any degradations from changes they're
+doing to the harness. I don't think it's
+from the model.
+How are you solving for verification
+validation task in claude code? How are
+you solving for verification and
+validation task in claude code? How do
+you automate with very high accuracy? is
+hour 20s.
+When you say val verification,
+validation like do you mean like
+verifying it completed the task? Are you
+just testing? Like are you asking me how
+do I verify the work it did? What's good
+hour 20s?
+Um I mean this is a big reason why I
+don't use like the tools we just talked
+about like that auto cloud or whatever
+is I like to work handinhand with claude
+code, right? where I give it a task to
+do, it completes it, and then I go and I
+open it up and I test it in and out
+completely myself. Make sure the data is
+flowing to the database. Make sure it's
+using good security,
+you know, all of that. Is that what you
+mean by validation, verification? I know
+there's some MCPs out there like
+Playright where it'll auto control your
+browser and test it for you. I know
+anthropic building that into cloud code
+now with claude for Chrome.
+I don't love where it's at at the
+moment, you know? I I just don't trust
+the MCPS that control your browser and
+test things for you. I like if I'm going
+to sit there and watch a robot click
+around and not know what it's doing, I'd
+rather just do it myself. So, I just I
+just test vigorously myself. Am I
+putting like the best unit test in my
+code? No. Should I? Maybe.
+I'm all about speed, baby. It's all
+about that speed. Ironically, I love the
+fact that your videos are not just
+reading off a script that AI created.
+Most channels, you might as well just
+read the transcripts. Not engaging at
+all. Uh I mean, I don't know if you're
+talking about specifically my videos or
+like uh these live streams
+when it comes to like I watch every AI
+channel on YouTube. I watch every single
+AI channel on YouTube.
+And I think that you you have kind of
+one of two people and I don't this is
+not me talking crap on like content
+creators or other content creators. I
+respect the hustle. It's not worth
+starting drama, but it's like I feel
+like most people that create AI content,
+they're either more on the tech side or
+more on the showman side.
+And both are necessary. A lot of people
+on the showman side, they're not super
+deep. They're not balls deep into the
+tech and building it out [music] and and
+you know, so they go more highlighted.
+They pull up when a new product comes
+out, they pull up the blog post and they
+just the whole video is them just going
+down reading the blog post, right? And
+then there's more the technical people
+are actually balls deep into the
+technology and then it's more of them,
+the video is them just kind of clicking
+around, clicking around, right?
+I try to find that sweet milky center. I
+try to find that sweet milky center
+where you get some of the showmanship
+where I make it exciting and interesting
+and entertaining to consume the content,
+but at the same time I'm giving you
+practical advice. I'm telling you
+practically how to use it because I'm in
+it all day. Every day I'm in this stuff
+12 hours a day. I'm flawed coding out
+the law, too. I'm building stuff. I have
+10 projects going at once. I'm building
+a extraction shooter video game. I'm
+maintaining my $300,000 a year SAS
+creator buddy. I'm building out 10 other
+things. I'm building AGI. So that's what
+I like to I like to keep it I like to
+find that sweet bullseye center of
+entertaining, interesting, educational,
+but efficient.
+You know what I'm saying? All right,
+where we at? Uh, give me a rundown. All
+right, wait. Let's see where the last
+chat was with this Vibe Code app store.
+Um, okay. So, for the app screenshots.
+Okay, so we completed the app
+screenshots
+for the listings pages for every app.
+How many of you guys are submitting
+something when I launch this app store?
+By the way, it's going to be free, free,
+free, free, for free. How many of you
+guys are submitting your vibe coded apps
+to the app store? I'm curious.
+All right, give me a rundown of where we
+are at. And please put it in a new
+project rundown markdown file. So, some
+every once in a while, I like to do this
+when I'm building
+because I do like 20 projects at once.
+If I'm somewhere where I'm resuming a
+super complex project like this, I'll
+just say, "Hey, give me a rundown where
+we're at,
+make a new run a markdown file that has
+a full project rundown everywhere we're
+at the Tekken and everything so that
+when we go back, we can use that
+markdown file as context."
+You building AGI? Yes, I am. I'm
+building AGI. I'm building AGI.
+That might sound crazy.
+That might sound crazy. Uh, but I'm
+doing it.
+I don't think AGI is when a
+AI model is
+smart enough.
+Like I don't think AGI is like,
+oh, this model is so smart we're at AGI,
+right? Like I don't think it's a
+scaling issue where we just got to get
+the models a little smarter, a little
+smarter, a little smarter. I actually
+think the AGI is going to come in the
+harness
+where
+it's a system
+built that uses the intelligence in the
+right way.
+I think a like and obviously AGI has
+many different definitions. I don't
+think there's one agreed upon
+definition. Most people say, "Oh, it's
+when AI is just as good as human beings
+at everything or just as smart or
+intelligent as human beings as
+everything." I think we're already
+there. Now,
+what what is Chad GBT 5.2 or Gemini 3 or
+Claude Opus 45 weaker at human beings
+then?
+Can you name anything? I think it's just
+as good intellectually. So then why
+aren't why aren't we considered AGI?
+Well, I would say it's probably because
+in order to experience that
+intelligence,
+you need to go into a chatbot and ask
+the chatbot questions, right?
+I don't think that's is is like is AGI a
+chatbot? I don't think an AGI is a
+chatbot. I think it's the experience
+with the AI that's going to do the AGI.
+You know what I'm saying? as in like
+right now AI is reactive through a
+chatbot. In order to experience
+intelligence, I need to go into a
+chatbot and ask a question and then it
+gives me intelligence back.
+AGI will never be that. There'll never
+be like, oh, the model is so smart now
+we're at AGI because I can ask questions
+and it answers the questions really
+well. And I hope you're following along
+with me here. I think AGI in my opinion,
+and who the hell am I? I'm some guy on
+YouTube. Um,
+AGI in my opinion will be when the AI,
+the very intelligent AI, which I think
+we're already there when it comes to
+intelligence,
+do knows you, does things for you
+proactively and gets work done for you
+and creates economic value for you
+without you having to do any creative
+thinking whatsoever.
+You catching my drift? AGI in my opinion
+will be when you can,
+this is the entire AI experience. Follow
+along with me here. You hit a button,
+click,
+and now you are experiencing economic
+value in perpetuity.
+from that point forward.
+That's AGI in my opinion and that's what
+I'm building or that's what I'm working
+on right now. That's what I want to
+build
+is an AI experience where you hit a
+button click and then for years after
+that an AI is going to work without any
+input from you necessary doing work
+creating economic value for you
+improving your life making your life
+better.
+If you can hit a button to do that, then
+that button won't exist. That's insanely
+dumb. Says the smash cash. Smash the
+cash.
+Well, I'd call you insanely dumb, but
+then I'd feel like I'd be punching down,
+so I'm not going to say that.
+And shout out ALD. I see you, bro. I
+don't know who ALD is, but shout out
+ALD. Have you tried using Automaker yet?
+Uh, I don't know what automaker is.
+Yes, nothing high level. I want
+practical examples of claude skills and
+agents working together. Your videos are
+clear. Most others are too technical.
+Let's go. A Finn, I will pay. Well, Ben
+Yamam525, the good news is my YouTube's
+free, so you won't have to pay unless
+you want to join the Vibe Coding Academy
+link down below. You get a full Claude
+code master class which does have a
+Claude skills section. And you also get
+weekly calls with me. So you can go on
+the call and ask me questions or uh
+call me dumb, whatever you want to do.
+Oh, Amy Leondor. Yeah, it's my favorite
+brand.
+It's my favorite brand. I got a bunch of
+Amy Leondor stuff. It's my favorite
+brand. I just think it's classy. I think
+it's a classy brand. Shout out Amy
+Leondor. If anyone hasn't connected, Amy
+Leondor,
+hit your boy up. Sponsor me. A Leonor. I
+know this isn't a clothing channel, but
+I don't know. Send me free stuff. Is
+that begging? I don't know.
+Uh, good live. I am watching from Gaban.
+Shout out Gaban. I hope I pronounced
+that right. Shout out Gaban. Will new
+courses be added to the master class as
+more things come out and develop? Well,
+Wasim 2K, I got good news for you. I've
+already added a full second course since
+launch. We have been launched less than
+a month and I've already added a full
+second course. So, to answer your
+question, yes, to answer your question,
+I'm way ahead of you. I already added a
+second course. We added a full content
+marketing course to it. Uh, XGrowth
+Masterass. So, yes, we are adding I'm
+adding a third course over the next
+couple weeks for like super deep dives
+on specific vibe coding topics. So yes,
+I don't think you're dumb. I do think
+it's dumb to not grasp that if everyone
+can push the button, then the button
+loses its value instantly. [music] No, I
+think I think you have a zero someum
+mindset. Smash the cash. AI is not zero
+sum.
+AI is positive sum.
+You have a zero sum mindset. Smash the
+cash. You have a Bernie Sanders mindset.
+[music]
+Right? How does Bernie Sanders, and I
+don't want to get political here, but
+this is a factual conversation we're
+having here. How does Bernie Sanders
+mind work? Zero sum, right? Oh, if there
+are rich people out there, then that
+must mean there are poor people, right?
+Oh, if there are billionaires, that must
+mean there are people starving because
+billionaires exist. That's zero sum.
+That's a zero- sum mindset. If some
+people are happy, then other people must
+be unhappy. So, we need to make sure
+everyone's even, right? That's a zero
+sum mindset. AI is not zero sum.
+AI creates economic value.
+AI creates economic value. Let me give
+you an example.
+I as a one person am building a very
+complex video game right now. Before AI,
+I could not build very complex video
+games. In fact, I could not build 1% of
+a simple video game before AI. Now,
+because of AI, I'm able to create more
+economic value because I can create
+great video games. I put out Creator
+Buddy. Creator Buddy's an AI that
+creates content and helps you make
+better content. That's making me
+$300,000 a year. That's $300,000 of
+economic value created. I could not do
+that before. And now I can do that.
+Because I'm making $300,000 on my AI
+software does not mean someone else is
+making $300,000 less off their software.
+I created that economic value. AI
+creates economic value. And so if
+everyone in the world was using AI to
+its maximum efficiency,
+that's economic value created for
+everyone. You're running on smash to
+cash a zero sum mindset.
+AI is not zero sum. AI creates value for
+people. It creates value from nothing.
+That's positive sum. So you got to work
+on the mindset which is
+positive sum.
+You are able to because you have
+intention and perspective and a holistic
+understanding of what you're trying to
+achieve and AI helps you achieve that.
+That's not pushing a button.
+Correct. But I think it could be
+pushing. We don't cuz we haven't
+achieved that yet. We haven't achieved
+AGI, which I believe is pushing a button
+and creating economic value autonomously
+and proactively.
+If I had it, I bet it would be creating
+that for me by pushing a button, but
+doesn't exist. So, I'm trying to build
+it.
+AI is not zero sum. It's positive sum.
+[music] And I want to build something
+that makes it as easy as humanly
+possible. smash the cash to achieve that
+positive s some value creation. Right
+now I think it's too difficult for a
+majority of people to experience that
+value creation, right? Because right now
+to experience that value creation, you
+need to go into a chatbot and ask
+creative questions. And I think for a
+lot of people asking creative questions
+for an AI is not intuitive and difficult
+to do. [music] But if it was as easy as
+pushing a button, I think it can be
+done. If you push a button and then the
+AI does research on you and learns about
+you and finds your interest and learns
+about your career and what you do
+and then is able to think of ways for
+you to create economic value and then it
+just does those things for you.
+I think that's AGI and I think that's
+very possible.
+There is no reason for a human to push
+the imaginary button. The button pushes
+itself at that point. That's human out
+of the loop. That's not the goal.
+Why isn't that the goal?
+Why is that not the goal? I completely
+disagree. That is the goal.
+The goal isn't to make life as easy as
+possible to have value creation
+with no work. Like isn't that that is
+then poverty is gone. If you can have
+value creation with no work,
+then poverty is gone.
+Then hunger is gone. If you need val if
+work is required for value creation,
+there will always be poverty. There will
+always be hunger because not everyone
+can work, right? There will always be
+people left behind. And I'm not saying
+work is a bad thing. I'm just saying if
+you can create a value creation system
+that does not require human beings and
+you can create infinite value and scale
+that up and eliminate poverty
+because I have purpose and meaning and
+intention and perspective that I want to
+paint into the world. That's okay. Then
+do that. Congratulations.
+Then go do it. Nothing stopping you. But
+I want to create a system that creates
+value for everyone.
+Not everyone's experiencing AI right
+now.
+Not everyone's getting the value at AI.
+A lot of people are being left behind
+for one reason or another. And I want to
+create a product
+that creates value for everyone. Even
+the ones that don't understand AI. And
+listen, after poverty is eliminated
+because AI is doing all the value
+creation autonomously, you can still go
+and work if you want. Becomes optional.
+Go and do work and paint the world. What
+do you what do you say here? uh
+intention and perspective that I want to
+paint into the world. All right, go
+paint Go paint the world.
+Smash the cash. Go paint the world. Who
+cares? Do it. Paint the world. I want to
+help the people that don't know how to
+paint the world. Not everyone has what
+do you say here? Purpose, meaning
+intention. Painting the world. Not
+everyone wants to paint the world. I
+want to help those people out too.
+I think y'all what is being missed in
+communication is this. There are some
+people who are capitalist by nature who
+look for how things can make them money.
+Others who are not won't look at it that
+way.
+As AI gets smarter and we replace the
+ability to push the button, we will
+become managers of the AI and then we'll
+just increase from there.
+Right? But we're not anything close to
+that now at the moment.
+We're not even we're not we're not
+anywhere close to there. Right now,
+where we're at with AI is you go to
+chatgbt.com
+and ask questions and then it gives you
+answers in text form. That's where we're
+at with AI. And I think that's a very
+bad user interface [music] for the
+future and what we want to achieve with
+AI.
+Then help them learn how to have
+intention and perspective and purpose,
+which I think you already do by the way.
+You're like the best channel reai stuff
+like this. Then help them learn how to
+have intention and perspective.
+I don't think it's mutually exclusive
+though, Smash the Cash. I don't think
+just because you have an AI autonomously
+working for you, making your life
+better, doesn't mean you can't have
+intention and perspective and purpose.
+Let me give you an example. Let me let
+me paint in your nomenclature paint Let
+me paint you some Let me paint you a
+picture. Smash the cash.
+And I want people's feedback. I'm glad.
+Smash the cash.
+I play around. I crap on people. None of
+this is personal. We're just doing a
+little sparring in the chat.
+Let me paint you a picture. Say you have
+Let me give you this user experience for
+what I'm building.
+You hit a button.
+The AI goes, "Okay, Alex Finn, hit this
+button."
+The AI goes finds my ex.
+Okay. He tweets about AI. Oh, he
+announced um a new newsletter. Oh, looks
+like he announced a new newsletter every
+Thursday for the past four years. He
+must send out newsletters every
+Thursday. Then he looks at my YouTube.
+Oh, he's live streamed every Monday,
+Wednesday, Friday at 11 a.m. Pacific for
+the last five months.
+Oh, he releases three to four YouTube
+videos a week about AI.
+Let me go look at his newsletters. Okay,
+he writes about this this Vibe Coding,
+how to build apps. Oh, looks like he was
+talking about Vibe Coding Academy, which
+is a community with courses in it. Let
+me see what the courses are about. Okay,
+interesting. Okay, so here's what I'll
+start doing. How can I help out Alex
+Finn the most?
+I'm going to start writing him
+newsletter drafts. Get it into his inbox
+Wednesday nights in preparation for
+Thursday. He does the live streams
+Monday, Wednesday, Friday. So, the night
+before I will give him a rundown
+document of all the big AI news from the
+day before so we can talk about it on
+his live stream.
+Looks like he tweets about 5:00 p.m.
+Pacific every night. Let me uh find a
+rundown of the top AI tweets from that
+day. Send it to him at 4 p.m. so we can
+start prepping his content then.
+Looks like he wears a bunch of really
+fabulous Amy Leon door clothes. Looks
+like they have a sale going on right
+now. I'll send him that over. Uh oh,
+also
+he tweets about owning Tesla stock a
+lot. He must own Tesla stock. Well,
+there's been some brand new news on
+Tesla. They're releasing this new car.
+Let me make sure that gets alert to him.
+I'll text him right now and let him know
+about that.
+That in my opinion is AGI.
+How does that what I just described to
+you smash the cash take away my
+intention, perspective or purpose? That
+did nothing but create economic value
+for me. That did nothing but make
+writing newsletters, creating videos,
+doing live streams, vibe coding
+significantly easier and better with
+less effort. And I still have my
+purpose. I still do those live streams.
+I still create those videos. I still
+write the newsletters. Maybe it's a lot
+easier to do those things. Maybe we get
+to the point where the AI is so good it
+writes the scripts and writes the
+tweets. All I have to do is hit send
+send. But I still have my purpose.
+So I'd claim that's creating a
+tremendous amount of economic value for
+me without eliminating my purpose. And
+that's what I'm trying to build right
+now. That's the product I'm building on
+the side.
+And all I did was mindlessly press a
+button, as you call it. You're right.
+All I did was mindlessly press a button
+that caused all of that to happen.
+Correct. But that did not eliminate
+purpose. That just created economic
+value.
+Sam and Elon are watching the channel.
+So keep that in mind when asking
+questions. Correct. Watch your mouth.
+Sam and Elon are Sam Alman and Elon do
+watch this live stream. I I have gotten
+confirmation.
+I have gotten confirmation. Guys, Alex
+literally knows all. Shout out Phantom
+Platypus. My number one man
+representing the Twitch community today.
+For real though, AI on the other side of
+the button is capable of all that you
+described. It'll have pressed itself
+before you get the chance to build the
+button. We're not there yet. So, I want
+to build that button. I want to be the
+one that builds the button. I think we
+ultimately agree. It's just framing
+we're debating anyways. Me at distinct
+disadvantage because I'm the one typing.
+That's true. You are at a disadvantage.
+Uh I'm the one talking with my face on
+the big screen.
+I can choose to ignore. If you make a
+really good argument, I can just choose
+to ignore that message and pretend like
+I didn't read it. I can twist your words
+any way I want. So, yes, I am at a
+distinct advantage in this in this
+little debate. Smash the cash. But I
+appreciate uh you participating in it. I
+appreciate you participating in this uh
+debate even though I'm going to win no
+matter what happens. I mean, mostly
+because I'm right, but even if I wasn't
+right, I'd still win. That's a good
+position to be in. Get into arguments
+where you win no matter what. That's a
+good place to be in. Don't get into an
+argument unless you're 100% guaranteed
+to win. No matter what happens, no
+matter what you say.
+Alex, answer. Please. Please. Alex,
+answer. Alex, answer my question. Answer
+my question. Will you answer other
+questions? Alex, answer my question.
+Answer it, please. Alex, please. Alex,
+answer other questions. Please. Please
+answer my question. Please. Please.
+Please shut up.
+Shut up. I don't know what your question
+is and I'm no longer interested in it. I
+was in the middle of a very good
+conversation. Dev very good conversation
+with Smash the Cash. The fact that you
+listen to that highlevel philosophical
+debate on AI and the only thing you
+think is answer my question please
+please answer my question please means
+you're you're you're in the wrong place.
+You're in the wrong place.
+the hell are you talking about? What's
+I'm All right, here's what I'll do for
+you. Dev.x, I'm going to find your
+question. And if this isn't the best
+question I've ever read in my entire
+life, I'm banning you.
+How about that? Let's make an agreement
+right now. Dev, you have two options.
+You can let go the fact I didn't read
+your question, or you can
+say, "Read my question." And if it's not
+the best question I've ever read on this
+channel, I'll ban you. Which one is it?
+Ignore the question or read the
+question, but if it's the worst ever,
+you're banned. Which one?
+Totally up to you. Fine. Deal. Which
+Which side of the deal are you taking? I
+read the qu. So, do I read the question
+or not? We have a deal. Okay. So, I'm
+going to read the question. Read. All
+right.
+I like I like the balls on you. Dodev.
+I like the balls. If this isn't the best
+qu I'm going to I'm going to scroll all
+the way back for it. If it isn't the
+best question I've ever read in my
+entire life, I'm instantly banning you.
+Got to hope this is a good question.
+All right, here we go. I found it.
+Let's see.
+Can you confirm that you should prompt
+small features one at a time instead of
+asking AI to do a whole thing at once?
+The poll's live.
+Was that
+Is that a banable qu? He be he begged
+for 25 minutes for me to answer that
+question. Is that a banable question?
+The a listen the agreement we made was
+if the question was not the greatest
+question ever asked is banned. So shoot
+which I'm not saying is the question
+good or not. The question is is it the
+best question of all time or not?
+If it's not the best question of all
+time, he's banned. So get in the poll,
+banned or not banned. You didn't read
+the follow-up question. All right.
+What's the followup?
+Like instead of saying build a whole
+tracking system, you should ask it to
+build a dashboard, then a header, then a
+footer, etc., etc.
+I'm going to answer I'm going to answer
+the question. I'm just curious what
+people are saying in the in the poll
+right now. You're right now
+people are doing this. You ready? Right
+now.Dev people are doing this
+not banned. 65% say you should not be
+banned for that question.
+Another solid question, but it's not
+about if it's a solid question or not.
+It's a question. It's about is that the
+greatest question of all time. He begged
+for 20 minutes for me to answer that
+question. It's not about
+is it a solid question. It's about is it
+a banable qu is it the greatest question
+of all time. That was the agreement.
+That was the deal.
+I I mean, I'll answer it and we'll
+determine if we ban you or not.
+Um,
+it depends if you're using plan mode. If
+you use plan, it depends on the
+complexity and it depends if you're
+using plan mode. If you're just building
+a dashboard,
+you can go into plan mode and say, I
+want a dashboard with all these things.
+and claude code with Opus 45 is smart
+enough to like plan out the header, the
+the footer, the text, all that all in
+one shot,
+right? Using Opus4 then the complexity
+of a dashboard with headers and footers
+and stuff is not too complex for plan
+mode. If you want to build AGI, which is
+what I was talking about a second ago,
+yeah, I mean, you're going to want to
+break it down step by step, right?
+So you have to think of you have to what
+I would say is get comfortable enough
+with Claude Opus 45
+where you kind of know what it can
+handle what it can handle in just
+straight shooter mode or what can handle
+in plan mode and then you you'll get a
+feel for what can be one-shot and what
+can't I er don't things I towards the
+side of build it out step by step
+because you'll learn a lot more as you
+go too
+uh hopes to survive that scope of I got
+a lot, right? Especially with plan mode.
+The plan mode's incredible.
+So, I hope that answers your question.
+Now, are we going to ban you or not?
+It appears like the chat's on your side.
+There's been 30 votes and it looks like
+it's 20 to 10. 20 people say do not ban
+you. 10% say ban you.
+So, um
+right now it's trending toward you not
+getting banned. Dev. Uh, so
+congratulations on that. You can
+continue to ask questions. Thanks, chat.
+We have an empathetic chat. We have an
+empathetic chat.
+Dashboard can literally mean anything.
+It's like Peter Griffin's mystery box.
+Yeah. I mean, like, what are we going to
+do?
+I'm not gonna sit here and pro at him a
+hundred different details. [music]
+A lot of this was addressed in Alex's
+Claude Code video from this morning.
+That is correct. Watch the video from
+this morning's popping off, people. The
+video from this morning's popping off.
+Everyone, after this stream ends, make
+sure to uh Oh my god, it is popping off
+like crazy right now. Make sure to watch
+my latest video. I always worry like
+when I live stream the same day I
+release a video, uh, does it hurt the
+views? Not for this video. This video is
+popping off. Watch my latest video after
+this uh after this ends.
+Alex, I was I'm going to be honest.
+There's no offense. Dev, I was a little
+disappointed I didn't vote to ban you.
+You're lucky. It was up to me to be
+banned, but it's not up to me. It's up
+to the chat. This is a democracy. This
+live stream is a democracy.
+The the coding people are getting upset
+at me. The coding people are like, "What
+are you doing? Build something." Sorry.
+Apologies. I just came for the live
+stream. I just did, too. You're not the
+only one. I think there's a lot of
+people in the audience that did as well.
+Is Opus 45 nerfed in anti-gravity? Sorry
+if that's a silly question. I'm going to
+be honest. I don't use OP. Like, why
+would I use Opus in anti-gravity?
+Like, it's clear opus
+was built for Claude code.
+It's like saying
+it's like saying, "Is the bagel at
+McDonald's any good?
+Why would I get a bagel at McDonald's
+when I can go to,
+you know, the local deli down the street
+that makes fire bagels and go there
+instead? It's like, I'm not even going
+to try the bagel at McDonald's. I
+already know it's not as good as the
+deli down the street
+that that boils the bagels there. You
+know,
+if I'm using anti-gravity, I'm using
+Gemini 3.
+Do you pin your video in the YouTube
+chat? I don't know. Should I Should I do
+that? Is that a thing? Is that gonna get
+me more views if I pin my latest video
+in the YouTube chat?
+Am I going to get more views that way?
+I want people to watch the live stream.
+I don't want them to click off. Just go
+to my latest video after this is done.
+Once this Once this is done. Oh. Oh,
+you're on you're on Twitch. Um Yeah. I
+don't know. Just go to my YouTube after
+this is done and watch it. Do your boy a
+favor and leave a like down below. Leave
+a like down below if you're watching
+this. Leave me a like right now. I
+demand it. I demand you leave me a like.
+All right, here we go.
+Where we at? Let's see where we're at
+with this uh Vibe Code app store. We're
+an hour in. We haven't done much here.
+We We had a lot of chatting. I think the
+chatting's been good so far. No, had
+some good chats. Oh, we got more
+questions fromdev.dev's really fueling
+themselves. Will you see my website that
+I made with Claude? No.
+Think Tesla will ever make a minivan?
+Well, they're making the robo van. I
+want them to make like a full-size SUV.
+That'd be sick if they made a fullsize
+SUV. I'd be pumped about that. I have
+the Cybert truck and it's great.
+Cybertruck's incredible.
+My partner picked up the Model Y over
+the weekend.
+She picked up the Model Y.
+So, we're now a two Tesla family.
+You guys want to see the new the new
+family?
+I don't want to do this show off, but we
+are a Tesla. We are now a Tesla family.
+You guys ready for this?
+Here's uh
+here's the new fam. This is the fam.
+We got Sai on the right, Yolanda on the
+left. It's Yolanda on the left, Sai on
+the right. That's the name of our cars.
+Pretty cool picture, huh?
+Maybe you could give advice that people
+may need to know of. I am unable to send
+my product link here. I think I turned
+off sending links. I don't want spam
+links. All the crypto people come in and
+send links once I enable links. Uh
+what's the best alternative if you want
+links? Uh join the vibe coding academy.
+You can send links there.
+The reason why you don't want to use
+opus and anti-gravity is because Google
+just doesn't like they're not going to
+understand opus the same level as
+anthropic. Right? You look at the
+harnesses, anti-gravity is a harness.
+Claude codes a harness. [music] Uh,
+you know, Claude codes the harness built
+by Anthropic and Integrity is the
+harness built by Google.
+They're going to build they're going to
+know their models the best. So, they're
+the best harnesses for them. So, if I'm
+using Opus, I'm going to do Claude Code.
+They're sick. Get them both wrapped. Uh,
+the Cybert truck will be wrapped on
+January
+12th. January 12th, I'm getting it
+wrapped.
+I'm deciding between matte black and
+glossy black. Originally, I wanted
+glossy black. Now, I'm switched over to
+matte black, but I saw a glossy black
+Cybertruck a few days ago, and now I'm
+now I'm torn again.
+Is it really pronounced Tesla? Every one
+of their mothers calls me out on this. I
+don't know. I say Tesla. You want to say
+Tesla? Tesla. Here's our Teslas. It's
+easier for me to say Tesla. I don't
+know. Just my I have a half Boston half
+uh New York accent. Deal with it. Wrap
+it in pastel yellow. Yeah, right.
+One day I'm going to get my girl a pink
+wrapped Model Y. I think Teslas look the
+best wrapped out of any car. The only
+car [music] I'd wrap. I wouldn't wrap
+anything else. Maybe if I got a G Wagon.
+I'm not nearly wing up the G Wagon. So,
+&gt;&gt; you sat in black. Best of both worlds.
+That's what I'm thinking. That's what
+I'm leaning towards. Let's see where
+we're at with the project. Okay, so the
+Vibe app store project rundown. A
+product hunt style marketplace for vibe
+coded apps.
+Okay, so we got everything in here.
+Awesome. That was a good rundown. What
+else do we need to add to our app?
+Perfect the postings page. All right,
+let's look at the postings page.
+Where we at on the postings page for our
+Vibe app store?
+Cybert truck is banned in the EU. I
+can't get one. Why would you leave? Why
+would you live in Europe?
+There's so many rules and regulations.
+Like you can't buy a cyber truck. Like
+that. That's how far they went. You
+can't buy a Cyber Truck. Every other car
+on the road in California is a cyber
+truck. And there's been like nothing bad
+that happened.
+The fact that they banned the Cybert
+truck like should be enough where you
+go, "Okay, I'm leaving. I'm leaving
+Europe."
+Shout out Europe.
+I go there like every summer. I love it.
+I love the visit. I would never want to,
+you know, run a business there.
+It's beautiful.
+I'd argue in a lot of ways it's more
+beautiful than America. I mean the
+history I mean America [music] is not
+old enough to have the history Europe
+has right. I went to Rome over the
+summer. Beautiful. Incredible food.
+America food stinks.
+Plastic everywhere. Everything you eat
+tastes you you you don't realize until
+you go to Europe how fake American food
+is. Like you eat tastes like plastic.
+You don't realize how everything tastes
+like plastic until you eat European
+food, which tastes incredible.
+But at the same time, you can't own a
+Cyber Truck in Europe. So screw that.
+Like there's like
+every successful company in history is
+in America.
+Factory pickup is the best program for
+buying a new car.
+Yeah, it's sick. Tesla's genius. What
+skills do you think will be in high
+demand between 2035 and 2040? Says AI
+techniqu. That's a good question.
+That's a good question.
+What skills do I think will be hiding at
+2035?
+That's 10 years from now. So what skills
+do I believe that's not the next 5
+years, that's 10 to 15 years from now?
+I think the biggest one will
+I think all valuable skills
+in the post AI world will be creative
+skills,
+soft skills,
+sales, communication,
+any sort of creative thinking. Anything
+that requires creative thinking
+will be the most val I mean I think it's
+already there. Like I think we're
+already in a place where creative
+thinking is like the most important
+thing you can do because that's the only
+way to use AI right now is to creatively
+think about how to use it.
+But I think that only becomes more
+important as kind of the hard skills get
+uh abstracted away by AI.
+So if you don't know sales yet,
+learn sales. Read sales books, right?
+Read
+uh you know what's the book called? How
+to make friends and
+attract people, whatever the book's
+called, read that. That's a good that's
+a good one. Any sort of soft skills
+books like that I think are very
+important.
+If you're early in your career, if
+you're in like your your early 20s, uh
+get a job in sales, become a BDR, become
+an account executive,
+learn how to sell, learn how to talk,
+learn how to go to up to people cold,
+tell them what they need to do, right?
+Learn to grow a pair of balls to do
+crazy things and say crazy things. I
+think those are the most important
+skills. I'm not sure if it's
+anti-gravity generally itself, but there
+are a lot of hallucinations with either
+one of them. If it's anti-gravity or
+cloud code cursor, yeah, there's tons of
+hallucinations in anti-gravity. They
+still have a lot a long way to go. I
+think the app is great. I think their
+their product
+direction is fantastic in anti-gravity.
+Uh they just need to work on the
+execution a little bit. All right, so
+here's the product listing page.
+I'm going to screenshot this
+and I'm going to go back into Claude
+Code and I'm going to say how can we
+improve this? I'm going to use Claude
+Code as a creative partner.
+I'm going to say make this a little
+bigger.
+Here is what the product listings
+pages look like. How would you improve
+it?
+What are your thoughts?
+I'm gonna paste the screenshot. Command
+V. I'm going hit enter. Let's figure out
+Oh, you can't see it because of the
+question on the screen. Um,
+we're going to figure out how to improve
+these product listings pages. [music]
+What can we build to assist with the
+shop? Maybe an art theme chosen to help
+allow us to contribute on the design
+site. Oh, that's a very nice question.
+has more rat.
+I think the number one thing you can do
+to assist with this shop
+is one build your own apps, right? So
+build apps you can post into it. That's
+the number one thing if you want to
+assist building this uh Vibe app store.
+The number one thing you can do is build
+build your own apps. Build your own
+thing submit. This app's gonna suck if
+there's only like four submissions,
+right? People are going to come back and
+look at the same four submissions over
+and over and over again. They they want
+like
+an ever growing inventory of apps on
+this store.
+So, the number one thing you can do is
+build your own apps that you have to
+submit. And then I'd say the number two
+thing is is when it launches, like just
+engage,
+ask questions on the listings. Hey, what
+can I do? What what tell me about this
+app? Whatever. you know, ask questions
+to the makers, the builders, participate
+in the community, talk with each other,
+talk about what you're building, what
+you're doing. Share out links on social
+media.
+I think that'd be the best way.
+How's that sound?
+I appreciate you asking that though,
+Asalat. Thank you. I'm glad that you
+want to engage and participate. Looking
+at this, here are my thoughts. What's
+working? Clean header with app icon name
+tagline screenshot gallery make your
+session clear empty description looks
+bad no description provided add you can
+either hide the section show a prompt
+for owners to add one
+number two missing info that we have we
+built these features but they're not
+showing text stack badges pricing model
+GitHub link one sentence pitch change
+log
+sparse layout lots of empty space on the
+left. The sidebar could include more
+useful info.
+No last updated button date. Users want
+to know if an app has been actively
+maintained. That That'd be a good one.
+Let me write that down.
+On product pages last updated fields.
+See, this is the benefit of like working
+with the AI and bouncing ideas and
+getting creatives. It's coming up with
+good ideas. We can add on to this.
+EU is trash. I wouldn't go as far to say
+as the EU is trash. I'd say their
+leadership might be trash.
+You know, they're driving away a lot of
+innovation. They're driving away a lot
+of businesses. The people are great.
+Europeans are great. The food is
+outstanding. The history is outstanding.
+The beauty is outstanding. The nature is
+outstanding. Uh but they have leadership
+that does not want to see them win or
+innovate or create economic value.
+You can even mirror your iPhone to the
+Mac. Forget a Cybert truck. You can't
+even mirror your iPhone to the Mac.
+Forget a Cybert truck.
+The safety is better here in the in
+Europe than the US. Um,
+what in in what regards?
+What what uh
+what do you mean?
+Like because there's no cyber trucks on
+the road, everyone's safer. What do you
+mean by that? I like states, but food is
+really bad. Yeah, America's great. I
+love America, but the food here's
+obviously pockets of great food. You go
+to any city, you'll find great food. But
+I say on average, like I go to Europe
+and anywhere eats blows my mind.
+I want I built a product MVP. Should I
+market it or go to building another
+product? Well, if you just built more
+products every time you built an MVP,
+how would you ever successfully launch a
+product? What sense does that make? You
+got to try to market it.
+Are the apps in the store going to have
+GitHub links? Is that where they are
+being hosted or is this true
+distribution point for direct download?
+So, I don't in my mind this isn't even
+about downloads.
+In my mind, this is just about listing
+your vibecoded apps and having
+discoverability and helping people
+discover your solo built vibecoded apps.
+I I don't think people are going to
+download from here. I mean, they could
+maybe I will give download links, but
+it'll just be links to your site, links
+to your app, description of what your
+app is, so people can discover other
+people's vibe coded apps.
+Alex, will you share how much money you
+have made out of building web apps with
+AI? Yeah. Uh well, I only have one web
+app that I launched that I built fully
+with AI that's making money. That's
+Creator Buddy. It's a $300,000
+uh annual recurring revenue business.
+Meaning
+the amount of money it's on pace to make
+every year is $300,000. It launched
+10 months ago, so pretty good pace.
+Um
+my other business lines are YouTube. So,
+the uh
+ad revenue on YouTube, which I think's
+on pace for like 60k a year.
+Vibe Coding Academy, you know, I I put a
+bunch of courses out in there. I do
+weekly calls, things like that. That's
+trending towards six figures a year. Um,
+Twitter ad revenue, it's like 30k a
+year. I get on Twitter ad revenue.
+Twitter subscriptions are like 30k a
+year.
+Newsletter
+newsletter sponsorships, newsletter
+premium subs,
+YouTube sponsorships. I think I've done
+like four sponsored videos the last
+several months. And those are just
+videos where I open up. I say, "Hey,
+this is a sponsored video by this
+company. I'm going to take a look at
+their tool. I'm going to give you my
+unfiltered opinion. Thank you to this
+company for giving me access and
+sponsoring the video.
+Can I get a story time like your
+background and how you started etc.
+&gt;&gt; Yeah, I'll give you I'll give you a
+quick background on me.
+My whole journey.
+Well, I start I studied computer
+science. I was a developer. Then I was a
+sales engineer. Then I managed a team of
+sales engineers at a company called
+MongoDB.
+And four years ago, I bought
+a Cartoon Monkey NFT for $30,000 on a
+whim.
+And I went, "Holy crap, that was the
+stupidest thing I've ever done in my
+entire life. I got to make something out
+of this." And I decided at that moment I
+was going to start a Twitter account. I
+said, "Hey, I bought this $30,000
+Cartoon Monkey NFT. I'm going to make
+like an anonymous online account and
+tweet under that image. [music]
+Maybe I could quickly get followers
+because other people had that same
+cartoon monkey and they go, I got to
+follow this guy. Could be easier for me
+to get a following. So, I started a
+Twitter account called NFT god. I was
+literally like, what is the most
+obnoxious
+handle could I possibly come up with
+that will make the maximum amount of
+people hate me? and but it will turn
+heads and get me attention which is all
+that really matters on social media.
+And so I named it NFT god and I started
+tweeting under that moniker. Uh and I
+tweeted for a while. I tweeted for
+years. I I kept my job. I would just in
+between meetings fire off tweets. It was
+pretty fun. And then I blew up. Six
+months in I blew up. I got to like
+10,000 followers. people just liked what
+I had to say I guess about tech crypto
+the world
+business entrepreneurship to start
+blowing up to 10,000
+and then my big tipping point was about
+two and a half years ago two and a half
+years ago Elon Musk buys Twitter and
+open sources the algorithm
+and I was on X the moment he open
+sourced the algorithm and I saw him
+tweet it out in real time and I'm I'm
+like, "Oh, I know coding. Maybe I'll
+take a look at the open source algorithm
+and write a tweet about it." And so it's
+a Friday night. I pop open the open
+source algorithm, the GitHub. [music] I
+look through all the code. Like I sit
+there for hours reading all the code,
+seeing how it works, and I write like a
+thread on how it works. And that went
+super viral. Super viral. Uh Elon
+commented and replied. Uh Mark Cuban
+DM'd me and hired me for like contract
+work. Uh it blew me up. I mean, it sent
+me to like 150,000 followers. Like it
+was my big tipping moment. And I'm like,
+"Wow, this is amazing.
+You know, I went from like kind of a
+niche NFT god to like a mainstream
+account." And I think there's something
+here. I think there's something here. I
+think I could turn this into something.
+I don't know what it is, but I can turn
+this into something. And so I quit my
+job
+at a, you know, a highpaying tech job
+managing a team at a big public company.
+I changed my Twitter account to Alex
+Finn from NFT God, so I made it my face
+and my name.
+I started tweeting more about tech and
+AI and things like that. And then uh
+about a year and a half ago, July,
+August
+2024,
+I stumbled upon an app called Cursor.
+And I'm blown away. I'm absolutely blown
+away by this app, Cursor. [music] Blown
+away. Can't believe it. I mean, I went
+from being kind developer to like
+building full-scale apps in the second.
+I'm like, this is incredible. This is
+mind-blowing.
+And I was so inspired by cursor. I was
+so inspired by this technology coding
+with AI that I started a YouTube
+channel. I started my YouTube channel in
+August 2024. I was just so blown away
+and inspired. Didn't start a YouTube
+channel to make money. Didn't start it
+for any any reason other than I loved
+coding with AI so much I had to create
+videos on it.
+And that started blowing up. And I I my
+first app I built with cursor. The first
+app I started building with cursor was
+an app I called Your mic behaves weird
+sometimes. The audio gets weird. I don't
+know how to explain it. I don't know,
+man. Wish I knew. Wish I knew. Uh the
+first app I built with cursor.
+I think it might be the background
+music. I'm going to turn down the
+background music a little bit.
+The first app I built with cursor was an
+app I called Creator Buddy, which is
+basically just an AI trained in all your
+tweets and posts. Uh, I released that
+January of this year, 2025.
+Hit 100K ARR in 15 minutes, hit 200K ARR
+in two hours, and then hit 300K ARR in
+like a month or so.
+That takes off. It's around that same
+time my YouTube channel took off. I went
+from zero subs to 100 subs to a thousand
+subs, 10,000 subs, all in a couple
+months. And uh you know, I for the first
+time in two and a half years of being
+independent and not having a job and I
+for the first time in 35 years on being
+a human being on planet Earth
+found a direction and found a purpose
+and found a place to go, right? like
+vibe coding, AI, AI coding. That is my
+purpose. That's the reason why I'm on
+this planet.
+That's what I'm here to educate others
+about. That's what I'm here to talk
+about. That's what I'm here to do. And I
+haven't taken a day off since.
+I work 24 hours a day, seven days a week
+on this and I love it. I haven't been
+stressed for a moment.
+since I started doing this. Zero stress
+I feel at any time. Um,
+and that's my story. That's how I got
+here. And I like talking to people. So,
+I started a live stream. There's no
+purpose of this live stream other than
+talk to you guys. The the sole purpose
+of this live stream is to carve off two
+hours every couple of days to make sure
+I move forward on my coding projects
+since I have to do a live and to talk to
+you guys. Uh, I don't make any money
+from these live streams. [music] I don't
+sponsor them. Maybe I'll sponsor in the
+future. Who knows? Don't pay me.
+Anthropic pay me. Uh, I don't do
+sponsorships for these. I just sit here
+and I talk to you guys. I enjoy it. They
+don't grow my channel at all. I get zero
+followers from these live streams. I get
+zero discoverability from these live
+streams. There's zero pretty much zero
+benefit from these live streams. I just
+enjoy doing them and hanging out with
+you guys and chatting with you. So,
+that's my story. Yeah, your mic might be
+ducking the music. Not sure set up. I
+don't know.
+No one has more audio issues than me.
+Nobody. I'll turn down the music more. I
+don't know. I don't know. Alex, you got
+to take that clip where you tell your
+story and put it somewhere. Where do I
+put it? What is What is a good venue to
+take a
+eight minute clip
+talking about myself? What's a good
+social media site that likes eight
+minute clips of me talking about myself?
+It's not Tik Tok, is it?
+Is that Tik Tok? Is that a t Did I
+create a Tik Tok? Twitter? No. Twitter's
+not the place for that. Is Twitter the
+place for that?
+Twitter. No one's If if you've ever
+posted a video on Twitter before, you
+know Twitter ain't the place for that.
+There's not a single video in the
+history of Twitter where they sat where
+the audience sat there for more than 25
+seconds to watch it. If you I post
+videos on YouTube and the engagement is
+like 30% till the end like at the end
+30% of the audience is still there. You
+post any video on Twitter
+1% at the end 1%. No one watches past
+the 30 second mark on any video when
+they have Twitter.
+Nobody ever
+people who have similar aspirations want
+to hear it and relate and feel inspired.
+Not Twitter definitely not the place. I
+don't know.
+Maybe we'll just keep this for us. News
+be for me and you. Me and you, the
+people who sat here on Monday, December
+22nd, couple days before Christmas,
+hanging out, vibe coding.
+Maybe you out like YouTube intro video.
+Can I just post it as like an intro
+video but not as a mainline video? I
+don't know. Maybe I'll clip it and just
+save it.
+That too. Why am I seeing I'm seeing
+like uh
+I'm seeing different chats on the screen
+in my stream than I am on my other I'm
+seeing different chats. I don't know.
+Whatever. What's your view on Bitcoin?
+Uh bullish.
+As long as governments keep printing
+money, Bitcoin will go up. And I think
+governments are addicted to printing
+money.
+I don't think we will ever have a
+government
+that does not print money.
+They're addicted to it. If you give
+people unlimited power, they will take
+advantage of that unlimited power. It
+just is what it is. We will have
+governments until the end of time that
+promise they will stop printing money
+and inflating and then they will always
+go in and print money and inflate.
+There's nothing you can do. It's
+infinite. So, as long as that is the
+case, which I think will be the case
+forever, I think Bitcoin will be will
+have a reasonable bull case for Bitcoin.
+I'm not one of those crazy like, oh,
+Bitcoin everything, but uh I do believe
+um
+the government will not stop printing
+money. And I do believe that is good
+news for not only Bitcoin, but all
+assets, stocks, real estate. The only
+reason I'm not a big real estate
+investor is I think that a majority of
+people in the country and the world
+want to see price of housing go down.
+And so I don't want to invest in things
+where most people want to see that thing
+go down in value. So that's why I'm kind
+of scared of real estate. I'd rather in
+stocks because I feel like uh
+everyone in the world wants to see
+stocks go up. So, why would I fight like
+the people? I don't know. I'm a believer
+just buy a house and live in it. There's
+no need to buy like a hundred houses.
+That's kind of silly and a lot of work
+when you can just buy either stocks or
+Bitcoin. It just sits there and goes up
+and takes almost no work.
+What's your major? Computer science. I
+went to a school called Wentworth
+Institute of Technology in Boston where
+I studied computer science. It is a
+school where I got a 2.4 GPA. It is also
+a school that basically allows anyone
+in. If you apply, you get in no matter
+what. This is kind of a I don't mean to
+crap on my alma mo here. We're kind of a
+dummy school where I got a 2.4 GPA. So,
+I was not a good student. I was a very
+bad student throughout all of school and
+all of college.
+I did not find my purpose until later in
+life. I was a very
+directionless youth.
+Very directionless and purposeless
+youth.
+I didn't even do anything bad. Like I I
+wasn't like a drug addict or anything.
+Like I didn't I wasn't one of those guys
+doing like doing crime and drugs. I just
+didn't understand life for what the I
+wasn't even I wasn't like this sounds
+depressing but I wasn't even depressed.
+I was just like
+living life as a drone. I was just a I
+was a uh
+you know a passive viewer as life kind
+of went by and then around 25 I kind of
+discovered my path and jumped into life
+and started creating a life for myself.
+I'm I'm 35 years old. What's your How
+old are you? I'm 35.
+Am I shadowbanned? Lol. Why don't my
+chat show up? I don't know. Your name's
+Iawaska data scientist. So maybe that's
+why. Yeah, I was an NPC up until 25
+years old. I was an NPC.
+Terrible grades. Didn't try hard at my
+job. Didn't have many friends. Didn't
+have any hobbies. Didn't have any
+interests. Didn't have any things that
+made me happy. Didn't have anything that
+made me sad either. Wasn't a sad guy. I
+wouldn't say I was a sad boy. Wasn't
+depressed. Didn't have anxiety. I was
+just
+existing. I was just always I was just
+existing for the first 25 years of my
+life. Now I'd say like
+instead of life happening to me, I think
+for the first 25 years life happened to
+me and then now from 25 to 35 I'm
+happening to life. That [music] makes
+sense. I think that's I think you got to
+do some deep reflection about that
+yourself if you're watching this is like
+what what's your experience like? Is
+life happening to you right now or are
+you creating life? Right? Is life is
+life happening to you or are you
+creating life and it's coming out of
+you? You know what I'm saying?
+Are your circumstances controlling you
+or are you controlling your
+circumstances?
+Right? You just waking up in the
+morning,
+you know, turning on your phone, getting
+on the toilet, taking a [&nbsp;__&nbsp;] scrolling
+your phone for an hour, then going to
+work, then coming home, then sitting on
+the couch and scrolling your phone, then
+going to bed. Is that your life?
+Or you creating something, right? You
+building something. You building a
+business. You building a better future
+for yourself. You building a skill set.
+You're learning a little something here
+and there.
+What are you doing? Where you where you
+heading towards? I I don't even think
+you need a goal. I've never had a goal.
+I don't have any goals right now.
+The way I look at it, life is it's like
+a pirate ship.
+I don't know where this pirate ship's
+heading. I don't know what's at the end
+of the map. I don't know what's on the
+other side of this water. I just want to
+make sure this pirate ship's going in
+the right direction. I'm just steering
+the ship in the right direction. That's
+all I'm trying to do every day. Make
+sure it goes in the right direction.
+You know what are you doing? Are you
+sitting there as the pirate ship just
+kind of floats in the water or are you
+steering the ship and moving it forward
+every day?
+I'm self-studying computer science back
+in dev. That's good.
+It's a good move. I know the feeling.
+Why would I want to understand coding in
+assembly language in CS200? I checked
+out in college as well. Yeah, I just
+didn't care. Just didn't care. the chat
+where you aren't seeing all the messages
+probably set the top messages. Is it?
+Let's see.
+I don't know what's happening here.
+Your mom
+is heading towards the button. We're
+heading I'm building the button. Who's
+building the button here? I'm building
+the button. I'm really torn between
+Claude's UI front end and Gemini 3.0.
+I I I don't think it's close to be
+honest with you. I do not like any of
+the UIs Gemini 3 has built for me.
+I think the claw design skill is by far
+the best UI designer uh in all of AI and
+it isn't remotely close. And again,
+Anthropic does not pay me. Anthropic
+doesn't even talk to me. Gemini talk.
+Google emails me out the wazoo. I've had
+early access to everything they've ever
+put out at Google. They love me at the
+Google Google team and I love I I love
+the Google team, but uh I'm just going
+to be honest. I think the Claude's UI
+front end design skill is mind-blowingly
+good. Damn, Alex has me ready to run
+through wall and that's what I want.
+That's kind of the purpose of the live
+stream. You want to learn things? I
+mean, I want you to learn here, but like
+if you want like hardcore learning,
+educational, watch the the mainline
+channel videos here. We hang out. We
+learn things. We laugh. We live, laugh,
+love. Make you want to run through a
+wall. I give you a map. I give you a
+direction of where you need to go. You
+know what I'm saying?
+All right. Where we at with this
+building?
+Make sure once this ends, you watch my
+video I put out this morning. It's
+popping off. It's popping off. The video
+I put out this morning, people are
+loving it.
+People are loving the video I put out
+this morning. Apparently, it's doing
+well. Um, what are we building? Where we
+at? Let's see where we're at. Let me
+pull this open again.
+What am I eating for lunch today? Oh, I
+got leftover enchilada. I got leftover
+enchilada for lunch. I'm going to do leg
+day at the gym. Um, here are my
+thoughts. What's working? Clean header
+with app icon name tagline. Okay, so
+here's a suggested improvement. Hi, show
+tech stack as badges below category
+in this vibecoded app store. Do you want
+to see the text stack of all the apps in
+there? Is that something you're
+interested in?
+Let's give the option for the creators
+to display the text stack.
+Should we make it optional to display
+the text stack of the vid the apps you
+submit to the app store or mandatory?
+Klein, bro. Klein. What about Klein? Why
+do I keep seeing messages about Klein?
+What about Klein?
+Klein, bro. Klein, what about it? Oh,
+have you used Klein? Open source
+extension and can use all the
+proprietary models. Claude code. I mean,
+I'm sure client is fine,
+but like Claude code with Opus 45 is the
+greatest AI tool I've ever used in my
+entire life. Would you say client is
+better than with Opus 45?
+If not, then why should I use it? Also,
+didn't their CEO just fire the guy?
+That was
+I mean, I'm not like a cancel culture
+person where I'm like, "Oh, don't use
+Klein because their CEO did this." But I
+don't think that was very cool what the
+CEO did.
+I mean, listen, Klein, tomorrow morning
+I wake up and it's the best AI tool on
+planet Earth, I'll use it. I don't care.
+Sorry to the guy who got fired but I
+used tomorrow if it was the best but
+it's not the best code with Opus 45 is
+like what are we talking about?
+What are we talking? Yes to text that
+make it mandatory so people can learn.
+All right let's make it mandatory.
+Okay, let's add the tech stack
+as badges
+and make sure the tech stack is in the
+workflow when people are adding apps to
+the app store. I think it might already
+be there, but I'm not sure.
+You and Nate B. Jones both put out
+videos this morning about Claude's
+updates this month. Both excellent
+videos. Who's Claude B. Jones?
+Is that another AI creator on YouTube?
+What's his name? Oh, Nate B. Jones. Nate
+B. Jones.
+AI News and Strategy Daily. Is that is
+that Nate B. Jones?
+See what we got here. Nate B. Jones.
+Cloud code snuck in seven updates in two
+weeks. Here's what you need to know.
+Okay, I'll have to talk. I'm gonna
+bookmark this.
+Wasn't familiar with Nate B. Jones's
+game. I got a list of like every AI
+vibe coder on YouTube.
+I did not have him on the list. Nate
+B. Jones. Shout out him. Putting the
+middle initial in there.
+Sometimes you got sometimes you gota
+just put the the nuts on the table and
+say, "Hey, I demand call me by my middle
+name initial."
+Should I do that? Alex Tin. Should I
+just start change the channel to Alex
+Tin?
+Uh, what's he got? 5.2,000 views in five
+hours. So, he's doing decent. He's doing
+a good job there. All right. Damn, he
+gets a good amount of views. He gets a
+good What? He He posts every day. Wow.
+He's a He's a daily poster.
+Okay.
+Kilo is better. Forkked from Klein and R
+code. Best of both.
+Uh yeah, but is it better than claude
+code? Like why wouldn't I use the best
+tool?
+reported degradation of Opus and Claude
+Code, but not others like Cursor Klein.
+What's your take on that? I use Claude
+Code with Opus 45 every single day. I've
+experienced zero degradation. I still
+think it's the best tool on planet
+Earth. It's building me incredible,
+mind-blowing technology. I don't see a
+single reason to switch off of it.
+If anti-gravity figures out their stuff
+and makes it so it's like bug free and
+works really well, I'm switching. But,
+uh, they haven't figured out their
+stuff. So Nate Jones is awesome. Deep
+thinker. All right. Well, at some point
+Nate Jones have to pay me here with the
+amount of promotion I'm doing.
+Nate is a skate to where the puck is
+going to be kind of guy. What am I, a
+skate to where the puck is?
+He has very different views than other
+AI guys that I follow and thinks outside
+the box on some stuff. I think you'll
+like his perspective on stuff. not
+trying to show. I think half the chat's
+showing right now. I'm gonna have to
+check I'll check them out. Listen, I'll
+check them out. Everyone relax. I'll
+check them out.
+How long are his videos? 12 to 20
+minutes. Around the same time as me.
+That's good. I like that time range.
+Like 15, 12, 20 minutes.
+The app boom we're in is very
+fascinating to me. What might you be
+interested to seeing in the near future?
+I'm interested in seeing a double
+cheeseburger in the near future. I'm
+going to be honest. Petrizzle,
+I'm very interested in seeing a double
+cheeseburger in the very near future.
+You use claude code side by side a kilo
+open material and run claude code in the
+same directory.
+You skate to the button. I skate to the
+button. I like that. All right. Where
+were we at here? Let me pull open again.
+Uh, done. Here's what I changed. Text
+stack and submit workflow already at
+there. Okay. Text stack display move
+from sidebar to header area for better
+visibility. Now shows right below the
+action buttons. Visit website.
+Is this working? Let me see.
+You move a puck forward. You Yeah, you
+move the puck forward and not complicate
+things. That's what I'm about. Let's
+keep moving that puck forward. Let's not
+make it complicated. Let's just move
+Let's just do the simplest thing we can
+do to move the puck forward. That's what
+I'm all about. Skills are just a
+directory of markdowns. And yeah, you're
+just a bag of bones. I
+was it was the matter. Yes, skills are
+just a directory of markdowns and you're
+just a bag of bones wrapped in flesh.
+What does it matter?
+And a cheeseburger is just
+ground up cow meat surrounded by
+goo that comes out of cow's uters mushed
+together.
+But it's more than the sum of the parts.
+It's just ground up cow's meat mushed
+between mold that comes out of a cow's
+uters,
+but I still eat cheeseburgers a lot.
+Difference between rag and agentic
+workflows. I don't know. Ask Chad GBT.
+Who am I? Am I a living walking chat GBT
+and ask me every question on planet?
+What am I? What is this? Jeopardy.
+Go to chat.com and ask me that question.
+I ask a data time. Use some Iawaska and
+maybe the gods will give you the answer.
+Skills are markdown files of
+descriptions and guidelines for skills
+that get called by the agent.
+Your mother is just a directory of
+markdowns. I ask a data scientist. All
+right.
+see the app.
+I'm I'm running on zero hours of sleep
+right now. For the record, I did not
+sleep a wink last night. Not a week.
+I was sick the last seven days and then
+last night I didn't sleep a wink. And
+I'm doing this live stream and I'm
+putting out videos
+at 6:15 a.m. that go hyper viral. You
+kidding me?
+This is Take note. Take note. This is
+how you become the number one vibe
+coding channel on YouTube. Okay.
+What is this? What's that button? Just
+copy the link.
+Uh okay. So now it's got the badge here.
+AI. So it's got it shows you the tech
+stack right here up above. It's got the
+badge for each tech stack.
+I like it. Can we upvote? We can upvote.
+You can see the updates. You can add
+comments. You can ask questions to the
+maker. I like that. We're looking good
+here. We're looking good here. Let's go
+back. Let's go back to Claude Code. Bro
+doesn't like me. Lol.
+I like you, Iawaska.
+I like you. What makes you think I don't
+like you? I crap on everyone watching
+here. Relax, dude. I crap on everyone. I
+like you. Don't worry. I like you.
+I like you a lot. I like you more than
+you can imagine.
+You might be my favorite.
+Skills are specific instructions,
+workflows, enhanced prompts with
+description instructs cloud code when
+they should be referenced for
+instruction. Basically small bulletin
+rag processes. There you go. Whoever
+said, what was it? Iaska
+skills are just directory and markdowns.
+Yeah, you're right. I don't like you. I
+forgot you were the one who asked that
+question. You're right. I do not like
+you.
+You know, I do like Bart because he
+understands what skills are. All right.
+To test, submit a new app called Creator
+for and select some technologies. All
+right. Let's do that. Let's uh let's
+create a new app in here.
+Submit app.
+App URL.
+We'll say X.com. App name X. Tagline.
+The best place
+for bots. One sentence pitch.
+Come here to talk to bots. Category AI.
+Description
+bots.
+Uh, paste URL. Text stack. Here we go.
+Anthropic.
+CSS. Ozero.
+Gemini. Playing chain. MongoDB.
+This is all AI generated. That's pretty
+good.
+Please enter URL. Oh
+URL.
+Where'd it go? Damn it.
+Damn it.
+X.
+Talk to
+talk to bots. The best place to talk to
+bots.
+Don't you love talking to bots?
+Uh AWS
+Express, Google Cloud, LChain, [&nbsp;__&nbsp;]
+Next, Open AI,
+Submit.
+Boom. All right, let's see. X.com.
+Where's the text stack?
+Doesn't display the text stack. All
+right.
+Did I need to do a
+database update for this?
+What's going on? Did we crash here?
+Boy, they
+What part of the country are you in?
+California. What do you want my You want
+my address? What do you want here?
+Nicholas Graves. Um,
+USA number one.
+Number one, USA.
+Uh, let me reset the server.
+USA number one.
+Not seeing the tech stack. Not seeing
+the tech stack. Let's go back to Claude.
+Huh? Let's fix this.
+most effective way for me to get an app
+idea.
+I'll tell you
+not seeing the text tag in the listings
+page after I create an app.
+Uh most effective way for me to get an
+app idea thinking well yes that's the
+best model I think for business ideation
+there's two ways to come up with good
+app ideas I have an entire module about
+this inside the vibe coding academy so
+if you want to be a part of that link
+down below vibecodingacademy.dev
+dev weekly calls of me, full Claude code
+master class, full Hex Growth master
+class, full hackathon going on right
+now.
+Uh there's two types of things you can
+do for good ideas. You can come up with
+an idea that solves other people's
+challenges.
+It's a good that's a good one.
+Or you can sol you can come up with an
+idea that solves your own challenges
+in your day-to-day life. And I think
+that's the best type of app idea
+because if you create an app that solves
+your own challenges,
+the worst case scenario of releasing
+your app, even if no one buys it, even
+if not a single person buys your app,
+you've at the very least made your own
+life better. Right? If you build an app
+that solves your own challenges, you
+make your own life better, even if no
+one buys it. So that's why I highly
+recommend you come up with app ideas
+that solve your own challenges. Now, how
+do you come up with those ideas? I would
+highly recommend
+either opening an Apple note or I like
+using pen and paper, carry around a
+little notebook and every challenge went
+into dayto day, the next few days, write
+it down in the notebook. Write down that
+challenge.
+Right? For me with Creative Buddy, my
+challenge was I like to analyze my
+tweets
+every night. For years, I was writing
+down all my tweets in a Google
+spreadsheet and going back and analyzing
+it
+by hand manually. Took me like an hour a
+night. And so I wanted to build an app
+that was powered by AI that would pull
+all my tweets from X automatically and
+analyze them for me.
+And so I built Creator Buddy and I
+launched it and I thought, hey, if even
+if no one buys this, my life's much
+easier, which my life was much easier. I
+use Creator Buddy every single day. It's
+helped my content creation process
+tremendously.
+Um, and the good news is other people
+wanted to buy it and so a bunch of
+people bought it. So those are the best
+ideas,
+Zane. And yes, I use Chad GBT thinking
+to like develop those ideas. Boston to
+Cali.
+Boston to New York City to Cali.
+And yes,
+a fantastic decision. Fantastic
+decision.
+How would you roll out your app to
+obtain customers?
+We talked about this at the beginning.
+Winner Circle family 397. Uh create
+content. There's two ways, right? Paid
+ads and non-paid ads. Paid ads are you
+going on Instagram and buying ads or
+going on Tik Tok and hiring some
+13-year-old to dance and talk about your
+app. Non-paid ads are what you're
+experiencing right now as you watch,
+which is organic content. You're
+watching organic content. I name drop my
+app. I name drop
+Vibe Coding Academy. And if you're
+interested in the pitch, you go and buy
+the product, right? Completely free. I
+think this is the best way to do it.
+organic content, right? Because one,
+it's fun. I have fun creating organic
+content. Two, builds you a platform
+which is infinitely scalable, high
+leverage,
+and can allow you to make money in a lot
+of different ways. Um,
+builds you a brand, builds you a
+platform, builds you a distribution
+channel. I think organic content is the
+best way to do it. So, start tweeting,
+start creating YouTube videos. If you
+don't feel like doing it, do it anyway.
+Stop being lazy.
+Well, you're a smart man, Archist 54.
+You're a smart man. Uh, we're up against
+time. Do me a favor. Leave a like down
+below if you enjoyed this. Do me a
+favor. We have 68 people in here if you
+haven't already. The moment this live
+stream ends, click on my name. Go back,
+watch the video I posted this morning.
+It is fantastic. It'll go over 10 new
+updates from Claude Code from the past
+month. 10 new updates, amazing updates.
+Go watch the video. Watch it till you
+hit it. Then watch it to the end. Let it
+run to the end. Leave a like on that
+video.
+Uh if you want to meet with me, we have
+the vibe coding academy. We do weekly
+calls. Join that link for that down
+below. It also has like a quad code
+master class in Xmaster class. Bunch of
+things. Fun. It's fun. Or don't. It's up
+to you. Um
+we'll be back Wednesday. Wednesday, same
+time, 11:00 a.m. Pacific. We will not be
+here Friday because I have family in
+town for the holidays.
+I really appreciate you guys joining and
+watching. It's always the most fun part
+of my week doing these. It's always a
+lot of fun. So, thank you. Uh the
+community is incredible. You guys and
+the Finn family are incredible. Thanks
+for watching. Thanks for asking
+questions. Thanks for hanging out. To
+the people who don't send a single
+message in the chat, thank you for
+hanging out watching. It's the people
+who sent a bunch of messages in the
+chat.
+Winner circle,
+SNB Bart, Ambitious Realism, Arist,
+Nicholas Graves,
+Zane, Zakd,
+Iawa, even Iawaska data scientists,
+even.dev, who we did not ban. We did not
+ban.dev.
+Pollended 61% said do not ban. 39% said
+do banan we did not ban.deval Dev,
+Pedrezel,
+ML, Brilliance,
+shout out you guys. Hunter Moon, you
+guys make it worth it. 270 Aggregate.
+Even the bots, shout out the bots. Vocal
+Coefficient Affging
+to get me to get cheap viewers. I had to
+remove this space to get the cheap
+viewers. Shout out the bots who helped
+out.
+Ruben,
+don't go to that bots's channel by the
+way. Don't go to that bots's website.
+Don't do it. Uh,
+Alex, great content. One question. I'm
+using Bolt new right now. Do you
+recommend to start using codeex develop
+SAS? I recommend Claude Code with Claude
+Opus 45. I think it's the greatest tool
+ever for creating apps.
+Thanks for watching. Leave a like if you
+haven't yet. Subscribe. Turn on
+notifications. That's critical. If you
+haven't yet, turn on notifications right
+now on the channel. You get you get
+alerted the moment we go live so you
+don't miss anything. We have a lot of
+fun. You won't miss anything if you turn
+on notifications. Love you all. Have a
+great day. I'm about to eat some
+enchiladas.
+Love you all. Take care.
+Bye.
+That

@@ -1,0 +1,189 @@
+Title: Force Excel Slicers to Single Select Using These Crafty Tricks
+Channel: MyOnlineTrainingHub
+Video ID: T7UUgYN-7Lo
+URL: https://www.youtube.com/watch?v=T7UUgYN-7Lo
+Duration: 7:18
+Level: INTERMEDIATE
+Application: Microsoft Excel
+Topics: Slicers, Single Select, PivotTables, Pivot Charts, Dynamic Labels, Chart Titles, IF Formula, ISBLANK Function, Boolean Values, Slicer Settings, User Interaction
+Ingested: 2025-12-21
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 there's no built-in way we can force
+0:02 Excel slices to single select but we can
+0:05 use some crafty tricks to prompt users
+0:07 to only select one item for example we
+0:09 can change the chart title to display a
+0:12 message when more than one item is
+0:13 selected in the slicer and in regular
+0:16 charts we can also hide the data now
+0:19 there's a different technique for pivot
+0:20 charts versus regular charts and I'll
+0:22 cover both options in this video I'll
+0:26 start with regular charts that reference
+0:28 data from a pivot table linked to SL es
+0:30 here I'm going to change the chart title
+0:32 to show the user a message and I'm going
+0:35 to hide the data in the chart when they
+0:36 select more than one item in the Slicer
+0:39 in columns D and H I've got my data and
+0:42 if you look in the formula bar you can
+0:44 see it's simply picking up the data from
+0:46 the pivot table in columns q and R now
+0:49 you might be wondering why I haven't
+0:50 just used a pivot chart but sometimes
+0:52 pivot charts are too restrictive and
+0:54 when this happens we use this workaround
+0:56 to create a regular chart that
+0:58 indirectly references the pivot table
+1:00 data allowing us to still use the slicer
+1:03 for
+1:04 filtering let's start by inserting a
+1:07 line chart and I'll just pop it up here
+1:11 and I want a slicer for the category so
+1:13 with the pivot table selected right
+1:15 click the filled and add a slicer I'll
+1:19 bring that up beside the
+1:21 chart now I need to detect how many
+1:23 items are selected in the slicer and I
+1:25 don't have the category information in
+1:27 this pivot table I'm going to just copy
+1:30 this pivot table I'll paste it in here
+1:32 and we'll modify it so that it only
+1:34 contains the category in the row labels
+1:38 Now by copying this pivot table that
+1:40 already has the slicer linked to it the
+1:43 slicer is also linked to this pivot
+1:45 table here you can control which pivot
+1:47 tables the slicers are connected to by
+1:49 right clicking on the slicer report
+1:52 connections and then in here check the
+1:55 box for the pivot tables that you want
+1:57 it connected to so in this case it's
+1:59 pivot table 10 and five and now when I
+2:02 select an item in the slicer you can see
+2:05 the pivot table here tells me what's
+2:06 selected and if I select more than one
+2:09 we can see the list reflects what I've
+2:11 selected the first thing I need to do is
+2:14 check if this second row in the pivot
+2:16 table is empty if it's not empty then I
+2:19 know the user has selected too many
+2:21 items and I'm going to create a dynamic
+2:24 label that I'm going to link to the
+2:26 Chart title that sends the user a
+2:29 message when they've selected more than
+2:31 one item in the slicer we can use an if
+2:34 formula that says if cell j8 is blank
+2:38 then return the name of the item
+2:40 selected in the slicer and concatenate
+2:43 the text actual sales cuz this data
+2:45 represents my actual
+2:47 sales and if j8 is not blank we're going
+2:50 to return the message please choose only
+2:52 one
+2:54 category the is blank function Returns
+2:57 the Boolean values true or false now now
+2:59 another way you can test if the cell is
+3:01 blank is simply to reference it and
+3:04 check if it equals two double quotes
+3:07 which is the equivalent of blank so we
+3:09 get the same result with either of those
+3:12 it's up to you which one you prefer to
+3:13 use right let me delete those and let's
+3:16 link this label to the Chart title so
+3:19 I'm going to select the box for the
+3:20 chart title with it selected in the
+3:23 formula bar type equals and then select
+3:26 the cell that contains your Dynamic
+3:28 label and press enter and now I can
+3:31 simply choose one item and it updates to
+3:34 reflect the name of the item I've
+3:37 selected if I select too
+3:40 many it gives me the error but what if
+3:43 the user doesn't notice this message
+3:45 well we can also hide the data in the
+3:47 chart using a similar technique all I
+3:50 need to do here is ADD times is blank
+3:53 select cell j8 F4 to Absolute it and
+3:58 then press enter now when you perform a
+4:00 math operation on a Boolean true or
+4:02 false value which is what's being
+4:04 returned by is blank here and we can see
+4:06 that if I press F9 Excel will convert
+4:09 the true and false to their numeric
+4:11 equivalents false is the equivalent of
+4:13 zero and true is the equivalent of one
+4:17 so when we multiply anything by zero we
+4:19 get a load of zeros and now our chart
+4:21 has lost all its data but the minute the
+4:24 user selects just one category the data
+4:27 comes
+4:28 back with pivot charts we can't hide the
+4:31 line in the chart so we need to get a
+4:33 bit more in your face with our message
+4:36 let's take a look here I've already got
+4:38 the pivot table for my chart and the Dy
+4:40 pivot table for the slicer selection and
+4:43 the slicer is connected to both pivot
+4:45 tables so I'm going to insert a pivot
+4:48 chart again I'm just going to pop a line
+4:50 chart in and we'll move it over here
+4:54 let's get rid of these field buttons and
+4:56 we don't need the
+4:58 legend again I need to create a dynamic
+5:01 label that checks if the second row of
+5:03 the dummy pivot table is blank if it is
+5:06 then return the label containing the
+5:08 selected item and the text actual sales
+5:11 otherwise return
+5:14 blank now when I select one item we get
+5:17 the label if I have more than one
+5:19 selected the label's gone so all I need
+5:22 to do is link the chart title again to
+5:25 the dynamic label so with it selected
+5:28 type in equals select the cell
+5:30 containing the label and press enter if
+5:33 I select more than one item the label's
+5:35 gone now the reason I want the blank
+5:38 title returned if the user selects too
+5:40 many items in the slicer is so that I
+5:42 can show another message in the chart
+5:44 that's red and bold and I can't
+5:47 conditionally format the chart title so
+5:49 I'm going to use another cell in the
+5:50 worksheet that sits behind the chart
+5:53 first I need to remove the fill color
+5:55 for the chart so with it's selected on
+5:57 the format tab shape fill and I want no
+6:00 fill and now I can select the cell
+6:03 behind the chart so let's just pop it in
+6:06 cell C50 here and again we're going to
+6:09 use another if formula that simply says
+6:12 if cell j52 is blank then return blank
+6:16 otherwise return please only choose one
+6:19 category in the
+6:20 slicer we can do a little bit of
+6:22 formatting let's indent it make it red
+6:25 and bold so that our users can't
+6:27 possibly miss it now when I select one
+6:30 item our chart displays correctly if I
+6:33 select more than one the user sees the
+6:36 error now I can't hide the line but
+6:38 hopefully they can't miss that message
+6:40 now we can also help the user correctly
+6:43 select just one item by formatting the
+6:45 header in the slicer so right click
+6:48 slicer settings and then in here we can
+6:51 say select one
+6:56 category well I hope you found this
+6:58 technique useful you can download the
+6:59 Exel file for this lesson from the link
+7:01 here and if you like this video please
+7:03 give it a thumbs up and subscribe to my
+7:06 channel for more and why not share it
+7:07 with your friends who might also find it
+7:09 useful thanks for
+7:13 [Music]
+7:17 watching

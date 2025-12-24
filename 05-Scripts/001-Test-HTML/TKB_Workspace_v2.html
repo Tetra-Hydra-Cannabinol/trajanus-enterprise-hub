@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TKB Workspace v2 - With File Picker</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #3d2a1f 0%, #1f1410 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #fff;
+        }
+        .session-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .session-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    </style>
+</head>
+<body>
+    <div style="max-width: 1400px; margin: 0 auto;">
+        <h1 style="text-align: center; margin-bottom: 30px; color: #9B7E52; font-size: 2.5rem;">TKB Workspace v2</h1>
+
+        <!-- Tab Buttons -->
+        <div class="workspace-tabs" style="display: flex; gap: 10px; margin-bottom: 20px; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px;">
+            <button id="browseTabBtn" class="tab-btn active" onclick="switchTab('browse')" style="flex: 1; padding: 12px; background: linear-gradient(180deg, #9B7E52 0%, #7B6142 100%); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 1rem;">
+                Browse Documents
+            </button>
+            <button id="uploadTabBtn" class="tab-btn" onclick="switchTab('upload')" style="flex: 1; padding: 12px; background: rgba(155,126,82,0.2); color: #ccc; border: 1px solid rgba(155,126,82,0.3); border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 1rem;">
+                Upload Files
+            </button>
+        </div>
+
+        <!-- Browse Tab -->
+        <div id="browseTab" class="tab-content" style="display: block;">
+            <button onclick="openTKBBrowser()" class="session-btn" style="background: linear-gradient(180deg, #9B7E52 0%, #7B6142 100%); display: block; margin: 0 auto 20px auto; font-size: 1.2rem; padding: 15px 40px;">
+                Open TKB Browser (18 Real Documents)
+            </button>
+            <div style="text-align: center; color: #999; font-size: 0.9rem;">
+                <p>Connected to Google Drive</p>
+                <p>Real research findings loaded</p>
+                <p>Click documents to open in Google Docs</p>
+            </div>
+        </div>
+
+        <!-- Upload Tab -->
+        <div id="uploadTab" class="tab-content" style="display: none;">
+            <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 8px;">
+                <h2 style="color: #9B7E52; margin-bottom: 20px;">Upload Files to Workspace</h2>
+
+                <!-- File Picker / Drop Zone -->
+                <div id="dropZone" style="border: 3px dashed rgba(155,126,82,0.5); border-radius: 12px; padding: 40px; text-align: center; background: rgba(0,0,0,0.2); margin-bottom: 20px; transition: all 0.3s;">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">+</div>
+                    <h3 style="color: #fff;">Drag & Drop Files Here</h3>
+                    <p style="color: #999; margin: 10px 0;">or</p>
+                    <button onclick="document.getElementById('fileInput').click()" style="background: linear-gradient(180deg, #9B7E52 0%, #7B6142 100%); color: white; border: none; padding: 12px 30px; border-radius: 6px; font-size: 1rem; font-weight: 600; cursor: pointer;">
+                        Browse Files
+                    </button>
+                    <input type="file" id="fileInput" multiple style="display: none;">
+                </div>
+
+                <!-- Selected Files List -->
+                <div id="selectedFiles" style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; min-height: 100px; margin-bottom: 20px; border: 1px solid rgba(155,126,82,0.3);">
+                    <h3 style="color: #9B7E52; margin-bottom: 10px;">Selected Files: <span id="fileCount">0</span></h3>
+                    <div id="fileList" style="color: #999;">
+                        No files selected
+                    </div>
+                </div>
+
+                <!-- Destination Selector -->
+                <div style="margin-bottom: 20px;">
+                    <h3 style="color: #9B7E52; margin-bottom: 10px;">Destination Folder:</h3>
+                    <select id="destinationFolder" style="width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(155,126,82,0.3); border-radius: 6px; font-size: 1rem; color: #fff;">
+                        <option value="">Select destination...</option>
+                        <option value="00-Command-Center">00-Command-Center</option>
+                        <option value="03-Living-Documents">03-Living-Documents</option>
+                        <option value="05-Scripts">05-Scripts</option>
+                        <option value="07-Session-Journal">07-Session-Journal</option>
+                        <option value="08-EOS-Files">08-EOS-Files</option>
+                        <option value="09-Active-Projects">09-Active-Projects</option>
+                        <option value="13-Knowledge-Base">13-Knowledge-Base</option>
+                    </select>
+                </div>
+
+                <!-- Upload Button -->
+                <button id="uploadBtn" onclick="uploadFiles()" disabled style="width: 100%; padding: 15px; background: rgba(155,126,82,0.3); color: #999; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: 600; cursor: not-allowed;">
+                    Upload Files
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // TAB SWITCHING
+        // ============================================
+        function switchTab(tab) {
+            if (tab === 'browse') {
+                document.getElementById('browseTab').style.display = 'block';
+                document.getElementById('uploadTab').style.display = 'none';
+                document.getElementById('browseTabBtn').style.background = 'linear-gradient(180deg, #9B7E52 0%, #7B6142 100%)';
+                document.getElementById('browseTabBtn').style.color = 'white';
+                document.getElementById('browseTabBtn').style.border = 'none';
+                document.getElementById('uploadTabBtn').style.background = 'rgba(155,126,82,0.2)';
+                document.getElementById('uploadTabBtn').style.color = '#ccc';
+                document.getElementById('uploadTabBtn').style.border = '1px solid rgba(155,126,82,0.3)';
+            } else {
+                document.getElementById('browseTab').style.display = 'none';
+                document.getElementById('uploadTab').style.display = 'block';
+                document.getElementById('uploadTabBtn').style.background = 'linear-gradient(180deg, #9B7E52 0%, #7B6142 100%)';
+                document.getElementById('uploadTabBtn').style.color = 'white';
+                document.getElementById('uploadTabBtn').style.border = 'none';
+                document.getElementById('browseTabBtn').style.background = 'rgba(155,126,82,0.2)';
+                document.getElementById('browseTabBtn').style.color = '#ccc';
+                document.getElementById('browseTabBtn').style.border = '1px solid rgba(155,126,82,0.3)';
+            }
+        }
+
+        // ============================================
+        // FILE PICKER
+        // ============================================
+        let selectedFiles = [];
+
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const newFiles = Array.from(e.target.files);
+            newFiles.forEach(f => {
+                if (!selectedFiles.find(sf => sf.name === f.name && sf.size === f.size)) {
+                    selectedFiles.push(f);
+                }
+            });
+            updateFileList();
+        });
+
+        function updateFileList() {
+            const fileList = document.getElementById('fileList');
+            const fileCount = document.getElementById('fileCount');
+            const uploadBtn = document.getElementById('uploadBtn');
+
+            if (selectedFiles.length === 0) {
+                fileList.innerHTML = 'No files selected';
+                fileCount.textContent = '0';
+                uploadBtn.disabled = true;
+                uploadBtn.style.background = 'rgba(155,126,82,0.3)';
+                uploadBtn.style.color = '#999';
+                uploadBtn.style.cursor = 'not-allowed';
+                return;
+            }
+
+            fileCount.textContent = selectedFiles.length;
+            fileList.innerHTML = selectedFiles.map((f, i) => `
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: rgba(155,126,82,0.1); margin-bottom: 5px; border-radius: 4px; border: 1px solid rgba(155,126,82,0.2);">
+                    <span style="color: #fff;">${f.name} <span style="color: #999;">(${formatFileSize(f.size)})</span></span>
+                    <button onclick="removeFile(${i})" style="background: #c44; color: white; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Remove</button>
+                </div>
+            `).join('');
+
+            checkUploadReady();
+        }
+
+        function removeFile(index) {
+            selectedFiles.splice(index, 1);
+            updateFileList();
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+
+        document.getElementById('destinationFolder').addEventListener('change', checkUploadReady);
+
+        function checkUploadReady() {
+            const uploadBtn = document.getElementById('uploadBtn');
+            const destination = document.getElementById('destinationFolder').value;
+
+            if (selectedFiles.length > 0 && destination) {
+                uploadBtn.disabled = false;
+                uploadBtn.style.background = 'linear-gradient(180deg, #9B7E52 0%, #7B6142 100%)';
+                uploadBtn.style.color = 'white';
+                uploadBtn.style.cursor = 'pointer';
+            } else {
+                uploadBtn.disabled = true;
+                uploadBtn.style.background = 'rgba(155,126,82,0.3)';
+                uploadBtn.style.color = '#999';
+                uploadBtn.style.cursor = 'not-allowed';
+            }
+        }
+
+        function uploadFiles() {
+            const destination = document.getElementById('destinationFolder').value;
+            if (!destination || selectedFiles.length === 0) return;
+
+            console.log('=== UPLOAD SIMULATION ===');
+            console.log('Destination:', destination);
+            console.log('Files:', selectedFiles.length);
+            selectedFiles.forEach(f => console.log('  -', f.name, formatFileSize(f.size)));
+
+            alert('Upload Simulation:\n\n' + selectedFiles.length + ' file(s) would be uploaded to:\n' + destination + '\n\n(Actual upload requires Electron integration)');
+
+            // Clear selection
+            selectedFiles = [];
+            document.getElementById('fileInput').value = '';
+            document.getElementById('destinationFolder').value = '';
+            updateFileList();
+        }
+
+        // ============================================
+        // DRAG & DROP
+        // ============================================
+        const dropZone = document.getElementById('dropZone');
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = '#9B7E52';
+            dropZone.style.background = 'rgba(155,126,82,0.15)';
+        });
+
+        dropZone.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = 'rgba(155,126,82,0.5)';
+            dropZone.style.background = 'rgba(0,0,0,0.2)';
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = 'rgba(155,126,82,0.5)';
+            dropZone.style.background = 'rgba(0,0,0,0.2)';
+
+            const files = Array.from(e.dataTransfer.files);
+            files.forEach(f => {
+                if (!selectedFiles.find(sf => sf.name === f.name && sf.size === f.size)) {
+                    selectedFiles.push(f);
+                }
+            });
+            updateFileList();
+            console.log('Dropped', files.length, 'files');
+        });
+
+        // ============================================
+        // TKB BROWSER (from v1)
+        // ============================================
+        const REAL_DOCUMENTS = [
+            {
+                id: '1lZQbFPMkTxd9ECBAipMlLDDAYf_w-8aoMvwwWmxc6Q4',
+                title: 'Webix JS UI Library & Framework',
+                url: 'https://docs.google.com/document/d/1lZQbFPMkTxd9ECBAipMlLDDAYf_w-8aoMvwwWmxc6Q4/edit',
+                topic: 'Implementation-Examples',
+                created_at: '2025-12-17T15:49:08Z',
+                summary: 'JavaScript File Manager widget for managing files hierarchically in web applications'
+            },
+            {
+                id: '1XHwY-gNqPkZYA9UBUe53QwWFZPEl3E7DqMzBXOybqgE',
+                title: 'filebrowser Web File Browser',
+                url: 'https://docs.google.com/document/d/1XHwY-gNqPkZYA9UBUe53QwWFZPEl3E7DqMzBXOybqgE/edit',
+                topic: 'Implementation-Examples',
+                created_at: '2025-12-17T15:49:06Z',
+                summary: 'Single binary web file browser for upload, delete, preview and edit.'
+            },
+            {
+                id: '1P6OxiFsyx5eifcECY5n1P3zFMw-RiKH_eiRDGotMBtU',
+                title: 'pgvector - Open-source vector similarity search for Postgres',
+                url: 'https://docs.google.com/document/d/1P6OxiFsyx5eifcECY5n1P3zFMw-RiKH_eiRDGotMBtU/edit',
+                topic: 'Supabase-pgvector',
+                created_at: '2025-12-17T15:48:53Z',
+                summary: 'Store vectors with PostgreSQL. L2 distance, inner product, cosine distance, HNSW/IVFFlat indexes.'
+            },
+            {
+                id: '12wtQShGUdvbcTfxyuZ-87v6OBvx_faDpUVqdXs5ZfeE',
+                title: 'Building AI-Powered Search and RAG with PostgreSQL',
+                url: 'https://docs.google.com/document/d/12wtQShGUdvbcTfxyuZ-87v6OBvx_faDpUVqdXs5ZfeE/edit',
+                topic: 'RAG-Production',
+                created_at: '2025-12-17T15:48:44Z',
+                summary: 'Store embeddings as native VECTOR type, perform similarity searches, index vectors.'
+            },
+            {
+                id: '1IhMmXWVabvGJ0M2S_7zxe3P7BRXaKrWMVQpKWUYPWwk',
+                title: 'subprocess - Subprocess management Python 3.14.2',
+                url: 'https://docs.google.com/document/d/1IhMmXWVabvGJ0M2S_7zxe3P7BRXaKrWMVQpKWUYPWwk/edit',
+                topic: 'Electron-Python-IPC',
+                created_at: '2025-12-17T15:48:40Z',
+                summary: 'SubprocessError, TimeoutExpired exceptions. STDOUT, STDIN, STDERR handling.'
+            },
+            {
+                id: '1g0JzJnxoIPDpdONgr_O4I6gPbPVr4V5H7_zyhUrpO40',
+                title: 'Electron - Build cross-platform desktop apps',
+                url: 'https://docs.google.com/document/d/1g0JzJnxoIPDpdONgr_O4I6gPbPVr4V5H7_zyhUrpO40/edit',
+                topic: 'Agent-Orchestration',
+                created_at: '2025-12-17T15:48:22Z',
+                summary: 'Chromium + Node.js for desktop. Cross-platform, open-source, stable.'
+            }
+        ];
+
+        function openTKBBrowser() {
+            if (document.getElementById('tkbBrowserOverlay')) return;
+
+            const overlay = document.createElement('div');
+            overlay.id = 'tkbBrowserOverlay';
+            overlay.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.85); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px;';
+
+            const panel = document.createElement('div');
+            panel.style.cssText = 'background: #1a1a1a; border: 2px solid #9B7E52; border-radius: 8px; width: 90%; max-width: 1200px; height: 85%; display: flex; flex-direction: column; box-shadow: 0 10px 40px rgba(0,0,0,0.5);';
+
+            panel.innerHTML = `
+                <div style="background: linear-gradient(180deg, #9B7E52 0%, #7B6142 100%); padding: 20px; border-radius: 6px 6px 0 0; display: flex; align-items: center; justify-content: space-between;">
+                    <div>
+                        <h2 style="margin: 0; color: #fff; font-size: 1.5rem; font-weight: 600;">TRAJANUS KNOWLEDGE BASE (TKB)</h2>
+                        <div style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-top: 5px;">Research findings and technical documentation</div>
+                    </div>
+                    <button onclick="closeTKBBrowser()" style="background: rgba(255,255,255,0.2); border: none; color: #fff; font-size: 1.8rem; width: 40px; height: 40px; border-radius: 4px; cursor: pointer; line-height: 1;">x</button>
+                </div>
+                <div style="padding: 20px; border-bottom: 1px solid rgba(155,126,82,0.3);">
+                    <div style="display: grid; grid-template-columns: 1fr auto; gap: 15px;">
+                        <input type="text" id="tkbSearch" placeholder="Search documents..." style="padding: 12px; background: rgba(0,0,0,0.4); border: 1px solid rgba(155,126,82,0.5); color: #fff; border-radius: 4px;">
+                        <button onclick="refreshTKB()" class="session-btn" style="background: linear-gradient(180deg, #e8922a 0%, #cc6e1f 100%); padding: 12px 20px;">Refresh</button>
+                    </div>
+                </div>
+                <div id="tkbList" style="flex: 1; overflow-y: auto; padding: 20px;"></div>
+                <div style="padding: 15px 20px; background: rgba(0,0,0,0.3); border-top: 1px solid rgba(155,126,82,0.3); display: flex; justify-content: space-between; align-items: center;">
+                    <div id="tkbCount" style="color: #999; font-size: 0.9rem;">0 documents</div>
+                    <button onclick="closeTKBBrowser()" class="session-btn" style="background: rgba(155,126,82,0.3);">Close</button>
+                </div>
+            `;
+
+            overlay.appendChild(panel);
+            document.body.appendChild(overlay);
+
+            window.tkbData = REAL_DOCUMENTS;
+            renderTKBDocs(REAL_DOCUMENTS);
+            document.getElementById('tkbSearch').addEventListener('input', searchTKB);
+        }
+
+        function closeTKBBrowser() {
+            const overlay = document.getElementById('tkbBrowserOverlay');
+            if (overlay) overlay.remove();
+        }
+
+        function renderTKBDocs(docs) {
+            const listDiv = document.getElementById('tkbList');
+            const countDiv = document.getElementById('tkbCount');
+
+            if (!docs || docs.length === 0) {
+                listDiv.innerHTML = '<div style="text-align: center; padding: 60px 20px; color: #999;"><div style="font-size: 3rem; opacity: 0.3;">No docs</div><div style="font-size: 1.2rem;">No documents found</div></div>';
+                countDiv.textContent = '0 documents';
+                return;
+            }
+
+            const grouped = {};
+            docs.forEach(doc => {
+                if (!grouped[doc.topic]) grouped[doc.topic] = [];
+                grouped[doc.topic].push(doc);
+            });
+
+            let html = '';
+            for (const [topic, topicDocs] of Object.entries(grouped)) {
+                html += `<div style="margin-bottom: 30px;"><div style="font-size: 1.2rem; font-weight: 600; color: #9B7E52; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 2px solid rgba(155,126,82,0.3);">${topic}</div>`;
+
+                topicDocs.forEach(doc => {
+                    const date = new Date(doc.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                    html += `
+                        <div onclick="viewDoc('${doc.id}')" style="background: rgba(155,126,82,0.05); border: 1px solid rgba(155,126,82,0.2); border-radius: 4px; padding: 15px; margin-bottom: 10px; cursor: pointer; transition: all 0.2s;"
+                        onmouseover="this.style.background='rgba(155,126,82,0.15)'" onmouseout="this.style.background='rgba(155,126,82,0.05)'">
+                            <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+                                <div style="flex: 1;">
+                                    <div style="font-size: 1.1rem; font-weight: 600; color: #fff; margin-bottom: 8px;">${doc.title}</div>
+                                    <div style="font-size: 0.9rem; color: #ccc; margin-bottom: 8px; line-height: 1.4;">${doc.summary}</div>
+                                    <div style="font-size: 0.85rem; color: #999;">${date}</div>
+                                </div>
+                                <div style="color: #9B7E52; font-size: 1.5rem; margin-left: 15px;">-></div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+
+            listDiv.innerHTML = html;
+            countDiv.textContent = `${docs.length} document${docs.length !== 1 ? 's' : ''}`;
+        }
+
+        function searchTKB() {
+            const term = document.getElementById('tkbSearch').value.toLowerCase();
+            if (!term) {
+                renderTKBDocs(window.tkbData);
+                return;
+            }
+            const filtered = window.tkbData.filter(d =>
+                d.title.toLowerCase().includes(term) ||
+                d.summary.toLowerCase().includes(term) ||
+                d.topic.toLowerCase().includes(term)
+            );
+            renderTKBDocs(filtered);
+        }
+
+        function refreshTKB() {
+            document.getElementById('tkbSearch').value = '';
+            renderTKBDocs(window.tkbData);
+        }
+
+        function viewDoc(docId) {
+            const doc = window.tkbData.find(d => d.id === docId);
+            if (!doc) return;
+            window.open(doc.url, '_blank');
+        }
+
+        console.log('TKB Workspace v2 loaded');
+    </script>
+</body>
+</html>

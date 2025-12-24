@@ -1,0 +1,148 @@
+<!-- SIDEBAR -->
+<!-- Extracted from index.html lines 2085-2231 -->
+<div class="sidebar">
+    <div class="sidebar-header">
+        <h1>TRAJANUS USA</h1>
+        <div class="tagline">Engineered Intelligence™</div>
+        <div class="ei-logo">
+            <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+                <!-- Orbit 1 (0 degrees) -->
+                <ellipse cx="60" cy="40" rx="28" ry="17.5"
+                    fill="none" stroke="#d4a574" stroke-width="1.5" opacity="0.8"/>
+
+                <!-- Orbit 2 (120 degrees) -->
+                <ellipse cx="60" cy="40" rx="28" ry="17.5"
+                    fill="none" stroke="#d4a574" stroke-width="1.5" opacity="0.8"
+                    transform="rotate(120 60 40)"/>
+
+                <!-- EI Text -->
+                <text x="60" y="45"
+                    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+                    font-size="19"
+                    font-weight="500"
+                    fill="#e8922a"
+                    text-anchor="middle">EI</text>
+
+                <!-- Small TM (tight against I) -->
+                <text x="70" y="38"
+                    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+                    font-size="8"
+                    font-weight="400"
+                    fill="#e8922a">™</text>
+            </svg>
+        </div>
+        <div class="version">v3.0.0 © November 2025</div>
+    </div>
+
+    <div class="project-section">
+        <h3>Projects in Development</h3>
+        <button class="project-btn" data-project="enterprise-hub" id="enterpriseHubBtn">
+            <span>Enterprise Hub</span>
+            <span class="sidebar-badge dev">IN DEVELOPMENT</span>
+        </button>
+        <button class="project-btn" data-project="website">
+            <span>Website Builder</span>
+            <span class="sidebar-badge dev">BETA ACCESS</span>
+        </button>
+        <button class="project-btn" data-project="pm-toolkit">
+            <span>PM Toolkit</span>
+            <span class="sidebar-badge dev">BETA ACCESS</span>
+        </button>
+        <button class="project-btn" data-project="qcm-toolkit">
+            <span>QCM Toolkit</span>
+            <span class="sidebar-badge dev">BETA ACCESS</span>
+        </button>
+        <button class="project-btn" data-project="ssho-toolkit">
+            <span>SSHO Toolkit</span>
+            <span class="sidebar-badge dev">BETA ACCESS</span>
+        </button>
+        <button class="project-btn" data-project="route-optimizer">
+            <span>Route Optimizer</span>
+            <span class="sidebar-badge dev">BETA ACCESS</span>
+        </button>
+        <button class="project-btn" data-project="traffic-studies">
+            <span>Traffic Studies</span>
+            <span class="sidebar-badge dev">BETA ACCESS</span>
+        </button>
+        <button class="project-btn" data-project="pe-services">
+            <span>P.E. Services</span>
+            <span class="sidebar-badge dev">BETA ACCESS</span>
+        </button>
+        <button class="project-btn" data-project="memory">
+            <span>Memory/Recall</span>
+            <span class="sidebar-badge dev">BETA ACCESS</span>
+        </button>
+        <button class="project-btn" data-project="developer-toolkit" id="devToolkitBtn">
+            <span>Developer Toolkit</span>
+            <span class="sidebar-badge dev">IN DEVELOPMENT</span>
+        </button>
+    </div>
+
+    <div class="project-section">
+        <h3>Deployed Projects</h3>
+        <button class="project-btn" data-project="pm-working">
+            <span>PM Toolkit</span>
+            <span class="sidebar-badge deployed">v1 ACTIVE</span>
+        </button>
+        <button class="project-btn" data-project="qcm-working">
+            <span>QCM Toolkit</span>
+            <span class="sidebar-badge deployed">v1 ACTIVE</span>
+        </button>
+        <button class="project-btn" data-project="ssho-working">
+            <span>SSHO Toolkit</span>
+            <span class="sidebar-badge deployed">v1 ACTIVE</span>
+        </button>
+        <button class="project-btn" data-project="traffic-studies">
+            <span>Traffic Studies</span>
+            <span class="sidebar-badge deployed">v1 ACTIVE</span>
+        </button>
+        <button class="project-btn" data-project="pe-services">
+            <span>P.E. Services</span>
+            <span class="sidebar-badge deployed">v1 ACTIVE</span>
+        </button>
+    </div>
+
+    <!-- Living Documents Quick Access -->
+    <div class="quick-access-section">
+        <h3>Living Documents</h3>
+        <button class="quick-access-btn" onclick="toggleLivingDocsMenu()" id="livingDocsBtn">
+            <span>Quick Access</span>
+            <span style="float: right;">▼</span>
+        </button>
+        <div class="living-docs-menu" id="livingDocsMenu" style="display: none;">
+            <button class="living-doc-item" onclick="openLivingDoc('diary')">
+                <div class="btn-label">Daily Diary</div>
+                <div class="btn-description">Personal daily journal</div>
+            </button>
+            <button class="living-doc-item" onclick="openLivingDoc('journal')">
+                <div class="btn-label">Project Journal</div>
+                <div class="btn-description">Technical project notes</div>
+            </button>
+            <button class="living-doc-item" onclick="openLivingDoc('protocols')">
+                <div class="btn-label">Core Protocols</div>
+                <div class="btn-description">Operational procedures</div>
+            </button>
+            <button class="living-doc-item" onclick="openLivingDoc('pov')">
+                <div class="btn-label">Bill's POV</div>
+                <div class="btn-description">Perspective and approach</div>
+            </button>
+            <button class="living-doc-item" onclick="openLivingDoc('sessions')">
+                <div class="btn-label">Session Summaries</div>
+                <div class="btn-description">Past session handoffs</div>
+            </button>
+            <button class="living-doc-item" onclick="openLivingDoc('all')">
+                <div class="btn-label">All Living Documents</div>
+                <div class="btn-description">Open main folder</div>
+            </button>
+        </div>
+    </div>
+
+    <div class="sidebar-footer">
+        <button class="project-btn" onclick="openExternal('https://console.anthropic.com')">
+            Anthropic Console
+        </button>
+        <button class="project-btn" onclick="openExternal('https://drive.google.com')">
+            Google Drive
+        </button>
+    </div>
+</div>

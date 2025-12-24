@@ -1,0 +1,35 @@
+name: EOS File Conversion Automation
+
+on:
+  push:
+    paths:
+      - '08-EOS-Files/**/*.md'
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        pip install google-auth google-auth-oauthlib google-auth-httplib2
+        pip install google-api-python-client
+
+    - name: Convert markdown to Google Docs
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+      run: |
+        python 05-Scripts/CONVERT_MD_TO_GDOCS_PERMANENT.py
+
+    - name: Notify completion
+      if: success()
+      run: echo "Conversion completed successfully"

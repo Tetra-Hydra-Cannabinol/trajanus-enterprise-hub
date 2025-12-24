@@ -1,0 +1,312 @@
+Title: The Underrated Excel Tool You're Missing Out On (Saves Time)
+Channel: MyOnlineTrainingHub
+Video ID: mbWrEp3-Daw
+URL: https://www.youtube.com/watch?v=mbWrEp3-Daw
+Duration: 13:39
+Level: BEGINNER
+Application: Microsoft Excel
+Topics: Quick Access Toolbar, QAT, Keyboard Shortcuts, Productivity, Excel Tips, Paste Values, Format Painter, Power Query, Filtering, Alt-Key Shortcuts, Excel Customization
+Ingested: 2025-12-21
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 There's a powerful, time-saving tool in Excel
+that is right in front of you, yet few people
+0:05 use it to its full potential. Today, I'm going
+to show you how this simple tool can dramatically
+0:11 speed up your Excel workflow. Plus, I've gathered
+some must-have shortcuts specifically for this
+0:16 tool straight from our community to help turn
+you into a productivity powerhouse. That said,
+0:23 I don't agree with all of them. Controversial, I
+know, and I'll explain why when we come to them.
+0:29 At the top of the Excel window is the Quick
+Access Toolbar, or QAT for short, and it's about
+0:34 to become your new best friend, even if you prefer
+keyboard shortcuts over using the mouse, because
+0:40 I'll show you a hidden way you can leverage it
+with keyboard shortcuts. Most Excel users fall
+0:46 into one of three groups when it comes to the QAT.
+They might use it, but not to its full potential.
+0:52 They might put the wrong shortcuts there, wasting
+the most valuable real estate in Excel. Or worse,
+0:58 they ignore it altogether. Don't feel bad. Even
+advanced users who've been using Excel for years
+1:05 often overlook it. But when you customize it
+with your most-used tools, suddenly it's like
+1:10 having a remote control for Excel. No more
+endless clicking through menus or searching
+1:15 for commands. It's all right there, ready to
+go. It's super quick to set up and modify.
+1:21 Let's take a look. To the right of the
+QAT is this tiny down arrow. Clicking it,
+1:27 you get a dropdown containing a list of common
+commands you can quickly add to the QAT. The ones
+1:32 with the checkmarks are already included. Now
+another way you can add commands to the QAT is
+1:37 by right-clicking a command on the ribbon. For
+example, I often want the Selection Pane open,
+1:42 but it's usually multiple clicks to find it, so
+we can add it to the QAT by clicking on "Find
+1:48 and Select." There's my Selection Pane.
+Right-click "Add to Quick Access Toolbar"
+1:54 and now it's available for me anytime I
+need it. I can also remove commands from
+1:58 the QAT by right-clicking on them, and
+then "Remove from Quick Access Toolbar."
+2:03 Now, sometimes there are commands that are not
+included in the ribbon, which you can find by
+2:07 clicking on the down arrow and then going
+into "More Commands." In the left panel,
+2:13 you have a list of commands that you can add to
+the QAT that defaults to show the most popular
+2:18 commands. Clicking on this dropdown here allows
+you to switch to various different groups of
+2:23 commands, or search by ribbon or even contextual
+ribbon tabs. I'll filter for commands not in the
+2:30 ribbon. Now they're sorted alphabetically in
+this list, and you can jump to a section by
+2:35 typing in the first letter or letters of the
+command's name. Now you'll mostly find legacy
+2:40 features in this group, but there are also some
+handy commands that are buried in dialog boxes,
+2:46 like superscript and subscript here. Select the
+item, click "Add," and now it's in your QAT. Now,
+2:53 once you've got your favorite commands in the QAT,
+you can use up and down arrows here to rearrange
+2:58 the order just how you want. Be sure to put your
+most-used commands in the first nine positions,
+3:04 and you'll see why soon, then click "OK." And
+now I've got superscript in my QAT as well.
+3:11 Now, by default, the QAT sits above the ribbon in
+the header, but you can right-click and show the
+3:16 Quick Access Toolbar below the ribbon. In this
+position, the icons have more space to include
+3:21 the icon name and they're closer to the action of
+the grid, but it also reduces the amount of grid
+3:27 real estate because now we've got this extra row
+of icons. So it's a trade-off. For me, I prefer
+3:34 to have it above the ribbon and maximize the
+amount of grid space I have visible on my screen.
+3:40 Okay, we're ready for our Excel community's
+top nine recommendations for icons to include
+3:46 in your QAT. I don't agree with some of them, and
+I'll tell you why. Let's take a look. First up is
+3:52 "Paste Values," one of the most frequently used
+commands, so it's no surprise that it's at the
+3:57 top of the list. Though I'm personally not a fan
+of taking up space on the QAT for this, however,
+4:04 I probably won't convince everyone to skip it.
+So let's start by showing you how to add it,
+4:08 because this one's a little tricky. Now just copy
+a cell to enable the Paste Special dropdown. And
+4:14 here we've got "Values." Right-clicking on
+this and adding the gallery to the Quick
+4:18 Access Toolbar doesn't do what you think.
+It just adds the Paste Special dropdown,
+4:24 which for most of us, we really just want
+this "Values" button. And if we hover over it,
+4:29 we can see it's called "Values," and that's
+important. So let's right-click and remove this
+4:33 from the Quick Access Toolbar. And instead,
+we're going to go in and customize the Quick
+4:38 Access Toolbar. From the dropdown here I'm
+going to go to "All Commands" and then start
+4:44 typing in "Values." If I scroll down; you can see
+"Values." "Paste Values" is here. Let's add it
+4:51 and click "OK." And now we've got the proper
+"Paste Values" button available on the QAT.
+4:58 Now the reason I don't think this icon is
+worthy of the QAT is because 365 users can
+5:03 use the new keyboard shortcut Ctrl+Shift+V.
+If you have earlier versions of Excel,
+5:08 then you can use Ctrl+Alt+V. This opens
+the Paste Special dialog box. Press "V"
+5:14 for values and then press Enter to click
+"OK." Now obviously you need to choose
+5:19 whether the three keystrokes are more
+effort than using your mouse. Personally,
+5:23 I don't think so because you'll get very
+quick at those keystrokes. But it's up to you.
+5:28 If you work with objects like shapes,
+icons, images, charts, that type of thing,
+5:34 you may find it frustrating selecting these
+objects one by one, especially if they're
+5:39 layered on top of each other like I have here with
+these arrows. Instead, you can go to the Home tab,
+5:45 "Find and Select," and then convert your
+mouse into "Selecting Objects." And then
+5:50 when I left-click and drag, all I need to do is
+completely surround the objects with my mouse,
+5:57 and now they're all selected. And this is
+something I use regularly, so I've added it to my
+6:01 QAT. You can exit Select Objects mode by clicking
+the icon again or just pressing the Escape key.
+6:09 If you're like me and you want everything
+consistent, the Format Painter on your QAT
+6:12 is a great addition. It allows you to select
+a formatted range, click the Format Painter,
+6:18 and quickly apply it to another set of cells. Now,
+this one you can add to the Quick Access Toolbar
+6:23 by right-clicking, "Add to Quick Access
+Toolbar," and then with a single click,
+6:28 you can use it once. With a double-click, you can
+use it multiple times, and then when you're done,
+6:34 press Escape to exit. Now, because this
+command really needs to be used with the mouse,
+6:39 don't worry about giving it one of
+the top nine positions on your QAT.
+6:43 This next one I don't agree with—it's "Save
+As." Now, I don't disagree that saving a copy
+6:49 of a file is super common, so it makes
+sense that you want a shortcut for it.
+6:54 But the keyboard shortcut for this is the
+F12 key, and it doesn't get much simpler
+6:59 than that. The other benefit of using the F12
+key to save a copy of your file is it opens
+7:06 the old "File > Save As" dialog box instead of
+the clunky backstage area. So a good command
+7:13 to add to your QAT instead of "Save As", for
+those who use Power Query, and you should,
+7:19 is the "Launch Power Query Editor" window
+icon. You can see I've got it here.
+7:24 Now normally, you have to go to the Data tab,
+click on "Get Data," and then launch the Power
+7:29 Query Editor. Or if you have queries
+in your file, you can right-click the
+7:34 query in the Connection pane here and go into
+Edit. But notice in just right-clicking it,
+7:41 it's jumped me to the sheet with my query, and
+it selected the query. Now, a lot of the time,
+7:46 I want to reference another sheet in my
+file while I'm in the Query Editor. So this
+7:51 right-click technique here is super annoying.
+Instead of that, if you have the "Launch Power
+7:57 Query Editor window" icon on your QAT, you can
+jump into the Query Editor, select your query,
+8:04 and then see the worksheet behind the
+Query Editor window at the same time.
+8:09 By the way, if you're finding this useful and
+you want to dive even deeper into mastering
+8:14 Excel with support and mentoring from me
+personally, check out my courses over at
+8:19 MyOnlineTrainingHub.com. They cover all the
+tips and tricks you need to know to become
+8:25 a true Excel pro. I'll leave a link in the video
+description and pinned comment, so check it out.
+8:31 Filtering data is probably something you do all
+the time, so adding the "Filter" and "Remove
+8:36 Filter" commands to your Quick Access Toolbar
+makes managing larger datasets much faster. You
+8:42 find them on the Data tab of the ribbon. We've got
+"Filter" and "Clear Filter" here. Just right-click
+8:47 to add them; you can see mine's already available
+on the Quick Access Toolbar, so this option is
+8:52 grayed out. And this "Clear Filter" button works
+for tables and pivot tables. Now, if you need one
+8:57 of these prime locations for another command, you
+might prefer to learn the keyboard shortcut for
+9:02 applying filters, which is Ctrl+Shift+L,
+and that will save you an icon position.
+9:07 This next one I absolutely cannot justify—it's
+"Merge & Center." I've ranted about this format
+9:14 so many times that I won't go there again
+now. Instead of using "Merge & Center"
+9:19 and causing problems for yourself, select
+the cells that you want to merge the title
+9:24 across, press Ctrl+1 to open the Format
+Cells dialog box. On the Alignment tab,
+9:29 under the dropdown for Horizontal, select "Center
+Across Selection." It's a bit more work to apply,
+9:36 and unfortunately, there's no button on your QAT
+for it, but it's worth these extra steps. In fact,
+9:43 if you use it a lot, write a macro to apply
+it and add a macro button to your QAT.
+9:48 Now I'm on the fence about this next one—it's
+"Freeze Panes," which is available on the View
+9:53 tab, and then "Freeze Panes," and you'll find
+it here. While I think this is a great tool,
+9:58 I'm just not sure you use it often enough
+to justify it on the QAT. I guess if you
+10:02 toggle it off and on regularly, then that
+would make sense. But applying it once when
+10:06 you create the file? Probably not. If
+you do want "Freeze Panes" on your QAT,
+10:11 then right-clicking on it is going to add this
+gallery to the Quick Access Toolbar so you get
+10:15 all three icons in this dropdown, which is
+probably not what you want. So remember,
+10:20 right-click "Customize the Quick Access Toolbar."
+Click on the dropdown here and select "All
+10:25 Commands" and then type it in to search for
+it. There it is there; click "Add" and "OK."
+10:33 Simple yet absolutely essential commands
+are "Undo" and "Redo." Now, I know these
+10:39 have the shortcut keys Ctrl+Z for Undo and
+Ctrl+Y or F4 to redo, which everyone knows,
+10:46 but being able to click on the dropdown and undo
+or redo in bulk is a game changer, so be sure to
+10:52 turn these on from the default commands in
+the dropdown here if they're not already.
+10:58 Finally, if you're someone who
+juggles multiple Excel files,
+11:01 then "Switch Windows," available on the View
+tab, allows you to quickly jump between your
+11:06 windows without having to search for
+them amongst all your other apps. You
+11:10 can right-click and add it to the Quick Access
+Toolbar, and then it's available there. However,
+11:17 you can also use Ctrl+Tab to quickly jump
+between your windows, and that's my preference.
+11:22 Seeing that I kiboshed a few of these, let's
+look at one more that is probably my most-used
+11:27 shortcut, and that is "Clear All." You'll find
+it on the Home tab of the ribbon over here in
+11:32 the Editing dropdown. We've got "Clear All";
+you've also got "Clear Formats," which might
+11:37 be handy if you do that a lot. Now that we've
+added all these tools to our Quick Access Toolbar,
+11:42 you can make them even faster to use with Alt-key
+shortcuts. This is one of those "Why didn't I
+11:48 know this sooner?" tricks that will change
+how you use Excel. Every icon in your Quick
+11:53 Access Toolbar automatically gets an Alt-key
+shortcut assigned to it, and the best part is,
+11:58 you don't even need to memorize anything. You
+just press the Alt key, and Excel will display
+12:03 a number for each tool. Here you can see that my
+"Launch Query Editor" icon is number 9. All I need
+12:10 to do now is press 9, and it opens the Query
+Editor. Now, if you have more than nine icons,
+12:16 as you can see I do, the next set of icons start
+with 09, 08, 07, so on and so forth. For example,
+12:23 if I want to open the Selection Pane, which is
+09, I just press 09 on my keyboard, and now it's
+12:29 available on the right. Once you've used these
+commands a few times, you'll have them memorized.
+12:35 Now you've got your Quick Access Toolbar all
+set up with your favorite tools and shortcuts,
+12:39 and it's basically become your personal command
+center. But what if you switch computers or
+12:45 have to reinstall Excel? Don't worry, you won't
+have to go through all the setup all over again,
+12:49 because there's a simple way to save and
+transfer your custom toolbar setup. Right-click
+12:54 on the Quick Access Toolbar, "Customize Quick
+Access Toolbar," and then down at the bottom,
+13:00 we've got "Import and Export." You want
+to export all customizations and save
+13:06 this file somewhere safe, like on a USB drive
+or cloud storage. And then, any time you need
+13:11 to set up the toolbar on a different computer,
+simply come back here, click on the dropdown,
+13:16 and import your customization file, and
+you're back in business in just a few clicks.
+13:21 So now your Quick Access Toolbar is
+all set up. I'm sure you're excited
+13:25 for the productivity boost, but there's
+one Excel trick that I use literally
+13:29 every single day, and it makes working
+in Excel so much easier. I honestly think
+13:34 everyone should be using it, so click on
+this video next, and I'll see you there.

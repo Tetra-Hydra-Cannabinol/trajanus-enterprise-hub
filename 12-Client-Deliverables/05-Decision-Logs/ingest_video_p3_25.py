@@ -1,0 +1,294 @@
+"""
+Ingest Playlist 3 video 25 (9zFQrRRwpl0) - INSTANT Forecasts with Built-in Excel Tool
+"""
+
+import os
+from datetime import datetime
+from supabase import create_client
+
+def load_env():
+    env_path = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\.env'
+    env_vars = {}
+    with open(env_path, 'r', encoding='utf-8-sig') as f:
+        for line in f:
+            line = line.strip()
+            if line and '=' in line and not line.startswith('#'):
+                key, value = line.split('=', 1)
+                env_vars[key.strip()] = value.strip()
+    return env_vars
+
+env = load_env()
+supabase = create_client(env['SUPABASE_URL'], env['SUPABASE_ANON_KEY'])
+
+video_id = '9zFQrRRwpl0'
+title = "INSTANT Forecasts with Built-in Excel Tool - incl. Chart and all Formulas!"
+channel = 'MyOnlineTrainingHub'
+duration = '7:18'
+topics = ['Forecast Sheet Tool', 'FORECAST.ETS Function', 'Confidence Intervals', 'Seasonality Detection', 'Custom Number Format', 'Ctrl+J Line Break', 'Chart Formatting', 'Excel 2016', 'Data Layout', 'Time Series', 'Exponential Smoothing', 'Statistics Functions', 'Interpolation', 'Missing Data Handling']
+
+transcript = """0:00 there's a little known tool in Excel
+0:02 2016 onward that automatically
+0:04 calculates forecasts for you and puts
+0:07 them in a nice chart like this it writes
+0:09 the formulas and gives you options for
+0:11 handling seasonality and confidence
+0:13 intervals among other things let's take
+0:16 a look I'll be using this Hawaii visitor
+0:19 data to demonstrate it's important that
+0:21 your data contains a column with dates
+0:23 or times at consistent intervals and a
+0:26 separate column containing the values
+0:28 you can see here I've got a visit
+0:30 account for the first day of each month
+0:33 it's basically just monthly data to
+0:35 insert a forecast chart select your data
+0:38 or if it's in a contiguous range just a
+0:41 sell in the table as mine is here and
+0:44 then on the data tab of the ribbon over
+0:45 on the far right we've got forecast
+0:48 sheet this opens up the dialogue box
+0:51 with a preview of the chart it's going
+0:53 to insert at the top we can choose the
+0:55 chart we've got line chart or column
+0:57 chart I'm going to stick with line chart
+0:59 for this example and the next setting is
+1:02 when to end the forecast you can see
+1:04 here it has forecast out 6 months in
+1:07 advance clicking on options reveals more
+1:10 settings the forecast start by default
+1:13 will be the last day in your data set
+1:15 you can start the forecast before the
+1:17 last date and sometimes we use this for
+1:19 seasonal data the confidence interval is
+1:22 the range surrounding each predictive
+1:24 value in this case in which 95% of
+1:27 future points are expected to fall based
+1:29 on the for
+1:30 with normal distribution these are the
+1:32 two final lines we see on either side of
+1:35 the forecast line in the chart or if you
+1:38 chose the column chart it's the error
+1:40 bars that we can see on the last six
+1:43 columns now the confidence interval can
+1:45 help you get a feel for the accuracy of
+1:47 the forecast a smaller interval implies
+1:50 more confidence for the specific point
+1:53 seasonality is a number for the length
+1:55 or number of points of the seasonal
+1:57 pattern and it's automatically detected
+2:00 for example in a yearly sales cycle with
+2:02 each point representing a month the
+2:04 seasonality is 12 when the seasonality
+2:06 isn't significant enough for the
+2:08 algorithm to detect the prediction will
+2:10 revert to a linear Trend you can
+2:12 override the automatic detection by
+2:14 choosing set manually and then you can
+2:17 enter a number there for example here I
+2:19 might choose three or four Cycles
+2:22 because I've got tourism data just keep
+2:24 in mind when setting seasonality
+2:26 manually you should avoid a value of
+2:28 less than two cycles of historical data
+2:31 because with less than two cycles Excel
+2:33 can't identify the seasonal components
+2:36 next we can choose to include forast
+2:38 statistics and here Excel will
+2:40 automatically generate a table of
+2:42 Statistics using the
+2:44 forecast. dostat function including
+2:47 measures for smoothing coefficients and
+2:49 error
+2:50 metrics Now by default the timeline
+2:52 range includes all the dates in your
+2:54 table but you can change that here just
+2:57 keep in mind that the range must match
+3:00 the values range which you can also
+3:02 change here so you can see mine are both
+3:05 the same size and I'll leave them as is
+3:08 Excel uses interpolation to handle
+3:10 missing points which means a missing
+3:12 point will be completed as the weighted
+3:14 average of its neighboring points where
+3:16 fewer than 30% of the points are missing
+3:18 if you prefer you can treat missing
+3:21 points as zeros by selecting zeros from
+3:23 the list here and lastly Excel will
+3:26 average values that contain the same
+3:28 date and time you can choose another
+3:31 calculation method such as median if you
+3:34 prefer all right let's click create and
+3:37 take a look so you can see it's inserted
+3:39 a new sheet in the file it's brought in
+3:42 my data it's added in the forecast
+3:45 function and the forecast. et. confin
+3:48 function for the confidence intervals
+3:51 you can edit these formulas and extend
+3:53 them as required if you need to update
+3:56 your data it's automatically going to
+3:58 feed through to the chart because it's
+4:00 linked to the table here now if you
+4:02 chose to include the forecast statistics
+4:05 in the options when you created the
+4:07 forecast sheet you'll see them beside
+4:09 the forecast table they all use the
+4:12 forecast. ETS Dost function and you'll
+4:15 notice that the third argument is simply
+4:17 a different
+4:19 number and that specifies the statistic
+4:22 type to return now there's a link in the
+4:24 video description if you'd like more
+4:26 information on the different statistics
+4:28 available here I won't go through each
+4:30 one and bore you they can share Excel
+4:32 workbooks containing forecast sheets and
+4:34 charts with users who have earlier
+4:36 versions of excel they'll see the table
+4:38 and the chart I simply can't edit these
+4:40 formulas because I don't have those
+4:41 functions available in their version now
+4:44 if you want to make changes to the
+4:45 forecast then it's important to know
+4:48 that the forecast sheet is not linked to
+4:50 your original data you can see here all
+4:52 these numbers are hard keyed so if you
+4:55 make changes to your original data
+4:57 you'll need to also make those changes
+4:59 in in this sheet here if you add more
+5:01 data to this table the chart will
+5:03 automatically pick it up so you won't
+5:05 need to edit that now one thing I like
+5:07 to do with these charts is apply a
+5:09 custom number format that wraps the
+5:11 month and year onto separate lines so
+5:14 with the dates selected I'm going to
+5:15 control one to open the formatting
+5:17 dialogue box and then down at custom in
+5:20 here I'm going to enter my format which
+5:23 is MM for month and then contrl J to
+5:26 force a carriage return and then y y you
+5:30 can't see the y y because it's wrapped
+5:32 down onto the next line and this type
+5:35 field isn't big enough I'll click okay
+5:38 and you can see now the chart is
+5:40 displaying the month and the year
+5:42 wrapped onto separate lines It just fits
+5:44 in much easier into the chart area I
+5:47 could force that to display in the table
+5:49 as well by setting the font to wrap and
+5:52 then making the row bigger I'll leave it
+5:55 as is and undo that I don't need it for
+5:57 the purpose of this because my chart is
+5:59 picking up up the wrapped effect of the
+6:01 month and the year but I would like to
+6:04 just insert a text box just beside the
+6:08 axis that will allow me to put in a
+6:11 label and I'll have to make the fonts
+6:13 much
+6:14 smaller and we'll just right align it
+6:18 change the font to a shade of gray and
+6:21 we'll get rid of the outline on the text
+6:24 box we might just need to reposition it
+6:26 slightly so I think that's just a nicer
+6:29 way way to display the horizontal axis
+6:32 making it easier to
+6:34 read now if you don't have Excel 2016 or
+6:38 later you can still create forecasts
+6:41 manually using the earlier forecast
+6:43 function as you can see here and you can
+6:45 use confidence. Norm to calculate the
+6:47 confidence intervals they aren't quite
+6:50 as good as a new functions that use
+6:51 exponential triple smoothing and you
+6:54 can't factor in
+6:57 seasonality I hope you found this
+6:58 forecast to useful you can download the
+7:00 Excel file for this lesson from the link
+7:02 here if you like this video please give
+7:04 it a thumbs up and subscribe to our
+7:06 channel for more and why not share it
+7:08 with your friends who might also find it
+7:10 useful thanks for
+7:13 [Music]
+7:17 watching"""
+
+# Save transcript
+archive_dir = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\Knowledge_Archive\Transcripts\Microsoft_Office'
+os.makedirs(archive_dir, exist_ok=True)
+
+header = f"""Title: {title}
+Channel: {channel}
+Video ID: {video_id}
+URL: https://www.youtube.com/watch?v={video_id}
+Duration: {duration}
+Level: INTERMEDIATE
+Application: Microsoft Excel
+Topics: {', '.join(topics)}
+Ingested: {datetime.now().strftime('%Y-%m-%d')}
+Source: Playwright Browser Extraction
+{'='*78}
+
+"""
+
+filename = f"{datetime.now().strftime('%Y-%m-%d')}_INTERMEDIATE_{video_id}_Forecast_Sheet_Tool.txt"
+filepath = os.path.join(archive_dir, filename)
+
+with open(filepath, 'w', encoding='utf-8') as f:
+    f.write(header + transcript)
+
+print(f'Transcript saved: {filename}')
+
+# Chunk and ingest
+def chunk_text(text, chunk_size=3000):
+    chunks = []
+    current = ''
+    for line in text.split('\n'):
+        if len(current) + len(line) + 1 <= chunk_size:
+            current = current + '\n' + line if current else line
+        else:
+            if current:
+                chunks.append(current.strip())
+            current = line
+    if current.strip():
+        chunks.append(current.strip())
+    return chunks
+
+url = f'https://www.youtube.com/watch?v={video_id}'
+chunks = chunk_text(transcript)
+
+full_metadata = {
+    'channel': channel,
+    'video_id': video_id,
+    'duration': duration,
+    'level': 'INTERMEDIATE',
+    'application': 'Microsoft Excel',
+    'topics': topics,
+    'source': 'YouTube Transcript',
+    'ingested_date': datetime.now().strftime('%Y-%m-%d'),
+    'content_type': 'youtube_tutorial',
+    'category': 'Microsoft_Office'
+}
+
+inserted = 0
+for i, chunk in enumerate(chunks):
+    summary = chunk[:200].replace('\n', ' ').strip()
+    if len(chunk) > 200:
+        summary += '...'
+
+    record = {
+        'url': url,
+        'chunk_number': i + 1,
+        'title': title,
+        'summary': summary,
+        'content': chunk,
+        'metadata': full_metadata
+    }
+
+    try:
+        supabase.table('knowledge_base').insert(record).execute()
+        inserted += 1
+        print(f'  Chunk {i+1}/{len(chunks)} inserted')
+    except Exception as e:
+        print(f'  Error chunk {i+1}: {e}')
+
+print(f'\nTotal: {inserted} chunks inserted to Supabase')

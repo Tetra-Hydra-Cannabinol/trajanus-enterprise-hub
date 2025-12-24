@@ -1,0 +1,402 @@
+"""
+Ingest Playlist 3 video 16 (ktDJil7IhWo) - Interactive Excel Dot Plot Charts Make Sense of Many Series
+"""
+
+import os
+from datetime import datetime
+from supabase import create_client
+
+def load_env():
+    env_path = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\.env'
+    env_vars = {}
+    with open(env_path, 'r', encoding='utf-8-sig') as f:
+        for line in f:
+            line = line.strip()
+            if line and '=' in line and not line.startswith('#'):
+                key, value = line.split('=', 1)
+                env_vars[key.strip()] = value.strip()
+    return env_vars
+
+env = load_env()
+supabase = create_client(env['SUPABASE_URL'], env['SUPABASE_ANON_KEY'])
+
+video_id = 'ktDJil7IhWo'
+title = "Interactive Excel Dot Plot Charts Make Sense of Many Series"
+channel = 'MyOnlineTrainingHub'
+duration = '12:26'
+topics = ['Dot Plot Charts', 'Interactive Charts', 'Two Chart Overlay', 'Pivot Tables', 'Pivot Charts', 'Slicers', 'INDEX MATCH', 'VBA Macros', 'Chart Formatting', 'User Validation', 'IF Formula', 'Text Box Linking', 'Transparent Fill', 'Chart Alignment']
+
+transcript = """0:00 a common mistake people make is to plot
+0:03 categorical data in a line chart here we
+0:06 have the ratings for the degree of
+0:08 difficulty of each sport for the
+0:10 categories on the horizontal axis and I
+0:12 think you'll agree there are way too
+0:14 many sports for it to be any use
+0:16 although some might call it chart art
+0:19 when you have a lot of series to display
+0:21 in a chart you need to decide whether to
+0:23 separate your data into panel charts or
+0:25 spark lines so you can clearly view each
+0:28 series or you could focus on just one or
+0:31 two series and let the other series
+0:33 provide context in the Dot Plot chart
+0:35 here we've called out one sport speed
+0:37 skating and the other sports show the
+0:40 range and distribution in each skill we
+0:42 could add a slicer to allow our readers
+0:45 to select the sport they w't highlighted
+0:47 in the chart let's take a
+0:49 look the trick here is that there are
+0:52 two charts the chart on top shows the
+0:55 sport selected in the slicer but if I
+0:58 move it to the right you can see there's
+0:59 an another chart behind and the chart
+1:02 behind is plotting all of the
+1:04 sports now the data for this chart is
+1:07 here in an Excel table you can see I've
+1:10 got the sport the skill and the score
+1:13 and I've created a pivot table from that
+1:15 data this pivot table is the source for
+1:18 the chart on the bottom that shows all
+1:20 of the sports so let's go ahead and I'll
+1:23 insert a line chart with markers based
+1:26 on this data now this is a pivot chart
+1:29 so it's showing these field buttons
+1:31 first thing I want to do is hide all the
+1:33 field buttons then we'll go in and we'll
+1:36 remove the grid lines and the
+1:38 legend let's make the chart a bit bigger
+1:41 I want this chart to be 11 by
+1:45 17 next we need to actually format each
+1:49 line and marker so that all we can see
+1:51 is the marker so I'm going to select one
+1:55 and control one to open the format
+1:56 series pain in the Paint Bucket I want
+1:59 to say no line and then under marker
+2:02 options I want the built-in marker size
+2:05 9 we're going to make it a bit bigger
+2:07 and then I want to give that a solid
+2:08 feel but I need it to be a more pale
+2:11 gray color so it sits in the background
+2:14 and we need to repeat that for the line
+2:15 of the
+2:17 marker and then I need to rinse and
+2:19 repeat for each line so back into line
+2:22 settings no line marker builtin size 9
+2:27 solid fill thankfully it picks up the
+2:30 gray and likewise for the border now
+2:33 there are a ton of lines in this chart
+2:35 so doing it manually is quite tedious
+2:38 thankfully though I have a macro so on
+2:42 the developer tab under my macros I've
+2:44 got this chart series format with my
+2:47 chart selected I'm going to run the
+2:48 macro and it fixes all the formatting in
+2:51 the blink of an eye the next thing I
+2:53 want to do is fix this vertical axis
+2:56 height the maximum score anyone can get
+2:59 is 10 so I'm going to fix it to a
+3:01 maximum of 10 and that way I'm going to
+3:04 control the axes on both charts so that
+3:07 they're the same height it's important
+3:09 that the scale on the axis is the same
+3:12 in both charts otherwise your dots
+3:13 aren't going to line up now I've just
+3:16 given myself a bit of space at the top
+3:17 cuz we're going to put the legend up
+3:20 there and now I'm ready to create my
+3:24 next chart which is the one that
+3:26 contains the dot of the selected item in
+3:29 the slice
+3:30 so I'm just going to scroll down a
+3:32 little bit and we'll close this for a
+3:33 moment now I can't use a pivot chart for
+3:37 my chart that sits on top because I want
+3:39 to limit the number of series that the
+3:41 user can display as highlighted dots in
+3:43 the chart to just one spot and as you
+3:46 probably know a pivot chart will display
+3:48 everything in the pivot table case in
+3:50 point this pivot chart displays all of
+3:53 these points and I can't pick and choose
+3:56 whereas if I use a regular chart then I
+3:58 can control the sales that the chart
+4:01 references that said I still want to use
+4:03 a slicer to allow my user to select the
+4:06 sports because that's a nice user
+4:08 experience so we're going to insert a
+4:10 dummy pivot table again I'll select the
+4:13 data insert pivot table so going to put
+4:17 it on an existing
+4:19 worksheet put it here in my workings so
+4:22 put it in cell B18 and click okay now
+4:26 I'm just going to right click and go to
+4:28 the pivot table options and turn off the
+4:30 auto fit cuz I don't want this pivot
+4:33 table to mess with the size of my
+4:36 columns this pivot table is just going
+4:38 to contain the sports going across the
+4:41 columns so at the moment there's no
+4:43 filter it's listed all of the sports and
+4:45 you can see them behind the chart there
+4:47 the next thing I want to do for this
+4:49 pivot table is insert the slicer this is
+4:51 going to be what my user chooses the
+4:54 sports to highlight in the chart from so
+4:57 I'm going to right click add a slicer
+5:00 so we' got our slicer now if I select
+5:02 one sport in the slicer it filters the
+5:05 pivot table now I don't need the grand
+5:07 total so right click remove the grand
+5:09 total so we've got the slicer for the
+5:12 interactivity and we've got the pivot
+5:15 chart that shows all of the dots now I
+5:18 need to collate the data that's going to
+5:20 feed my second chart remember I can't
+5:23 use a pivot chart so I'm going to build
+5:26 a table manually but I need this list of
+5:28 sports and I'm just going to paste them
+5:30 there and then we're going to populate
+5:32 the values using an index and match
+5:35 formula so let me just move this across
+5:37 here so we got a bit of room so index
+5:41 where are we indexing well we want to
+5:42 find the values from the pivot table and
+5:46 then which row number do we want
+5:48 returned well I want all of the rows
+5:50 returned all of these ones so I'm going
+5:52 to skip this argument you could enter a
+5:54 zero in here that will also return all
+5:56 the rows but one less character is
+5:59 slight slightly more efficient the next
+6:01 argument is column number well I'm going
+6:03 to use match to find what column auto
+6:06 racing is in this row up here we need an
+6:11 exact match so the argument for exact
+6:14 match is zero now let me just scroll
+6:16 back so you can see the formula again
+6:19 close match close index now I have
+6:22 Office 365 so when I press enter you're
+6:25 going to see the results of the formula
+6:27 spill to the cells below if you don't
+6:30 have Office 365 then you can still use
+6:32 this formula let me copy it and show you
+6:35 what you need to do is select all of the
+6:38 cells first then enter your formula then
+6:42 contrl shift and enter and you get the
+6:44 same results so just remember to select
+6:47 the cells first and finish with control
+6:49 shift and enter so I'll delete that
+6:51 there we're going to use this data here
+6:53 for our next chart now remember we don't
+6:55 want a pivot chart so I'm just selecting
+6:58 the row labels and the the values not
+7:00 the header which is a pivot table then
+7:02 I'm going to insert the same type of
+7:05 chart the line chart with markers let's
+7:07 go ahead we're going to get rid of the
+7:09 chart title get rid of the grid lines
+7:11 put a legend at the top that's going to
+7:13 tell us what sport is selected now
+7:15 because I didn't include the auto racing
+7:18 cell in my selection when I inserted the
+7:20 chart the series has no name so I'm
+7:23 going to right click and select the data
+7:25 I'm going to edit the series and
+7:27 reference that cell there this won't
+7:29 convert it to a pivot chart so we're all
+7:31 safe with that now we can see the name
+7:35 correctly in the
+7:36 legend next I need to format this line
+7:39 just like I did for the other chart so
+7:41 control one let's get rid of that in the
+7:45 paint brush we want no line the marker
+7:48 is the built-in size nine now for the
+7:51 solid fill we want to pick a color
+7:53 that's going to stand out so I'm going
+7:54 to go with this blue color here and we
+7:57 need to repeat that for the solid line
+8:00 so our chart is pretty much done the
+8:02 size isn't quite right so let's go ahead
+8:05 and format it 11 by
+8:08 17 so now we have our charts that are
+8:11 the same size let's align them we'll
+8:14 move some things around so we've got
+8:16 some more space and I'll bring this up
+8:18 into view so there's my chart showing
+8:21 the selected values in the slicer let me
+8:25 select the legend and just fix the
+8:27 maximum to 10 so that it's consistent
+8:29 with the chart
+8:31 behind and in order for the chart behind
+8:34 to show through I need to make the fill
+8:36 color for this chart transparent so
+8:38 let's go in and format the shape fill to
+8:42 no fill and we'll also get rid of the
+8:45 outline now you can see the chart behind
+8:48 if I move it around let's align them so
+8:51 we'll use the Align tools to center it
+8:54 vertically and
+8:55 horizontally now I've got to do a little
+8:57 bit of adjustment on on the chart area
+9:01 because you can see this vertical axis
+9:03 isn't quite aligned so let's adjust them
+9:08 okay so our charts are nicely aligned
+9:10 our axes match up we've got a little bit
+9:13 of double vision going on because we can
+9:15 still see the axis labels from the chart
+9:18 behind so what I'm going to do is Select
+9:20 them and just format the font to White
+9:23 so that we can't see them at all make
+9:25 sure you do it on the chart behind
+9:27 otherwise the white will sit on top of
+9:29 the labels on the chart behind and you
+9:31 don't want
+9:32 that so let's align them
+9:38 again and as a Finishing Touch I'm just
+9:41 going to move this Legend across to the
+9:43 left so now when our user selects a spot
+9:47 in the slicer the chart on top
+9:50 updates to give the illusion that
+9:54 there's only one chart now in this
+9:57 example I only want my user to select
+9:59 one sport but really there's nothing to
+10:01 stop them selecting multiple Sports and
+10:03 you can see them behind here but those
+10:06 Sports aren't being plotted in the chart
+10:08 so we want to help guide them and we can
+10:11 do that in a couple of ways the first
+10:12 one is I'm going to right click and go
+10:14 into the slicer settings and just give
+10:16 them a little tool tip in the header
+10:20 here so select one sport but if they
+10:23 don't select one sport maybe they're
+10:26 just a little cheeky then we want to
+10:28 pull out the big guns and give them a
+10:31 red warning sign so what I'm going to do
+10:33 let me just select all of these and move
+10:35 them across so you can see I can use an
+10:38 if formula here to test whether this
+10:41 cell here is blank if it's blank then I
+10:44 know that they haven't selected more
+10:46 than one item so I can just return a
+10:48 blank but if it contains text or any
+10:52 value then it suggests to me that
+10:55 they've selected more than one sport and
+10:57 I'm going to give them a warning about
+10:58 that
+10:59 so we're just going to tell them select
+11:02 only one sport close my parentheses so
+11:07 you can see when I select more than one
+11:09 the warning comes up when I select only
+11:12 one the warning is hidden but obviously
+11:15 we need to put that somewhere that
+11:16 they're going to see that warning so
+11:19 with the chart selected I'm going to
+11:22 insert a text
+11:24 box over
+11:27 here and then select the outside of the
+11:30 text box equals and I'm going to link it
+11:33 to the cell that contains my if formula
+11:35 and press enter now let's select
+11:38 multiple items now you can see the text
+11:41 box Returns the error let's make it a
+11:45 bit more in your face we'll make it red
+11:48 to really stand out so now if they
+11:51 select one spot they don't get a warning
+11:53 if they select more than one they get
+11:55 the warning sign so you can use this
+11:57 technique in lots of areas to guide your
+12:00 users and to put in some safety nets to
+12:04 prevent them making
+12:07 mistakes you can download the Excel file
+12:09 for this lesson from the link here I
+12:11 hope you can make use of this technique
+12:13 if you like this video please give it a
+12:15 thumbs up and subscribe to my channel
+12:17 for more and why not share it with your
+12:19 friends who might also find it useful
+12:21 thanks for
+12:25 watching"""
+
+# Save transcript
+archive_dir = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\Knowledge_Archive\Transcripts\Microsoft_Office'
+os.makedirs(archive_dir, exist_ok=True)
+
+header = f"""Title: {title}
+Channel: {channel}
+Video ID: {video_id}
+URL: https://www.youtube.com/watch?v={video_id}
+Duration: {duration}
+Level: ADVANCED
+Application: Microsoft Excel
+Topics: {', '.join(topics)}
+Ingested: {datetime.now().strftime('%Y-%m-%d')}
+Source: Playwright Browser Extraction
+{'='*78}
+
+"""
+
+filename = f"{datetime.now().strftime('%Y-%m-%d')}_ADVANCED_{video_id}_Interactive_Dot_Plot_Charts.txt"
+filepath = os.path.join(archive_dir, filename)
+
+with open(filepath, 'w', encoding='utf-8') as f:
+    f.write(header + transcript)
+
+print(f'Transcript saved: {filename}')
+
+# Chunk and ingest
+def chunk_text(text, chunk_size=3000):
+    chunks = []
+    current = ''
+    for line in text.split('\n'):
+        if len(current) + len(line) + 1 <= chunk_size:
+            current = current + '\n' + line if current else line
+        else:
+            if current:
+                chunks.append(current.strip())
+            current = line
+    if current.strip():
+        chunks.append(current.strip())
+    return chunks
+
+url = f'https://www.youtube.com/watch?v={video_id}'
+chunks = chunk_text(transcript)
+
+full_metadata = {
+    'channel': channel,
+    'video_id': video_id,
+    'duration': duration,
+    'level': 'ADVANCED',
+    'application': 'Microsoft Excel',
+    'topics': topics,
+    'source': 'YouTube Transcript',
+    'ingested_date': datetime.now().strftime('%Y-%m-%d'),
+    'content_type': 'youtube_tutorial',
+    'category': 'Microsoft_Office'
+}
+
+inserted = 0
+for i, chunk in enumerate(chunks):
+    summary = chunk[:200].replace('\n', ' ').strip()
+    if len(chunk) > 200:
+        summary += '...'
+
+    record = {
+        'url': url,
+        'chunk_number': i + 1,
+        'title': title,
+        'summary': summary,
+        'content': chunk,
+        'metadata': full_metadata
+    }
+
+    try:
+        supabase.table('knowledge_base').insert(record).execute()
+        inserted += 1
+        print(f'  Chunk {i+1}/{len(chunks)} inserted')
+    except Exception as e:
+        print(f'  Error chunk {i+1}: {e}')
+
+print(f'\nTotal: {inserted} chunks inserted to Supabase')

@@ -1,0 +1,392 @@
+"""
+Ingest Playlist 3 video 3 (5vOqZBmBRos) - Trick Excel into Creating Regular Charts from PivotTables
+"""
+
+import os
+from datetime import datetime
+from supabase import create_client
+
+def load_env():
+    env_path = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\.env'
+    env_vars = {}
+    with open(env_path, 'r', encoding='utf-8-sig') as f:
+        for line in f:
+            line = line.strip()
+            if line and '=' in line and not line.startswith('#'):
+                key, value = line.split('=', 1)
+                env_vars[key.strip()] = value.strip()
+    return env_vars
+
+env = load_env()
+supabase = create_client(env['SUPABASE_URL'], env['SUPABASE_ANON_KEY'])
+
+video_id = '5vOqZBmBRos'
+title = "Trick Excel into Creating Regular Charts from PivotTables - 3 Easy Techniques"
+channel = 'MyOnlineTrainingHub'
+duration = '11:42'
+topics = ['PivotTables', 'Regular Charts', 'Manual Chart Table', 'GETPIVOTDATA', 'Dynamic Arrays', 'FILTER Function', 'XLOOKUP', 'Dynamic Named Ranges', 'OFFSET Function', 'Bait and Switch', 'Tree Map', 'Sunburst Charts', 'Slicers']
+
+transcript = """0:00 pivot tables are a great way to
+0:02 summarize your data but pivot charts can
+0:05 be a pain in the neck because they're
+0:07 not as customizable as regular Excel
+0:09 charts they only play nice with data
+0:12 from one pivot table and pivot charts
+0:14 aren't available for all types of charts
+0:16 so sunbursts scatter charts histograms
+0:20 and waterfalls don't come with a pivot
+0:22 chart equivalent but pivot tables make
+0:24 our life easy and slices are cool so in
+0:27 this video I'm going to show you how to
+0:29 trick regular charts into using pivot
+0:31 tables as their Source data so you can
+0:34 have the best of both
+0:37 worlds in this file I have two Source
+0:40 data tables one for actual sales and one
+0:43 for budgeted sales now I want to
+0:46 summarize this data using pivot tables
+0:48 but I want the flexibility of regular
+0:50 charts now there are three approaches we
+0:52 can use the first one is to build
+0:54 another table that references the pivot
+0:57 tables and feeds the chart I call it the
+0:59 manual chart table this approach is
+1:02 useful if the data in the pivot tables
+1:04 isn't organized in the same way as you
+1:06 can see here with the categories in
+1:08 different orders or if the order can't
+1:10 be relied upon to always be the same in
+1:13 both pivot tables so I'm going to start
+1:16 by simply grabbing the row labels from
+1:18 one of the pivot tables this one here
+1:20 will do it's already in alphabetical
+1:22 order and we'll just drag it down next I
+1:26 need to grab the actual figures and I'm
+1:29 going to use the get pivot data function
+1:31 that automatically populates when you
+1:33 select a values field in a pivot table
+1:36 but I'm going to replace this hard key
+1:38 label for beverages with a reference to
+1:40 the cell containing the category and
+1:42 that'll allow me just to copy it down
+1:44 with a double click of the fill handle
+1:47 let's do the same for the budget amount
+1:49 replacing Seafood with beverages that
+1:52 way it doesn't matter what row this
+1:54 formula is on it's going to always find
+1:56 the beverages value from the pivot table
+1:59 contain containing the budget
+2:01 figures again let's double click the
+2:03 fill handle to copy it down so there's
+2:05 my table for my chart now all I need to
+2:07 do is insert the chart and I'll go with
+2:10 a regular column chart let me bring it
+2:12 over here and I'll make it a bit bigger
+2:15 I'll quickly do some formatting so
+2:16 clicking on one of the columns I'm going
+2:18 to control one to open the format Pane
+2:22 and here I want series overlap
+2:25 100% And then I'm just going to format
+2:28 the column these are The Columns for the
+2:30 budget amounts so I want no
+2:33 fill and I'm going to give them a border
+2:36 let's pick a color that's going to stand
+2:38 out and I'll make it a bit thicker next
+2:42 I'll do a little bit more formatting
+2:43 quickly cuz I can't help myself let's
+2:45 get rid of the title and we'll move the
+2:47 legend to the top so with this method I
+2:50 can refresh the pivot tables and any
+2:52 changes to the values are going to
+2:54 automatically feed through to my manual
+2:56 chart table and then through to the
+2:58 Chart now I just want to show you
+3:00 another technique if you have Dynamic
+3:02 arrays then we can use some different
+3:06 formulas and I'll move the chart down a
+3:08 little bit instead of just referencing
+3:11 one of these category label fields in
+3:13 the pivot table I can use the filter
+3:16 function to grab this list and I can
+3:19 extend past the end to allow for growth
+3:22 in that list of categories I want to
+3:25 include the labels in these cells that
+3:29 aren't
+3:30 empty and then I simply close
+3:32 parentheses and press enter because it's
+3:34 a dynamic array it spills the results
+3:37 now as a precaution I'm going to wrap it
+3:40 in the sort function which will make
+3:41 sure that this list that feeds my chart
+3:44 is always sorted even if the pivot table
+3:46 isn't now all I need to do is find the
+3:49 actual and budget figures and I can use
+3:52 the dynamic array function X lookup to
+3:54 find this list of values notice it puts
+3:58 in The Spill array of operator the pound
+4:00 sign and that means that if this list
+4:03 grows I don't need to edit my xook up it
+4:06 will automatically grow as well so it's
+4:08 looking up the
+4:10 category in the pivot table here now I
+4:13 want to extend past the end to allow for
+4:16 growth and it's returning the actual I'm
+4:19 going to press enter and it spills all I
+4:22 need to do is repeat that for the
+4:25 budget and I'm looking up the budget
+4:27 table allowing for growth
+4:30 and returning the sum of
+4:32 budget so the benefit of the dynamic
+4:35 array formulas is that if the pivot
+4:37 table expands with new categories the
+4:39 dynamic array formulas will
+4:41 automatically pick up the new rows now
+4:44 method two is useful if the order of the
+4:48 data is identical in each pivot table
+4:50 and you can be certain it always will be
+4:53 like with months of the year that we
+4:55 have here or if you only have one pivot
+4:57 table that you need to feed your chart
+4:59 with you can then skip the manual chart
+5:01 table example we just looked at and
+5:03 simply reference the pivot tables using
+5:05 Dynamic named ranges now we need three
+5:08 Dynamic named Rangers for the chart one
+5:10 for the actual series one for the budget
+5:13 series and one for the aess labels so
+5:16 via the formulas tab I'm going to define
+5:18 a new name we'll set up the chart actual
+5:21 first now you can use offset or index to
+5:24 create a dynamic named range I'm going
+5:27 to go with offset if you're not familiar
+5:29 with offset make sure you download the
+5:31 Excel file and the link is in the video
+5:34 description in there there'll be links
+5:36 where you can learn more about offset so
+5:38 the first argument for offset is the
+5:40 reference well January's actual value
+5:43 will be my starting reference the next
+5:45 argument is how many rows from that cell
+5:48 D5 do I want to move down well I don't
+5:49 want to move down any so I'm going to
+5:51 skip that argument the next argument is
+5:54 how many columns do I want to move
+5:56 across I don't want to move across any I
+5:58 want to stay there that's the first sell
+6:00 in my range so I'll skip that as well
+6:02 then I need to tell offset how big I
+6:04 want this range how many rows so I'm
+6:06 going to use the count a function to
+6:09 count the number of months in my pivot
+6:12 table and remember I want to allow for
+6:14 growth so we'll extend down to row 30
+6:18 that's going to give me the height of my
+6:20 range and the width of my range is only
+6:23 one column so I'm just going to skip
+6:25 that argument and close offset click
+6:28 okay now we can check that the name has
+6:31 been set up correctly by selecting it in
+6:33 the name manager and then click in the
+6:35 refers to the marching ants show me how
+6:38 this offset formula is evaluating and
+6:40 the range that it's going to return so
+6:42 that's all good I'm going to copy it
+6:44 create a new one and this is going to be
+6:46 for my budget and I'm just going to
+6:48 paste it in here and edit it so instead
+6:52 of starting in cell D5 I'm going to
+6:54 start in cell
+6:56 H5 and I'm going to count column G and
+7:00 I'm just going to press f2 that will
+7:02 allow me to arrow through and replace C
+7:06 with G there as well so click okay let's
+7:09 check it's evaluating correctly it is so
+7:12 we're all good so I'm going to create
+7:14 the last Dynamic named range and that's
+7:16 for the axis and again we'll use offset
+7:20 now this one I want to pick up the year
+7:22 label and the month so this range I want
+7:25 to return will be two columns wide we're
+7:27 going to skip the row argument and the
+7:30 column argument I'm going to use count a
+7:34 to count how many month labels I have
+7:36 and I'm going to allow for growth down
+7:38 to row 30 so that's going to give me the
+7:40 height of my range and then I want it to
+7:42 be two columns wide close parentheses
+7:46 let's check that it evaluates correctly
+7:48 it does so now all I need to do is
+7:50 insert my chart so with nothing selected
+7:53 just an empty cell I'm going to insert
+7:55 an empty chart I'm going to right click
+7:58 and we're going to select data and we'll
+8:01 add a series the first one will be for
+8:03 my chart actual now I'm going to use the
+8:06 dynamic named Rangers that we set up but
+8:09 they need to be prefixed by the sheet
+8:10 name so I'm just going to select any
+8:12 sale in the sheet and then I'm going to
+8:14 delete the sell reference press F3 to
+8:17 bring up the paste name box I'm going to
+8:20 double click on the name I want to
+8:22 insert so that's my actual let's add
+8:25 another series for the budget doing the
+8:27 same thing just click any old sell
+8:30 notice that I'm keeping the exclamation
+8:32 mark and this one's the
+8:36 budget and then the chart axis remember
+8:39 we need the sheet name first delete the
+8:42 cell reference
+8:44 F3 insert the chart access and click
+8:47 okay you can see the chart behind is
+8:50 taking shape so I'll click okay again
+8:53 now I won't spend time formatting this
+8:55 it's the same as the manual chart table
+8:57 chart that I just built so I think you
+8:59 can go ahead and figure that out on your
+9:01 own keep in mind that the benefit with
+9:04 this method is as these pivot tables
+9:06 grow and more months are added to them
+9:09 this chart's going to automatically pick
+9:11 them up I don't need to worry about
+9:12 editing any of the references to the
+9:14 sales that the chart has cuz it's
+9:16 reading those Dynamic named
+9:19 ranges the final method which I call the
+9:21 bait and switch is a bit less work than
+9:24 the previous methods it works well with
+9:26 charts that can ignore empty cells like
+9:28 the Tre map and Sunburst Etc the first
+9:32 step is to create a pivot table
+9:34 containing the data for the chart and
+9:36 insert a slicer if you require one then
+9:39 I'm going to contrl a to select all of
+9:41 the data in the pivot table contrl C to
+9:44 copy it and I'm just going to paste it
+9:46 here in some empty cells and I want to
+9:48 paste it as Valu so alt ESV is keyboard
+9:51 shortcut press enter there's my data now
+9:55 all I need to do is insert the chart and
+9:58 I'm going to use a tree map so now my
+10:00 tree map is attached to this data behind
+10:04 I want to point it back to the pivot
+10:06 table so all I need to do is right click
+10:09 and go in select data and edit the
+10:11 references so that they reference the
+10:14 pivot table so instead of column G for
+10:17 actuals I want column C so we'll change
+10:20 that reference there and this here and
+10:23 here click okay and let's repeat for the
+10:26 category labels so instead of columns e
+10:28 and F I want columns A and B so let's
+10:32 change that A to B click okay and okay
+10:37 so the chart hasn't changed and you can
+10:39 see that it's referencing the pivot
+10:41 table so now I can get rid of these
+10:43 cells here contrl minus to delete the
+10:45 columns let's bring the slicer back
+10:47 across and I'll just move the chart as
+10:50 well now you can see as I select some
+10:52 categories in the slicer it filters and
+10:56 the chart updates and if we select the
+10:58 chart you can see it's still referencing
+11:00 all these empty cells so that when I
+11:04 select all of the categories again the
+11:06 chart updates but having those empty
+11:08 cells isn't affecting the appearance of
+11:11 the chart so like I said this technique
+11:13 is great for charts that ignore empty
+11:15 cells in their range so it's not going
+11:17 to work for every
+11:19 scenario you can download the Excel file
+11:22 for this lesson from the link here I
+11:24 hope you can make use of these
+11:25 techniques if you like this video please
+11:27 give it a thumbs up and subscribe
+11:29 subcribe to my channel for more and
+11:31 don't forget to share it with your
+11:32 friends who might also find it useful
+11:34 thanks for
+11:35 [Music]
+11:41 watching"""
+
+# Save transcript
+archive_dir = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\Knowledge_Archive\Transcripts\Microsoft_Office'
+os.makedirs(archive_dir, exist_ok=True)
+
+header = f"""Title: {title}
+Channel: {channel}
+Video ID: {video_id}
+URL: https://www.youtube.com/watch?v={video_id}
+Duration: {duration}
+Level: INTERMEDIATE
+Application: Microsoft Excel
+Topics: {', '.join(topics)}
+Ingested: {datetime.now().strftime('%Y-%m-%d')}
+Source: Playwright Browser Extraction
+{'='*78}
+
+"""
+
+filename = f"{datetime.now().strftime('%Y-%m-%d')}_INTERMEDIATE_{video_id}_PivotTable_Charts.txt"
+filepath = os.path.join(archive_dir, filename)
+
+with open(filepath, 'w', encoding='utf-8') as f:
+    f.write(header + transcript)
+
+print(f'Transcript saved: {filename}')
+
+# Chunk and ingest
+def chunk_text(text, chunk_size=3000):
+    chunks = []
+    current = ''
+    for line in text.split('\n'):
+        if len(current) + len(line) + 1 <= chunk_size:
+            current = current + '\n' + line if current else line
+        else:
+            if current:
+                chunks.append(current.strip())
+            current = line
+    if current.strip():
+        chunks.append(current.strip())
+    return chunks
+
+url = f'https://www.youtube.com/watch?v={video_id}'
+chunks = chunk_text(transcript)
+
+full_metadata = {
+    'channel': channel,
+    'video_id': video_id,
+    'duration': duration,
+    'level': 'INTERMEDIATE',
+    'application': 'Microsoft Excel',
+    'topics': topics,
+    'source': 'YouTube Transcript',
+    'ingested_date': datetime.now().strftime('%Y-%m-%d'),
+    'content_type': 'youtube_tutorial',
+    'category': 'Microsoft_Office'
+}
+
+inserted = 0
+for i, chunk in enumerate(chunks):
+    summary = chunk[:200].replace('\n', ' ').strip()
+    if len(chunk) > 200:
+        summary += '...'
+
+    record = {
+        'url': url,
+        'chunk_number': i + 1,
+        'title': title,
+        'summary': summary,
+        'content': chunk,
+        'metadata': full_metadata
+    }
+
+    try:
+        supabase.table('knowledge_base').insert(record).execute()
+        inserted += 1
+        print(f'  Chunk {i+1}/{len(chunks)} inserted')
+    except Exception as e:
+        print(f'  Error chunk {i+1}: {e}')
+
+print(f'\nTotal: {inserted} chunks inserted to Supabase')

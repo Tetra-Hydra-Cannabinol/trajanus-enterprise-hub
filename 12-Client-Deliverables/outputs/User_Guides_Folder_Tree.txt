@@ -1,0 +1,60 @@
+User's Guides/
+
+├── Developer-Documentation/ (12 files)
+│   ├── ADDING_UTILITY_BUTTONS
+│   ├── Codex vs Claude Code 2.0_ A CTO’s 9 Part Real-World Test
+│   ├── CODING_CHEAT_SHEET
+│   ├── DEVELOPER_CONFIG_REVISED
+│   ├── DEVELOPER_UTILITIES_QUICK_REF
+│   ├── LEARNING_TRAINING_SUMMARY
+│   ├── Master Claude Code_ Proven Daily Workflows from 3 Technical Founders (Real Examples)
+│   ├── MISSION_TRANSCRIPT_Developer_Project_Build
+│   ├── PLANNER_CONFIG_REVISED
+│   ├── QUICK_REFERENCE
+│   ├── README
+│   └── TRAJANUS_PLATFORM_IMPLEMENTATION_PLAN
+├── Integration-Guides/ (4 files)
+│   ├── Future_Ideas_Maybe_Later
+│   ├── TKB_P6_Integration_Guide
+│   ├── TKB_Procore_Integration_Guide
+│   └── TKB_RMS_30_Integration_Guide
+├── Knowledge-Base-RAG/ (3 files)
+│   ├── HOW_TO_ACCESS_KB
+│   ├── Supabase_pgvector_Setup_Guide
+│   └── TKB_README_START_HERE
+├── MCP-API-Documentation/ (8 files)
+│   ├── BROWSER_UNIFICATION_PLAN
+│   ├── BROWSER_UNIFICATION_PLAN (1)
+│   ├── CC_AGENT_DEPLOYMENT_TODAY
+│   ├── MASTER_INDEX
+│   ├── PHASE3_RESEARCH_AGENT
+│   ├── QUICK_START_AGENT_DEPLOYMENT
+│   ├── SESSION_TRANSCRIPT_2025-12-14_Responses
+│   └── TASK-003_QUICK_START
+├── Session-Protocols/ (6 files)
+│   ├── COMPLIANCE_OFFICER_SPEC
+│   ├── DEVELOPMENT_WORKFLOW
+│   ├── MASTER_WORKFLOWS_COMPREHENSIVE
+│   ├── MASTER_WORKFLOWS_COMPREHENSIVE
+│   ├── PHASE2_COMPLIANCE_OFFICER
+│   └── RESEARCH_FINDINGS_LARGE_FILE_EDITING
+├── System-Architecture/ (8 files)
+│   ├── ARCHITECTURE_PLAN_EXTRACTION_METHOD
+│   ├── MULTI_SKILLED_AGENT_ARCHITECTURE
+│   ├── Orchestrator_Workers_Pattern
+│   ├── PHASE4_TKB_EXPANSION
+│   ├── TASK-001_TRANSCRIPT_Complete
+│   ├── TASK-002_TRANSCRIPT_Complete
+│   ├── Turn Claude Code into Your Own INCREDIBLE UI Designer (using Playwright MCP Subagents)
+│   └── Turn Claude Code into Your Own INCREDIBLE UI Designer (using Playwright MCP Subagents) (1)
+├── Traffic-Studies/ (1 files)
+│   └── TKB_Traffic_Study_Requirements_Guide
+├── User-Instructions/ (8 files)
+│   ├── CODING_EDUCATION_GUIDE
+│   ├── COMPLETE_BROWSER_FIX_INSTRUCTIONS
+│   ├── DEVELOPER_UTILITIES_CONFIG
+│   ├── Electron_Python_Bridge_Guide
+│   ├── INTEGRATION_GUIDE_COMPLETE
+│   ├── TASK-003_RESEARCH_GUIDE_Complete
+│   ├── User_Guides_Complete
+│   └── User_Guides_Complete (1)

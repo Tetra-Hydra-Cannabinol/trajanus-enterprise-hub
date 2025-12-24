@@ -1,0 +1,335 @@
+Title: Cross Filter and Highlight Excel Charts like Power BI
+Channel: MyOnlineTrainingHub
+Video ID: qFpnUBNUcsM
+URL: https://www.youtube.com/watch?v=qFpnUBNUcsM
+Duration: 13:25
+Level: ADVANCED
+Application: Microsoft Excel
+Topics: Cross Filtering, Highlighting, Power BI Style, Power Pivot, Slicers, Measures, PivotTables, DAX, Interactive Charts, Relationships, Data Model
+Ingested: 2025-12-21
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 one of the features I love in pobi is
+0:03 the ability to click on an item in one
+0:05 chart and have the other charts cross
+0:07 filter and highlight that selected item
+0:09 now unfortunately there's no built-in
+0:11 way to do this in Excel but I'm going to
+0:14 show you a way we can achieve a very
+0:16 similar effect with a little Excel magic
+0:19 now I'll be using power pivot charts for
+0:21 this however if you don't have a version
+0:23 of excel with power pivot you'll find an
+0:25 alternate way using formulas included in
+0:28 the file that you can download from the
+0:30 link in the video description okay let's
+0:33 get
+0:34 started now before we look at the steps
+0:36 for building these charts let's just
+0:38 understand the three main components
+0:40 first we have here a slicer and that
+0:43 provides our
+0:44 interactivity now if I drag the slicer
+0:47 to the left you'll see it's just been
+0:48 cleverly aligned over the vertical axis
+0:51 for my brand chart and then I have a
+0:54 pivot chart for the product categories
+0:57 so with some clever alignment and
+0:58 formatting we have something that
+1:01 appears as though it's one object and it
+1:04 allows our users to interact with it now
+1:07 I've only used two charts and Link them
+1:09 to this one slicer but you could link a
+1:11 whole dashboard to it all right let's
+1:14 look at the steps for building the
+1:16 charts now I've got a new workbook here
+1:18 where I've got my data ready to go it's
+1:21 an extract of the Koso sample data from
+1:24 Microsoft it's got gross profit by
+1:27 product category and brand and date of
+1:30 also got a table here for the brands
+1:31 which is just a distinct list of them if
+1:34 we look at the table design tab you can
+1:36 see this table is called Brands and this
+1:39 one is called Data that's important we
+1:42 need them formatted in a table to load
+1:44 them into Power pivot so we go to the
+1:46 power paper Tab and load them in now I
+1:48 need to just click this add to data
+1:50 model button if you have earlier
+1:52 versions of excel it might say add
+1:55 linked table so click add to dat model
+1:58 we'll go back to Excel and we'll add in
+2:01 the brand
+2:02 table now the next thing I need to do is
+2:04 create an inactive relationship between
+2:07 these two tables so on the design tab
+2:09 we're going to create
+2:11 relationship we'll select the data table
+2:14 as the primary table and the brand table
+2:16 is the secondary table I want this
+2:19 relationship to be inactive so we going
+2:20 to deselect that and click okay okay so
+2:24 I'm done with power pivot let's close
+2:26 the window and we're ready to write the
+2:29 measures now a measure is the equivalent
+2:31 of a calculated field in regular pivot
+2:33 tables we can see the measures here
+2:35 we've got total gross profit and
+2:37 selected brand the selected brand
+2:39 measure only Returns the gross profit
+2:41 for the selected brand in the slicer so
+2:45 let's go ahead and create those I'm
+2:47 going to go measures new
+2:49 measure the first one's going to be
+2:51 called total gross
+2:53 profit and it simply
+2:56 sums the gross profit so we'll set that
+3:00 to a number format we'll do some more
+3:02 number formatting shortly and click
+3:05 okay and then one more measure for the
+3:08 selected
+3:10 brand this one uses the calculate
+3:12 function so we're going to use that
+3:14 measure total gross profit that we just
+3:16 wrote but here we want to reactivate
+3:19 that inactive relationship so we're
+3:21 going to use use relationship to
+3:23 activate the relationship between the
+3:25 brand column in the brands table and the
+3:27 brand column in the data table close use
+3:30 relationship and close calculate we'll
+3:33 set it to number category and I'll click
+3:36 okay so we've got our data loaded and
+3:38 our measures written we're ready to
+3:40 build the pivot tables so on the insert
+3:43 tab of the ribbon pivot table here I
+3:45 want to use this workbooks data model
+3:48 that's power pivot and put it on a new
+3:50 worksheet and click okay right let me
+3:53 drag the field list out so that we have
+3:55 more room so the first pivot table is
+3:57 going to just show my gross profit by by
+3:59 brand now I have a brand field in the
+4:02 brands table and in the data table so
+4:05 it's important here that I use the brand
+4:07 field from the data table and I want the
+4:09 total gross profit and the selected
+4:11 brand let's apply some formatting so
+4:13 we're going to go into the valy field
+4:15 settings and number format here I want
+4:18 to create a custom number format now I'm
+4:21 going to cheat a little bit and pick a
+4:23 format that's already close to what I
+4:25 want and then just modify it so I'm
+4:27 going to round it to Millions so I want
+4:29 two Comm
+4:30 and then M to be clear on the rounding
+4:33 and again for the negative format and
+4:36 I'll click okay and okay again let's do
+4:40 the same for the selected brand measure
+4:43 now this custom format is going to be at
+4:46 the end of the list so just scroll to
+4:48 the end and click
+4:50 okay all right so that's our brand pivot
+4:53 table let's copy and paste that because
+4:55 we've got the formatting already applied
+4:57 and instead of by brand this one's by
+4:59 product category next we just need to
+5:01 insert the slicer so in this case the
+5:04 slicer is for Brands but instead of the
+5:07 brand fi from the data table I want to
+5:10 use the brand fi from the brands table
+5:13 and add a
+5:14 slicer we get this warning that we may
+5:18 need a relationship set up that's
+5:20 because the relationship is inactive I'm
+5:22 going to just ignore that because I want
+5:25 it to be inactive now when I click on a
+5:27 brand in the slice you can see the gross
+5:30 profit the total gross profit doesn't
+5:32 change but the selected brand measure
+5:36 recognizes the relationship between the
+5:38 tables and filters
+5:42 accordingly now you notice that it's
+5:44 filtered this pivot table but not this
+5:46 one so we need to assign the report
+5:49 connections to both pivot tables I'll
+5:52 click okay and now they're both
+5:54 recognizing the slicer so we're ready to
+5:57 insert our pivot charts one for each
+5:59 each pivot table so I'm just going to
+6:01 close the field list and we'll go to the
+6:04 analyze Tab and pivot chart here I want
+6:06 a bar chart this gives me more room for
+6:09 my long
+6:10 labels and let's do the same for this
+6:14 one again bar chart all right I'll just
+6:17 move them so they're not sitting on top
+6:19 of each other let's get rid of all the
+6:22 fill buttons they just take up way too
+6:25 much space just right click and deselect
+6:27 them I'm going to control one to open
+6:30 the formatting pane so this one I want
+6:32 the series to overlap by 100% so this is
+6:35 my selected brand I want it to sit on
+6:37 top of the total gross profit
+6:41 columns and this one's going to be 30%
+6:44 Gap width to just make our bars a little
+6:46 Bolder now I want to sort these in
+6:49 alphabetical order so I can change the
+6:51 order of the
+6:53 categories and put them in reverse order
+6:55 but then I have to fiddle about with
+6:57 this horizontal axis as well so it's
+6:59 easier just to sort these by Z to A and
+7:03 then that feeds through to the
+7:05 chart and this one here I actually want
+7:09 to sort it based on the value so I'm
+7:11 going to sort it smallest to largest and
+7:14 then we have our largest values first
+7:16 we're going to have to give these charts
+7:17 a bit more room so we can read all the
+7:19 labels okay let's concentrate on this
+7:21 one for now I don't need the legend here
+7:24 I'm just going to have one legend for
+7:25 both
+7:27 charts now I want to remove the border
+7:31 on the chart outline so go no outline
+7:34 and let's format this in a different
+7:36 color so what I want to do is have this
+7:39 as the dark blue and then the total
+7:41 gross profit for all of the brands in
+7:42 this lighter shade of blue all right
+7:45 we'll make this a bit
+7:46 bigger actually what we'll do is we'll
+7:49 find out what the size of this one is so
+7:51 it's 12.52 high let's apply the same to
+7:56 this one so we'll make it 12.5
+7:59 two then we can align them with them
+8:03 both selected align to the top all right
+8:07 so to save some time I want to copy the
+8:08 formatting in this chart and apply it to
+8:10 this one so I'm going to contrl + C to
+8:12 copy and then select this chart and
+8:15 paste so now our charts are formatted
+8:19 the same let's minimize this so we've
+8:21 got more room I'm going to move this
+8:23 over here and this one along theide and
+8:28 we want our slice to sit on top so let's
+8:30 go up to the slic of settings and we'll
+8:32 bring this to the front we also need to
+8:36 hide the header so we don't want to
+8:38 display the
+8:40 header and I need to make the
+8:43 slicer closer to the size of the chart
+8:46 so what we need to do is give the
+8:49 chart more room for the
+8:52 slicer make that narrower bring this
+8:55 across and sit it on top now I need to
+8:57 make the buttons bigger so let's just
+9:00 increase the height until they're
+9:01 aligned so let's give it a bit more
+9:04 space until it fits in okay so it's
+9:08 almost align to the Chart we might need
+9:10 to make it a bit bigger actually I don't
+9:13 want to spend too much time messing
+9:15 about with the slicer because I think
+9:17 you get the idea make that
+9:20 1.025 all right nearly there now the
+9:23 slicer has a border on it so we want to
+9:25 remove that border unfortunately there's
+9:27 no easy way to do that but on the slicer
+9:29 tab we can create our own custom slicer
+9:32 style so I'm going to right click the
+9:34 style it currently is formatted in
+9:36 duplicate it and then we'll modify it so
+9:39 this one will be called no border the
+9:42 other thing I want to do is make sure
+9:43 the buttons in the slicer match the
+9:46 color of the column that's selected so
+9:48 we want to format the whole
+9:51 slicer with no
+9:54 border and then I want to format the
+9:57 buttons for the select ED item with data
+10:01 so that the fill is this darker blue and
+10:04 we'll make the font white because it'll
+10:06 be harder to read when it's a black font
+10:08 with the dark blue so click okay now all
+10:11 I need to do is apply that format to my
+10:14 slicer and it appears as one with the
+10:17 chart now I'd like to add some data
+10:19 labels to my chart so I only want to add
+10:22 the labels for the selected brand so I'm
+10:25 going to select that first and then
+10:26 choose data label and do the same for
+10:30 this one
+10:34 here okay now it' be nicer to format
+10:37 those data labels in a font that matches
+10:39 the color of the bars and let's do the
+10:42 same for this
+10:43 one now at the moment this chart is
+10:47 sitting behind this one so what I want
+10:49 to do is make the fill for this chart
+10:53 transparent so no fill and we'll get rid
+10:56 of the grid lines on the sheet so so it
+10:59 looks neater the problem we have now is
+11:01 we can see the pivot table behind so
+11:03 let's move them to their new sheet so
+11:06 crl X to cut crl + V to paste and we'll
+11:10 hide the grid lines there okay so our
+11:14 charts are coming together might need to
+11:17 make this one a bit smaller so that it's
+11:19 not showing so much behind Okay we're
+11:22 nearly there all we need is a header
+11:25 because if I put a chart title for one
+11:27 of the charts going to mess with all of
+11:28 the alignment so I prefer just to
+11:32 insert a shape I'll just draw it on and
+11:37 we'll call it total gross profit by
+11:38 brand and
+11:40 category let's format the font a little
+11:43 bit we'll make it a bit bigger and we'll
+11:45 Center it and let's format this so that
+11:48 there's no fill and no
+11:51 outline and we best make the font a dark
+11:54 blue okay so there's our charts one last
+11:57 thing we need is a legend so let's just
+11:59 add a legend temporarily here I want the
+12:01 legend side by side so we'll give it
+12:03 some more space I'll delete the grid
+12:05 lines in the background I'm going to
+12:07 take a screenshot of the legend and then
+12:09 I'm going to paste it in up here so now
+12:11 that I've got my screenshot let's remove
+12:14 the legend and we'll put the grid lines
+12:18 back we'll paste in The Legend and
+12:20 position it at the top so there we have
+12:23 our cross highlighting and filtering
+12:25 just like we have in palbi the only
+12:28 difference is here we need to use the
+12:29 slicer buttons rather than clicking on
+12:32 the columns in the bar chart itself I
+12:34 think you'll agree it's pretty close to
+12:37 what we get in powerbi now remember if
+12:39 you don't have power pivot please take a
+12:41 moment to download the workbook the
+12:43 links available in the video description
+12:46 here you can find an example with
+12:48 regular pivot tables the only difference
+12:50 here is we need a couple of formulas to
+12:53 perform the selected brand calculation
+12:56 but otherwise it works in exactly the
+12:58 same same way and you can see the charts
+13:00 down here if I click on the slicer it
+13:03 works in the same way the only
+13:05 difference is we're using regular charts
+13:07 in this example not pivot charts I hope
+13:10 you can make use of this technique if
+13:12 you like this video please give it the
+13:14 Thumbs Up And subscribe to my channel
+13:16 for more and why not share it with your
+13:18 friends who might also find this
+13:19 technique useful thanks for
+13:24 watching

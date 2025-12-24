@@ -1,0 +1,151 @@
+Title: Easy Excel S-Curve Charts for Tracking Progress Over Time
+Channel: MyOnlineTrainingHub
+Video ID: 5J_fq34P1Bg
+URL: https://www.youtube.com/watch?v=5J_fq34P1Bg
+Duration: 5:32
+Level: INTERMEDIATE
+Application: Microsoft Excel
+Topics: S-Curve Charts, Project Management, Cumulative Data, Line Charts, Scatter Charts, SEQUENCE Function, Dynamic Arrays, IF Function, MEDIAN Function, Between Formula, SUM Function, Cumulative Formulas, Secondary Axis, Actual vs Forecast, Chart Types, Bell Curve, Normal Distribution
+Ingested: 2025-12-21
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 scurve charts are a common tool used in
+0:02 project management to track the
+0:03 cumulative costs hours sales Etc over
+0:07 time the chart forms the shape of an S
+0:10 because typically progress starts slow
+0:12 and ends slow with an acceleration in
+0:14 the middle periods and if we look at the
+0:17 discrete values which are the gray
+0:19 columns you can see they make a similar
+0:21 shape as a normal distribution or a bell
+0:23 curve in Excel we can create scurve
+0:26 charts using line or scatter chart types
+0:29 let's take a look
+0:31 here I have a typical list of project
+0:33 tasks with their start and end dates and
+0:35 durations now from this data I can
+0:38 create a table that allocates the
+0:39 duration days across each date in the
+0:42 project period now my version of excel
+0:45 has Dynamic array so I have the sequence
+0:47 function available so I can generate
+0:49 this list of dates automatically if you
+0:51 have of Vel 2019 or earlier then you can
+0:54 just manually list the dates of your
+0:55 project the first argument of sequence
+0:58 is how many rows I want now I only need
+0:59 one one row so I can either put a one in
+1:01 here or just skip that argument next it
+1:04 wants to know how many columns I'm going
+1:06 to calculate the number of columns by
+1:08 finding the maximum end
+1:11 date minus the minimum start
+1:16 date close parentheses and I'm going to
+1:18 plus one so that my data concludes the
+1:21 very last day that's going to give me
+1:23 the number of columns then I need to
+1:25 tell it where to start well we can use
+1:27 Min again to find the first start date
+1:31 and then the step well that's just one I
+1:33 can either leave that blank or put it in
+1:35 let's put it in for completeness press
+1:38 enter and it spills the list of dates
+1:41 next I need to allocate the duration for
+1:43 each task to their respective dates I
+1:46 can use the IF function for this and I
+1:48 want to check if the date in row one
+1:50 Falls between the start and end dates
+1:52 for that task now I don't have a between
+1:55 function in Excel but we can use median
+1:58 to kind of trick it into giving us a
+2:00 between function so here I need to find
+2:02 the median of the start date the end
+2:05 date and the date in row one and that's
+2:07 just absolute reference the row close
+2:10 median and I want to check if it equals
+2:14 the date in row one and again absolute
+2:17 reference that if it does I want it to
+2:20 return a one otherwise blank close
+2:23 parentheses on if and you can see the
+2:26 first date Falls within the start and
+2:27 end dates by the way if you'd like to
+2:29 learn how the median function is working
+2:31 here there's a link in the video
+2:33 description to a tutorial that goes into
+2:35 more detail okay I'm going to control C
+2:38 to copy and I'm just going to paste the
+2:41 formula across now it's important that
+2:43 you don't left click and drag because
+2:45 what will happen is the references to
+2:46 the table columns will also update and
+2:49 shift one column to the right for each
+2:51 column you copy it across you'll end up
+2:53 with the wrong results so you can see
+2:55 there there are my five dates for the
+2:57 first task and all I need to to do is
+3:00 copy this formula down to the bottom of
+3:03 the
+3:04 table and now we have the duration
+3:07 allocated across the dates so at the
+3:10 bottom I want to summarize that data so
+3:13 I want to calculate the total days and
+3:16 that's just a sum
+3:18 formula and I want the cumulative days
+3:21 and that's just going to sum this to
+3:24 itself and I'm going to Absolute
+3:27 reference the first part of sum and I'm
+3:30 going to leave the second half relative
+3:31 so that when I copy this formula across
+3:34 it's going to increase by one column at
+3:35 a time so let's copy
+3:38 those across our table you can see if we
+3:42 look at the cumulative
+3:44 formula it increases the range it's
+3:46 adding up by one cell at a time so
+3:49 there's the data for our chart let's
+3:51 give this a name and I want to select
+3:53 the dates and the cumulative values
+3:57 we're going to
+3:58 insert I'm just going to use a 2d line
+4:00 chart with
+4:01 markers and there's our S curve chart
+4:05 let's give it a new
+4:07 name notice it's not a perfect s shape
+4:10 and this is typical of most projects
+4:12 especially when it comes time to
+4:13 tracking the actual values if I include
+4:16 the total days let me just copy those
+4:18 values select the chart and contrl V let
+4:21 me right click and change the series
+4:23 chart type here so we'll make the total
+4:25 days column chart on the secondary axis
+4:29 and now you can see there's a dip in
+4:30 momentum on the 22nd and 23rd of
+4:32 February which explains why my S curve
+4:35 is a little lumpy along the way of
+4:37 course what good is plotting your planed
+4:39 data without comparing your actual
+4:41 progress to it the next step will be
+4:43 adding your actual and forecast to the
+4:45 chart in this example which uses
+4:48 different data you can see the actual
+4:50 Pace was faster at the beginning of the
+4:52 project than budgeted but it's forecast
+4:54 to come in on time and on budget now
+4:58 these examples are all used live line
+4:59 charts but you can just as easily create
+5:02 them from scatter charts obviously you'd
+5:05 want to choose one of the ones with
+5:07 lines either straight lines or smooth
+5:10 lines I hope you found this tutorial
+5:13 useful you can download the Excel file
+5:15 for this lesson from the link here and
+5:17 if you like this video please give it a
+5:18 thumbs up and subscribe to our channel
+5:20 for more and why not share it with your
+5:22 friends who might also find it useful
+5:25 thanks for
+5:28 watching
+5:29 [Music]

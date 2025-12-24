@@ -1,0 +1,294 @@
+"""
+Ingest Playlist 3 video 5 (JxjVkNvHJNo) - Easy EYE-CATCHING Excel Infographic Charts
+"""
+
+import os
+from datetime import datetime
+from supabase import create_client
+
+def load_env():
+    env_path = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\.env'
+    env_vars = {}
+    with open(env_path, 'r', encoding='utf-8-sig') as f:
+        for line in f:
+            line = line.strip()
+            if line and '=' in line and not line.startswith('#'):
+                key, value = line.split('=', 1)
+                env_vars[key.strip()] = value.strip()
+    return env_vars
+
+env = load_env()
+supabase = create_client(env['SUPABASE_URL'], env['SUPABASE_ANON_KEY'])
+
+video_id = 'JxjVkNvHJNo'
+title = "Easy EYE-CATCHING Excel Infographic Charts"
+channel = 'MyOnlineTrainingHub'
+duration = '7:44'
+topics = ['Infographic Charts', 'Shapes in Charts', 'Column Charts', 'Stacked Column Charts', 'Data Labels', 'Chart Formatting', 'Gap Width', 'Shape Grouping', 'Value from Cells']
+
+transcript = """0:00 using shapes in charts can create more
+0:02 interest and give them infographic
+0:04 styling there's no limit to the type of
+0:06 shapes you can work with but there are
+0:08 some techniques required to ensure they
+0:10 don't get distorted when working with
+0:12 data of different values I'll build the
+0:15 red chart first and it starts by
+0:18 inserting a regular column chart so I'm
+0:21 just selecting my data insert and then
+0:24 2D column chart let's bring it over
+0:27 closer to the data first thing I want to
+0:29 do is make the columns a bit wider so
+0:31 contrl one to open the formatting pane
+0:34 mine's removed from the dock so it's
+0:36 sitting beside my chart just makes it
+0:39 easier for us to see together so change
+0:41 the Gap width to
+0:42 50% and I'll close that pain for now the
+0:46 next thing I want to do is insert the
+0:47 shape I want to use insert shapes and
+0:51 then I want a pointed colum so I'm going
+0:54 to use the arrow and then I'm just going
+0:58 to change the formatting of the arrow so
+1:02 it's a pointed column you want the shape
+1:04 to be roughly the same size as your
+1:07 tallest
+1:09 column and I want to remove the outline
+1:12 on the Arrow to match that of my column
+1:15 so with my shape drawn on select it crl
+1:18 C to copy select the series just one
+1:21 left click and contrl V to paste now you
+1:24 need to be careful of the shape you
+1:25 choose because it will be stretched to
+1:27 fit the different column sizes in this
+1:29 chart it's barely noticeable but you can
+1:31 see that column C is more pointy than
+1:35 column e and as you change the size of
+1:38 the chart that Distortion will become
+1:41 more or less noticeable now we can do
+1:43 some more things to tidy up this chart
+1:46 for example let's add data labels and
+1:49 now that we have those I don't need my
+1:51 vertical axis or the grid lines let's
+1:55 format them to make them a bit bigger
+1:58 and we'll match the color of the label
+2:00 to that of the column now you might want
+2:02 to go one shade darker than the actual
+2:04 column when you're formatting text
+2:06 because it makes it just slightly easier
+2:08 to read and it's hardly noticeable in
+2:11 the chart
+2:12 itself I'll turn off my chart title you
+2:15 might want one here but this is just
+2:16 dummy data I'll also format my
+2:19 horizontal axis labels in the same
+2:21 orange and let's make the font a bit
+2:24 bigger now if you're going to be putting
+2:26 this into a larger infographic style
+2:28 report you might want to remove the
+2:31 border on your chart so with it's
+2:33 selected just choose no outline and
+2:36 there you have a very Sleek looking
+2:38 chart it has that infographic look to
+2:41 it now we can use multiple shapes to
+2:44 create a more interesting shape for
+2:46 example this chart has Circle shapes at
+2:48 the top of the columns and this requires
+2:50 a little bit more setup so that the
+2:51 shapes don't become distorted when your
+2:53 chart has different size columns so let
+2:56 me move that out of the way we'll start
+2:58 by splitting the values into the the
+2:59 column portion and the circle
+3:02 portion now I know that the circle
+3:05 portion should be roughly
+3:07 15 and that makes the column portion the
+3:11 value minus the circle portion you can
+3:14 play with this value once you insert
+3:16 your chart to get it just right now to
+3:19 insert my stacked column chart which is
+3:21 what I need when I have multiple shapes
+3:24 is to select just the data I want in my
+3:26 chart insert and then 2D stacked column
+3:31 let's bring it over closer to the data
+3:33 again I'm going to control one and
+3:35 change the Gap width to just 50% and now
+3:39 I can go ahead and insert the shapes I
+3:41 want to use so insert the first thing I
+3:44 want is a circle and I'm just going to
+3:46 hold down shift while I draw it and that
+3:48 ensures that the circle remains
+3:51 perfectly rounded it doesn't turn into
+3:53 an oval now if I copy and paste that
+3:55 Circle onto The Circle Series you'll see
+3:58 it's missing the part part that joins it
+4:00 to the column so let's contrl Zed to
+4:02 undo that and we'll insert the second
+4:04 shape which will be the rectangle this
+4:06 needs to be the same width as the circle
+4:09 so you can use the height and width
+4:11 tools up here to get it just right so if
+4:13 it's 1.61 wide this needs to be 1.61
+4:17 wide and it is that rarely happens but
+4:19 if it's not correct you can type it in
+4:21 here and override the size now both of
+4:24 these shapes have outlines I want the
+4:26 circle to have a fill color that's dark
+4:29 ER than the outline now we can barely
+4:32 see the outline so let's change the
+4:34 weight and we'll make it
+4:36 3o and we better change the color so
+4:40 that it's the same orange as the column
+4:44 and I need to do the same for the column
+4:47 so the fill color on the column will be
+4:49 the same orange but the outline needs to
+4:51 be the same weight and we want to make
+4:54 sure it's that orange now the circle's
+4:56 sitting behind the column so let's bring
+4:58 it to the front
+5:01 and with them both selected you can
+5:03 group them and this is a good idea if
+5:05 you have lots of shapes I only have two
+5:06 in this case but with them grouped it
+5:09 just makes it easier to work with so I
+5:11 can now select it crl C to copy select
+5:14 the column crl V to paste now you can
+5:17 see it's distorted so there's a couple
+5:19 of things we can do to remedy that we
+5:21 can make the chart bigger taller or you
+5:24 can change the value in here so if we
+5:26 undo the change of the chart size make
+5:28 this 20 contrl enter that's a bit better
+5:32 so you can just play around with the
+5:34 values here I'm going to change it back
+5:36 to 15 and instead make my chart taller
+5:40 okay let's select the legend we don't
+5:41 need that just select it and delete
+5:44 let's select The Circle Series and I'm
+5:47 going to add data labels I'm going to go
+5:50 into more options and then in here I can
+5:54 do select show leader lines and value
+5:56 and instead I want value from cells and
+5:59 I want the total value rather than just
+6:01 the circle
+6:02 value now we can do some formatting to
+6:05 those values let's change the font color
+6:08 to white and we'll make them a bit
+6:10 bigger now because we have two series
+6:13 here I can use the data labels on this
+6:15 series for my horizontal AIS labels so
+6:18 let's add data labels here as
+6:22 well and again we don't want lad lines
+6:25 or values we want to use value from
+6:27 cells and we want the label there
+6:30 we want to put it inside the base we'll
+6:33 format it white and make it bigger so
+6:36 now that we have our values for the
+6:39 horizontal axis and vertical axis on the
+6:41 chart itself we don't need our axis
+6:44 labels we also don't need the grid lines
+6:48 and I'll get rid of the chart
+6:50 title so there you have an infographic
+6:53 style
+6:54 chart again if you're going to put this
+6:57 inside a bigger infographic you might
+6:59 want to hide the shape outline so that
+7:03 the chart looks even
+7:06 cleaner now you can use more shapes and
+7:09 more series as required for example you
+7:11 might want a different bottom to the
+7:13 columns like I have here and all I've
+7:15 done is add another series to my chart
+7:18 that's enabled me to add another shape
+7:20 into the
+7:22 chart I hope you found these techniques
+7:24 useful you can download the Excel file
+7:26 for this lesson from the link here and
+7:28 if you like this video please give it a
+7:30 thumbs up and subscribe to our channel
+7:32 for more and why not share it with your
+7:34 friends who might also find it useful
+7:37 thanks for
+7:38 [Music]
+7:43 watching"""
+
+# Save transcript
+archive_dir = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\Knowledge_Archive\Transcripts\Microsoft_Office'
+os.makedirs(archive_dir, exist_ok=True)
+
+header = f"""Title: {title}
+Channel: {channel}
+Video ID: {video_id}
+URL: https://www.youtube.com/watch?v={video_id}
+Duration: {duration}
+Level: INTERMEDIATE
+Application: Microsoft Excel
+Topics: {', '.join(topics)}
+Ingested: {datetime.now().strftime('%Y-%m-%d')}
+Source: Playwright Browser Extraction
+{'='*78}
+
+"""
+
+filename = f"{datetime.now().strftime('%Y-%m-%d')}_INTERMEDIATE_{video_id}_Infographic_Charts.txt"
+filepath = os.path.join(archive_dir, filename)
+
+with open(filepath, 'w', encoding='utf-8') as f:
+    f.write(header + transcript)
+
+print(f'Transcript saved: {filename}')
+
+# Chunk and ingest
+def chunk_text(text, chunk_size=3000):
+    chunks = []
+    current = ''
+    for line in text.split('\n'):
+        if len(current) + len(line) + 1 <= chunk_size:
+            current = current + '\n' + line if current else line
+        else:
+            if current:
+                chunks.append(current.strip())
+            current = line
+    if current.strip():
+        chunks.append(current.strip())
+    return chunks
+
+url = f'https://www.youtube.com/watch?v={video_id}'
+chunks = chunk_text(transcript)
+
+full_metadata = {
+    'channel': channel,
+    'video_id': video_id,
+    'duration': duration,
+    'level': 'INTERMEDIATE',
+    'application': 'Microsoft Excel',
+    'topics': topics,
+    'source': 'YouTube Transcript',
+    'ingested_date': datetime.now().strftime('%Y-%m-%d'),
+    'content_type': 'youtube_tutorial',
+    'category': 'Microsoft_Office'
+}
+
+inserted = 0
+for i, chunk in enumerate(chunks):
+    summary = chunk[:200].replace('\n', ' ').strip()
+    if len(chunk) > 200:
+        summary += '...'
+
+    record = {
+        'url': url,
+        'chunk_number': i + 1,
+        'title': title,
+        'summary': summary,
+        'content': chunk,
+        'metadata': full_metadata
+    }
+
+    try:
+        supabase.table('knowledge_base').insert(record).execute()
+        inserted += 1
+        print(f'  Chunk {i+1}/{len(chunks)} inserted')
+    except Exception as e:
+        print(f'  Error chunk {i+1}: {e}')
+
+print(f'\nTotal: {inserted} chunks inserted to Supabase')

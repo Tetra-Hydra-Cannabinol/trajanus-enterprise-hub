@@ -1,0 +1,184 @@
+Title: Excel Year on Year Charts - 5 Ways!
+Channel: MyOnlineTrainingHub
+Video ID: jDTkAk1Fe3I
+URL: https://www.youtube.com/watch?v=jDTkAk1Fe3I
+Duration: 7:01
+Level: INTERMEDIATE
+Application: Microsoft Excel
+Topics: Year on Year Charts, Line Charts, Column Charts, Seasonality, Data Visualization, Pivot Tables, Secondary Axis, Series Overlap, Gap Width, Data Labels, Value from Cells, Percentage Difference, Legend Formatting, Trend Analysis, Chart Comparison
+Ingested: 2025-12-21
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 in this video I'm going to teach you
+0:02 some different ways to visualize
+0:03 year-on-year data and you'll see that
+0:05 the message conveyed depends on the
+0:07 chart you choose line charts are greater
+0:10 at displaying data over time and we can
+0:13 start the vertical axis above zero to
+0:15 accentuate changes in the data for
+0:18 example in this chart we can see at a
+0:20 glance that the trend is upward whereas
+0:22 this chart shows the same data with a
+0:25 separate data series for each year which
+0:27 more clearly illustrates seasonality in
+0:29 the data the key to generating a chart
+0:32 like this is to format your data with
+0:34 the years in the columns and the months
+0:36 in the rows let's take a
+0:38 look the most common line chart simply
+0:41 shows the data over a continuous
+0:43 timeline and this illustrates the trend
+0:45 really well notice the chart Source data
+0:48 has the years and months in the row
+0:50 labels of the pivot table and this
+0:52 results in a continuous date access with
+0:55 nested year and month
+0:58 labels whereas this line chart has a
+1:01 separate series for each year allowing
+1:03 you to more easily see seasonality in
+1:05 the data and we achiev this by putting
+1:08 the years in separate columns and the
+1:10 months in the row labels if you're able
+1:12 to it's a good idea to align the legend
+1:15 to the lines in the chart this just
+1:17 makes it quicker and easier for your
+1:20 audience column charts are another
+1:22 common way to display year on-year data
+1:25 however notice that even with a change
+1:27 in the color scheme for the columns it's
+1:29 not as easy to see the trend in the data
+1:32 or compare one year to the other and for
+1:34 that reason this is my least favorite
+1:36 year-on-year data chart I should also
+1:39 point out that unlike line charts with
+1:42 column charts it's really important that
+1:44 the vertical axis always starts at zero
+1:47 this is because we subconsciously
+1:48 compare the height of the columns to one
+1:51 another so starting the axis above zero
+1:54 can exaggerate the variances between the
+1:56 columns and mislead our
+1:58 audience another option is to show the
+2:01 variance year on year but this only
+2:04 works well for 2 years worth of data we
+2:06 can enhance charts like this with some
+2:08 simple formatting for example if I
+2:11 select one of the bars control one to
+2:14 open the formatting let me close that
+2:16 pan and I'll bring this over closer to
+2:18 the Chart here if I put one of the
+2:20 series on the secondary axis I can set
+2:24 the series overlap to
+2:26 100% and make the Gap width say 310
+2:30 10% we need to make sure that the
+2:32 vertical axes are on the same scale and
+2:34 we can see here that they're not so
+2:36 let's fix that so this one the maximum
+2:38 is going to be
+2:40 14,000 in line with the left hand axis
+2:43 and now that I've done that I can hide
+2:45 this axis I don't actually need to see
+2:47 it so let's set it to none we can also
+2:50 add labels to call out the percentage
+2:52 change now in column G I've inserted a
+2:55 formula so this chart isn't a pivot
+2:58 chart it's just a regular chart and
+3:00 that's going to enable me to reference
+3:02 these cells in my data labels so I want
+3:05 to add data labels to the 2020
+3:08 Series so let's go into more options and
+3:12 here on the label options I want to
+3:15 deselect the value and instead I'm going
+3:17 to use value from cells and select these
+3:20 cells with the variance that I've
+3:22 calculated let's set them to a blue
+3:25 color I'm going to go with a slightly
+3:26 darker shade to the column just because
+3:29 font often is hard to read if it's in a
+3:31 pale color and you can't really tell
+3:34 that it's that much different making the
+3:36 labels blue helps the reader associate
+3:39 those labels with the blue
+3:41 columns I'm also going to insert a text
+3:44 box for the percentage change Legend
+3:47 remember this isn't part of the chart so
+3:50 I'm going to set that to the same blue
+3:51 color and let's reduce the font size so
+3:53 it's in line with the other Legend items
+3:56 and I'm just going to select the outer
+3:58 edge of the text box and then remove the
+4:01 outline so that it looks like it's part
+4:04 of the legend can maybe move it a little
+4:06 bit
+4:07 closer so that's one option to highlight
+4:10 the variances you're and let's look at
+4:13 another if you want to focus just on the
+4:16 variance then another option is to plot
+4:19 the change year on year and we can do
+4:21 this in a pivot table if we look at the
+4:23 field list you can see I'm just showing
+4:26 the sales data in my value area but I
+4:29 can change what's displayed by right
+4:31 clicking show values as and then I want
+4:35 percentage difference
+4:37 from here I want the base field to be
+4:40 the years and the base item is the
+4:43 previous year and now I have the
+4:45 percentage change year on year and I can
+4:48 plot that in a chart so let's insert a
+4:51 column chart close that
+4:53 down let's remove the field buttons I'll
+4:57 do a little bit of formatting the first
+5:00 thing I want to do is move this axis so
+5:02 that it's down so that it sits at the
+5:04 bottom of the chart so in the labels I
+5:07 want to set it low I'm also going to
+5:10 hide my vertical axis because instead of
+5:13 having the axis I'm going to add data
+5:16 labels just for the percentages and
+5:19 let's format this number so that it has
+5:21 no decimal
+5:23 places and that will just make the
+5:24 labels a bit cleaner as well now a
+5:27 little bit more tidying up to do let's
+5:29 reduce the Gap width to say 30% that'll
+5:32 make the columns wider we can make the
+5:34 chart a bit bigger I'll get rid of the
+5:37 grid lines because we don't need them we
+5:38 have the labels tells us the exact
+5:41 percentage difference now you might need
+5:43 to move some of the labels so that
+5:46 they're not overlapping one another so
+5:47 just left click twice to select the one
+5:50 you want and then holding down shift
+5:52 will keep it aligned vertically while
+5:54 you drag it up let's do the same for
+5:57 this one
+5:58 here and the others aren't too bad we
+6:01 could make the columns a bit wider or
+6:02 make the chart a bit wider that just
+6:04 gives us a bit more space the other
+6:07 thing I like to do is give more meaning
+6:09 to the legend and we can do that by
+6:11 editing the column labels so here we
+6:13 want 2019 to
+6:15 2020 and this one's 2020 to
+6:21 2021 let's put the legend at the
+6:24 top and I'm going to get rid of 2019
+6:28 because it doesn't have any later in the
+6:29 chart so just selecting it and press
+6:32 delete so there we have a chart that
+6:34 only shows the variances and the
+6:36 percentage variance to the previous
+6:39 year I hope you found these techniques
+6:41 useful you can download the EXL file for
+6:43 this lesson from the link here and if
+6:45 you like this video please give it a
+6:47 thumbs up and subscribe to my channel
+6:49 for more and why not share it with your
+6:51 friends who might also find it useful
+6:53 thanks for
+6:55 [Music]
+6:58 watching

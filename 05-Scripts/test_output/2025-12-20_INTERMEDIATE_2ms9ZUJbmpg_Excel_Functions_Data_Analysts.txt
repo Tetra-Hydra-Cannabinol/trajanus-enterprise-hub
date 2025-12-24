@@ -1,0 +1,645 @@
+Title: Top Excel Functions for Data Analysts & What NOT to Waste Time Learning
+Channel: MyOnlineTrainingHub
+Video ID: 2ms9ZUJbmpg
+URL: https://www.youtube.com/watch?v=2ms9ZUJbmpg
+Duration: 26:59
+Level: INTERMEDIATE
+Application: Excel
+Topics: IF Function, Nested IFs, IFS Function, AND Function, OR Function, SUMIFS, XLOOKUP, VLOOKUP, INDEX MATCH, FILTER, IFERROR, IFNA, EOMONTH, EDATE, NETWORKDAYS.INTL, GETPIVOTDATA, UNIQUE, SORT, SEQUENCE, Power Query, Data Analysis
+Ingested: 2025-12-20
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 the other day I stumbled upon a post
+0:01 claiming to list the top Excel functions
+0:04 for data analysts I disagreed with half
+0:06 the functions listed in that posts so I
+0:08 did a search and I found a load more
+0:11 posts with pretty much the same list
+0:13 they probably copied each other in this
+0:15 video I'm going to try and write those
+0:17 wrongs by introducing you to what I know
+0:19 are the top functions for data analysts
+0:21 and the functions that you don't need to
+0:23 worry about learning so much I'll cover
+0:25 an example for each function and then
+0:28 I'm going to point you to tutorials
+0:29 where you you can dive deeper with more
+0:32 examples there's also an Excel file that
+0:34 you can download from the link in the
+0:36 video description with all the examples
+0:39 in this video and more and links to more
+0:41 tutorials so you can use it as a
+0:43 resource let's start with the IF
+0:46 function which enables you to perform a
+0:48 logical test and then return one of two
+0:50 results depending on the outcome of the
+0:52 logical test for example let's say we
+0:55 want to classify these items as due or
+0:57 not due an item becomes due 90 days
+1:01 after the loan date now the if formula
+1:04 takes three arguments The Logical test
+1:07 the result if the logical test is true
+1:09 and the result if the logical test is
+1:11 false therefore the formula is if
+1:14 today's date and we can use the today
+1:16 function to dynamically return today's
+1:18 date minus the loan date is greater than
+1:23 or equal to 90 then the loan is due and
+1:27 we can return the Text due now it's in
+1:29 double quotes because it's text if you
+1:31 were returning a number here you'd just
+1:33 enter the number without the double
+1:35 quotes otherwise let's return blank as
+1:39 denoted by two double quotes
+1:41 alternatively you could enter some text
+1:43 in here like not do and then close
+1:46 parentheses on if I've entered mine in a
+1:49 table so it copies the formula down the
+1:51 table automatically all right that's a
+1:54 quick example of using a single if
+1:56 formula let's take a look at nested IFS
+2:00 nested ifs allow you to handle more
+2:02 logical tests and return different
+2:04 results accordingly for example let's
+2:06 say loan items greater than 90 days old
+2:08 are classified as overdue items equals
+2:11 to 90 days old are classified as due and
+2:14 items less than 90 days old a classified
+2:16 as not due so the formula is if and
+2:19 again we're going to use today to
+2:21 dynamically return today's date minus
+2:24 the loan date is greater than 90 then
+2:28 it's overdue and then in the value of
+2:31 false argument we simply enter another
+2:33 if and a logical test again is if
+2:36 today's date minus the loan date is
+2:40 equal to 90 then it's due and then if
+2:45 that's false then everything else must
+2:47 be not due now I need to close my
+2:50 parentheses twice once for each
+2:53 if and you can see the results now it's
+2:56 essential with nested ifs that you get
+2:58 the order of the logical test tests
+3:00 correct because as soon as a logical
+3:02 test returns true the formula stops
+3:05 evaluating it's not so much of an issue
+3:07 with this formula but it's a common
+3:09 mistake I see people make and they
+3:10 wonder why their formulas only return
+3:12 the first
+3:14 result if you have Excel 2019 onward or
+3:17 a Microsoft 365 license then you have
+3:20 access to the new and easier to use ifs
+3:22 function the ifs function simplifies
+3:25 nesting ifs for example we can write the
+3:27 same formula in groups of logical tests
+3:31 and then the result if true so my first
+3:34 logical test is again using the today
+3:36 function minus the loan date and if
+3:40 that's greater than 90 then it's
+3:43 overdue then instead of writing another
+3:45 if we just enter the next logical test
+3:48 which is if today's date minus the loan
+3:51 date equals 90 then it's
+3:54 due and lastly because there's no value
+3:57 of false argument in the ifs function we
+3:59 skip the last logical test and simply
+4:02 enter true and the last value if true is
+4:05 the value we want returned in the event
+4:07 of the previous logical test returning
+4:09 false in this case we want it to return
+4:12 the text not due now I should point out
+4:15 that just like the nested ifs formulas
+4:17 ifs also stops evaluating once a logical
+4:20 test evaluates to true so remember to
+4:23 get your logical test in the correct
+4:25 order for more on the if functions and
+4:27 common mistakes people make see the link
+4:30 in the video description for my
+4:31 comprehensive tutorial The Next Step Up
+4:34 from if formulas is to use the and
+4:36 function or or function in your criteria
+4:39 arguments let's look at that
+4:42 next we'll start with the and function
+4:45 which belongs to the logic family of
+4:46 functions it's useful when you have
+4:49 multiple conditions that must be met for
+4:51 example taking the data here we could
+4:53 test to see if the TV personality is
+4:55 popular and if they earn less than 100K
+4:59 and if both tests are true they get a
+5:01 bonus so to write the formula we start
+5:03 with if and The Logical test is going to
+5:06 use and this is going to allow us to
+5:08 insert multiple logical tests the first
+5:11 one is whether they're popular so
+5:13 whether this cell equals yes the second
+5:16 one is whether the salary and we just
+5:18 need to get to that field is less than
+5:21 100 close parentheses on and if both of
+5:26 those are true then it's going to take
+5:28 the salary and and times it by 10%
+5:31 otherwise they get no
+5:33 bonus close parentheses on if and you
+5:37 can see igle piggle MAA Paka and Mr
+5:40 Maker all get
+5:43 bonuses the all function is useful when
+5:45 you're happy if one or another condition
+5:47 is met for example taking the data here
+5:50 which is the same as we just looked at
+5:51 we could test to see if the TV
+5:53 personality is popular or if they earn
+5:56 less than 100K that is as long as either
+5:58 test is met they get a bonus so again
+6:01 starting with if and then The Logical
+6:03 test we're going to use or and we're
+6:06 checking whether they're
+6:07 popular or if the salary is less than
+6:11 100K close parenthesis now of course you
+6:14 could add more logical tests if you want
+6:16 to in this example I only need two now
+6:20 if either of these is true then we're
+6:22 going to take 10% of their salary as the
+6:25 bonus otherwise they get no bonus close
+6:28 parenthesis
+6:30 and you can see everyone except
+6:31 Spider-Man gets a bonus now of course
+6:34 you can write nested if formulas that
+6:36 use both and and or criteria if you're
+6:39 struggling to write if formulas we've
+6:41 written an if formula Builder tool that
+6:43 will build if formulas for you and you
+6:45 can download it from the link in the
+6:47 video
+6:49 description the sum ifs function enables
+6:51 you to sum cells where they meet one or
+6:54 more criteria taking the data here let's
+6:57 say I want to sum the totals whether Reg
+6:59 region is the region in cell
+7:02 D15 and the Builder is the Builder
+7:04 listed in column e so let's take a look
+7:07 some ifs the range we want to sum is the
+7:11 total let's F4 to Absolute that the
+7:15 first criteria range is the region and
+7:18 again F4 to Absolute the
+7:21 references and the Regent is this one
+7:24 here f for that as well and this is just
+7:26 so when we copy it down it stays locked
+7:28 on those cells
+7:30 the next criteria is the Builder range
+7:33 F4 to Absolute and the Builder for the
+7:36 first Formula is this one here and I'm
+7:38 not going to Absolute that cuz I want it
+7:40 to move down to the next row as I copy
+7:43 it down we can continue to add more
+7:45 criteria in this case I only have two
+7:48 close parentheses and that's my sum if
+7:52 if we copy it down you can see both Doug
+7:55 and Brian have sales in the central
+7:58 region now I can can use my drop down
+8:00 this here to choose a different region
+8:02 you can see Dave is the only Builder
+8:04 with sales in the east region and the
+8:07 North Region Brian in the South and
+8:11 Larry in the west region so as you may
+8:14 have noticed with some ifs all criteria
+8:17 must be met for the formula to include
+8:19 the values in the sum now if you require
+8:22 all criteria then you can use the some
+8:25 product function and I'll put a link to
+8:27 a tutorial on some product in the video
+8:29 description well now that you know how
+8:31 to use sum ifs you'll find the other ifs
+8:34 functions like count ifs average ifs Min
+8:36 ifs and Maxes easy because they all use
+8:39 the same syntax so give them a try
+8:42 too X lookup is the new improved version
+8:45 of vlookup which is available in Excel
+8:48 2021 and 365 now if you don't have one
+8:51 of these versions of excel then you can
+8:53 use be lookup or index and match which
+8:55 I'll cover next X lookup enables you to
+8:57 look up a value in a list and and return
+8:59 a value from a corresponding column for
+9:02 example I can look up the value gloves
+9:05 in cell
+9:06 F7 in the product column here and return
+9:11 the sales amount from this column
+9:14 here so you can see it's really easy to
+9:17 use now there's a lot more to X look up
+9:19 including all the optional arguments
+9:21 which I didn't cover I've included a
+9:24 link in the video description to a
+9:25 comprehensive tutorial on xlookup I also
+9:28 explain why it's better than vlookup so
+9:30 I encourage you to watch it and start
+9:32 using xlookup in your own work now if
+9:35 you don't have xlookup you can do the
+9:37 same lookup using vlookup so again we're
+9:39 going to look up gloves in this range of
+9:42 cells here the column that I want
+9:45 returned is the sales column which is
+9:47 the second column in the range I
+9:49 selected and I want an exact match so we
+9:52 want false you can see it Returns the
+9:55 same amount now there are some issues
+9:57 with relook up that are fixed with the
+9:59 xlookup function so if you have XL 2021
+10:02 or 365 then you should ditch vlookup for
+10:07 xlookup a more robust formula option
+10:10 available to those who don't have X
+10:11 lookup is index and match the match
+10:15 function finds the row containing the
+10:17 value you want to look up and index
+10:19 Returns the value or range of values so
+10:21 if we just take a look at match we want
+10:24 to let's say look up the value Ben 10 in
+10:28 this range of cells here and we want to
+10:31 find an exact match which is zero close
+10:34 parentheses and it returns three so it's
+10:37 telling me that Ben 10 is on the third
+10:40 row of the range of cells that I
+10:41 selected and we can see it is there
+10:44 match can also look up horizontally so
+10:47 if we want to look up the region in this
+10:51 row here and again we want an exact
+10:53 match we can see it finds South as the
+10:56 fourth
+10:57 column and then to replicate the vlookup
+11:00 behavior we can use
+11:02 index to look up this
+11:05 table and we want to find Ben 10 which
+11:08 is on the third
+11:10 row and we want the fourth column for
+11:13 the South
+11:15 Region you can see there it returns
+11:19 125 now better way to write this is
+11:22 rather than referencing other cells we
+11:24 can actually Nest the match function
+11:26 inside of index so let's say want to
+11:29 match Ben 10 in this column here and I
+11:33 want an exact match and then for the
+11:36 column number I want to match South in
+11:40 this row here and I want an exact match
+11:43 close parentheses on Match close it on
+11:46 index and there's my result and now if I
+11:49 change the program selected my index and
+11:54 match formula automatically
+11:57 updates now if there's one function that
+11:59 you should really take the time to learn
+12:02 it's the index function it can do way
+12:04 more than the lookups I've shown you
+12:06 here and in my opinion it is the most
+12:08 useful function in Excel now I've
+12:10 recorded a video on five things most
+12:12 people don't know about index which you
+12:14 can see at the link in the video
+12:17 description the next lookup function I
+12:20 want to show you is filter and this is
+12:22 available in Excel 2021 and 365 with
+12:26 Filter we can reference a range of sales
+12:27 and return the rows or columns that
+12:29 match criteria that we specify for
+12:32 example let's say I want to extract the
+12:33 sales records from this table we start
+12:36 with Filter I want to place them here
+12:39 and I want to filter this range of cells
+12:42 and I want to include the
+12:44 department where it equals
+12:48 sales and if it can't find any
+12:50 departments called sales I want it to
+12:53 return no records it's just text that
+12:55 I've entered in there press enter and it
+12:57 spills the results to the rows and
+12:59 columns below now there are loads more
+13:02 cool things filter can do including just
+13:04 returning some of the columns or one
+13:07 column which can then be nested inside
+13:09 other functions Etc if you have Excel
+13:12 2021 or 365 I encourage you to watch my
+13:14 comprehensive filter tutorial link to in
+13:17 the video description because this is an
+13:19 incredibly useful
+13:22 function the if error function is Handy
+13:25 for hiding error values returned by
+13:27 other formulas or to return an alternate
+13:30 result other than an ugly error message
+13:32 for example here I have a vlookup
+13:34 formula that's returning errors for Doug
+13:36 because he's not found in the commission
+13:38 rates table which is the table being
+13:40 looked up now instead of showing # na in
+13:43 my report I can wrap the vlookup formula
+13:47 in if error so if I just go up to the
+13:49 formula bar add it
+13:51 in the value is the value returned by V
+13:55 lookup and the value if error I won't
+13:58 return and is just going to be the text
+14:01 missing close parentheses on if error
+14:04 and now instead of the error I get
+14:07 missing now if error can be used to hide
+14:10 any error alternatively with na errors
+14:14 like we have with v lookup I can replace
+14:16 if error with the shorter if na function
+14:19 works exactly the same way takes a value
+14:22 and then if that value Returns the na
+14:24 error you can insert some alternate text
+14:27 or you could just return turn a blank as
+14:30 denoted by two double
+14:32 quotes so you can see if na a Works in
+14:35 exactly the same way but it's limited to
+14:37 those na
+14:39 errors nearly everyone who uses Excel
+14:42 works with dates and a super handy
+14:44 function is EO month short for end of
+14:47 month which Returns the last day of the
+14:49 month before or after a start date for
+14:52 example here I've got some dates and if
+14:55 I want to find the end of the month
+14:58 based on this start date and the number
+15:00 of months I want to extend by is this
+15:04 value here so in this case 1
+15:06 month it's going to give me the 30th of
+15:09 April so it's the end of month one month
+15:11 after the current date let's just I'm
+15:14 going to right click and drag and then
+15:17 fill without
+15:18 formatting so you can see here this date
+15:21 has taken it back one month
+15:23 earlier this one has just found the end
+15:26 of the current month it has hand Les
+15:29 leap years and so on now one thing to
+15:32 note here is if you enter a fraction of
+15:35 a month so for example 1 and A2 months
+15:38 you can see it just rounds it down to 1
+15:40 month so any fractions of months are
+15:42 ignored now there's no start of month
+15:45 function but you can also use end of
+15:47 month to find the start of the month for
+15:49 example here I found the end of the
+15:51 month previous to the current month all
+15:54 I need to do is add one and now I get
+15:57 the start of the current month
+16:00 the eate function rolls a date serial
+16:02 number forward or backward let's take a
+16:05 look so here we've got the start date
+16:07 which is this date here and then the
+16:09 number of months I'm going to use this
+16:12 cell here so in this case I'm adding a
+16:14 month so it takes me forward to the 15th
+16:17 of April which is 31 days let's right
+16:20 click and drag down fill without
+16:23 formatting this has taken it back one
+16:25 month forward one month you can see Le
+16:28 years are handled without a
+16:31 problem and so on and again if you enter
+16:34 a fraction of a month it rounds it down
+16:36 to the nearest whole month so in this
+16:38 example it's only taking it Forward 6
+16:41 months not
+16:43 6.8 as a data analyst you'll typically
+16:46 be working with dates a lot the network
+16:48 Days International function Returns the
+16:51 number of working days between two dates
+16:53 excluding weekends and holidays for
+16:56 example we can calculate the number of
+16:58 work days between these start and end
+17:00 dates simply reference the dates and I
+17:03 should point out that Network Days
+17:05 International is inclusive of the start
+17:07 and end dates the next argument allows
+17:09 you to specify which days are included
+17:11 in the weekend there's a ton to choose
+17:13 from as you can see here I've listed the
+17:16 different options in column D so you can
+17:18 see the effect but you typically just
+17:20 choose one and hard key it into the
+17:22 formula so I'm referencing column D and
+17:25 then for the holidays you can specify a
+17:27 list of dates that are holidays to
+17:29 exclude as well it's optional you don't
+17:31 have to list holidays close parentheses
+17:34 on network days and you can see there
+17:35 are 20 working days between the 1st and
+17:38 31st of January where your weekend is on
+17:41 a Saturday and Sunday and I can copy
+17:43 that down I'm just going to fill without
+17:46 formatting you can see the results based
+17:49 on the different weekend
+17:51 types now not many people know that you
+17:53 can also exclude other days from the
+17:56 work week by specifying them in array
+17:59 where zero is a workday and one is a
+18:02 non-work day so let's reference these
+18:05 celles for our start and end dates and
+18:08 then instead of picking from one of
+18:10 these numbers I can reference this cell
+18:11 here which contains the string of work
+18:14 dayss here I want to count Monday
+18:16 Tuesday and Wednesday's work days and
+18:18 the rest are non-w work days we can also
+18:21 specify holidays close parentheses and
+18:25 you can see the results we can also hug
+18:29 key the work days in the formula so
+18:30 let's just take a look at how we do that
+18:33 so instead of referencing the cell we're
+18:35 just going to type them in in double
+18:37 quotes Monday Tuesday Wednesday workdays
+18:40 let's reference our holidays close
+18:43 parentheses we get the same result the
+18:45 only difference is the work date string
+18:47 is inside the formula and this is
+18:50 typically how you'd enter it you
+18:51 wouldn't normally reference it in a
+18:54 Cell the get pivot data function
+18:56 extracts values from pivot table
+18:58 and it will dynamically update even if
+19:00 the pivot table changes shape it's super
+19:03 useful if you're building reports and
+19:05 you don't want a bulky pivot table
+19:07 taking up loads of space for example
+19:09 let's say I want to get the grand total
+19:10 for the USA all I need to do is enter
+19:13 the equal sign and select the cell
+19:15 containing the grand total and Exel even
+19:17 writes the formula for me now the beauty
+19:20 of this is that if the column containing
+19:22 the USA grand total moves for example
+19:24 let's say I want it before the UK
+19:26 instead I haven't had to change my
+19:28 formula it's still picking up this value
+19:31 here similarly if I add more data to the
+19:34 pivot table let's add some data for
+19:37 2010 now the grand total is down here
+19:41 it's correctly picking up the new grand
+19:43 total the other thing I can do is make
+19:45 it Dynamic by referencing any hard keyed
+19:48 areas with a cell reference instead of
+19:50 that hard keyed text so here I can
+19:52 reference the cell containing the
+19:54 country name and then because this is a
+19:57 data validation list I can choose the UK
+20:00 and it updates to return the correct
+20:03 value now there's a lot more to get
+20:05 pivot data that I cover in a
+20:07 comprehensive video which you'll find
+20:09 linked to in the video description so I
+20:11 encourage you to take a look at that
+20:14 because using get pivot data to build
+20:16 your reports is going to make them far
+20:18 more robust than regular cell references
+20:21 particularly when referencing pivot
+20:24 tables the unique function generates a
+20:26 list of distinct items from an array or
+20:29 a list of items that only occur once
+20:31 it's available in Excel 2021 onward or
+20:34 with Microsoft 365 so for example I can
+20:38 easily extract a list of distinct
+20:40 products from this column here now the
+20:44 last two arguments are optional I don't
+20:46 need them in this case so I'm just going
+20:48 to close parentheses and you can see it
+20:50 spills the results to the cells below
+20:52 because it's a dynamic array
+20:54 alternatively I can extract a list of
+20:57 unique items items that is a list of
+21:00 items that only occur once so again I'm
+21:03 going to select the products this time I
+21:05 need to use my optional arguments I
+21:07 don't need to use the by column this
+21:10 simply allows you to compare values by
+21:12 row instead of the default by column so
+21:15 we're going to skip that and then the
+21:17 last argument I need to specify true I
+21:20 want to return items that appear exactly
+21:22 once so tab to enter that close
+21:25 parentheses and you can see there's only
+21:27 one product that occurs once and that's
+21:30 the product called
+21:31 other with unique you can also reference
+21:34 multiple columns so for example let's
+21:37 say I want to look at rows where product
+21:41 and quantity are distinct close
+21:43 parentheses and you can see only 11 rows
+21:47 were
+21:49 returned the sort function does what
+21:51 you'd expect and it's available in Excel
+21:53 2021 onward and Microsoft 365 so let's
+21:57 say I want to sort this data by item so
+22:01 I'm going to select all of the data and
+22:03 then the sort Index this is where I
+22:06 specify which column I want to sort by
+22:08 so I want to sort by item which is the
+22:09 second column and then ascending or
+22:12 descending we'll go with ascending which
+22:14 is one and the last argument is whether
+22:17 I want to sort by column which would be
+22:19 true or by row which is the default so I
+22:22 could Adit it or enter false let's enter
+22:25 false just for completeness press enter
+22:28 you can see now my data is sorted based
+22:30 on the item
+22:32 column I can also sort by multiple items
+22:35 so selecting the table again and then
+22:38 here in the sort index I simply enter an
+22:41 array of column numbers surrounded by
+22:43 curly braces and they don't have to be
+22:46 in order so for example I could sort by
+22:48 column 2 and then by column 1 or by
+22:50 column 1 and then by column 2 or by any
+22:53 of the other columns and notice it's
+22:55 surrounded in curly braces and then I
+22:58 can specify the sort order so let's sort
+23:00 it in descending order close parentheses
+23:04 and now we have our data sorted based on
+23:06 department and then by item in
+23:09 descending
+23:11 order the sequence function returns a
+23:14 list of sequential numbers in an array
+23:16 among other things it will replace the
+23:18 need to use the row or column function
+23:20 to return an array of values for use
+23:22 nested inside other functions it's
+23:25 available in Excel 2021 onward and
+23:28 365 so let's take a look here and let's
+23:33 say I want to return five rows I want
+23:35 just one column I want to start at five
+23:38 and step by 10 close parentheses and
+23:42 there's my list 5 15 25 35
+23:45 45 we can also create 2D arrays of
+23:49 numbers so again sequence here I want
+23:52 three rows two columns I'm going to
+23:55 start at two and step up by two close
+23:58 parentheses and you can see it flows
+24:01 left to right across the columns and
+24:03 then down onto the next
+24:05 row sequence also works great to
+24:08 generate a list of dates and they can
+24:10 count down for example let's say I want
+24:13 a list of dates going across the rows so
+24:15 I'll skip the first argument and then I
+24:18 want five columns and I want to start at
+24:21 January 31st so I'm going to use the
+24:23 date function so I want January 31st
+24:28 2023 close parentheses on date and then
+24:31 I want to step down so it's minus one by
+24:34 1 day at a time and there I have my five
+24:37 dates spilled across the columns
+24:40 decreasing by one day at a time there
+24:43 are loads of more uses for the sequence
+24:45 function and the functions covered so
+24:46 far so be sure to check out the file for
+24:48 this lesson available from the link in
+24:51 the video description for more examples
+24:54 okay that covers the most important
+24:56 functions you need as a data analyst
+24:58 let's look at some functions that were
+25:00 included in some of the other lists I
+25:02 saw online that I didn't agree with trim
+25:05 function removes all spaces from a text
+25:07 string except those between words now
+25:10 it's a data cleaning function and all
+25:12 data cleaning tasks should now be done
+25:14 with power query because we can automate
+25:16 those laborious tasks making it much
+25:18 more efficient the Len and is blank
+25:22 functions are typically used to validate
+25:24 data and this can also be automated with
+25:26 power query
+25:28 concat or the older concatenate function
+25:31 joins text together from multiple cells
+25:34 now we don't really need this function
+25:35 CU we can simply join them together with
+25:38 the Ampersand so here I can reference
+25:40 two cells put an ampersand in between
+25:43 and Returns the text string
+25:45 abc123 you can see the formula in column
+25:48 s alternatively we could use power query
+25:51 to join text from multiple columns the
+25:54 days function calculates the number of
+25:56 days between two dates and this function
+25:58 also isn't required because subtracting
+26:00 one date from another date is as simple
+26:03 as referencing the cells and putting a
+26:04 minus sign between them and there we get
+26:07 five days and just to prove it let's use
+26:10 the days function so the end date and
+26:14 the start date close parentheses we get
+26:16 the same result we can also do this in
+26:19 power query as you probably gathered
+26:22 power query is also an essential tool
+26:24 for data analysts if you'd like to learn
+26:27 more about power query check out my
+26:29 introduction video and my course there
+26:32 are links to both in the video
+26:34 description and with that I hope you
+26:36 found this tutorial useful you can
+26:38 download the Excel file containing the
+26:40 examples for this lesson from the link
+26:42 here and if you like this video please
+26:44 give it a thumbs up and subscribe to our
+26:46 channel for more and why not share it
+26:48 with your friends who might also find it
+26:50 useful thanks for
+26:52 watching

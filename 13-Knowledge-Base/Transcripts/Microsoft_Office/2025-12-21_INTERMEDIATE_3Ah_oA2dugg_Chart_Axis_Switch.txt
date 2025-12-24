@@ -1,0 +1,214 @@
+Title: Excel Chart Axis Switch - Cool Trick for Comparing Multiple Charts
+Channel: MyOnlineTrainingHub
+Video ID: 3Ah_oA2dugg
+URL: https://www.youtube.com/watch?v=3Ah_oA2dugg
+Duration: 8:27
+Level: INTERMEDIATE
+Application: Microsoft Excel
+Topics: Panel Charts, Small Multiples, Ghost Series, Form Controls, Radio Buttons, Developer Tab, Group Box, Conditional Formatting, Axis Toggle, MIN/MAX Functions, Shape Formatting, Chart Comparison, Cell Linking, IF Function
+Ingested: 2025-12-21
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 when working with small multiple charts
+0:02 or panel charts as they're also known
+0:04 it's handy to be able to toggle the
+0:06 chart axes between the same access for
+0:08 each chart and using their own access
+0:11 using the same access enables you to
+0:13 compare the data between the charts
+0:15 because they all use the same scale
+0:18 whereas using their own axis is useful
+0:20 when there are large variances from one
+0:22 chart to the next which can result in
+0:24 charts with lower values being difficult
+0:26 to read now I've used a form control and
+0:29 some sneaky formatting to create the
+0:31 toggle buttons let me show you how to
+0:33 set it up in this worksheet I've already
+0:36 inserted four column charts and you can
+0:38 see each chart is connected to its own
+0:40 set of data also notice that the
+0:43 vertical axis for each chart is
+0:44 different and that's because Excel
+0:46 automatically determines the access
+0:48 minimum and maximum based on the charts
+0:51 data now to create a common access scale
+0:54 each chart must have the same minimum
+0:56 and maximum values plotted and we do
+0:58 this with what I call a ghost series
+1:01 that is a series in the chart that you
+1:03 can't see I'll use the Min and Max
+1:05 functions for this so first of all we
+1:07 want to find the minimum of each series
+1:11 I'm just holding down control while I
+1:13 select them that automatically inserts
+1:15 the comma between each range with it
+1:17 selected F2 to activate edit mode shift
+1:21 and home to select the data crl C and
+1:25 I'm going to press enter and then in
+1:27 this cell paste in the formula and
+1:29 change it to Max so there's my ghost
+1:32 series values now all I need to do is
+1:34 add these to my chart so with the header
+1:36 selected and the two values contrl C to
+1:38 copy select each chart one by one and
+1:41 crl + V to paste it in you can see
+1:45 instantly all four chart axes are the
+1:48 same but I've got these ugly blue
+1:50 columns in my chart so let's get rid of
+1:52 those with the column on the first chart
+1:55 selected control one to open the
+1:56 formatting pane normally this would be
+1:59 docked over on the right right but I've
+2:00 undocked it and then we just going go
+2:03 into editing and I want to choose no
+2:05 fill let's repeat that for each chart
+2:09 and that just hides The
+2:12 Columns so you can't see them just like
+2:14 a ghost hence the name okay so now we
+2:18 have our ghost Series in the charts and
+2:20 the axes are all the same we need to set
+2:22 up a way that we can turn the same axis
+2:25 setting on and off that is remove the
+2:27 values for the ghost series from the
+2:29 chart Al together to allow each chart to
+2:31 go back to its automatic access scale to
+2:34 set this up I'm going to use form
+2:36 control radio buttons you'll find them
+2:38 on the developer tab of the ribbon now
+2:40 if you don't have the developer tab
+2:41 activated or enabled you can rightclick
+2:44 on the ribbon customize the
+2:46 ribbon and then over here make sure
+2:49 developer is
+2:51 checked you'll find the radio buttons on
+2:54 the insert drop-down and then up in form
+2:56 controls now I want two radio buttons
+2:59 and I want one to turn off when the
+3:01 other is selected and vice versa so
+3:03 first I need a group box to put them in
+3:06 I'm just going to put them in this cell
+3:08 here so holding down alt it's going to
+3:10 snap to grid and let's just make sure
+3:13 it's the full width so there's my group
+3:16 box let's select the text in there and
+3:19 delete it I don't want a name for that
+3:20 group box now I'm ready to insert the
+3:23 radio button here it is here select it
+3:26 and then left click and drag to draw it
+3:28 in and and that's the first one we're
+3:30 going to call this one same
+3:33 AIS and then I'll just control and left
+3:36 click and then hold down shift and
+3:39 control to copy copy it across left
+3:42 clicking and dragging and then we're
+3:43 going to change this to own
+3:46 AIS so there's my two radio buttons next
+3:50 thing I need to do is link them to a
+3:52 cell in the worksheet so I know which
+3:54 radio button is selected so right click
+3:57 format
+3:58 control cell link on the control tab I'm
+4:01 going to pop it in here cell
+4:03 W8 now because they're in a group box I
+4:07 don't need to also link this one it's
+4:08 automatically linked so when I select
+4:10 this radio button it Returns the number
+4:12 one it's the first button and this is
+4:15 the second one and it Returns the number
+4:17 two now I can edit the Min and Max
+4:20 functions to respond to the radio button
+4:23 selection so in the formula bar we're
+4:25 going to change this to an if formula
+4:27 that says if the r button selected
+4:30 equals number two then return zero
+4:34 otherwise return the minimum of all of
+4:37 the charts and again we're going to say
+4:41 if the radio button selected is number
+4:44 two return zero otherwise return the
+4:49 maximum and you can see the charts have
+4:51 all reverted to their own axes because
+4:54 the ghost series are now worth zero
+4:57 their value is zero so essentially
+4:59 they're not not affecting the axis
+5:01 height when I select same axis the ghost
+5:04 series values return and they're plotted
+5:07 in the chart so that's how we toggle
+5:10 between same axis and own axis using
+5:13 these radio buttons and that's it
+5:16 however radio buttons are a bit ugly
+5:19 they're a super old feature and as a
+5:21 result they don't have any formatting
+5:23 options that said if you use the active
+5:26 X control versions these do have some
+5:29 limited formatting options but they also
+5:31 require you to save the file as a xlsm
+5:33 macro enable workbook and I try to avoid
+5:36 that wherever possible because it's just
+5:38 another layer of hassle requiring the
+5:40 user to enable macros Etc instead I'm
+5:44 going to use conditional formatting and
+5:46 some shapes to make them look a bit more
+5:48 modern let's do the conditional
+5:50 formatting first so on the Home tab of
+5:52 the ribbon with the first cell selected
+5:55 for same access conditional formatting
+5:58 new rule
+6:01 I want to use a formula and all I'm
+6:04 going to do is say where this cell
+6:07 equals 1 I'm going to format the cell
+6:12 fill color
+6:15 yellow so let's select it so the
+6:18 conditional formatting is working let's
+6:20 set it up for this one as well again new
+6:23 rule using a formula where this cell
+6:27 equals 2 going to format of
+6:31 yellow Let's test it so that's working
+6:36 nicely now unfortunately I can't get rid
+6:38 of the group box outline and I can't
+6:41 change the fonts or anything else to do
+6:43 with the radio buttons but I can kind of
+6:45 hide it and I do that with a shape so
+6:47 let's grab this rectangle with the round
+6:49 the corners and I'm just going to hold
+6:52 down alt which is going to snap the
+6:54 rectangle to the grid to the cell I'm
+6:56 going to round the corners a bit more
+6:58 dragging the yellow butt Buton and then
+7:00 I don't want any fill but I do want a
+7:03 white
+7:05 outline and I want to make the outline
+7:07 quite thick so we're going to go six
+7:09 point and that's just going to create
+7:12 the rounded edges we need to make it a
+7:14 little bit bigger to hide the group box
+7:17 so just play around with that until you
+7:20 get it just
+7:22 right you might need to make the outline
+7:24 slightly
+7:25 wider that seems to have worked so now
+7:27 with it's selected I'm just going to
+7:29 done control and shift left click and
+7:31 drag it across to the other one let's
+7:34 select it we might need to do some
+7:36 tweaking on the position of the shape
+7:40 and likewise for this
+7:42 one there we go so you can play around
+7:45 it with it a bit more you might need to
+7:46 move your radio button to center it a
+7:48 bit more so there you have radio buttons
+7:52 that toggle the chart axis between each
+7:55 chart's own axis Heights versus the same
+7:59 AIS across all
+8:01 charts I hope you like this video and
+8:04 have some ideas where you can use these
+8:05 techniques yourself you can download the
+8:08 Excel file for this lesson from the link
+8:10 here and if you like this video please
+8:12 give it a thumbs up and subscribe to our
+8:14 channel for more why not share it with
+8:16 your friends who might also find it
+8:18 useful thanks for
+8:21 [Music]
+8:26 watching

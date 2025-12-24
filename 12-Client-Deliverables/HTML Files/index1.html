@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trajanus Developer Workspace</title>
+    <!--
+    ============================================
+    STRIPPED VERSION: 2025-12-12
+    ACTIVE: Developer Workspace only
+    DISABLED: PM/QCM/SSHO Toolkits, File Browser, Enterprise Hub
+    RESTORE FROM: index_BACKUP_FULL.html (320KB)
+    ============================================
+    -->
+    <style>
+        :root {
+            --brown-dark: #1f1410;
+            --brown-mid: #3d2a1f;
+            --cream: #FFF8F0;
+            --orange-mid: #cc6e1f;
+            --orange-light: #e8922a;
+            --gray-light: #a89890;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, var(--brown-mid), var(--brown-dark));
+            min-height: 100vh;
+            display: flex;
+            color: var(--cream);
+        }
+        .sidebar {
+            width: 280px;
+            background: rgba(0,0,0,0.3);
+            padding: 25px;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+        .sidebar-header {
+            text-align: center;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        .sidebar-header h1 { font-size: 1.4rem; font-weight: 700; }
+        .sidebar-header .tagline {
+            color: var(--orange-light);
+            margin-top: 8px;
+            font-style: italic;
+        }
+        .sidebar-header .version {
+            font-size: 0.7rem;
+            color: var(--gray-light);
+            margin-top: 10px;
+        }
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .header {
+            background: rgba(0,0,0,0.2);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .header h2 { color: var(--orange-light); font-size: 1.4rem; }
+        .clock { text-align: right; }
+        .clock-date { font-size: 0.85rem; color: var(--gray-light); }
+        .clock-time {
+            font-size: 1.3rem;
+            font-weight: 600;
+            font-family: 'Consolas', monospace;
+        }
+        .workspace {
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
+        }
+        .section-intro {
+            background: rgba(232,146,42,0.1);
+            border-left: 3px solid var(--orange-mid);
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+        .tool-section {
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .tool-section-header {
+            color: var(--orange-light);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+        }
+        .session-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+        }
+        .session-btn:hover {
+            background: rgba(232,146,42,0.15);
+            border-color: var(--orange-mid);
+            transform: translateY(-2px);
+        }
+        .btn-label {
+            color: var(--cream);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+        .btn-description {
+            color: var(--gray-light);
+            font-size: 0.75rem;
+        }
+        .terminal {
+            background: rgba(0,0,0,0.4);
+            border-radius: 8px;
+            margin: 0 25px 25px 25px;
+            overflow: hidden;
+        }
+        .terminal-header {
+            background: rgba(0,0,0,0.3);
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .terminal-title {
+            color: var(--orange-light);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .terminal-clear {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--gray-light);
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+        .terminal-clear:hover {
+            background: rgba(255,255,255,0.2);
+            color: var(--cream);
+        }
+        .terminal-content {
+            padding: 15px;
+            height: 200px;
+            overflow-y: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+        .terminal-content .info { color: var(--cream); }
+        .terminal-content .success { color: #28a745; }
+        .terminal-content .warning { color: #ffc107; }
+        .terminal-content .error { color: #dc3545; }
+    </style>
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1>TRAJANUS USA</h1>
+            <div class="tagline">Developer Workspace</div>
+            <div class="version">Minimal Build - 2025-12-12</div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <!-- Header with Clock -->
+        <div class="header">
+            <h2>Developer Workspace</h2>
+            <div class="clock">
+                <div class="clock-date" id="clockDate">12 Dec 2025</div>
+                <div class="clock-time" id="clockTime">00:00:00</div>
+            </div>
+        </div>
+
+        <!-- Workspace -->
+        <div class="workspace">
+            <div class="section-intro">
+                <strong>Developer Workspace v2.0.0</strong> - Development utilities and terminal launchers
+            </div>
+
+            <!-- DEVELOPMENT TERMINALS -->
+            <div class="tool-section">
+                <div class="tool-section-header">Development Terminals</div>
+                <div class="button-grid">
+                    <button class="session-btn" onclick="launchTerminal('claude-code')">
+                        <div class="btn-label">Claude Code</div>
+                        <div class="btn-description">AI-powered development assistant</div>
+                    </button>
+                    <button class="session-btn" onclick="launchTerminal('powershell')">
+                        <div class="btn-label">PowerShell</div>
+                        <div class="btn-description">Windows command-line interface</div>
+                    </button>
+                    <button class="session-btn" onclick="launchTerminal('vscode')">
+                        <div class="btn-label">VS Code</div>
+                        <div class="btn-description">Full-featured code editor</div>
+                    </button>
+                    <button class="session-btn" onclick="launchTerminal('git-bash')">
+                        <div class="btn-label">Git Bash</div>
+                        <div class="btn-description">Unix-style terminal for Windows</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- EXTERNAL LINKS -->
+            <div class="tool-section">
+                <div class="tool-section-header">External Resources</div>
+                <div class="button-grid">
+                    <button class="session-btn" onclick="openExternal('https://claude.ai')">
+                        <div class="btn-label">Claude Web</div>
+                        <div class="btn-description">Browser-based Claude interface</div>
+                    </button>
+                    <button class="session-btn" onclick="openExternal('https://console.anthropic.com')">
+                        <div class="btn-label">Anthropic Console</div>
+                        <div class="btn-description">API management and monitoring</div>
+                    </button>
+                    <button class="session-btn" onclick="openExternal('https://drive.google.com')">
+                        <div class="btn-label">Google Drive</div>
+                        <div class="btn-description">Cloud storage access</div>
+                    </button>
+                    <button class="session-btn" onclick="openExternal('https://github.com')">
+                        <div class="btn-label">GitHub</div>
+                        <div class="btn-description">Code repository</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terminal -->
+        <div class="terminal">
+            <div class="terminal-header">
+                <span class="terminal-title">System Log</span>
+                <button class="terminal-clear" onclick="clearTerminal()">Clear</button>
+            </div>
+            <div class="terminal-content" id="terminal">
+                <div class="success">[Ready] Developer Workspace initialized</div>
+                <div class="info">[Info] Click any button to launch</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // LOGGING
+        // ============================================
+        function log(message, type) {
+            type = type || 'info';
+            var terminal = document.getElementById('terminal');
+            if (!terminal) {
+                console.log('[' + type + '] ' + message);
+                return;
+            }
+            var line = document.createElement('div');
+            line.className = type;
+            var timestamp = new Date().toLocaleTimeString('en-US', { hour12: false });
+            line.textContent = '[' + timestamp + '] ' + message;
+            terminal.appendChild(line);
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        function clearTerminal() {
+            var terminal = document.getElementById('terminal');
+            if (terminal) {
+                terminal.innerHTML = '<div class="info">[Cleared] Terminal cleared</div>';
+            }
+        }
+
+        // ============================================
+        // CLOCK
+        // ============================================
+        function updateClock() {
+            var now = new Date();
+            var day = now.getDate();
+            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            var month = months[now.getMonth()];
+            var year = now.getFullYear();
+            document.getElementById('clockDate').textContent = day + ' ' + month + ' ' + year;
+
+            var hours = String(now.getHours()).padStart(2, '0');
+            var minutes = String(now.getMinutes()).padStart(2, '0');
+            var seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clockTime').textContent = hours + ':' + minutes + ':' + seconds;
+        }
+
+        // ============================================
+        // EXTERNAL LINKS
+        // ============================================
+        function openExternal(url) {
+            if (window.electronAPI) {
+                window.electronAPI.openExternal(url);
+            } else {
+                window.open(url, '_blank');
+            }
+            log('Opening: ' + url, 'info');
+        }
+
+        // ============================================
+        // TERMINAL LAUNCHER
+        // ============================================
+        async function launchTerminal(terminalType) {
+            if (!window.electronAPI) {
+                log('Terminal launcher requires Electron - running in browser mode', 'warning');
+                return;
+            }
+
+            var projectDir = 'C:\\trajanus-command-center';
+
+            try {
+                switch(terminalType) {
+                    case 'claude-code':
+                        log('Launching Claude Code...', 'info');
+                        await window.electronAPI.runCommand('start powershell -NoExit -Command "Set-Location -Path \'' + projectDir + '\'; claude code"');
+                        log('Claude Code launched in PowerShell', 'success');
+                        break;
+
+                    case 'powershell':
+                        log('Launching PowerShell...', 'info');
+                        await window.electronAPI.runCommand('start powershell -NoExit -Command "Set-Location -Path \'' + projectDir + '\'"');
+                        log('PowerShell launched', 'success');
+                        break;
+
+                    case 'vscode':
+                        log('Launching VS Code...', 'info');
+                        await window.electronAPI.runCommand('code "' + projectDir + '"');
+                        log('VS Code launched', 'success');
+                        break;
+
+                    case 'git-bash':
+                        log('Launching Git Bash...', 'info');
+                        await window.electronAPI.runCommand('start "" "C:\\Program Files\\Git\\bin\\bash.exe" --login -i -c "cd /c/trajanus-command-center; exec bash"');
+                        log('Git Bash launched', 'success');
+                        break;
+
+                    default:
+                        log('Unknown terminal type: ' + terminalType, 'error');
+                }
+            } catch (err) {
+                log('Error launching terminal: ' + err.message, 'error');
+            }
+        }
+
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            updateClock();
+            setInterval(updateClock, 1000);
+            log('Developer Workspace ready', 'success');
+        });
+    </script>
+</body>
+</html>

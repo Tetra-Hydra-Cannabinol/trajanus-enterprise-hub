@@ -1,0 +1,521 @@
+"""
+Ingest Playlist 3 video 10 (v3eb_aRTeek) - Create INTRIGUE with these Hidden Chart Techniques and Get MORE People to READ Your Reports!
+"""
+
+import os
+from datetime import datetime
+from supabase import create_client
+
+def load_env():
+    env_path = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\.env'
+    env_vars = {}
+    with open(env_path, 'r', encoding='utf-8-sig') as f:
+        for line in f:
+            line = line.strip()
+            if line and '=' in line and not line.startswith('#'):
+                key, value = line.split('=', 1)
+                env_vars[key.strip()] = value.strip()
+    return env_vars
+
+env = load_env()
+supabase = create_client(env['SUPABASE_URL'], env['SUPABASE_ANON_KEY'])
+
+video_id = 'v3eb_aRTeek'
+title = "Create INTRIGUE with these Hidden Chart Techniques and Get MORE People to READ Your Reports!"
+channel = 'MyOnlineTrainingHub'
+duration = '17:49'
+topics = ['Infographics', 'Donut Charts', 'Pie Charts', 'Bar Charts', 'Column Charts', 'Combo Charts', 'Icons', 'Sketch Effects', 'Data Labels', 'Text Boxes', 'Color Themes', 'Image Cropping', 'Paste Special Formats']
+
+transcript = """0:00 in this tutorial I'm going to share with
+0:02 you some hidden Excel chart techniques
+0:05 that will make your reports stand out
+0:07 and draw your readers in these
+0:09 techniques are often used for
+0:10 infographic star reports that's not to
+0:13 say you can't use them in dashboards or
+0:15 even PowerPoint presentations now to
+0:18 demonstrate I'll be building this
+0:20 infographic on Australian B data now
+0:22 infographics are oneof brocher style
+0:25 reports that are designed to impart
+0:27 information quickly and clearly they
+0:29 often a combination of pictures charts
+0:32 and text to tell a story that takes the
+0:34 reader on a
+0:36 journey as you can see this is just a
+0:38 regular Excel file there's no addin
+0:40 required to build an infographic in
+0:42 Excel I'll rename this sheet
+0:45 infographic and the first thing I want
+0:47 to do is change the color theme to
+0:50 Something in line with the theme of my
+0:53 infographic and it's bees so I'm going
+0:55 to go with this yellow color theme and
+0:57 all that's going to do is save me some
+0:58 time because now all my color palettes
+1:00 are filled with colors in line with my
+1:03 theme so it'll be quick and easy for me
+1:05 to select them I'm going to apply a
+1:09 background fill to the
+1:11 cells and we're going to use this pale
+1:15 yellow now I found an image of honeycomb
+1:18 on pngtree.com so I'm going to insert
+1:22 that I've already saved it to my PC and
+1:26 it's this on here now it's a little bit
+1:29 big so I'm going to start by cropping it
+1:30 so on the picture format tab I'm going
+1:32 to crop and we'll just reduce it
+1:39 down just dragging the pull
+1:42 handles okay let's reposition it to the
+1:46 top of the page and I'm going to copy it
+1:49 by holding down control and then I'm
+1:51 going to hold down shift that'll just
+1:53 keep it horizontally aligned and now it
+1:56 fills the space of my header we need to
+1:59 create attribute it to PNG tree.com so
+2:02 I'll just make a note of that
+2:04 here and we'll just make it a little bit
+2:07 smaller and apply a brown font just to
+2:10 make it a little bit more
+2:11 subtle next I'll insert a text box to
+2:15 store my header in for the infographic
+2:19 so this is Australian
+2:20 honeybees and let's format the font
+2:23 we'll make it 80 point and we can choose
+2:26 from various fonts and you can see you
+2:30 go through it gives you a little
+2:32 preview I know the one that I want it's
+2:35 called curls and it says on here let's
+2:39 format it brown and we'll just Center
+2:40 the font in the text box and now I can
+2:44 go ahead and hide the text box by
+2:47 getting rid of the fill and the outline
+2:49 so there's my header it's all done just
+2:52 going to zoom out a little bit so I can
+2:54 see more of the screen let's have a look
+2:56 at the data now the first chart I want
+2:59 to insert is a donut chart that shows
+3:02 the commercial honey production by state
+3:05 in Australia and we'll go to the insert
+3:08 Tab and then under the pie chart we've
+3:10 got donut here let's just apply some
+3:13 formatting so start with making the
+3:15 whole size smaller so control one to
+3:17 open the formatting pane it's over here
+3:19 on the right so I'm just going to drag
+3:20 it over beside the chart and I want the
+3:24 explosion to be
+3:26 8% and the whole size to be 50
+3:30 now with the donut selected I'm going to
+3:32 go ahead and apply some
+3:35 outlines in this brown color and I want
+3:38 it to have a sketched look so we're
+3:40 going to apply the sketch format just
+3:43 gives it a bit more of a handdrawn
+3:45 effect and add some interest to the
+3:47 Chart now normally I'd limit pie or
+3:50 donut charts to three slices but these
+3:52 segments are quite easily distinguished
+3:54 by size and with infographics the visual
+3:57 appeal of a graphic holds more weight
+3:59 than in a dashboard report where you
+4:01 want your users to be able to interpret
+4:03 the data at a glance so we can have a
+4:05 little bit more fun with the
+4:06 infographics I'm going to get rid of the
+4:08 legend and instead add data labels let's
+4:11 just go into more options and then in
+4:13 here I'm going to include the category
+4:15 name I don't want the leader lines and
+4:18 instead of having a comma separator I'm
+4:20 going to put it onto a new line and then
+4:23 unfortunately with donut charts there's
+4:26 no setting to put the labels outside so
+4:29 you have to left click and drag them out
+4:32 manually one by
+4:34 one another reason not to have too many
+4:37 segments in your charts okay with the
+4:40 outside of the chart selected I'm going
+4:42 to go and do the font formatting so I
+4:43 want it all in the brown font and I'm
+4:46 going to use this Zilla slab semi bold
+4:49 it's one I've used earlier so that's in
+4:50 my recently used fonts with that done
+4:53 I'm going to crl X to cut it and I'm
+4:56 just going to paste it in here on my
+4:59 infograph graphic so let's make it a bit
+5:01 bigger I've got plenty of
+5:03 space give the chart a title commercial
+5:07 honey production in tons and let's make
+5:10 the font bigger can also make this font
+5:12 for the labels bigger and I don't want
+5:15 the Border or the fill on the chart so
+5:17 let's go ahead and we'll set it to no
+5:19 fill and no outline I've got the
+5:22 individual values for each state but I'd
+5:25 like to also include a total so I'm just
+5:27 going to add a text box here
+5:30 the outer edge of the text box selected
+5:32 in the formula bar type equals and then
+5:35 I'm going to go to the data Tab and pick
+5:37 up the value press enter and there it is
+5:40 in the text box let's give it some
+5:42 formatting so we'll just Center it first
+5:44 of all and we'll make the font bigger
+5:47 and let's go with the theme font of the
+5:50 Zilla slab and we'll make it
+5:54 brown let's just Center that text box
+5:57 and then we can go ahead and get rid of
+5:58 the fill and the the outline so there's
+6:01 the first chart done let's go ahead and
+6:03 insert the pie chart next which is
+6:05 showing the proportion of Honey produced
+6:07 by land type so I'm going to insert pie
+6:10 chart and I'm just going to cut this out
+6:13 straight away CR X and place it on the
+6:15 dashboard here let's make it bigger to
+6:20 fit
+6:21 in in line with the donut now I want
+6:24 most of the formatting that I have on
+6:26 the donut chart also on the pie chart so
+6:28 I'm just going to copy the donut with
+6:30 the outer edge of the chart selected
+6:32 click on the pie chart and then paste
+6:35 special formats now this is going to
+6:37 change it to a donut but we'll change it
+6:39 back don't worry but notice it's already
+6:42 applied all of the formatting that I
+6:43 want we go into chart design change
+6:46 chart type and we'll make it a p now I
+6:50 need to set the pi explosion so with
+6:52 it's selected on the series options I
+6:55 want to set the explosion here to
+6:58 5% that just gives the handdrawn line
+7:01 some space let's fix the location of the
+7:04 data
+7:06 labels so we're going to set them to
+7:08 outside the end and let's just make this
+7:11 one wider so it doesn't wrap onto three
+7:15 lines and that'll just allow it to sit
+7:17 closer to the Chart we'll give the chart
+7:19 the title honey produced by land
+7:22 type you might need to tweak the
+7:25 position of the labels or even possibly
+7:28 make the chart a little bit smaller just
+7:30 to give them space okay so that's the
+7:33 first two charts done I'll just scroll
+7:35 down the next chart I need is the bar
+7:38 chart and that's going to plot this data
+7:41 here the number of beekeepers and the
+7:43 number of hives now it's actually two
+7:45 charts one for the beekeepers and one
+7:47 for the hives I've plotted the hives as
+7:50 negative values so that they sit on the
+7:52 left hand side of the axis I'm just
+7:54 going to insert them one at a time so
+7:56 insert
+7:58 bar
+7:59 and then let's do this one I don't want
+8:02 the labels here I just want the bars so
+8:04 I'm just going to insert the bar without
+8:06 the label selected and then notice the
+8:09 hives sit on the left side with the
+8:11 beekeepers on the right so I'm just
+8:13 going to format one chart and then I'm
+8:15 going to copy the formats again so with
+8:18 it selected I don't want grid lines I
+8:22 want data labels let's select the bars
+8:26 and go ahead and change the Gap where
+8:29 just to make them thicker so give it 50%
+8:32 Gap width I don't need the horizontal
+8:34 axis because I have data label so let's
+8:36 remove that now although it's not
+8:39 necessary to add some interest we can
+8:41 color each bar separately I wouldn't
+8:43 recommend this in a business dashboard
+8:45 unless you're carrying the color coding
+8:46 of the different states through to other
+8:48 charts to color code each bar separately
+8:50 select them once by left clicking and
+8:53 then left click again once to select the
+8:55 bar you want to color and then on the
+8:57 formatting I can go in and change the
+8:59 fill so I'm just going to use these
+9:01 colors at the top of my color
+9:05 palette and what have we got a red color
+9:08 we don't quite have enough colors for
+9:11 all of the bars from the top so for this
+9:14 last one for Northern Territory I'm
+9:17 going to shade it this lighter color
+9:20 orange all right now I need to add the
+9:23 outline in
+9:25 brown and we'll give it the sketched
+9:28 effect let's set the font so Brown might
+9:32 make it a bit bigger and we'll use the
+9:34 Zilla slab semi bold this font can be
+9:38 bigger as well cuz it's the
+9:40 title and lastly I'm going to get rid of
+9:42 the fill and the outline on the chart
+9:46 okay so that's that one done with it
+9:48 selected on the outside I'm going to
+9:50 contrl C to copy and then I'm going to
+9:53 paste special
+9:56 formats let's select them both and crl X
+9:59 to cut them out and we'll paste them in
+10:01 here where we can see them better now
+10:03 when you copy the format for some reason
+10:05 it doesn't get rid of the fill in the
+10:08 plot area so let's go ahead and get rid
+10:11 of that I still have the vertical axis
+10:14 in here for the number of hives so let's
+10:16 go ahead and we'll hide the labels so
+10:18 we'll set them to none and I need to fix
+10:21 the number formatting here so that
+10:23 they're not showing as negatives so with
+10:25 them selected I want the number to be a
+10:28 custom format
+10:29 and I've already set it up in here but
+10:32 basically the way formats work is the
+10:33 first format before the semicolon is the
+10:36 positive values the second format is the
+10:39 negative values and then we have zero
+10:41 and text in this case I'm only
+10:43 formatting positive and negatives so all
+10:46 I've done is remove the minus sign from
+10:48 the negative value so that both positive
+10:52 and negative values are formatted in the
+10:54 same way okay we can make this chart a
+10:56 bit bigger in fact we can make them them
+10:59 both a bit bigger vertically as well and
+11:02 then the last chart I need is a column
+11:04 chart for my beekeeper clubs and members
+11:08 so I'm going to select the data insert
+11:11 column chart now you'll notice that it's
+11:13 plotted the year as a series and
+11:16 obviously that's not correct so right
+11:17 click select data and we'll remove the
+11:21 year and edit the horizontal access
+11:23 labels which should be the year
+11:26 values so that's fixed that
+11:31 let's get rid of the grid lines We'll
+11:34 add the legend to the top instead of the
+11:37 bottom and then the next thing I want to
+11:39 do is because the members values are
+11:42 tiny I'm going to change the chart type
+11:44 so let's change chart type and we'll go
+11:46 with a combo chart and we'll have the
+11:48 clubs as a cluster column and the
+11:50 members as a line chart on the secondary
+11:52 axis now I want to add data labels for
+11:55 the columns so let's do that data labels
+11:57 and we'll put them inside the base let's
+12:00 fix these columns cuz they're a bit
+12:02 narrow so we'll change the Gap width to
+12:06 50% and I don't want this vertical axis
+12:09 now because I have labels so I don't
+12:11 need that as well so let's go and hide
+12:13 the labels to none and I still have this
+12:18 vertical line here so let's go and hide
+12:20 that put the line as no line all right
+12:24 let's make the chart a bit bigger it's
+12:25 going to have plenty of space we'll move
+12:28 the
+12:29 Legend up here and the chart title
+12:32 across to the left so this is New South
+12:35 Wales amateur beekeepers clubs and
+12:38 members let's change the color of these
+12:40 columns so that they're in line with our
+12:43 theme we'll make it yellow that
+12:45 contrasts better with the line I'm also
+12:47 going to make the line
+12:50 smooth and we'll add the
+12:53 outline and make it
+12:57 sketched okay now nearly there let's go
+12:59 ahead and make the font Brown and we'll
+13:02 change it to Zilla slab and we can
+13:04 probably make it a bit bigger as well
+13:06 especially this one which can be much
+13:08 bigger all right let's get rid of the
+13:12 shape fill on the chart and the outline
+13:15 and crl
+13:17 x and place it on the infographic you
+13:20 see we got loads of room to play with
+13:23 here make it wider all right one last
+13:27 thing I want to do is just to clarify
+13:29 what this vertical axis is for so we can
+13:32 do that by giving it a
+13:35 title so this is
+13:37 members and that just makes it easier to
+13:40 interpret okay now the charts are
+13:42 complete we can add some more interest
+13:43 to the infographic with icons and images
+13:46 Excel has a load of free icons and
+13:49 images available on the insert Tab and
+13:51 then icons you need to be connected to
+13:53 the internet for it to get them though
+13:55 so all you need to do is search for a
+13:58 ter or you can scroll through or look by
+14:00 category I'm going to look for bees
+14:04 there's one there and let's also look
+14:06 for
+14:07 honey there's some honey and a beehive
+14:10 and I also want something that
+14:13 represents a meeting for my members data
+14:17 so we've got four Images there I'm going
+14:18 to insert
+14:22 those let's just bring them up towards
+14:24 the top and'll make them a bit
+14:27 bigger all right the first one I want is
+14:30 this pot of honey and I'm just going to
+14:33 place it in here we'll change the fill
+14:35 color to a paler color you can also make
+14:38 it
+14:43 transparent it's sitting in front of the
+14:45 charts though so let's just send it back
+14:48 so that the chart data is sitting in
+14:50 front of it all right so that's the one
+14:52 that represents the honey let's move the
+14:55 hive down here we can make it a bit
+14:56 bigger and it can fill this space
+14:59 let's give it a color of gold and
+15:04 also give it some
+15:07 transparency just to wash it out make it
+15:10 less dominating all right scrolling down
+15:14 to the club section this is my club
+15:19 image let's make this shade of
+15:22 brown and the bee can come over here
+15:25 he's a bit big so we'll make him smaller
+15:28 Maybe sip him on an angle and we'll make
+15:31 him
+15:31 yellow actually I'm going to copy the B
+15:35 over
+15:37 here and we'll make him much smaller
+15:39 maybe
+15:41 75 and he can sit on the desk at the
+15:45 meeting all right now the last image I
+15:48 have is this map of Australia I actually
+15:52 created this using hexagon shapes so
+15:55 what I did was insert the shape and and
+15:58 down here I've got the hexagon and I
+16:01 drew it in and then I copied it and if I
+16:05 select this on the shape format tab I
+16:08 can ungroup them you'll see how many
+16:10 times I copied it loads of times so it
+16:12 was a bit of a labor of love I'm going
+16:15 controls there to undo that and then I
+16:17 colorcoded each state in line with the
+16:19 number of beekeeper values so Victoria
+16:22 New South Wales have about the same then
+16:24 Queensland then wa South Australia and
+16:28 and Tasmania Northern Territory very
+16:31 low so instead of recreating that I'm
+16:34 just going to copy that for now and put
+16:36 it in here and we'll move it into place
+16:40 it's a bit
+16:42 big all right you could also use a map
+16:45 chart there is a map chart up here but I
+16:49 liked the hexagons I thought they're a
+16:51 bit more interesting in keeping with the
+16:52 be theme and honeycomb so there's my
+17:00 infographic let's just minimize the
+17:03 ribbon
+17:05 and I'll also get rid of the headings in
+17:08 the formula bar just to give it a bit
+17:11 more space on my monitor so you can see
+17:14 it there I'll zoom out a little more so
+17:18 there you have a load of techniques for
+17:21 building infographics in Excel using
+17:24 images icons charts and these cool
+17:28 sketch effects on the charts to make it
+17:30 a little bit more interesting I hope you
+17:33 found this tutorial useful you can
+17:35 download the Excel F containing the
+17:37 completed infographic from this lesson
+17:39 from the link here and if you like this
+17:42 video please give it a thumbs up and
+17:44 subscribe to our channel for more and
+17:46 why not share it with your friends who
+17:48 might also find it useful thanks for
+17:52 [Music]
+17:56 watching"""
+
+# Save transcript
+archive_dir = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\Knowledge_Archive\Transcripts\Microsoft_Office'
+os.makedirs(archive_dir, exist_ok=True)
+
+header = f"""Title: {title}
+Channel: {channel}
+Video ID: {video_id}
+URL: https://www.youtube.com/watch?v={video_id}
+Duration: {duration}
+Level: INTERMEDIATE
+Application: Microsoft Excel
+Topics: {', '.join(topics)}
+Ingested: {datetime.now().strftime('%Y-%m-%d')}
+Source: Playwright Browser Extraction
+{'='*78}
+
+"""
+
+filename = f"{datetime.now().strftime('%Y-%m-%d')}_INTERMEDIATE_{video_id}_Infographic_Techniques.txt"
+filepath = os.path.join(archive_dir, filename)
+
+with open(filepath, 'w', encoding='utf-8') as f:
+    f.write(header + transcript)
+
+print(f'Transcript saved: {filename}')
+
+# Chunk and ingest
+def chunk_text(text, chunk_size=3000):
+    chunks = []
+    current = ''
+    for line in text.split('\n'):
+        if len(current) + len(line) + 1 <= chunk_size:
+            current = current + '\n' + line if current else line
+        else:
+            if current:
+                chunks.append(current.strip())
+            current = line
+    if current.strip():
+        chunks.append(current.strip())
+    return chunks
+
+url = f'https://www.youtube.com/watch?v={video_id}'
+chunks = chunk_text(transcript)
+
+full_metadata = {
+    'channel': channel,
+    'video_id': video_id,
+    'duration': duration,
+    'level': 'INTERMEDIATE',
+    'application': 'Microsoft Excel',
+    'topics': topics,
+    'source': 'YouTube Transcript',
+    'ingested_date': datetime.now().strftime('%Y-%m-%d'),
+    'content_type': 'youtube_tutorial',
+    'category': 'Microsoft_Office'
+}
+
+inserted = 0
+for i, chunk in enumerate(chunks):
+    summary = chunk[:200].replace('\n', ' ').strip()
+    if len(chunk) > 200:
+        summary += '...'
+
+    record = {
+        'url': url,
+        'chunk_number': i + 1,
+        'title': title,
+        'summary': summary,
+        'content': chunk,
+        'metadata': full_metadata
+    }
+
+    try:
+        supabase.table('knowledge_base').insert(record).execute()
+        inserted += 1
+        print(f'  Chunk {i+1}/{len(chunks)} inserted')
+    except Exception as e:
+        print(f'  Error chunk {i+1}: {e}')
+
+print(f'\nTotal: {inserted} chunks inserted to Supabase')

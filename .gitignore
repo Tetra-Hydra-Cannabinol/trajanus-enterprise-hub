@@ -1,0 +1,63 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build outputs
+dist/
+target/
+out/
+
+# Tauri
+src-tauri/target/
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+token.json
+*.pem
+*.key
+env.env
+
+# Files with API keys (flagged by GitHub)
+Open API Key.txt
+05-Scripts/QUERY_KB.ps1
+05-Scripts/POWERSHELL_COMMANDS_REFERENCE.md
+12-Client-Deliverables/05-Decision-Logs/POWERSHELL_COMMANDS_REFERENCE.md
+12-Client-Deliverables/05-Decision-Logs/env.env
+12-Client-Deliverables/Reference-Original-2025-11-30/main.js
+12-Client-Deliverables/Reference-Original-2025-11-30/main-REFERENCE.js
+
+# Credentials folder
+001 Credentials/
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Temp files
+~$*
+*.tmp
+*.temp
+
+# Large binaries (can be downloaded)
+*.exe
+!talon-windows.exe
+
+# IDE
+.idea/
+.vscode/
+*.sublime-*
+
+# Logs
+*.log
+npm-debug.log*
+
+# Personal documents (keep local only)
+*.docx
+*.gdoc
+*.gsheet
+*.gslides
+*.pdf

@@ -1,0 +1,321 @@
+Title: Excel PivotTables Made Easy - And Why Things Go Wrong!
+Channel: MyOnlineTrainingHub
+Video ID: vQlFiLUaw4k
+URL: https://www.youtube.com/watch?v=vQlFiLUaw4k
+Duration: 13:17
+Level: BEGINNER
+Application: Excel
+Topics: PivotTables, Data Layout, Tabular Format, Field List, Aggregation, Data Grouping, Common Mistakes, Source Data
+Ingested: 2025-12-20
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 if you're new to Pivot tables you might
+0:02 think they're scary or complicated so in
+0:05 this video I'm going to show you how
+0:07 easy pivot tables are to build now be
+0:10 sure to watch to the end where I cover
+0:12 the common mistakes that people make
+0:14 which leads them to thinking pivot
+0:16 tables are difficult here I've got some
+0:19 sales data categorized by order ID
+0:22 customer ID
+0:25 salesperson then we have order priority
+0:28 skew ship mode
+0:30 order date and S amount naturally I'm
+0:34 interested in analyzing these sales
+0:36 amounts by the different criteria now I
+0:38 could use formulas like sum ifs and
+0:40 countifs but it's way quicker to use a
+0:43 pivot table in other words a pivot table
+0:46 is an easy way to summarize large
+0:48 amounts of data now before we can create
+0:51 a pivot table I want to point out the
+0:54 important attributes of this data first
+0:57 notice each column has a column label
+1:01 and there's only one row of column
+1:03 labels there aren't any merged cells or
+1:06 columns without a label and the column
+1:08 labels become the fields you can work
+1:11 with in your pivot table the data here
+1:14 is in what we call a tabular layout that
+1:17 is each column contains a single type of
+1:20 data and I don't have multiple columns
+1:22 containing the sales amounts Broken Out
+1:24 by month or salesperson for example
+1:27 that's the job of the pivot table now as
+1:30 I scroll down you can see I also don't
+1:32 have any subtotals or grand totals or
+1:36 any blank rows now I've formatted this
+1:39 data in an Excel table and you can see
+1:42 it's called table one and while this is
+1:44 optional the benefits of this is that
+1:47 when you add new data you don't need to
+1:50 update the pivot table's reference to
+1:52 the data because the table range
+1:54 automatically grows to include it and
+1:56 we'll see that in a moment all right
+1:58 we're ready to insert our first pivot
+2:01 table start by selecting your data or if
+2:04 you have a contiguous range of data like
+2:06 mine or formatted in a table just select
+2:09 one cell and then Excel will be able to
+2:12 find the bounds of that table if you're
+2:14 new to Pivot tables you might like to
+2:16 try the recommended pivot tables
+2:19 available on the insert tab of the
+2:21 ribbon this opens a dialogue box with
+2:23 some examples based on your data in the
+2:27 left you get the small thumbnails and
+2:30 clicking on one gives a slightly bigger
+2:31 view in the right hand pane if there's
+2:34 one there that you like simply click
+2:36 okay and it will be inserted on a new
+2:39 worksheet alternatively you can click
+2:41 blank pivot table and it will open up a
+2:44 new worksheet ready for you to build a
+2:46 pivot table I'm going to click cancel
+2:49 and we'll use the pivot table button on
+2:51 the insert Tab and this will allow me to
+2:53 choose where I place the pivot table you
+2:56 can see it's automatically detected my
+2:59 table and it's placed the table name in
+3:01 the table range field here I can choose
+3:04 to put my pivot table on a new worksheet
+3:06 now I recommend this but in this example
+3:09 I'm going to place it on an existing
+3:11 worksheet because I want to put it just
+3:13 here beside the data so we can see it in
+3:15 context I'll click okay and Excel has
+3:19 put a placeholder in the worksheet and
+3:22 on the right hand side we have the field
+3:23 list I'm just going to left click and
+3:26 drag it out over here so that I can zoom
+3:28 in notice the field list simply contains
+3:31 the column names from the source data
+3:35 the bottom half of the fill pane
+3:36 contains the areas in the pivot table to
+3:39 build the pivot table simply left click
+3:41 and drag the fields into the pivot table
+3:44 areas let's say I want to summarize the
+3:47 sale amount by salesperson and did you
+3:50 notice there I just checked the box for
+3:52 sale amount and Excel has automatically
+3:55 put that in the value area it's done
+3:57 that because my sale amount column has
+4:00 numbers in it so it's assuming that I
+4:01 want to add that up and it's assumed
+4:04 correctly and with that I have my sales
+4:06 amounts by
+4:08 salesperson this is the equivalent of a
+4:10 suth formula except I haven't had to
+4:13 write any formulas the pivot table has
+4:15 done all the hard work for me now let's
+4:18 say I changed my mind and I want to see
+4:20 the salese across the columns and the
+4:22 sales broken down by date I can left
+4:24 click and drag to move the salese from
+4:27 the rows to the columns area and then
+4:30 I'm going to drag the order date down
+4:32 into the row area notice the dates have
+4:35 been grouped by month and I now have a
+4:37 new field called month in my field list
+4:41 Excel 2016 onward does this grouping
+4:44 automatically but you can change it by
+4:46 the group menu just right click on one
+4:49 of the date cells and then group and in
+4:53 here you can see there are other
+4:54 grouping options alternatively you can
+4:57 ungroup by the rightclick menu as well
+4:59 well I'm going to leave it as is now I
+5:02 think you'll agree that so far it's been
+5:04 super easy to create this summary table
+5:08 and move the salesperson field from the
+5:10 rows to the columns but imagine if you
+5:12 created this table using formulas and
+5:15 then you needed to change the layout it
+5:17 would be a nightmare now another great
+5:19 tool we have in pivot tables is the
+5:21 ability to change the aggregation by
+5:23 default it's set to sum the data but if
+5:26 I right click I've got summarized value
+5:29 buy and you can see some is checked but
+5:32 I can also count average Max Min product
+5:37 and in more options we also have count
+5:40 numbers standard deviation and
+5:43 variances let's take a look at counting
+5:47 click okay and now it's counting the
+5:49 sales amounts by sales person and month
+5:53 of course most reports aren't static
+5:55 you're likely to get new data that you
+5:57 want to include in your pivot table
+5:59 report
+6:00 we can see here this one only goes up to
+6:02 November on this sheet here I've got
+6:04 some data for December so let me select
+6:08 that I'm just going to contrl C to copy
+6:10 it we'll go back to the sheet where my
+6:13 source data is I'm going to go to the
+6:15 very end of the table and on the next
+6:17 empty row I'm going to crl +v to paste
+6:20 you can see the table has expanded and
+6:23 if we go to the very end of the table
+6:25 you can see it's got the table icon in
+6:27 the bottom right corner that's
+6:29 indicating to me that my table range has
+6:32 updated to include the December data and
+6:35 now all I need to do is go back to my
+6:37 pivot table right click and refresh and
+6:41 if you watch here we're going to get new
+6:43 data for
+6:45 December and it's that easy and this is
+6:48 because I referenced the table as the
+6:51 source data for my pivot table another
+6:54 thing we can do is Nest row and column
+6:56 labels for example let's say we want to
+6:59 see the the ship mode and Order priority
+7:01 I'm just going to drag the date fields
+7:04 out and then check ship mode and Order
+7:08 priority and now I have the count of
+7:10 sales amounts by ship mode and Order
+7:13 priority and of course I can right click
+7:16 and change the aggregation to average
+7:18 let's say for example and now my data is
+7:22 averaged and the great thing about
+7:24 summarizing your data with pivot tables
+7:26 aside from how quick and easy they are
+7:28 to build and change
+7:30 is there's no risk of formula errors can
+7:33 you imagine building this with formulas
+7:35 well with that said let's look at some
+7:38 common reasons why people find pivot
+7:40 tables
+7:42 difficult the main reason for pivot
+7:44 table problems is the wrong data layout
+7:47 here I've got the same data but instead
+7:49 of the values all in one column they're
+7:52 spread across separate columns for each
+7:53 month essentially this data is already
+7:56 pivoted now notice there's also a column
+7:59 for the grand total of the rows and if I
+8:02 scroll down to the very end you can see
+8:05 there's a grand total for the
+8:07 columns now you can insert a pivot table
+8:10 using this data format but you'll
+8:13 quickly find that it doesn't work the
+8:15 way you'd expect let's take a look I'm
+8:17 going to insert a pivot table and we'll
+8:20 place it on this worksheet here that
+8:23 I've got set up the first thing you're
+8:25 going to notice is in the field list we
+8:28 have a separate field for every month
+8:31 and the grand total so we'll go ahead
+8:33 and build the same pivot table we want
+8:35 it by salesperson and then we want the
+8:37 sales amounts of January February March
+8:39 April May June you've got to check them
+8:42 all one by one which is annoying in
+8:44 itself we'll just move the field list
+8:46 down a little not only is it very
+8:49 inefficient to build pivot tables like
+8:51 this but it means you also can't use
+8:53 some of the other pivot tools available
+8:56 for example notice there's no grand
+8:57 total for the rose now I had a grand
+9:00 total in my source data so I can check
+9:02 the box for that field and add it but
+9:05 it's not ideal notice I also have a row
+9:08 containing blank this is the grand total
+9:11 Row in my source data so if we go back
+9:14 and have a look at the bottom of my
+9:17 table I've got a grand total row so it's
+9:20 effectively double
+9:22 counting my data because the sum of Bob
+9:26 JN and Richard's sales is 503
+9:29 47947 for January then it's counting the
+9:32 grand total row and double counting it
+9:35 in the pivot table grand total and the
+9:38 reason it's blank is because in the
+9:40 source data there's no salesperson on
+9:43 the grand total row another problem is
+9:47 if I want to change the aggregation to
+9:49 say average I have to rightclick
+9:51 summarize values by average and then I
+9:53 have to do it again for February March
+9:57 April and May and and so on and you get
+10:00 the idea not to mention the grand total
+10:03 is wrong as well now if you build pivot
+10:05 tables using data in this type of format
+10:08 it can be very frustrating because
+10:10 you're able to build what looks like a
+10:12 working pivot table but it results in
+10:15 lots of annoying issues that can leave
+10:17 those new to Pivot tables completely
+10:20 baffled to the point they end up
+10:21 thinking pivot tables are
+10:24 complicated another common problem
+10:27 people run into is what I call the semi-
+10:29 report layout this is where your data is
+10:32 in a partial report format here you can
+10:35 see this data has some nested column
+10:37 labels spread over two rows it's already
+10:40 being pivoted so the units and Order
+10:43 amounts are in separate columns for the
+10:44 different countries and there are
+10:46 columns for the totals plus it has a
+10:50 blank column smack bang in the middle of
+10:52 it so you simply cannot build a pivot
+10:55 table from this data remember you can't
+10:58 have any blank columns and your column
+11:00 labels must be in one row the correct
+11:03 layout for this data looks like this
+11:06 where you have a column for the country
+11:07 label and then the units and Order
+11:10 amounts are in a column each and from
+11:12 here you can easily create the layout
+11:14 shown in the semi report let's take a
+11:17 look we'll insert a pivot table I'm
+11:19 going to pop it here so that we can see
+11:22 it beside the data now I'm just going to
+11:24 hide this so that we have more room so I
+11:28 want order date
+11:30 and I don't want it grouped so I'm just
+11:31 going to contrl zed to ungroup it
+11:34 straight away then order ID
+11:38 salesperson we want the countries across
+11:40 the top and then I want to sum the units
+11:43 and the order amounts now it's done some
+11:46 nesting in the layout so if we go to the
+11:48 design tab I'm going to choose tabular
+11:52 format and we're going to turn off the
+11:55 subtotals and there we have pretty much
+11:58 exact L the same report as we see here
+12:01 except created with a pivot table and I
+12:05 can do things like repeat these labels
+12:07 so right click field settings layout and
+12:10 print repeat item labels and we can
+12:13 spend a little bit of time formatting
+12:15 the headings but for the most part it's
+12:18 exactly the same report except now I can
+12:21 do much more with the data because my
+12:23 source data is in the correct
+12:26 layout so you can see when your data is
+12:29 formatted even slightly wrong it can
+12:32 make building pivot tables difficult the
+12:34 good news is that data in the wrong
+12:36 format is easily fixed with power query
+12:39 there's a video coming up next and a
+12:42 link in the video description on how to
+12:44 use power query to fix incorrect data
+12:46 layouts using the unpivot tool so be
+12:49 sure to check that out well I hope
+12:52 you're excited to try building your own
+12:54 pivot tables you can get started by
+12:56 downloading the Excel file for this
+12:58 lesson from the link here if you like
+13:01 this video please give it a thumbs up
+13:03 and subscribe to my channel and why not
+13:06 share it with your friends who might
+13:08 also find it useful thanks for
+13:10 [Music]
+13:16 watching

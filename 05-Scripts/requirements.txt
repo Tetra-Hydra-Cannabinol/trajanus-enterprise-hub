@@ -1,0 +1,9 @@
+# YouTube Transcript Extractor Dependencies
+# Install with: pip install -r requirements.txt
+
+# Browser automation
+playwright>=1.40.0
+
+# Note: After installing, run:
+#   playwright install chromium
+# to download the browser binary

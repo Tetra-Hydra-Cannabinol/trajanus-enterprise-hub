@@ -1,0 +1,4750 @@
+Title: Build and Deploy a Modern Personal Portfolio with ReactJS and TailwindCSS
+Channel: PedroTech
+Video ID: cIYdiRDFWQw
+URL: https://www.youtube.com/watch?v=cIYdiRDFWQw
+Duration: 171:43
+Level: COMPREHENSIVE
+Ingested: 2025-12-23
+Source: yt-dlp Auto-Generated Captions
+==============================================================================
+
+WEBVTT
+Kind: captions
+Language: en
+Most people either over complicate their
+personal portfolios with huge frameworks
+and fancy libraries or they keep
+postponing it because they don't think
+their skills are good enough yet. And
+that's a problem because your portfolio
+is often the first thing recruiters,
+clients, and hiring managers look at.
+Today, I'm going to show you how to
+build a beautiful modern personal
+portfolio using just React and Tailwind
+CSS. No unnecessary bloat and no magic
+libraries you don't understand. We'll
+build everything from scratch. A
+stunning hero section, an about section,
+a place where you can display all your
+best projects, a beautiful experience
+timeline, a testimonials carousel, and a
+fully working contact section so that
+recruiters can reach out to you. But
+this isn't just an UI build. Along the
+way, you'll learn how to structure a
+realworld React app, style it cleanly
+with Tailwind, and bring it to life with
+pure CSS animations that feel smooth and
+professional. By the end of the video,
+you'll have a portfolio you can actually
+deploy, customize, and be proud to share
+and a much stronger understanding of how
+React and Tailwind work together in real
+projects. Before we get into the video,
+if you could just leave a like and
+subscribe, I would massively appreciate
+it. And if you want to learn React more
+in depth, just go ahead and click the
+link in the description to check out my
+ReactJS Ultra course for beginners.
+Okay, everyone. To get started, what I
+want to do is I want to create a folder
+inside of my computer. I'm going to call
+it dev personal portfolio. Then what I
+want to do is I want to copy like just
+drag and drop it inside of my code
+editor of choice. Now I'm using VS Code
+for this video. However, feel free to
+use any code editor that you want. Now
+we have to set up our React project. To
+do that, we're going to be using one of
+the most popular bundlers out there for
+React, which is VIT. Now VIT is the
+standard way of creating your React apps
+in today's day and age. Back in the day,
+you would use something like create
+react app. But I highly recommend that
+you use either VIT or if you're building
+something like an XJ.js app, you use the
+create next app command. Now for Vit,
+what we need to do is run npx create
+VIT. And then let's install the latest
+version of Vit. So I already have the
+latest version. It didn't ask me to
+install anything, but if you don't have
+it, it's going to ask you to uh install
+the create V command. Now, we need to
+give a name to this project. However,
+this name that over here is just going
+to be the name of the folder in which
+the project is going to be created in.
+Now, we are already inside of a pro a
+folder that I created for this project.
+So, I don't really want to create
+another folder and put the project
+there. So, to bypass that and make the
+project just be built on the folder that
+we already made, I'm just going to give
+the name of dot so that it creates it
+inside of here. Then it asks us to
+create the framework. Now, vit isn't
+just for React. You can create u
+projects with a bunch of different
+frameworks, but in our case, we are
+choosing React. So, I'll choose that
+option and press enter. We're building
+this in JavaScript and we're only
+building this in JavaScript because I
+want to make it accessible for everyone,
+even if you don't know TypeScript. But
+if you are building a React project, I
+highly recommend that you eventually do
+learn TypeScript and I do have a video
+for that as well. Now, I'm going to
+choose use rolldown VIT because it's an
+experimental feature that eventually is
+going to be default in all VIT projects.
+It's just supposed to make your projects
+run and build faster. I'm going to
+choose that and then I'm going to choose
+yes to install npm and start. Now, this
+is going to create all the files and
+folders in our project and it's going to
+install all the dependencies. Now, the
+project is running and I opened it up
+inside of my web browser with uh by
+going to the URL localhost 5173 which is
+the port where every Vita application
+runs in. So, now let's get started. The
+first thing I want to do is I want to
+install the necessary dependencies that
+we're going to have in this project. So
+I'm going to open up another tab on my
+terminal and I want to install uh first
+Tailwind CSS. To do that I'm going to
+run npm install and then I'll install
+the base Tailwind CSS package but also I
+need to install the plugin for VIT. To
+do that I'm going to install the package
+at Tailwind CSS or /vit. Perfect. Now to
+set up Tailwind CSS in your project, I'm
+going to come over here to our Vit
+config. And the first thing I want to do
+here is I want to import from the at
+Tailwind CSS/V package. I want to import
+I want to import uh not from this curly
+braces just like this. The Tailwind CSS
+plugin and I need to add it to the end
+here of the list and call it. If this
+isn't added, then your Tailwind project
+won't be configured with uh your your V
+project won't be configured with
+Tailwind. Now, another thing I want to
+do is I want to change how we import
+packages. If you go into the project
+right here, you'll see that when you
+want to import something like a file or
+a logo like we're doing over here, you
+have to specify directly the path to
+that file. Right here, we're importing
+the React logo, which is just a SVG in
+the assets folder. And I have to
+directly put here the path towards that.
+Now instead I want to actually set a
+default path where every time I I put
+this on my import where I do like this
+import at this takes me back to the root
+so that I can always just quickly access
+the root of all my imports. You'll see
+how useful that is. And to do that we
+have to import path from path. And then
+in our uh define config over here I need
+to set a resolve and then an alias. And
+we can set the alias to be the at
+symbol. And we basically set the path to
+always resolve to the directory name at
+dot / src. I always do this in my react
+projects with vit so that I can easily
+import it. If you're familiar with
+something like this is how they do it by
+default. So now we can close this up and
+we can go to our app.tcsS. I'm going to
+delete this file. We don't need this.
+We're going to do all of our CSS stuff
+on our index.css over here. Then I want
+to delete all of this as well. And I
+want to import at the top over here.
+Tailwind CSS. This is a crucial line
+that you need to put. If you don't put
+this on your index.css file, none of
+your Tailwind will actually work.
+Because I also deleted my app.t CSS, I'm
+going to come to the app.jsx JSX and I
+want to delete that import over here
+together with actually everything that
+we have. I'm going to delete and make
+this component be completely empty so
+that we have a clean slate to build our
+project. Now to get started I want to
+just set up a bit of how our Tailwind
+infrastructure is going to look like.
+And the first thing I want to do is I
+want to define some custom colors for
+our project. Now what does that mean?
+Well, it means that throughout our
+project, we're going to have a bunch of
+different text. And those texts are
+going to have different colors. Not just
+text, but also different uh parts of it
+like backgrounds, even like border
+radiuses that we want to maintain
+consistent and are not things that
+already come with Tailwind. Like the
+green color we're going to have for the
+text that you saw in the demo, that's
+not a custom like that's not a a default
+color in Tailwind. So, we're going to
+have to create a color for ourselves. To
+define custom colors that you want to
+reuse, you just use the add theme at the
+top over here and then define the colors
+by adding double uh hyphens adding the
+word color and then defining the name of
+the color. For example, the background
+of our website is going to have a very
+specific color and we're going to be
+reusing this multiple times. It's going
+to be this hexadimal over here. Now,
+every time we now use the color named
+background and you'll see us doing this,
+it is going to use this color. Now
+there's other ones that we want to do as
+well. For example, I want to define one
+for foreground. Now what does foreground
+means? It means like for example uh the
+text that goes in front of the
+background should be white. So usually
+the the foreground color is the opposite
+uh in the color spectrum from the
+background. And I applied this version
+of white over here. Now there's a bunch
+of other colors we want to define. For
+example, we're going to have a bunch of
+cards in this project. And I defined
+this color for a card. Now we are going
+to I'm just going to copy and paste all
+of the remaining colors that we want to
+have in our project. And if you want to
+write one by one, you can just write
+them or you can just copy it from the
+code in the description. This is all we
+have to do. We defined a bunch of colors
+and also we defined a radius that we're
+going to be using multiple times in this
+project as well. Just for whenever we
+want to apply a border radius, we'll
+just use this. Now what I want to do is
+I want to come here and I want to define
+the base layer of our project. Now this
+is just going to be some of the initial
+elements that are by default part of the
+website. For example, uh everywhere in
+the in the HTML part of the website, I
+want to set a scroll behavior to be
+smooth. This is because we're going to
+have a bunch of scrolling through uh the
+different pages when you navigate
+through the navbar. And I want to set
+that to be the scroll behavior. Also,
+I'm going to define the body. Now, we're
+not going to make a lot of uh CSS
+changes directly from here. Most of it
+is actually going to be part of
+Tailwind, right? However, some of the
+stuff like the background color of the
+entire website and the general color of
+text, I can just define it over here.
+We're also going to define some stuff
+like the font that we're going to be
+using for this project. To define the
+overall background color that we want to
+use, I'm going to set a background
+color. And I want to actually use the
+background color that we have over here.
+To do that, I can use a var function
+that allows me to copy the name of this
+uh variable that we created over here
+and put it inside of here. Now, you see
+that the entire website changes that
+color. We're going to do the same thing
+for the text color and also for the font
+family. The text color, I set it to
+color foreground to make the text be
+white. And then for the font family, uh
+it's not a variable. It's just the font
+that we're going to be using in this
+website. Now there are different parts
+of the website that uses a different
+font. There's a specific part where we
+want to use the playfair display font.
+So I want to create a class called font
+serif because it's a serif font. And
+whenever I call this class I'm going to
+be changing the text to use this font.
+I'll specify when we're doing this. Now
+we're pretty much done with the basis of
+our CSS. And what I want to do is I want
+to come to our app.jsx and start
+defining the structure of the website.
+So to start things off, I want to change
+this to actually utilize a div. And on
+this div, I want to apply a couple base
+classes. The first thing is I want to
+apply a minimum height that is the
+height of the screen. So no matter which
+page we're in, at least the height of
+the layout is going to be the total
+height of whatever your screen size is.
+Then I want to apply an over then I want
+to apply an overflow in the X direction
+to be hidden. Then I want to define the
+structure of where we have the navbar at
+the top and all of the sequential
+sections. So to do that I'll call here a
+component we haven't created called
+navbar. And below this I want to have a
+main tag that will call all of the other
+components that represent the different
+sections. For the navbar let's create
+that component. To do that I'll create
+here a folder called layout. Now why is
+that? Well, I'm going to have a couple
+components that are specific to the
+layout of the website, like the navbar,
+the footer, and so on. And I'll put them
+in this folder because they are specific
+for that. We're also going to have
+another folder called sections, which
+will represent the different sections in
+our project. Now, for the layout, I'll
+create here a navbar.jsx,
+and I'm going to export a constant
+called navbar, and I'm going to set it
+equal to a component function. Then I'll
+return a header tag which for now should
+remain like that. Then I want to start
+by building the components and files for
+the different sections. Now what are the
+different sections we're going to have?
+Well, the first one is going to be the
+hero section, right? It's the first
+thing that shows up in the page. So
+we're going to create this and I'm going
+to copy what we have here for navbar.
+Paste it here and then just change the
+name of the component. Also, for all of
+the sections, this will pretty much be a
+section tag. We're going to use the very
+specific HTML tags to define each part
+so that we can keep everything
+organized. Then I'm going to duplicate
+this file and I'm going to create the
+next section. The next section is going
+to be the about section. So, we'll
+create an about file. Change this to
+about. We'll do the same thing now with
+the experience. So, we'll change this to
+say experience. We'll copy again. We're
+going to create a projects section and
+I'll change this to say projects. And
+then I'll copy again and I'll make the
+testimonials section. And I think that
+should be pretty much it. We just need
+one more actually. And I need to change
+the testimonials to say testimonials
+instead of project. So testimonials.
+And then on the testimonials copy, which
+is the copy we made, we're going to put
+the contact section. And then just
+change this to say contact. Perfect. Now
+I'll close all of these files because we
+don't need them open anymore. But we
+have all of the components created and
+files created for the different
+sections. Now we are not adding anything
+inside of them. But at least we have
+them set up. So we can just set up the
+structure. Now what is this structure?
+Well, we're going to have at the top the
+navbar. And then inside of this main tag
+and then inside of this main tag we're
+going to have the different sections.
+First it's going to be the hero section.
+Did we just call it hero? Let me make
+sure. Yeah, we just called it hero. Now
+to import. Now to import this, I'm going
+to come over here at the top and I'm
+going to say import from. Then I'm going
+to use the at symbol slash and I'm going
+to go into the sections slashh hero. Now
+because we set up the at as the path,
+I'll be able to import the hero
+component from here. You see that if I
+come here and I were to write something.
+Now if you come here to the hero section
+and I just write something, it should
+appear over here. But it doesn't. And
+that's actually because we are not
+importing the nav bar. So it's giving us
+an error. But if I change that, you see
+that it does. And that's why we you we
+change the ad symbol. So we don't have
+to, you know, put a bunch of dots over
+here to move back to this specific path.
+The ad symbol represents starting off in
+the source folder. So I just go to the
+sections folder and then to this
+specific file. Perfect. Now I'm going to
+do the exact same thing for all of the
+other components. I'll just copy them,
+paste it over here, then change it. For
+example, the second one's going to be
+the about. The third one is going to be
+the projects and so on. And then I'll be
+back in a second. Perfect. As you can
+see, I just set up all of them. And I
+imported all of the correct files. And
+now we're good to go. I want to start
+off by building the navbar. It's always
+what I start with because it helps set
+up the rest of the website. Now, to
+start things off, I want to set up the
+infrastructure inside of this navbar.
+We're going to have a nav section over
+here that is going to contain a logo on
+the left and also a button on the right.
+Now, this is depends if we're in desktop
+mode or in mobile mode. So, to start
+off, we're going to do it in desktop
+mode. So, in desktop mode, we're going
+to have here the logo on the side and
+also all the links appearing in the
+middle. So, we got to start off by doing
+the following. Inside of this nav tag,
+I'm going to put in a tag that is going
+to have the logo, which in my case is
+just going to be my initials, PM. And
+then I'm going to add a spin that is
+going to have a dot. Now, we're going to
+obviously add styling to them. It should
+look a bit like this. We're going to
+make it bigger, but for now, it that
+that's good enough. Then, what I want to
+do is I want to set up the other side of
+this, which is the side where we're
+going to have all the different
+navigation links. So I'm going to create
+here a div and I'm going to add a
+comment above here because this is going
+to be the desktop nav. Then inside of
+this we're going to have another div and
+we want to define a list at the top
+where it's going to contain all of the
+different links we want to use for
+navigation. Now to do that I'm going to
+create here the nav links list and
+inside of it it's going to be an object.
+That object will contain two things. An
+href which is basically where do you
+want to take the user when they click on
+this link. And we're going to do one for
+each individual section. The first one
+is going to be to the about section. And
+then a label. The label is going to be
+used for just what it's displayed as a
+text on the navbar. So I'm just going to
+write about with a capital A. Then we
+want to do this for all the other links
+as well. We're going to have one for
+projects, one for experience, and one
+for testimonials. Then we get this list
+and we loop through it so that we can
+show each link. To do that, I'm going to
+grab here the nav links. I'm gonna map
+it and for each link I'm going to render
+a an A tag and that A tag will allow it
+to be a link and I'll put the link the
+label inside of it. This will make it
+such that if I go here it renders the
+label of each of the links. I know right
+now it's just like not separated at all
+but it's an actual link that I can click
+to make it actually be clickable. I have
+to put here the href which is going to
+be the link.href. And you see that even
+though there's no sections, if I click
+on it, the URL changes because I'm
+navigating between the different
+sections. Perfect. Now, when you loop
+through lists in React, it's always
+important that you pass a key to the uh
+highest level component or element that
+you return. So, I'm just going to get
+the index of each item and I'll just use
+that as the key to help in to help React
+process the list better. Now I feel like
+it's time for us to add the styling for
+the navbar. We created the elements but
+I think the styling comes next. So to
+start things off in the header tag over
+here I want to add a class name and I
+want to make it fixed at the top because
+the network will scroll down with us so
+that you always have access to it. So to
+do that I'm going to pass the position
+as fixed. Since I'm put passing a
+position fixed I need to set it to the
+top left. So put a top of zero and a
+left of zero. Then I want to make the
+background of the navbar be transparent.
+You'll see why later, but basically the
+navbar background will be transparent up
+until when you scroll down and then it
+becomes something else. It has like a
+glassy look to it. Then the next thing
+is I want to put a padding in the y
+direction of five because that should
+create a lot more space uh to actually
+form the navbar. Then on our nav over
+here, I'm going to add a bunch of
+classes that are going to help define
+the actual navigation. So to start off,
+I'll make this a container and set the
+margin in the X direction to be auto.
+Also, I'll put a padding ax to be six
+and I'll set the display to be flex,
+which will allow me to center the items.
+As you can see, now I want to justify
+them in between, which will basically
+actually let me remove this hero section
+that I I realize now that I that text is
+ruining what we have for the uh for the
+navbar. Yeah, now it looks like a
+navbar. I want to put a justify between
+because then it will make it such that
+this is absolutely on the left and this
+is absolutely on the right. To do that,
+I'm going to come here to our navbar and
+I'll set justify between. And you'll see
+that now it should have a separation,
+but it doesn't because it doesn't know
+where this navbar should end. So to do
+that, I'm going to add also a right zero
+to say that it ends at the right, the
+absolute right. And you see that now the
+logo appears on the left and the links
+appear on the right. Perfect. Now on our
+a tag over here which is the logo. We're
+just going to set an href to be this
+which basically will just just take you
+to the top of the page. And then I want
+to add a class name here. That will make
+the logo have a size of XL. The font to
+be bold. The tracking to be light. Now
+obviously text to be Excel and the font
+to be bold. You understand what it is.
+It just makes the text a lot bigger and
+the font will be bolder. But tracking
+light is related to letter spacing. So
+by setting it to light uh we're pretty
+much so tracking light uh actually this
+should be tracking tight. Sorry. Uh
+tracking tight is related to the letter
+spacing of the text. So by setting it to
+tight is as if you were setting a letter
+spacing to be something like0.5
+or0.02
+or something like that of em in letter
+spacing. So, uh, it will make the text
+be a little bit more put together. Then
+I want to set the text to actually not
+have then the text right now is white
+because we set all of the text to be of
+color foreground, right? However, I have
+this primary color over here, right? And
+this is the green color that we're using
+throughout the website. So, what I want
+to make it is that when you hover over
+the logo is going to make the color of
+the text be that primary color. To do
+that, I just set it to text primary. And
+now all of a sudden if I hover this it
+will become uh the greenish color. Then
+also the dot that we have here the
+reason why we put a pen in between the
+dot and the name the initials is just so
+we can make that always be green. So
+I'll do text primary and it will have
+this green color already by default. Now
+let's go to the desktop navigation in
+here. I want to set the following. I
+want to set the items to be center and
+for them to have a gap of one. And then
+I'll put here a display of flex. Now the
+next thing I want to do is I want to
+come to the div inside of this and I
+want to set the class name to be glass.
+Now what is glass? Glass is a class that
+we haven't created yet. It's actually
+going to be the background of this
+navbar system and we're going to reuse
+it multiple times in this project. To
+create a tailwind class that we want to
+reuse, but it's not just like something
+small like a a collar. Uh it's something
+a little bit more elaborate. We have to
+utilize a another type of layer. This is
+going to be the layer of components.
+This are tailwind CSS CSS components
+that we can reuse in our project which
+are basically just normal CSS classes
+but that we can call um in our class
+name. So I'll create the glass class and
+what I want to apply to it is I want to
+apply the following. First we're setting
+it background color to be a mix of the
+color uh between the color surface which
+is what we have over here for uh
+surface. It's this black color over here
+and transparent. Also, we're adding a
+backdrop filter, which is going to add a
+blur of 16 pixels. You can play around
+with the blur if you think it doesn't
+look like the glassy effect that I want
+it to be. Then, we're going to add a
+border here, which should use the color
+border that we also defined at the top.
+And just like that, this should have
+this glassy look. Now, because we
+haven't added more styles to this, it
+doesn't really look like anything, but
+you'll see in a second how good this
+actually looks. So to get that to look
+better, we're going to add here a
+rounded full, which should add a border
+radius to this uh navbar. Then I want to
+add here a padding in the x direction of
+two and a padding in the y direction of
+one. Also a display flex. I'll center
+the items and I'll put a gap of one in
+between each of the items. Now you can
+see it a lot better. Then what I want to
+do is I want to come inside of this a
+tag over here. And for each tag, let's
+add a bunch of class names. I'll make
+each individual link have a padding in
+the x direction of four, so they have
+more space and a padding in the y
+direction of two. I'll make the text be
+small. And the color of it is actually
+going to be using this other color that
+we defined called muted foreground. It's
+basically the color of our foreground
+color, but a bit muted. So the
+foreground color is white. The muted
+version is like grayish. So we'll do
+this. We're going to say muted
+forground. Then we're going to add it
+such that when you hover it, it then
+becomes the foreground color which is
+white. I'm going to make it such that
+each of the links will be rounded full.
+And you'll see that now they look a lot
+better, right? As you hover them, it it
+is gray and then it becomes white. But I
+also want to make a specific like uh
+background to each of the links as well,
+especially when you hover it. So when
+you hover the section, each link, I want
+to add a bg, which is going to have the
+color equal to surface. It's this color
+over here. So to do that I'm going to
+set here BG surface. And as you can see
+now when I hover this it creates this
+really cool effect. Now we want to add
+the call toaction button. That call to
+action button is going to exist uh below
+this desktop nav and I'm going to write
+over here CTA button and it's going to
+be a button that leads you to the
+contact section. So I'm going to add a
+div over here which is going to call
+this component which we haven't created
+yet called the button. Now, why are we
+making a component for button? Well,
+we're going to have multiple buttons in
+this project and it's going to be super
+useful for us to just have one component
+that we can reuse and it specifies all
+the classes and styles that we want for
+what a button should look like. To do
+that, I'm going to come here and I'm
+going to create here a folder called
+components. Now, in the components,
+we're going to create any shared
+components that we're going to have in
+this project. For example, the
+button.jsx.
+Now, in this button component, we're
+going to export a constant called
+button. And this component is going to
+have a lot of variety to it. So, it's
+going to require us to pass in some
+props. For example, if you want to
+customize anything else on the button,
+you can just pass in a string, which is
+the class name. And all of the styles
+that you pass as a as the class name
+prop will be added to our style. Also,
+there's going to be this size prop that
+we can pass. There's going to be three
+sizes we want to specify that you can
+use for the different buttons and we can
+reuse it throughout our project. Then
+we're going to accept children and
+that's just because when we uh call this
+component we want to allow the caller
+which is just ourselves in different
+components to specify the label inside
+of it. Now I'm going to return a UI that
+is going to be a normal button but it's
+going to have a lot of specifications to
+it. For example, it's going to have a
+span inside of it with the children. Now
+if I come here to the navbar and I
+import that button over here. So import
+button from the at components/button
+then I can just put here the contact me
+label and we should see that button
+appearing with the correct label. But
+let's add the rest of the styles. First
+things first this span over here it's
+going to have a default class to all of
+it which is going to say uh the position
+is going to be relative. Then we're
+going to set a display of flex. We're
+going to center the label. So item
+center. We're going to justify it as
+well to the center. And we're going to
+set a gap of two. Then what I want to do
+is I want to define some base classes.
+So I'm going to pass here a variable
+called base classes. Set it equal to a
+string that is going to represent the
+base classes for what a button should
+look like in our project without the
+need of or caring about the different
+sizes and so on. So to start things off,
+we're going to set a position to be
+relative for the button. We're going to
+set overflow to be hidden. We're going
+to set a rounded full as the uh border
+radius. And I'll also just open this up
+a bit so you guys can see slightly the
+button as we write. Obviously throughout
+the rest of the tutorial, uh when we
+have the uh mobile part being done, I'm
+going to show the UI as I write the
+code. But just for now, since we're
+making the desktop part, it doesn't make
+sense to do that. So I'll hide the the
+the browser with my code editor. Then I
+want to actually let me just apply this
+this classes. These are the base
+classes, but we're going to make some
+changes to the final classes based on
+it. Right now, we're just going to apply
+the base classes to that. And I'll just
+pass the class name and then insert
+those base those classes in here. Now,
+what else I want to do? Well, I want to
+set the font to be medium. So, it's a
+little bit more bold. And then I want to
+set the focus of this button, which
+right now it's barely a button. You can
+barely click on it and so on, but it'll
+be fine. Then I want to add here the
+focus. I want to change some stuff out
+of when you focus on the button, like
+removing the outline when you focus on
+it. I also want to add a ring when it is
+visible. So, when I focus on the button
+and it's visible, I'm going to add a
+ring, which is of size two. A ring is
+just kind of like a a border that goes
+around inputs. Then I'm going to set the
+same kind of style, but I'm going to
+change the color of that ring when it's
+focused. The color is going to be
+primary. It's the green color. Then I'm
+going to set a background color is also
+going to be the green color. And I'll
+text I'll just put the text color to be
+the primary foreground color. So it's
+the color that we should use in front of
+the primary color, which is green. Then
+finally when we hover this I want to set
+the background to be the same primary
+color we have right now but I want it to
+be 90% opacity by adding the division
+symbol over here in Tailwind. It
+basically it removes the opacity
+slightly. I don't know if you can see as
+I hover that. Then the last thing I want
+to do is I want to set a shadow that is
+large and also a color of that shadow to
+be the primary color but that's too big.
+So I'm going to make it 25% opacity.
+Perfect. Now we're almost there. But you
+might be wondering why is it all
+cluttered up, right? Why is the button
+so small? That's because here's what we
+need to do with the size, right? So when
+we define this variable here, base
+classes, this applies to every button,
+no matter which size we choose. But in
+the classes over here, we're going to
+actually use some string templating to
+apply the base classes. But depending on
+what size we define, we're going to
+apply different class names. So we have
+to define here the different size class
+correlation. It's going to be an object
+and depending on which size you define
+that you want for the button, we're
+going to apply different styles. For
+example, if you want the button to be
+small, you're going to pass SM as the
+size on the uh prop over here. And if
+that's the case, then I want to apply
+the following sizes. I want to say the
+petting x will be four, the petting y
+will be two, but the text is going to be
+small. Now in the medium uh it's going
+to be or I'm going to say default
+actually we're going to set it to be
+petting x of six petting y of three and
+the text will be base which is just the
+base size. Finally if I want the button
+to be large then I'm going to set the
+petting x to be eight the petting y to
+be four and the text to be large. Now I
+can just grab though the corresponding
+class by getting this size classes
+applying it over here just like this
+getting the individual class or the
+individual class names based on the size
+prop and applying it. Now if I do this
+nothing happens because we are we never
+passed anything for this. Now size can
+be null if we don't pass it right I'm
+calling here and I'm not passing
+anything for that prop. So I actually
+want to default it to the default uh
+size in case you don't pass anything.
+And you'll see that it becomes a lot
+bigger by default. Now we actually do
+want to pass something and I actually
+want to make it small, not default. So
+I'm going to pass here the size prop and
+I'm going to pass it to be small. So
+it's a lot smaller. Then I'll come here
+to the button and there's just one more
+thing I want to do. If I ever want to
+specify any extra class names, I'll just
+insert them directly over here. Other
+than that, we are good to go. I'll also
+put here as an empty string just so that
+it defaults to an empty string. Now,
+let's close this up and go back to our
+navbar. Now, we're pretty much done with
+how the navbar should look like in dash
+desktop. However, it doesn't look good
+if we go into mobile. Let me scroll this
+like this. You see everything gets
+cluttered up and it looks horrible. So,
+I think it's time for us to work on
+that. So, to do that, I actually want to
+hide all of this, right? The desktop
+navigation and even this button. if I am
+in a small screen. To do that, it's
+actually pretty simple. What I have to
+do is when I go here to the desktop
+navigation, you see how we set the
+display to flex to hide this section. I
+can just set the display to hidden. But
+then it would hide it as well if I make
+this a lot bigger and we don't want
+that. So actually I can specify that I
+only want it to be hidden in small
+screens. But when the screen is a
+mediumsiz screen and above, then I want
+to set it to be display flex. Again,
+you'll see that in a small screen or
+anything below medium, it's it doesn't
+show, but as I scroll up, it appears
+again. That's how you do some responsive
+design using Tailwind CSS. We'll do the
+same thing with other parts of this. For
+example, with this uh contact button
+over here, we actually don't want it to
+appear uh if it is a small screen. So,
+I'm going to set it to be display
+hidden. And if it a medium screen and
+above, I'm not going to use display
+flags. I'm going to use display block
+just cuz it makes more sense in this
+case. Then we want to create the mobile
+menu button. But in this case, we want
+to do it a bit different because we want
+to make it only appear if the user is in
+a small screen, not if it's in the big
+screen like we were doing before. So to
+do that, I'm going to create a button.
+And this one, we're not going to be
+reusing the same class name just because
+this button is very specific. It's a
+mobile navigation button. And in here in
+the class name, I want to make it such
+that it is hidden in a medium screen and
+above, but it's a normal display flex or
+display block if it's not a medium
+screen and above. Also, we're going to
+add a padding overall, not just in an X
+or Y direction of two. And I'll set the
+text to be the foreground color. Then I
+want to make the label of this to be an
+icon. Which icon? Well, it's a hamburger
+menu icon. But to use icons, I need to
+install another package. We're going to
+be using an icon library which you might
+already know because it's one of the
+most famous one out there. It's Lucid
+React. I'm going to install Lucid React.
+And I'm going to come back over here and
+I'm just going to call the menu
+component. The menu component is a
+component from Lucid that just renders
+the icon for the menu, which is the one
+that we want for the mobile menu. We can
+also specify a size over here. And I'll
+set the size to be 24, which is pretty
+much the same as it is already. Now,
+it's time for us to build the actual
+mobile menu. So, to do that, I'm going
+to create another section over here.
+Call it mobile menu. And in here, we're
+going to add a div. And remember, since
+this is only in mobile, we need to do
+the same logic we did over there, where
+in a medium screen and above, I want to
+hide it. But other than that, I want to
+actually have it be a real section. Now
+I want to use the glass class for this.
+However, uh I want to make it a bit
+different. We have here the glass class.
+I want to have a version of this that is
+slightly stronger. That means 80% for
+the color mix, 80% for the border, and
+also the the blur. I don't want it to be
+16. I want it to be 24. It's just a
+slightly stronger version of this. So
+I'll just copy and paste here this other
+class. It's the same thing, but you saw
+that we changed a bit of the items. and
+I'm going to use it as the type over
+here, glass strong. Then inside of this
+div, I want to add another div. This one
+is just going to contain the same stuff
+that we pretty much had over here. So,
+I'm going to copy this and I'll just
+paste it inside of here. It's just going
+to render the individual links, but it's
+definitely going to be different. Why?
+Because in that case, in the normal
+desktop menu, everything was appearing
+one right next to the other. But in
+mobile, they should appear vertically.
+So to start things off, I want to come
+over here, set this to be a container, a
+margin X to be auto, a padding X to be
+six, and then a petting Y to be six as
+well. Finally, I want to display to be
+flex, but then the direction is going to
+be column, so they stack on top of each
+other. Then I also want to put a gap of
+four, which is space them out just
+slightly. And then inside of here, I
+want to make some changes to the actual
+links. Now, what do I want to do? Well,
+they're completely different in mobile.
+So, I will remove most of that. And I
+want to make it such that the text is
+actually larger in mobile, so it's
+easier to see. The color is still going
+to be muted foreground, which is what we
+had before. And we're going to have that
+thing where when you hover it, it
+becomes foreground. Hovering in mobile
+is kind of useless in my opinion, even
+though you still have to do it because
+who hovers over things in mobile, but
+we'll do that. And then I'll put a
+padding Y of two. Perfect. Then we also
+want to have the contact me button like
+we had before. I'll just copy this and
+I'll put it directly below this. We
+don't have to do that check. And it
+pretty much is exactly how I want it to
+look. Now, you can make it bigger if you
+want to since it is in mobile. I'll even
+make it bigger. Actually, I think I like
+it this way. Uh, no. Let's make it the
+medium one. That's fine. And now, here
+is where you might be wondering. Okay,
+that's fine. But when like how do I make
+it only appear when I click on this
+button? Because right now, it's
+appearing no matter what. And that's a
+good question. Now to do that we need to
+keep track of whether or not the user
+has clicked on this button and that
+requires us to have a state and I'll do
+that by creating one over here. We're
+going to create a state called is mobile
+menu open and set is mobile menu open is
+going to be a use state which is a
+boolean that starts off as false. Now we
+only want to show this mobile menu if
+the is mobile menu open is true. So I'll
+wrap this entire thing around with this
+conditional and I'll put a double emper
+to represent that I'm only showing this
+if this condition is true. Now how do we
+make this condition become true? Well on
+the mobile menu button we're going to
+add an on click to it and we're going to
+basically call the set is mobile menu
+open and we're going to set that value
+to be the opposite of what it is right
+now. So that it's kind of like a toggle.
+I click on it, it becomes false or it
+becomes true because initially it's
+false. And then if I click on it again,
+it becomes false again. So it just
+switches its values. So to do that, I
+need to get what the current value is. I
+can access it in this callback function
+and set it to be the opposite of that.
+Now when I click on this, it opens. When
+I click on it again, it closes. I can
+keep clicking it if I want to. But the
+icon here should actually change also if
+I click on it because if not, then it
+looks a bit weird, right? because it
+shows it as in menu. Actually, what I
+want to do is if the is mobile menu is
+already open, then I want to show a
+different icon, the X icon. If it's
+false, then I want to show the menu
+icon. I'll also set the size to be 24 to
+maintain consistency. Now, you see that
+when I hover this and I click on it, it
+should work. But it actually breaks the
+website. Let's check to see why. Oh, it
+seems like we didn't import X from Lucid
+React. I apologize for that. Let me do
+that again. And yeah, you see that now
+it switches. It's basically just an X.
+If you want to just use X, you can do
+that, too. But I prefer using the icon.
+I also want to make it such that when I
+hover it, it um it actually changes the
+cursor to be pointer. So I'll do that.
+And you see that it does do that.
+Perfect. Now you see that when I show
+this, it doesn't have a smooth animation
+like you might have seen in my demo.
+Actually, we wanted to animate like a
+fade in animation as you press on this.
+And there's different ways to do
+animations in Tailwind or in CSS in
+general. However, we're going to be
+using normal CSS animations for this
+project. So, for all the animations
+we're going to have in this project, I'm
+going to come here to our index.tss. And
+in here, I want to create a layer, which
+is going to be the utilities layer. This
+layer is going to be used for all of the
+utility classes, like for example,
+animations. Then, I'll define an
+animation. The first one we're going to
+have is a fade in animation, which it
+just fades some element into the page.
+Now, to do that, we need to set an
+animation. Now, an animation requires us
+to put a couple things. The first thing
+is what is the actual animation name or
+the animation that you want to create.
+So, we're going to create a fadein
+animation. I'm going to call it fade in
+and we'll create it up here. To create
+an animation, we'll set key frames, give
+it a name, fade in, and we have to
+basically um specify the initial
+condition of this animation and the end
+condition. The initial condition will be
+defined by a from and the end condition
+will be defined by a two. So, it goes
+from this state to this state. Now,
+initially to fade in, you want to have
+the item have an opacity of zero and
+then when it's over, that opacity will
+be one so it becomes fully visible.
+Also, you kind of want to it's fading
+in, so it kind of moves slightly, right?
+It starts at a position slightly above
+what it should be at the end. So, I'll
+set a transform over here and use the
+translate Y function and basically
+translate Y that item 20 pixels above.
+Then I'll set it back to zero when it's
+done. And finally, I want to add a
+slight blur when it is when it starts.
+And I'll set that to 10 pixels. And then
+I'll remove that blur when it's over. So
+I'll set it to zero. Now just like this,
+we can come here and add this animate
+fade in class. Now absolutely nothing
+happens as you can see. Why? Because we
+basically didn't define how long and how
+this animation should play out. So to do
+that, we're going to set the duration to
+be 0.8 seconds. So it takes just a
+slight amount of time to animate in as
+you can see. And also I want to set in
+the ease out and both. What you'll see
+is that now when I refresh this, it has
+a way smoother animation in into the
+page. Perfect. That's the first
+animation we're going to create. And
+we're going to create a lot of other
+animations. Now, from now on, since I
+already went into detail about how to
+create this animation, whenever we have
+an animation that we want to create,
+I'll copy and paste them into the
+utilities layer, and I'll just talk
+about them. I won't show myself writing
+so that I don't waste ourselves our
+times. Now, we're pretty much done with
+our navbar and we can get started on our
+first section. Okay, everyone. To start
+things off on the hero section, we're
+going to start by defining some of the
+most basic classes that we're going to
+apply to every single section. So, for
+the hero section is actually a bit
+different because the hero section
+should be the first thing you see and
+it's going to fill up the entire screen
+and then you're going to be able to
+scroll down. So, I'm going to set a
+position to be relative, a minimum
+height to be of this screen size, then a
+display flex, an items center, and an
+overflow hidden. Then, inside of this
+section, we're going to first set the
+background. The background is going to
+be the background image to this section.
+So, I'm going to set a div and I'm going
+to put an image inside of it. Now, you
+can use the same image I use on my
+project by downloading all of the assets
+in the description. In fact, uh, if I
+already added all of those assets into
+this project, it's going to be on the
+public folder. So, if you go to your
+public folder, as you can see over here,
+I added a bunch of stuff over here. The
+first thing is I added this image called
+the herobg, which is just the background
+image we're going to put in the hero
+section. I also added a profile photo.
+This is clearly AI generated. I
+literally uh I got it from like either
+the internet or I generated with PT, but
+you can put your own picture, of course.
+Um, it's the photo that's going to show
+up over here. Then for projects, these
+are photos of actual projects that I've
+made videos on. So, uh here is where
+you're going to add the photos for the
+projects that you have built and you
+want to showcase. So, you can add as
+many as you want. I'll show you guys how
+to um add more projects later, but I'm
+just adding the photos initially just so
+we have that ready. But most
+importantly, we want to use this herobg
+image that I have over here. So to use
+that what I want to do is on this image
+I want to set the source to be equal to
+/herobg.jpg
+because if I access if I put images and
+assets on the public folder you can
+access it directly without having to um
+put the specific pathway. Now you see it
+shows up over there but obviously
+there's so much more we want to change.
+I'm going to add an alt over here which
+just says hero image but you can add
+something more specific for
+accessibility. Then I'll add a class
+name. The class name is I want to make
+the width be the full width of the
+screen, the height to be the full width.
+Um, and then I want to set the object to
+be covered and the opacity to be 40.
+Now, the object cover doesn't really do
+anything yet, but the opacity, you see,
+it blends in a little bit better. Now,
+what I want to do is I want to set this
+div to have a class name of position
+absolute. So, it should be position
+absolute and then have an inset to be
+zero. So it actually blends in really
+nice. Then below this, I'm going to add
+a div that is actually going to be a
+self-closing div. This div will have a
+position of absolute, another inset of
+zero, and I'm going to set a gradient to
+be accompanying this image. It's going
+to be a gradient. And to build a
+gradient to the background, you set the
+bg to have a gradient. And you say 2B.
+When when you say 2B, it basically
+starts at the top and then goes to the
+bottom. So that's what it does. If you
+wanted to do it to the right, you could
+do to right. Now, I want to make it 2B,
+so to the bottom. And I want to take it
+from the color background, but
+background with only 20% opacity cuz I
+thought that was a bit too strong to
+eventually get to the background at the
+bottom. You see it now has this
+gradient. However, I also want to add a
+color in between. So, to add a color in
+between the two, so it's a gradient with
+three colors, you add a via in the
+middle, and you add whatever color you
+want to do. I'm going to make it such
+that it goes from 20 to 80% opacity to
+full opacity. So I'll make it here in
+the middle. It will be 80% opacity. So
+this is the background image with the
+gradient around it. Then here's where it
+becomes a bit cool. I want to make some
+really interesting green dots that just
+like float around the screen. You've
+probably seen this so many times on
+websites. I think it's really cool. I've
+added multiple times in my projects. And
+even if you don't want to add it, I
+think it's a good work experience. like
+you you'll understand how to do this and
+maybe use that for other projects. What
+we want to do is we want to create a div
+and in this div we want to actually loop
+through an array of 30 items. 30 items
+because we want to have 30 dots but you
+can choose the different value for it.
+To do that it's a nifty hack here. You
+create an array by using the array
+function and you define the length. I'm
+defining to be 30. It'll create an array
+of 30 items that are pretty much empty.
+It's nothing. You don't need to care
+about what goes inside of it. What you
+need to care is that it's going to loop
+through them 30 times. Now, for each
+item that it loops, we want to get the
+index of that item. And then we want to
+render a div. And on this div, we're
+going to render a green dot that
+represents it. So, I'll start with a
+class name. I'm going to set it to be
+absolute. The width of the dot is going
+to be 1.5. And the height is going to be
+1.5. Then, because it's a dot, it should
+be fully rounded to make it into a
+circle. And then the opacity I'm going
+to set it to be 60. Now you're not
+seeing anything on the screen, right?
+But that's because to make this work, we
+it would be better if we didn't actually
+use Tailwind. We applied most of the
+styles directly through CSS using the
+style object over here. For example, I
+want to apply the background color and I
+want to make it be uh this green color
+over here. It's pretty much the you see
+all of them now are appearing, but
+they're all appearing one on top of each
+other. So it's 30 dots appearing over
+here. Then I want to actually define
+where they appear in the screen. So
+because the position is absolute, I'm
+going to have to define a left and a
+top. But I want them to be random. So I
+want to make it such that the left
+positioning, it's going to be a random
+position. And I'll do this by adding a
+variable over here. math.random using
+the random function. And I want it to be
+one value between zero and 100. To do
+that, I just multiply this times 100.
+Now why 100? because 100% of the screen
+or 100% of the horizontal width. So this
+is a percentage. So that's why I made it
+into a template string so I can put the
+percentage sign in the end. Now I'll
+copy this and do the exact same thing at
+the top. And you see that they randomly
+appear as I refresh this. They'll always
+appear at the random places. Now we do
+want to make them animate where they
+move because this looks really ugly if
+you want to do it this way. And also I
+want to add some class names here to
+make just the overall thing look better.
+I want to make this be absolute. set the
+inset to be zero and the overflow to be
+hidden. And I want to remove any pointer
+events. That's just to make sure nothing
+funky happens. Then I also want to make
+sure if you notice when we added this uh
+thing that covers everything, right? It
+kind of appears above the the navbar. So
+I need to change some things on the nav
+bar to make that work. For example, I
+want to make the nav bar appear on top
+of that gradient. So I'll set the zindex
+to be 50. So now it actually appears
+just that. Now we'll come back here and
+we'll apply the animation. Now how do we
+apply that animation? Well, we need to
+create that animation. So I'm going to
+come here into our index.css and I'll
+create it. Now remember I already told
+you I'm not going to show myself
+creating every animation. So I'm just
+going to paste this animation first.
+I'll start with the key frame. The
+animation is going to be called slow
+drip. It's going to have actually a good
+amount of stages. On this one we just
+had two stages. It starts at a point and
+then it ends at another. So that's why
+we use the from and to. But when you
+want to actually have very specific
+structures, right, it goes from 0% to
+25. So there's four steps in the way,
+you can add percentages instead. So it
+starts and ends at zero, meaning all the
+dots will always start and end at the
+position they were assigned when we used
+the math.random over here. But then at
+25, it will translate to the to the left
+20 and also -30. And then it will move
+another uh set of positioning on the 50%
+and then again on the 75%. Now because
+we're using this animation on our uh
+style class over here, we don't have to
+create any tailwind um classes in here.
+We can just do it directly here. So I'll
+just do that. I'll set the animation to
+be equal to slow drift. Now you see
+nothing happens until we add a certain
+length to that animation. We could for
+example add here 1 second. And you'll
+see that we could for example add here I
+don't know 50 seconds and you'll see
+that they will start moving. However,
+they're all moving in the same direction
+and they're all moving at the same time.
+That's why because we also want to
+randomize how long it takes for the anim
+animation to happen. So what I do is I'm
+going to add 15 plus math.random and
+make it be a random value between 0 and
+20 and then apply that to seconds. So
+they're all moving at actual different
+rates. Then I want to add the is in out
+property and make it infinite so that
+when it ends it actually restarts the
+animation. Now it actually looks like
+they're moving on their own. Now I also
+want to put an animation delay just so
+that they they don't all start at the
+same time because if we do that then
+there is a chance that they actually all
+start moving in the same direction just
+by chance right but with an animation
+delay we can actually make it such that
+some of them are going to start at a
+different start time than others. So I'm
+going to set math.random and I want to
+make them start at an interval of 0 to 5
+seconds. So you see some of them takes 5
+seconds to start, some don't take any
+time. Perfect. Now we have our dots
+created. Now it's time for us to create
+the content of the hero section. So I'll
+create here content and then I'll define
+here the div for this section. We'll
+start by adding another div inside of
+it. And we'll separate our hero section
+between a column, a left column, which
+is basically going to be the text
+content of this hero section, and we're
+going to have the right column, which is
+going to be the uh profile image. Now,
+for the left section, we're going to add
+a div, and we're going to add a little
+badge. Now, this badge is going to be
+for the name of the section. So, I'll
+show you how it will turn out at the
+end. So, this is the final result,
+right? This is how it's going to look in
+the end. You see that uh this is the
+badge I'm talking about. Now, in mobile
+mode, it doesn't matter. They don't have
+this uh this left and right column, but
+we're going to start building uh for
+desktop at the same time. So, we'll
+structure it this way. And we want to
+start by building that batch. To do
+that, I'm going to add a span over here
+that is going to show what your position
+is or what you work as. So, I'm going to
+put software engineer, but you can put
+whatever you want. and I'll put that I
+am a React specialist, but you can put
+whatever specialization you want to
+choose. Now, what I want to do is I want
+to just apply the styles. So, I'll start
+off by adding a style here to this span.
+I'm going to make it such that it has a
+width of two, a height of two, a BG that
+is going to be primary, and it's going
+to be rounded full. So, it's that green
+uh rounded pill, right? But it's behind
+our gradient. So, we'll have to address
+that. Then I want to make it such that
+this div is going to have the animate
+fade in. Most of our elements from now
+on are going to have an animate fade in
+which is that animation we created for
+the navbar just because we want them to
+appear immediately when the user appears
+in the section. We also want to wrap
+this span with another span just so we
+can apply some some uh styles. Now, if
+you're confused why sometimes I add div,
+sometimes I add spans, it's just because
+spans literally has no inherent uh
+styles to it. So, it's good for us to if
+we want to apply styles without having
+any other um side effects to it. Now, in
+this span, I'm going to add a class name
+where the display is going to be inline
+flex. The items are going to be
+centered. And then I'm going to set the
+gap between the two items. A gap of two.
+And then a padding X of four and a
+padding Y of two. Then I want to set the
+rounded to be full. I want the
+background to be glass. And then I want
+to set the text to be small and the text
+to be primary. Now, you might be
+wondering why we screwed it up, right?
+Because it looked already good before.
+But here's what we have to do. we have
+to remove this and then make it such
+that this is self-closing and now this
+will be part of this. Then on this div I
+want to set the um class to have a space
+in the y direction of eight. That's
+because this is the left column and in
+between the text and all the sections
+here there's going to be a gap of eight
+in between each item on the y direction.
+Then just to set this up finally I'm
+going to set this the class names for
+this outer uh div here. I'm going to set
+it to be a container, margin X to be
+auto, padding X to be six, padding top
+to be 32, padding bottom to be 20,
+position to be relative, and the Z index
+to be 10. Then on this div, I'm going to
+set this to be a grid. However, only if
+you are not in a very large screen. If
+you are in a very large screen, then I
+want to set the specific amount of
+columns to be two because when you
+expand this and you get to a large
+screen, it becomes two columns in this
+section. But in normal ones, it becomes
+one column, right? So that it actually
+stacks one on top of the other. I'm also
+going to put a gap of 12 in between each
+item. Now, we won't see any change in
+that just because we we only have one
+items right now. But I'll also center
+everything. Now, we're almost done. The
+only thing I want to do is if you notice
+this has a little pulsing animation as
+you can see and I want to add that as
+well. To do that I'm going to add an
+animate pulse over here to this spin.
+Now do we have to make that animation?
+No. That's actually an animation that
+comes already with Tailwind CSS. So we
+don't have to worry about making it
+ourselves. Now we'll come down below
+this div and we're going to add the
+headline for the hero section. So we'll
+create a div and we'll add an H1 text
+that will say something in the lines of
+this. So I added here I just copied and
+paste it just because whatever you write
+is going to be very different from what
+I write. But uh it came with already
+some styles that I'll just explain what
+it is. So right off the bat just put
+something like for example that is catch
+you right it's what's going to appear at
+the top of your page. In our case we
+want to put this crafting digital
+experiences with precision. But here's
+the kicker. We want to make it such that
+it is very interactive, very, you know,
+you can look at it and be like, okay,
+they put some time into it. So, we made
+it such that there's a clear change in
+the pattern of the text. The big part of
+the text is just a normal white um text,
+but then the digital part over here is
+going to be green, which is the primary
+color. And then this last part,
+precision, is going to be a different
+font. That's why we created the font
+serif class in the beginning. It applies
+a different font. And also we made it
+itallic by setting the italic class. Now
+we also want to make it font normal and
+text white. And I wanted to do this as
+well. Set the color of the digital to be
+text primary. And then there's this
+class that we don't have right now. It's
+going to be called glow text. And it's
+going to make a text have a little glow.
+So how do we make that class? Well,
+we'll come here to our index.css. And
+similar to how we did with the glass and
+the glass strong, this is going to be a
+class that is a component. We're going
+to create a class called glow text. And
+all it does is it sets a text shadow and
+it uses our color primary together with
+the transparent color to make a subtle
+shadow around the text. Now we can
+continue moving forward. The next thing
+we want to do is add a paragraph tag
+that should appear right below it. It's
+a little bit description of what you are
+like who you are. Right? So I added this
+paragraph tag as well cuz it's going to
+be different for you guys. Um, and it
+came with a little bit of uh some class
+names like a text large to make it
+bigger, a text muted foreground to
+change the color to gray, and I made the
+whole section be a little bit bigger.
+Now, I put this, it's clearly AI
+generated. I obviously I'm not going to
+write a copy for this. I just asked Chap
+to generate a description of myself, but
+uh you can put whatever you want and
+make sure that it doesn't sound like
+corny, you know? I mean, I think mine
+already sounds a bit corny, but make it
+personal, but also make it make sense to
+who you are as a developer. Now, here's
+the kicker. Because we applied the
+animate fade in, you see that this top
+over here fades in, right? But the way
+we want it to happen is actually like
+this. There's a delay between the
+different sections of the hero section
+and how they fade in. This fades in
+first, this fades in second, and then
+this fades in after. You'll see that
+when I refresh the final product, this
+is exactly what happens. So, here's what
+we have to do. We have to set a animate
+fade in to uh one of the sections over
+here. Uh we're going to add more stuff
+to this. But uh for now, let's just
+focus on this. I'm going to add an
+animate fade in here. Now, we don't want
+it to happen at the same time, right?
+Then I'll come here to this div. I'm
+just going to put a space of y of four
+so that there is a gap between this text
+and this one. And then let me come to
+this H1 tag and let me just set a class
+name here. I'm going to make it 5 XL so
+it's a way bigger. Then I want to make
+it be on a medium screen and above I'm
+going to make it even bigger. 6 XL. In a
+large screen I'm going to make it be 7
+XL. Then I'll make the font be bold.
+I'll change the leading. Remember we
+made it tight. And then I'm going to add
+the animate fade in. But here's the
+kicker. We want to make it such that
+they don't appear at the same time. This
+appears first, this second, and then
+this third. To do that, we're going to
+create a bunch of animation delay
+classes. So down here in our utility
+layer, we're going to create a animation
+delay for each amount of delay we want
+to set. So I already created here. It's
+very repetitive. And what this looks
+like is like this. If I want to apply a
+delay of 100 milliseconds to an
+animation. Now there's an animation
+delay class- 100. Same thing with 200,
+300, 400, 500. And what does this mean?
+It means that if I want to make it such
+that for example this appears first then
+this then this then I go to the I don't
+put a delay on the first part but then
+on the second one which is this one over
+here I set the animation delay to be 100
+right because then now uh this appears
+first and this now it's not that clear
+because 100 milliseconds is not that
+much but let's make this one have I
+don't know 800 just for now just for to
+see how how obnoxious that is. So, so
+let me refresh this. And oh, that didn't
+even do anything. There's definitely
+something wrong. Oh yeah, I wrote this
+wrong. Should be animation delay. Let's
+refresh this. And yeah, it takes 800
+milliseconds for this animation to be
+done. Now, to be subtle, we're going to
+make this be 200. Now, this comes first.
+100 millconds later, this comes. And
+then 200 millconds later, this comes.
+And now it looks a lot better. Perfect.
+Now, we can come back here and we can
+continue building. Now, the first thing
+is I want to add a call to action
+section right below the text. So I'm
+going to put here CTAs. Now there's
+going to be two call to actions. So
+they're both going to be buttons. One of
+them is going to be a button that has a
+size over here of large. So we're
+reusing that button class we have. And
+then uh did it did that not import that
+class? Yeah, it didn't. So it broke our
+website. So let me import button from at
+slash and then we do components
+slashutton. Now that appears. We need to
+put a label inside of it. I'm going to
+say contact me. Then I want to make it
+such that it also has a little arrow
+next to it. So I'm going to use the
+arrow right class from Lucid. It will be
+an icon. And I want to make it such that
+the class has a size of five. So I'll
+put here size of five. Actually that's
+way too small. Uh I didn't want to put a
+size. I'll use a class name where the
+width is five and the height is five.
+That looks a lot better. Then I want to
+add another button. However, this button
+will have a little bit of a different
+aspect to it. This button should look
+like this. Just a normal button. But
+this one has this really cool border
+animation. So, I want to create a button
+which is going to do that. Now, to do
+that, we're going to actually render a
+normal button because we don't want to
+apply that other styles that that we
+have. And we want to add an SVG inside
+of it. Now, I'm not going to show myself
+writing the SVG just because this is not
+an SVG tutorial. But this SVG is going
+to be the animated SVG that we have
+around this button. Now, to actually get
+it to work, we're also going to put a uh
+a text in here. So, I'm going to add a
+span. And this span is going to put
+whatever you want to add as the
+secondary button on this call to action.
+On for my website, I'm going to make it
+be a download CV cuz you want to make it
+very like apparent that you where you
+need to download the the the resume,
+right? uh you don't want to make it such
+that they take forever to find that. Now
+I also want to import the download icon
+from Lucid. I can just import up here uh
+from Lucid download. And then what I
+want to do is apply some styles. I'll
+start with the button over here. I want
+to make it such that the class name and
+I actually want to put a good amount of
+uh classes here. So to not clutter this
+entire page, I'm going to create a
+different component over here. I'm going
+to call it animated border button.jsx.
+And in here, we're going to export con
+animated border button. And we're going
+to just paste whatever we have from
+here. Copy this and then paste it here.
+Then we're just going to call that
+animated border button. And in here, we
+now have to reimpport this download icon
+from Lucid. Perfect. And I'm just going
+to copy and paste the direct class names
+for this button because it's a lot of it
+and it's a lot related to how we want
+this button to look based on the SVG.
+But pretty much this is what we want.
+Now there's a bit more that we need to
+do. For example, this last class over
+here, all of this is just pretty much
+what we talked about on the first button
+when we were creating. So I don't want
+to just talk about it again. But this
+animated border here, this is not a
+tailwind class. We have to make this.
+Now where do we make this? Well, when I
+hover this, I want to add the animation.
+So, I need to go to the layers of
+utility um exactly where we are around
+here. And I'm going to create this
+class. Now, the class should be animated
+border and it should have the following
+uh properties, but more specifically
+only if it's a hover. As you can see, it
+should make the whole thing be kind of
+fading in as a glass and green uh by
+mixing up the background color and the
+backdrop filter. But still, it's not
+animating the whole thing. And that's
+because we created this class over here
+inside of the SVG, the path that goes
+around the border. We created this
+download CV path. Now, I'm actually
+going to call it something else. I'm
+going to call it animated border path.
+Why? Just because we're going to reuse
+this button in another case that isn't
+the download CV button. So, I don't want
+to call it the same thing. Now what I
+want to do is above this I want to set a
+group hover and then set the animated
+border path and I'll set an animation in
+here. Now what animation do we want to
+make? Well, it's going to be an
+animation that is related to the um that
+makes the uh actual SVG move around the
+border. We're going to call it animated
+border and it uses the stroke dash
+offset as a property to make that
+happen. Now we have to apply that
+animation. So, I'm just going to copy
+this, apply it over here, and you see
+absolutely nothing happens as of right
+now. However, I'm going to put here a
+duration of 1.5 seconds. I'm going to
+make it linear and infinite so that it
+keeps rolling around. And you see that
+now it does work, but hear me out. I
+know it looks very ugly. So, we're going
+to fix that. To fix that, there's a
+couple more things that we need to do.
+To start things off, I'm going to come
+here to this pen, and I'm going to add a
+class name of relative, then a Z of 10.
+And I want to make the display be flex.
+Then items center justify center and a
+gap of two. Then on this download, I
+just want to make it a little bit
+smaller. Make it exactly the same size
+as the other icon with a width of five
+and a height of five. Now it looks a lot
+better. Now I want to put a space in
+between them. And to do that I'm going
+to come here to our hero section and on
+this div I'm going to put a display
+flex, a flex wrap, and a gap of four.
+The gap is what sets the width in
+between them. I also want to animate
+this fade in and set a delay of 300. So
+I'll say animation delay 300. And now
+this should appear after the top as
+well. Now we want to add another section
+over here which is going to be for the
+social links. So I'm going to say social
+links. It's going to be any links to
+your social medias. Now sometimes you
+don't want to do this, sometimes you
+want. Feel free to put your social media
+if you want to. Now I'll say span over
+here and I'll put follow as in like
+follow me at and then after the span I'm
+going to actually create an object uh
+not an object an array of objects with
+each of the social links. Now the first
+one is going to have an icon and it's
+going to be my GitHub account. I'll use
+the GitHub icon from Lucid and I'll use
+the href over here which is just going
+to take you to I'll just put this cuz
+I'm not going to link my actual GitHub
+but put your actual GitHub account over
+here. Don't put a hashtag. Put the link
+to where you chose your GitHub account.
+Then add two more sections over here.
+And we're going to add a link to your
+LinkedIn and a link to your Twitter. Out
+of those, maybe you don't want to show
+your Twitter, but I don't know. And then
+put the actual links over here. Now, why
+do we make this array? Because we want
+to map through it. Now, I need to put it
+inside of here. I'm going to map through
+each item. And for each item, I'll get
+the social. I'll also get the index. And
+I'm going to render an a tag that is
+going to be the link to the item. Now I
+can access this. I like I can't just do
+this to render the actual icons. This
+are components. That's how Lucid React
+works. So to get this as a component and
+render, I have to do the following. I
+have to say open and close this. And
+it's going to be self-closing. And then
+I get the social item.
+And now it should render each icon as
+you can see. Then I also want to make it
+so that when you click on this link, it
+takes you to that link. Uh I also pass a
+key here just so that because it's a
+list, you don't have to do that. And
+then in href, I'm going to pass here the
+the social.href. Now again, mine won't
+take you anywhere, but yours should
+definitely be taking you to your
+individual pages. Then on this div,
+let's start styling this by setting a
+flex items center, a gap of four, and
+I'm going to use the animate fade in and
+apply a delay of 400. Now, because you
+you add 100 to every single new item you
+add. Then on this span, I'm going to add
+here a text size to be small and the
+color to be muted foreground. Then on
+the individual icons, here's what we're
+going to do. We're gonna say padding of
+two rounded full. Then we're going to
+apply the glass effect on each of them.
+And when you hover it, we're going to
+make it the background be green. So
+primary, but only uh 10% of it. So we'll
+divide it by 10. So it looks a bit like
+this. Then we also want to set the hover
+to set the color to be primary so that
+the icon colors changes to green when
+you hover it as well. And then I want to
+make it such that it transitions all and
+has a duration of 300. Whenever you have
+a transition uh with your colors and
+all, you can actually make it a lot
+smoother by adding a transition. And you
+can specify what kind of transition you
+want to add and the duration of it. So
+you can see as I hover it, it does
+become a lot more smooth. Now we're
+pretty much done. Let me just add a
+specific size to each icon. We're going
+to make it be five and five on both of
+them. So they are a little bit smaller.
+And now, as you can see, uh oh, this
+text says follow me. So probably we'll
+do the same thing here. Follow me. As
+you can see, we're almost done. The only
+time the only uh thing we need to do now
+is add the image. Now for the image,
+it's going to be the right column. So
+right below this right column over here,
+we're going to add a div for this
+section. Now how's this going to work?
+Well, we're going to have first the
+profile image, which is going to be
+rendered by showing a div over here. And
+we're going to put a another div for the
+actual image. And then on this image,
+I'm going to put the source to be that
+of my profile photo, which you should
+name the same thing. Now it appears over
+here. I also want to put an alt and the
+alt here put your name because uh if
+whoever is reading your thing has a
+disability, they can know who you are.
+Then I'm going to put a class name of
+this where I set the width to be full,
+the aspect to be four out of five.
+That's really important. And then the
+object of course to be cover. And I'm
+going to set a border radius of 2 XL. So
+it slightly moves. Now what do we want
+to do? Well, I want to make it such that
+when we come here to this uh div, it
+actually even if it expands, it appears
+as a card, right? Not just a random
+image in the middle of the website. So
+to do that, I'm going to apply here a
+class name of position relative. And I'm
+going to also animate fade in, but put
+an animation delay of 300. Then on this
+one, we're going to set position
+relative and a max width of medium, so
+it's a bit smaller. And then a margin X
+of auto, so it's centered. Then on this
+div over here, we're going to set the
+position to be relative. And also to
+have the glass background and for it to
+be rounded 3 XL, which is not exactly
+the same, uh, but it will look perfectly
+fine. A padding of two, so it has that
+little border. And I'm going to add a
+globe border. What is globe border?
+Well, it's going to be a class that we
+need to create over here, and it's going
+to be the last class that we create on
+our components layer. It's basically the
+same thing as a glow text, but for
+borders. It creates this little glow
+around a border. Now, we go back here to
+the hero, and there's one more thing I
+want to do. I want to add a glowing ring
+around the image. So, above this div, I
+want to add the following div. Now, this
+div will add even more of a glow around
+it. However, we need to create a little
+animation where it actually pulsates.
+There's this animate pulsate glow, which
+uh is wrong. It should actually just be
+animate pulse, and then it makes this
+little pulsing animation around the
+image. Now, we want to create the stats
+cards that goes around the image. So,
+we're going to start by setting uh right
+below this div over here, but still
+inside of the like the div of the image,
+but after the image, we're going to set
+two things. the floating badge and also
+the stats badge. Now, for the floating
+badge, I want to add a div which will
+contain another div and then a
+self-closing div. You'll see why. And
+then a span that just says that you're
+available for work. Then I want to set
+the class name of this to be position
+absolute because it's absolute inside of
+this card. I'm going to set it to be
+negative to the bottom four. So, it's
+basically a little bit below the bottom.
+and negative to the right. So you'll see
+negative right four. So it's also a
+little bit to the right. And then we're
+going to make the background be glass.
+We're gonna make it be rounded. So I
+need to change this to say D. And then
+I'll make the padding X to be four. And
+then a padding Y of three. And then I'm
+going to add another type of animation.
+This is going to be an animate float.
+Now animate float is going to make it
+such that this little card or badge over
+here will actually look like it's
+floating. To create this animation,
+we'll create the the key frames for it
+by setting the start positioning to be
+at zero and then it will at 50% move a
+little bit up. And then we'll create the
+actual animate class called animate
+float. Set it to be 4 seconds long and
+it's infinite. So it will always look
+like it's going up and then going down
+and then going up and then going down.
+Now we'll do this for the other one as
+well. But before we get that, we need to
+actually set a display flex here. items
+to be centered and then a gap of three.
+Then in this div, we want to set the
+width to be three, the height to be
+three, and I and I want it to be like a
+a green indicator. So it will be a green
+color. So 500 to indicate that you're
+like available for work, right? It's a
+square because obviously it's a square
+by default, but we need to make it into
+a circle by setting the rounded to full.
+And then I'm going to use the animate
+pulse default animation from Tailwind to
+make it like it's pulsing. Now, on this
+pen, all we want to do is just set the
+text to be small and then set the font
+to be medium. Now, we build the stats
+badge. This one will be very similar,
+but just a bit different because it's
+going to be at the top. Now, to start
+things off, I'm going to just add here
+the actual stats that you have. Now,
+what stats do you want to put? I don't
+know. Put something that makes sense for
+you. I'm just going to put that I have 5
+years of experience by adding here a div
+and then another div that says years
+experience. And then on this div, we're
+going to set the position to be absolute
+and we'll make it be at the top again.
+And then we'll make it leg negative left
+four. Then we're going to make it glass
+rounded XL. Pretty much the same thing
+we did for the other one. Petting X of
+four, petting Y of three, animate
+floats. But this one will have an
+animation delay of 500. Then on this
+one, we're going to set the text to be 2
+XL, the font to be bold, and the text
+color to be primary. On this one, we're
+going to actually make it a lot smaller.
+Text extra small, and it's actually
+going to be grayish color. So, muted
+foreground. Perfect. Now, we're pretty
+much done. And it's and it's time for us
+to add the list of skills that you have
+on your on your resume. Well, to do
+this, we need to first create a list of
+all the skills that we want to list out.
+So, I'll create here a an array called
+skills. And you'll fill in with strings
+of technologies and frameworks and
+whatever soft skills you want to put as
+your skills. Now, I literally just
+generated this. This is just what like
+uh it's the default what you need to
+know if you're going to be uh working as
+a full stack webdev nowadays. I would
+say it's around this. and I just added
+as a template here, but you should put
+whatever you feel comfortable with. Then
+you come down here and right below here,
+we're going to add the skills section.
+Now, we'll start by adding a div and a p
+tag that says technologies I work with.
+Then, we're going to add another div
+that is going to have a div that renders
+that list. Now, we're doing a little bit
+of a trick here with that list. We're
+going to make that list extremely Now,
+we're going to do a little bit of a
+trick here with that list. I'm going to
+make that into a copy into a different
+list that has the same skills twice. So,
+I'm going to use this, which basically
+puts the entire list inside of here, and
+then do it again. Remember, I'm just
+using the skills array that we created
+here. Now, did it not actually use it?
+Uh, oh, I forgot to put curly braces to
+use JavaScript. Then, I want to map
+through this. get each skill and each
+index and then render a div that inside
+of it will have a span and render the
+individual skill. Now it looks like this
+and definitely that's not how we want it
+to look. But first let's set the key to
+be the index and then we'll start by
+building the top here. We'll set a class
+name of margin top of 20 to create some
+space. Then we'll use the animate fade
+in with a delay of 600. Then on this
+paragraph tag, I'm going to set the text
+to be small, the solid color to be
+muted, foreground, margin bottom of six,
+and a text center. Then on this div, I
+want to set the position to be relative,
+and the overflow to be hidden. Then on
+this div, we're going to set the display
+to be flex. And here's the kicker.
+Everything now appears one right next to
+each other. But we want to make them
+animate by moving from one side to the
+other, right? So, we're going to have to
+make a really cool animation. We're
+going to call this animate marquee just
+like this. Now, to create this
+animation, we'll come here and we'll
+create the marquee key frames. It just
+basically says that at the start, the
+item will be at the middle and or
+wherever it's supposed to be and then it
+will move 50% to the left. When it moves
+50% to the left, because the list has
+the items twice, the other items should
+be appearing at a certain point. So it
+will never look like the end the list is
+ending or the animation is ending
+because it will constantly be moving and
+reappearing at the other side. Now we
+also want to create the animate class.
+So I'll create here the animate market
+class. We're making it actually take
+forever 30 seconds because it will look
+a lot smoother. As you can see, we'll
+make it linear and infinite so that it
+never stops and then it keeps going to
+the left and then it will never actually
+stop. Now the next thing we need to do
+is actually apply some styles so that
+this doesn't look disgusting like it
+does right now. So we'll start with
+this. We're going to set the uh class
+name for the entire div to flex shrink
+zero. So it doesn't actually uh you know
+tailwind CSS doesn't appear with the CSS
+below. Then we're setting a padding x of
+eight and a padding y of four. That
+looks a lot better already. Now for
+individual skills I want to set the text
+to be excel, the font to be semi-bold,
+the text to be muted foreground, and
+then make that be 50% opacity. Then when
+you hover it, I want to make it be text
+muted foreground so that when you hover
+it, it becomes a little bit more clear.
+But also, I'm applying the transition
+colors which will make it such that it
+it's a little bit smoother when I do
+hover it. Perfect. This is pretty much
+done. There's just one more thing. If
+you look over here, when we have this,
+just one more thing. If you look here,
+we have this little scroll button where
+it has this animation and when I click
+on it, it actually should scroll for me.
+Now, I'm in mobile mode, so this doesn't
+really matter that much, but we're going
+to add that scroll indicator. Now, I'm
+going to copy and paste that scroll
+indicator because I didn't make that one
+just for this website. I always use the
+same scroll indicator. I'll just go over
+what it means. Now, what we do is we go
+right below the section and we copy and
+paste this class and import this icon at
+the top. I'm just going to go up here
+and then import the chevron down icon.
+Now, I'll explain what each of these
+means. Basically, if I go down here, you
+see it appears now on the top div here.
+We set the position to be absolute
+because we need to make it at the
+absolute bottom and middle. We also made
+it be the last thing to appear. And when
+you click on it, it takes you to the
+about which is going to be the next
+section we're going to be building. Then
+it's simple uh display flex just making
+it appear at the bottom. And here's what
+we do. This chevron down, right, this
+icon. The reason why it's bouncing is
+because there is a default animation in
+Tailwind CSS called animate bounce. By
+setting animate to bounce, it creates
+this little bouncing animation on
+whatever element you create. Now, that
+should pretty much be it. But I don't
+know if you guys noticed something.
+There's one thing that we should have
+addressed before, but we never did.
+However, we never did. Not because I
+forgot, but because I wanted to present
+the issue before showing the solution,
+and that is that when you scroll down,
+you see that the navbar overlaps with
+everything and it looks really ugly. I
+don't know if you thought that this was
+how it's supposed to be. It's not right
+now. To address that, we're going to
+actually come to our navbar and we need
+to make some changes to it. This is the
+final result. When the user scrolls, it
+will actually set a background with the
+glassy look to it. Now, to do that,
+here's what we have to do. We have to
+detect if the user has scrolled or not.
+Now, to do that, we're going to create
+another state over here and call it is
+scrolled. It's a boolean that determines
+if the user scrolled or not, and it's
+going to be true or false. Now, to
+actually detect to see if the user
+scrolled, it's pretty simple. We have to
+set a use effect which is going to run
+at the start of when the component first
+renders. Now we need to make sure to add
+an empty dependency array here or else
+it will break our website. Then I want
+to subscribe to an event. What event do
+I want to subscribe? I want to subscribe
+to listen to whenever the user scrolls
+their mouse. To do that I attach to the
+window and add an event listener. I want
+to listen to when the user scrolls. Now
+I want to call a function every time the
+user scrolls that handles something. So
+I'll create here a handle scroll
+function that is going to be called
+every single time the user scrolls
+through the page even if it's the
+smallest amount of scroll. Now what do I
+want to do here? Well, if the user has
+scrolled right uh below the height of
+this navbar which is 50 then we know
+that they scrolled past it and now
+something should be happening. So this
+should become true. So if the windows
+scroll y is greater than 50 that's how I
+detect it then I want to set is scrolled
+to true else I'll set it to false or I
+could also just make simplifies this
+this logic and write it like this now
+because we edit an event listener we
+want to prevent memory leaks in react by
+returning and unsubscribing to this
+event listener when the component
+unmounts or else it's going to subscribe
+to that event and maybe I don't know for
+for some reason the component will
+unmount and it will never unsubscribe.
+So by adding this logic over here where
+the return it returns a callback
+function this lets us remove the event
+listener at the stage in which the
+component is unmounted. Now we have that
+logic but what do we do with it? Well to
+start things off let's go to this header
+class name that we put right at the
+beginning and in here we're going to
+change this to actually be dynamic. So,
+I'm going to put dynamic classes and I
+want to check to see if the and I'll put
+it right over here. If the user has
+scrolled, then I don't want to set the
+BG to be transparent and the petting Y
+to be five. Actually, I want to do
+something else. If the user haven't
+scrolled, I want to do that. So, I'll do
+this. Now, if the user has scrolled,
+then I want to set the background to be
+of glass strong, that class we created,
+and also the padding in the Y direction
+to be three. You notice now that when I
+scroll, absolutely nothing happens
+still. Oh, actually it does. See?
+Perfect. It sets the background to be
+glass strong. Now, there's a little bit
+of an animation as you can see over
+there of fitting in when we do reach the
+top. So, we can still do that for now.
+It already looks kind of good when we do
+this. Now, how do we get that smooth
+animation? Well, it's pretty simple. By
+adding here a transition all, uh, I'll
+put it over here right before this
+transition all. We're basically telling
+Tailwind that there's going to be a
+transition on this thing. And whenever
+it changes, we want to set a specific
+duration for how long we want that to
+happen. I'm going to set it to 500. So
+you see it adapts in right in front of
+us. Perfect. And by the way, this is the
+page in normal mode. So like not in
+mobile mode. Already looks very cool.
+And that's pretty much it for the hero
+section. Now we have to create the about
+section, the project section, the
+experience section, and the
+testimonials. But don't worry because
+the first few sections are always the
+most time consuming. The rest are going
+to come a lot easier. So let's close
+this off and let's start with the about
+section. I'll come over here and we'll
+start by defining um what do we want to
+talk about ourselves. If you go to the
+final product over here, you'll see that
+it has obviously a bunch of text, but it
+also has some like individual features
+and highlights that you want to make
+about yourself. So there's here that I
+write clean code that I'm good with
+performance. I improve performance of
+websites. I'm good at collaboration and
+innovation. So what I want to do is I
+want to create a list on this about page
+that is going to keep track of those
+highlights. So I'll create here
+highlights and for each highlight we
+want to keep track of the icon used for
+the highlight, the title and the
+description. So for the icon I'm just
+going to write this first one. I'm going
+to use the code to icon. It's this icon
+over here. Uh the title I'm going to say
+clean code and then for the description
+I'm gonna just put whatever is over here
+as a string. So make this for you and
+also add four of them. I'll just copy
+and paste all four of them and I'll be
+back in a second. Perfect. I just added
+the four of them but we're not even
+going to touch them right now. Let's
+just start building the infrastructure
+of this. So to start off I want to
+create a div inside of here. Now this
+div is going to separate this section
+into two. Right? So, I'll create another
+div here. And we're going to have the
+left column, which is going to be some
+text. Now, for the left column in the
+about section, we want to have a text,
+right? We're going to have the title of
+the section. Uh, it should be inside of
+here. So, I'll make a div. And then
+inside of this div, we're going to make
+a span that will have the text for the
+title. Now, this should appear down
+here. It will create some space.
+Actually, I'll already do that. I'll set
+this to have a padding Y of 32, position
+to be relative, and the overflow to be
+hidden. Then you'll see that it will
+have a lot more space. Now, we also want
+to make this into a section. What do I
+mean by that? Well, when I click on the
+about section, right, I want to be taken
+to the about section. So to do that, I
+need to set this to have an ID of about.
+Because if you remember from our navbar,
+when I click on each of the links, it
+takes us to the hashtag and then the
+name of the link. If you're familiar
+with how links work, this means it will
+scroll down to whatever element in your
+page has that ID. So if I click here on
+the about, it should scroll down to the
+about section. Now, one thing that I
+just want to do real quick before we
+continue, if you notice, I want to also
+close the navbar when I click on the
+link, right? So I can actually do that
+in mobile. So if I go to the to the
+mobile nav over here, I can add an
+onclick to this and make it such that if
+you click on any of the links, it's
+going to set is mobile menu open to
+false. Same thing with the contact but
+button, which right now we don't have
+the actual section for uh the contact
+section. We'll create that. But for now,
+at least when we click on this, it
+should close it. So let's try again. I'm
+going to go to the about section. You
+see it also closes that menu. Perfect.
+Now, let's go back over here and let's
+continue. Now, the next section I want
+to put here is the headline. So, it's
+going to be an H2 tag that is going to
+say something like this. Building the
+future. And then below this, we're going
+to add a span that is going to say
+another type of tagline. I'm going to
+say one component at a time since this
+developer here is a React developer. So,
+what is this? Well, it's this section
+over here. about me is going to be the
+small title of the section and then
+building the future one component of at
+a time. That's why we separated the
+first part of the H2 tag and this pen
+because this spen should be in a
+different font. Now we want to actually
+apply this. Now one thing you might
+notice is that uh there is no spacing
+between building the future one
+component at a time. It's because there
+is actually no spacing here. We can
+force it by adding that or we could also
+just add an empty space over here by
+doing this. But I think you guys will
+understand better if I just do it like
+this cuz then there's a little bit of a
+space. Now before we continue, let's
+actually start adding the rest of the
+classes. So over here on this div, I'm
+going to add a class name. We're going
+to say that this is a container and that
+the margin X is auto. You notice that
+now when we also add a padding ax of
+six. There going to be some space. And
+then we'll set the position to be
+relative and the zindex to be 10. Then
+on this part of the column over here,
+we're going to set everything to be a
+display grid. Now depending on we're
+going to do the same style that we did
+before where if this is opened up, it's
+going to be two columns. If it's uh
+mobile, it's going to be just one
+column. So to do that, what we have to
+do is when it's anything less than a
+large screen, it will just have one
+column. But when it's large and above,
+we're going to set the grid calls to be
+two. Then we'll set a gap of 16 in
+between the different items, and we want
+to center them. Perfect. Now for the le
+uh the left column, I'm going to set a
+space in the y direction of 8. And I'm
+going to add a another div. Actually,
+this was a mistake. I need to add
+another div over here. And then close
+this div over here. And then on this
+div, I want to set the class name to
+just animate fade in. So it has that
+little animation that we created. Then
+on this span, I want to set the text
+color to be secondary foreground, the
+text to be small, the font to be medium,
+the tracking to be wider, and I'll also
+uppercase this. I could also just make
+it uppercase, but I'll force it to be
+uppercased. Then for this H2 tag over
+here, it's going to be a lot more. We're
+going to make the text be 4 XL in small
+screens. Then on medium screens, we're
+going to make that be 5 XL. And then the
+font will be bold. The leading will be
+tight. We're going to animate fade in.
+But because this is going to be the
+second animation, we're going to have to
+put a delay of 100. And we're going to
+set the color to be secondary
+foreground, which will make it uh the
+green. However, only the first part
+should be green. This part should
+actually be white and also be a
+different font. So, we'll come to this
+pen. We're going to first change the
+font by saying font serif. And now it
+should be this little really cool font.
+We're going to make italic. And then I'm
+going to set the font to be normal. And
+so it's not bold. And then I'm going to
+set the text to be white. Perfect. Now,
+you want to put a very large section
+talking about yourself, like actually
+talking about yourself for those who are
+interested in reading. Now, you can add
+whatever you want, but it's going to go
+below this H2 over here. And I just
+going to copy and paste what I wrote
+here. You can put something that makes
+sense for you, but make it into three
+separate paragraphs or how many
+paragraphs you want to put. Then for
+this div, we're going to set the space Y
+to have a gap of four. So each paragraph
+has a space in between them. Then we're
+going to set the color to be muted
+foreground. So it is that same gray. And
+then we're going to set the animate fade
+in and the animation delay to be more
+than 100. So 200. So here's how it
+looks. See how it appears way better?
+Perfect. Now let's have a section that's
+going to be acting as if like it's a
+mission statement. See, my mission is to
+create, you know, whatever you you don't
+have to make it as corny as what I made
+over here, but make it to be something
+that it stands out whenever the uh
+reviewers or whoever is trying to hire
+you checks your website. So, below this
+div over here, I'm going to add a div
+for the mission statement. I'm going to
+add a p tag, and I'll copy and paste the
+mission statement. Now, what styles do
+we want? Well, I want to make the whole
+div to be a glass. I also want to make
+it be very rounded, but not fully
+rounded, just very big because it's very
+wide. I'm going to put a padding of six,
+so there's some space to it. It looks
+like a card. Then I want to set that
+glow border effect that we created. And
+I want to set the animate fade in and
+set the delay that is more than the last
+one we did, which was 200. We're going
+to make it 300 this time. Then on this
+paragraph, I want to set the text to be
+large, the font to be slightly bold, so
+I'll say medium, and then I'll set the
+font to be italic and the color to be
+foreground. Perfect. Now, we're almost
+done. We just have to set up everything
+for the right column. The right column
+is going to have the highlights. Now,
+just in case you're confused, when I say
+right column and left column, it's just
+for the desktop mode. In mobile, it's
+going to be all in one column. But this
+is what we want to build is the
+highlights. Right now, we added this
+already and we're finally going to use
+it. We created this array over here. So,
+we're already ready to go to be able to
+make this. So, what we want to do is we
+want to create a div that will have a
+class name of grid. And on even on a
+small screen, but above that, we're
+going to set it to be two columns. We're
+also setting a gap of six in between
+them. And then inside of this div, we're
+just going to loop through the
+highlights, map each of them, get each
+item and their index. And then for each
+item, each highlight, I want to render a
+div that is going to have another div
+inside with the icon of the highlight.
+Right? We know that each highlight has
+an icon, a title, and a description.
+We'll start with the icon. We're just
+going to render it. And since it's a
+component to render it, we have to say
+item do icon and then self close the
+component. Now there is an error here.
+It's just because uh we have to close
+this div. So we'll close it. And now we
+only see all four icons. We also want to
+see the title and the description. For
+the title, I'm going to add an H3 and
+just render the item.title. Then below
+this, I'm going to add a P tag that will
+render the item.escription. Perfect. Now
+I want to add the styles for this. I'll
+start by adding a key which will be the
+index. And then for the class name, I
+want to set this to have each of them
+have a glass background, a padding of
+six, a rounded to XL, similar to what we
+did with this. Then we're going to set
+the group because then we'll apply a no.
+Then I want to set an animate fade in so
+that they all animate and fade in
+together. However, I want them to fade
+in in a sequential manner. What do I
+mean by that? When I want them to fade
+in, I don't want them to appear all at
+the same time. I want them to appear
+this first, then this, then this, then
+this. To make that sequential order
+inside of a list, there's a couple ways
+to do it. Doing it in uh Tailwind
+requires us to do a bunch of stuff that
+uh would be overly complicated. So, we
+can just do it very easily through this
+style because what we can do is we can
+set an animation delay over here. And
+what we can do is we can set the delay
+to be a certain amount of milliseconds.
+And that certain amount can be an
+increment of hundreds of milliseconds.
+But that means that this one should be
+should appear at 100 milliseconds of
+delay. This one 200, this one 300, this
+one 400. The way we make this is we are
+inside of a list. So we can just get the
+index of each of them in the array and
+multiply it times 100 because then uh
+for example uh this first one over here
+it will have index zero. So that
+wouldn't be a really good thing for us
+to do. What we could do instead is do
+get the index add one to it. So it will
+have a one time 100 that would make it
+into 100 milliseconds. Right? If I
+multiply this times 100 now this string
+becomes 100 millconds and the delay is
+100 millconds. This one should have
+index of 1 which 1 + 1 is 2 * 100 is 200
+milliseconds and so on. This should have
+300 and this 400. And now you should see
+that if I refresh this it appears in
+kind of like sequential order. Perfect.
+Now we'll come to this div over here
+with the icon and we're going to do a
+couple things. We're going to set the
+width to be 12, the height to be 12 and
+for the whole thing to be very rounded.
+Then we're going to set the bg color of
+it to be primary but we don't want it to
+be super uh green. We're just going to
+give it 10% opacity. Then I'll set the
+display to flex because the icon is not
+centered. So I'll just set it to be
+center. And I'll also justify it to be
+center. So it's also centered
+horizontally. Then a margin bottom of
+four. And then I'll set a hover where
+when you hover it, it's going to set the
+BG to be primary but 20 so that there's
+a small hover effect when you hover each
+of the icons. Perfect. Now we also want
+to apply individual colors. So on this
+icon over here, we're going to set the
+width of it to be six, the height to be
+six, but then the color is going to be
+text primary. So the icon is green is
+green. Then for this H3 tag over here,
+it's not going to be much. We're just
+going to set the text to be large, the
+font to be semibold, and we're going to
+set a margin bottom of two. Then on the
+B tag, I'm just going to set the text to
+be small, and the text to be muted
+foreground to make it gray. Perfect. And
+that's pretty much it for the about
+section. Now we have this beautiful
+about section that works both in desktop
+mode and also in mobile. Now it's time
+for us to build the project section. So
+I'm going to come over here, go to the
+project section, and we'll start by
+defining which projects we want to have
+in our website. To do that, I'm going to
+create here an array called projects,
+similar to what we did with the
+highlights. Now, each project will have
+the following. It's going to have a
+title. It's going to have a description.
+I'm just going to already add the
+titles. Um the first example project I'm
+going to add is going to be fintech uh
+dashboard but you add whatever
+information for which project you have.
+Then for description I have this over
+here. It's a comprehensive financial
+analytics whatever it's just like a
+normal description for your project.
+Then below this we're going to set an
+image. Now add the images that you want.
+If you want to use my images remember
+they're not actually related to the
+project itself. They all exist in the
+public folder inside of a folder called
+projects. I added projects that I've
+built for my YouTube channel. Uh, but
+you should add whatever you prefer. Now,
+to access them, I'll start by saying
+projects slash and then access the
+project number.png.
+Then I'll add in a list of tags. These
+are tags that are related to the
+project. So, if you go to the list of
+projects here, you see that they have
+little tags at the bottom. So, I'm going
+to add that by adding a list and then
+adding whatever technologies you use
+like React, TypeScript, and I don't
+know, I'm not I'm going to use Node.js.
+JS and then below this you add a link.
+The link should probably be to the demo
+website that you have this. I'm just
+going to put a an empty link. I don't
+have anything for this. And also a
+GitHub link which you put the link to
+the repository. Highly recommend that
+you do this. This is pretty much it. You
+do this for all of your projects. And
+when you're done, you should be able to
+have a list like the following. Perfect.
+Just this list over here. We have
+another example here. an e-commerce
+platform, an AI writing assistant, and a
+project management tool. You make
+however many projects you want, and then
+we're ready to get started. So, what I
+want to do first is the same thing we
+did here on the about section. Most
+sections are going to start pretty much
+the same thing. It's going to have an ID
+and it's going to have these classes.
+Also, I'll also copy this just so that
+we can also have that. And I'll put it
+directly over here. Uh, that means that
+I also have to close this div. So, I'll
+do that. And I'll put some space here
+cuz it looks like everything is broken.
+What did we do here? Well, we created a
+we give an ID for this section. I'm
+going to call it projects. And we just
+set the padding Y to be 32. Same thing
+we did before. And we created a
+container inside of it. Then what I want
+to do is outside of this container, I
+want to add some background accents.
+They're going to be like background
+glows that are going to exist. And I'm
+just going to copy and paste them just
+because we already worked on making one
+for the this section over here. And it's
+pretty much the same thing. It's just a
+little section glow that appears at the
+top and it should really give a nice
+like nice accent to the page. Then
+inside of this div, what we're going to
+do is the following. We're going to
+build out the section header, which is
+going to be pretty much very similar to
+also the one for the about page, uh,
+where we have a section just like this,
+where it's going to have a title and
+it's going to have this H2 here with the
+spans. Now to do that I'm going to
+create here a div then a span and I'm
+going to say featured work. Then below
+the span I'm going to add an h2 which is
+going to say projects that and then I'm
+adding a span giving a space and say
+make an impact just like this. Now we
+want to do the same thing we did here
+where we do this but we want to center
+it this time so it gives a little bit of
+a a different feel to it. So to do that,
+I'm going to first set a class name to
+this where I'm going to center the text.
+Then I'm going to set the margin X to be
+auto. And I'll set the max width to be
+uh 3 XL. A margin a margin bottom of 16.
+And then below on this featured work
+span, I'm going to set the color to be
+secondary for ground. A text is going to
+be small and the font is going to be
+medium with a tracking that is going to
+be wider. We're gonna uppercase it and
+we're going to add the animation. So,
+animate fade in. Perfect. Then on this
+H2, we're going to make the text be way
+bigger for Excel, but then on larger
+screens, we're going to make that be
+five. We're going to set the font to be
+bold and the margin top to be four with
+a margin bottom to be six. Then, we're
+going to add the animation with a delay
+of 100 cuz this is the f the second
+thing on the section. Now, we're also
+setting the color to be four or
+secondary foreground. Perfect. Now, we
+just want to differentiate a bit the
+make an impact section just like we did
+on the about one. I'm just going to come
+here and I'm going to copy the same
+class we had here and then just paste it
+in this pen. Perfect. Now, we can just
+add a P tag that it goes below this H2
+tag and it will be the small description
+of the section. You can put a like just
+a sentence or two uh to describe what
+the section is. I'm going to say it's a
+selection of my recent work from complex
+web applications to innovative uh tools
+that solve real world problems. We want
+to make that be not that um standing out
+on the page cuz the title should do
+that. So I'm going to make the color be
+the gray color. So muted foreground and
+then I'm going to set the animate fade
+in and a delay of 200. Then we're pretty
+much done with this section. Now the
+next section is going to be the projects
+grid where we show all the projects. But
+on a bigger screen, it should show the
+projects in a two columns. And a smaller
+screen, they should show up one on top
+of each other. So to do that, what I
+want to do is I want to create the div.
+And I want to set the class name to be
+grid. And similar to what we've done
+multiple times already, I'm going to set
+the on a medium screen and above to have
+two columns. And I'll set a gap of eight
+in between each of them. Now, we're
+going to render each of them by looping
+through the projects array. We'll map
+through it. Get each project. Get the
+index. And then I'll start by rendering
+a div. This div will have the following.
+I'm going to close it. And then I'll
+have a div in here. And this will serve
+as the div for the image, right? The
+image of the project. And on this div,
+I'll just show the image. I'll render it
+by saying source and then applying in
+the source a project do image. Then I'll
+show the alt to be a the title of the
+project. And you'll see that now all
+three images the all four images appear.
+Then I want to set the class name of it
+to have a width full, height full, and
+for it to be object cover. And I want to
+set the there to be a transition
+transform with a duration of 700 because
+what I want to do is when I hover it, I
+want it to actually scale the image a
+bit. But to do that, I want it to be a
+group scale. So I'm going to apply that
+uh logic actually to this div at the top
+over here. So to do that we'll apply a
+key. I'm going to do index and then
+we're going to add a class name. And in
+here I'm going to set a class name of
+group. Then glass. Then I'm going to set
+it to be rounded to Excel. We're going
+to set the overflow to be hidden. When
+you hover it, uh actually not when you
+hover it, but there's going to be a
+animate fade in. And I'm setting the
+medium uh on a media screen and above.
+I'm going to set the span of the row to
+be one. Now it applies to everything,
+but then we want to do that same logic
+that we did before with the about
+section where each of them has a small
+delay depending on the index, this style
+over here. So we'll copy that. We're
+going to apply it to this div. And then
+in the image section, here's what we
+want to do. We want to set the class
+name to be relative. Then the overflow
+to be hidden. And I'm going to set the
+aspect to be video. So all of them has
+similar heights. It kind of zooms in a
+bit so that it all fits on this aspect
+ratio. Then I want to set the hover
+where when I hover it, it should expand
+just like this. To do that, it's
+actually not that hard. We set the
+transition to be transform and the
+duration to be 700. 700 is the amount of
+milliseconds that it takes to actually
+expand. What I do then is I'm going to
+set a group hover and set the scale to
+be 110. 110 meaning one 10% more than
+100 which is its original scale. And now
+all of them will scale very smoothly. If
+you want to make it even more smoother,
+you can just increase this value to 900
+or whatever. If you want to make it
+quicker, you can make it at 100 and then
+it goes very quick. But 700 is the sweet
+spot in my opinion. Now what we do is we
+have this image. I want to just add a
+little uh gradient that should go around
+the image. I'm going to apply it just
+like this. It's an a gradient that goes
+from the top to the bottom and it kind
+of fades in the image so that it doesn't
+like stand out that much since the
+colors might not match the color of our
+website. Then I want to add the overlay
+link. It's this links that appear over
+here and it should take you either to
+the demo or to the GitHub. Now to do
+that, I'm going to add a section here
+over lay links. And I'll add a div that
+will render a a tag for the demo, which
+should be just an arrow. I'm going to
+use the arrow up right icon. It's an
+arrow on the upright direction. So it
+should appear over here. Uh it's
+currently not appearing anywhere, I
+think, but it will appear later. And
+then we'll add another link, but this
+one is for the GitHub. So I'll change
+this to say GitHub. Now, to make them
+appear, I'm going to actually have to
+make this be position absolute. And then
+try to center them. I'm going to set the
+inset to be zero. And now they're over
+here. Then I'm going to set the display
+to be flex. Uh the items to be center.
+Justify center. And then I'm going to
+set the gap in between them to be four.
+So there's a space opacity to be zero.
+Now you might be wondering why did I
+make it opacity zero? It doesn't make
+any sense. Well, only when you hover it,
+then the opacity becomes 100. So you see
+only when I hover it, it actually
+appears. Then I want to set the
+transition opacity. So we decide how
+long we want that opacity transition to
+be. I'm going to make it 300 so it goes
+in a bit slowly as well. Great. Now in
+this a tag, I'll put an href. That
+should take them to whatever their demo
+website is. So I'll say project.link to
+link that. Then for the class name, I'll
+set a simple padding to be three. I'll
+make it look like a circle. So rounded
+full. I'll set it to be glass as the
+background. So it looks like this as you
+can see. And then the last thing is I
+want to make it such that when you hover
+it, the BG will become primary and also
+the color will become the foreground of
+a primary background. And I'll set a
+transition all at the end. Perfect. For
+the icon, I'll just set the width to be
+five and the height to be five as well.
+Now we want to copy this, paste it over
+here. I'll even copy this as well. Paste
+it over here. We'll change this to just
+say GitHub. Now you see that I can go on
+each of them and click on it and it
+should take the you somewhere. Now I
+honestly didn't put a link, so that's
+why it's taking me to the start, but it
+works on every single one of this
+images. Perfect. Now, what do we want to
+do? We want to add the content for the
+project. So this section over here at
+the bottom. So, we'll go down to divs
+below that the overlay links and we'll
+render the content. Now, for the
+content, I'll add a div. Also, close a
+div over here. And inside of this div,
+I'll add another div. Close that one as
+well. And I'm going to add an h3 tag
+that has the project.title.
+Then I'll add an arrow up right similar
+to how we did with the overlay link. And
+that will serve as actually a indication
+that you can click on it to go
+somewhere. Then below this div, I'm
+going to add a p tag that shows the
+project description. Then below this uh
+p tag, I'm going to add another div. And
+in here, we want to do a loop inside of
+this loop. We want to loop through the
+list of tags and render them
+individually. So I'm going to say
+project.tags
+dom. And then for each tag, I'm going to
+get it. I'm also going to get the tag
+index. We can't call it index because uh
+we already have we're already inside of
+a loop that has a index variable. And
+then we're going to return for each tag
+a span that should represent that tag.
+So I'll just show the tag in here. And
+now we should see just the tags
+appearing as uh words, right? It's a
+list, but it appears as a word. Now
+we're pretty much done adding the stuff
+for the content, but all the styles
+should go in, or else this will look
+very ugly. For the content, I'm going to
+set the padding to be six and there to
+be a gap in the Y direction between each
+of the different sections. Already a lot
+better. Then here, I'll set the display
+to be flex, the items to be start, but I
+want to justify between so that the name
+of the project and this link have a huge
+space in between them. One is on the
+side and the other one is in the other.
+Then on this H3 tag, I'm going to set
+the text to be Excel, the font to be
+semi-bold, and then I'll set a group
+hover, which should have a text primary,
+and I'll set the transitions to be
+colors. Then we are good with the title,
+but for this up arrow, right, I'm going
+to apply a bunch of class names. It's
+pretty much the same class names we
+added for the other icons. Uh, so I'll
+just keep it the same like this. So you
+can take a look at it. But basically the
+main difference here is that when we
+hover it, we translate it uh a bit to
+the right. That's how you translate
+stuff on a hover in Tailwind. You set it
+translate on the X direction by one and
+on the Y direction by one. So when I
+hover this, this should move one to the
+right and one up and it has this really
+cool effect. Then I want to add a class
+name for the description. In here I'll
+set the text to be muted foreground and
+the text to be small. Then on this div,
+I want to set the class name to be a
+display flex. Then I'm going to set a
+flex wrap in case any of the text have a
+a line that breaks and a gap of two in
+between them so they don't look like
+they're all one word. Now for each tag,
+what I want to do is I want to set the
+padding X to be four and then also a
+very small padding Y because a pill
+usually is more wide than it is tall.
+Then I'm going to make it be rounded
+full. And I'll make the uh BG to have a
+color of surface. If you remember,
+surface is one of the colors that we
+defined right at the beginning. It's
+just a variation of the other colors
+that we have. Then what I want to do is
+after this, I want to set the text to be
+extra small. Uh a font to be medium. And
+I want to set the border for it to be a
+border. But that color should have the
+default border color that we defined in
+the beginning. but only 50% opacity of
+that. So, it's barely visible, but it
+does have some effect to it, especially
+when we add the hovering. I also make
+the color be muted foreground. And then
+I'm going to set a hover where when you
+hover it, the border is going to become
+primary. And then divide that by 50. So,
+it's basically it's currently very slow.
+And then when I hover it, it becomes the
+green color that we are all used to.
+Also, let's change the color of the text
+when we hover. So, when you hover it,
+we'll set the text to be primary. We'll
+set it to have a transition just because
+it's all very messed up. Transition of
+everything will have a duration of 300.
+You see that now when I hover it, it has
+a lot of a smoother effect. Perfect. I
+also want to use this tag index as the
+key cuz remember we have to do that in
+React. Now we're pretty much done with
+the project section. There's just one
+small thing which is in case you want to
+link like your entire GitHub, I don't
+know, you want to take them to every
+single project you've ever built,
+there's going to be this button for view
+all projects. It's very similar to the
+button we have here for download CV.
+That's why I created that as a component
+so that we can just reuse it very
+quickly. So I want to go to that
+download the animated border button that
+we created. I'm going to copy this. I'll
+come back here and then below this div
+uh but not still inside of the last div
+and inside of the section I want to add
+the view all call to action. I'll add a
+div that should render the animated
+border. Is that not even going to show
+up? Yeah, animated border button. And
+then I have to import that. So I'll come
+over here. I'll import from and then
+I'll do at slash components slashan
+animated border button. And I'll import
+the animated border button. Now we have
+to put a it shouldn't be self-closing.
+It should be it should allow me to put a
+text here. But if you remember when we
+created this animated border button over
+here, we didn't make it such that it
+accepts children so that we can
+customize the the actual info inside of
+it. So we want to change that. I'm going
+to remove this or I'm going to add a
+children as part of the props. And I'm
+going to make the children here be what
+is rendered instead of this label. I'll
+keep this exactly the same, but I'll
+just render the children here. Then I'm
+going to copy this and I'm going to put
+it back on the hero section which is
+where we call it the first time. So
+where we call the animated border button
+instead of making it self-closing, I'm
+just going to do this where I paste that
+over here. Then we'll import this
+download icon as part of what we import
+from Lucid and it should keep it the
+same. But what that means is that now we
+can pretty much do the same thing for
+this view all button. I'll come here to
+where we have our projects and I'm going
+to add the following. It's going to be
+the view all projects and the arrow
+upright which is that same icon we
+already have where we set the text to be
+center a margin top to be 12. Then we're
+going to animate fade in and we're going
+to set a delay in that animation to be
+of 500. Perfect. Now we have this
+beautiful project section created and
+we're almost done with the website. Like
+I said, this website takes a lot longer
+in the beginning to build, but after
+that, we already have a lot of the
+initial uh knowledge set up. Now, as you
+can see, the only stuff that we have
+left is to add the experience section,
+the testimonials, and the contact and
+the contact. So, we're going to do that
+really quick. Okay. So, now let's make
+the experience section. This section is
+pretty interesting because it shows a
+timeline of events of your previous jobs
+or I don't know anything notable,
+curriculum, studies, whatever you want
+to put. To start things off, we want to
+create a list that is going to represent
+the different experiences we have. Uh
+similar to what we did with the projects
+and also with the highlights. So I
+already created my list and I want you
+to create something similar. It's going
+to be a list called experiences and it's
+going to have objects inside of it. Now
+we want to put uh the following. the
+period of when that experience happened.
+So you should make it in order where
+like the oldest experience is at the
+bottom of the list and the latest it's
+at the top. So you see the bottom one
+goes from 2018 to 2019, the current one
+goes from 2022 to present. Then you put
+the role if you were just an engineer, a
+student, whatever, the company name, the
+description of the job, the list of
+technologies, and if it is current or
+not. Technically only one of them should
+be current unless you are multi-jobbing
+which I don't know maybe you are. So,
+make sure to put false as current for
+all the other ones. And then only one of
+them will be true. Now, we can start
+building the section. We're going to
+copy the same intro to the section as we
+did with the about in the projects page.
+And we're going to set the ID to be
+experience. Then, inside of here, we
+want to add a background glow similar to
+what we did with the project section.
+This one will be uh as follows. You can
+add it if you want to, and it should
+look a bit like this. Then below this,
+we're going to add the same kind of
+container like div that we added also on
+the projects and on the um about
+section. Both this, this and this, they
+were all done exactly the same as how we
+did on the other section. So you can
+just copy and paste. Another thing that
+is very similar is if you go over here,
+you see that uh this section over here
+is very similar to not the one from
+projects, but the one from the about me.
+So we're already kind of used to doing
+that. Now to structure this, we're going
+to have here the section header. And
+we're going to put here a div that
+should have a class name of max width of
+uh 3 XL. And I'm going to set a margin
+bottom to be 16. Then in this div, I
+want to set here a span that is going to
+say career journey. Then a section that
+is going to have a title. So we're going
+to say experience that. and then put a
+span like we did before because this
+part is going to be with italics. We're
+going to say speaks volumes. Put a space
+in between this so it actually has a
+space. And we're good to go. Now for the
+classes, we're going to just copy and
+paste the classes that we added for uh
+the about and project section. For this
+span, we're going to add a uh a text
+secondary to make it have be green. And
+we're also going to uppercase it and
+animate the whole thing in. For the H2,
+we're going to add a lot more. We want
+to make it big and fully uh primary and
+also add a small animation delay to it.
+Finally, for the span, we want to add
+the italic and the font serif so that it
+it stands out as well. Now, the next
+thing I want to do is add a small
+paragraph. We've done this on the other
+sections as well. So, I'll just copy and
+paste it. And it should go below the H2
+tag. It's just going to have a text
+muted foreground. And it should animate
+with a delay of 200 so that it comes
+after the first part of the title.
+Great. Now we're done with the section
+header. So we're going to go down a div
+and we are going to build the timeline.
+Now to build the UI for the timeline,
+it's going to be a bit different from
+what we've done because it's a very
+specific UI and there's a lot of cool
+effects that we have to put. To start
+things off, I'm going to set a container
+div that is going to be position
+relative. Then I'm going to add the
+vertical line. This vertical line is
+going to be this line that shows up over
+here. You see, it's a vertical line that
+goes from the top of the section to the
+bottom and it slowly fades out as it
+goes down. To do this effect, we're
+going to create this vertical line
+that's going to have a class of timeline
+glow. Now, what even is that? Well,
+that's a class we need to create on our
+utilities class. Now, I'm going to put
+it over here. I'll come down at the
+bottom, and I'm going to add this
+utility class. It's just a box shadow,
+and it's going to have a color mix of
+our primary color to transparent. And
+depending on the size, it's going to to
+create this slowed fade in effect. Then
+what we want to do is we want to come
+back to the experience and we want to
+make it such that this uh vertical line
+has a position absolute. It's going to
+start at the left zero. But the thing is
+this is only in a small screen. In a
+small screen in mobile it's going to be
+at the left. But on a big screen it
+should be at the bottom like at the
+middle sorry with this two uh the
+experiences like alternating which sides
+they're in. So to make this kind of
+effect we'll set the medium to be at the
+middle. When you're using position
+absolute to center stuff, you set it to
+be left and then you make it to be 1/2.
+So it's 1/2 of the screen. Then what we
+have to do is set it to be at the top.
+So top zero and also bottom zero. Then
+the width is going to be very small.
+It's so small that I want to specify it
+in pixels. It's going to be two pixels.
+We want to set a background to it so
+that you guys can even see what we're
+talking about. But we're going to be
+using a gradient that goes from the top
+to the bottom. And that's what creates
+the effect of literally disappearing,
+right? Together with the glow. Now, this
+gradient will start with the color
+primary, but not fully primary, like not
+the full green color. It's actually
+going to be 70% opacity. Then, it's
+going to go through the color primary in
+the middle, but then at 30% opacity, and
+then finally, it's going to end being
+transparent. Now, we have to set a a
+translation to it when we are in a
+medium screen and above so that it's
+fully centered. So, we're going to use
+the negative translate function the X
+direction to be a half. Finally, I'll
+also add a very specific shadow to this
+item. Now, this shadow over here is
+going to be the same color that we have,
+but it's going to be uh a slight less
+opacity as you can see. And I used RGBA
+so that I could change the opacity
+directly in the shadow. Now what we have
+to do is we have to build the actual
+section so that the because this is
+going to be the size of this div but we
+have nothing on this div. So it
+basically doesn't show the line. If
+there's nothing in the timeline then it
+doesn't show anything. But if I were to
+for example copy this paragraph tag over
+here and add something it will have some
+space. So you see the line actually
+appears. But we don't want that. We want
+to create the experience items. So I'll
+show you here experience items. And to
+do that, we want to use a div that will
+have a class name of space y12. And then
+in this div, I want to loop through the
+experiences list. M map each of them,
+get the experience and the index. And
+then for each of them, I want to render
+a div. To start things off with this
+div, I want to set the key of it to be
+the index already so I don't forget. And
+then inside of this div, I want to
+render another div that is going to
+actually uh determine if the experience
+is the current one or not. Why? Because
+if it's the current, we're going to
+apply this little pulsating animation,
+which the other ones don't have. Now,
+we're going to let that be for later.
+So, I'm going to just create this div
+and add here that this is the timeline
+dot. Let's create the rest of this first
+so that we can even see that. So, the
+content is going to be the most
+important part. So the content is going
+to be a div that inside of it, it's
+going to have another div and this inner
+div is going to have a period section.
+The period is going to be when this uh
+experience was from till when. So I'm
+going to render the experience period
+which is just a text. So it should look
+like this. Then below this uh period
+section, we're going to add an H3 tag
+that shows the row. So I'm going to say
+experience row. Then another a P tag
+this time that shows the company. So
+experience company. And then below that
+another P tag that shows the
+description. And finally we need to
+render the technologies. So for the
+technologies I'm going to actually
+create a div that should loop through
+the list of technologies in the similar
+way to what we did with the tags on the
+project section. We're going to get the
+experience say technologies do map
+through them. Close this off. get the
+TAC and also create the TAC index. Then
+we're going to render each technology as
+a pill similar to what we did before.
+Going to add a spend that for now is
+just going to render the TAC. Okay, we
+have a bunch of stuff. Now, let's make
+it look good. To make it look good,
+we're going to start off right over
+here. In this div, we're going to add a
+class name where we're going to set this
+to be actually a position relative uh
+grid. And in a medium screen and above,
+we're going to set this grid to have two
+columns. Remember the columns are going
+to alternate. There's going to be a gap
+of eight in between them. And I'm also
+going to use the animate fade in. Now
+remember this all we don't want them to
+appear at the same time. Every time we
+add a fade in animation on a list, we
+want to add that slight delay that
+depends on the index. So what I'm going
+to do is I'm just going to copy and
+paste that same code we had uh used
+multiple times already so that the
+actual items appear one by one. Uh I
+refreshed it and you couldn't see it,
+but that's how it's going to look. If I
+were to change this to say experience,
+then you'll be able to see it better. Uh
+let me refresh this. You see they appear
+one by one. Then on the uh content
+section, we're going to start by
+actually making it such that this
+content section has a dynamic class name
+because it's going to depend especially
+if we are in a big screen. It's going to
+depend on whether or not you are on the
+left or the right side of the screen.
+How do we determine that? Well, let me
+show you. If I open this up, you'll see
+that there's just one column. But on
+this content section over here, I'm
+going to make it such that the first of
+all, the padding in the left direction
+is going to be eight. And on a medium
+screen, that padding is going to be
+zero. But then we're going to check to
+see if the current index is even or odd.
+Because if it's even, then we're going
+to align everything to the right. And if
+it's odd, we're going to align
+everything to the left. That's how we
+make it such that they alternate in a
+medium screen. So we're going to check
+to see if it's even by doing index
+modulo two and if that leaves the
+remainder is zero then we know that it
+is even then we put here that in a
+medium screen and that's the case the
+padding right is going to be 16 and on a
+medium screen and that's the case the
+text will be aligned to the right so
+it's going to be on the right of the
+screen if not then we're going to do the
+following we're going to set in a medium
+screen because remember no matter what
+this logic only happens if it's a medium
+screen and above not in mobile we're
+going to set the column start two and
+we're going to set it also to have a
+padding left of6. You see that now there
+is a clear alternation between the
+items. Now there's some a lot more stuff
+that we want to do to make that look
+good. So I'm going to go back to mobile
+and we're going to start building the
+rest in mobile because uh we don't
+really care about desktop right now. But
+at least you guys saw that this worked
+in desktop. Now in this div, what we
+want to do is we want to add a class
+name that also is dynamic because it's
+also going to have some logic like we
+did over here. Now the general uh the it
+doesn't matter what we're going to apply
+is the background is going to be glass.
+It's going to have a padding of six and
+we're going to make it be very rounded.
+It's a card, right? Then we're going to
+set a border with a border color that is
+actually primary at 30. It's not the
+border border. Then when you hover it,
+we just increase that border color to be
+a little bit more visible. So at like
+50. Then we're going to apply transition
+all with a duration of 500. So
+everything is very smooth. Finally, we
+want to check to see if it's odd or
+even. But actually, thinking more about
+it, I don't think we even need that. Uh,
+most of what this issue is is actually
+we have to make one small change. But
+for now, we should just leave it as it
+is. Now, the main change that is caught
+now, the main reason why it's broken
+right now like this is just because we
+haven't actually made the timeline dot.
+Currently, this dot is part of the grid,
+which it shouldn't be because it should
+actually have a position of absolute so
+it doesn't affect the rest of the
+design. When I do that, you see that it
+actually works. So, we just left that
+for a little bit later, but I wanted to
+fix that just so you guys don't have a
+broken section. We're going to come back
+to this in a second. Let's continue
+building this section over here. And
+we'll start by building the UI for the
+period. For the period, we're going to
+set the text. Uh, actually, I don't know
+what happened here. Wait, we'll keep the
+span or edit class name text to be
+small. Then we're going to set the color
+to be primary, and the font to be
+medium. Then on this H3, we're going to
+set the text to be Excel, the font to be
+semi bold, and the margin top to be two.
+On this P tag, we're going to set the
+text to be just muted foreground. On
+this other P tag, we're going to set the
+text to be small and the color to also
+be muted foreground. And also a margin
+top of four. Finally, we get here to the
+technologies on this section. We want to
+set that the class name is going to be
+dynamic. Now, why are we making it
+dynamic? Because we're going to justify
+it to the end if we are on a medium
+screen and the thing is aligned to the
+right. So, we'll set a display flex and
+also flex wrap so it doesn't break the
+line. We're going to set a gap of two
+and a margin top of four. Then, we're
+going to do that check where we check to
+see if the index modulo 2 is equal to
+zero. And if that's the case, then we're
+just going to justify everything to the
+right if it's in a medium screen. So
+we'll justify end. If it's not, then we
+don't do anything. Now, what happens is
+we're going to come to this pen and
+we're going to add a petting x of three,
+a petting y of one to make it a pill so
+it doesn't look too big. We're going to
+set the bg to be surface like we made
+that other pill. We're going to add the
+text to be extra small. It's going to be
+rounded full and the color is going to
+be muted foreground. Perfect. Now I'll
+also just add a key over here and make
+it be t index. Perfect. You see looks
+pretty good. I can hover it. It looks
+fine. And on a bigger screen, it also
+looks fine. There's just one small thing
+I want to make, which is uh make the
+dots that appear through the timeline.
+If you remember on this version that we
+have over here, there's the dots. And
+obviously when it's the current one, it
+should pulsate. To do that, we're going
+to come here to this timeline dot that
+we didn't touch before. And we'll just
+add some styles to it. We'll start by uh
+adding a position of it. Left is going
+to be zero. On a medium screen, it's not
+going to be zero because it's going to
+be in the middle. So, I'm going to say a
+half top zero. And I'll set it to have a
+width and a height of three so that it
+actually becomes a circle. I'll add the
+color to be primary. Now, on each of
+them, there should be one. And I'm going
+to make it rounded so it's a circle. So,
+I'm going to do rounded full. Then, I'm
+going to translate X to be a half so
+that it actually centers in the middle.
+I'm adding a ring around it of four, but
+I'm going to add the ring to be of color
+background and then a zindex of 10. Now,
+to make it pulsate, here's what we have
+to do. We'll go inside of this div just
+like this and we're going to check to
+see if the experience current is true.
+If that is, then I'll render another
+span that is going to be inside of it.
+Now, this span is self-closing. So, I'm
+going to remove this and do this. Now,
+what do we want to do with this span?
+I'm going to add a class name of
+position absolute insert zero rounded
+full bg primary and then animate ping
+which is going to start pinging. We also
+want to set the opacity to be 75 just so
+that it's not too obvious. Now it's a
+little bit more smoother and you can see
+perfect. That's pretty much it. Now this
+section as you can see is the hardest
+out of the last out of the next ones
+that we're going to make. So, if you
+want to practice the next ones without
+continuing the video, feel free to do
+so. But I'm going to show you guys how
+to do everything. The next section is
+going to be the testimonial section. In
+this one, because it just reuses a lot
+of the stuff that we've already learned
+so far, I'll go a little bit faster. To
+start off the bat, if you look over
+here, you'll see that for each
+testimonial, it's a card that appears in
+the middle. It has a profile image, a
+name, and also a description of who they
+are. Now, all of the images I'm using
+here are actually very commonly used
+images. I always use them in projects.
+they have a public URL and it's just I
+don't know if it's fake people but
+they're used everywhere in different
+projects when you're trying to mock
+something. Now, you don't need to put
+images for people. You don't even need
+to put the profile images or their name,
+but it's good to have a testimonial so
+people can vouch for you. And to create
+this kind of thing, what I want to do
+first is create an array of testimonials
+like we did for all the other pages.
+Now, this is what I want you to put on
+that array. Each item in the array is
+going to have a quote, an author name, a
+row, and an avatar. If you don't want to
+put their profile images, don't put the
+avatar. If you want to use the same ones
+as I did and pretend like it's a real
+one, feel free to do so. I'm not in
+control of you, but just use the URLs
+that are over here. Then, we're going to
+come down here and we'll start building
+the section. The first thing we need to
+build is the intro of the section, which
+we've done multiple times as well. Just
+make sure to change the ID to
+testimonials. Then we want to add a like
+a a glow around it just like just like
+this. And it should look a bit like
+this. Then we'll create the container
+like we did on the other ones as well.
+And now we're ready to go for the header
+section. I'm not going to show myself
+writing it because we've done it already
+four times. But here is what you need to
+put. This is the section header. This
+time it's going to be centered like the
+project one. You're going to apply a
+text center, a max width, margin x auto,
+and a margin bottom of 16. Then you do
+the same kind of manipulation we did
+with the spen for the first section. You
+uppercase it. And then on this one you
+use an H2 and a span to write like uh
+the different fonts for you. One minor
+change that I did was I used the this
+notation of adding a empty space using
+this instead of just adding it over
+here. But you can do whatever you want.
+Now we go down this div and we're going
+to create the testimonial carousel. This
+one I'll show myself doing it because
+it's different from what we've done. Now
+to create this testimonial carousel,
+I'll create here a div and another div
+and I'm going to create the main
+testimonial. Now, now what is that?
+Well, differently from how we rendered
+lists in the past, we're not showing all
+of the items at the same time. Actually,
+we're only showing one at each time. So,
+we just have to build a UI for that one.
+Now, we have a list. So, we're going to
+have to keep track of which of these
+testimonials in the list we're going to
+be showing at each time. At first, let's
+just show the first testimonial, which I
+believe is going to be this one over
+here. So, we'll go back over here, and
+for the main testimonial, I want to add
+a div that is going to have a another
+div. Now, this div is going to actually
+be for the quote. Quote is an icon from
+Lucid React. That should look like this
+to indicate that this is a testimonial.
+Then, below this quote, we're going to
+add the actual quote. Based on how HTML
+works, you can add quotes by adding the
+block quote tag. Then in the block
+quote, we're going to get the list of
+testimonials. And for now, we're just
+going to render the first one and get
+the quote just like this. Then below
+this block quote, we're going to render
+information about the author. We're
+going to first show their image if
+applicable. If not, then just ignore it.
+Uh for the image, we're going to show
+the source here. We're going to apply
+the testimonials. get the first one and
+show the avatar. We're going to then
+apply the alt. And for the alt, we're
+going to do something similar. We're
+just going to apply it just like this,
+but not the avatar, but rather the
+author name. Then, uh below this, we're
+going to add a div that is going to show
+more information about the author. Uh
+we're going to show in this div the
+actual uh name of the author. Again,
+we're going to say author. And then
+we're going to have another div below
+this that is going to show the role of
+that person. So I'm going to say
+testimonial zero row. Perfect. Now let's
+add the styles for this whole carousel.
+We'll start by adding the top styles for
+the carousel. Just this. We're going to
+set the class name to be max width for
+XL and a margin X of auto. Then on this
+div, we're going to add a position
+relative. Then I want to come to the
+main testimonial and I'll make the
+background be glass. Have a padding of
+eight. And I'm going to set it to have a
+very rounded corner. So 3 XL. Then I
+want to go and make it so that in the
+middle screen and above I'll make the
+padding be bigger. And I'm going to set
+the glow border so that it has that glow
+in the border. Now I'm also going to
+animate fade in and apply a delay of
+200. Then in the quote icon I'm going to
+set it to be completely absolute so it
+doesn't affect the inside of it and it
+appears over here. So I'll say position
+absolute. I'm setting it to be at the
+negative top four so it goes a little
+bit up uh not an equal sign so it's over
+here and then a little bit more to the
+left so I'll just say left eight then
+I'll set the width to be 12 and the
+height to be 12 and for it to be rounded
+full then a bg primary then I'm going to
+put a display flex items center and
+justify center then we can come down
+here for the actual quote I'll change
+the color cuz white is too strong and
+then I'm going to put the width to be
+six the height to be six so it's a bit
+smaller and then I'm also going to make
+it such that the color text primary uh
+yeah primary foreground perfect now we
+come down here to the block quote and
+I'm going to add a text XL and make that
+be to XL on larger screens make the font
+be medium and we'll add a leading
+relaxed with a margin bottom of eight
+and a padding top of four perfect then
+on this div I want to set the class name
+to have a display flex item center and a
+gap of four. Then on the image, I'm
+going to set the class name to have a
+width of 14, a height of 14, then a
+rounded full, and an object cover with a
+ring of two. And that ring be a primary
+color with 20% opacity. So it creates
+this little circle around. And because
+it's object cover, the image goes inside
+of that circle. Then on this div, we're
+going to set the display to flex. We're
+going to center the items. And we're
+going to put a gap of four in between
+them so they're spaced out. Now for the
+author, I want to set the font to be
+semibold. And on the other one, I want
+to set the text to be small and the text
+to be muted foreground. Now, this is one
+way to show it, but if you want to show
+it exactly how I show it over here,
+where it goes below, some people prefer
+either way, you just have to remove this
+at the top as well. Now, we're pretty
+much done with rendering this, but we
+have to know how to switch between one
+testimonial to the other. So, we're
+going to add the navigation controls for
+this testimonial section over here.
+We're going to go down four divs. So,
+just over here. And this will be uh
+testimonial
+uh navigations. Then, I'm going to
+render a div, put a button, and I'm
+going to add the left uh navigation. So,
+I'm going to use a chevron left, which
+is an icon to show the left uh button.
+Then, I'm going to show the dots. Now,
+what are the dots? Well, if you go over
+here, it shows how many of the um
+testimonials you have. So, it's going to
+be a bunch of dots that we're going to
+render, and it will depend on the
+testimonials list. So, I'm going to do
+testimonials map through each of them.
+But, it's going to be a bit different
+because we don't really care about the
+individual stuff of the testimonials.
+Those are rendered over here. We just
+care to know how many of them there are.
+So I'll just get the index over here.
+And for each testimonial, I want to
+render a button that is going to act as
+a dot. So in this button, it's going to
+be self-closing actually just like this.
+And we're going to make it such that it
+become it represents a dot. But before
+we do that, I'm going to add this other
+button that is going to be the right uh
+we're going to do chevron right. And it
+should be the right button. Okay. Let's
+style all of this because it's looking
+pretty ugly. We'll start by doing
+display flex items center justify
+center. So it's s center centered
+vertically and centered horizontally.
+We'll put a gap of four in between each
+item and a margin tab top of eight. Then
+on this button I'm going to add a
+padding of three. I'm going to make it
+completely rounded. I'm going to make it
+be glass. And then I'm going to add a
+hover effect where the color becomes
+slightly more green when you hover it
+but just a bit. Also the color will
+become primary. So it becomes green. And
+we're going to add a transition all. Now
+this is what it looks like. I can hover
+it and it becomes slightly green. I'm
+going to copy this class name and I'm
+going to just paste it on the chevron
+right as well. Then for the dots, here's
+where a lot of the styles come in. We're
+going to actually have a class name that
+is dynamic because if you look at how we
+styled this over here, when you are in
+the individual but dot that you want to
+be, the style changes. Also, I don't
+know if you guys noticed from the demo,
+but you can click on the dots to move.
+You don't have to use the left and
+right, which is pretty cool. So, we'll
+make this dynamic. We'll set all of them
+to have a width and a height of two. And
+we're going to apply a transition all
+and a duration of 300. Then, I'm going
+to insert here a another item where it's
+going to get the index and it's going to
+check to see if it's equal to zero. Now,
+why am I doing zero? well, is because
+for as of right now, we are only showing
+the first testimonial. But then we're
+going to change this to actually check
+to see if it's the testimonial that we
+want to currently be in. And then when
+that's true, we want to check and add a
+width of eight to make it bigger and a
+bg primary. So you should see that it
+should only have one as of right now.
+That is pretty long because it's the
+active one. Now, what I want to do after
+is on the other ones, I want to set the
+BG to be muted foreground with 30%
+opacity. All of them should be gray, but
+they're all together. So, we want to
+separate them. And also, when you hover
+them, I want to just set the same kind
+of color, but it's going to be 50%
+instead. Now, to separate them, we have
+to add a class name on here to set
+display flex. And then, we can put a gap
+of two in between them. Also, I want to
+make it fully rounded. So, I'm going to
+add a rounded full over here so that
+they actually look like what we wanted.
+Now, we're kind of ready to be able to
+make it dynamic. I want to be able to
+click on this sections and be able to
+move through them. Also, I notice as of
+right now that some of our buttons don't
+have the pointer, right? When I hover
+it, it doesn't change my cursor to
+pointer. That's actually pretty fine for
+me to do. I can just come here to our
+base layer, add a button layer, and make
+it such that every single time we have a
+cursor on a boat button, it should
+become a pointer. I don't really mind
+doing this for all buttons because I
+think that uh all the buttons deserve to
+have a cursor to be pointer. Now, what
+do we want to do? Well, we want to keep
+track of which testimonial we want to
+show. And to do that kind of stuff, we
+need to know which testimonial is in the
+screen and be able to manipulate that.
+So, we're going to be using states just
+like we did on our navbar. Going to come
+over here and I'll create a state called
+active index. It's the state showing the
+active index, meaning the active
+testimonial. It's going to start at zero
+so that it shows the first testimonial.
+Then I want to make two functions. the
+next it's going to be the next
+testimonial function and I'm also going
+to make the uh previous testimonial
+function. I'm going to call this prev.
+Now when I call this function all it
+does is it sets the active index to be
+equal to and then I'm going to get the
+previous one uh oh I just realized that
+I can't I shouldn't call this prev. I'll
+call this previous. And then I'll get
+the previous item and I'm just going to
+increase it by one to move it once more.
+And then here's the tricky part. I'm
+going to modul it uh with a testimonials
+length. Why am I doing that? Because if
+I move to the last item, if you look at
+the final result when I'm over here,
+adding one to it is going to actually
+make it be out of bounds and it's going
+to the prev plus one at the last item is
+going to be equal to the total length of
+this. So if the list has four items,
+right, the first index will be a zero,
+the second one will be one, the third
+one will be two, and then the last one
+will be three. But the length of this is
+four. Right now, if I'm in the first
+item, which is how we start, and I click
+the next button, it's going to call this
+next function. It's going to add one to
+it, and then it's going to become um
+one. Then it's going to become two and
+then three. When it reaches three, we
+want it to go back to zero, right? What
+modulate does is it gets the remainder.
+So, what it's going to do is when we
+have our three, it's going to add one to
+it, which is going to become four. And
+then it's going to modulate with the
+length, which is four, which there's no
+remainder. So, it's going to become
+zero, which means it's going to return
+back to zero. And it creates this
+perfect loop. This is a very nifty
+trick. And if you're not familiar with
+how modular works, um, I wouldn't worry
+that much. It's not a front- end topic,
+like a front-end concept is more of a
+programming and a math concept. So, uh,
+I recommend just checking out other like
+video tutorials on it. Uh, or you
+definitely saw this if you did a
+computer science degree or even if you
+didn't, uh, just one Google search away
+if you didn't fully understand my
+explanation. But what we want to do now
+is copy this logic, put it over here,
+and do kind of the opposite. But the
+opposite isn't just doing minus one
+here. It's also adding the testimonials
+length to the end of this minus one.
+Then what we do is we go to the two
+buttons, right? The chevron left over
+here and the chevron right. I'm going to
+put the previous here. And then on the
+chevron right, I'm going to call the I'm
+going to add it here actually so it's
+easier. I'm going to call the next
+button. And then I'm going to switch
+what we show here. Instead of showing
+zeros for all of them, I'm going to show
+the active index. I'll copy this and
+replace every single instance of where
+we use the zero. It should still remain
+the same, but when I click on this
+button, you should see it should now
+switch. Now, it's not switching this
+bottom thing cuz we haven't manipulated
+that yet. But we're going to do that
+right now. So, what we need to do is
+replace the zero with active index. You
+see that now at least it shows it, but
+we're not able to click on the
+individual buttons. To do that, we don't
+need to create an external function.
+We're just going to add an on click and
+call the set active index to be the
+index that that specific circle is. So
+now I can click on that one and it will
+take me there. This one and so on. So
+that's pretty much it for the
+testimonial section. It's uh pretty
+interesting. You can create this little
+carousel and if you've never done this
+before, you can now do it on every other
+project that you build. Now it's time
+for us to build the only fully dynamic
+part of website, which is this part over
+here. It's the content uh contact
+section. On this section, we're going to
+be using an email provider to send
+emails to ourselves and we're going to
+be using email.js. It's not sponsored by
+email.js. I've used them multiple times
+in my videos, but you can use any other
+email provider if you want to. Now, to
+build that, here's what we want to do.
+So, what we want to do is we're going to
+close that off and open up the contact
+section. Now, the first thing we want to
+do here in the contact section is create
+an array called contact info. This one
+will include certain things about how to
+get in contact with you. None of these
+things are true to myself. I'm obviously
+not going to dox myself, but put the
+information that you want. Now, some
+people don't want to put like very their
+phone numbers out there. I used to put
+mine on my website until some of my
+subscribers back in the day started
+calling me and then I was like, "Oh,
+it's better not to have it." Uh, but uh
+I recommend you guys putting it just in
+case like uh people will try to call
+you, like recruiters will try to call
+you. That's very common. And location,
+you don't need to put your direct
+address, but you can just put like the
+city and the state that you live in. I
+obviously don't live in San Francisco,
+but I put it over here. Now, we'll start
+building the section. To start things
+off, I'm going to paste here the section
+for the contact. Again, same thing as
+what we've done so far for the other
+ones, including adding a background glow
+that looks like this. It's just going to
+add that little glow that appears on the
+section. You can just copy and paste it.
+Again, just using all the stuff that we
+have already used. Then I want to create
+the container section. Just going to
+copy and paste it as well. And inside of
+the container section, I'm going to add
+the header. Since we are at the section
+after the testimonials where it's
+centered, it should be on the left. I
+think I might have not rendered the
+contact section over here or I did um
+but it's not rendering actually because
+you see in the contact info array, we
+rendered some icons, but I forgot to
+import them. So we have to import them
+at the top over here by just saying
+import mail from Lucid React. Then
+import the phone icon from Lucid as well
+and the map pin icon. Now it should work
+when I refresh this. Perfect. Now let's
+go down here and let's see how it looks.
+So this is the title section for the
+contact. Now we got that stuff that we
+have already worked on out of the way.
+It's time to build some really
+meaningful stuff. We're going to build
+the contact form. We'll start by
+building a div and then another div
+inside of it that will have a form. Now
+for the form, there's just a couple
+things that we need for each uh from the
+user to actually send a message to us.
+We needed to have a label for the name,
+the email, and also whatever they want
+to send. So for each of those inputs,
+we're going to have a div here with a
+label representing that input. For
+example, the name should have that. Then
+we're going to have the actual input.
+And that should be pretty much it. Then
+I'll copy this, paste it here twice
+more. This will be for the email. And
+then this will be for the message. Now,
+what do we want to do? Well, let's start
+with this div over here. I'm going to
+add a class name here. I'm going to make
+this be glass. And I'll add a padding of
+eight. You'll see that now it looks like
+this. Now, I'm going to make it be
+rounded 3 XL to look like a card. I'll
+add a border. Make that border be
+primary. 30 opacity. And I'm going to
+animate fade in with a delay of 300.
+Then what I want to do is on this div
+over here. Actually, sorry, this class
+should be on the div below. I made a
+mistake in that. It should be here. And
+this class should be just structuring
+how this form looks. It should be a
+display of grid. And in a large screen,
+it should have two columns. So we're
+going to do grid calls 2. Then a gap of
+12. We're going to mix the width at 5xl
+and a margin x of auto. Then for the
+actual form, we're just going to put a
+space in between each inputs because
+they're all cluttered together. We'll
+put a space in the y direction of six.
+Then on each label, we have to pass in
+an HTML 4. This is a value that is
+corresponding to what we pass in here as
+the ID for this input. So I'm going to
+make it be name. And then on this, I'll
+make it be name as well. Then on the
+label, I'll make it be display block
+text small font medium and margin bottom
+of two. Then I'll copy this and I'll
+paste it on this label and on this one
+too. Now I'll change them. For the
+email, I'll call this email. And for
+this one, I'll call it message. And then
+for the input, here's what we have to
+do. We have to add a bunch of stuff
+related to it. Like for example, what is
+the type? I'm going to make it text. And
+also the styling. We want to make it
+such that the input has the full width
+of the card. It has a padding x of four,
+a padding y of three. And then I want to
+make it have a background of surface.
+Then inside of it, I'm also making it
+have a rounded corner. I'm going to add
+a border to it with the color border.
+Border. Then I'm going to when you focus
+on it, I want to add a border to make it
+be green. So while I'm writing on it and
+I focus, it becomes green. But there's a
+problem because when I focus on it, you
+see that there's this weird ring around
+it that comes with every input. So I'll
+actually make it such that when I focus
+on it, the ring is only one size and the
+color of it is primary as well. So you
+see now it shouldn't look like that. But
+to remove that, we just need to remove
+the outline. So I'll say outline is
+equal to none. And now it looks like how
+exactly how I want. I'll also add a
+transition all so that it's a lot
+smoother. I'm going to copy this and I'm
+going to paste it on the email input as
+well. Now, for this one, I'm going to
+paste it in here as well, but there's a
+major difference for the last one
+because the type that we have here for
+the first one is type text. The second
+one is going to be type email, but it
+still looks like an input. But this last
+one over here is actually not an input.
+This should be a text area. And on the
+text area, the only change that we need
+to make is I don't want to allow it to
+resize. See how it allows us to resize?
+I want to remove that possibility. So
+I'm going to make it be resize none. And
+then when we refresh this, it should be
+Yeah, I can't do that anymore. Perfect.
+Now I'm going to come up here and I want
+to set some requirements to our inputs.
+For example, each input is going to be
+required and they're going to have a
+placeholder on the name. One is going to
+be your name. I'm gonna copy this and
+I'm gonna add it over here. This one
+will be your email. And then on this
+one, it's going to be just your message
+just like this. Now, did we not add it
+to the email? I realized I added to the
+complete wrong place. It should go in
+the input itself. Now, on the email one,
+actually, I'm going to format it. So, it
+should look like an email to let them
+know. Just like this, and they should be
+fine. Now, for the text area, I want to
+make it a bit bigger. And we can do that
+by setting the specific max amount of
+rows to be five. Now we have a form
+ready. But we need to have a button at
+the bottom to submit the form. So below
+this div, I'm going to use our button
+class that we created in the beginning.
+And we're going to create a button that
+is going to say send message and it's
+going to have a send icon as well which
+we can import from Lucid React. Now we
+have to import that button component.
+So, I'll say import button uh from and
+then I'll import at slashcomponents
+slashbutton. Pretty sure that's how we
+called it, right? Uh yeah. And now we
+should have that button at the bottom.
+Send a message. But let's make a small
+change to this button just because we we
+allow ourselves to customize this button
+more by passing a class name. And what I
+want to do is I want to set the width to
+full. You see it will actually make it
+entirely full width of the contact form.
+I also want to make this button be of
+type submit. And then I want to make the
+size be large. Now, one thing you might
+have noticed is that when we pass this
+type submit, how will this work? Because
+when we look at the component we created
+here for the button, it doesn't accept a
+type as a prop. But that's fine. What we
+can do is situations like this, we can
+just pass along every prop that we pass
+here. So to do that, we can accept all
+of the props by destructuring them over
+here like this and then just passing
+them back into the button when we call
+it and then whatever I pass in as a prop
+that I that isn't one of the specified
+types will just be repassed down to that
+button including this type. And now it's
+time for us to actually make such that
+this form can submit the the
+information. To do that, we're going to
+create a state that is going to keep
+track of the form data. So we're going
+to create here a use state and the form
+will have the following data. It's going
+to be an object with a name which is a
+string, an email which is a string and a
+message which is also a string. I'm
+going to call this state form data and
+the set form data function. Then I want
+to create a function that when called is
+going to submit this form. So I'll
+create a handle submit function. It's
+going to be async because just to send
+an email it's an async operation and it
+will take in the form event. If you've
+ever submitted a a form in an HTML page
+before, you know that it refreshes the
+page. But we don't want that to happen.
+We are going to prevent default, which
+prevents the default behavior of
+refreshing the page. Now, how do we get
+uh to keep track of what the user is
+typing on this form and set it to this
+form data state? Well, what we do is we
+go to each input and we're going to add
+the following piece of code. For each
+input, we want to add an onchange to it
+where whenever there's a change to the
+input, we're going to call the set form
+data function. We keep all of it the
+same. So the rest of the inputs that
+aren't being touched, keep the same, but
+this specific input that we are changing
+here, which in this case is the name.
+We're going to set that value equal to
+whatever the user is typing on the
+inputs. We also added a value here just
+to make it such that they are both in
+sync. And we do the same thing for all
+of the other inputs. For the input for
+the email, we do the same thing, but we
+just change this to say email. And then
+we change this to say email. And then on
+this one, we do the exact same thing,
+but we change this to say message, and
+this to say message. Now, we're pretty
+much ready to be able to submit this
+form as a uh as an email. But to do
+that, like I said, we have to set up an
+account on this other external service
+called Email.js. Now, this is Email.js.
+Again, not sponsored. So, if you don't
+want to create an account, you don't
+have to do it. I'm going to log into an
+account I have. I'm going to click here,
+sign in. And when you create your
+account, you're going to come here. It's
+completely free. I want you guys to do
+the following. I want you guys to click
+add new service. Choose the personal
+service that you have. So, to make it
+free, you're only going to be receiving
+emails on an account that you connect.
+So, connect your own account, right? So,
+your email, your Gmail, your, I don't
+know, Outlook, whatever you have, and
+that's the email you're going to be
+receiving the contact messages from. You
+choose I fetches Gmail. You click this.
+You click connect account and it's going
+to connect to your Gmail account. And it
+allows up to 500 emails per day, I
+believe, on the free plan. After that,
+you're going to get a service ID. I'm
+just going to use this one that I
+created before creating this video. I'm
+going to copy this and I'm going to come
+back to our code and we need to save
+that information somewhere. But we want
+to save it in a environment variables
+file aenv file because it's going to
+make it such that we don't have we don't
+have to publish this information uh to
+github when we push our code. So I'm
+creating here aenv
+file and I'm going to create an
+environment variable in this project. To
+create an environment variable in vit
+you have to start the name of it with
+vit and then write the name of the
+variable you want to create. For
+example, we're going to keep track of
+the service ID. So, I'm going to call it
+vit emailjs
+service ID and set it equal to this.
+I'll do the same thing two more times
+and we're going to create two more
+variables. Now, we're going to create
+the template ID, which I'll show you
+guys how to actually make that. And
+we're going to create the public key,
+which I'll show you how to get that as
+well. So, the public key is your public
+API key. You're going to go to account
+and then right over here, you see you
+have access to the public key. You get
+that key and then you just put it over
+here. Now for the template ID, here's
+what you have to do. You go to email
+templates after you have already created
+your service. You will see nothing. This
+is what I created for the demo, but you
+click on create new template. You're
+going to choose contact us. Click on
+create template. Then you'll have a
+simple template email that you might
+want to use. Now the template ID is part
+of the settings over here. You're going
+to copy that, come back to our code, and
+paste it over here. Now before we
+continue, we want to make the email look
+a little bit better. Now to do that, you
+can use their edit content over here.
+And they have two options. Either you
+write HTML to make the email look better
+or you use their design editor. I hate
+using design editors because I don't
+know how to use it. Every website makes
+it different. But HTML is universal, so
+I made it in HTML. Now, if you want to
+use the same one that I used, just copy
+and paste. It's going to be there in the
+description. Now, if you want to use the
+same one, just copy. It's going to be in
+the readme in the description and you
+should have an email format that looks
+like this. Now, this I think looks fine.
+You click on apply changes and this is
+the kind of email that you're going to
+get. You see that there are some
+variables here and they all depend on uh
+what we actually send from the code that
+we are sending from ourselves. Now, all
+of the emails are going to be sent to
+the email that you connected. I'm using
+this fake email over here called Pedro
+Techch Rumés. I've used it multiple
+times on videos. Don't send emails to
+there cuz I'm never going to look at it
+and it's just the email that I use for
+testing. Now I'm going to click on save
+and the email template has been added
+successfully. Now we can get out of
+email.js and we can come back to our
+code. I'm going to make it look uh in
+mobile. I'm going to resize this to
+mobile again. And we can come back here
+to our context.jsx.
+And the first thing I want to do is on
+our form here I want to add an onsubmit
+and call the handle submit function when
+that happens. Now to send an email using
+email.js JS, we have to in install the
+emojis package. To do that, you're going
+to run npmi email.js/browser
+and then press enter. It's going to
+install that package. Then you're going
+to come down here to the handle submit
+and we want to try sending the email and
+catch any errors that might happen.
+We'll start with the try case. Now,
+while we send the email, we want to keep
+track of some statuses of how the email
+sending functionality is working. So
+what I'm going to do is I'm going to
+create two more states. One is going to
+be an is loading and the other one is
+going to be a submit status. Now what
+are they? The is loading is while I send
+the message when I click on this button
+to send a message. While it's sending
+the email I want this to show a
+different like UI while it's loading,
+meaning it's sending the email. And the
+submit status will let us know if it was
+successful or if there was an error.
+We're just going to keep track of that
+in case we want to show to the user
+because the worst thing that can happen
+is you're saying that you're good at
+writing or at making websites and then a
+recruiter tries to send an email to you
+and you're not handling errors correctly
+and then they figure out that you're not
+as good of a developer. So, you want to
+make sure to let them know by handling
+every single state that can happen in
+your website. So, right off the bat,
+when we start submitting the form, I
+want to reset the submit status in case
+this is the second time we're sending an
+email and there was an error in the
+first time. And also, I'm going to set
+is loading to true. Why? Because I'm
+going to set is loading to true inside
+of this try case over here. We're going
+to try some asynchronous behavior. And
+when that's done, we're going to add a
+finally clause over here where I'm going
+to set is loading to false. So, no
+matter if it's uh an error or it was
+successful, I'm going to set it to
+false. Now in the strike case we want to
+get the environment variables that we
+created over here. To get environment
+variables from uh your yourv file in vit
+you basically import them say import
+meta.env
+and then write the name of the
+environment variable. I imported all
+three of them and I set them to their
+respective variables. Then we want to
+make sure to check to see if we got them
+correctly because maybe we didn't set
+it. In case we didn't, I just throw this
+error. This should never go to
+production. Like this should never
+happen in production because in
+production we're going to set our
+environment variables. But we see over
+here that we check it before we actually
+continue. And then the next thing we
+want to do is we want to send the email.
+To send the email I'm going to call the
+email js package. Now that I can import
+over here. I'm going to import email.js
+from at email.js/browser.
+And what I want to do with this email.js
+package is I want to call the send
+function. Now the send function requires
+us to pass three actually four things.
+The first one is going to be the service
+ID and we already have that from our
+environment variables. The second one is
+the template ID. So what is the template
+of the email you want to send? The third
+one is going to be an object with the
+information that we're sending through
+that email. And the final one is going
+to be a public key that we have for our
+account. Now what we send over here is
+the actual data. So what I'm going to
+put is I want to send the name, the
+email, and also the message. Remember
+those are all variables that we defined
+in our template. If I go to our email.js
+template over here, uh I think it's this
+one. You'll see that it includes over
+here the name, the message, and also uh
+the email. Right? So what I want to do
+is I want to pass in as the name the
+form data.name. As the email, I'll do
+the same thing but dot email. And for
+the message, I'll do the same thing but
+message. Then if this was successful,
+I'm going to set the submit status to be
+a success. And a little message just to
+let the user know that everything was
+correct. If it w it was also successful,
+we want to reset the form data so that
+the inputs are clear. Finally, in case
+there's an error, I want to console log
+that error so that we can see it
+internally as the developers and also
+set the error message to be displayed in
+the screen. Now, to handle the loading
+state and all of that, we're going to
+come down here and for the button, the
+submit button, I'm going to disable this
+button if the form is currently loading.
+Meaning, if I'm submitting the form, the
+user can just keep sending emails and
+spamming me. That's a great way to
+prevent spam. Then I'm also going to
+replace what we show depending on if the
+user is submitting the form or not. So
+hang on for a second. I'm going to check
+here. If is loading is true, then I want
+to render a different UI. If it's false,
+I want to render what I already have.
+Now, what UI do I want to render while
+it's true? Well, I want to render a
+message saying sending and I don't want
+to show any icons. Also, let me just
+make this icon a bit smaller because I
+realize it's a bit big over there. I'll
+make it width of five and a height of
+five. Now to show the error message, I'm
+just going to paste it over here because
+it's a bit of the same of what we've
+done so far as well. The only thing we
+need to do is add the check circle and
+alert circle as uh icons over here. So
+we'll also add the alert circle. Now
+what this is going to do is in case the
+submit status is true and it's a
+success. So what I'm going to do is I'm
+just going to remove this check so you
+guys can see what happens in case it's
+true. Then we see a and then I'll make
+this be success. So what happens is if
+this is success and this is success. I
+know this looks really weird. We see a
+success message over here. If it's not
+if it's an error, we're going to see it
+red and we're going to see this look
+like an error message and it only shows
+if the submit status gets updated. Now
+it's time for us to try sending a
+message. I'm going to open up my email
+and we'll see if we do receive it. If we
+don't, I'll address any errors. Okay, I
+have the email opened over there and I'm
+going to also inspect element over here
+so we can see if we console log
+anything. I'm going to send an email.
+I'm going to pretend I'm a recruiter
+called jack raider from jack
+atraider.com
+and say hello, we are interested in
+hiring you. Going to click send message.
+It changes to that state and then it
+says message sent successfully. So it
+seems like everything was great. The
+only way to check is if I actually got
+that email. And guess what? I did get
+that email. I got that email and it was
+sent from another account that I
+registered, not my uh not this account
+specifically, but it looks fine. It
+looks great. I actually got the correct
+information from what we said and the
+actual message. So, the email contact
+form is working perfectly. Now, you
+might be noticing that this is a bit out
+of place, and that's because I also
+added this part over here that talks
+about uh your actual contact
+information, and that's why we even put
+this uh list at the top. Now, to do
+that, it's pretty simple. I It's a lot
+of what we've done so far. So, I'm also
+going to just copy and paste it. If you
+don't like that I'm copy and pasting
+this end of the video, you can criticize
+me in the description, but I feel like
+it's better to just go a bit faster
+because I already spent a lot of time
+explaining the rest of this to you guys.
+Now, below this deal over here, we're
+adding the contact info. Now, for the
+contact info, I'm going to paste the
+following. This is how it's going to
+look. You're going to render a title for
+the section. You're going to loop
+through the contact info list that we
+created, and you're just going to render
+a little tag for each of them. Now, this
+is how it's going to look. You map
+through each of them. render it, show
+the icon, show the label, and at the
+bottom, we just added a very simple
+availability card that blinks by using
+the enemy pulse that we have used as
+well previously in this tutorial. And
+that's pretty much it. Now, the final
+thing that I want to do is I want to add
+a footer at the bottom. Now, for the
+footer, I'm going to create here a
+component, and it's going to be in the
+layout. It's going to be called
+footer.jsx.
+Then if you want to have my footer, just
+copy and paste this code and it's going
+to just be a representation of the nfbar
+at the bottom with the current year and
+all the social links that we have. It
+should look a bit like oh actually I
+didn't call it. So we'll come here to
+our app.jsx and I'm going to call it
+right below the main tag and I'll call
+the footer. And it should look like
+this. So feel free to use the same kind
+of footer if you want to. It's basically
+a re redone of the navbar. And that's
+pretty much it. Now, we just have to
+deploy this website so that everyone can
+access it no matter where they are. Now,
+it's time for us to deploy our
+application so that our recruiters can
+see our website being live. Now, to do
+that, we're going to be using two free
+services, GitHub and Verscell. GitHub is
+going to store our code and Verscell is
+going to host it. Now, in order for us
+to get this to work, we need to first
+push our code to a GitHub repository.
+So, I'm going to create a new
+repository. I'm going to call it React
+Tailwind personal portfolio. And I'll
+create this repository. This is going to
+be the repository that you guys see when
+you um access my code. Then we have an
+issue because you know this file, this
+is not a file that we want to push to
+the public. Why? Because it has all of
+our uh API keys for email.js and we
+don't want it to be available for
+everyone browsing our GitHub account. So
+what I want to do is I want to just
+simply make this file be a local file by
+adding av.local.
+This on top of also coming here and
+maybe making all env variations
+likev.local
+anything it will make it such that in
+our whenever we push this code to GitHub
+it's going to ignore um the env file
+that we have here. Then I want to push
+this code. So to push it, I'm going to
+copy all of this command and I'm going
+to initialize a new repository in our
+project. You see that thev.local is kind
+of hidden. It's gray and that's because
+it is not going to be sent when we push
+this code. Then I'm going to run git at
+dot and I'm going to paste all of the
+commands that we copied from there. This
+should paste and push all of our code.
+And if we look right here, you see that
+we have our entire code, but it doesn't
+include thev.local file. Now we can go
+ahead and create a Verscell account. I
+highly recommend that you create an
+account with GitHub by using your GitHub
+account so that both of them are already
+connected. Now when you get to Verscell,
+you're going to come here to projects
+and then overview and click on add new
+project. Then what I need you to do is
+you need to find the repository that we
+just created. We created here the React
+Tailwind personal portfolio and that's
+the one that I want to choose. I'm going
+to click on import and you see it
+automatically detects that this is a VIT
+project. Now the important part is that
+we need to set on our environment
+variables. That's why we remove the
+environment variables from in push for
+GitHub because we're going to actually
+add them in the back end here while
+deploying it to Verscell. We're going to
+copy this entire list. You can just copy
+like this and paste it here and Verscell
+will recognize what they are. Then we're
+going to click deploy and it's going to
+start deploying the app. Now if there's
+any issues while it's building, I'll let
+you guys know and I'll show you guys how
+to fix it. Once in a while I do see
+failures like it's saying here failed to
+load data. We'll see what this is.
+However, uh if everything is fine like
+it seems like it was a website should be
+deployed. Now where is it deployed?
+Well, it's deployed to this public URL
+that is the name of our repository on
+GitHub and then doverell.app. You can
+access this website if you want to by
+just clicking the link in the
+description. Now we have our website
+fully working and if you want to change
+the URL, maybe put your own domain, you
+do all of that in Verscell. The great
+thing about Versel as well is you can
+check a bunch of stuff here like
+analytics and so on. But this video is
+not sponsored by Versel. I'm not going
+to go into high high details on what you
+can do there just because also uh most
+of them are in the paid plan. So this is
+basically it. If you enjoyed the video,
+please leave a like down below and
+comment what you want to see next. If
+you want to learn more React, check out
+my ReactJS Ultra course for beginners.
+It is the most complete React course out
+there. I I worked a whole year to make
+this course happen, and I keep updating
+it. Every time there's a new change, uh
+a new bug with React, a new update,
+whatever it is, I'll update the course.
+So, thank you so much for watching. If
+you enjoyed it, please leave a like and
+comment what you want to see next. And I
+see you guys next time.

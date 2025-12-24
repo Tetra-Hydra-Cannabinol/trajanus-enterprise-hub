@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trajanus Command Center</title>
+    <style>
+        /* [Keeping exact styling from approved version] */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c5282 0%, #1a365d 100%);
+            min-height: 100vh;
+        }
+        .header {
+            background: #FFFEF0;
+            padding: 30px;
+            text-align: center;
+        }
+        .header-center h1 {
+            color: #2c5282;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        .header-center .subtitle {
+            color: #4a5568;
+            font-size: 1.1rem;
+        }
+        .clock-container {
+            display: flex;
+            gap: 10px;
+            max-width: 600px;
+        }
+        .local-clock {
+            background: #a8c5e3;
+            padding: 10px 15px;
+            border-radius: 10px;
+            text-align: center;
+            flex: 1;
+            border: 3px solid #2c5282;
+        }
+        .mission-clock {
+            background: #cd5c5c;
+            padding: 10px 15px;
+            border-radius: 10px;
+            text-align: center;
+            flex: 1;
+            border: 3px solid #8b3a3a;
+        }
+        .local-clock h3, .mission-clock h3 {
+            color: #1a202c;
+            font-size: 0.7rem;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+        .clock-display {
+            color: #1a202c;
+            font-size: 1rem;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 5px;
+        }
+        .clock-controls button {
+            background: white;
+            color: #2c5282;
+            border: 2px solid #2c5282;
+            padding: 4px 8px;
+            margin: 0 2px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.7rem;
+        }
+        .clock-controls button:hover {
+            background: #2c5282;
+            color: white;
+        }
+        .intro-section {
+            background: #FFFEF0;
+            margin: 30px;
+            padding: 30px;
+            border-radius: 10px;
+        }
+        .intro-section p {
+            line-height: 1.8;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        .section-header {
+            color: white;
+            font-size: 1.5rem;
+            margin: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+        }
+        .toolkit-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 30px;
+        }
+        .toolkit-card {
+            background: #FFFEF0;
+            padding: 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            border: 3px solid transparent;
+            position: relative;
+            
+        }
+        .toolkit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .toolkit-card.pm { border-color: #3b82f6; }
+        .toolkit-card.qcm { border-color: #10b981; }
+        .toolkit-card.ssho { border-color: #ef4444; }
+        .toolkit-card.ai { border-color: #8b5cf6; }
+        .toolkit-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #1a202c;
+        }
+        .toolkit-card p {
+            color: #4a5568;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        /* Dropdown Menu Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: fixed;
+            background-color: white;
+            min-width: 280px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 99999999;
+            border-radius: 8px;
+            overflow: visible;
+            
+            
+            
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+            position: absolute;
+        }
+        
+        .dropdown-item {
+            color: #2c5282;
+            padding: 15px 20px;
+            text-decoration: none;
+            display: block;
+            border-bottom: 1px solid #e2e8f0;
+            transition: background-color 0.2s;
+            font-weight: 600;
+        }
+        
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+        
+        .dropdown-item:hover {
+            background-color: #f7fafc;
+        }
+        
+        /* Page Navigation */
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .back-button {
+            background: #95a5a6;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: #7f8c8d;
+            transform: translateX(-5px);
+        }
+        
+        .tool-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .tool-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        .tool-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        .tool-desc {
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .reference-section {
+            margin-top: 40px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .reference-title {
+            font-size: 1.4em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .reference-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .reference-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .reference-list li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Tooltip styles for hover instructions */
+        .tooltip {
+            position: relative;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 280px;
+            background-color: #2c3e50;
+            color: #fff;
+            text-align: left;
+            border-radius: 8px;
+            padding: 12px;
+            position: absolute;
+            z-index: 9999;
+            top: 110%;
+            left: 50%;
+            margin-left: -140px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.85rem;
+            line-height: 1.3;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent transparent #2c3e50 transparent;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .session-btn {
+            padding: 8px 16px;
+            background: linear-gradient(to bottom, #ffffff, #e8e8e8);
+            color: #2c5282;
+            border: 2px solid #cbd5e0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.08);
+            transition: all 0.2s ease;
+        }
+        
+        .session-btn:hover {
+            background: linear-gradient(to bottom, #f7fafc, #e2e8f0);
+            box-shadow: 0 6px 12px rgba(44,82,130,0.3), 0 0 20px rgba(44,82,130,0.2);
+            transform: translateY(-2px);
+            border-color: #2c5282;
+        }
+        
+        .session-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+    </style>
+
+    
+</head>
+<body>
+    <!-- LANDING PAGE -->
+    <div id="landing" class="page active">
+    <div class="header">
+        <div class="header-center">
+            <h1>TRAJANUS USA</h1>
+            <div class="subtitle">Intelligent Construction Management | Agile Development Solutions</div>
+        </div>
+    </div>
+    
+    <div style="display: flex; justify-content: center; margin: 20px 0;">
+        <div class="clock-container">
+            <div class="local-clock">
+                <h3>LOCAL TIME</h3>
+                <div class="clock-display" id="localClock">00:00:00</div>
+            </div>
+            <div class="mission-clock">
+                <h3>SESSION TIMER</h3>
+                <div class="clock-display" id="missionClock">00:00:00</div>
+                <div class="clock-controls">
+                    <button onclick="pauseClock()">Pause</button>
+                    <button onclick="startClock()">Start</button>
+                    <button onclick="resetClock()">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="intro-section">
+        <h2 style="color: #2c5282; margin-bottom: 15px;">Welcome to the Trajanus Command Center</h2>
+        
+        <p>The Trajanus Construction Management Suite represents the next generation of construction project oversight and execution. Built on proven methodologies refined through decades of federal infrastructure experience, this platform consolidates complex workflows into an integrated, efficient command center. Named after Roman Emperor Trajan—renowned for infrastructure achievements including roads, bridges, and aqueducts across the empire—Trajanus embodies the same commitment to building lasting, impactful projects.</p>
+        
+        <p>Through strategic utilization of remote workstations, we've successfully reduced construction management overhead costs while maintaining—and often improving—project oversight quality. Our agile development approach means continuous improvement based on real-world project feedback. Every tool, every workflow, every feature has been battle-tested on actual federal construction projects. We don't develop in isolation—we build solutions in partnership with the project managers, quality control professionals, and safety officers who use them daily. This ensures our platform evolves to meet genuine operational needs, not theoretical requirements.</p>
+        
+        <p>Whether you're managing USACE design-build contracts, coordinating NAVFAC facility engineering projects, overseeing VA healthcare construction, or handling state infrastructure programs, Trajanus provides the specialized tools and documentation frameworks each requires. Our platform seamlessly integrates schedule analysis, quality control processes, safety compliance, and agency-specific requirements into a unified workspace designed for how federal construction actually works.</p>
+        
+        <h3 style="color: #2c5282; margin-top: 25px; margin-bottom: 10px;">How to Use This Command Center</h3>
+        
+        <p><strong>Management Team Toolkits:</strong> These are your role-specific applications. Click PM TOOLKIT for project management tools including schedule analysis and earned value tracking. Click QCM TOOLKIT for quality control and submittal management. Click SSHO TOOLKIT for safety planning and compliance.</p>
+        
+        <p><strong>Operations & Resources:</strong> Quick access to essential platforms. The Advanced Development Toolkit button opens your workspace for custom tool development and workflow automation. The Google Drive button provides direct access to all project files, documents, and shared resources.</p>
+        
+        <p><strong>Client Portals:</strong> Each federal agency has unique requirements and specifications. Select USACE for Army Corps of Engineers projects with CQC requirements and design-build documentation. Choose NAVFAC for Naval Facilities Engineering Command standards and UFC guidelines. Select VA for Veterans Affairs healthcare facility projects with FGI Guidelines and infection control requirements. Click STATE AGENCIES for state-specific building codes and regional compliance documentation.</p>
+        
+        <p><strong>Reference Documents:</strong> Quick access to essential specifications, standards, and regulations. This section provides immediate access to UFGS specifications, UFC building requirements, FGI Guidelines, NFPA codes, OSHA standards, and agency-specific quality control and safety plans.</p>
+        
+        <p><strong>Mission Tracking:</strong> Use the LOCAL TIME clock to stay synchronized with project schedules across time zones. The SESSION TIMER automatically starts when you open the Command Center and tracks your current work session - click Pause to take breaks, Start to resume, and Reset when starting a new task or project phase. This helps you accurately track time spent on specific activities for project documentation and billing purposes.</p>
+        
+        <p><strong>Navigation:</strong> Click any card to access that toolkit or portal. Use the back button on each page to return to this main command center. All tools are designed to work together seamlessly, allowing you to move between project management, quality control, and safety compliance functions as your work requires.</p>
+    </div>
+
+    <h2 class="section-header">Operations & Resources</h2>
+    <div class="toolkit-grid">
+        <div class="toolkit-card" style="border-color: #ea4335;" onclick="window.open('https://mail.google.com', '_blank')">
+            <h3>GMAIL</h3>
+            <p>Email communications, project correspondence, and team coordination</p>
+        </div>
+        <div class="toolkit-card" style="border-color: #0066da;" onclick="window.open('https://drive.google.com/drive/my-drive', '_blank')">
+            <h3>MY GOOGLE DRIVE</h3>
+            <p>All project files, documents, shared resources, and collaborative workspaces</p>
+        </div>
+        <div class="toolkit-card" style="border-color: #34a853;" onclick="window.open('https://calendar.google.com', '_blank')">
+            <h3>GOOGLE CALENDAR</h3>
+            <p>Project schedules, meetings, deadlines, and milestone tracking</p>
+        </div>
+        
+    </div>
+
+    <h2 class="section-header">Claude AI Projects-Test to see if Bill's an idiot</h2>
+    <div class="toolkit-grid">
+        <div class="toolkit-card" style="border-color: #8b5cf6;" onclick="showPage('advanced')">
+            <h3>ADVANCED DEVELOPMENT</h3>
+            <p>AI tools, automation, and session management</p>
+        </div>
+        </div>
+        <div class="toolkit-card" style="border-color: #3b82f6;" onclick="window.open('https://claude.ai/project/019a6654-a471-7138-b127-7dea317cdcb1', '_blank')">
+            <h3>TRAFFIC STUDY</h3>
+            <p>Transportation engineering analysis - Tom's primary project workspace</p>
+        </div>
+        <div class="toolkit-card" style="border-color: #10b981;" onclick="window.open('https://claude.ai/project/019a22fe-336c-70b7-94b8-7af45f4c0310', '_blank')">
+            <h3>WEBSITE BUILDER</h3>
+            <p>Web development workspace - trajanus-usa.com and company materials</p>
+        </div>
+        <div class="toolkit-card" style="border-color: #ef4444;" onclick="window.open('https://claude.ai/project/019a1240-c054-70a3-af42-2ad595c466cb', '_blank')">
+            <h3>ROUTE OPTIMIZER</h3>
+            <p>Logistics optimization - construction site visits and delivery routing</p>
+        </div>
+    </div>
+
+    
+
+    <h2 class="section-header">Management Team Toolkits</h2>
+    <div class="toolkit-grid">
+        <div class="toolkit-card pm" onclick="showPage('pm')">
+            <h3>PM TOOLKIT</h3>
+            <p>Schedule analysis, earned value tracking, narrative reports, and project coordination tools</p>
+        </div>
+        <div class="toolkit-card qcm" onclick="showPage('qcm')">
+            <h3>QCM TOOLKIT</h3>
+            <p>Submittal reviews, inspection checklists, quality documentation, and compliance tracking</p>
+        </div>
+        <div class="toolkit-card ssho" onclick="showPage('ssho')">
+            <h3>SSHO TOOLKIT</h3>
+            <p>Safety plans, incident reports, hazard analysis, and OSHA compliance documentation</p>
+        </div>
+    </div>
+<h2 class="section-header">Quick Launch Workflows</h2>
+    <div class="toolkit-grid">
+        <div class="toolkit-card" style="border-color: #3b82f6;" onclick="openMorningSetup()">
+            <h3>MORNING SETUP</h3>
+            <p>Opens Gmail, Calendar, Drive, and Claude AI in separate tabs for daily work start</p>
+        </div>
+        <div class="toolkit-card" style="border-color: #10b981;" onclick="openProjectMode()">
+            <h3>PROJECT MODE</h3>
+            <p>Opens Claude AI, Drive project folder, and Gmail for focused project work</p>
+        </div>
+        <div class="toolkit-card" style="border-color: #ef4444;" onclick="openReportingMode()">
+            <h3>REPORTING MODE</h3>
+            <p>Opens Drive, Gmail, and documentation tools for creating project reports</p>
+        </div>
+        <div class="toolkit-card" style="border-color: #d4af37;" onclick="window.open('https://trajanus-usa.com', '_blank')">
+            <h3>COMPANY WEBSITE</h3>
+            <p>Visit the Trajanus USA public website and company information</p>
+        </div>
+    </div>
+    <h2 class="section-header">Client Portals</h2>
+    <div class="toolkit-grid">
+        <div class="toolkit-card" style="border-color: #d4af37;" onclick="openUSACE()">
+            <h3>USACE</h3>
+            <p>Army Corps of Engineers specifications, CQC requirements, and design-build documentation</p>
+        </div>
+        <div class="toolkit-card" style="border-color: #1e5a8e;" onclick="openNAVFAC()">
+            <h3>NAVFAC</h3>
+            <p>Naval Facilities Engineering Command standards, UFC guidelines, and facility requirements</p>
+        </div>
+        <div class="toolkit-card" style="border-color: #6b2d5c;" onclick="openVA()">
+            <h3>VA</h3>
+            <p>Veterans Affairs healthcare facility standards, FGI Guidelines, and medical equipment coordination</p>
+        </div>
+        <div class="toolkit-card" style="border-color: #7d5a3f;" onclick="openStateAgencies()">
+            <h3>STATE AGENCIES</h3>
+            <p>State-specific requirements, local building codes, and regional compliance documentation</p>
+        </div>
+    </div>
+
+    <h2 class="section-header">Reference Documents</h2>
+    <div class="intro-section">
+        <p><strong>Quick Access Specifications & Standards:</strong></p>
+        <p>• UFGS Specifications • UFC Building Requirements • FGI Guidelines • NFPA Codes • OSHA Standards • Quality Control Plans • Safety Plans • Environmental Regulations</p>
+    </div>
+
+    <h2 class="section-header">Protocols & Documentation</h2>
+    <div class="toolkit-grid">
+        <div class="toolkit-card" style="border-color: #d4af37;" onclick="alert('The 12 Commandments of AI:\n\n1. Download all files before closing chat\n2. Verify project location before work\n3. Monitor token budget continuously\n4. Pre-Flight Check before major edits\n5. Document everything in living documents\n6. Session closeout protocol\n7. Proper session closeout\n8. Call out errors immediately\n9. Never assume - always verify\n10. Use surgical edits only\n11. Parse all conversations\n12. Review commandments regularly')">
+            <h3>12 COMMANDMENTS</h3>
+            <p>Critical operational rules learned through experience. Essential for all Trajanus AI work.</p>
+        </div>
+        <div class="toolkit-card" style="border-color: #2c5282;" onclick="alert('Core Protocols:\n\n• Protocol #1: Pre-Flight Check\n• Protocol #6: Session Closeout\n• Protocol #12: Quarter Tank Rule\n• Protocol #13: Surgical Edits Only\n\nSee Operational Manual for complete details.')">
+            <h3>CORE PROTOCOLS</h3>
+            <p>Essential procedures for quality control, session management, and file integrity.</p>
+        </div>
+        <div class="toolkit-card" style="border-color: #8b5cf6;" onclick="alert('Communication Styles:\n\n• Professional Direct: Client communication\n• Authentic Casual: Working sessions\n• Full Candid: Strategic planning\n\nSee POV Structure documentation for details.')">
+            <h3>COMMUNICATION STYLES</h3>
+            <p>Three-tier framework for different contexts: clients, working sessions, and strategic planning.</p>
+        </div>
+        <div class="toolkit-card" style="border-color: #10b981;" onclick="window.open('https://drive.google.com/drive/folders/your-folder-id', '_blank')">
+            <h3>OPERATIONAL MANUAL</h3>
+            <p>Complete documentation: protocols, commandments, POV structure, and training materials.</p>
+        </div>
+    </div>
+
+    </div>
+    
+    <!-- PM TOOLKIT PAGE -->
+    <div id="pm" class="page">
+        <button class="back-button" onclick="showPage('landing')">← Back to Command Center</button>
+        
+        <div class="header">
+            <h1 style="color: #3498db;">📊 Project Manager Toolkit</h1>
+            <p style="color: #666; margin-top: 10px;">Comprehensive tools for project planning, execution, and control</p>
+        </div>
+
+        <div class="intro-section">
+            <div class="tool-card">
+                <div class="tool-name">Schedule Navigator & Analyzer</div>
+                <div class="tool-desc">Parse P6 schedules, identify critical path, analyze float, track milestones</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Budget Tracker Pro</div>
+                <div class="tool-desc">Monitor project costs, track commitments, forecast completion costs</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Resource Allocation Manager</div>
+                <div class="tool-desc">Optimize resource loading, identify conflicts, balance workload</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Risk Assessment Matrix</div>
+                <div class="tool-desc">Identify, evaluate, and track project risks with mitigation strategies</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Change Order Manager</div>
+                <div class="tool-desc">Track modifications, manage approvals, document cost/schedule impacts</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">RFI Tracker</div>
+                <div class="tool-desc">Manage requests for information, track responses, ensure timely resolution</div>
+</body>
+</html>
+>Generate comprehensive status reports with schedule, cost, and quality metrics</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Closeout Checklist Manager</div>
+                <div class="tool-desc">Track project completion requirements, punch list items, final deliverables</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Lessons Learned Database</div>
+                <div class="tool-desc">Capture insights, best practices, and improvement opportunities</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Contract Administration Suite</div>
+                <div class="tool-desc">Manage contract requirements, track compliance, process payments</div>
+            </div>
+
+            <div class="reference-section">
+                <h3 class="reference-title">PM Reference Documents</h3>
+                <ul class="reference-list">
+                    <li>📘 PMBOK Guide - Project Management Best Practices</li>
+                    <li>📗 Construction Management Standards</li>
+                    <li>📙 Schedule Best Practices & CPM Methodology</li>
+                    <li>📕 Budget Control Guidelines</li>
+                    <li>📔 Risk Management Framework</li>
+                    <li>📓 Change Management Procedures</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- QCM TOOLKIT PAGE -->
+    <div id="qcm" class="page">
+        <button class="back-button" onclick="showPage('landing')">← Back to Command Center</button>
+        
+        <div class="header">
+            <h1 style="color: #27ae60;">✓ Quality Control Manager Toolkit</h1>
+            <p style="color: #666; margin-top: 10px;">Comprehensive tools for quality assurance and compliance</p>
+        </div>
+
+        <div class="intro-section">
+            <div class="tool-card">
+                <div class="tool-name">Submittal Review Manager</div>
+                <div class="tool-desc">Review shop drawings, product data, and samples for specification compliance</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Inspection Report Generator</div>
+                <div class="tool-desc">Document field observations, track compliance, generate professional reports</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Non-Conformance Tracker</div>
+                <div class="tool-desc">Identify deficiencies, track corrective actions, ensure resolution</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Material Testing Database</div>
+                <div class="tool-desc">Manage test results, verify compliance with specifications</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Drawing Review System</div>
+                <div class="tool-desc">Coordinate shop drawings, track revisions, manage approval workflow</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Specifications Checker</div>
+                <div class="tool-desc">Verify compliance with project specifications and standards</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Quality Plan Builder</div>
+                <div class="tool-desc">Create comprehensive quality control plans for project phases</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Punch List Manager</div>
+                <div class="tool-desc">Track outstanding items, manage completion, verify correction</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Test Report Compiler</div>
+                <div class="tool-desc">Organize testing documentation, verify completeness</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">As-Built Documentation</div>
+                <div class="tool-desc">Track field changes, maintain accurate record drawings</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Warranty Tracking System</div>
+                <div class="tool-desc">Manage warranty periods, track claims, ensure compliance</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Deficiency Log</div>
+                <div class="tool-desc">Document and track all quality issues and resolutions</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Acceptance Testing Suite</div>
+                <div class="tool-desc">Manage system testing, commissioning, and final acceptance</div>
+            </div>
+
+            <div class="reference-section">
+                <h3 class="reference-title">QCM Reference Documents</h3>
+                <ul class="reference-list">
+                    <li>📘 Quality Management Plan Template</li>
+                    <li>📗 Inspection Procedures Manual</li>
+                    <li>📙 Material Testing Standards</li>
+                    <li>📕 Submittal Review Guidelines</li>
+                    <li>📔 Non-Conformance Procedures</li>
+                    <li>📓 Acceptance Testing Protocols</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- SSHO TOOLKIT PAGE -->
+    <div id="ssho" class="page">
+        <button class="back-button" onclick="showPage('landing')">← Back to Command Center</button>
+        
+        <div class="header">
+            <h1 style="color: #e74c3c;">⚠️ Safety Officer Toolkit</h1>
+            <p style="color: #666; margin-top: 10px;">Comprehensive tools for workplace safety and regulatory compliance</p>
+        </div>
+
+        <div class="intro-section">
+            <div class="tool-card">
+                <div class="tool-name">Safety Inspection Checklist</div>
+                <div class="tool-desc">Conduct systematic site inspections, identify hazards, ensure compliance</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Incident Report Generator</div>
+                <div class="tool-desc">Document workplace incidents, injuries, and near misses</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Job Hazard Analysis Tool</div>
+                <div class="tool-desc">Identify task-specific hazards and establish control measures</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">PPE Compliance Tracker</div>
+                <div class="tool-desc">Monitor personal protective equipment usage and compliance</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Safety Meeting Logger</div>
+                <div class="tool-desc">Document toolbox talks, safety briefings, and attendance</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Accident Investigation Form</div>
+                <div class="tool-desc">Conduct thorough investigations, identify root causes, prevent recurrence</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Emergency Response Plan</div>
+                <div class="tool-desc">Develop and maintain site-specific emergency procedures</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Toolbox Talk Library</div>
+                <div class="tool-desc">Access pre-built safety topics and training materials</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">OSHA Compliance Checker</div>
+                <div class="tool-desc">Verify adherence to OSHA regulations and standards</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Safety Training Tracker</div>
+                <div class="tool-desc">Monitor employee certifications, track expiration dates</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Near Miss Reporting</div>
+                <div class="tool-desc">Capture close calls, analyze trends, implement preventive measures</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Safety Audit System</div>
+                <div class="tool-desc">Conduct comprehensive program audits, track improvements</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-name">Environmental Monitoring Log</div>
+                <div class="tool-desc">Track environmental compliance, monitor impacts</div>
+            </div>
+
+            <div class="reference-section">
+                <h3 class="reference-title">SSHO Reference Documents</h3>
+                <ul class="reference-list">
+                    <li>📘 OSHA Construction Standards 1926</li>
+                    <li>📗 Site Safety Plan Template</li>
+                    <li>📙 Emergency Response Procedures</li>
+                    <li>📕 Incident Investigation Guide</li>
+                    <li>📔 Safety Training Curriculum</li>
+                    <li>📓 Environmental Compliance Guide</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADVANCED DEVELOPMENT TOOLKIT PAGE -->
+    <div id="advanced" class="page">
+        <button class="back-button" onclick="showPage('landing')">← Back to Command Center</button>
+        
+        <div class="header">
+            <h1 style="color: #8b5cf6;">⚡ Advanced Development Toolkit</h1>
+            <p style="color: #666; margin-top: 10px;">Custom tool development and workflow automation projects</p>
+        </div>
+
+        <div class="intro-section" style="background: #fff3cd; border-left: 4px solid #d4af37;">
+            <h3 style="color: #2c5282; margin-bottom: 15px;">📋 CLAUDE AI PROJECTS</h3>
+            <p><strong>To access these projects:</strong> Open <a href="https://claude.ai" target="_blank" style="color: #2c5282; text-decoration: underline;">claude.ai</a> in a new tab, then select the project from your Projects list in the left sidebar.</p>
+            
+            <div style="margin-top: 20px;">
+                <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 3px solid #8b5cf6;">
+                    <strong style="color: #8b5cf6;">Command Center Development</strong>
+                    <p style="margin: 5px 0 0 0; color: #4a5568;">Primary development workspace for the Trajanus Command Center interface, navigation system, and integrated toolkit architecture.</p>
+                </div>
+                
+                <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 3px solid #3b82f6;">
+                    <strong style="color: #3b82f6;">Traffic Study Analysis</strong>
+                    <p style="margin: 5px 0 0 0; color: #4a5568;">Transportation engineering analysis tools for traffic impact studies, intersection analysis, and roadway design projects.</p>
+                </div>
+                
+                <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 3px solid #10b981;">
+                    <strong style="color: #10b981;">Website Builder</strong>
+                    <p style="margin: 5px 0 0 0; color: #4a5568;">Web development workspace for creating project websites, client portals, and marketing materials for Trajanus USA.</p>
+                </div>
+                
+                <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 3px solid #ef4444;">
+                    <strong style="color: #ef4444;">Route Optimizer</strong>
+                    <p style="margin: 5px 0 0 0; color: #4a5568;">Logistics optimization tool for construction site visits, material delivery routing, and inspection scheduling.</p>
+                </div>
+            </div>
+
+            <div class="reference-section">
+                <h3 class="reference-title">Development Resources</h3>
+                <ul class="reference-list">
+                    <li>📘 React & Tailwind CSS Documentation</li>
+                    <li>📗 Python Development Best Practices</li>
+                    <li>📙 API Integration Guidelines</li>
+                    <li>📕 Agile Development Methodology</li>
+                    <li>📔 Code Repository Standards</li>
+                </ul><div style="background: #f7fafc; padding: 20px; margin-top: 30px; border-radius: 8px; border-left: 4px solid #2c5282;">
+                <h3 style="color: #2c5282; margin-bottom: 10px; font-size: 1rem;">Session Management</h3>
+                <p style="margin-bottom: 15px; font-size: 0.85rem; color: #4a5568;">Quick access to session closeout and startup automation</p>
+                
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button onclick="runCompleteSession()" class="session-btn">Complete Session Update</button>
+                    <button onclick="runUploadOnly()" class="session-btn">Upload Files</button>
+                    <button onclick="runUpdateOnly()" class="session-btn">Update MASTERs</button>
+                    <button onclick="window.open('https://claude.ai', '_blank')" class="session-btn">Claude AI Home</button>
+                </div>
+            </div>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button onclick="runCompleteSession()" style="padding: 8px 16px; background: #2c5282; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">✅ Complete Session Update</button>
+                    <button onclick="runUploadOnly()" style="padding: 8px 16px; background: #10b981; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">📤 Upload Files</button>
+                    <button onclick="runUpdateOnly()" style="padding: 8px 16px; background: #8b5cf6; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">📝 Update MASTERs</button>
+                    <button onclick="window.open('https://claude.ai', '_blank')" style="padding: 8px 16px; background: #4a5568; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">🏠 Claude AI Home</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Local Time Clock
+        function updateLocalClock() {
+            const now = new Date();
+            const day = now.getDate();
+            const month = now.toLocaleString('en-US', { month: 'short' });
+            const year = now.getFullYear();
+            const time = now.toLocaleTimeString('en-US', { 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit',
+                hour12: false
+            });
+            const tz = now.toLocaleTimeString('en-US', { timeZoneName: 'short' }).split(' ').pop();
+            
+            document.getElementById('localClock').textContent = `${day} ${month} ${year} | ${time} ${tz}`;
+        }
+        
+        // Session Timer - starts automatically when page loads
+        let sessionStartTime = Date.now();
+        let isPaused = false;
+        let pausedElapsed = 0;
+        
+        function updateSessionClock() {
+            if (!isPaused) {
+                const elapsed = Date.now() - sessionStartTime + pausedElapsed;
+                const hours = Math.floor(elapsed / 3600000);
+                const minutes = Math.floor((elapsed % 3600000) / 60000);
+                const seconds = Math.floor((elapsed % 60000) / 1000);
+                
+                document.getElementById('missionClock').textContent = 
+                    String(hours).padStart(2, '0') + ':' +
+                    String(minutes).padStart(2, '0') + ':' +
+                    String(seconds).padStart(2, '0');
+            }
+        }
+        
+        function pauseClock() {
+            if (!isPaused) {
+                isPaused = true;
+                pausedElapsed = Date.now() - sessionStartTime + pausedElapsed;
+            }
+        }
+        
+        function startClock() {
+            if (isPaused) {
+                isPaused = false;
+                sessionStartTime = Date.now();
+            }
+        }
+        
+        function resetClock() {
+            sessionStartTime = Date.now();
+            pausedElapsed = 0;
+            isPaused = false;
+        }
+        
+        // Update both clocks - session timer starts automatically
+        setInterval(updateLocalClock, 1000);
+        setInterval(updateSessionClock, 1000);
+        updateLocalClock(); // Initial call
+        updateSessionClock(); // Initial call
+        
+        // Page Navigation
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+        updateSessionClock(); // Initial call
+        
+        // Application Launchers
+        function openAIDevelopment() {
+            window.open('https://claude.ai/project/bf5e70ca-e6b0-4d9e-a27c-43d2e9ccda56?t=' + Date.now(), '_blank');
+        }
+        
+        function openGoogleDrive() {
+            window.open('https://drive.google.com/drive/my-drive', '_blank');
+        }
+        
+        // Quick Launch Workflows
+        function openMorningSetup() {
+            window.open('https://mail.google.com', '_blank');
+            setTimeout(() => window.open('https://calendar.google.com', '_blank'), 500);
+            setTimeout(() => window.open('https://drive.google.com/drive/my-drive', '_blank'), 1000);
+            setTimeout(() => window.open('https://claude.ai', '_blank'), 1500);
+        }
+        
+        function openProjectMode() {
+            window.open('https://claude.ai', '_blank');
+            setTimeout(() => window.open('https://drive.google.com/drive/my-drive', '_blank'), 500);
+            setTimeout(() => window.open('https://mail.google.com', '_blank'), 1000);
+        }
+        
+        function openReportingMode() {
+            window.open('https://drive.google.com/drive/my-drive', '_blank');
+            setTimeout(() => window.open('https://mail.google.com', '_blank'), 500);
+        }
+        function openStreamlit() {
+            // Open PM Toolbox Streamlit app
+            window.open('http://localhost:8501', '_blank');
+        }
+        
+        function openQCM() {
+            // Open QCM template in new window
+            alert('QCM Toolkit: Opening submittal review template...\n\nFile: QCM_Submittal_Review_Template.docx');
+            // Could link to file path or web-based tool
+        }
+        
+        function openSSHO() {
+            alert('SSHO Toolkit: Safety applications coming soon...\n\nThis will open safety planning and compliance tools.');
+        }
+        
+        function openAI() {
+            // Open Claude.ai in new window
+            window.open('https://claude.ai/project/bf5e70ca-e6b0-4d9e-a27c-43d2e9ccda56?t=' + Date.now(), '_blank');
+        }
+        
+        function openUSACE() {
+            alert('USACE Portal: Army Corps specifications and tools...\n\nThis will open USACE-specific applications and documents.');
+        }
+        
+        function openNAVFAC() {
+            alert('NAVFAC Portal: Naval Facilities standards and tools...\n\nThis will open NAVFAC-specific applications and UFC guidelines.');
+        }
+        
+        function openVA() {
+            alert('VA Portal: Veterans Affairs healthcare facility tools...\n\nThis will open VA-specific requirements and FGI Guidelines.');
+        }
+        
+        function openStateAgencies() {
+            alert('State Agencies Portal: Regional compliance tools coming soon...\n\nThis will open state-specific requirements and local codes.');
+        }
+        
+        // Session Management Functions
+        function runCompleteSession() {
+            const batchContent = `@echo off
+cd "G:\\My Drive\\00 - Trajanus USA\\00-Command-Center"
+echo Running upload script...
+python upload_session_docs.py
+if errorlevel 1 (
+    echo Upload failed!
+    pause
+    exit /b 1
+)
+echo.
+echo Upload complete! Now updating MASTER documents...
+echo.
+python update_master_docs.py
+if errorlevel 1 (
+    echo Update failed!
+    pause
+    exit /b 1
+)
+echo.
+echo ===================================
+echo SESSION UPDATE COMPLETE!
+echo ===================================
+pause`;
+
+            const blob = new Blob([batchContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'complete_session_update.bat';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            alert('✅ Batch file downloaded! Save it to Command Center folder and double-click to run both scripts.');
+        }
+        
+        function runUploadOnly() {
+            const batchContent = `@echo off
+cd "G:\\My Drive\\00 - Trajanus USA\\00-Command-Center"
+python upload_session_docs.py
+pause`;
+            
+            const blob = new Blob([batchContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'upload_session.bat';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            alert('✅ Upload batch file downloaded! Double-click to run.');
+        }
+        
+        function runUpdateOnly() {
+            const batchContent = `@echo off
+cd "G:\\My Drive\\00 - Trajanus USA\\00-Command-Center"
+python update_master_docs.py
+pause`;
+            
+            const blob = new Blob([batchContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'update_masters.bat';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            alert('✅ Update batch file downloaded! Double-click to run.');
+        }
+    function openStateAgencies() {
+            alert('State Agencies Portal: Regional compliance tools coming soon...\n\nThis will open state-specific requirements and local codes.');
+        }
+        
+        // Session Management Functions
+        function runCompleteSession() {
+            const batchContent = `@echo off
+cd "G:\\My Drive\\00 - Trajanus USA\\00-Command-Center"
+echo Running upload script...
+python upload_session_docs.py
+if errorlevel 1 (
+    echo Upload failed!
+    pause
+    exit /b 1
+)
+echo.
+echo Upload complete! Now updating MASTER documents...
+echo.
+python update_master_docs.py
+if errorlevel 1 (
+    echo Update failed!
+    pause
+    exit /b 1
+)
+echo.
+echo ===================================
+echo SESSION UPDATE COMPLETE!
+echo ===================================
+pause`;
+
+            const blob = new Blob([batchContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'complete_session_update.bat';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            alert('✅ Batch file downloaded! Save it to Command Center folder and double-click to run both scripts.');
+        }
+        
+        function runUploadOnly() {
+            const batchContent = `@echo off
+cd "G:\\My Drive\\00 - Trajanus USA\\00-Command-Center"
+python upload_session_docs.py
+pause`;
+            
+            const blob = new Blob([batchContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'upload_session.bat';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            alert('✅ Upload batch file downloaded! Double-click to run.');
+        }
+        
+        function runUpdateOnly() {
+            const batchContent = `@echo off
+cd "G:\\My Drive\\00 - Trajanus USA\\00-Command-Center"
+python update_master_docs.py
+pause`;
+            
+            const blob = new Blob([batchContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'update_masters.bat';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            alert('✅ Update batch file downloaded! Double-click to run.');
+        }
+    </script>
+</body>
+</html>

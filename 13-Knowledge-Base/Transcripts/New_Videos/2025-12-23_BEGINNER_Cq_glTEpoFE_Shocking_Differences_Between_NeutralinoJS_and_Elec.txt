@@ -1,0 +1,42 @@
+Title: Shocking Differences Between NeutralinoJS and Electron!
+Channel: How to Doctor 
+Video ID: Cq_glTEpoFE
+URL: https://www.youtube.com/watch?v=Cq_glTEpoFE
+Duration: 1:21
+Level: BEGINNER
+Ingested: 2025-12-23
+Source: yt-dlp Auto-Generated Captions
+==============================================================================
+
+WEBVTT
+Kind: captions
+Language: en
+Neutralinojs versus Election. Which is
+better? In this video, let me show you a
+comparison of Neutralinojs and Election.
+Starting with Neutralinojs.
+It's a liveweight open-source framework
+that doesn't bundle a full Chromium
+browser. Instead, it uses your systems
+default web engine. It is also easy to
+set up though it offers limited API
+support and less stability on some
+advanced features since it relies on a
+system browser. UI rendering may vary
+between platforms. Now for election this
+is a fullfeatured framework used by big
+apps like VS Code, Discord and Slack. It
+combines Chromium and Node.js
+giving you deep access to both web and
+system APIs. It's great for complex apps
+which rich documentation and plug-in
+support. In short, in short, go with
+neutral nojs if you need something
+lightweight and simple. Choose election
+for featurerich apps that need full
+system integration.
+Thanks for tuning in to how to doctor.
+If this video was helpful, please like
+and subscribe. And if you have any
+questions, drop them below. And we'll
+see you on the next video.

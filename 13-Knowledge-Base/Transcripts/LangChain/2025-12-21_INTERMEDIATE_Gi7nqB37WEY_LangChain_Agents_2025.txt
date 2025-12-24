@@ -1,0 +1,512 @@
+Title: LangChain Agents in 2025 | Full Tutorial for v0.3
+Channel: James Briggs
+Video ID: Gi7nqB37WEY
+URL: https://www.youtube.com/watch?v=Gi7nqB37WEY
+Duration: 21:28
+Level: INTERMEDIATE
+Application: LangChain
+Topics: AI Agents, Tool Decorator, Agent Executor, Tool Calling, LangChain Expression Language, SERP API, Google Search, Memory, Conversational Agents
+Ingested: 2025-12-21
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 In this chapter, we are going to
+0:02 introduce agents. Now, agents, I think,
+0:05 are one of the most important components
+0:09 in the world of AI and I don't see that
+0:13 going away anytime soon. I think the
+0:15 majority of AI applications,
+0:19 the intelligent part of those will be
+0:22 almost always an implementation of an AI
+0:25 agent or multiple AI agents. So in this
+0:28 chapter we are just going to introduce
+0:30 agents within the context of lang chain.
+0:33 We're going to keep it relatively
+0:36 simple. We're going to go into much more
+0:38 depth in agents in the next chapter
+0:41 where we'll do a bit of a deep dive but
+0:44 we'll focus on just introducing the core
+0:46 concepts and of course agents within
+0:50 line chain here. So, jumping straight
+0:53 into our notebook, let's run our
+0:56 prerequisites.
+0:58 You'll see that we do have an additional
+1:00 prerequisite here, which is Google
+1:02 search results. That's because we're
+1:03 going to be using the SER API to allow
+1:07 our LM as an agent to search the web,
+1:10 which is one of the great things about
+1:13 agents is that they can do all of these
+1:15 additional things and LM by itself
+1:17 obviously cannot. So we'll come down to
+1:20 here. We have our linesmith parameters
+1:22 again of course. So you enter your line
+1:25 chain API key if you have one. And now
+1:27 we're going to take a look at tools
+1:30 which is a very essential part of
+1:33 agents. So tools are a way for us to
+1:36 augment our LMS with essentially
+1:39 anything that we can write in code. So
+1:42 we mentioned that that we're going to
+1:43 have a Google search tool. That Google
+1:45 search tool is some code that gets
+1:47 executed by our LLM in order to search
+1:51 Google and get some results. So a tool
+1:54 can be thought of as any code logic or
+1:58 any function in the ca in the case of
+2:00 Python any function that has been
+2:03 formatted in a way so that our LM can
+2:06 understand how to use it and then
+2:09 actually use it. Although the the LM
+2:12 itself is not using the tool. is more
+2:14 our agent execution logic which uses the
+2:18 tool for the LM. So we're going to go
+2:21 ahead and actually create a few simple
+2:23 tools. We're going to be using what is
+2:25 called the tool decorator from
+2:26 Langchain. And there are a few things to
+2:30 keep in mind when we're building tools.
+2:33 So for optimal performance, our tool
+2:35 needs to be just very readable. And what
+2:37 I mean by readable is we need three main
+2:40 things. One is a dot string that is
+2:43 written in natural language and it is
+2:45 going to be used to explain to the LLM
+2:48 when and why and how it should use this
+2:51 tool. We should also have clear
+2:53 parameter names. Those parameter names
+2:56 should tell the LM okay what each one of
+2:59 these parameters are. They should be
+3:02 self-explanatory. If they are not
+3:04 self-explanatory,
+3:05 we should be including an explanation
+3:08 for those parameters within the dock
+3:10 string. Then finally, we should have
+3:12 type annotations for both our parameters
+3:15 and also what we're returning from the
+3:17 tool. So let's jump in and see how we
+3:21 would implement all of that. So we come
+3:23 down to here and we have lang chain core
+3:25 tools import tool. Okay, so these are
+3:28 just four incredibly simple tools. We
+3:32 have the addition or add tool, multiply,
+3:35 the exponentiate and the subtract tools.
+3:38 Okay, so a few calculatores tools. Now
+3:42 when we add this tool decorator, it is
+3:45 turning each of these tools into what we
+3:49 call a structured tool object. So we can
+3:52 see that here. We can see we have this
+3:56 structured tool. We have a name
+3:58 description. Okay. And then we have this
+4:00 old schema. We'll see this in a moment.
+4:02 And a function, right? So this function
+4:04 is literally just the original function.
+4:07 It's it's a mapping to the original
+4:08 function. So in this case, it it's the
+4:11 add function. Now the description we can
+4:13 see is coming from our dock string. And
+4:16 of course the name as well is just
+4:18 coming from the function name. Okay. And
+4:20 then we can also see let's just print
+4:23 the name and description. But then we
+4:25 can also see the AGS schema, right? We
+4:29 can so this thing here that we can't
+4:31 read at the moment. To read it, we're
+4:33 just going to look at the model JSON
+4:36 schema method and then we can see what
+4:38 that contains which is all of this
+4:40 information. So this actually contains
+4:42 everything includes properties. So we
+4:44 have the X it title for that and it also
+4:48 specifies the type. Okay. So the type
+4:51 that we defined is float. Float for
+4:54 OpenAI gets mapped to number rather than
+4:57 just being float. And then we also see
+5:00 that we have this required field. So
+5:02 this is telling our LM which parameters
+5:05 are required, which ones are optional.
+5:07 So we yeah in some cases you would we
+5:11 can even do that here. Let's do Z that
+5:14 is going to be float or none. Okay. And
+5:19 we're just going to say it is 0.3.
+5:23 Right? I'm going to remove this in a
+5:25 minute because it's kind of weird. But
+5:27 let's just see what that looks like. So
+5:30 you see that we now have X, Y, and Z.
+5:35 But then in Z, we have some additional
+5:36 information. Okay. So it can be any of
+5:39 it can be a number or it can just be
+5:41 nothing. The default value for that is
+5:43 0.3.
+5:45 Okay. And then if we look here, we can
+5:47 see that the required field does not
+5:49 include Z. So it's just X and Y. So it's
+5:52 describing the full function schema for
+5:56 us. But let's remove that.
+5:59 Okay. And we can see that again with our
+6:01 exponentiate tool. Similar thing. Okay.
+6:05 So how how are we going to invoke our
+6:08 tool? So the LM the underlying LM is
+6:13 actually going to generate a string.
+6:15 Okay. So will look something like this.
+6:17 This is going to be our LM output. So it
+6:21 is it's a string that is some JSON. And
+6:24 of course to load a string into a
+6:28 dictionary format, we just use JSON
+6:30 loses. Okay, so let's see that. So this
+6:34 could be the alpha from LLM. We load it
+6:37 into a dictionary and then we get an
+6:39 actual dictionary. And then what we
+6:41 would do is we can take our exponentiate
+6:44 uh tool. We access the underlying
+6:47 function and then we pass it the keyword
+6:50 arguments from our dictionary here.
+6:54 Okay.
+6:56 And that will execute our tool. That is
+6:58 the tool execution logic line chain
+7:00 implements. And then later on in the
+7:03 next chapter we'll be implementing
+7:04 ourselves. Cool. So let's move on to
+7:07 creating an agent. Now we're going to be
+7:10 constructing a simple tool calling
+7:12 agent. We're going to be using linechain
+7:14 expression language to do this. Now we
+7:17 will be covering line chain expression
+7:19 language or L cell more in a upcoming
+7:22 chapter. But for now all we need to know
+7:25 is that our agent will be constructed
+7:29 using syntax and components that look
+7:31 like this. So we would start with our
+7:33 input parameters that is going to
+7:36 include our user query and of course the
+7:38 chat history because we need our agent
+7:40 to be conversational and remember
+7:41 previous interactions within the
+7:43 conversation. These input parameters
+7:45 will also include a placeholder for what
+7:47 we call the agent scratchpad. Now the
+7:50 agent stretch pad is essentially where
+7:52 we are storing the internal thoughts or
+7:55 the internal dialogue of the agent as it
+7:57 is using tools getting observations from
+7:59 those tools and working through those
+8:02 multiple internal steps. So in the case
+8:05 that we will see it will be using for
+8:07 example the addition tool getting the
+8:09 result using the multiply tool getting
+8:11 the result and then providing a final
+8:13 answer to us as a user. So let's jump in
+8:16 and see what that looks like. Okay. So,
+8:19 we'll just start with defining our
+8:20 prompt. So, our prompt is going to
+8:22 include the system message. That's
+8:24 nothing. We're not putting anything
+8:26 special in there. We're going to include
+8:29 the chat history, which is a messages
+8:32 placeholder. Then, we include our human
+8:34 message. And then we include a
+8:37 placeholder for the agent scratch pad.
+8:39 Now, the way that we implement this
+8:41 later is going to be slightly different.
+8:43 For the scratch pod, we would actually
+8:44 use this messages placeholder, but this
+8:46 is how we use it with the built-in
+8:48 create tool agent from Lang Train. Next,
+8:51 we'll define our LM. We do need our
+8:53 opening our API key for that. So, we'll
+8:56 enter that here like so. Okay, so come
+9:00 down. Okay, so we're going to be
+9:02 creating this agent. We need
+9:04 conversational memory and we are going
+9:05 to use the older conversation buffer
+9:07 memory class rather than the newer
+9:09 runnable with message history class.
+9:11 That's just because we're also using
+9:13 this older create tool calling agent and
+9:16 this is this is the older way of doing
+9:18 things. In the next chapter, we are
+9:21 going to be using the more recent
+9:24 basically what we already learned on
+9:26 chat history. We're going to be using
+9:28 all of that to implement our chat
+9:30 history. But for now, we're going to be
+9:31 using the older method uh which is
+9:34 deprecated just as a pre-warning.
+9:37 But again as I mentioned at the very
+9:39 start of the course we're starting
+9:40 abstract and then we're getting into the
+9:43 details. So we're going to initialize
+9:46 our agent for that we need these four
+9:48 things lm as we defined tools as we have
+9:51 defined prompt as we have defined and
+9:55 then the memory which is our old
+9:57 conversation buffer memory. So with all
+10:00 of that we are going to go ahead and we
+10:02 create a tool calling agent and then we
+10:04 just provide it with everything. Okay,
+10:07 there we go.
+10:09 Now, uh you'll see here I didn't pass in
+10:11 the the memory. I'm passing it in down
+10:13 here instead. So, we're going to start
+10:16 with this question, which is what is
+10:18 10.7 multiplied by 7.68.
+10:22 Okay. So, given the precision of these
+10:27 numbers, our L normal LM would not be
+10:29 able to answer that or almost definitely
+10:33 would not be able to answer that
+10:34 correctly. we need a external tool to
+10:37 answer that accurately and we'll see
+10:39 that that is exactly what it's going to
+10:41 do. So we can see that the tool agent
+10:46 action message here we can see that it
+10:49 decided okay I'm going to use the
+10:50 multiply tool and here are the
+10:52 parameters that I want to use for that
+10:53 tool. Okay, we can see X is 10.7 and Y
+10:56 is 7.68.
+10:58 You can see here that this is already a
+11:00 dictionary and that is because lang
+11:03 chain has taken the string from our LM
+11:07 call and already converted it into a
+11:09 dictionary for us. Okay, so that's just
+11:11 it's happening behind the scenes there.
+11:14 And you can actually see if we go into
+11:16 the details a little bit, we can see
+11:17 that we have these arguments and this is
+11:19 the original string that was coming from
+11:21 LLM. Okay, which has already been of of
+11:23 course processed by lang chain. So we
+11:26 have that. Now, the one thing missing
+11:30 here is that, okay, we've got that the
+11:34 LM wants us to use multiply and we've
+11:36 got what the LM wants us to put into
+11:38 multiply, but where's the answer, right?
+11:42 There is no answer because the tool
+11:44 itself has not been executed because it
+11:46 can't be executed by the LM. But then,
+11:48 okay,
+11:50 didn't we already define our agent here?
+11:53 Yes, we define the part of our agent
+11:57 that is our LM has our tools and it is
+12:00 going to generate which tool to use but
+12:03 it actually doesn't include the agent
+12:05 execution part which is okay the agent
+12:09 executor is a broader thing. It's it's
+12:13 broader logic like just code logic which
+12:16 acts as a scaffolding within which we
+12:19 have the iteration through multiple
+12:21 steps of our LLM calls followed by the
+12:25 LLM outputting what tool to use followed
+12:28 by us actually executing that for the
+12:30 LLM and then providing the output back
+12:33 into the LM for another decision or
+12:36 another step. So the agent itself here
+12:39 is not the full agentic
+12:42 flow that we might expect. Instead for
+12:45 that we need to implement this agent
+12:48 executor class. This agent executor
+12:51 includes our agent from before. Then it
+12:54 also includes the tools. And one thing
+12:56 here is okay we we already passed the
+12:58 tools to our agent. Why do we need to
+12:59 pass them again? Well the tools being
+13:02 passed to our agent up here
+13:05 that is being used. So that is
+13:07 essentially extracting out those
+13:09 function schemers and passing it to our
+13:11 L so our LM knows how to use the tools.
+13:13 Then we're down here we're passing the
+13:15 tools again to our agent executor.
+13:18 And this is rather than looking at how
+13:20 to use those tools. This is just looking
+13:22 at okay I want the functions for those
+13:24 tools so that I can actually execute
+13:25 them for the LM or for the agent. Okay.
+13:29 So that's what is happening there. Now
+13:32 we can also pass in our memory directly.
+13:34 So you see if we scroll up a little bit
+13:36 here, I actually had to pass in the
+13:40 memory like this with our agent. That's
+13:43 just because we weren't using the agent
+13:44 executor. Now we have the agent
+13:46 executor. It's going to handle that for
+13:47 us.
+13:49 And another thing that it's going to
+13:50 handle for us is intermediate steps. So
+13:53 you'll see in a moment that when we
+13:55 invoke the agent executor, we don't
+13:56 include the intermediate steps. And
+13:58 that's because it that is already
+14:00 handled by the agent executor now. So
+14:03 we'll come down. We'll set verbose equal
+14:05 to true. So we can see what is
+14:07 happening. And then we can see here
+14:10 there's no intermediate steps anymore.
+14:13 And we we do still pass in the chat
+14:15 history like this. But then the addition
+14:19 of those new interactions to our memory
+14:21 is going to be handled by the executor.
+14:24 So fact let me actually show that very
+14:27 quickly before we jump in. Okay. So
+14:30 that's currently empty. We're going to
+14:32 execute this.
+14:35 Okay, we're entered that new agent
+14:37 execute chain. And let's just have a
+14:39 quick look at our messages again. And
+14:41 now you can see that agent executor
+14:43 automatically handled the addition of
+14:46 our human message and then the
+14:48 responding AI message for us. Okay,
+14:50 which is useful. Now what happened? So
+14:54 we can see that the multiply tool was
+14:56 invoked with these parameters and then
+14:59 this pink text here that we got that is
+15:02 the observation from the tool. So this
+15:03 is what the tool output back to us.
+15:06 Okay. Then this final message here is
+15:08 not formatted very nicely but this final
+15:10 message here is coming from our LM. So
+15:12 the green is our LLM output. The pink is
+15:16 our tool output. Okay. So the LM after
+15:21 seeing this output says 10.7 multiplied
+15:26 by 7.68 is approximately 82.18.
+15:31 Okay, cool. Useful. And then we can also
+15:34 see that the chat history which we we
+15:36 already just saw. Great. So that has
+15:39 been used correctly. We can just also
+15:41 confirm that that is correct. Okay.
+15:44 82.1759
+15:47 recurring which is exactly what we get
+15:49 here. Okay. And we the reason for that
+15:51 is obviously our multiply tool is just
+15:54 doing this exact operation.
+15:57 Cool. So let's try this with a bit of
+16:00 memory. So I'm going to ask or I'm going
+16:03 to say to the agent, hello, my name is
+16:05 James.
+16:08 We'll leave that as the it's not
+16:10 actually the first interaction because
+16:11 we already have these, but it's an early
+16:16 interaction with my name in there. Then
+16:19 we're going to try and perform multiple
+16:21 tool calls within a single execution
+16:23 loop. And what you'll see with when it
+16:25 is calling these tools is that it can
+16:26 actually use multiple tools in parallel.
+16:29 So for sure, I think two or three of
+16:31 these were used in parallel and then
+16:33 define or subtract had to wait for those
+16:35 previous results. So it would have been
+16:37 executed afterwards and we should
+16:40 actually be able to see this in lang.
+16:43 So if we go here yeah we can see that we
+16:46 have this initial call and then we have
+16:48 add and multiply and exponentiate all
+16:50 use in parallel. Then we have another
+16:52 call which you subtract and then we get
+16:54 the response.
+16:56 Okay, which is pretty cool. And then the
+16:59 final result there is1.
+17:03 Now when you look at whether the answer
+17:04 is accurate, I think the order here of
+17:08 calculations is not quite correct. So if
+17:12 we put the actual computation here, it
+17:14 gets it right. But otherwise, if I use
+17:17 an actual language, it's like I'm doing
+17:19 maybe I'm phrasing it in a in a poor
+17:21 way.
+17:23 Okay. So I suppose that is pretty
+17:25 important. So okay, if we put the
+17:28 computation in here, we get the -3. So
+17:32 it's something to be careful with and
+17:34 probably requires a little bit of
+17:36 prompting to prompting and maybe
+17:38 examples in order to get that smooth so
+17:41 that it does do things in the way that
+17:43 we might expect or maybe we as humans
+17:47 are just bad and misuse the systems. One
+17:49 or the other. Okay, so now we've gone
+17:52 through that a few times. Let's go and
+17:54 see if our agent can still recall our
+17:56 name. Okay, and it remembers my name is
+17:58 James. Good. So, it still has that
+18:00 memory in there as well. That's good.
+18:03 Let's move on to another quick example
+18:06 where we're just going to use Google
+18:07 search. So, we're going to be using the
+18:09 SER API.
+18:11 You can Okay, you can get the API key
+18:14 that you need from here. So, serapi.com/
+18:17 users/sign
+18:19 and just enter that in here. So, you
+18:22 will get it's up to 100 searches per
+18:25 month for free. So, just be aware of
+18:29 that if you overuse it. I don't think
+18:31 they charge you because I I don't think
+18:32 you enter your card details straight
+18:35 away, but yeah, just be aware of that
+18:38 limit.
+18:39 Now, there are certain tools that Lang
+18:42 Chain have already built for us. So,
+18:44 they're pre-built tools and we can just
+18:45 load them using the load tools function.
+18:48 So, we do that like so. We have our load
+18:50 tools and we just pass in the set API
+18:52 tool only. We could pass in more there
+18:54 if we wanted to. And then we also pass
+18:56 in our lm.
+18:58 Now I'm going to one use that tool, but
+19:02 I'm also going to define my own tool
+19:03 which is to get the current location
+19:06 based on the IP address. Now this is
+19:08 we're in collab at the moment. So it's
+19:09 actually going to get the IP address for
+19:11 the collab instance that I'm currently
+19:12 on and we'll find out where that is. So
+19:16 that is going to get the IP address and
+19:18 then it's going to provide the data back
+19:20 to our LM in this format here. So we're
+19:22 going to latitude, longitude, city, and
+19:24 country.
+19:25 Okay, we're also going to get the
+19:27 current day and time. So now we're going
+19:31 to redefine our prompt. I'm not going to
+19:34 include chat history here. I just want
+19:35 this to be like a oneshot thing.
+19:39 I'm going to redefine our agent and
+19:40 agent executor using our new tools which
+19:42 just our sub API plus the get current
+19:46 date time and get location from IP. Then
+19:49 I'm going to invoke our agent executor
+19:51 with I have a few questions. What is the
+19:53 date and time right now? How is the
+19:55 weather where I am? And please give me
+19:58 degrees in Celsius. So when it gives me
+20:00 that weather. Okay. And let's see what
+20:02 we get.
+20:06 Okay. So apparently we're in Council
+20:08 Bluffs in the US.
+20:11 It is 13 degrees Fahrenheit, which I think is
+20:14 absolutely freezing. Oh my gosh, it is.
+20:17 Yes. - 10. So it's super cold over
+20:20 there.
+20:22 And you can see that, okay, it did give
+20:24 us Fahrenheit. And that's that is
+20:25 because the tool that we were using
+20:27 provided us with Fahrenheit, which is
+20:29 fine, but it did translate that over
+20:32 into a estimate of Celsius for us, which
+20:35 is pretty cool. So, let's actually
+20:37 output that. So, we get this, which I is
+20:41 correct.
+20:43 We do US approximately this. And we also
+20:46 get an description of the conditions as
+20:48 well. It's partly cloudy with 0%
+20:51 precipitation, lucky for them, and
+20:54 humidity of 66%. Okay, all pretty cool.
+20:58 So, that is it for this introduction to
+21:00 Langchain agents. As I mentioned, next
+21:02 chapter, we're going to dive much deeper
+21:04 into agents and also implement that for
+21:07 chain version 0.3. So, we'll leave this
+21:10 chapter here and jump into the next one.

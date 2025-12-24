@@ -1,0 +1,2707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trajanus Developer Workspace</title>
+    <!--
+    ============================================
+    STRIPPED VERSION: 2025-12-12
+    ACTIVE: Developer Workspace only
+    DISABLED: PM/QCM/SSHO Toolkits, File Browser, Enterprise Hub
+    RESTORE FROM: index_BACKUP_FULL.html (320KB)
+    ============================================
+    -->
+    <style>
+        :root {
+            --brown-dark: #1f1410;
+            --brown-mid: #3d2a1f;
+            --cream: #FFF8F0;
+            --orange-mid: #cc6e1f;
+            --orange-light: #e8922a;
+            --gray-light: #a89890;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, var(--brown-mid), var(--brown-dark));
+            min-height: 100vh;
+            display: flex;
+            color: var(--cream);
+        }
+        .sidebar {
+            width: 280px;
+            background: rgba(0,0,0,0.3);
+            padding: 25px;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+        .sidebar-header {
+            text-align: center;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        .sidebar-header h1 { font-size: 1.4rem; font-weight: 700; }
+        .sidebar-header .tagline {
+            color: var(--orange-light);
+            margin-top: 8px;
+            font-style: italic;
+        }
+        .sidebar-header .version {
+            font-size: 0.7rem;
+            color: var(--gray-light);
+            margin-top: 10px;
+        }
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .header {
+            background: rgba(0,0,0,0.2);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .header h2 { color: var(--orange-light); font-size: 1.4rem; }
+        .clock { text-align: right; }
+        .clock-date { font-size: 0.85rem; color: var(--gray-light); }
+        .clock-time {
+            font-size: 1.3rem;
+            font-weight: 600;
+            font-family: 'Consolas', monospace;
+        }
+        .workspace {
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
+        }
+        .section-intro {
+            background: rgba(232,146,42,0.1);
+            border-left: 3px solid var(--orange-mid);
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+        .tool-section {
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .tool-section-header {
+            color: var(--orange-light);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+        }
+        .session-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+        }
+        .session-btn:hover {
+            background: rgba(232,146,42,0.15);
+            border-color: var(--orange-mid);
+            transform: translateY(-2px);
+        }
+        .btn-label {
+            color: var(--cream);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+        .btn-description {
+            color: var(--gray-light);
+            font-size: 0.75rem;
+        }
+        .terminal {
+            background: rgba(0,0,0,0.4);
+            border-radius: 8px;
+            margin: 0 25px 25px 25px;
+            overflow: hidden;
+        }
+        .terminal-header {
+            background: rgba(0,0,0,0.3);
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .terminal-title {
+            color: var(--orange-light);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .terminal-clear {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--gray-light);
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+        .terminal-clear:hover {
+            background: rgba(255,255,255,0.2);
+            color: var(--cream);
+        }
+        .terminal-content {
+            padding: 15px;
+            height: 200px;
+            overflow-y: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+        .terminal-content .info { color: var(--cream); }
+        .terminal-content .success { color: #28a745; }
+        .terminal-content .warning { color: #ffc107; }
+        .terminal-content .error { color: #dc3545; }
+
+        /* ============================================
+           CLAUDE AI ASSISTANT STYLES
+           ============================================ */
+
+        .claude-assistant {
+            background: rgba(0,0,0,0.4);
+            border-radius: 8px;
+            margin: 0 25px 25px 25px;
+            display: flex;
+            flex-direction: column;
+            max-height: 350px;
+        }
+
+        .claude-header {
+            background: linear-gradient(180deg, rgba(232,146,42,0.2) 0%, rgba(204,110,31,0.15) 100%);
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(232,146,42,0.3);
+            border-radius: 8px 8px 0 0;
+        }
+
+        .claude-title {
+            color: var(--orange-light);
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .claude-status {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 10px;
+            background: rgba(40,167,69,0.2);
+            color: #28a745;
+            border: 1px solid rgba(40,167,69,0.4);
+        }
+
+        .claude-status.thinking {
+            background: rgba(255,193,7,0.2);
+            color: #ffc107;
+            border-color: rgba(255,193,7,0.4);
+        }
+
+        .claude-status.processing {
+            background: rgba(52,152,219,0.2);
+            color: #5dade2;
+            border-color: rgba(52,152,219,0.4);
+        }
+
+        .claude-clear {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--gray-light);
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+
+        .claude-clear:hover {
+            background: rgba(255,255,255,0.2);
+            color: var(--cream);
+        }
+
+        .claude-conversation {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-height: 150px;
+            max-height: 200px;
+        }
+
+        .claude-message {
+            display: flex;
+            gap: 10px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .claude-message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .claude-message.assistant .message-avatar {
+            background: linear-gradient(180deg, rgba(232,146,42,0.3) 0%, rgba(204,110,31,0.2) 100%);
+            border: 1px solid rgba(232,146,42,0.4);
+        }
+
+        .claude-message.user .message-avatar {
+            background: rgba(52,152,219,0.2);
+            border: 1px solid rgba(52,152,219,0.4);
+        }
+
+        .message-content {
+            flex: 1;
+            max-width: 85%;
+        }
+
+        .message-text {
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .claude-message.assistant .message-text {
+            background: rgba(232,146,42,0.1);
+            border: 1px solid rgba(232,146,42,0.2);
+            color: var(--cream);
+            border-radius: 4px 12px 12px 12px;
+        }
+
+        .claude-message.user .message-text {
+            background: rgba(52,152,219,0.15);
+            border: 1px solid rgba(52,152,219,0.3);
+            color: var(--cream);
+            border-radius: 12px 4px 12px 12px;
+        }
+
+        .claude-input-area {
+            display: flex;
+            gap: 10px;
+            padding: 12px 15px;
+            background: rgba(0,0,0,0.2);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-radius: 0 0 8px 8px;
+        }
+
+        .claude-input-area textarea {
+            flex: 1;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(204,110,31,0.3);
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: var(--cream);
+            font-size: 0.85rem;
+            resize: none;
+            font-family: inherit;
+        }
+
+        .claude-input-area textarea:focus {
+            outline: none;
+            border-color: var(--orange-light);
+        }
+
+        .claude-send-btn {
+            background: linear-gradient(180deg, #e8922a 0%, #cc6e1f 100%);
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .claude-send-btn:hover {
+            background: linear-gradient(180deg, #f5a03d 0%, #e8922a 100%);
+        }
+
+        /* ============================================
+           QCM SUBMITTAL REVIEW WORKSPACE STYLES
+           ============================================ */
+
+        .qcm-workspace-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .qcm-workspace-header {
+            padding: 10px 15px;
+            border-bottom: 1px solid rgba(204, 110, 31, 0.3);
+            flex-shrink: 0;
+        }
+
+        .qcm-workspace {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1.2fr;
+            gap: 15px;
+            padding: 15px;
+            flex: 1;
+            overflow: hidden;
+            min-height: 0;
+        }
+
+        .qcm-panel {
+            background: rgba(45, 24, 16, 0.6);
+            border: 1px solid rgba(204, 110, 31, 0.3);
+            border-radius: 6px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            min-height: 0;
+        }
+
+        .qcm-panel .panel-header {
+            font-weight: bold;
+            color: var(--orange-light);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            border-bottom: 1px solid rgba(204, 110, 31, 0.3);
+            padding-bottom: 8px;
+            flex-shrink: 0;
+        }
+
+        .qcm-file-browser .file-list {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+
+        .breadcrumb {
+            background: rgba(31, 20, 16, 0.8);
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex-wrap: wrap;
+            flex-shrink: 0;
+        }
+
+        .breadcrumb-item {
+            color: var(--orange-light);
+            cursor: pointer;
+        }
+
+        .qcm-file-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 6px;
+            background: rgba(31, 20, 16, 0.6);
+            border: 1px solid rgba(204, 110, 31, 0.2);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .qcm-file-item:hover {
+            background: rgba(204, 110, 31, 0.15);
+            border-color: rgba(204, 110, 31, 0.4);
+        }
+
+        .qcm-file-item input[type="checkbox"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+        }
+
+        .qcm-file-name {
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        .qcm-file-meta {
+            font-size: 0.75rem;
+            color: #999;
+        }
+
+        .report-item {
+            padding: 10px;
+            background: rgba(31,20,16,0.6);
+            border: 1px solid rgba(204,110,31,0.3);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 6px;
+            color: var(--cream);
+        }
+
+        .report-item:hover {
+            background: rgba(204, 110, 31, 0.2);
+            border-color: var(--orange-light);
+        }
+
+        .qcm-actions {
+            display: flex;
+            gap: 10px;
+            padding: 15px;
+            border-top: 1px solid rgba(204, 110, 31, 0.3);
+            background: rgba(45, 24, 16, 0.8);
+            flex-shrink: 0;
+        }
+
+        .qcm-primary {
+            background: linear-gradient(180deg, #e8922a 0%, #cc6e1f 100%);
+            font-weight: 600;
+        }
+
+        .qcm-primary:hover {
+            background: linear-gradient(180deg, #f5a23f 0%, #d97a29 100%);
+        }
+
+        .review-status {
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .review-status.waiting {
+            background: rgba(128, 128, 128, 0.2);
+            color: #999;
+            border: 1px solid rgba(128, 128, 128, 0.4);
+        }
+
+        .review-status.analyzing {
+            background: rgba(232, 146, 42, 0.2);
+            color: #e8922a;
+            border: 1px solid rgba(232, 146, 42, 0.4);
+        }
+
+        .review-status.complete {
+            background: rgba(40, 167, 69, 0.2);
+            color: #4caf50;
+            border: 1px solid rgba(40, 167, 69, 0.4);
+        }
+
+        .review-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            background: rgba(45, 24, 16, 0.6);
+            border-radius: 4px;
+        }
+
+        .loading-spinner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            border: 4px solid rgba(204, 110, 31, 0.2);
+            border-top: 4px solid var(--orange-mid);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            margin-top: 20px;
+            color: var(--orange-light);
+        }
+
+        .template-dropdown {
+            width: 100%;
+            padding: 10px;
+            background: rgba(31, 20, 16, 0.8);
+            color: var(--cream);
+            border: 1px solid rgba(204, 110, 31, 0.3);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .template-dropdown:focus {
+            outline: none;
+            border-color: var(--orange-light);
+        }
+
+        .template-dropdown option {
+            background: var(--brown-dark);
+        }
+
+        .ref-doc-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 10px;
+            margin-bottom: 4px;
+            background: rgba(31, 20, 16, 0.6);
+            border: 1px solid rgba(204, 110, 31, 0.2);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+            color: var(--cream);
+        }
+
+        .ref-doc-item:hover {
+            background: rgba(204, 110, 31, 0.15);
+            border-color: rgba(204, 110, 31, 0.4);
+        }
+
+        .ref-doc-item input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .add-to-project-btn {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background: linear-gradient(180deg, #3498db 0%, #2980b9 100%);
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .add-to-project-btn:hover {
+            background: linear-gradient(180deg, #5dade2 0%, #3498db 100%);
+        }
+
+        .project-file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 8px;
+            background: rgba(52, 152, 219, 0.1);
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            border-radius: 3px;
+            margin-bottom: 4px;
+            font-size: 0.8rem;
+        }
+
+        .project-file-item .remove-btn {
+            background: rgba(220, 53, 69, 0.2);
+            border: none;
+            color: #ff6b6b;
+            padding: 2px 6px;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 0.7rem;
+        }
+
+        .download-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(180deg, #27ae60 0%, #219a52 100%);
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .download-btn:hover {
+            background: linear-gradient(180deg, #2ecc71 0%, #27ae60 100%);
+        }
+
+        /* File Browser Tabs */
+        .file-browser-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 8px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(204,110,31,0.2);
+            color: var(--gray-light);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover {
+            background: rgba(204,110,31,0.1);
+        }
+
+        .tab-btn.active {
+            background: rgba(232,146,42,0.2);
+            border-color: var(--orange-light);
+            color: var(--orange-light);
+        }
+
+        .tab-content {
+            flex: 1;
+            min-height: 0;
+        }
+
+        /* Drive File Items */
+        .drive-folder-item, .drive-file-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 10px;
+            margin-bottom: 4px;
+            background: rgba(31, 20, 16, 0.6);
+            border: 1px solid rgba(204, 110, 31, 0.2);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+        }
+
+        .drive-folder-item:hover {
+            background: rgba(52, 152, 219, 0.15);
+            border-color: rgba(52, 152, 219, 0.4);
+        }
+
+        .drive-file-item:hover {
+            background: rgba(204, 110, 31, 0.15);
+            border-color: rgba(204, 110, 31, 0.4);
+        }
+
+        .drive-file-item.selected {
+            background: rgba(232,146,42,0.2);
+            border-color: var(--orange-light);
+        }
+
+        .drive-file-item.in-project {
+            background: rgba(76,175,80,0.15);
+            border-color: rgba(76,175,80,0.5);
+            color: #81c784;
+        }
+
+        /* Reference Docs Browser */
+        .browse-ref-btn {
+            width: 100%;
+            padding: 8px;
+            background: rgba(52,152,219,0.2);
+            border: 1px solid rgba(52,152,219,0.4);
+            color: #5dade2;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .browse-ref-btn:hover {
+            background: rgba(52,152,219,0.3);
+        }
+
+        .ref-doc-browser-item {
+            display: flex;
+            align-items: center;
+            padding: 6px 8px;
+            margin-bottom: 3px;
+            background: rgba(31, 20, 16, 0.4);
+            border: 1px solid rgba(204, 110, 31, 0.15);
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            color: var(--cream);
+        }
+
+        .ref-doc-browser-item:hover {
+            background: rgba(204, 110, 31, 0.15);
+        }
+
+        .ref-doc-browser-item.selected {
+            background: rgba(232,146,42,0.2);
+            border-color: var(--orange-light);
+        }
+
+        .ref-doc-browser-item input {
+            margin-right: 8px;
+        }
+
+        /* Workflow Step Buttons */
+        .submit-review-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(180deg, #e8922a 0%, #cc6e1f 100%);
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .submit-review-btn:hover:not(:disabled) {
+            background: linear-gradient(180deg, #f5a23f 0%, #d97a29 100%);
+        }
+
+        .submit-review-btn:disabled {
+            background: rgba(128,128,128,0.3);
+            cursor: not-allowed;
+        }
+
+        .revise-btn {
+            flex: 1;
+            padding: 10px;
+            background: rgba(231, 76, 60, 0.2);
+            border: 1px solid rgba(231, 76, 60, 0.4);
+            color: #e74c3c;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .revise-btn:hover {
+            background: rgba(231, 76, 60, 0.3);
+        }
+
+        .accept-btn {
+            flex: 1;
+            padding: 10px;
+            background: linear-gradient(180deg, #27ae60 0%, #219a52 100%);
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .accept-btn:hover {
+            background: linear-gradient(180deg, #2ecc71 0%, #27ae60 100%);
+        }
+
+        .new-review-btn {
+            width: 100%;
+            padding: 10px;
+            background: rgba(52,152,219,0.2);
+            border: 1px solid rgba(52,152,219,0.4);
+            color: #5dade2;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .new-review-btn:hover {
+            background: rgba(52,152,219,0.3);
+        }
+
+        .filename-input {
+            width: 100%;
+            padding: 10px;
+            background: rgba(31, 20, 16, 0.8);
+            border: 1px solid rgba(204, 110, 31, 0.3);
+            color: var(--cream);
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .filename-input:focus {
+            outline: none;
+            border-color: var(--orange-light);
+        }
+
+        /* Browse Reference Docs Button */
+        .browse-ref-btn {
+            width: 100%;
+            padding: 10px;
+            background: rgba(232,146,42,0.15);
+            border: 1px solid rgba(232,146,42,0.4);
+            color: var(--orange-light);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .browse-ref-btn:hover {
+            background: rgba(232,146,42,0.25);
+            border-color: var(--orange-light);
+        }
+
+        /* Project File Items */
+        .project-file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 10px;
+            background: rgba(232,146,42,0.1);
+            border: 1px solid rgba(232,146,42,0.3);
+            border-radius: 4px;
+            margin-bottom: 4px;
+            font-size: 0.85rem;
+        }
+
+        .remove-btn {
+            background: rgba(255,107,107,0.2);
+            border: 1px solid rgba(255,107,107,0.4);
+            color: #ff6b6b;
+            padding: 2px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .remove-btn:hover {
+            background: rgba(255,107,107,0.3);
+        }
+
+        /* Add to Project Button */
+        .add-to-project-btn {
+            width: 100%;
+            padding: 10px;
+            background: rgba(76,175,80,0.2);
+            border: 1px solid rgba(76,175,80,0.4);
+            color: #4caf50;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .add-to-project-btn:hover {
+            background: rgba(76,175,80,0.3);
+            border-color: #4caf50;
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(232,146,42,0.2);
+            border-top-color: var(--orange-light);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            margin-top: 15px;
+            color: var(--gray-light);
+            font-size: 0.9rem;
+        }
+
+        /* ============================================ */
+        /* NEW QCM WORKSPACE STYLES */
+        /* ============================================ */
+
+        /* Browse Button */
+        .browse-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(180deg, #e8922a 0%, #cc6e1f 100%);
+            border: none;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 10px 0;
+            transition: all 0.2s ease;
+        }
+
+        .browse-btn:hover {
+            background: linear-gradient(180deg, #f5a03d 0%, #e8922a 100%);
+        }
+
+        /* Navigation Buttons */
+        .nav-btn {
+            background: rgba(232,146,42,0.2);
+            border: 1px solid rgba(232,146,42,0.4);
+            color: #e8922a;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-right: 5px;
+        }
+
+        .nav-btn:hover {
+            background: rgba(232,146,42,0.3);
+        }
+
+        /* Selected Documents Static List */
+        .selected-docs-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            /* NO max-height or overflow - static list */
+        }
+
+        .selected-doc-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 10px;
+            background: rgba(232,146,42,0.15);
+            border: 1px solid rgba(232,146,42,0.3);
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        .selected-doc-item .remove-doc {
+            background: none;
+            border: none;
+            color: #ff6b6b;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 0 5px;
+        }
+
+        /* Clear Button */
+        .clear-btn {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255,107,107,0.15);
+            border: 1px solid rgba(255,107,107,0.4);
+            color: #ff6b6b;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .clear-btn:hover {
+            background: rgba(255,107,107,0.25);
+        }
+
+        /* Template Grid */
+        .template-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .template-btn {
+            width: 100%;
+            padding: 10px 12px;
+            background: rgba(31, 20, 16, 0.6);
+            border: 1px solid rgba(204, 110, 31, 0.3);
+            color: var(--cream);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+
+        .template-btn:hover {
+            background: rgba(232,146,42,0.2);
+            border-color: var(--orange-light);
+        }
+
+        .template-btn.selected {
+            background: rgba(232,146,42,0.25);
+            border-color: var(--orange-light);
+            color: var(--orange-light);
+        }
+
+        /* Action Grid */
+        .action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .action-btn {
+            padding: 10px 8px;
+            background: rgba(52,152,219,0.15);
+            border: 1px solid rgba(52,152,219,0.4);
+            color: #5dade2;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover {
+            background: rgba(52,152,219,0.25);
+            border-color: #5dade2;
+        }
+
+        /* Workflow Buttons */
+        .workflow-btn {
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            flex: 1;
+        }
+
+        .workflow-btn.primary {
+            background: linear-gradient(180deg, #e8922a 0%, #cc6e1f 100%);
+            border: none;
+            color: #fff;
+        }
+
+        .workflow-btn.primary:hover:not(:disabled) {
+            background: linear-gradient(180deg, #f5a03d 0%, #e8922a 100%);
+        }
+
+        .workflow-btn.primary:disabled {
+            background: rgba(128,128,128,0.3);
+            color: rgba(255,255,255,0.5);
+            cursor: not-allowed;
+        }
+
+        .workflow-btn.secondary {
+            background: rgba(232,146,42,0.15);
+            border: 1px solid rgba(232,146,42,0.4);
+            color: var(--orange-light);
+        }
+
+        .workflow-btn.secondary:hover {
+            background: rgba(232,146,42,0.25);
+        }
+
+        /* Download Button */
+        .download-btn {
+            padding: 10px 15px;
+            background: linear-gradient(180deg, #27ae60 0%, #1e8449 100%);
+            border: none;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .download-btn:hover {
+            background: linear-gradient(180deg, #2ecc71 0%, #27ae60 100%);
+        }
+    </style>
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1>TRAJANUS USA</h1>
+            <div class="tagline">Developer Workspace</div>
+            <div class="version">Minimal Build - 2025-12-12</div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <!-- Header with Clock -->
+        <div class="header">
+            <h2>Developer Workspace</h2>
+            <div class="clock">
+                <div class="clock-date" id="clockDate">12 Dec 2025</div>
+                <div class="clock-time" id="clockTime">00:00:00</div>
+            </div>
+        </div>
+
+        <!-- Workspace -->
+        <div class="workspace">
+            <div class="section-intro">
+                <strong>Developer Workspace v2.0.0</strong> - Development utilities and terminal launchers
+            </div>
+
+            <!-- DEVELOPMENT TERMINALS -->
+            <div class="tool-section">
+                <div class="tool-section-header">Development Terminals</div>
+                <div class="button-grid">
+                    <button class="session-btn" onclick="launchTerminal('claude-code')">
+                        <div class="btn-label">Claude Code</div>
+                        <div class="btn-description">AI-powered development assistant</div>
+                    </button>
+                    <button class="session-btn" onclick="launchTerminal('powershell')">
+                        <div class="btn-label">PowerShell</div>
+                        <div class="btn-description">Windows command-line interface</div>
+                    </button>
+                    <button class="session-btn" onclick="launchTerminal('vscode')">
+                        <div class="btn-label">VS Code</div>
+                        <div class="btn-description">Full-featured code editor</div>
+                    </button>
+                    <button class="session-btn" onclick="launchTerminal('git-bash')">
+                        <div class="btn-label">Git Bash</div>
+                        <div class="btn-description">Unix-style terminal for Windows</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- EXTERNAL LINKS -->
+            <div class="tool-section">
+                <div class="tool-section-header">External Resources</div>
+                <div class="button-grid">
+                    <button class="session-btn" onclick="openExternal('https://claude.ai')">
+                        <div class="btn-label">Claude Web</div>
+                        <div class="btn-description">Browser-based Claude interface</div>
+                    </button>
+                    <button class="session-btn" onclick="openExternal('https://console.anthropic.com')">
+                        <div class="btn-label">Anthropic Console</div>
+                        <div class="btn-description">API management and monitoring</div>
+                    </button>
+                    <button class="session-btn" onclick="openExternal('https://drive.google.com')">
+                        <div class="btn-label">Google Drive</div>
+                        <div class="btn-description">Cloud storage access</div>
+                    </button>
+                    <button class="session-btn" onclick="openExternal('https://github.com')">
+                        <div class="btn-label">GitHub</div>
+                        <div class="btn-description">Code repository</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- QCM SUBMITTAL REVIEW WORKSPACE -->
+            <div class="qcm-workspace-container" id="qcmWorkspace">
+                <div class="qcm-workspace">
+                    <!-- ============================================ -->
+                    <!-- LEFT PANEL: Document Selection -->
+                    <!-- ============================================ -->
+                    <div class="qcm-panel">
+                        <div class="panel-header">Document Selection</div>
+
+                        <!-- 2 Tab Buttons: Supabase KB and Google Drive -->
+                        <div class="file-browser-tabs">
+                            <button class="tab-btn active" id="tabKB" onclick="switchBrowserTab('kb')">Supabase KB</button>
+                            <button class="tab-btn" id="tabDrive" onclick="switchBrowserTab('gdrive')">Google Drive</button>
+                        </div>
+
+                        <!-- Browse Files Button -->
+                        <button class="browse-btn" id="browseFilesBtn" onclick="openFileBrowser()">Browse Files</button>
+
+                        <!-- File Browser (hidden by default) -->
+                        <div id="fileBrowserContainer" style="display: none; flex: 1; min-height: 0; margin: 10px 0;">
+                            <div class="breadcrumb" style="margin-bottom: 8px;">
+                                <button onclick="browserGoHome()" class="nav-btn">🏠</button>
+                                <button onclick="browserGoUp()" class="nav-btn">⬆️</button>
+                                <span id="browserBreadcrumb" style="flex: 1; font-size: 0.8rem; color: var(--gray-light);"></span>
+                            </div>
+                            <!-- Search Box -->
+                            <div style="position: relative; margin-bottom: 8px;">
+                                <input type="text" id="browserSearch" placeholder="Search: *.pdf, Supabase*, etc."
+                                       oninput="filterBrowserFiles()"
+                                       style="width: 100%; padding: 6px 30px 6px 10px; background: rgba(0,0,0,0.3); border: 1px solid rgba(204,110,31,0.3); border-radius: 4px; color: var(--cream); font-size: 0.8rem;">
+                                <button onclick="clearBrowserSearch()" style="position: absolute; right: 6px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--gray-light); cursor: pointer; font-size: 0.9rem;">×</button>
+                            </div>
+                            <!-- Add Files Button -->
+                            <button onclick="addSelectedFilesToProject()" class="browse-btn" style="margin-bottom: 8px; padding: 6px 10px; font-size: 0.8rem;">+ Add Files to Project</button>
+                            <div class="file-list" id="browserFileList" style="flex: 1; overflow-y: auto; max-height: 200px;">
+                                <div style="color: var(--gray-light); padding: 20px; text-align: center;">Loading...</div>
+                            </div>
+                        </div>
+
+                        <!-- Selected Documents (STATIC LIST - no scroll) -->
+                        <div style="margin-top: 10px; border-top: 1px solid rgba(204,110,31,0.3); padding-top: 10px;">
+                            <div style="font-size: 0.85rem; color: var(--gray-light); margin-bottom: 8px;">Selected Documents:</div>
+                            <div id="selectedDocsList" class="selected-docs-list">
+                                <div style="color: var(--gray-light); font-size: 0.8rem; font-style: italic;">No documents selected</div>
+                            </div>
+                        </div>
+
+                        <!-- Clear Selection Button -->
+                        <button class="clear-btn" onclick="clearDocumentSelection()">Clear Selection</button>
+                    </div>
+
+                    <!-- ============================================ -->
+                    <!-- CENTER PANEL: Workflow Actions -->
+                    <!-- ============================================ -->
+                    <div class="qcm-panel" style="overflow-y: auto;">
+                        <!-- Standard Templates Section -->
+                        <div class="panel-header">Standard Templates</div>
+
+                        <!-- Construction Management (5 buttons) -->
+                        <div style="margin-bottom: 12px;">
+                            <div style="font-size: 0.75rem; color: var(--gray-light); margin-bottom: 6px; text-transform: uppercase;">Construction Management</div>
+                            <div class="template-grid">
+                                <button class="template-btn" onclick="toggleTemplate(this, 'qcm-submittal')">QCM Submittal Review</button>
+                                <button class="template-btn" onclick="toggleTemplate(this, 'qc-meeting')">QC Meeting Agenda + Minutes</button>
+                                <button class="template-btn" onclick="toggleTemplate(this, 'prep-meeting')">Preparatory Meeting</button>
+                                <button class="template-btn" onclick="toggleTemplate(this, 'inspection')">Inspection Report</button>
+                                <button class="template-btn" onclick="toggleTemplate(this, 'rfi')">RFI Preparation</button>
+                            </div>
+                        </div>
+
+                        <!-- Task Specific Templates (5 buttons) -->
+                        <div style="margin-bottom: 12px;">
+                            <div style="font-size: 0.75rem; color: var(--gray-light); margin-bottom: 6px; text-transform: uppercase;">Task Specific Templates</div>
+                            <div class="template-grid">
+                                <button class="template-btn" onclick="toggleTemplate(this, 'traffic-impact')">Traffic Impact Analysis</button>
+                                <button class="template-btn" onclick="toggleTemplate(this, 'trip-gen')">Trip Generation Report</button>
+                                <button class="template-btn" onclick="toggleTemplate(this, 'los')">Level of Service Analysis</button>
+                                <button class="template-btn" onclick="toggleTemplate(this, 'traffic-count')">Traffic Count Summary</button>
+                                <button class="template-btn" onclick="toggleTemplate(this, 'parking')">Parking Analysis</button>
+                            </div>
+                        </div>
+
+                        <!-- Precon Submittals (8 buttons) -->
+                        <div style="margin-bottom: 12px;">
+                            <div style="font-size: 0.75rem; color: var(--gray-light); margin-bottom: 6px; text-transform: uppercase;">Precon Submittals</div>
+                            <div class="template-grid">
+                                <button class="template-btn" onclick="toggleTemplate(this, 'qc-plan')">QC Plan</button>
+                                <button class="template-btn" onclick="toggleTemplate(this, 'app')">Accident Prevention Plan</button>
+                                <button class="template-btn" onclick="toggleTemplate(this, 'waste-mgmt')">Waste Management Plan</button>
+                                <button class="template-btn" onclick="toggleTemplate(this, 'env-protection')">Environmental Protection Plan</button>
+                                <button class="template-btn" onclick="toggleTemplate(this, 'safety-health')">Safety & Health Plan</button>
+                                <button class="template-btn" onclick="toggleTemplate(this, 'qc-system')">Quality Control System</button>
+                                <button class="template-btn" onclick="toggleTemplate(this, 'schedule')">Project Schedule</button>
+                                <button class="template-btn" onclick="toggleTemplate(this, 'submittal-reg')">Submittal Register</button>
+                            </div>
+                        </div>
+
+                        <!-- Reference Documents Section -->
+                        <div style="margin-bottom: 12px; border-top: 1px solid rgba(204,110,31,0.3); padding-top: 12px;">
+                            <div style="font-size: 0.75rem; color: var(--gray-light); margin-bottom: 6px; text-transform: uppercase;">Reference Documents</div>
+                            <div style="display: flex; gap: 6px; margin-bottom: 6px;">
+                                <button class="browse-btn" onclick="openRefDocsBrowser('tkb')" style="flex: 1; padding: 6px 8px; font-size: 0.75rem;">Browse TKB</button>
+                                <button class="browse-btn" onclick="openRefDocsBrowser('gdrive')" style="flex: 1; padding: 6px 8px; font-size: 0.75rem;">Browse GDrive</button>
+                            </div>
+                            <div style="font-size: 0.7rem; color: var(--gray-light); margin-bottom: 4px;">Selected References:</div>
+                            <div id="selectedRefDocsList" style="font-size: 0.8rem; max-height: 60px; overflow-y: auto;">
+                                <div style="color: var(--gray-light); font-style: italic;">None selected</div>
+                            </div>
+                            <button class="browse-btn" onclick="addRefDocsToWorkflow()" style="padding: 4px 8px; font-size: 0.75rem; margin-top: 6px; width: 100%;">Add to Workflow</button>
+                        </div>
+
+                        <!-- Advanced Actions Section (2 only) -->
+                        <div style="border-top: 1px solid rgba(204,110,31,0.3); padding-top: 12px; margin-top: auto;">
+                            <div style="font-size: 0.75rem; color: var(--gray-light); margin-bottom: 6px; text-transform: uppercase;">Advanced Actions</div>
+                            <div class="action-grid" style="grid-template-columns: 1fr;">
+                                <button class="action-btn" onclick="createCustomReport()">Create Custom Report</button>
+                                <button class="action-btn" onclick="reviewDocsDesktop()">Review Documents (Desktop)</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ============================================ -->
+                    <!-- RIGHT PANEL: Workflow Summary -->
+                    <!-- ============================================ -->
+                    <div class="qcm-panel">
+                        <div class="panel-header">Trajanus EI Review</div>
+
+                        <!-- Workflow Summary (dynamic) -->
+                        <div id="workflowSummary" style="flex: 1; padding: 10px 0;">
+                            <div style="color: var(--orange-light); font-weight: 600; margin-bottom: 12px;">Workflow Summary</div>
+
+                            <div style="margin-bottom: 12px;">
+                                <div style="font-size: 0.8rem; color: var(--gray-light); margin-bottom: 4px;">Documents to Review:</div>
+                                <div id="summaryDocsList" style="background: rgba(0,0,0,0.2); padding: 8px 10px; border-radius: 4px; font-size: 0.85rem;">
+                                    <span style="color: var(--gray-light); font-style: italic;">None selected</span>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 12px;">
+                                <div style="font-size: 0.8rem; color: var(--gray-light); margin-bottom: 4px;">Templates Selected:</div>
+                                <div id="summaryTemplates" style="background: rgba(0,0,0,0.2); padding: 8px 10px; border-radius: 4px; font-size: 0.85rem; max-height: 100px; overflow-y: auto;">
+                                    <span style="color: var(--gray-light); font-style: italic;">None selected</span>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 12px;">
+                                <div style="font-size: 0.8rem; color: var(--gray-light); margin-bottom: 4px;">Reference Docs:</div>
+                                <div id="summaryRefDocs" style="background: rgba(0,0,0,0.2); padding: 8px 10px; border-radius: 4px; font-size: 0.85rem;">
+                                    <span style="color: var(--gray-light); font-style: italic;">None selected</span>
+                                </div>
+                            </div>
+
+                            <!-- Validation Message -->
+                            <div id="workflowValidation" style="font-size: 0.75rem; color: #ff6b6b; text-align: center; margin: 10px 0;"></div>
+                        </div>
+
+                        <!-- Action Buttons (directly below content) -->
+                        <div id="workflowButtons" style="display: flex; flex-direction: column; gap: 8px; padding-top: 10px; border-top: 1px solid rgba(204,110,31,0.3);">
+                            <div style="display: flex; gap: 8px;">
+                                <button class="workflow-btn secondary" onclick="previewWorkflow()">Preview Workflow</button>
+                                <button class="workflow-btn secondary" onclick="saveWorkProgress()">Save Work</button>
+                            </div>
+                            <button class="workflow-btn primary" id="submitToClaudeBtn" onclick="submitToClaude()" disabled>Submit to Claude for Processing</button>
+                        </div>
+
+                        <!-- Results Area (hidden until submit) -->
+                        <div id="resultsArea" style="display: none; flex: 1; margin-top: 15px; border-top: 1px solid rgba(204,110,31,0.3); padding-top: 15px;">
+                            <div id="resultsContent" style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 4px; max-height: 300px; overflow-y: auto;">
+                                <!-- Results inserted here -->
+                            </div>
+                            <div style="display: flex; gap: 8px; margin-top: 10px;">
+                                <input type="text" id="deliverableFilename" class="filename-input" placeholder="report_name.md" style="flex: 1;">
+                                <button class="download-btn" onclick="downloadResults()">📥 Download</button>
+                            </div>
+                            <button class="workflow-btn secondary" onclick="startNewWorkflow()" style="margin-top: 10px; width: 100%;">Start New Workflow</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Claude AI Assistant -->
+        <div class="claude-assistant" id="claudeAssistant">
+            <div class="claude-header">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span class="claude-title">Claude AI Assistant</span>
+                    <span class="claude-status" id="claudeStatus">Ready</span>
+                </div>
+                <button class="claude-clear" onclick="clearConversation()">Clear Chat</button>
+            </div>
+            <div class="claude-conversation" id="claudeConversation">
+                <div class="claude-message assistant">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <div class="message-text">Hello! I'm your Trajanus AI Assistant. Select documents and templates above, then click "Submit to Claude for Processing" to analyze your workflow. You can also ask me questions directly.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="claude-input-area">
+                <textarea id="claudeInput" placeholder="Ask Claude about your documents, workflow, or any PM questions..." rows="2"></textarea>
+                <button class="claude-send-btn" onclick="sendToClaudeAssistant()">Send</button>
+            </div>
+            <!-- Hidden terminal for logs -->
+            <div id="terminal" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // LOGGING
+        // ============================================
+        function log(message, type) {
+            type = type || 'info';
+            var terminal = document.getElementById('terminal');
+            if (!terminal) {
+                console.log('[' + type + '] ' + message);
+                return;
+            }
+            var line = document.createElement('div');
+            line.className = type;
+            var timestamp = new Date().toLocaleTimeString('en-US', { hour12: false });
+            line.textContent = '[' + timestamp + '] ' + message;
+            terminal.appendChild(line);
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        function clearTerminal() {
+            var terminal = document.getElementById('terminal');
+            if (terminal) {
+                terminal.innerHTML = '<div class="info">[Cleared] Terminal cleared</div>';
+            }
+        }
+
+        // ============================================
+        // CLOCK
+        // ============================================
+        function updateClock() {
+            var now = new Date();
+            var day = now.getDate();
+            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            var month = months[now.getMonth()];
+            var year = now.getFullYear();
+            document.getElementById('clockDate').textContent = day + ' ' + month + ' ' + year;
+
+            var hours = String(now.getHours()).padStart(2, '0');
+            var minutes = String(now.getMinutes()).padStart(2, '0');
+            var seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clockTime').textContent = hours + ':' + minutes + ':' + seconds;
+        }
+
+        // ============================================
+        // EXTERNAL LINKS
+        // ============================================
+        function openExternal(url) {
+            if (window.electronAPI) {
+                window.electronAPI.openExternal(url);
+            } else {
+                window.open(url, '_blank');
+            }
+            log('Opening: ' + url, 'info');
+        }
+
+        // ============================================
+        // TERMINAL LAUNCHER
+        // ============================================
+        async function launchTerminal(terminalType) {
+            if (!window.electronAPI) {
+                log('Terminal launcher requires Electron - running in browser mode', 'warning');
+                return;
+            }
+
+            var projectDir = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center';
+
+            try {
+                switch(terminalType) {
+                    case 'claude-code':
+                        log('Launching Claude Code...', 'info');
+                        await window.electronAPI.runCommand('start powershell -NoExit -Command "& {cd \'' + projectDir + '\'; claude}"');
+                        log('Claude Code launched in PowerShell', 'success');
+                        break;
+
+                    case 'powershell':
+                        log('Launching PowerShell...', 'info');
+                        await window.electronAPI.runCommand('start powershell -NoExit -Command "& {cd \'' + projectDir + '\'}"');
+                        log('PowerShell launched', 'success');
+                        break;
+
+                    case 'vscode':
+                        log('Launching VS Code...', 'info');
+                        await window.electronAPI.runCommand('code "' + projectDir + '"');
+                        log('VS Code launched', 'success');
+                        break;
+
+                    case 'git-bash':
+                        log('Launching Git Bash...', 'info');
+                        await window.electronAPI.runCommand('start "" "C:\\Program Files\\Git\\bin\\bash.exe" --login -i -c "cd \'/g/My Drive/00 - Trajanus USA/00-Command-Center\'; exec bash"');
+                        log('Git Bash launched', 'success');
+                        break;
+
+                    default:
+                        log('Unknown terminal type: ' + terminalType, 'error');
+                }
+            } catch (err) {
+                log('Error launching terminal: ' + err.message, 'error');
+            }
+        }
+
+        // ============================================
+        // QCM WORKSPACE FUNCTIONS - NEW IMPLEMENTATION
+        // ============================================
+
+        // State
+        let selectedDocuments = [];
+        let selectedTemplates = []; // ARRAY for accumulating multiple templates
+        let selectedRefDocs = [];
+        let currentBrowserMode = 'kb'; // 'kb' | 'gdrive' | 'projects'
+        let browserCurrentPath = '';
+        let browserPathHistory = [];
+        let browserIsOpen = false;
+        let browserFilesCache = []; // Cache for search filtering
+        let browserSelectedFiles = []; // Temp selection before adding to project
+        let lastResults = null;
+        let refDocsBrowserOpen = false;
+
+        // Paths
+        const KNOWLEDGE_BASE_PATH = 'G:\\My Drive\\00 - Trajanus USA\\TKB-Trajanus-Knowledge-Base';
+        const GDRIVE_ROOT = 'G:\\My Drive\\00 - Trajanus USA';
+        const CLIENT_DELIVERABLES_PATH = 'G:\\My Drive\\00 - Trajanus USA\\11-Client-Deliverables';
+
+        // Claude Projects (matching sidebar - excluding Memory Recall and SSHO)
+        const CLAUDE_PROJECTS = [
+            { name: 'Developer Toolkit', id: 'dev-toolkit', path: '00-Command-Center' },
+            { name: 'QCM Toolkit', id: 'qcm-toolkit', path: '10-Quality-Control' },
+            { name: 'PM Toolkit', id: 'pm-toolkit', path: '10-Project-Management' },
+            { name: 'Traffic Studies', id: 'traffic', path: '12-Traffic-Studies' },
+            { name: 'PE Services', id: 'pe-services', path: '14-PE-Services' }
+        ];
+
+        // Document file extensions (exclude code/scripts)
+        const DOC_EXTENSIONS = ['.pdf', '.docx', '.doc', '.gdoc', '.txt', '.md', '.xlsx', '.xls'];
+
+        function isDocumentFile(filename) {
+            if (!filename) return false;
+            var ext = filename.toLowerCase().substring(filename.lastIndexOf('.'));
+            return DOC_EXTENSIONS.includes(ext);
+        }
+
+        // ============================================
+        // BROWSER TAB SWITCHING
+        // ============================================
+
+        function switchBrowserTab(mode) {
+            currentBrowserMode = mode;
+
+            // Update tab buttons (only KB and GDrive now)
+            document.getElementById('tabKB').classList.toggle('active', mode === 'kb');
+            document.getElementById('tabDrive').classList.toggle('active', mode === 'gdrive');
+
+            // Reset path history
+            browserPathHistory = [];
+
+            // Set initial path based on mode
+            if (mode === 'kb') {
+                browserCurrentPath = 'SUPABASE_KB'; // Special marker for Supabase query
+            } else if (mode === 'gdrive') {
+                browserCurrentPath = GDRIVE_ROOT;
+            }
+
+            // If browser is open, reload with new path
+            if (browserIsOpen) {
+                loadBrowserFiles();
+            }
+
+            log('Switched to ' + mode + ' browser', 'info');
+        }
+
+        // ============================================
+        // FILE BROWSER (PERSISTENT, MULTI-USE)
+        // ============================================
+
+        function openFileBrowser() {
+            var container = document.getElementById('fileBrowserContainer');
+            if (browserIsOpen) {
+                container.style.display = 'none';
+                browserIsOpen = false;
+                document.getElementById('browseFilesBtn').textContent = 'Browse Files';
+            } else {
+                container.style.display = 'block';
+                browserIsOpen = true;
+                document.getElementById('browseFilesBtn').textContent = 'Hide Browser';
+
+                // Initialize path if not set
+                if (!browserCurrentPath) {
+                    if (currentBrowserMode === 'kb') {
+                        browserCurrentPath = 'SUPABASE_KB'; // Special marker for Supabase query
+                    } else if (currentBrowserMode === 'gdrive') {
+                        browserCurrentPath = GDRIVE_ROOT;
+                    }
+                }
+
+                loadBrowserFiles();
+            }
+        }
+
+        async function loadBrowserFiles() {
+            var fileList = document.getElementById('browserFileList');
+            var breadcrumb = document.getElementById('browserBreadcrumb');
+
+            // Clear search when loading new folder
+            var searchBox = document.getElementById('browserSearch');
+            if (searchBox) searchBox.value = '';
+
+            fileList.innerHTML = '<div style="color: var(--gray-light); padding: 20px; text-align: center;">Loading...</div>';
+
+            if (!window.electronAPI) {
+                fileList.innerHTML = '<div style="color: var(--gray-light); padding: 20px; text-align: center;">Requires Electron</div>';
+                return;
+            }
+
+            // SUPABASE KB MODE - Query real database
+            if (currentBrowserMode === 'kb') {
+                breadcrumb.textContent = 'Supabase Knowledge Base';
+
+                try {
+                    var result = await window.electronAPI.querySupabaseKB({});
+                    if (result.success) {
+                        // Cache documents for search filtering
+                        browserFilesCache = result.documents.map(function(doc) {
+                            return {
+                                name: doc.title,
+                                isDirectory: false,
+                                path: doc.url,
+                                url: doc.url,
+                                chunkCount: doc.chunkCount,
+                                source: doc.source,
+                                lastUpdate: doc.lastUpdate,
+                                isSupabase: true
+                            };
+                        });
+                        renderSupabaseDocuments(browserFilesCache);
+                        log('Loaded ' + browserFilesCache.length + ' documents from Supabase KB', 'success');
+                    } else {
+                        fileList.innerHTML = '<div style="color: #ff6b6b; padding: 20px; text-align: center;">Supabase Error: ' + result.error + '</div>';
+                        log('Supabase query failed: ' + result.error, 'error');
+                    }
+                } catch (err) {
+                    fileList.innerHTML = '<div style="color: #ff6b6b; padding: 20px; text-align: center;">Error connecting to Supabase</div>';
+                    log('Supabase connection error: ' + err.message, 'error');
+                }
+                return;
+            }
+
+            // GOOGLE DRIVE MODE - File system browser
+            // Update breadcrumb
+            var pathParts = browserCurrentPath.split('\\');
+            breadcrumb.textContent = pathParts.slice(-2).join(' > ');
+
+            try {
+                var result = await window.electronAPI.listDirectory(browserCurrentPath);
+                if (result.success) {
+                    // Cache files for search filtering
+                    browserFilesCache = result.files.filter(function(file) {
+                        return file.isDirectory || isDocumentFile(file.name);
+                    });
+                    renderBrowserFiles(browserFilesCache);
+                } else {
+                    fileList.innerHTML = '<div style="color: #ff6b6b; padding: 20px; text-align: center;">Error: ' + result.error + '</div>';
+                }
+            } catch (err) {
+                fileList.innerHTML = '<div style="color: #ff6b6b; padding: 20px; text-align: center;">Error loading files</div>';
+            }
+        }
+
+        // Render Supabase KB documents
+        function renderSupabaseDocuments(documents) {
+            var fileList = document.getElementById('browserFileList');
+
+            if (documents.length === 0) {
+                fileList.innerHTML = '<div style="color: var(--gray-light); padding: 20px; text-align: center;">No documents in knowledge base</div>';
+                return;
+            }
+
+            var html = documents.map(function(doc) {
+                // Check if already in project
+                var isInProject = selectedDocuments.some(function(d) { return d.path === doc.url || d.url === doc.url; });
+                var isTempSelected = browserSelectedFiles.some(function(d) { return d.path === doc.url || d.url === doc.url; });
+
+                var cssClass = 'drive-file-item';
+                if (isInProject) cssClass += ' in-project';
+                else if (isTempSelected) cssClass += ' selected';
+
+                var icon = '📚'; // KB document icon
+                var chunkInfo = doc.chunkCount ? ' (' + doc.chunkCount + ' chunks)' : '';
+                var sourceInfo = doc.source ? ' [' + doc.source + ']' : '';
+
+                return '<div class="' + cssClass + '" onclick="toggleSupabaseDoc(this, \'' + escapeJsString(doc.url) + '\', \'' + escapeJsString(doc.name) + '\')" title="' + escapeHtml(doc.url) + '">' +
+                    icon + ' ' + escapeHtml(doc.name) + chunkInfo + sourceInfo +
+                    (isInProject ? ' ✓' : '') +
+                    '</div>';
+            }).join('');
+
+            fileList.innerHTML = html;
+        }
+
+        // Toggle Supabase document selection
+        function toggleSupabaseDoc(element, url, name) {
+            var doc = { path: url, url: url, name: name, isSupabase: true };
+
+            // Check if already in project
+            var inProjectIdx = selectedDocuments.findIndex(function(d) { return d.path === url || d.url === url; });
+            if (inProjectIdx >= 0) {
+                // Already in project - don't allow double-add
+                log('Document already in project: ' + name, 'info');
+                return;
+            }
+
+            // Toggle in temp selection
+            var idx = browserSelectedFiles.findIndex(function(d) { return d.path === url || d.url === url; });
+            if (idx >= 0) {
+                browserSelectedFiles.splice(idx, 1);
+                element.classList.remove('selected');
+            } else {
+                browserSelectedFiles.push(doc);
+                element.classList.add('selected');
+            }
+        }
+
+        function renderBrowserFiles(files) {
+            var fileList = document.getElementById('browserFileList');
+
+            if (files.length === 0) {
+                fileList.innerHTML = '<div style="color: var(--gray-light); padding: 20px; text-align: center;">No documents in this folder</div>';
+                return;
+            }
+
+            var html = files.map(function(file) {
+                if (file.isDirectory) {
+                    return '<div class="drive-folder-item" onclick="navigateBrowserTo(\'' + escapeJsString(file.path) + '\')">📁 ' + escapeHtml(file.name) + '</div>';
+                } else {
+                    // Check if in temp selection OR already in project
+                    var isTempSelected = browserSelectedFiles.some(function(d) { return d.path === file.path; });
+                    var isInProject = selectedDocuments.some(function(d) { return d.path === file.path; });
+                    var cssClass = 'drive-file-item';
+                    if (isInProject) cssClass += ' in-project';
+                    else if (isTempSelected) cssClass += ' selected';
+                    return '<div class="' + cssClass + '" onclick="toggleBrowserFile(this, \'' + escapeJsString(file.path) + '\', \'' + escapeJsString(file.name) + '\')">📄 ' + escapeHtml(file.name) + (isInProject ? ' ✓' : '') + '</div>';
+                }
+            }).join('');
+
+            fileList.innerHTML = html;
+        }
+
+        // Search/Filter functions
+        async function filterBrowserFiles() {
+            var searchBox = document.getElementById('browserSearch');
+            var searchTerm = searchBox.value.trim().toLowerCase();
+
+            if (!searchTerm) {
+                // No search - show all cached items
+                if (currentBrowserMode === 'kb') {
+                    renderSupabaseDocuments(browserFilesCache);
+                } else {
+                    renderBrowserFiles(browserFilesCache);
+                }
+                return;
+            }
+
+            // SUPABASE MODE - Use text search API for better results
+            if (currentBrowserMode === 'kb' && window.electronAPI && window.electronAPI.searchSupabaseKB) {
+                try {
+                    var result = await window.electronAPI.searchSupabaseKB(searchTerm, { limit: 50 });
+                    if (result.success && result.results.length > 0) {
+                        // Convert search results to document format
+                        var searchDocs = result.results.map(function(item) {
+                            return {
+                                name: item.title,
+                                isDirectory: false,
+                                path: item.url,
+                                url: item.url,
+                                chunkCount: 1,
+                                source: item.metadata ? item.metadata.source : 'search',
+                                isSupabase: true
+                            };
+                        });
+                        // Remove duplicates by URL
+                        var uniqueDocs = [];
+                        var seenUrls = {};
+                        searchDocs.forEach(function(doc) {
+                            if (!seenUrls[doc.url]) {
+                                seenUrls[doc.url] = true;
+                                uniqueDocs.push(doc);
+                            }
+                        });
+                        renderSupabaseDocuments(uniqueDocs);
+                        log('Search found ' + uniqueDocs.length + ' matching documents', 'info');
+                        return;
+                    }
+                } catch (err) {
+                    console.log('Supabase search failed, falling back to local filter');
+                }
+            }
+
+            // Convert wildcard pattern to regex
+            var pattern = searchTerm
+                .replace(/[.+^${}()|[\]\\]/g, '\\$&') // Escape special regex chars (except *)
+                .replace(/\*/g, '.*'); // Convert * to regex .*
+            var regex = new RegExp(pattern, 'i');
+
+            var filtered = browserFilesCache.filter(function(file) {
+                return file.isDirectory || regex.test(file.name);
+            });
+
+            // Use appropriate renderer
+            if (currentBrowserMode === 'kb') {
+                renderSupabaseDocuments(filtered);
+            } else {
+                renderBrowserFiles(filtered);
+            }
+        }
+
+        function clearBrowserSearch() {
+            var searchBox = document.getElementById('browserSearch');
+            if (searchBox) {
+                searchBox.value = '';
+                // Use appropriate renderer
+                if (currentBrowserMode === 'kb') {
+                    renderSupabaseDocuments(browserFilesCache);
+                } else {
+                    renderBrowserFiles(browserFilesCache);
+                }
+            }
+        }
+
+        function escapeJsString(str) {
+            return str.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        function navigateBrowserTo(path) {
+            browserPathHistory.push(browserCurrentPath);
+            browserCurrentPath = path;
+            loadBrowserFiles();
+        }
+
+        function browserGoHome() {
+            browserPathHistory = [];
+            if (currentBrowserMode === 'kb') {
+                browserCurrentPath = 'SUPABASE_KB'; // Supabase KB has no folder structure
+            } else if (currentBrowserMode === 'gdrive') {
+                browserCurrentPath = GDRIVE_ROOT;
+            }
+            loadBrowserFiles();
+        }
+
+        function browserGoUp() {
+            if (browserPathHistory.length > 0) {
+                browserCurrentPath = browserPathHistory.pop();
+                loadBrowserFiles();
+            } else {
+                // Go up one directory
+                var parts = browserCurrentPath.split('\\');
+                if (parts.length > 3) {
+                    parts.pop();
+                    browserCurrentPath = parts.join('\\');
+                    loadBrowserFiles();
+                }
+            }
+        }
+
+        function toggleBrowserFile(element, filePath, fileName) {
+            // Check if already in project - can't unselect those from browser
+            var isInProject = selectedDocuments.some(function(d) { return d.path === filePath; });
+            if (isInProject) {
+                log('File already in project. Use Clear to remove.', 'info');
+                return;
+            }
+
+            // Toggle temp selection
+            var isTempSelected = browserSelectedFiles.some(function(d) { return d.path === filePath; });
+
+            if (isTempSelected) {
+                // Remove from temp selection
+                browserSelectedFiles = browserSelectedFiles.filter(function(d) { return d.path !== filePath; });
+                element.classList.remove('selected');
+            } else {
+                // Add to temp selection
+                browserSelectedFiles.push({ name: fileName, path: filePath });
+                element.classList.add('selected');
+            }
+
+            log('Browser selection: ' + browserSelectedFiles.length + ' file(s)', 'info');
+        }
+
+        // Add selected files to project (ACCUMULATES - doesn't replace)
+        function addSelectedFilesToProject() {
+            if (browserSelectedFiles.length === 0) {
+                log('No files selected. Click files to select them first.', 'warning');
+                return;
+            }
+
+            // Add each temp selection to project if not already there
+            var added = 0;
+            browserSelectedFiles.forEach(function(file) {
+                var alreadyIn = selectedDocuments.some(function(d) {
+                    return d.path === file.path || (d.url && file.url && d.url === file.url);
+                });
+                if (!alreadyIn) {
+                    selectedDocuments.push(file);
+                    added++;
+                }
+            });
+
+            // Clear temp selections
+            browserSelectedFiles = [];
+
+            // Refresh browser display using appropriate renderer
+            if (browserFilesCache.length > 0) {
+                var searchBox = document.getElementById('browserSearch');
+                if (searchBox && searchBox.value) {
+                    filterBrowserFiles();
+                } else if (currentBrowserMode === 'kb') {
+                    renderSupabaseDocuments(browserFilesCache);
+                } else {
+                    renderBrowserFiles(browserFilesCache);
+                }
+            }
+
+            // Update left panel and workflow
+            updateSelectedDocsList();
+            updateWorkflowSummary();
+
+            log('Added ' + added + ' file(s) to project. Total: ' + selectedDocuments.length, 'success');
+        }
+
+        // ============================================
+        // SELECTED DOCUMENTS LIST
+        // ============================================
+
+        function updateSelectedDocsList() {
+            var listDiv = document.getElementById('selectedDocsList');
+
+            if (selectedDocuments.length === 0) {
+                listDiv.innerHTML = '<div style="color: var(--gray-light); font-size: 0.8rem; font-style: italic;">No documents selected</div>';
+                return;
+            }
+
+            var html = selectedDocuments.map(function(doc, index) {
+                var icon = doc.isSupabase ? '📚' : '📄';
+                return '<div class="selected-doc-item"><span>' + icon + ' ' + escapeHtml(doc.name) + '</span><button class="remove-doc" onclick="removeDocument(' + index + ')">×</button></div>';
+            }).join('');
+
+            listDiv.innerHTML = html;
+        }
+
+        function removeDocument(index) {
+            selectedDocuments.splice(index, 1);
+            updateSelectedDocsList();
+            updateWorkflowSummary();
+            // Refresh browser to update selection state
+            if (browserIsOpen && browserFilesCache.length > 0) {
+                if (currentBrowserMode === 'kb') {
+                    renderSupabaseDocuments(browserFilesCache);
+                } else {
+                    renderBrowserFiles(browserFilesCache);
+                }
+            }
+            log('Document removed', 'info');
+        }
+
+        function clearDocumentSelection() {
+            selectedDocuments = [];
+            selectedTemplates = [];
+            selectedRefDocs = [];
+            browserSelectedFiles = [];
+
+            // Update left panel
+            updateSelectedDocsList();
+
+            // Clear template selection
+            document.querySelectorAll('.template-btn').forEach(function(btn) {
+                btn.classList.remove('selected');
+            });
+
+            // Clear ref docs list
+            var refDocsList = document.getElementById('selectedRefDocsList');
+            if (refDocsList) {
+                refDocsList.innerHTML = '<div style="color: var(--gray-light); font-style: italic;">None selected</div>';
+            }
+
+            // Update workflow summary
+            updateWorkflowSummary();
+
+            // Refresh browser to clear selection state
+            if (browserIsOpen) {
+                loadBrowserFiles();
+            }
+
+            log('Selection cleared', 'info');
+        }
+
+        // ============================================
+        // TEMPLATE SELECTION (Button-based, ACCUMULATING)
+        // ============================================
+
+        function toggleTemplate(button, templateType) {
+            var index = selectedTemplates.indexOf(templateType);
+
+            if (index > -1) {
+                // Remove from selection
+                selectedTemplates.splice(index, 1);
+                button.classList.remove('selected');
+                log('Template removed: ' + templateType, 'info');
+            } else {
+                // Add to selection
+                selectedTemplates.push(templateType);
+                button.classList.add('selected');
+                log('Template added: ' + templateType + ' (Total: ' + selectedTemplates.length + ')', 'info');
+            }
+
+            updateWorkflowSummary();
+        }
+
+        // Template name lookup
+        const TEMPLATE_NAMES = {
+            'qcm-submittal': 'QCM Submittal Review',
+            'qc-meeting': 'QC Meeting Agenda + Minutes',
+            'prep-meeting': 'Preparatory Meeting',
+            'inspection': 'Inspection Report',
+            'rfi': 'RFI Preparation',
+            'traffic-impact': 'Traffic Impact Analysis',
+            'trip-gen': 'Trip Generation Report',
+            'los': 'Level of Service Analysis',
+            'traffic-count': 'Traffic Count Summary',
+            'parking': 'Parking Analysis',
+            'qc-plan': 'QC Plan',
+            'app': 'Accident Prevention Plan',
+            'waste-mgmt': 'Waste Management Plan',
+            'env-protection': 'Environmental Protection Plan',
+            'safety-health': 'Safety & Health Plan',
+            'qc-system': 'Quality Control System',
+            'schedule': 'Project Schedule',
+            'submittal-reg': 'Submittal Register'
+        };
+
+        // ============================================
+        // WORKFLOW SUMMARY (Dynamic Update)
+        // ============================================
+
+        function updateWorkflowSummary() {
+            // Update documents list
+            var docsDiv = document.getElementById('summaryDocsList');
+            if (selectedDocuments.length > 0) {
+                docsDiv.innerHTML = selectedDocuments.map(function(doc) {
+                    return '<div style="padding: 2px 0;">• ' + escapeHtml(doc.name) + '</div>';
+                }).join('');
+            } else {
+                docsDiv.innerHTML = '<span style="color: var(--gray-light); font-style: italic;">None selected</span>';
+            }
+
+            // Update templates (PLURAL - show all selected)
+            var templatesDiv = document.getElementById('summaryTemplates');
+            if (selectedTemplates.length > 0) {
+                templatesDiv.innerHTML = selectedTemplates.map(function(t) {
+                    return '<div style="padding: 2px 0; color: var(--orange-light);">• ' + (TEMPLATE_NAMES[t] || t) + '</div>';
+                }).join('');
+            } else {
+                templatesDiv.innerHTML = '<span style="color: var(--gray-light); font-style: italic;">None selected</span>';
+            }
+
+            // Update reference docs
+            var refDocsDiv = document.getElementById('summaryRefDocs');
+            if (selectedRefDocs.length > 0) {
+                refDocsDiv.innerHTML = selectedRefDocs.map(function(doc) {
+                    return '<div style="padding: 2px 0;">• ' + escapeHtml(doc.name || doc) + '</div>';
+                }).join('');
+            } else {
+                refDocsDiv.innerHTML = '<span style="color: var(--gray-light); font-style: italic;">None selected</span>';
+            }
+
+            // Enable/disable Submit button
+            var submitBtn = document.getElementById('submitToClaudeBtn');
+            var validationDiv = document.getElementById('workflowValidation');
+
+            if (selectedDocuments.length > 0 && selectedTemplates.length > 0) {
+                submitBtn.disabled = false;
+                validationDiv.textContent = '';
+            } else {
+                submitBtn.disabled = true;
+                var missing = [];
+                if (selectedDocuments.length === 0) missing.push('documents');
+                if (selectedTemplates.length === 0) missing.push('template');
+                validationDiv.textContent = missing.length > 0 ? 'Required: ' + missing.join(', ') : '';
+            }
+        }
+
+        // ============================================
+        // WORKFLOW ACTIONS
+        // ============================================
+
+        function previewWorkflow() {
+            if (selectedDocuments.length === 0) {
+                log('No documents selected', 'warning');
+                return;
+            }
+
+            var preview = 'WORKFLOW PREVIEW\n';
+            preview += '================\n\n';
+            preview += 'Documents: ' + selectedDocuments.length + ' file(s)\n';
+            selectedDocuments.forEach(function(doc) {
+                preview += '  - ' + doc.name + '\n';
+            });
+            preview += '\nTemplates: ' + selectedTemplates.length + '\n';
+            selectedTemplates.forEach(function(t) {
+                preview += '  - ' + (TEMPLATE_NAMES[t] || t) + '\n';
+            });
+            preview += '\nReference Docs: ' + selectedRefDocs.length + '\n';
+            preview += '\nAction: Will analyze documents using template criteria.';
+
+            alert(preview);
+            log('Preview shown', 'info');
+        }
+
+        function saveWorkProgress() {
+            var workData = {
+                documents: selectedDocuments,
+                templates: selectedTemplates,
+                refDocs: selectedRefDocs,
+                savedAt: new Date().toISOString()
+            };
+
+            // Save to localStorage for now
+            localStorage.setItem('qcm_work_progress', JSON.stringify(workData));
+            log('Work progress saved', 'success');
+        }
+
+        async function submitToClaude() {
+            if (selectedDocuments.length === 0 || selectedTemplates.length === 0) {
+                log('Cannot submit: missing documents or template', 'warning');
+                addMessageToConversation('assistant', 'Please select at least one document and one template before submitting.');
+                return;
+            }
+
+            var resultsArea = document.getElementById('resultsArea');
+            var resultsContent = document.getElementById('resultsContent');
+
+            resultsArea.style.display = 'block';
+            resultsContent.innerHTML = '<div class="loading-spinner"><div class="spinner"></div><div class="loading-text">Analyzing documents...</div></div>';
+
+            // Add workflow submission to conversation
+            var templateNames = selectedTemplates.map(function(t) { return TEMPLATE_NAMES[t] || t; }).join(', ');
+            addMessageToConversation('user', 'Analyze ' + selectedDocuments.length + ' document(s) using: ' + templateNames);
+            setClaudeStatus('processing', 'Processing...');
+
+            log('Submitting to Claude for processing...', 'info');
+
+            try {
+                // Read document contents
+                var docContents = [];
+                for (var i = 0; i < selectedDocuments.length; i++) {
+                    var doc = selectedDocuments[i];
+                    if (window.electronAPI && window.electronAPI.readFile) {
+                        var result = await window.electronAPI.readFile(doc.path);
+                        if (result.success) {
+                            docContents.push({ name: doc.name, content: result.content });
+                        } else {
+                            docContents.push({ name: doc.name, content: '[Error: ' + result.error + ']', error: true });
+                        }
+                    }
+                }
+
+                // Analyze documents
+                var issues = analyzeDocuments(docContents);
+
+                // Store results
+                lastResults = {
+                    documents: selectedDocuments.slice(),
+                    templates: selectedTemplates.slice(),
+                    refDocs: selectedRefDocs.slice(),
+                    issues: issues,
+                    timestamp: new Date().toISOString(),
+                    recommendation: issues.length > 0 ? 'REVISE AND RESUBMIT' : 'APPROVED'
+                };
+
+                // Display results
+                displayResults(lastResults);
+
+                // Set default filename using first template
+                var dateStr = new Date().toISOString().slice(0, 10);
+                document.getElementById('deliverableFilename').value = selectedTemplates[0] + '_Review_' + dateStr + '.md';
+
+                // Add results to conversation
+                var responseMsg = 'Analysis complete! ';
+                if (issues.length === 0) {
+                    responseMsg += 'APPROVED - No issues found. All documents meet the criteria for ' + templateNames + '.';
+                } else {
+                    responseMsg += 'Found ' + issues.length + ' issue(s) requiring attention. Recommendation: ' + lastResults.recommendation + '. Review the issues in the Results panel above and download the report.';
+                }
+                addMessageToConversation('assistant', responseMsg);
+                setClaudeStatus('', 'Ready');
+
+                log('Review complete: ' + issues.length + ' issue(s) found', issues.length > 0 ? 'warning' : 'success');
+
+            } catch (err) {
+                resultsContent.innerHTML = '<div style="color: #ff6b6b; padding: 20px;">Error: ' + err.message + '</div>';
+                addMessageToConversation('assistant', 'Error during analysis: ' + err.message);
+                setClaudeStatus('', 'Ready');
+                log('Review error: ' + err.message, 'error');
+            }
+        }
+
+        function analyzeDocuments(docContents) {
+            var issues = [];
+
+            docContents.forEach(function(doc) {
+                if (doc.error) {
+                    issues.push({ file: doc.name, severity: 'ERROR', issue: 'Could not read file', details: doc.content });
+                    return;
+                }
+
+                var content = doc.content.toLowerCase();
+
+                // Check for common issues
+                if (!content.includes('date') && !content.includes('dated')) {
+                    issues.push({ file: doc.name, severity: 'WARNING', issue: 'Missing date reference', details: 'Documents should include a date' });
+                }
+
+                if (content.includes('todo') || content.includes('fixme')) {
+                    issues.push({ file: doc.name, severity: 'WARNING', issue: 'Contains TODO/FIXME markers', details: 'Incomplete items should be resolved' });
+                }
+
+                if (content.includes('[insert') || content.includes('[placeholder')) {
+                    issues.push({ file: doc.name, severity: 'ERROR', issue: 'Contains placeholder text', details: 'Remove placeholder text before submission' });
+                }
+            });
+
+            return issues;
+        }
+
+        function displayResults(results) {
+            var resultsContent = document.getElementById('resultsContent');
+            var statusColor = results.issues.length === 0 ? '#4caf50' : '#ff6b6b';
+
+            var html = '<div style="color: ' + statusColor + '; font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">';
+            html += results.issues.length === 0 ? '✓ APPROVED' : '⚠ ' + results.issues.length + ' Issue(s) Found';
+            html += '</div>';
+
+            html += '<div style="margin-bottom: 10px;"><strong>Files:</strong> ' + results.documents.map(function(d) { return d.name; }).join(', ') + '</div>';
+            var templateNames = results.templates.map(function(t) { return TEMPLATE_NAMES[t] || t; }).join(', ');
+            html += '<div style="margin-bottom: 10px;"><strong>Templates:</strong> ' + templateNames + '</div>';
+            if (results.refDocs && results.refDocs.length > 0) {
+                html += '<div style="margin-bottom: 10px;"><strong>Reference Docs:</strong> ' + results.refDocs.map(function(d) { return d.name || d; }).join(', ') + '</div>';
+            }
+            html += '<div style="margin-bottom: 15px;"><strong>Recommendation:</strong> <span style="color: ' + statusColor + ';">' + results.recommendation + '</span></div>';
+
+            if (results.issues.length > 0) {
+                html += '<div style="border-top: 1px solid rgba(204,110,31,0.3); padding-top: 10px;"><strong>Issues:</strong></div>';
+                results.issues.forEach(function(issue) {
+                    var issueColor = issue.severity === 'ERROR' ? '#ff6b6b' : '#ffb74d';
+                    html += '<div style="margin: 8px 0; padding: 8px; background: rgba(0,0,0,0.2); border-left: 3px solid ' + issueColor + '; border-radius: 4px;">';
+                    html += '<div style="color: ' + issueColor + '; font-weight: 600;">[' + issue.severity + '] ' + issue.file + '</div>';
+                    html += '<div>' + issue.issue + '</div>';
+                    html += '<div style="font-size: 0.85rem; color: var(--gray-light);">' + issue.details + '</div>';
+                    html += '</div>';
+                });
+            }
+
+            resultsContent.innerHTML = html;
+        }
+
+        async function downloadResults() {
+            if (!lastResults) {
+                log('No results to download', 'warning');
+                return;
+            }
+
+            var filename = document.getElementById('deliverableFilename').value.trim();
+            if (!filename) {
+                log('Please enter a filename', 'warning');
+                return;
+            }
+
+            // Build markdown content
+            var templateList = lastResults.templates.map(function(t) { return TEMPLATE_NAMES[t] || t; }).join(', ');
+            var content = '# QCM Review Report\n\n';
+            content += '**Generated:** ' + new Date().toLocaleString() + '\n';
+            content += '**Templates:** ' + templateList + '\n\n';
+            content += '## Files Reviewed\n';
+            lastResults.documents.forEach(function(doc) {
+                content += '- ' + doc.name + '\n';
+            });
+            if (lastResults.refDocs && lastResults.refDocs.length > 0) {
+                content += '\n## Reference Documents\n';
+                lastResults.refDocs.forEach(function(doc) {
+                    content += '- ' + (doc.name || doc) + '\n';
+                });
+            }
+            content += '\n## Result\n';
+            content += '**Recommendation:** ' + lastResults.recommendation + '\n\n';
+
+            if (lastResults.issues.length > 0) {
+                content += '## Issues Found (' + lastResults.issues.length + ')\n\n';
+                lastResults.issues.forEach(function(issue, idx) {
+                    content += '### ' + (idx + 1) + '. [' + issue.severity + '] ' + issue.file + '\n';
+                    content += '**Issue:** ' + issue.issue + '\n';
+                    content += '**Details:** ' + issue.details + '\n\n';
+                });
+            }
+
+            content += '\n---\n*Generated by Trajanus EI*\n';
+
+            var fullPath = CLIENT_DELIVERABLES_PATH + '\\' + filename;
+
+            if (window.electronAPI && window.electronAPI.writeFile) {
+                var result = await window.electronAPI.writeFile(fullPath, content);
+                if (result.success) {
+                    log('Report saved: ' + filename, 'success');
+                } else {
+                    log('Save failed: ' + result.error, 'error');
+                }
+            } else {
+                log('Report saved (simulated)', 'success');
+            }
+        }
+
+        function startNewWorkflow() {
+            selectedDocuments = [];
+            selectedTemplates = [];
+            selectedRefDocs = [];
+            browserSelectedFiles = [];
+            lastResults = null;
+
+            // Reset UI
+            updateSelectedDocsList();
+            document.querySelectorAll('.template-btn').forEach(function(btn) {
+                btn.classList.remove('selected');
+            });
+
+            // Clear ref docs list
+            var refDocsList = document.getElementById('selectedRefDocsList');
+            if (refDocsList) {
+                refDocsList.innerHTML = '<div style="color: var(--gray-light); font-style: italic;">None selected</div>';
+            }
+
+            updateWorkflowSummary();
+
+            // Hide results
+            document.getElementById('resultsArea').style.display = 'none';
+
+            // Refresh browser
+            if (browserIsOpen) {
+                loadBrowserFiles();
+            }
+
+            log('Started new workflow', 'info');
+        }
+
+        // ============================================
+        // REFERENCE DOCS BROWSER
+        // ============================================
+
+        let refDocsPath = KNOWLEDGE_BASE_PATH;
+        let refDocsPathHistory = [];
+        let refDocsFilesCache = [];
+        let refDocsMode = 'tkb'; // 'tkb' or 'gdrive'
+        let refDocsRootPath = KNOWLEDGE_BASE_PATH;
+
+        function openRefDocsBrowser(mode) {
+            // Set mode and root path
+            mode = mode || 'tkb';
+            refDocsMode = mode;
+
+            if (mode === 'tkb') {
+                refDocsRootPath = KNOWLEDGE_BASE_PATH;
+                refDocsPath = KNOWLEDGE_BASE_PATH;
+            } else {
+                refDocsRootPath = GDRIVE_ROOT;
+                refDocsPath = GDRIVE_ROOT;
+            }
+            refDocsPathHistory = [];
+
+            // Create popup if it doesn't exist
+            var popup = document.getElementById('refDocsPopup');
+            if (!popup) {
+                popup = document.createElement('div');
+                popup.id = 'refDocsPopup';
+                popup.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 500px; max-height: 450px; background: #1a1a2e; border: 2px solid var(--orange-light); border-radius: 8px; z-index: 1000; padding: 15px; display: flex; flex-direction: column;';
+                document.body.appendChild(popup);
+
+                // Add backdrop
+                var backdrop = document.createElement('div');
+                backdrop.id = 'refDocsBackdrop';
+                backdrop.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999;';
+                backdrop.onclick = closeRefDocsBrowser;
+                document.body.appendChild(backdrop);
+            }
+
+            // Update popup content with current mode
+            var modeTitle = mode === 'tkb' ? 'Trajanus Knowledge Base' : 'Google Drive';
+            popup.innerHTML = '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;"><h3 style="color: var(--orange-light); margin: 0;">Reference Docs: ' + modeTitle + '</h3><button onclick="closeRefDocsBrowser()" style="background: none; border: none; color: var(--cream); font-size: 1.5rem; cursor: pointer;">×</button></div>' +
+                '<div style="display: flex; gap: 5px; margin-bottom: 8px;"><button onclick="refDocsGoHome()" class="nav-btn">🏠</button><button onclick="refDocsGoUp()" class="nav-btn">⬆️</button><span id="refDocsBreadcrumb" style="flex: 1; font-size: 0.8rem; color: var(--gray-light);"></span></div>' +
+                '<div style="position: relative; margin-bottom: 8px;"><input type="text" id="refDocsSearch" placeholder="Search: *.pdf, *.md, etc." oninput="filterRefDocsFiles()" style="width: 100%; padding: 6px 30px 6px 10px; background: rgba(0,0,0,0.3); border: 1px solid rgba(204,110,31,0.3); border-radius: 4px; color: var(--cream); font-size: 0.8rem;"><button onclick="clearRefDocsSearch()" style="position: absolute; right: 6px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--gray-light); cursor: pointer;">×</button></div>' +
+                '<div id="refDocsFileList" style="flex: 1; overflow-y: auto; max-height: 250px; background: rgba(0,0,0,0.3); border-radius: 4px; padding: 5px;"></div>' +
+                '<button onclick="confirmRefDocsSelection()" class="browse-btn" style="margin-top: 10px;">Add Selected to Workflow</button>';
+
+            popup.style.display = 'flex';
+            document.getElementById('refDocsBackdrop').style.display = 'block';
+            refDocsBrowserOpen = true;
+            loadRefDocsFiles();
+        }
+
+        function closeRefDocsBrowser() {
+            refDocsBrowserOpen = false;
+            var popup = document.getElementById('refDocsPopup');
+            var backdrop = document.getElementById('refDocsBackdrop');
+            if (popup) popup.style.display = 'none';
+            if (backdrop) backdrop.style.display = 'none';
+        }
+
+        async function loadRefDocsFiles() {
+            var fileList = document.getElementById('refDocsFileList');
+            var breadcrumb = document.getElementById('refDocsBreadcrumb');
+
+            fileList.innerHTML = '<div style="color: var(--gray-light); padding: 20px; text-align: center;">Loading...</div>';
+
+            var pathParts = refDocsPath.split('\\');
+            breadcrumb.textContent = pathParts.slice(-2).join(' > ');
+
+            if (!window.electronAPI) {
+                fileList.innerHTML = '<div style="color: var(--gray-light); padding: 20px; text-align: center;">Requires Electron</div>';
+                return;
+            }
+
+            try {
+                var result = await window.electronAPI.listDirectory(refDocsPath);
+                if (result.success) {
+                    refDocsFilesCache = result.files.filter(function(f) {
+                        return f.isDirectory || isDocumentFile(f.name);
+                    });
+                    renderRefDocsFiles(refDocsFilesCache);
+                } else {
+                    fileList.innerHTML = '<div style="color: #ff6b6b;">Error: ' + result.error + '</div>';
+                }
+            } catch (err) {
+                fileList.innerHTML = '<div style="color: #ff6b6b;">Error loading files</div>';
+            }
+        }
+
+        let tempRefDocsSelection = [];
+
+        function renderRefDocsFiles(files) {
+            var fileList = document.getElementById('refDocsFileList');
+
+            if (files.length === 0) {
+                fileList.innerHTML = '<div style="color: var(--gray-light); padding: 20px; text-align: center;">No documents found</div>';
+                return;
+            }
+
+            var html = files.map(function(file) {
+                if (file.isDirectory) {
+                    return '<div class="drive-folder-item" onclick="navigateRefDocs(\'' + escapeJsString(file.path) + '\')">📁 ' + escapeHtml(file.name) + '</div>';
+                } else {
+                    var isSelected = tempRefDocsSelection.some(function(d) { return d.path === file.path; });
+                    var isAlreadyAdded = selectedRefDocs.some(function(d) { return d.path === file.path; });
+                    var cssClass = 'drive-file-item';
+                    if (isAlreadyAdded) cssClass += ' in-project';
+                    else if (isSelected) cssClass += ' selected';
+                    return '<div class="' + cssClass + '" onclick="toggleRefDocSelection(this, \'' + escapeJsString(file.path) + '\', \'' + escapeJsString(file.name) + '\')">📄 ' + escapeHtml(file.name) + (isAlreadyAdded ? ' ✓' : '') + '</div>';
+                }
+            }).join('');
+
+            fileList.innerHTML = html;
+        }
+
+        function navigateRefDocs(path) {
+            refDocsPathHistory.push(refDocsPath);
+            refDocsPath = path;
+            loadRefDocsFiles();
+        }
+
+        function refDocsGoHome() {
+            refDocsPathHistory = [];
+            refDocsPath = refDocsRootPath;
+            loadRefDocsFiles();
+        }
+
+        function refDocsGoUp() {
+            if (refDocsPathHistory.length > 0) {
+                refDocsPath = refDocsPathHistory.pop();
+                loadRefDocsFiles();
+            } else if (refDocsPath !== refDocsRootPath) {
+                var parts = refDocsPath.split('\\');
+                parts.pop();
+                refDocsPath = parts.join('\\');
+                loadRefDocsFiles();
+            }
+        }
+
+        // Search/filter for ref docs browser
+        function filterRefDocsFiles() {
+            var searchBox = document.getElementById('refDocsSearch');
+            var searchTerm = searchBox.value.trim().toLowerCase();
+
+            if (!searchTerm) {
+                renderRefDocsFiles(refDocsFilesCache);
+                return;
+            }
+
+            var pattern = searchTerm
+                .replace(/[.+^${}()|[\]\\]/g, '\\$&')
+                .replace(/\*/g, '.*');
+            var regex = new RegExp(pattern, 'i');
+
+            var filtered = refDocsFilesCache.filter(function(file) {
+                return file.isDirectory || regex.test(file.name);
+            });
+
+            renderRefDocsFiles(filtered);
+        }
+
+        function clearRefDocsSearch() {
+            var searchBox = document.getElementById('refDocsSearch');
+            if (searchBox) {
+                searchBox.value = '';
+                renderRefDocsFiles(refDocsFilesCache);
+            }
+        }
+
+        function confirmRefDocsSelection() {
+            addRefDocsToWorkflow();
+        }
+
+        function toggleRefDocSelection(element, filePath, fileName) {
+            var isAlreadyAdded = selectedRefDocs.some(function(d) { return d.path === filePath; });
+            if (isAlreadyAdded) {
+                log('Already in workflow', 'info');
+                return;
+            }
+
+            var index = tempRefDocsSelection.findIndex(function(d) { return d.path === filePath; });
+            if (index > -1) {
+                tempRefDocsSelection.splice(index, 1);
+                element.classList.remove('selected');
+            } else {
+                tempRefDocsSelection.push({ name: fileName, path: filePath });
+                element.classList.add('selected');
+            }
+        }
+
+        function addRefDocsToWorkflow() {
+            if (tempRefDocsSelection.length === 0) {
+                log('No reference docs selected', 'warning');
+                return;
+            }
+
+            // Add to selectedRefDocs (accumulate)
+            tempRefDocsSelection.forEach(function(doc) {
+                var alreadyIn = selectedRefDocs.some(function(d) { return d.path === doc.path; });
+                if (!alreadyIn) {
+                    selectedRefDocs.push(doc);
+                }
+            });
+
+            // Update center panel display
+            updateSelectedRefDocsList();
+            updateWorkflowSummary();
+
+            log('Added ' + tempRefDocsSelection.length + ' reference doc(s). Total: ' + selectedRefDocs.length, 'success');
+            tempRefDocsSelection = [];
+            closeRefDocsBrowser();
+        }
+
+        function updateSelectedRefDocsList() {
+            var listDiv = document.getElementById('selectedRefDocsList');
+            if (selectedRefDocs.length === 0) {
+                listDiv.innerHTML = '<div style="color: var(--gray-light); font-style: italic;">None selected</div>';
+            } else {
+                listDiv.innerHTML = selectedRefDocs.map(function(doc) {
+                    return '<div style="padding: 2px 0; color: var(--cream);">📄 ' + escapeHtml(doc.name) + '</div>';
+                }).join('');
+            }
+        }
+
+        // ============================================
+        // ADVANCED ACTIONS
+        // ============================================
+
+        function createCustomReport() {
+            log('Custom Report - Coming soon', 'info');
+        }
+
+        function reviewDocsDesktop() {
+            if (selectedDocuments.length === 0) {
+                log('No documents selected', 'warning');
+                return;
+            }
+            // Open first document with default app
+            if (window.electronAPI && window.electronAPI.openFile) {
+                window.electronAPI.openFile(selectedDocuments[0].path);
+                log('Opening: ' + selectedDocuments[0].name, 'info');
+            }
+        }
+
+        // ============================================
+        // CLAUDE AI ASSISTANT
+        // ============================================
+
+        function addMessageToConversation(role, text) {
+            var conversation = document.getElementById('claudeConversation');
+            var avatar = role === 'user' ? '👤' : '🤖';
+
+            var messageDiv = document.createElement('div');
+            messageDiv.className = 'claude-message ' + role;
+            messageDiv.innerHTML = '<div class="message-avatar">' + avatar + '</div>' +
+                '<div class="message-content"><div class="message-text">' + escapeHtml(text) + '</div></div>';
+
+            conversation.appendChild(messageDiv);
+            conversation.scrollTop = conversation.scrollHeight;
+        }
+
+        function setClaudeStatus(status, text) {
+            var statusEl = document.getElementById('claudeStatus');
+            statusEl.textContent = text || status;
+            statusEl.className = 'claude-status ' + status;
+        }
+
+        function sendToClaudeAssistant() {
+            var input = document.getElementById('claudeInput');
+            var message = input.value.trim();
+
+            if (!message) return;
+
+            // Add user message
+            addMessageToConversation('user', message);
+            input.value = '';
+
+            // Set thinking status
+            setClaudeStatus('thinking', 'Thinking...');
+
+            // Simulate Claude response (in real implementation, this would call Claude API)
+            setTimeout(function() {
+                var response = generateAssistantResponse(message);
+                addMessageToConversation('assistant', response);
+                setClaudeStatus('', 'Ready');
+            }, 1000);
+        }
+
+        function generateAssistantResponse(message) {
+            // Simple response generation based on keywords
+            var lowerMsg = message.toLowerCase();
+
+            if (lowerMsg.includes('hello') || lowerMsg.includes('hi')) {
+                return 'Hello! How can I help you with your PM workflow today?';
+            } else if (lowerMsg.includes('submittal') || lowerMsg.includes('qcm')) {
+                return 'For submittal reviews, I recommend: 1) Select the documents from the left panel, 2) Choose the "QCM Submittal Review" template, 3) Add any reference documents from the TKB, then 4) Click "Submit to Claude for Processing" to analyze.';
+            } else if (lowerMsg.includes('template')) {
+                return 'Available templates include: Construction Management (QCM Review, QC Meeting, Prep Meeting, Inspection, RFI), Task Specific (Traffic Impact, Trip Gen, LOS, Traffic Count, Parking), and Precon Submittals (QC Plan, APP, Waste Mgmt, Env Protection, Safety & Health, QC System, Schedule, Submittal Register).';
+            } else if (lowerMsg.includes('help')) {
+                return 'I can help you with: 1) Document review workflows, 2) Template selection guidance, 3) Reference document lookup in TKB, 4) Quality control procedures. What would you like to know more about?';
+            } else {
+                return 'I understand you\'re asking about "' + message.substring(0, 50) + '". To provide a detailed analysis, please select your documents and templates above, then click "Submit to Claude for Processing".';
+            }
+        }
+
+        function clearConversation() {
+            var conversation = document.getElementById('claudeConversation');
+            conversation.innerHTML = '<div class="claude-message assistant">' +
+                '<div class="message-avatar">🤖</div>' +
+                '<div class="message-content">' +
+                '<div class="message-text">Conversation cleared. How can I help you?</div>' +
+                '</div></div>';
+        }
+
+        // Handle Enter key in chat input
+        document.addEventListener('DOMContentLoaded', function() {
+            var claudeInput = document.getElementById('claudeInput');
+            if (claudeInput) {
+                claudeInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        sendToClaudeAssistant();
+                    }
+                });
+            }
+        });
+
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            updateClock();
+            setInterval(updateClock, 1000);
+            log('Developer Workspace ready', 'success');
+        });
+    </script>
+</body>
+</html>

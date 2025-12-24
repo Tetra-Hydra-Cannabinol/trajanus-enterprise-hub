@@ -1,0 +1,111 @@
+Title: NEW Copilot Agents Build What Used to Take Hours (Automatically)
+Channel: MyOnlineTrainingHub
+Video ID: I0k6zNC0OYQ
+URL: https://www.youtube.com/watch?v=I0k6zNC0OYQ
+Duration: 8:12
+Level: ADVANCED
+Application: Excel, Microsoft 365 Copilot
+Topics: Copilot Agent Mode, AI Automation, Retirement Planning Model, ChatGPT Prompts, Excel Formulas, Dynamic Models, SEQUENCE, SCAN, Data Validation
+Ingested: 2025-12-20
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 Microsoft just released co-pilot agent mode in Excel and it can now build entire spreadsheets
+0:06 for you. I'm talking full models, linked sheets, calculations, charts, dashboards,
+0:12 the whole workflow. It works more like a digital assistant than a standard AI assistant.
+0:18 In this video, I'm going to show you how I used it to build this retirement planning model with
+0:22 a one-sentence prompt that simply described what I wanted. We'll also try changing a key
+0:27 assumption later just to see how well the structure Copilot created holds up.
+0:32 Let's jump in. Copilot agent is currently in preview and I'll show you how to activate it
+0:37 later in the video. To access it on the Home tab, click on the Copilot drop-down
+0:42 and open the chat pane, and then click on the Tools button and choose Agent Mode Frontier.
+0:49 Now, this isn't the regular Copilot pane that explains formulas,
+0:52 etc. Agent Mode goes a step further. It plans a workflow and executes it. It reads your workbook.
+0:59 It builds sheets. It writes formulas. It can even explain the reasoning behind each step.
+1:05 So, I simply described the outcome I wanted,
+1:08 and the agent broke down the problem into steps. But here's the trick. I didn't write
+1:12 the co-pilot prompt myself. I actually asked ChatGPT to write the prompt for me. And all I
+1:18 asked it was to develop a prompt for co-pilot instructing it to create a retirement planner
+1:24 that can have various inputs adjusted that would be typical of a retirement planner.
+1:29 And ChatGPT produced a structured prompt that explained what sheets to create, what
+1:34 calculations to perform, how the formulas should reference each other, and how the dashboard should
+1:40 be organized. So all I had to do was copy the code and go back to my co-pilot agent and paste it in.
+1:47 Of course, you'd review the prompt using your knowledge of retirement planning and Excel to
+1:52 make sure it's accurate and thorough, but for the purpose of the demo, let's take a look at what it
+1:58 produced. You can see here it created four sheets. Inputs where we control assumptions.
+2:04 Now, straight away I noticed two small things. The currency defaulted to GBP
+2:09 even though my region is set to Australia, and the header font color is too hard to read. But
+2:14 those are quick formatting issues that we can easily resolve. What matters is the structure.
+2:20 It also defined names for each cell. So we can see in the drop-down here,
+2:24 and if I arrow through the different cells in my inputs, you can see the
+2:28 different names defined in the Name Box. This just makes them easy to reference.
+2:33 Then on the projection sheet, it used formulas that differentiate pre-retirement growth from
+2:39 post-retirement growth. Which means if I change the inputs, it should automatically update.
+2:45 After that, it generated a drawdown schedule specifically for retirement years. Again,
+2:50 it uses formulas to calculate the values, which I expect will make it dynamic. We'll see.
+2:56 And finally, it built the dashboard and selected chart types to visualize
+3:00 savings and withdrawals over time, plus a runout indicator.
+3:05 In building the model, it added data validation, and we can see that on the input sheet for the
+3:10 state pension, we have a drop-down and contribution frequency. We also saw that
+3:15 it defined names, and if we open the Name Manager, you can see the list of them here.
+3:20 Plus, on the projection sheet, it used some conditional formatting.
+3:24 And let's open up the Formatting Manage Rules dialogue. We can see
+3:28 it's added a format to column G to highlight if we run out of money.
+3:34 But one of the most impressive parts of Agent Mode is that it doesn't just build the workbook.
+3:39 It actually explains how it decided what to build. And we can see that in the co-pilot pane.
+3:44 So this is my prompt in gray. If I scroll down, it gives me an outline of what it
+3:50 plans to do. Then it reasoned for 144 seconds. And if I expand this, we can see all the steps
+3:56 that it took. You can click on the arrows to get a bit more information about each step.
+4:02 And if we scroll down under "Considering chart creation approach," it came across an issue,
+4:07 it explains what it thinks the cause of the issue is,
+4:10 and then what it plans to do to address it. You can see in the next step,
+4:14 it narrows down the range to ensure there's enough data for the charts.
+4:18 If I scroll further down, we can see more detailed steps of how it built the model at a high level,
+4:24 the assumptions it used, and even how to use it. If I expand Show Details,
+4:29 you can even see the individual formulas that it's written for you.
+4:33 And at the bottom, it explains the verification steps it's taken and
+4:38 next steps and customizations that I might want.
+4:41 So, instead of a black-box spreadsheet,
+4:43 we have a traceable workflow that you can follow the logic from input to calculation to output.
+4:50 However, currently, if you close the co-pilot pane,
+4:54 you're going to lose all of this documentation. So, I recommend taking a copy of it for reference.
+4:59 And this is where we slow down. The spreadsheet looks polished,
+5:02 but polished does not mean correct. And AI will never warn you when it's made an
+5:07 error or tell you shortfalls in its assumptions. Copilot accelerates work, but we must validate
+5:14 assumptions and test the model for accuracy. That's where human expertise remains essential.
+5:20 Okay, let's test the model. In the future, it's expected that we're going to live
+5:24 much longer than ever before. So, let's change our life expectancy from 90 to 100.
+5:31 Now, if we go to the projection sheet and I scroll to the bottom, you can see it's only
+5:36 calculated up to age 90. And that's the first issue. It should have used formulas
+5:41 that automatically spilled down, because when key assumptions change like lifespan,
+5:46 the model structure should change with it. Static tables in dynamic models are a reliability risk.
+5:52 Let's take a look at the drawdown sheet,
+5:54 and you can see we've got the same problem. It hasn't expanded the formulas.
+5:58 However, if we go to the dashboard sheet and we scroll down,
+6:02 you can see these formulas were designed to spill and expand. But
+6:06 because they reference the projection sheet, we're returning errors here.
+6:10 And if we go up to the top and look at the charts, the charts don't update
+6:14 either because it's referencing a fixed range. So technically nothing breaks,
+6:20 but the model doesn't expand to include the extra years.
+6:23 Now I could ask the agent to fix it, but that can turn into a back-and-forth loop,
+6:27 and often it's faster just to update the formulas ourselves. For example, using SEQUENCE to control
+6:33 how many years get calculated and SCAN to calculate the balance year-by-year.
+6:37 And this is the professional's role. Co-pilot can help us build the first
+6:41 draft. But verification and refinement still require us to understand how the formulas work,
+6:47 how ranges expand, and how to adapt the logic when assumptions change. This is
+6:52 not a check-the-box and trust the AI. This is collaboration.
+6:56 Copilot accelerates the setup. You bring the judgment, the testing,
+7:00 and the structural improvements. And this requires domain knowledge and Excel skills.
+7:05 Without these, you're 100% dependent on AI being right.
+7:10 Copilot Agents is in preview and only available for Microsoft 365 Copilot license customers and
+7:16 Microsoft 365 Personal, Family, and Premium subscribers. It's currently part of the
+7:21 Frontier program, which you need to enable in your 365 admin center. Under Copilot settings,
+7:28 find Copilot Frontier, and on the Web Apps tab, enable it for the user groups that you want.
+7:34 Of course, once co-pilot agents are generally available, you won't need to enable the Frontier
+7:39 settings. So, keep that in mind if you're watching this video sometime after it was first published.
+7:44 So, the takeaway is this. Copilot agent mode is powerful. It can save
+7:49 hours and build a solid structure, but it doesn't replace your domain knowledge
+7:53 or your Excel skills. Your ability to check the math, question assumptions,
+7:58 and shape the model to reflect the real world — that's where the real value is.
+8:02 If you're excited about this and you want to keep building your Excel and analysis skills
+8:06 so you can use Copilot effectively, this video is the perfect next step for you. I'll see you there.

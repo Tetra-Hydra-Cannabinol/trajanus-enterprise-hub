@@ -1,0 +1,188 @@
+Title: 5 Ways to Keep Excel Sheets & Workbooks Linked Automatically
+Channel: MyOnlineTrainingHub
+Video ID: 9oYA5Vo_5LY
+URL: https://www.youtube.com/watch?v=9oYA5Vo_5LY
+Duration: 16:11
+Level: INTERMEDIATE
+Application: Excel
+Topics: Data Linking, Cell References, Excel Tables, FILTER Function, PivotTables, Power Query, Trim Ref Dot Operator, Auto-Refresh
+Ingested: 2025-12-20
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 It's common to need the same data in different places. One file for raw inputs,
+0:04 another for reports and dashboards, or even subsets of the data in the same file,
+0:09 filtered for specific criteria. But updating everything manually is slow,
+0:14 risky, and completely avoidable. In this video, I'll show you five ways to sync your
+0:19 data across sheets and workbooks automatically, and when to use each one. And don't forget that
+0:24 you can always download the practice file from the description or pinned comment.
+0:28 We'll start with the simplest method, which also has some downsides. But let's look at it because I
+0:33 know this is a common approach. For example, let's say I want to reuse this list of product names and
+0:39 total revenue figures on another sheet in the same file. One way is to use formulas to simply
+0:45 reference the relevant cells. So, type in an equal sign where you want the values returned to.
+0:50 Navigate to the sheet containing them. Left-click on the first cell and you can see Excel enters
+0:55 the sheet name surrounded in apostrophes, which you get when there's a space in the sheet name.
+1:00 Then it's followed by an exclamation mark and finally the cell reference. All I need to do is
+1:05 press Enter, and I can copy that down as many rows as I need. And now I have the list of products.
+1:12 Another way we can generate those links is by copying the cells we want. Ctrl + C to copy,
+1:18 and then navigate back to where you want them, and then on the Home tab,
+1:21 Paste, and at the bottom, Paste Link. And if you look in the formula bar,
+1:26 you can see this also returns formulas linked to cells.
+1:30 Now, referencing external files is similar. I'm going to go to the View tab. We're just
+1:34 going to arrange them in a vertical format so we can see them side by side. So this is the
+1:40 external file on the right, and I'm just going to expand here. And in this cell,
+1:45 we're going to generate the links to the external file. So again, equals,
+1:50 left-click once on the external file to enable it. Then select the cell that you want to reference.
+1:56 Notice the link here includes the file name wrapped in square brackets, then the sheet
+2:00 name followed by an exclamation mark, and then we have the cell reference. But here it has dollar
+2:06 signs. That is, it's absolute or locked, unlike when you're linking internally. Now,
+2:11 we can press the F4 key three times to get rid of those dollar signs, or you can just delete
+2:15 them with the Backspace key. I'll press Enter. And just like before, I can copy it down to get
+2:21 my list of products. And like before, I can also copy the cells and then paste them in as links.
+2:30 However, if I close this external file and we force a recalc in here—so F2 to edit the cell,
+2:37 press Enter—you'll notice the formulas now include the full file path. While linking cells like this
+2:43 works, it's not without problems. I'm going to open a new window and I'm going to just
+2:48 tile them side by side so that I can navigate to the annual revenue sheet on the right, and
+2:55 on the left we can see the links to that sheet, because I want to demonstrate what happens if,
+3:00 for example, I have no product in this cell. Over here we get a zero, which is kind of annoying. One
+3:07 way to get around that is to concatenate with the ampersand a blank. So, two double quotes.
+3:13 And then if I copy that formula down, we don't see the zero anymore. And that's because concatenating
+3:19 a blank on the end forces this format to be text, and zeros don't display for text.
+3:25 However, you wouldn't want to use that technique for numbers. So,
+3:28 let's Ctrl + Z to undo that. And instead, we can apply a custom number format. So,
+3:34 Ctrl + 1 to open the Format Cells dialogue box, and then Custom, and then here say I want a format
+3:40 with a comma separator and no decimal places. The first format is for positive values. The
+3:46 second is for negative. Then I can add another semicolon, and the next format is for zeros,
+3:52 and I can simply leave that blank. Click OK. And now it gets rid of zeros for my product.
+3:58 And if we get rid of the total revenue here, it also doesn't display a zero here.
+4:03 Now, if your source data changes shape—for example, you insert a row—let's insert a
+4:08 row here. You'll notice that the links here don't break. But if I add a product in here,
+4:14 we'll put in Alpha. Notice on the left, it doesn't automatically pick it up. Likewise,
+4:19 if I added a product to the bottom, it also doesn't include it. So now we're left with
+4:24 manually maintaining these links to always adapt as our source data changes, which is a pain.
+4:30 However, let's delete that, because if you have Excel for Microsoft 365,
+4:35 you can use the new trim ref dot operator. So what I could do there is select a number of
+4:41 cells including some below the current dataset to allow for more values to be added, and then after
+4:47 the colon I can type in a dot, which is the new trim ref dot operator. What that will do is it'll
+4:54 automatically return all the data in my range while omitting any trailing empty rows. Press
+5:00 Enter and you can see it spills the results. And now if I type in an item here, it automatically
+5:06 picks it up. And if I type in a new item at the bottom—what's the next one? Gamma—you can see
+5:12 it's also automatically included here. And this works for numeric values as well. So we can go
+5:18 right down as far as we need. Type in a dot after the colon and we get our spilled array of values.
+5:25 And while the trim ref dot operator also works on external files, these external
+5:29 file links are unreliable and easily broken. For example, down here I have some SUMIF formulas,
+5:35 and you can see they're referencing an external file that's currently closed, and they return
+5:40 the value error. So you end up having to open a load of files just to update your reports.
+5:45 Plus, if the file that you're referencing is renamed or it gets moved to a different folder,
+5:50 the references break. So, you can see that while formulas like this work,
+5:54 they're error-prone. So, they're best used for quick, low-risk internal links in small files.
+5:59 Next, let's look at some other options. Plus,
+6:02 I'll show you a better way to work with data in external files later in the video.
+6:06 If you format your data in an Excel table, which you can do using the keyboard shortcut Ctrl + T—my
+6:12 table has headers, so I'll leave that checked and click OK—then on the Table Design tab, I can give
+6:18 this table a more useful name like RevenueData. Then you can simply reference whole columns using
+6:24 the table structured reference. Place your cursor above the column header until it turns into the
+6:29 down arrow like you can see here, and left-click once to select the column excluding the headers.
+6:36 Press Enter and it spills the results. Now this spill effect is available in Excel 2021
+6:41 onward and with Microsoft 365. Likewise, we can do that for the revenue column and press Enter,
+6:48 and that job's done. You can also return the whole table equals. Place your mouse in the
+6:53 top left until it turns into the diagonal arrow. Left-click once just to pick up the
+6:58 rows. Left-click again to include the headers. Press Enter and you get the
+7:03 whole table repeated. And obviously, you can put this on another sheet.
+7:06 Now, the nice thing about referencing tables is any changes to the tables are automatically
+7:11 reflected in the linked cells. So, for example, I could change this to Delta,
+7:16 and you can see it feeds through there and there. Or I can add a new product,
+7:21 and the table range automatically fills down and it feeds through wherever it's being referenced.
+7:28 This works because any new rows added to the next available row below the table are
+7:32 automatically included in the table range. Use tables when you want dynamic ranges and better
+7:38 formula readability, and you don't have access to the new trim ref dot operator.
+7:44 By the way, if working with functions feels intimidating, I've got a course
+7:47 on Advanced Excel formulas that breaks them down with real examples and practice files,
+7:52 plus support and mentoring from me personally, so you can master them
+7:56 once and for all. You'll find the link in the description and pinned comment.
+8:00 So far, we've looked at getting all rows from the dataset. But what if you only want rows that
+8:05 meet specific criteria? This is where the FILTER function can be super handy. Here I have a table
+8:11 of sales data by year, category, and product. And let's say I just want to extract the current
+8:16 year's data. With the FILTER function, I can reference the whole table. Remember,
+8:21 place your mouse in the top left, left-click once to select the table,
+8:25 comma. In the include argument, I want to include where the year equals 2025. Close parenthesis.
+8:33 Press Enter. And now I just have an extract of 2025's data by category, product, and the
+8:40 sales values. And it's tied to the original data. So if I change Components here to Accessories,
+8:47 you can see it feeds through automatically. And I can do other cool things like sort this data
+8:53 based on the second column. Close parenthesis. And now my data is sorted by category. Use FILTER when
+8:59 you want to extract specific rows or columns and want instant updates to flow through. By the way,
+9:05 the FILTER function can also handle multiple criteria and return specific
+9:09 columns in any order. So check out this comprehensive video on FILTER for more.
+9:15 So far, the solutions have used formulas to extract data, but as we've seen, formulas are
+9:20 easily broken. So let's look at some more robust ways to extract data. And one of my favorites are
+9:26 PivotTables. Most people think PivotTables are for summarizing data, and they are. But they can
+9:31 also extract all records. And assuming you have no duplicates, which you shouldn't, you can display
+9:38 each line in your dataset, plus easily filter and arrange the data to suit your needs. For example,
+9:44 I can insert a PivotTable that extracts this data. And while this is in the same file,
+9:49 it can also be an external file if you prefer, and that can help you keep your file size small.
+9:54 So on the Insert tab of the ribbon, I'm going to insert a PivotTable. My table range is this
+10:00 table here. I'm going to pop it on the existing worksheet in the cell selected. Click OK. Let's
+10:07 left-click and drag to bring the field list over closer. All I need to do here is include
+10:12 all the attribute columns in the Row Labels and then any value columns in the Value Fields. So
+10:19 that would be sales. Now I have all my data, but the format's not quite right. Go up to the
+10:25 Design tab. You want your report layout to be in a tabular form. Now, mine is, but select it from
+10:31 the list. And I want to repeat all item labels. So now I have my data here in a PivotTable. But
+10:39 now that it's in a PivotTable, I can do cool things like use the filter buttons to filter,
+10:44 for example, for a specific year. Or I could do things like right-click and add a slicer. And now
+10:50 I have a slicer that makes it really quick and easy to filter for a specific category.
+10:56 And the super cool thing about PivotTables is now you can set them up to auto-refresh.
+11:02 On the PivotTable Analyze tab, we've got Auto Refresh. Just click it once to enable it. Now,
+11:08 this feature is currently rolling out to users in the Microsoft 365 Excel beta channel. So you may
+11:14 not see it yet, but with auto-refresh enabled, if I change the value here,
+11:19 you'll notice it will automatically update in the PivotTable. So keep an eye on this
+11:24 row. I'm going to change this to 15,000. And just like that, it's updated in my PivotTable. Pretty
+11:30 cool. Use PivotTables when you want a stable, filterable view of your data. They're great for
+11:36 dashboards and reports. And while auto-refresh is very cool, it only works for PivotTables
+11:41 connected to local tables or ranges in the same workbook, not Power Query or external sources.
+11:48 Speaking of Power Query, let's look at that next. If you're extracting or referencing data
+11:53 in external files, I recommend you use Power Query to get it. It's more robust than formulas, and you
+11:58 can set the query to auto-refresh on opening the workbook and at set intervals. Let's take a look.
+12:05 In this file, I have a sheet called Financials. The data is not formatted in an Excel table,
+12:10 although that would work too. I'm going to close this file, and then in my other file,
+12:16 I'm going to go to the Data tab, Get Data, From File. It's in an Excel workbook,
+12:21 but you can choose whichever source your data is in. All I need to do is select the file,
+12:27 Import. My data is on the Financials sheet. We can see a preview of it on the right. So I can
+12:34 confirm it's correct. Now, from here, I can load it or I can click on Transform Data and
+12:41 open the Power Query Editor and do some further cleaning and filtering. For example, I might only
+12:46 want to bring in data for USA. So let's filter out everything except for USA. And if I scroll
+12:52 across to the right, you can see the Manager field is included. There's only one manager,
+12:57 so that column's redundant. Let's press the Delete key to delete that. Now, this doesn't
+13:03 affect the source data. This is just reducing the data that I'm going to bring into my file.
+13:08 Of course, if there are further cleaning tasks like splitting columns or summarizing the data
+13:13 by segment, etc., you can do that here before loading the data into your file.
+13:18 I'm ready to close and load. So on the Home tab, Close & Load, and I want Close & Load To. Here
+13:24 I can load it to a table in the current file or straight to a PivotTable Report, PivotChart. Or
+13:30 if I want to load it to the Data Model, I choose Only Create Connection and check the Add This
+13:35 Data to the Data Model box. I'm going to load it straight to a PivotTable Report, and I'm going
+13:41 to put it on the existing worksheet. Click OK. There's my field list. Let's bring it over closer.
+13:47 Now if I want to see all the rows in the data, simply add all the text fields to the Row Labels
+13:53 and then any numeric fields go in the Values area. So that includes Sale Price, Gross Sales,
+14:00 Discounts, Sales, Cost of Goods, Profit, and we want Date also in the Row Labels. Alternatively,
+14:07 you could pick and choose what columns you want to work with and have it summarize
+14:12 it automatically. Now, what PivotTables do is they automatically group your dates into years,
+14:17 quarters, and months. If you don't want them grouped, you can Ctrl + Z as soon as
+14:22 it does the grouping. And now I just have my date field as per my dataset. And remember,
+14:28 on the Design tab, we want the report layout in Tabular, and we want to repeat all item
+14:34 labels. And now we have a mirror of our data in that external file. Of course,
+14:39 this assumes there are no duplicates in that external file, which there shouldn't be.
+14:44 Alternatively, if I just want some headline figures—for example, total sales by segment—then I
+14:49 could remove all the columns that don't serve that purpose. And now I have total sales by segment.
+14:57 Let's right-click and change the number format to Number with comma separator and no decimals.
+15:03 And because it's in a PivotTable, we can easily sort it from largest to smallest, etc.
+15:10 Now, if you want the data to automatically update, go to the Data tab, open the Queries & Connections
+15:16 pane. It appears on the right. Right-click the query and go into the Properties,
+15:22 and then on the Usage tab, you can choose to refresh up to every minute. And you
+15:27 probably want to refresh the data when opening the file. Click OK. And now your
+15:33 data in this query and PivotTable are going to update every minute.
+15:39 I recommend you use Power Query to bring data in from external files rather than
+15:43 using formulas. It's more robust and doesn't require the source file to be open to get
+15:48 updates. We've only just scratched the surface of what Power Query can do. If you're already
+15:53 pulling data from other sheets or files, the next step is to automate the cleanup,
+15:58 merging, and formatting so you never have to repeat the same steps again.
+16:02 In this video, I show you how to automate boring Excel tasks with
+16:06 Power Query. No coding, no VBA, just point and click. I'll see you there.

@@ -1,0 +1,862 @@
+[
+  {
+    "id": "1brLCFbQS4SKylRLBCx5JbyU-SnjNPloMt5m7ji17Avk",
+    "name": "Research_Index_20251217",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1DBARcU6xY-OXqYEcQdBczYdCT3eQewxzhE21pwzj8TI",
+    "name": "20251217_Finding_164_filebrowser-filebrowser- 📂 Web File Browser",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1VQqKzHJHibiS4LqHVv3xUJQeSN-TXZCM7QjOD6PEmbQ",
+    "name": "20251217_Finding_164_filebrowser-filebrowser-  Web File Browser",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1E2hmZ-NYtSz4Mc3HRQFuPdCYf1ZBpImboEYD-Jm4by8",
+    "name": "20251217_Finding_160_pgvector-pgvector- Open-source vector similarity search for Postgres",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1b-ZTIrCprKk3m6scxU0LOX1FL6M_KWq_9pctVeK7Mec",
+    "name": "20251217_Finding_159_Vector Similarity Search with PostgreSQL and pgvector - Medium",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1K7O6XOCSFaU874UaECPs_ZIjaNtOzv9UlwQN5qZpNfk",
+    "name": "20251217_Finding_158_pgvector Tutorial- Integrate Vector Search into PostgreSQL",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1PvQnOA6eHNjtogdsde7qVH6eI_TSV_7DGWzYVZOYJ-8",
+    "name": "20251217_Finding_157_Building AI-Powered Search and RAG with PostgreSQL and Vector ...",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1gAhamxFcLiyVo96fvIHZmxE9Pp9PO-UwCkDJxgDO_OM",
+    "name": "20251217_Finding_156_Run a vector similarity search - AlloyDB for PostgreSQL",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1XSeTAyLlvdWSFJJn1gkf2IvoK8hSOg9UquRH4Wj6H8Q",
+    "name": "20251217_Finding_152_Node.js Error Handling - W3Schools",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1NW1jCs2AFNqBgI_b2bkvw1Zv81BVrUnUwUcKmEImEQE",
+    "name": "20251217_Finding_145_Introduction to evaluation & monitoring RAG applications",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1MAmG9yWas-ciC4nGE6dPnThmq5QtcuRgSq8jH4Gtx6w",
+    "name": "20251217_Finding_144_Mastering RAG- How To Observe Your RAG Post-Deployment",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1ZlbIDXygUNDNfj1p2WoQu-Pkq77r2j27WBTAnsNVUtE",
+    "name": "20251217_Finding_143_Real-Time Monitoring for RAG Agents- Key Metrics - Newline.co",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1sC7vW6zVqQ8KXyfYPA2aXwmZ5skV4AlmaSjkJua6OWs",
+    "name": "20251217_Finding_142_Optimizing RAG Performance- Key Metrics to Track - Galileo AI",
+    "category": "AI-Development"
+  },
+  {
+    "id": "113YDoFc4YwsEvAkljHOx9kinK_g-aUra7obxR5nb18s",
+    "name": "20251217_Finding_141_RAG evaluation- Metrics, methodologies, best practices & more",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1BGBl4oExi1NfibDHJq8fyDCrW5aPPK1R2NrjiTxpSOA",
+    "name": "20251217_Finding_140_Improving RAG Performance- WTF are Re-Ranking ...",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1emopRigMG9jfKP6vryOajFxiOCdoKZxm7QdeBgGMiNs",
+    "name": "20251217_Finding_139_Improving RAG accuracy- 10 techniques that actually work",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1xooqmaJYU-7LdFUHDNhzv5YbQ0xjyDtUp6ntv4GyFi8",
+    "name": "20251217_Finding_138_Improving RAG Accuracy with Rerankers - InfraCloud",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1KZG_j-KiRLBkAX-dToYTqhBOBVUhvbpwNVVjohea2qU",
+    "name": "20251217_Finding_137_Rerankers and Two-Stage Retrieval - Pinecone",
+    "category": "AI-Development"
+  },
+  {
+    "id": "16w0o1XjdiVA12ok1tr5Ybj_G5LyMbhzqLetMlUt0YYw",
+    "name": "20251217_Finding_136_How Using a Reranking Microservice Can Improve Accuracy and ...",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1DT6z_ik9Ne3yGo60kZFOa5XEGMjuqJE0sRSDTZ9NLws",
+    "name": "20251217_Finding_135_Hybrid Search 101- how it works and why It's important - Meilisearch",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1F2t3unRGEm0gVRFzR_eZl4AtVxl-i9OZBfQVsnG277o",
+    "name": "20251217_Finding_134_Combine keyword and semantic search for text and images using ...",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1lmoJXbEVvoiI-Nht7e-LeqF3xx2ItEglspHX9D0DMM4",
+    "name": "20251217_Finding_133_Hybrid Search- Combining Semantic and Keyword Approaches for ...",
+    "category": "AI-Development"
+  },
+  {
+    "id": "10mTADITBUaJm_OWk085tbcqWnTfptooLdYVIYjMna3w",
+    "name": "20251217_Finding_132_How Hybrid Search Combines Lexical and Semantic Methods - Kroolo",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1Q0fDAYYYpXk1RIsEpk5vjrLoDsZOX_SWpF0Tl639ks8",
+    "name": "20251217_Finding_131_A Comprehensive Hybrid Search Guide - Elastic",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1dDCTGJ7xBOOYRh5stUgw3dnqgG3CI0ry-BdW9wk_LuE",
+    "name": "20251217_Finding_130_Develop a RAG Solution - Chunking Phase - Microsoft Learn",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1NtX88pK4fzhtuainDueSdalOtD5HRnRrgxU1MZnv3H8",
+    "name": "20251217_Finding_129_The Ultimate Guide to RAG Chunking Strategies - Agenta",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1T05R5NZzMs5kmVNxbFfTDQT7p53PWI8taWeGZnQAHNA",
+    "name": "20251217_Finding_128_Evaluating the Ideal Chunk Size for a RAG System using LlamaIndex",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1bJ67pVEZq7ie6RDVyaTqW7dlR5sYMG8Z6T1IsW81Xxk",
+    "name": "20251217_Finding_127_Finding the Best Chunking Strategy for Accurate AI Responses",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1EyHhSUhzJZ5HaXFUg6yDMPN_muv4PCuIQYQ1Ho51RdA",
+    "name": "20251217_Finding_126_Optimizing RAG Chunk Size- Your Definitive Guide to ...",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1zRqqf3A7LM_LRyqByn8JHbPFns6TF9MULnVdrtQOdfA",
+    "name": "20251217_Finding_125_Actions - Playwright",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1H2_sk_zFqyd8yR7jlp6TjYmalpOrBZxAuu6Q2Obc8cU",
+    "name": "20251217_Finding_124_Filling and Submitting Forms - CodeSignal Learn",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1YGVsG7-vaBRv4JbPOq-KmPT4eDH4xWyV3h3ALtcaCTc",
+    "name": "20251217_Finding_123_Best Practices - Playwright",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1E_Kk7jxrGJOdP535fV8M6lGefR6sNBNhhO3UMqNhkNQ",
+    "name": "20251217_Finding_122_Writing tests - Playwright",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1PSbPHwbiXZGY5bj5j-Z4VhROdIiBN7hoHqMMNAYxSHY",
+    "name": "20251217_Finding_121_Playwright Guide - Submitting Forms - ScrapeOps",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1-_c05571QMSFb_eOONbNDABvCgQbptvZyj96w95lv2Y",
+    "name": "20251217_Finding_120_Snapshot testing - Playwright",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1uqOy9qkpWgPWKLQBlkMR5Fe6wlEyMaHcC54KzOBWyWE",
+    "name": "20251217_Finding_119_Playwright Visual Testing- A Comprehensive Guide to UI Regression",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1Y2wAESaOLdUGSAbbxJeRHSGIx4pnrERssD6eNQualIM",
+    "name": "20251217_Finding_118_Automate Your Screenshot Documentation with Playwright MCP",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1EHnvItdBGGMgwHVw7YBlNvJ9IeWHIPJk_DDdGg74eZY",
+    "name": "20251217_Finding_117_Playwright Screenshots - How to Take and Automate Screenshots",
+    "category": "AI-Development"
+  },
+  {
+    "id": "137uTnPLgN6LFKF4gOcKWlNaMmq3qTSL7G0iUpVee2i8",
+    "name": "20251217_Finding_116_How to Capture Screenshots and PDFs with Playwright",
+    "category": "AI-Development"
+  },
+  {
+    "id": "11qiECWUl-brutaZbs4sO--6cEj6HQZHiUdXEqhsTlT8",
+    "name": "20251217_Finding_113_Playwright MCP- A Modern Guide to Test Automation - Testomat.io",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1zplwloLpdAyeftraOLprHb5WmEg-XDpoLUDUZGgy7qY",
+    "name": "20251217_Finding_112_A Detailed Guide To Playwright MCP Server - QA Touch",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1wqQ6YvtmyBSpYUDmUgcKUPC1jHppEv0DtY1krAHyp1s",
+    "name": "20251217_Finding_105_Uploads and downloads - Cloud Storage",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1RjJQzDVojNu67Q8rgABWWqHD7BnhxleeT19SD1tnsfg",
+    "name": "20251217_Finding_104_Resumable Media Uploads in the Google Data Protocol",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1gEYFqDl2NK980XjIw8qyi-4QUzWF-ah4mUGBjO8B2wM",
+    "name": "20251217_Finding_103_Optimize Cloud Storage Upload Performance with Client Libraries",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1tkUcNkG2AwCVERI63BcMw8ZyAmR8FOHanlW5ajQt-9Q",
+    "name": "20251217_Finding_102_Resumable uploads - Cloud Storage - Google Cloud Documentation",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1ZbaVtxOGNR5a-3amVmvyOj4gXUbO6XNQrBbpH4fNgYE",
+    "name": "20251217_Finding_101_Upload file data - Google Drive",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1lhoMlUpFfapRaQcsRdXvVfrTYV1FQQM8CKAiASbUOZU",
+    "name": "20251217_Finding_092_Usage limits - Google Drive",
+    "category": "AI-Development"
+  },
+  {
+    "id": "10xqx_2sggChjAkaJJ6lrp7SmMCI0HpL2Y47zwU02EUI",
+    "name": "20251217_Finding_090_VoltAgent-awesome-claude-code-subagents - GitHub",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1kC2UwSTzyCo5pE2ylxZ8otGEb1A2FV4zEn_6fZIFdSk",
+    "name": "20251217_Finding_089_Sub-agents in Claude Code - Daily Dose of Data Science",
+    "category": "AI-Development"
+  },
+  {
+    "id": "15lnnSljUuErFJn1Hek3bKH9mK2xfMKql5XfWeBn68HM",
+    "name": "20251217_Finding_088_Multi-Agent collaboration patterns with Strands Agents and Amazon ...",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1xy-4UfuWTMR6Z055Hv7GyPTNM32mHn0mN-T-qxPWbrc",
+    "name": "20251217_Finding_087_Best Practices for Building Agentic AI Systems- What Actually Works ...",
+    "category": "AI-Development"
+  },
+  {
+    "id": "17l589AacBmzaqTA8Wgsste0lnV2rC7SFvuHTOP_IYiQ",
+    "name": "20251217_Finding_086_Claude Code Subagents- The Revolutionary Multi-Agent ...",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1e3KgJ-063j14BT_OnoQ-wJQQxUYDswBNwM2EN4cwWgw",
+    "name": "20251217_Finding_084_Agents - Server2023 - Relativity Documentation",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1bn05YuYeVmT7bBO1Mv4i7N4bxuTIzSW9U49UlnR6O1I",
+    "name": "20251217_Finding_083_Progress Report Template (Word, Excel)",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1ce5wCDcxW114f4bBKltYDN5jC6w7_beT2x_0jiMvjBI",
+    "name": "20251217_Finding_082_Tetra File-Log Agent Performance Guidelines",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1C4vV1WqUfG6WEUzDei1u98Z9CuX6pLj0ypHVV2ZHJnE",
+    "name": "20251217_Finding_081_Agent properties - Progress Documentation",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1zKT9oWn2cnB01Gv_-o0-V4GcNzSldhc5oQzluBHAXX4",
+    "name": "20251217_Finding_080_Anatomy of a Context Window- A Guide to Context Engineering - Letta",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1ufeZqK1zeOHfgcvekducnDIADhBuIXCRfmElRce9Ypk",
+    "name": "20251217_Finding_079_Effective context engineering for AI agents - Anthropic",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1LkB6qlFKMgmM15K2GvyL6ccOJN207m63LM25Dq3VNbY",
+    "name": "20251217_Finding_078_Why Your AI Agents Need State Replay (And How MCP Solves It)",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1wOBNwiXvKcswVJk89kN_0-lHHDtPk0rZlF-meG-78kY",
+    "name": "20251217_Finding_077_State Management in Multi-Agent AI Systems - Ranjan Kumar",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1zbfLANz4x9nsZrEcKigl9cpwSgn2oy9sPBmdvr_rSAw",
+    "name": "20251217_Finding_076_Context Window Management- Strategies for Long ... - Maxim AI",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1iFhoA0ZaVLsqs6Lt-6C7X3gJ8fdblmtvpcNViCz6D3A",
+    "name": "20251217_Finding_075_Agent SDK reference - Python - Claude Docs",
+    "category": "AI-Development"
+  },
+  {
+    "id": "12r_RdBFKXTgv3rBYsFglUnzCnORkJ9nLL7N5UmvrCGw",
+    "name": "20251217_Finding_074_Agent SDK overview - Claude Docs",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1Xgme7vniqUz-BNHF2iA-lq4eUJDVt79YMRxyJmM6amo",
+    "name": "20251217_Finding_073_How to Use Claude Agent SDK- Step-by-Step AI Agent Tutorial",
+    "category": "AI-Development"
+  },
+  {
+    "id": "13QN89OrmCiW09dr6IndA_6HGR2s88zrO0f6hichfUO0",
+    "name": "20251217_Finding_072_Quickstart - Claude Docs",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1F9UGeo-8ryfotr5zVe-muuUAy3cEX1ynOhiCx54uLY8",
+    "name": "20251217_Finding_071_Effective harnesses for long-running agents - Anthropic",
+    "category": "AI-Development"
+  },
+  {
+    "id": "16-uOXfusQGg2CqlIfPVPvB9nK4tOsBYaMdN6JIPxzH4",
+    "name": "20251217_Finding_058_Please explain the -IPC Security- paragraph in the Electron tutorial",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1O0QPe2NdF8bFYRP0t987zvYi8Ps01vEjhuRX1sglekA",
+    "name": "20251217_Finding_050_Building MCP servers for ChatGPT and API integrations",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1HmGb3tJp6cSaxA2sEftDmct50uQ2hSCHoSS4O-dkDVU",
+    "name": "20251217_Finding_049_A Quick Introduction to Model Context Protocol (MCP) in Python",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1YQ6fP7bCCBzEpm_b2ZIt9SRUD6FY-zLqvME9hljO_iA",
+    "name": "20251217_Finding_047_Python MCP Server- Connect LLMs to Your Data",
+    "category": "AI-Development"
+  },
+  {
+    "id": "19SteyhGxbEIIF3aq1KWIY2qzywx-PnBzsJvZ-t6YGV8",
+    "name": "20251217_Finding_045_Use MCP servers in VS Code",
+    "category": "AI-Development"
+  },
+  {
+    "id": "18CaEYvOOf-z0IhPCmDxE4JfxGwabM36tO0ionA5ec40",
+    "name": "20251217_Finding_044_What debug logs should I implement in an Model Context Protocol ...",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1Wv8DyXZWLtmXzfNZmpwghE8mySABQvUdkjR0pKi-fdQ",
+    "name": "20251217_Finding_043_Debugging - Model Context Protocol",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1o0KOfRBu9v7Dmyh9EH7Cogp_tCt8cOze-50MYUmw7fw",
+    "name": "20251217_Finding_042_Let your Coding Agent debug your browser session with Chrome ...",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1dEuki4Ez79I7JQcY8JQ-5zirxNfLxf-AKvUaEc2brjI",
+    "name": "20251217_Finding_041_Resolve MCP Server Debugging Problems in Simple Steps - AI Future",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1PtL3QKWHLsEvTLsAtGrAOpomncwfPtfKup_kW2binFo",
+    "name": "20251217_Finding_040_Designing MCP servers for wide schemas and large result sets",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1sRih_9aXTHtnQLOgULiBha73YHdw8wspGuCrAnlYV_U",
+    "name": "20251217_Finding_039_MCP Implementation Best Practices",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1Csenzxj62j21bdapLJs1ZsLIHvoGbTSi5Gq8HoVOYfk",
+    "name": "20251217_Finding_038_MCP tool schema- what it is, how it works, and examples - Merge.dev",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1zVKsyNzkR1wkt3AUN1gc9fJsVgdl4e8ZP5QCNI0nnoU",
+    "name": "20251217_Finding_037_15 Best Practices for Building MCP Servers in Production",
+    "category": "AI-Development"
+  },
+  {
+    "id": "12EaLrChVShQoLJ5AzlaSWb5VFpFF363tqOFbNbpqSYg",
+    "name": "20251217_Finding_036_How to Optimize Your MCP Server Performance for Faster ...",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1AcZFzi4k1BCgngYtmVibmFA3S_VxbZ9x7lstqMo8hag",
+    "name": "20251217_Finding_035_How to Build and Deploy an SSE MCP Server with OAuth in Rust",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1kxppMVwyOjPmsWa-pkI-fXg09Qa7bOdS_jquLRiIuGQ",
+    "name": "20251217_Finding_034_Model context protocol (MCP) - OpenAI Agents SDK",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1aBF6aaITNyKZV9ciI-2dCMkbjdVsya-yXL8M7XnI_6k",
+    "name": "20251217_Finding_033_MCP Practical Guide with SSE Transport - F22 Labs",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1MwtkkhOnEHI81TCkyCjIlZ_JT3LKHSDORKH4D1bm4Co",
+    "name": "20251217_Finding_032_Build a Model Context Protocol (MCP) server in C# - .NET Blog",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1-jYK7dEKxk0SIu4DUB3tJ8u9WQsqOgsoarfjCN4WHKc",
+    "name": "20251217_Finding_031_Building a Server-Sent Events (SSE) MCP Server with FastAPI - Ragie",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1uI8D0ZEUYcAnS2CrvrSTt1Kfv9eCA1T2Vz_F-997W9M",
+    "name": "20251217_Finding_030_How to build and deploy a Model Context Protocol (MCP) ...",
+    "category": "AI-Development"
+  },
+  {
+    "id": "157TdSBymK4M1lRfFnQdl9EueowT8Hle-mEn0Ls5oz_E",
+    "name": "20251217_Finding_028_Building Your First MCP Server- A Beginners Tutorial",
+    "category": "AI-Development"
+  },
+  {
+    "id": "16_g4EXcISvVRg1T4uVOw46jy-yLyUym9eTTErvpE5uY",
+    "name": "20251217_Finding_027_Build an MCP Server- Complete MCP Tutorial for Beginners",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1XLHjC4IsQDL_7HpXN5gJ714-pOQs9MlU20X4G5jF2-0",
+    "name": "20251217_Finding_026_Build a Real-world MCP Server with One TypeScript File - Full Tutorial",
+    "category": "AI-Development"
+  },
+  {
+    "id": "17oKHiB7duwx2etw0S1dlDUgtDk_G8oJ9b3z3YPj1bPM",
+    "name": "20251217_Finding_025_Step-by-Step Guide to Choosing the Best Embedding Model for ...",
+    "category": "AI-Development"
+  },
+  {
+    "id": "12SV76bvSz9XJPI0MatzN-9kf004l0szze_JFW0sml-Q",
+    "name": "20251217_Finding_024_Embeddings performance difference between small vs large at 1536 ...",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1PS11m9uGv2XV_5qlXh2jQYyd3g3AvGRsyauuQ7KM0fU",
+    "name": "20251217_Finding_023_Vector embeddings - OpenAI API",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1aT_-sL-OmXoCTFU_nKHOfTG_od2d1fbwR__Jal2bfEk",
+    "name": "20251217_Finding_022_Exploring Text-Embedding-3-Large- A Comprehensive Guide to the ...",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1izF6VdQ33cNKKYEbfIsYM6CnwO7gct9EQ5fAnUjPXuo",
+    "name": "20251217_Finding_021_The guide to text-embedding-3-small - OpenAI - Zilliz",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1d-C6-6yiiPzpsN8fZsEr58LnF5M62AIS5FgoyRYGFP4",
+    "name": "20251217_Finding_020_Connection management - Supabase Docs",
+    "category": "AI-Development"
+  },
+  {
+    "id": "16SK9UpMO0Sgo__Uv3nw6atibZ6F_H0t-aWflq5rmyyQ",
+    "name": "20251217_Finding_018_Supavisor 1.0- a scalable connection pooler for Postgres - Supabase",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1OAS69zoBD8XhLmch84oxoBGDVvQmoDXEAtyf1OYheVo",
+    "name": "20251217_Finding_015_Row Level Security - Supabase Docs",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1T2W87GKCt_GCw-WZlB9qSLfFobK4kRTbYEkjNZtMNCA",
+    "name": "20251217_Finding_014_Easy Row Level Security (RLS) Policies in Supabase and Postgres",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1puUI2RpkFAK2SFunfvSBMPrJBTL7nXi8Ruc-ADNcKYo",
+    "name": "20251217_Finding_010_Vector Indexes in Postgres using pgvector- IVFFlat vs HNSW - Tembo",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1CcwdU3RRAKOWvjIHS7W3VBC_TODMytnukVCTD4Fu19Y",
+    "name": "20251217_Finding_009_Choosing your Index with PGVector - PIXION Blog",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1jVKd6NW-058Ap9Zp3BjnQDk97H3DAyjkgmX0SLiJ8tY",
+    "name": "20251217_Finding_008_PGVector- HNSW vs IVFFlat — A Comprehensive Study - Medium",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1c45sJy3I8OIXicZEuNDmtsXsqIQEMXUDMN0OkDIvmG8",
+    "name": "20251217_Finding_008_PGVector- HNSW vs IVFFlat  A Comprehensive Study - Medium",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1fnKXo7qHZQtaJw1ZNGl_qNqHJveBNqr0288qqo_wbFU",
+    "name": "20251217_Finding_007_Speed up PostgreSQL® pgvector queries with indexes",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1LxEGekPFq9pf_QikCdCg8o0tGiMH12ck97PBbVfc8CE",
+    "name": "20251217_Finding_007_Speed up PostgreSQL pgvector queries with indexes",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1sxaTrg9P03pBeky--Ao3HrcwQw8I3MGG6NagNO5VVts",
+    "name": "20251217_Finding_006_pgvector v0.5.0- Faster semantic search with HNSW indexes",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1RxkpkMsYhAJzQ9Cua1WQ7sPoD4iP9s0KP_h0CXhIErU",
+    "name": "20251217_Finding_005_Vector columns - Supabase Docs",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1kTUNb3kW9sREGdSRRequEsZQHVkxUvq_3DWnk33nbs4",
+    "name": "20251217_Finding_004_pgvector Tutorial- Integrate Vector Search into PostgreSQL",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1vkFVezks6O8cS3MS9L4LsUG7NCZX97I2WUtI_KE9MXI",
+    "name": "20251217_Finding_003_Build a RAG App With Descope, Supabase & pgvector- Part 1",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1iiLLqshB2ro2ieAczlw2EVlerqtfmeynh--Y9iTCAn4",
+    "name": "20251217_Finding_002_LangChain + Supabase Vector Store (pgvector) - DEV Community",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1h4BGs6528fBGbz1fBIPQyPoN7YUN1v2I0GFwesLaKnE",
+    "name": "20251217_Finding_001_Create a Data Pipeline with PostgreSQL - Vectorize Docs",
+    "category": "AI-Development"
+  },
+  {
+    "id": "1x_ZjC9d03JPxxZou06s9kSxl3CGAZ10xFXAiuiDXF20",
+    "name": "20251217_Finding_165_Webix JS UI Library & Framework - JavaScript UI Widgets for Fast ...",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1TlMzW9zYlQmYx7AQosCsR-hCOaoR-0L5gNvyQyUr_f4",
+    "name": "20251217_Finding_163_The 38 Best JavaScript Libraries and Frameworks - Kinsta",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1Sr0ia-vUQB3KgPoRLJ61_uRAuLCviZyi6ZDe5K-AVJs",
+    "name": "20251217_Finding_161_Manage files in the browser in JS - by A-yon - DevGenius.io",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1lVfsIIEehARkIBPinmdbNuYZ8gNipjI9JkuGalYflNY",
+    "name": "20251217_Finding_155_subprocess — Subprocess management — Python 3.14.2 ...",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "144Qx9H7SyeX_DFF_YA6y4l_Ksp89x9pntaNpz68HTzY",
+    "name": "20251217_Finding_155_subprocess  Subprocess management  Python 3.14.2 ...",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1Imt7ySLVXUhd-0YI00nKVJXkrysC6iOEfOfpy2SFDcM",
+    "name": "20251217_Finding_150_Correct Architecture for a React based application - r-electronjs",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1x3ABNi5qgeBk8SHhiZUQS9QZxWNkn1y4U9oUTKhjhZ8",
+    "name": "20251217_Finding_149_Electron- Build cross-platform desktop apps with JavaScript, HTML ...",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1oWFY2RaetjmHzREeGjV2EfSD6bc5-8zOY7I6pfANGHo",
+    "name": "20251217_Finding_148_Plugin Architecture for Electron apps - Part 1 - Beyond Code",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1JfXY2h67s9Yu0Zts-7IQihy1wBy2lE_asuVSX5_2P3s",
+    "name": "20251217_Finding_147_Building a desktop application with Electron - Medium",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1Cb1NC8kuMGMUB7cK1bOyRC0jVqCMEF0sHlrECSqlyDk",
+    "name": "20251217_Finding_146_Getting Started with Electron- A Guide To Building Desktop Apps",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1y9YunaosRf1OMVoSXnMPcEbRi-eG14U9H280hzR-igc",
+    "name": "20251217_Finding_109_How to Create Document Texts with the Google Docs API in Python",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1_EOA8wIAwMJYBZ3WPYtnaAd5S24zlwyVch9Cqz7yaPE",
+    "name": "20251217_Finding_108_How can I efficiently modify Google Docs content via API-",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1QkaaWDc3dJjKJWomAl8Ktj8DQDC2qV5OCfb9PwfJJDQ",
+    "name": "20251217_Finding_107_Using Google Docs' API- Steps & Low-Code Examples (2023) - Rowy",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1FEsmBaTLNAWnMvzq0o6JEhohBazq3fkc0FSazonO5Xk",
+    "name": "20251217_Finding_100_Google Drive large migration best practices",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1hqjN5-XaGBsTmnHziO_bG3Nq18vCXJbJZVWLoJM0f1s",
+    "name": "20251217_Finding_099_Batch requests - Google Docs",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1IljILULFAfxuYMlpgQ2oPYec0d1FJDlQbDoJttoh_YI",
+    "name": "20251217_Finding_098_Drive API's Batch requests - { Limezest }",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1BXvrAMs7WIgJZGJiYBUCdMvXbVOHeGWSa6_HDecIJ2k",
+    "name": "20251217_Finding_097_Batch Processing in the Google Data Protocol",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1mtIU0R1q571Op2I45W0bHFWbTDVy7mqezy8QgbThUvk",
+    "name": "20251217_Finding_096_Improve performance - Google Drive",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1yWMk5bqKHAkTbIa4G5yiXS7xxREYsvvMNw-SynoXhcU",
+    "name": "20251217_Finding_095_Quotas and limits - API Keys API Documentation",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1YM4fnavPYN7SO6AId2_N_qn4wye8TvOqmy07K28BMVM",
+    "name": "20251217_Finding_094_Google API Quota Limits - Mobility Stream Documentation",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1OXB631nVZPk2KGbjhDVtXAPGKPCrmus7uXA_LX2ilQ8",
+    "name": "20251217_Finding_093_Usage limits - Google Docs",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1V5c6JsVmp906_WEuHMH9dU_uOMjD9ugMQi47qdn3BSc",
+    "name": "20251217_Finding_091_What is the limit on Google Drive API usage- - Stack Overflow",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1pq3H1Nkq3NN1m49_Qi0eDYUxGJKPCX4xQwBUX7t6NTs",
+    "name": "20251217_Finding_070_Designing an output capturer - Python Discussions",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1FDkKaoXGt4kRlsUJPiFUonx4o0KYUaC7AhZaM9vEuMI",
+    "name": "20251217_Finding_069_How to use python within my electron APP - r-electronjs - Reddit",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1wndpRfhmIyYv-9Tc3FPpdq3e_DX_B93KsaezcEaaiGI",
+    "name": "20251217_Finding_068_Parsing a stdout in Python - Stack Overflow",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1H8Ua2i9C1ib9r15qlmX9vYcZbm97mgeDwU_LHwdsKyk",
+    "name": "20251217_Finding_067_Capturing stdout-stderr of Node-API module running in Electron",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1rpthPGLqLspvGrY4_hV7yhLiisVsdSVnBcGVSKGntzI",
+    "name": "20251217_Finding_066_ways to build a desktop app with electron and python - Adarsha Regmi",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1Xj1X0u7D5meNYE4dd6zjFedDv4dUxA0XsepAeoKaTKw",
+    "name": "20251217_Finding_065_Electron - How to Detect When Renderer Window is... — codestudy.net",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1CUeCwx0W7S9N_j3KRdioJs6P8mJFOBe6sd38vUAd5Vo",
+    "name": "20251217_Finding_065_Electron - How to Detect When Renderer Window is...  codestudy.net",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1IQ4Gc5K0gBxEkalP2fEcOw3tncdnkShqLu55aqkFWMw",
+    "name": "20251217_Finding_064_Using Preload Scripts - Electron",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1vqkcTJxBuxrr7v4xXdvfVMebUjKK4h_l3rvh4-7Vqq0",
+    "name": "20251217_Finding_063_How to use preload.js properly in Electron - Stack Overflow",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1NOM3XTDkI_sALt1W3RgMS5u22JOh98gTTUgxLmrtMl4",
+    "name": "20251217_Finding_062_Mastering Preload.js in Electron for Seamless Apps",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "15sDAG2YCNb8Ozt_Dbcg_JRG-iK0xNEFEmkWi6qwSde4",
+    "name": "20251217_Finding_061_Getting Started with Electron- A Guide To Building Desktop Apps",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1dQdVCKh2aqjIXbYAppUHHp50VmRndSGzg49o_-zg6yE",
+    "name": "20251217_Finding_060_Inter-Process Communication - Electron",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1mO_7zBBj6fGJRt4gt890sRPYCMuaVYhxP-HEXQ8ojiw",
+    "name": "20251217_Finding_059_IPC in Electron - Ray",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1Qn3Vce-PaXAYcBwyfGkUBnIosSZ1H5nkh5R-nvUWFEw",
+    "name": "20251217_Finding_057_[Feature Request]- allow to validate IPC before handling it centrally",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1TrYswiFcn2IP63jm_hyXukIiDFyX5GbXAHmNZkxuP-k",
+    "name": "20251217_Finding_056_Penetration Testing of Electron-based Applications - DeepStrike",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1Ii57xf7SWdeEGeU5aZrgpetqTlW-oB9NkRJlMuqLwRs",
+    "name": "20251217_Finding_055_Electron as GUI of Python Applications (Updated)",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1gH4oBJ-uAx3Qv5RcRbqhop2QR1hqMFgiY_w2yv5VGME",
+    "name": "20251217_Finding_054_Security - Electron",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "11F82Qifo5fscpRV2ygwvW4J5gOrFL6QoWc4sAZU5xbo",
+    "name": "20251217_Finding_053_PEP 787 – Safer subprocess usage using t-strings - peps.python.org",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1jYtNYJRgx0duYqBGIcs-e0sbKeZMp8i8pTuEL_yICtg",
+    "name": "20251217_Finding_053_PEP 787  Safer subprocess usage using t-strings - peps.python.org",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1fdptgJBjsQP60Yty7209fkl7BDZpV-r0S6iv7rqUv5M",
+    "name": "20251217_Finding_052_Secure Python Code- safe usage of the subprocess module - Codiga",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1jhwVFPi0uvCybSz9JE79W9gGhztNYUSaC9Emn4gWzlM",
+    "name": "20251217_Finding_051_Command Injection in Python - Semgrep",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1KHtY9veoJ99w6fSFdALYEWp8_9PS5n_sYfkaXnJ0DXk",
+    "name": "20251217_Finding_019_Connect to your database - Supabase Docs",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1VqStjnsNttDZrGM0hl1uN4VNGbqmT1-iwICE4GSFhZA",
+    "name": "20251217_Finding_017_Supabase Connection Scaling- The Essential Guide for FastAPI ...",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1bf2DZPUntB8qG9i4800HFBw_I11J1iH7Y3pjwF8UG6w",
+    "name": "20251217_Finding_013_Token Security and Row Level Security - Supabase Docs",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "178eAv_z042kvuv1ZHjnG2ApkJ0hXMXE5JX6OnWiA2MU",
+    "name": "20251217_Finding_012_row-level security policies in Supabase for a multitenant application",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1lc-wvyOwDOOO_-DJAsHZXBRSJWWs1ZPAah4NkvTgEtg",
+    "name": "20251217_Finding_011_Implement Row-Level Security Policies in Supabase SQL",
+    "category": "Software-Tools"
+  },
+  {
+    "id": "1zUMLtXcjnRJyGpd_itaFCBPKx6B7Mm8asuaCsXRe0Ds",
+    "name": "20251217_Finding_162_File Browser",
+    "category": "Technical-Guides"
+  },
+  {
+    "id": "1eN4-I8Rhl5Y7plzUYwMG5o5RDVeZ_9DDJSrH-5fkh7k",
+    "name": "20251217_Finding_154_A Guide to Python Subprocess - Stackify",
+    "category": "Technical-Guides"
+  },
+  {
+    "id": "1TZuu50v7yH5XtASqqTk4lYa6iVWls1-dc5OLBxTaCZQ",
+    "name": "20251217_Finding_153_Errors - Node.js v25.2.1 Documentation",
+    "category": "Technical-Guides"
+  },
+  {
+    "id": "1U0o_SUDnK7fwLk0huxnbvwnjN7NhYoq43NAEWPy6kzY",
+    "name": "20251217_Finding_151_Child process - Node.js v25.2.1 Documentation",
+    "category": "Technical-Guides"
+  },
+  {
+    "id": "1DNzDhufR8sO6EceChpVN8_fu8xJEQblEByzg9Lep8vg",
+    "name": "20251217_Finding_115_Step-by-step guide on how to set up Playwright MCP Server in ...",
+    "category": "Technical-Guides"
+  },
+  {
+    "id": "1wQol1ZxDgycz8zdD508QPMOC2Fif3MwDY6kGOZrKClA",
+    "name": "20251217_Finding_114_How to Install Playwright MCP Server in VS Code - YouTube",
+    "category": "Technical-Guides"
+  },
+  {
+    "id": "1AF8LyFAgyUfSvyq8TTV6WGPUFF4TV0xsJUTzj7MYrd0",
+    "name": "20251217_Finding_111_Setting Up MCP Server with Playwright- A Complete Integration Guide",
+    "category": "Technical-Guides"
+  },
+  {
+    "id": "14xgcm1kT5hMDSJKewymLVkGAp6If6JB8VcQrnM970_A",
+    "name": "20251217_Finding_110_Documentation Best Practices - styleguide - Google",
+    "category": "Technical-Guides"
+  },
+  {
+    "id": "10yLE0X-AZRrKimFN88uWPlHX2Ubyxa5EYvYSM68hrPI",
+    "name": "20251217_Finding_106_Best practices for best results - Google Docs",
+    "category": "Technical-Guides"
+  },
+  {
+    "id": "1yl4arfsZ_VPyU2UOCbMnwgdPLQOpc2nAtWZOZbspt64",
+    "name": "20251217_Finding_048_MCP server- A step-by-step guide to building from scratch - Composio",
+    "category": "Technical-Guides"
+  },
+  {
+    "id": "1zdNHc9W-5GdkWK3EGsHs124msut9KvHu5zXL3mAHVBs",
+    "name": "20251217_Finding_046_How to Build an MCP Server in Python- A Complete Guide - Scrapfly",
+    "category": "Technical-Guides"
+  },
+  {
+    "id": "1y0P4cJCHo4lxubIA2nNyHBMR71gAacEdgat_U6ACSJs",
+    "name": "20251217_Finding_029_MCP server- A step-by-step guide to building from scratch",
+    "category": "Technical-Guides"
+  },
+  {
+    "id": "1nQdcB570YyaIobrTCnsYEenVomuQ76XUaPcGqXTw0Eo",
+    "name": "20251217_Finding_016_Supabase MCP Server- A Complete Guide to Setup and Features",
+    "category": "Technical-Guides"
+  },
+  {
+    "id": "1mlxNqcgNPzOnEzn64f1wyonEm3TjqLYk5_dUn7hHG-g",
+    "name": "20251217_Finding_085_How to Write a Technical Specification Document With Examples",
+    "category": "QCM-Quality"
+  }
+]

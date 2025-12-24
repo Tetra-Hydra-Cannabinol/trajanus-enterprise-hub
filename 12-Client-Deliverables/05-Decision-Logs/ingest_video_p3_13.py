@@ -1,0 +1,213 @@
+"""
+Ingest Playlist 3 video 13 (FKXWFMgae-8) - Dynamically Label Chart Series Lines for a PRO Finish
+"""
+
+import os
+from datetime import datetime
+from supabase import create_client
+
+def load_env():
+    env_path = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\.env'
+    env_vars = {}
+    with open(env_path, 'r', encoding='utf-8-sig') as f:
+        for line in f:
+            line = line.strip()
+            if line and '=' in line and not line.startswith('#'):
+                key, value = line.split('=', 1)
+                env_vars[key.strip()] = value.strip()
+    return env_vars
+
+env = load_env()
+supabase = create_client(env['SUPABASE_URL'], env['SUPABASE_ANON_KEY'])
+
+video_id = 'FKXWFMgae-8'
+title = "Dynamically Label Chart Series Lines for a PRO Finish"
+channel = 'MyOnlineTrainingHub'
+duration = '4:09'
+topics = ['Dynamic Labels', 'Line Charts', 'Series Labels', 'IF Formula', 'NA Function', 'Data Labels', 'Label Formatting', 'Plot Area', 'Color Coding', 'Table Structured References']
+
+transcript = """0:00 the default Legends for line charts can
+0:02 be awkward and timeconsuming to read
+0:05 especially when you have two Series in
+0:06 your chart in this video I'm going to
+0:09 show you how to label the end of the
+0:11 line and for that label to dynamically
+0:13 update as your data
+0:15 grows now the first trick here is that
+0:18 we have two series for budget and actual
+0:20 one for the line and one for the label
+0:23 likewise there are the actual columns
+0:25 line and label all of these series are
+0:28 in the chart and we're exploiting the
+0:31 fact that charts don't display hash na
+0:33 errors therefore in columns E and F we
+0:36 can use an F Formula that returns # na
+0:39 where the current row isn't the last in
+0:41 the table column that contains a value
+0:44 we can see for Budget it's row 61 and
+0:46 for actuals it's row 52 now in English
+0:50 the formula says if cell c44 is blank
+0:54 and cell 43 is not blank then this must
+0:57 be the last row with data so return the
+1:00 budget amount otherwise return the hash
+1:02 and a error now at budget that you can
+1:05 see here is a table structured reference
+1:08 that references the budget column on the
+1:10 row containing the formula now if we
+1:12 look at column F you can see the formula
+1:14 is the same the only difference is it's
+1:16 referencing the actual column now all I
+1:19 need to do is add labels in the chart
+1:21 for these series here so select the
+1:24 chart now It's tricky to select these
+1:26 series because we can't see them easily
+1:28 so I'm going to go up to the format Tab
+1:30 and then in the drop down here I can
+1:32 select the series that I want now I'm
+1:34 going to add a data label but I want to
+1:37 go into more options and here I want to
+1:40 go to the label options and I want the
+1:43 series name not the value and it's
+1:45 defaulted to the label position of right
+1:48 so you can see our label's there in
+1:50 order to give the label more room I'm
+1:51 just going to move the plot area to the
+1:53 left slightly a nice touch is to also
+1:56 color code the label the same as the
+1:58 line so let's do that going into text
+2:00 options and here I'm going to choose the
+2:02 same color as the line which is this one
+2:05 now what you might find is that it
+2:07 appears lighter than the line that's
+2:09 just cuz the font is not as thick as the
+2:12 line so we can go one shade darker just
+2:14 to help its readability now all I need
+2:17 to do is repeat that process for the
+2:19 actual so on the format tab let's select
+2:22 the series we're going to add a data
+2:27 label with more
+2:28 options we want to have the series name
+2:31 we don't want the value we don't want
+2:32 leader lines and it's correctly
+2:34 positioned right let's go ahead and
+2:36 format the font color so that it is the
+2:39 same as the line and we'll go one shade
+2:41 darker for this one as well now when I
+2:45 enter a new value for my actuals that's
+2:47 enter 380 you'll see the line and the
+2:50 label moves along nice huh now one of
+2:53 the limitations of this technique is
+2:55 when the lines end in a position that's
+2:57 close together and the labels end up
+2:59 overlapping unfortunately there's not
+3:02 really an easy way to handle this when
+3:03 you have lots of lines with just two
+3:05 lines like we have here you could always
+3:08 modify your IF function to test whether
+3:10 this value is close to the actual or
+3:13 vice versa and then you could add a
+3:15 buffer value to that data point which
+3:18 would automatically move that label
+3:20 above or below where it would have
+3:22 normally finished alternatively you can
+3:25 always move the labels just left click
+3:28 and drag and manually move them into
+3:30 place obviously that's not ideal but if
+3:33 you've got lots of series and they just
+3:34 happen to end in the same place that
+3:36 might be your best solution hopefully
+3:38 Microsoft will improve the chart
+3:40 labeling experience in future releases
+3:42 we have been hounding them to do this
+3:44 for quite some time now you can download
+3:47 the Excel file for this lesson from the
+3:48 link here a big thank you to fellow EXL
+3:51 MVP John paltier who showed me this
+3:54 technique I hope you can make use of it
+3:56 and if you like this video please give
+3:58 it a thumbs up and subscribe to my
+4:00 channel for more and why not share it
+4:02 with your friends who might also find it
+4:03 useful thanks for
+4:08 watching"""
+
+# Save transcript
+archive_dir = r'G:\My Drive\00 - Trajanus USA\00-Command-Center\Knowledge_Archive\Transcripts\Microsoft_Office'
+os.makedirs(archive_dir, exist_ok=True)
+
+header = f"""Title: {title}
+Channel: {channel}
+Video ID: {video_id}
+URL: https://www.youtube.com/watch?v={video_id}
+Duration: {duration}
+Level: INTERMEDIATE
+Application: Microsoft Excel
+Topics: {', '.join(topics)}
+Ingested: {datetime.now().strftime('%Y-%m-%d')}
+Source: Playwright Browser Extraction
+{'='*78}
+
+"""
+
+filename = f"{datetime.now().strftime('%Y-%m-%d')}_INTERMEDIATE_{video_id}_Dynamic_Series_Labels.txt"
+filepath = os.path.join(archive_dir, filename)
+
+with open(filepath, 'w', encoding='utf-8') as f:
+    f.write(header + transcript)
+
+print(f'Transcript saved: {filename}')
+
+# Chunk and ingest
+def chunk_text(text, chunk_size=3000):
+    chunks = []
+    current = ''
+    for line in text.split('\n'):
+        if len(current) + len(line) + 1 <= chunk_size:
+            current = current + '\n' + line if current else line
+        else:
+            if current:
+                chunks.append(current.strip())
+            current = line
+    if current.strip():
+        chunks.append(current.strip())
+    return chunks
+
+url = f'https://www.youtube.com/watch?v={video_id}'
+chunks = chunk_text(transcript)
+
+full_metadata = {
+    'channel': channel,
+    'video_id': video_id,
+    'duration': duration,
+    'level': 'INTERMEDIATE',
+    'application': 'Microsoft Excel',
+    'topics': topics,
+    'source': 'YouTube Transcript',
+    'ingested_date': datetime.now().strftime('%Y-%m-%d'),
+    'content_type': 'youtube_tutorial',
+    'category': 'Microsoft_Office'
+}
+
+inserted = 0
+for i, chunk in enumerate(chunks):
+    summary = chunk[:200].replace('\n', ' ').strip()
+    if len(chunk) > 200:
+        summary += '...'
+
+    record = {
+        'url': url,
+        'chunk_number': i + 1,
+        'title': title,
+        'summary': summary,
+        'content': chunk,
+        'metadata': full_metadata
+    }
+
+    try:
+        supabase.table('knowledge_base').insert(record).execute()
+        inserted += 1
+        print(f'  Chunk {i+1}/{len(chunks)} inserted')
+    except Exception as e:
+        print(f'  Error chunk {i+1}: {e}')
+
+print(f'\nTotal: {inserted} chunks inserted to Supabase')

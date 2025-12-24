@@ -1,0 +1,202 @@
+<!-- Terminal Workspace System -->
+<!-- Extracted from index.html lines 2723-2960 -->
+
+<!-- Terminal -->
+<div class="terminal">
+    <div class="terminal-header">
+        <!-- PERMANENT TABS (LEFT SIDE) -->
+        <button class="terminal-tab permanent-tab active" data-tab="devtools" onclick="switchTab('devtools')" title="Session management, file operations, and dev utilities">
+            Developer Tools
+        </button>
+        <button class="terminal-tab permanent-tab" data-tab="codes" onclick="switchTab('codes')" title="Project management and quality control tools">
+            Codes and Standards
+        </button>
+        <button class="terminal-tab permanent-tab" data-tab="external" onclick="switchTab('external')" title="Third-party platforms and web resources">
+            External Programs
+        </button>
+        <!-- DYNAMIC TERMINAL TABS (RIGHT SIDE) -->
+        <div class="terminal-tabs" id="terminalTabs">
+            <!-- Terminal tab hidden but functional -->
+            <button class="terminal-tab active" data-tab="main" onclick="switchTab('main')" style="display: none;">
+                Terminal <span class="close-tab" onclick="closeTab(event, 'main')">×</span>
+            </button>
+        </div>
+        <button class="terminal-tab-add" onclick="addTab()" title="New Terminal">+</button>
+        <div class="terminal-actions">
+            <button class="terminal-clear" onclick="clearTerminal()">Clear</button>
+        </div>
+    </div>
+    <div class="terminal-bodies" id="terminalBodies">
+        <!-- MAIN TERMINAL (hidden) -->
+        <div class="terminal-body" id="terminal-main" data-tab="main" style="display: none;">
+            <div class="success">[Ready] Trajanus Enterprise Hub v3.3.0 initialized</div>
+            <div class="info">[Ready] All systems online</div>
+        </div>
+
+        <!-- PERMANENT DEVELOPER TERMINAL -->
+        <div class="terminal-body active" id="terminal-devtools" data-tab="devtools">
+            <div class="success">[Ready] Developer Tools Terminal</div>
+            <div class="info">[Info] File management, session tools, and operations</div>
+            <div style="margin-top: 10px; padding: 10px; background: rgba(168, 90, 27, 0.1); border-left: 3px solid #cc6e1f;">
+                <div style="color: #e8922a; font-weight: bold; margin-bottom: 8px;">FILE MANAGEMENT</div>
+                <button class="session-btn" onclick="openFileBrowser('living-docs')" style="margin: 4px;">Living Documents</button>
+                <button class="session-btn" onclick="openFileBrowser('sessions')" style="margin: 4px;">Session Library</button>
+                <button class="session-btn" onclick="openFileBrowser('templates')" style="margin: 4px;">Templates</button>
+                <button class="session-btn" onclick="openFileBrowser('command-center')" style="margin: 4px;">Command Center</button>
+                <button class="session-btn" onclick="openFileBrowser('protocols')" style="margin: 4px;">Core Protocols</button>
+                <button class="session-btn" onclick="openFileBrowser('learning')" style="margin: 4px;">Learning Folder</button>
+                <button class="session-btn" onclick="openFileBrowser('scripts')" style="margin: 4px;">Scripts</button>
+                <button class="session-btn" onclick="openFileBrowser('documentation')" style="margin: 4px;">Documentation</button>
+            </div>
+            <div style="margin-top: 10px; padding: 10px; background: rgba(168, 90, 27, 0.1); border-left: 3px solid #cc6e1f;">
+                <div style="color: #e8922a; font-weight: bold; margin-bottom: 8px;">SESSION MANAGEMENT</div>
+                <button class="session-btn" onclick="log('Opening handoff prompt generator...', 'info', 'devtools')" style="margin: 4px;">Mission Brief</button>
+                <button class="session-btn" onclick="openProtocolFile('sync')" style="margin: 4px;" title="Review all 47 operational protocols">Sync Protocols</button>
+                <button class="session-btn" onclick="openProtocolFile('deepdive')" style="margin: 4px;" title="Load Bill's POV and full context">Deep Dive Recall</button>
+                <button class="session-btn" onclick="log('Starting EOS routine...', 'warning', 'devtools')" style="margin: 4px;">Perform EOS Protocols</button>
+                <button class="session-btn" onclick="log('Update living docs - Coming soon', 'info', 'devtools')" style="margin: 4px;">Update Living Docs</button>
+            </div>
+            <div style="margin-top: 10px; padding: 10px; background: rgba(168, 90, 27, 0.1); border-left: 3px solid #cc6e1f;">
+                <div style="color: #e8922a; font-weight: bold; margin-bottom: 8px;">FILE OPERATIONS</div>
+                <button class="session-btn" onclick="runConversion('md-to-docx')" style="margin: 4px;">MD to DOCX</button>
+                <button class="session-btn" onclick="runConversion('docx-to-gdocs')" style="margin: 4px;">DOCX to Google Docs</button>
+                <button class="session-btn" onclick="runConversion('gdocs-to-docx')" style="margin: 4px;">Google Docs to DOCX</button>
+                <button class="session-btn" onclick="runConversion('convert-latest')" style="margin: 4px;" title="Convert files modified in last 24 hours">Convert Latest (24hrs)</button>
+                <button class="session-btn" onclick="runConversion('convert-all')" style="margin: 4px;" title="Convert all markdown files to Google Docs">Convert All Files</button>
+            </div>
+        </div>
+
+        <!-- MS OFFICE TOOLS TERMINAL -->
+        <div class="terminal-body" id="terminal-msoffice" data-tab="msoffice">
+            <div class="success">[Ready] MS Office Tools & Templates</div>
+            <div class="info">[Info] Microsoft Office, templates, and document generation</div>
+            <div style="margin-top: 10px; padding: 10px; background: rgba(168, 90, 27, 0.1); border-left: 3px solid #cc6e1f;">
+                <div style="color: #e8922a; font-weight: bold; margin-bottom: 8px;">MS OFFICE</div>
+                <button class="session-btn" onclick="log('Opening Word...', 'info', 'msoffice')" style="margin: 4px;">Word</button>
+                <button class="session-btn" onclick="log('Opening Excel...', 'info', 'msoffice')" style="margin: 4px;">Excel</button>
+                <button class="session-btn" onclick="log('Opening PowerPoint...', 'info', 'msoffice')" style="margin: 4px;">PowerPoint</button>
+                <button class="session-btn" onclick="log('Opening Outlook...', 'info', 'msoffice')" style="margin: 4px;">Outlook</button>
+            </div>
+            <div style="margin-top: 10px; padding: 10px; background: rgba(168, 90, 27, 0.1); border-left: 3px solid #cc6e1f;">
+                <div style="color: #e8922a; font-weight: bold; margin-bottom: 8px;">TEMPLATES</div>
+                <button class="session-btn" onclick="log('Opening QCM template...', 'info', 'msoffice')" style="margin: 4px;">QCM Submittal Review</button>
+                <button class="session-btn" onclick="log('Opening daily journal...', 'info', 'msoffice')" style="margin: 4px;">Daily Journal</button>
+                <button class="session-btn" onclick="log('Opening schedule narrative...', 'info', 'msoffice')" style="margin: 4px;">Schedule Narrative</button>
+                <button class="session-btn" onclick="log('Opening meeting minutes...', 'info', 'msoffice')" style="margin: 4px;">Meeting Minutes</button>
+            </div>
+        </div>
+
+        <!-- CODES AND STANDARDS TERMINAL -->
+        <div class="terminal-body" id="terminal-codes" data-tab="codes">
+            <div class="success">[Ready] Codes and Standards Tools</div>
+            <div class="info">[Info] Project-specific tools and utilities</div>
+            <div style="margin-top: 10px; padding: 10px; background: rgba(168, 90, 27, 0.1); border-left: 3px solid #cc6e1f;">
+                <div style="color: #e8922a; font-weight: bold; margin-bottom: 8px;">PM TOOLS</div>
+                <button class="session-btn" onclick="log('Opening schedule navigator...', 'info', 'codes')" style="margin: 4px;">Schedule Navigator</button>
+                <button class="session-btn" onclick="log('Opening budget tracker...', 'info', 'codes')" style="margin: 4px;">Budget Tracker</button>
+                <button class="session-btn" onclick="log('Opening RFI manager...', 'info', 'codes')" style="margin: 4px;">RFI Manager</button>
+                <button class="session-btn" onclick="log('Opening change orders...', 'info', 'codes')" style="margin: 4px;">Change Orders</button>
+            </div>
+            <div style="margin-top: 10px; padding: 10px; background: rgba(168, 90, 27, 0.1); border-left: 3px solid #cc6e1f;">
+                <div style="color: #e8922a; font-weight: bold; margin-bottom: 8px;">QCM TOOLS</div>
+                <button class="session-btn" onclick="log('Opening submittal review...', 'info', 'codes')" style="margin: 4px;">Submittal Review</button>
+                <button class="session-btn" onclick="log('Opening inspection reports...', 'info', 'codes')" style="margin: 4px;">Inspection Reports</button>
+                <button class="session-btn" onclick="log('Opening deficiency tracker...', 'info', 'codes')" style="margin: 4px;">Deficiency Tracker</button>
+                <button class="session-btn" onclick="log('Opening closeout checklist...', 'info', 'codes')" style="margin: 4px;">Closeout Checklist</button>
+            </div>
+        </div>
+
+        <!-- PERMANENT EXTERNAL TERMINAL -->
+        <div class="terminal-body" id="terminal-external" data-tab="external">
+            <div class="success">[Ready] External Resources</div>
+            <div class="info">[Info] Third-party platforms and web resources</div>
+            <div style="margin-top: 10px; padding: 10px; background: rgba(168, 90, 27, 0.1); border-left: 3px solid #cc6e1f;">
+                <div style="color: #e8922a; font-weight: bold; margin-bottom: 8px;">PLATFORMS</div>
+                <button class="session-btn" onclick="log('Opening Procore...', 'info', 'external')" style="margin: 4px;">Procore</button>
+                <button class="session-btn" onclick="log('Opening Primavera P6...', 'info', 'external')" style="margin: 4px;">Primavera P6</button>
+                <button class="session-btn" onclick="log('Opening RMS 3.0...', 'info', 'external')" style="margin: 4px;">RMS 3.0</button>
+                <button class="session-btn" onclick="log('Opening USACE site...', 'info', 'external')" style="margin: 4px;">USACE Portal</button>
+            </div>
+            <div style="margin-top: 10px; padding: 10px; background: rgba(168, 90, 27, 0.1); border-left: 3px solid #cc6e1f;">
+                <div style="color: #e8922a; font-weight: bold; margin-bottom: 8px;">WEB RESOURCES</div>
+                <button class="session-btn" onclick="openExternal('https://drive.google.com/drive/folders/FOLDER_ID')" style="margin: 4px;">Google Drive Root</button>
+                <button class="session-btn" onclick="openExternal('https://console.anthropic.com')" style="margin: 4px;">Anthropic Console</button>
+                <button class="session-btn" onclick="log('Opening Claude AI...', 'info', 'external')" style="margin: 4px;">Claude AI</button>
+                <button class="session-btn" onclick="log('Opening VS Code...', 'info', 'external')" style="margin: 4px;">VS Code</button>
+            </div>
+            <div style="margin-top: 10px; padding: 10px; background: rgba(168, 90, 27, 0.1); border-left: 3px solid #cc6e1f;">
+                <div style="color: #e8922a; font-weight: bold; margin-bottom: 8px;">UTILITIES</div>
+                <button class="session-btn" onclick="showUserGuides()" style="margin: 4px;">User Guides</button>
+                <button class="session-btn" onclick="openExternal('https://www.thesaurus.com')" style="margin: 4px;">Thesaurus</button>
+            </div>
+        </div>
+
+        <!-- REVIEW HISTORY TERMINAL -->
+        <div class="terminal-body" id="terminal-review-history" data-tab="review-history" style="display: none;">
+            <div class="success">[Ready] QCM Review History</div>
+            <div class="info">[Info] Past submittal reviews and analysis reports</div>
+            <div style="margin-top: 15px;" id="reviewHistoryList">
+                <div class="info" style="padding: 20px; text-align: center;">
+                    No review history yet. Complete a submittal review to see it here.
+                </div>
+            </div>
+        </div>
+
+        <!-- PERMANENT REFERENCE TERMINAL -->
+        <div class="terminal-body" id="terminal-reference" data-tab="reference">
+            <div class="success">[Ready] Reference Library</div>
+            <div class="info">[Info] Protocols, documentation, and learning resources</div>
+            <div style="margin-top: 10px; padding: 10px; background: rgba(168, 90, 27, 0.1); border-left: 3px solid #cc6e1f;">
+                <div style="color: #e8922a; font-weight: bold; margin-bottom: 8px;">PROTOCOLS</div>
+                <button class="session-btn" onclick="log('Opening operational protocols...', 'info', 'reference')" style="margin: 4px;">Operational Protocols</button>
+                <button class="session-btn" onclick="log('Opening Bill POV...', 'info', 'reference')" style="margin: 4px;">Bill POV</button>
+                <button class="session-btn" onclick="log('Opening commandments...', 'info', 'reference')" style="margin: 4px;">AI Commandments</button>
+                <button class="session-btn" onclick="log('Opening file structure...', 'info', 'reference')" style="margin: 4px;">File Structure Map</button>
+            </div>
+            <div style="margin-top: 10px; padding: 10px; background: rgba(168, 90, 27, 0.1); border-left: 3px solid #cc6e1f;">
+                <div style="color: #e8922a; font-weight: bold; margin-bottom: 8px;">LEARNING</div>
+                <button class="session-btn" onclick="log('Opening Python guide...', 'info', 'reference')" style="margin: 4px;">Python Resources</button>
+                <button class="session-btn" onclick="log('Opening JavaScript guide...', 'info', 'reference')" style="margin: 4px;">JavaScript Resources</button>
+                <button class="session-btn" onclick="log('Opening Electron docs...', 'info', 'reference')" style="margin: 4px;">Electron Docs</button>
+            </div>
+        </div>
+
+        <!-- QCM SUBMITTAL REVIEW WORKSPACE -->
+        <div class="terminal-body qcm-workspace-container" id="terminal-qcm-submittal" data-tab="qcm-submittal" style="display: none;">
+            <div class="qcm-workspace-header">
+                <div class="success">[Ready] QCM Submittal Review Workspace</div>
+                <div class="info">[Info] Interactive workspace for document review with Trajanus EI™</div>
+            </div>
+
+            <div class="qcm-workspace">
+                <!-- Panel 1: Document Browser -->
+                <div class="qcm-panel qcm-file-browser">
+                    <div class="panel-header">Document Browser</div>
+                    <div class="breadcrumb" id="qcmBreadcrumb">
+                        <span class="breadcrumb-item">My Drive</span>
+                    </div>
+                    <div class="file-list" id="qcmFiles">
+                        <div class="info" style="padding: 20px; text-align: center;">
+                            Navigate to your project folder to select documents
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel 2: Report Templates -->
+                <div class="qcm-panel">
+                    <div class="panel-header">Report Templates</div>
+                    <!-- Template buttons... (truncated for brevity) -->
+                </div>
+
+                <!-- Panel 3: Trajanus EI -->
+                <div class="qcm-panel">
+                    <div class="panel-header">Trajanus EI™</div>
+                    <div class="review-status waiting" id="qcmReviewStatus">WAITING</div>
+                    <div class="review-content" id="qcmReviewContent">
+                        <!-- Review output area -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

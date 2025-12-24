@@ -1,0 +1,189 @@
+Title: Tracing Claude Code to LangSmith
+Channel: LangChain
+Video ID: NoSmSVKMSMs
+URL: https://www.youtube.com/watch?v=NoSmSVKMSMs
+Duration: 8:27
+Level: BEGINNER
+Ingested: 2025-12-23
+Source: yt-dlp Auto-Generated Captions
+==============================================================================
+
+WEBVTT
+Kind: captions
+Language: en
+Are you curious about what cloud code is
+doing behind the scenes? Or do you want
+observability in the critical workflows
+that you've set up with claude code?
+Hey, I'm Tanish from Langchain and we
+built a claude code to LinkSmith
+integration so that you can see each
+step that cla takes whether that be an
+LLM call or tool calls. Um it's pretty
+fascinating to see the entire trace. So
+I want to show you what this looks like.
+Um
+uh I have uh a project here. It's a very
+very very simple uh agent that I build
+with uh link chains create agent. Um
+it's actually just the default agent
+that I've uh basically copied from the
+docs. Um I want to ask cloud code. I
+have a cloud code session running here
+and I want to ask cloud code a question
+about it. So let's ask
+what is the system prompt in this file.
+Pretty simple question.
+All right, there we go. And then it it
+responded with the answer. Um, let's
+take a look at what that trace looks
+like because I have the tracing set up
+to Langmith.
+And here it is. Um, this is this is as I
+would expect. So, the first thing here
+is an LLM call that takes my prompt that
+I put in, sends it to the LLM, and the
+LM reasons about what the next steps
+that claude code should take are. So you
+can see it it invokes this read file
+tool.
+Um and then we can see the inputs and
+outputs of the read file tool as well.
+So this points to the the file that we
+were just looking at. Uh and then this
+is the um uh this is the contents of the
+file.
+Kind of interesting. You get the system
+reminder here as well as part of the
+tool output. and it warns um uh warns
+the LLM about potential malware in the
+file. And the last step here is
+is um taking this uh we we send the
+whole chat conversation into into the LM
+call. But the most important part here
+is the contents of the file that I asked
+Claude about. Um, and you can see it
+responds um with the response that we
+saw in in the CLI. Um, so that was a
+really easy example, but let's try doing
+something more complicated. Um, what I
+want to do now is right now we have this
+like hardcoded
+uh value that's returned. I actually
+want claude code to set it up so that I
+get the actual real-time weather in San
+Francisco returned instead. And we can
+do that using this open- source um
+website called open mateo um that uh
+returns weather in real time. So let's
+have cloud code use that and return the
+weather in San Francisco in real time.
+I'll type in my prompt.
+All right. So these are my instructions
+to claude code. I'm going to send this
+through and we'll come back once it's
+done generating the code.
+All right, looks like that finished up
+and this looks as I would expect it to.
+Uh let's take a look at the resulting
+trace to see how cloud code actually did
+this.
+So, okay, there we go. This is the
+prompt that I had asked it and provided
+this website as well.
+Um, we can see that I actually like
+looking through the the in visual
+choices here. Um, I can see that the
+first thing uh the first the first thing
+was an LLM call and so it planned out
+how it was going to uh how it was going
+to generate the results here. Um, so the
+first thing was in order to update the
+get weather function, it's going to make
+a web fetch call to the website that I
+provided to understand how the API
+endpoint worked. And so this is the web
+fetch call
+that was made. Um, you can see that it
+returns
+um, uh, returns the API endpoint here.
+Cool. And then next is the call to
+claude that takes the data from the web
+fetch call as well as the rest of the
+conversation history and it generates uh
+code for what the the API call should
+look like what the fun you know how to
+update that function. Um, and then this
+is the edit tool which actually goes in
+and edits the file and then um I think
+actually the yeah so so then it returns
+actually what the the new file contents
+is and then um the last step is cloud
+code cloud does a check and says okay
+this looks good return back to the user.
+So pretty cool to peel the curtain and
+look behind the scenes there. Um I want
+to actually cover a little bit of how
+this works as well, how this integration
+um works. So these are like the main
+components here. Um so uh two things to
+call out. So claude code uh
+automatically generates transcripts of
+your conversation history with it. So
+this is an example of of what part of a
+transcript looks like. But the key thing
+to to note is that we get user messages
+um kind of both details about the
+message itself and the contents of the
+message and likewise we get AI messages
+as well as tool calls in this format. So
+we can use this data to um create traces
+in lang. And then the second piece is
+cloud code has a feature called hooks u
+one of which is a stop hook that is
+triggered after uh cloud code responds.
+And so we've used a combination of these
+two in this uh custom hook hook script
+that we've created uh that gets
+triggered by the stop hook and then goes
+and fetches the transcripts from uh from
+the files that cloud code generates and
+then um goes and then sends the traces
+to linksmith in the expected format. So
+it's a pretty neat integration and very
+lightweight to run. Um, I'll go over a
+little bit of the details on how this is
+set up as well. It's pretty easy to set
+up. So, um, uh, two things I have, uh,
+uh, you you can access the
+documentation. Uh, we'll link it down
+below. Uh, first thing is this stop hook
+file. Um, and this contains the core
+logic for how to parse the transcripts
+from uh, from cloud code and send them
+to Langsmith. And then the second thing
+you need to set up is this uh global
+hook which basically is a stop hook that
+points to the file that we just created.
+And then uh you can enable tracing
+either on a per cloud code project. So
+cloud code project is a repo that you
+have cloud code initialized in or a
+global basis. Um and really it's as
+simple as adding uh adding a few
+environment variables to cloud codes uh
+local uh settings.local.json JSON file.
+Um, so you need your Linksmith API key.
+You want the project that you want to
+trace to, and then if you want to turn
+it off at any time, you can always set
+this to to false. So that that's really
+it for for the tracing. You set up uh
+the hook script as well as the global
+hook uh at a global level for Cloud Code
+uh across your machine and then you can
+enable tracing optionally per project.
+So, that's really all there is to it.
+Uh, it's super interesting to peel back
+the layers and see what Cloud Code is
+doing. Uh, and I hope you give it a try.

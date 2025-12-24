@@ -1,0 +1,280 @@
+Title: NINJA Level Excel Formula Tips Most Don't Know
+Channel: MyOnlineTrainingHub
+Video ID: Uq4C9htBzU8
+URL: https://www.youtube.com/watch?v=Uq4C9htBzU8
+Duration: 10:47
+Level: ADVANCED
+Application: Excel
+Topics: Excel Formulas, Structured References, Named Ranges, Advanced Formula Environment, Evaluate Formula, INDEX MATCH, Formula Debugging
+Ingested: 2025-12-20
+Source: Playwright Browser Extraction
+==============================================================================
+
+0:00 formulas are the most important Excel
+0:03 skill you can Master but when you start
+0:05 nesting functions things can quickly get
+0:08 out of hand in this lesson I'm going to
+0:10 cover some little known Excel formula
+0:13 writing tips tricks and tools that will
+0:15 give you Ninja level skills and enable
+0:18 you to decipher any formula even ones
+0:21 you haven't written yourself when you
+0:23 first learn to write formulas you'll
+0:25 typically use regular cell references
+0:27 like we see here with D2 to d26 and C2
+0:30 to c26 and this is okay except when it
+0:34 comes time to interpreting the formula
+0:35 at a later date because it's just not
+0:37 easy to figure out what that formula is
+0:39 doing you need to locate the cells being
+0:42 referenced by going back and forth
+0:44 between the data and the formula to try
+0:47 and understand what's going on however
+0:50 if we format The Source data that we're
+0:52 referencing in an Excel table the
+0:55 formula can be understood right from
+0:57 within the cell now we can use the
+0:59 keyboard shortcut contrl T to format the
+1:02 data in a table my data has headers so
+1:04 I'll click okay here and if we go to the
+1:07 table design tab you can see the tables
+1:08 been given the name table two we can
+1:10 give it a more useful name I'll call it
+1:12 sales data just simply type it in the
+1:15 table name
+1:16 field and then when we write our
+1:18 formulas we can use the mouse to
+1:20 reference the data so I want to look up
+1:21 the sales column just positioning the
+1:23 mouse above the column header when I
+1:25 click it selects the whole column and
+1:28 you can see in the formula bar completed
+1:30 the structured reference which comprises
+1:32 of the table name and the column name so
+1:35 I want to index the sales and find a
+1:37 match for socks and another way we can
+1:40 write the formula is by typing the table
+1:41 and column names in the formula so I
+1:44 want sales data and there it is there
+1:46 the intell ense has prompted me tab to
+1:49 select it and it's in the column product
+1:52 close my square brackets and then I want
+1:55 an exact match so that's zero close
+1:57 match close index and press enter now I
+2:01 think you'll agree that this is much
+2:03 clearer than the regular cell
+2:06 references another benefit of using
+2:09 Excel tables is that the structured
+2:11 references automatically include any new
+2:13 data added to the table so there's no
+2:16 need to edit formulas to pick up new
+2:18 cells now I can't recommend Excel tables
+2:21 enough automatic updating and structured
+2:24 references are just a couple of the
+2:25 benefits of using tables you can see
+2:28 them all in my Excel tables course
+2:30 linked to in the video
+2:32 description now if you can't or don't
+2:34 want to format your data in an Excel
+2:35 table well you must be crazy but if you
+2:38 insist then another option is to Define
+2:41 names for the ranges you need to
+2:42 reference in your formulas or if you're
+2:45 expecting your data to grow then you
+2:47 should use Dynamic named ranges there
+2:50 are links in the video description to
+2:51 tutorials on these
+2:56 topics now when you start nesting
+2:59 functions in inside one another it's a
+3:01 good idea to wrap the individual
+3:02 components onto separate lines so that
+3:05 it's easy to read we can do this in the
+3:08 formula bar I'll just drag it down to
+3:10 make it a bit wider place your cursor
+3:12 where you want the line break and then
+3:14 alt and enter to wrap it onto the next
+3:17 line we can do that at each step in the
+3:21 formula that's just going to make it
+3:23 easier to see the individual components
+3:25 and understand what's going on
+3:28 alternatively if you have Excel 2013 or
+3:31 later you can use the advanced formula
+3:33 environment so let's do that we'll copy
+3:36 the formula here and then on the hom tab
+3:38 of the ribbon you'll find the advanced
+3:40 formula environment if it's not there
+3:42 I'll show you how to get it in a moment
+3:44 it opens a pane on the right hand side
+3:46 clicking on the plus we get to name our
+3:49 new formula I'm just going to call it
+3:51 test because this is just temporary and
+3:53 then in the refer two paste in your
+3:54 formula make sure you delete the equals
+3:57 at the beginning cuz there's already one
+3:59 here
+4:00 and then click add and you can see it
+4:02 automatically formats the formula for
+4:04 you all you need to do then is copy it
+4:08 and go back to the formula bar and paste
+4:10 it in and now I have my nicely formatted
+4:13 formula unfortunately in the formula bar
+4:15 it doesn't retain the nice color
+4:17 formatting that we get in the advanced
+4:19 formula environment alternatively you
+4:22 can Define the formula as a name if you
+4:24 do that you'll want to give it a proper
+4:26 name and then click on the Sync icon
+4:29 here to save it to the name manager and
+4:32 you can then reference that formula as a
+4:34 name now if you don't have the advanced
+4:36 formula environment you can get it by
+4:38 inserting it via the insert Tab and then
+4:41 add-ins get addins and then type in the
+4:44 search bar Advanced formula environment
+4:47 select it from the list here and click
+4:49 add it'll then be available on your Home
+4:52 tab on the far
+4:58 right now we should try and avoid hard
+5:00 keyed values in formulas like we did in
+5:03 the previous examples where the lookup
+5:05 value socks is hard keyed instead it's
+5:08 better to place the value in a cell and
+5:10 then reference that cell from your
+5:12 formulas then if you need to update it
+5:15 you simply edit that one cell and it's
+5:17 going to update all the
+5:19 formulas even better is to give this
+5:21 cell a name we can do that via the name
+5:23 box up here so let's just call this prod
+5:26 and then in our
+5:28 formulas we can w reference
+5:30 prod there it is in the
+5:33 list instead of the cell reference which
+5:36 makes the formula much easier to read
+5:39 alternatively you could Define the
+5:41 constant in a name so via the formulas
+5:44 tab Define name we'll call it products
+5:47 just to differentiate it and in here
+5:49 we're going to enter the name and click
+5:53 okay and now instead of prod let's
+5:56 reference products our new defined name
+6:00 and you can see it's now ignoring this
+6:02 value and referencing socks again then
+6:05 if we need to update that we can just go
+6:07 into the formulas Tab and into the name
+6:10 manager and under products instead of
+6:12 socks we might want Wheels click the
+6:16 check mark and close and you can see
+6:19 it's now updated so it's a very
+6:21 efficient way to manage constants in
+6:23 formulas because you only need to update
+6:26 it in one place it then feeds through to
+6:28 all formulas that use that
+6:32 name if you've ever experienced Exel not
+6:35 letting you enter a formula because
+6:37 you're missing a closing parenthesis or
+6:39 you just can't see where it should go
+6:41 then you'll find these formula
+6:42 navigating tips helpful for identifying
+6:45 where each component of the formula
+6:47 starts and ends when you're in edit mode
+6:50 inside a formula either in the formula
+6:52 bar or in the cell itself the tool tip
+6:55 often gets in the way we can left click
+6:57 and drag it once we get our foreheaded
+6:59 Arrow by hovering over the edge of the
+7:01 tool tip and we can just move it out of
+7:04 the way we can use the tool tip to
+7:06 navigate through the formula using the
+7:08 hyperlinks so as I hover my mouse I get
+7:11 the blue hyperlink and I can click on
+7:13 that to select that part of the formula
+7:16 the Bold argument in the tool tip
+7:18 indicates the current location of the
+7:19 cursor or the selected component of the
+7:22 formula if we look at match and I jumped
+7:25 to match type you can see that after the
+7:27 last argument I should have for closing
+7:29 bracket or parenthesis we can see one
+7:32 here for the match functions match type
+7:34 argument and if I go back to index and
+7:37 click on the last argument that's
+7:39 populated you can see we don't have a
+7:41 column number cuz it's not offering me a
+7:43 hyperlink so row number is my last
+7:44 argument and I can see I should
+7:46 therefore have a closing parenthesis
+7:49 after that and I do now if you can't
+7:52 remember how a function works you can
+7:54 click on the function icon up in the
+7:56 formula bar and it'll open the function
+7:58 wizard
+7:59 the function wizard dialog box contains
+8:01 more information about the function and
+8:04 each
+8:08 argument you may have managed to get
+8:10 Excel to accept your formula but perhaps
+8:12 it's not returning the correct results
+8:15 here we have a couple of tools that will
+8:16 help identify where the problem is we
+8:19 can evaluate components of the formula
+8:22 either in the cell in edit mode or in
+8:24 the formula bar let's do the formula bar
+8:27 I'm going to jump to the row number
+8:28 argument and then if I want to see what
+8:30 that returns I can press the F9 key on
+8:33 my keyboard and we can see it returns 10
+8:36 I can continue selecting elements and
+8:39 pressing F9 to get the results I won't
+8:41 press it here because it's going to
+8:43 return the whole column of sales data we
+8:45 can contrl Z to undo the last element
+8:47 evaluated or escape to exit and return
+8:50 the formula to its prior on evaluated
+8:57 State sometimes you have many nested
+8:59 functions and elements and it's
+9:01 difficult to tell what order Excel is
+9:03 evaluating in and that's when the
+9:05 evaluate formula tool is Handy it takes
+9:07 you step by step through the formula in
+9:10 order of evaluation displaying the
+9:12 results one component at a time we'll
+9:15 find it on the formulas Tab and then
+9:19 evaluate
+9:20 formula the next part of the formula to
+9:22 be evaluated is indicated with an
+9:25 underline and if the formula references
+9:27 the result of another formula you can
+9:29 step in and step out of the reference
+9:31 formulas in this example cell C7
+9:34 contains a formula so I can step into
+9:36 that and now I can see the formula
+9:38 contained in Cel C7 I can go ahead and
+9:41 evaluate parts of that formula and then
+9:44 step back out and it completes the
+9:47 evaluated element and we can see the
+9:49 underline indicates that that's the next
+9:51 part to be evaluated I can go ahead and
+9:54 click on that it returns true then it's
+9:57 going to evaluate C7 again I can step in
+10:00 evaluate it or step back out and
+10:03 continue from there until we get the
+10:05 final result it doesn't change anything
+10:07 in the cell itself and we can restart if
+10:10 we need to see it again now the
+10:12 limitation of the evaluate formula
+10:14 dialog box is that you can't make it any
+10:16 bigger and often it's just too small to
+10:18 display the entire formula results which
+10:21 means a lot of scrolling making it
+10:23 difficult to
+10:24 use I hope you found this tutorial
+10:27 useful you can download the quick
+10:28 reference XL file for this lesson from
+10:30 the link here and if you like this video
+10:32 please give it a thumbs up and subscribe
+10:35 to our channel for more and why not
+10:36 share it with your friends who might
+10:38 also find it useful thanks for
+10:42 [Music]
+10:46 watching

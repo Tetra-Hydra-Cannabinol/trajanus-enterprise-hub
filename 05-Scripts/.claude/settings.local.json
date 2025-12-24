@@ -1,0 +1,42 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__supabase__execute_sql",
+      "mcp__trajanus-kb__search_knowledge_base",
+      "Bash(pip show:*)",
+      "Bash(ls:*)",
+      "WebSearch",
+      "Bash(cat:*)",
+      "Bash(python -c:*)",
+      "Bash(python ingest_ms_office_tutorials.py:*)",
+      "Bash(pip install:*)",
+      "Bash(yt-dlp:*)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_snapshot",
+      "mcp__playwright__browser_press_key",
+      "mcp__playwright__browser_wait_for",
+      "mcp__playwright__browser_evaluate",
+      "mcp__playwright__browser_run_code",
+      "Bash(python extract_youtube_transcript.py:*)",
+      "Bash(powershell -NoProfile -Command \"try { $null = [System.Management.Automation.Language.Parser]::ParseFile\\(''G:\\\\My Drive\\\\00 - Trajanus USA\\\\00-Command-Center\\\\05-Scripts\\\\trajanus_monitor.ps1'', [ref]$null, [ref]$null\\); Write-Host ''SYNTAX OK'' } catch { Write-Host \"\"ERROR: $_\"\" }\")",
+      "Bash(powershell -NoProfile -ExecutionPolicy Bypass -Command \"& { Set-Location ''G:\\\\My Drive\\\\00 - Trajanus USA\\\\00-Command-Center\\\\05-Scripts''; Write-Host ''Testing script parse...''; $script = Get-Content ''trajanus_monitor.ps1'' -Raw; $errors = $null; $tokens = $null; [void][System.Management.Automation.Language.Parser]::ParseInput\\($script, [ref]$tokens, [ref]$errors\\); if \\($errors.Count -eq 0\\) { Write-Host ''SYNTAX OK - No parse errors'' } else { Write-Host ''ERRORS:''; $errors | ForEach-Object { Write-Host $_.Message } } }\")",
+      "Bash(timeout 4 powershell:*)",
+      "Bash(timeout 5 powershell:*)",
+      "Bash(timeout 3 powershell:*)",
+      "mcp__supabase__list_tables",
+      "Bash(python generate_insert_sql.py:*)",
+      "Bash(python:*)",
+      "Bash(where:*)",
+      "Bash(wmic logicaldisk get:*)",
+      "Bash(powershell -Command \"Get-PSDrive -PSProvider FileSystem | Select-Object Name,Root,Used,Free\")",
+      "Bash(dir /b \"G:\\\\My Drive\\\\00 - Trajanus USA\\\\01-Morning-Sessions\\\\Research\\\\Microsoft_Office_Tutorials\\\\2025-12-20_*\")",
+      "Bash(powershell -Command:*)",
+      "mcp__trajanus-kb__list_knowledge_sources"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "supabase"
+  ]
+}
