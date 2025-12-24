@@ -1,0 +1,22 @@
+# Research Agent Dependencies
+# YouTube API and video handling
+google-api-python-client
+pytube
+
+# Web scraping and document download
+requests
+beautifulsoup4
+
+# Document processing
+PyPDF2
+python-docx
+
+# AI and embeddings
+openai
+
+# Database
+supabase
+
+# Scheduling and utilities
+schedule
+python-dotenv
