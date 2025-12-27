@@ -76,6 +76,13 @@ body {
     background-clip: text;
 }
 
+.logo-text .trademark {
+    font-size: 0.4em;
+    vertical-align: super;
+    -webkit-text-fill-color: var(--text-secondary);
+    background: none;
+}
+
 /* Toolkit Grid */
 .toolkit-grid {
     display: grid;
