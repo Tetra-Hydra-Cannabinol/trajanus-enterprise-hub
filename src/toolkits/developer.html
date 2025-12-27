@@ -5,32 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Developer Toolkit - Trajanus Enterprise Hub</title>
     <link rel="stylesheet" href="../styles/main.css">
-    <link rel="stylesheet" href="../styles/workspace.css">
+    <link rel="stylesheet" href="../styles/developer.css">
 </head>
 <body>
-    <div class="workspace-container">
-        <header class="workspace-header">
+    <div class="dev-container">
+        <header class="dev-header">
             <h1>Developer Toolkit</h1>
             <button class="btn" onclick="Navigation.goHome()">Home</button>
         </header>
-        <main class="workspace-grid">
-            <section class="panel panel-1" id="document-browser">
-                <!-- Populated by fileManager.js -->
-            </section>
-            <section class="panel panel-2" id="template-selection">
-                <!-- Populated by templates.js -->
-            </section>
-            <section class="panel panel-3" id="review-modify">
-                <!-- Populated by workspace.js -->
-            </section>
-            <section class="panel panel-4" id="claude-assistant">
-                <!-- Populated by workspace.js -->
+
+        <main class="control-panel">
+            <!-- Row 1: Session Management & Scripts -->
+            <div class="button-group session">
+                <h3>Session Management</h3>
+                <div class="buttons">
+                    <button class="btn" onclick="DevToolkit.startSession()">Start Session</button>
+                    <button class="btn" onclick="DevToolkit.endSession()">End Session</button>
+                    <button class="btn" onclick="DevToolkit.sessionSummary()">Session Summary</button>
+                    <button class="btn" onclick="DevToolkit.handoffDoc()">Handoff Doc</button>
+                </div>
+            </div>
+
+            <div class="button-group scripts">
+                <h3>Scripts</h3>
+                <div class="buttons">
+                    <button class="btn" onclick="DevToolkit.eosProtocol()">EOS Protocol</button>
+                    <button class="btn" onclick="DevToolkit.convertFiles()">Convert Files</button>
+                    <button class="btn" onclick="DevToolkit.batchIngest()">Batch Ingest</button>
+                    <button class="btn" onclick="DevToolkit.kbQuery()">KB Query</button>
+                </div>
+            </div>
+
+            <!-- Row 2: Utilities & Living Documents -->
+            <div class="button-group utilities">
+                <h3>Utilities</h3>
+                <div class="buttons">
+                    <button class="btn" onclick="DevToolkit.openCommandCenter()">Command Center</button>
+                    <button class="btn" onclick="DevToolkit.openScriptsFolder()">Scripts Folder</button>
+                    <button class="btn" onclick="DevToolkit.gitPush()">GitHub Push</button>
+                    <button class="btn" onclick="DevToolkit.openTerminal()">Open Terminal</button>
+                </div>
+            </div>
+
+            <div class="button-group documents">
+                <h3>Living Documents</h3>
+                <div class="buttons">
+                    <button class="btn" onclick="DevToolkit.openDailyDiary()">Daily Diary</button>
+                    <button class="btn" onclick="DevToolkit.openTechJournal()">Technical Journal</button>
+                    <button class="btn" onclick="DevToolkit.openPOV()">POV Document</button>
+                    <button class="btn" onclick="DevToolkit.openProtocols()">Protocols</button>
+                </div>
+            </div>
+
+            <!-- Row 3: Claude Assistant (spans full width) -->
+            <section class="claude-section">
+                <h3>Claude Assistant</h3>
+                <div class="claude-response" id="claude-response"></div>
+                <div class="claude-input-area">
+                    <textarea class="claude-input" id="claude-input"
+                              placeholder="Type your message..."
+                              rows="2"
+                              onkeydown="DevToolkit.handleKeyDown(event)"></textarea>
+                    <button class="btn btn-primary" onclick="DevToolkit.sendMessage()">Send</button>
+                </div>
             </section>
         </main>
     </div>
+
     <script src="../scripts/navigation.js"></script>
-    <script src="../scripts/fileManager.js"></script>
-    <script src="../scripts/templates.js"></script>
-    <script src="../scripts/workspace.js"></script>
+    <script src="../scripts/developerToolkit.js"></script>
 </body>
 </html>

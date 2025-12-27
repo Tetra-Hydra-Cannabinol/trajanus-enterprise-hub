@@ -1,0 +1,194 @@
+/* Developer Toolkit - Control Panel Styles */
+
+.dev-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.dev-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: var(--bg-panel);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dev-header h1 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+}
+
+/* Control Panel Area */
+.control-panel {
+    flex: 1;
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto 1fr;
+    gap: 1.5rem;
+    overflow: hidden;
+}
+
+/* Button Groups */
+.button-group {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.button-group h3 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.button-group .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.button-group .btn {
+    width: 100%;
+    text-align: left;
+    padding: 0.75rem 1rem;
+}
+
+.button-group .btn:hover {
+    background: var(--hover-bg);
+}
+
+/* Color coding for button groups */
+.button-group.session { border-left: 3px solid var(--accent-blue); }
+.button-group.scripts { border-left: 3px solid var(--accent-green); }
+.button-group.utilities { border-left: 3px solid var(--accent-orange); }
+.button-group.documents { border-left: 3px solid var(--accent-purple); }
+
+/* Claude Assistant Section */
+.claude-section {
+    grid-column: 1 / -1;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    min-height: 250px;
+    overflow: hidden;
+}
+
+.claude-section h3 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.claude-response {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    background: var(--bg-primary);
+    margin: 0.5rem;
+    border-radius: 4px;
+    min-height: 0;
+}
+
+.claude-response:empty::before {
+    content: 'Claude responses will appear here...';
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.claude-response .message {
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    border-radius: 4px;
+}
+
+.claude-response .message.user {
+    background: var(--accent-blue);
+    margin-left: 20%;
+}
+
+.claude-response .message.assistant {
+    background: var(--bg-input);
+    margin-right: 20%;
+    border: 1px solid var(--border-color);
+}
+
+.claude-input-area {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.claude-input {
+    flex: 1;
+    padding: 0.75rem;
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    resize: none;
+}
+
+.claude-input:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+}
+
+.claude-input::placeholder {
+    color: var(--text-muted);
+}
+
+/* Status messages */
+.status-message {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--accent-blue);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    z-index: 1000;
+    animation: slideIn 0.2s ease;
+}
+
+.status-message.error {
+    background: var(--danger);
+}
+
+.status-message.success {
+    background: var(--success);
+    color: var(--bg-primary);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
