@@ -1,27 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang=en>
 <head>
-    <title>Trajanus Command Center</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: white;
-        }
-        .container { text-align: center; }
-        h1 { font-size: 2.5em; margin-bottom: 0.5em; }
-        p { opacity: 0.7; }
-    </style>
+    <meta charset=UTF-8>
+    <meta name=viewport content=width=device-width, initial-scale=1.0>
+    <title>Trajanus Enterprise Hub</title>
+    <link rel=stylesheet href=styles/main.css>
 </head>
 <body>
-    <div class="container">
-        <h1>Trajanus Command Center</h1>
-        <p>Tauri 2.0 Build - Ready for Development</p>
+    <div class=landing-container>
+        <header class=landing-header>
+            <div class=logo-container>
+                <span class=logo-text>EI</span>
+            </div>
+            <h1>TRAJANUS ENTERPRISE HUB</h1>
+            <p class=subtitle>Trajanus USA - Engineering Intelligence</p>
+        </header>
+
+        <nav class=toolkit-grid>
+            <a href=toolkits/pm.html class=toolkit-card pm>
+                <h2>PM Toolkit</h2>
+                <p>Project Management - RFIs, submittals, schedules, costs</p>
+            </a>
+
+            <a href=toolkits/traffic.html class=toolkit-card traffic>
+                <h2>Traffic Studies</h2>
+                <p>TIS reports, trip generation, LOS analysis</p>
+            </a>
+
+            <a href=toolkits/developer.html class=toolkit-card developer>
+                <h2>Developer Toolkit</h2>
+                <p>KB management, agents, session docs, dev tools</p>
+            </a>
+
+            <a href=toolkits/qcm.html class=toolkit-card qcm>
+                <h2>QCM Toolkit</h2>
+                <p>Submittal review, inspections, deficiency tracking</p>
+            </a>
+        </nav>
     </div>
+
+    <script src=scripts/navigation.js></script>
 </body>
 </html>
