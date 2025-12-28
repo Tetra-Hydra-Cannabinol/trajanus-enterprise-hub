@@ -22,9 +22,9 @@ class TrajanusConverterGUI:
     def __init__(self, initial_path=None):
         self.root = tk.Tk()
         self.root.title("Trajanus - Markdown Converter")
-        self.root.geometry("624x520")
+        self.root.geometry("700x600")
         self.root.resizable(True, True)
-        self.root.minsize(480, 400)
+        self.root.minsize(600, 500)
 
         # Custom colors (match Enterprise Hub)
         self.colors = {
@@ -146,31 +146,14 @@ NOTE: Files already converted will be skipped to prevent duplicates.
             bg=self.colors['bg'],
             fg=self.colors['text_dim']).pack(pady=(10, 15))
 
-        # Mode buttons container
+        # Mode buttons container - horizontal row
         btn_container = tk.Frame(self.current_frame, bg=self.colors['bg'])
         btn_container.pack(fill='x')
 
-        # Create mode cards
-        self.create_mode_card(btn_container,
-            "SINGLE FILE",
-            "Select one .md file to convert",
-            "Best for quick single conversions",
-            self.select_single_file,
-            side='left')
-
-        self.create_mode_card(btn_container,
-            "BATCH FOLDER",
-            "Convert all .md files in a folder",
-            "Converts entire directory at once",
-            self.select_folder,
-            side='left')
-
-        self.create_mode_card(btn_container,
-            "MULTI-SELECT",
-            "Pick multiple specific files",
-            "Choose exactly which files to convert",
-            self.select_multiple_files,
-            side='left')
+        # Create compact mode buttons (horizontal)
+        self.create_mode_button(btn_container, "SINGLE FILE", self.select_single_file)
+        self.create_mode_button(btn_container, "BATCH FOLDER", self.select_folder)
+        self.create_mode_button(btn_container, "MULTI-SELECT", self.select_multiple_files)
 
         # Exit button at bottom
         exit_frame = tk.Frame(self.current_frame, bg=self.colors['bg'])
@@ -189,76 +172,25 @@ NOTE: Files already converted will be skipped to prevent duplicates.
             command=self.root.quit)
         exit_btn.pack(side='right')
 
-    def create_mode_card(self, parent, title, subtitle, description, command, side='left'):
-        """Create a mode selection card - entire card is clickable"""
-        # Card is a button for full clickability
-        card = tk.Frame(parent, bg=self.colors['card'], padx=20, pady=20, cursor='hand2')
-        card.pack(side=side, padx=(0, 15), fill='both', expand=True)
+    def create_mode_button(self, parent, title, command):
+        """Create a compact mode selection button"""
+        def on_click():
+            print(f"DEBUG: Button '{title}' clicked")
+            command()
 
-        # Hover effects
-        def on_enter(e):
-            card.config(bg=self.colors['sidebar'])
-            for child in card.winfo_children():
-                try:
-                    child.config(bg=self.colors['sidebar'])
-                except:
-                    pass
-
-        def on_leave(e):
-            card.config(bg=self.colors['card'])
-            for child in card.winfo_children():
-                try:
-                    child.config(bg=self.colors['card'])
-                except:
-                    pass
-
-        card.bind('<Enter>', on_enter)
-        card.bind('<Leave>', on_leave)
-
-        # Bind click to entire card
-        card.bind('<Button-1>', lambda e: command())
-
-        title_label = tk.Label(card,
-            text=title,
-            font=('Segoe UI', 14, 'bold'),
-            bg=self.colors['card'],
-            fg=self.colors['accent'],
-            cursor='hand2')
-        title_label.pack(anchor='w')
-        title_label.bind('<Button-1>', lambda e: command())
-
-        subtitle_label = tk.Label(card,
-            text=subtitle,
-            font=('Segoe UI', 10),
-            bg=self.colors['card'],
-            fg=self.colors['text'],
-            cursor='hand2')
-        subtitle_label.pack(anchor='w', pady=(5, 0))
-        subtitle_label.bind('<Button-1>', lambda e: command())
-
-        desc_label = tk.Label(card,
-            text=description,
-            font=('Segoe UI', 9),
-            bg=self.colors['card'],
-            fg=self.colors['text_dim'],
-            cursor='hand2')
-        desc_label.pack(anchor='w', pady=(3, 15))
-        desc_label.bind('<Button-1>', lambda e: command())
-
-        # Large prominent button
-        btn = tk.Button(card,
+        btn = tk.Button(parent,
             text=title,
             font=('Segoe UI', 11, 'bold'),
             bg=self.colors['accent'],
             fg='#1a1a1a',
             activebackground=self.colors['hover'],
             activeforeground='#1a1a1a',
-            padx=20, pady=10,
+            padx=20, pady=12,
             cursor='hand2',
             relief='flat',
-            width=15,
-            command=command)
-        btn.pack(fill='x', pady=(5, 0))
+            command=on_click)
+        btn.pack(side='left', padx=(0, 10), fill='x', expand=True)
+        print(f"DEBUG: Created button '{title}'")
 
     def show_progress_screen(self, total_files):
         """Display conversion progress screen"""
@@ -446,77 +378,74 @@ NOTE: Files already converted will be skipped to prevent duplicates.
 
     def select_single_file(self):
         """Select a single markdown file to convert"""
-        if not self.service:
-            messagebox.showerror("Error", "Not connected to Google Drive.\nPlease wait for connection.")
-            return
-
-        # Lower window so dialog appears on top
-        self.root.attributes('-topmost', False)
+        # Withdraw window so dialog appears on top
+        self.root.withdraw()
         self.root.update()
 
         file = filedialog.askopenfilename(
             title="Select Markdown File",
             initialdir="G:/My Drive/00 - Trajanus USA",
-            filetypes=[("Markdown files", "*.md"), ("All files", "*.*")],
-            parent=self.root)
+            filetypes=[("Markdown files", "*.md"), ("All files", "*.*")])
 
         # Restore window
-        self.root.attributes('-topmost', False)
+        self.root.deiconify()
         self.root.lift()
         self.root.focus_force()
 
         if file:
+            if not self.service:
+                messagebox.showerror("Error", "Not connected to Google Drive.\nPlease wait for connection.")
+                return
             self.convert_files([Path(file)])
 
     def select_folder(self):
         """Select a folder to convert all .md files"""
-        if not self.service:
-            messagebox.showerror("Error", "Not connected to Google Drive.\nPlease wait for connection.")
-            return
-
-        # Lower window so dialog appears on top
-        self.root.attributes('-topmost', False)
+        print("DEBUG: select_folder called")
+        # Withdraw window so dialog appears on top
+        self.root.withdraw()
         self.root.update()
+        print("DEBUG: Opening folder dialog...")
 
         folder = filedialog.askdirectory(
             title="Select Folder with Markdown Files",
-            initialdir="G:/My Drive/00 - Trajanus USA",
-            parent=self.root)
+            initialdir="G:/My Drive/00 - Trajanus USA")
+        print(f"DEBUG: Folder selected: {folder}")
 
         # Restore window
-        self.root.attributes('-topmost', False)
+        self.root.deiconify()
         self.root.lift()
         self.root.focus_force()
 
         if folder:
             md_files = list(Path(folder).glob('*.md'))
             if md_files:
+                if not self.service:
+                    messagebox.showerror("Error", "Not connected to Google Drive.\nPlease wait for connection.")
+                    return
                 self.convert_files(md_files)
             else:
                 messagebox.showinfo("No Files", f"No .md files found in:\n{folder}")
 
     def select_multiple_files(self):
         """Select multiple markdown files to convert"""
-        if not self.service:
-            messagebox.showerror("Error", "Not connected to Google Drive.\nPlease wait for connection.")
-            return
-
-        # Lower window so dialog appears on top
-        self.root.attributes('-topmost', False)
+        # Withdraw window so dialog appears on top
+        self.root.withdraw()
         self.root.update()
 
         files = filedialog.askopenfilenames(
             title="Select Markdown Files (hold Ctrl to select multiple)",
             initialdir="G:/My Drive/00 - Trajanus USA",
-            filetypes=[("Markdown files", "*.md"), ("All files", "*.*")],
-            parent=self.root)
+            filetypes=[("Markdown files", "*.md"), ("All files", "*.*")])
 
         # Restore window
-        self.root.attributes('-topmost', False)
+        self.root.deiconify()
         self.root.lift()
         self.root.focus_force()
 
         if files:
+            if not self.service:
+                messagebox.showerror("Error", "Not connected to Google Drive.\nPlease wait for connection.")
+                return
             self.convert_files([Path(f) for f in files])
 
     def process_initial_path(self):
