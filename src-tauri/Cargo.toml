@@ -1,15 +1,15 @@
 [package]
-name = "app"
-version = "0.1.0"
-description = "A Tauri App"
-authors = ["you"]
+name = "trajanus-command-center"
+version = "1.0.0"
+description = "Trajanus Command Center - Construction Management Toolkit"
+authors = ["Trajanus USA"]
 license = ""
-repository = ""
+repository = "https://github.com/Tetra-Hydra-Cannabinol/trajanus-enterprise-hub"
 edition = "2021"
 rust-version = "1.77.2"
 
 [lib]
-name = "app_lib"
+name = "trajanus_command_center_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]
