@@ -1,28 +1,34 @@
 #!/usr/bin/env python3
 """
-TRAJANUS DOCX TO GOOGLE DOCS CONVERTER
-Convert Word documents to Google Docs format
+TRAJANUS GOOGLE DOCS TO DOCX CONVERTER
+Export Google Docs (.gdoc files) to Word (.docx) format
 Standard Tool UI Template
+
+.gdoc files are JSON containing: {"url": "https://docs.google.com/document/d/FILE_ID/edit", ...}
 """
 
 import os
 import sys
+import json
 import pickle
 import threading
+import subprocess
+import re
 from pathlib import Path
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
+import io
 
 from google.oauth2.credentials import Credentials
 from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
-from googleapiclient.http import MediaFileUpload
+from googleapiclient.http import MediaIoBaseDownload
 
 
-class TrajanusDocxConverterGUI:
+class TrajanusGdocConverterGUI:
     def __init__(self, initial_path=None):
         self.root = tk.Tk()
-        self.root.title("Trajanus - DOCX to GDocs Converter")
+        self.root.title("Trajanus - GDocs to DOCX Converter")
         self.root.geometry("624x520")
         self.root.resizable(True, True)
         self.root.minsize(480, 400)
@@ -51,8 +57,10 @@ class TrajanusDocxConverterGUI:
 
         # Results storage
         self.converted_files = []
+        self.converted_paths = []  # Store full paths for opening
         self.skipped_files = []
         self.error_files = []
+        self.output_folder = None
 
         # Current frame reference
         self.current_frame = None
@@ -67,19 +75,19 @@ class TrajanusDocxConverterGUI:
 
     def setup_header(self):
         """Create persistent header"""
-        self.header = tk.Frame(self.root, bg=self.colors['accent'], height=60)
+        self.header = tk.Frame(self.root, bg=self.colors['accent'], height=50)
         self.header.pack(fill='x')
         self.header.pack_propagate(False)
 
         title = tk.Label(self.header,
-            text="TRAJANUS DOCX CONVERTER",
-            font=('Segoe UI', 18, 'bold'),
+            text="TRAJANUS GDOCS TO DOCX",
+            font=('Segoe UI', 16, 'bold'),
             bg=self.colors['accent'],
             fg='#1a1a1a')
-        title.pack(pady=15)
+        title.pack(pady=12)
 
         # Connection status bar
-        self.status_bar = tk.Frame(self.root, bg=self.colors['border'], height=30)
+        self.status_bar = tk.Frame(self.root, bg=self.colors['border'], height=25)
         self.status_bar.pack(fill='x')
         self.status_bar.pack_propagate(False)
 
@@ -88,14 +96,14 @@ class TrajanusDocxConverterGUI:
             font=('Segoe UI', 9),
             bg=self.colors['border'],
             fg=self.colors['text_dim'])
-        self.connection_label.pack(side='left', padx=15, pady=5)
+        self.connection_label.pack(side='left', padx=15, pady=3)
 
         self.connection_status = tk.Label(self.status_bar,
             text="",
             font=('Segoe UI', 9, 'bold'),
             bg=self.colors['border'],
             fg=self.colors['warning'])
-        self.connection_status.pack(side='right', padx=15, pady=5)
+        self.connection_status.pack(side='right', padx=15, pady=3)
 
     def clear_content(self):
         """Clear current content frame"""
@@ -107,44 +115,43 @@ class TrajanusDocxConverterGUI:
         self.clear_content()
 
         self.current_frame = tk.Frame(self.root, bg=self.colors['bg'])
-        self.current_frame.pack(fill='both', expand=True, padx=40, pady=30)
+        self.current_frame.pack(fill='both', expand=True, padx=30, pady=20)
 
         # Welcome text
         welcome = tk.Label(self.current_frame,
-            text="Welcome to the DOCX Converter",
-            font=('Segoe UI', 16),
+            text="Welcome to the GDocs to DOCX Converter",
+            font=('Segoe UI', 14),
             bg=self.colors['bg'],
             fg=self.colors['text'])
-        welcome.pack(pady=(0, 20))
+        welcome.pack(pady=(0, 15))
 
         # Info card
-        info_frame = tk.Frame(self.current_frame, bg=self.colors['card'], padx=25, pady=20)
-        info_frame.pack(fill='x', pady=(0, 25))
+        info_frame = tk.Frame(self.current_frame, bg=self.colors['card'], padx=20, pady=15)
+        info_frame.pack(fill='x', pady=(0, 20))
 
-        info_text = """This tool converts Word documents (.docx) to Google Docs format.
+        info_text = """This tool exports Google Docs to Word (.docx) format.
 
 HOW IT WORKS:
-  1. Select single file, multiple files, or entire folder
-  2. Files are uploaded to your Google Drive
-  3. Converted to native Google Docs format
-  4. Original .docx files remain unchanged
+  1. Select .gdoc files (Google Doc shortcuts)
+  2. Tool reads the document ID from each file
+  3. Exports from Google Drive as .docx
+  4. Saves to same folder as the .gdoc file
 
-NOTE: Files already converted will be skipped to prevent duplicates.
-      Temp files (~$*.docx) are automatically excluded."""
+NOTE: Requires Google Drive Desktop sync."""
 
         tk.Label(info_frame,
             text=info_text,
-            font=('Segoe UI', 11),
+            font=('Segoe UI', 10),
             bg=self.colors['card'],
             fg=self.colors['text_dim'],
             justify='left').pack(anchor='w')
 
         # Mode selection title
         tk.Label(self.current_frame,
-            text="SELECT CONVERSION MODE",
-            font=('Segoe UI', 10, 'bold'),
+            text="SELECT EXPORT MODE",
+            font=('Segoe UI', 9, 'bold'),
             bg=self.colors['bg'],
-            fg=self.colors['text_dim']).pack(pady=(10, 15))
+            fg=self.colors['text_dim']).pack(pady=(5, 10))
 
         # Mode buttons container
         btn_container = tk.Frame(self.current_frame, bg=self.colors['bg'])
@@ -153,28 +160,28 @@ NOTE: Files already converted will be skipped to prevent duplicates.
         # Create mode cards
         self.create_mode_card(btn_container,
             "SINGLE FILE",
-            "Select one .docx file to convert",
-            "Best for quick single conversions",
+            "Select one .gdoc file",
+            "Quick single export",
             self.select_single_file,
             side='left')
 
         self.create_mode_card(btn_container,
             "BATCH FOLDER",
-            "Convert all .docx files in a folder",
-            "Converts entire directory at once",
+            "Export all .gdoc in folder",
+            "Batch process directory",
             self.select_folder,
             side='left')
 
         self.create_mode_card(btn_container,
             "MULTI-SELECT",
-            "Pick multiple specific files",
-            "Choose exactly which files to convert",
+            "Pick multiple files",
+            "Choose specific files",
             self.select_multiple_files,
             side='left')
 
         # Exit button at bottom
         exit_frame = tk.Frame(self.current_frame, bg=self.colors['bg'])
-        exit_frame.pack(fill='x', pady=(30, 0))
+        exit_frame.pack(fill='x', pady=(20, 0))
 
         exit_btn = tk.Button(exit_frame,
             text="Exit",
@@ -183,7 +190,7 @@ NOTE: Files already converted will be skipped to prevent duplicates.
             fg=self.colors['text'],
             activebackground='#444444',
             activeforeground=self.colors['text'],
-            padx=30, pady=8,
+            padx=25, pady=6,
             cursor='hand2',
             relief='flat',
             command=self.root.quit)
@@ -191,8 +198,8 @@ NOTE: Files already converted will be skipped to prevent duplicates.
 
     def create_mode_card(self, parent, title, subtitle, description, command, side='left'):
         """Create a mode selection card - entire card is clickable"""
-        card = tk.Frame(parent, bg=self.colors['card'], padx=20, pady=20, cursor='hand2')
-        card.pack(side=side, padx=(0, 15), fill='both', expand=True)
+        card = tk.Frame(parent, bg=self.colors['card'], padx=15, pady=15, cursor='hand2')
+        card.pack(side=side, padx=(0, 10), fill='both', expand=True)
 
         def on_enter(e):
             card.config(bg=self.colors['sidebar'])
@@ -216,7 +223,7 @@ NOTE: Files already converted will be skipped to prevent duplicates.
 
         title_label = tk.Label(card,
             text=title,
-            font=('Segoe UI', 14, 'bold'),
+            font=('Segoe UI', 12, 'bold'),
             bg=self.colors['card'],
             fg=self.colors['accent'],
             cursor='hand2')
@@ -225,58 +232,57 @@ NOTE: Files already converted will be skipped to prevent duplicates.
 
         subtitle_label = tk.Label(card,
             text=subtitle,
-            font=('Segoe UI', 10),
+            font=('Segoe UI', 9),
             bg=self.colors['card'],
             fg=self.colors['text'],
             cursor='hand2')
-        subtitle_label.pack(anchor='w', pady=(5, 0))
+        subtitle_label.pack(anchor='w', pady=(3, 0))
         subtitle_label.bind('<Button-1>', lambda e: command())
 
         desc_label = tk.Label(card,
             text=description,
-            font=('Segoe UI', 9),
+            font=('Segoe UI', 8),
             bg=self.colors['card'],
             fg=self.colors['text_dim'],
             cursor='hand2')
-        desc_label.pack(anchor='w', pady=(3, 15))
+        desc_label.pack(anchor='w', pady=(2, 10))
         desc_label.bind('<Button-1>', lambda e: command())
 
         btn = tk.Button(card,
             text=title,
-            font=('Segoe UI', 11, 'bold'),
+            font=('Segoe UI', 10, 'bold'),
             bg=self.colors['accent'],
             fg='#1a1a1a',
             activebackground=self.colors['hover'],
             activeforeground='#1a1a1a',
-            padx=20, pady=10,
+            padx=15, pady=6,
             cursor='hand2',
             relief='flat',
-            width=15,
             command=command)
-        btn.pack(fill='x', pady=(5, 0))
+        btn.pack(fill='x')
 
     def show_progress_screen(self, total_files):
         """Display conversion progress screen"""
         self.clear_content()
 
         self.current_frame = tk.Frame(self.root, bg=self.colors['bg'])
-        self.current_frame.pack(fill='both', expand=True, padx=40, pady=30)
+        self.current_frame.pack(fill='both', expand=True, padx=30, pady=20)
 
         tk.Label(self.current_frame,
-            text="Converting Files...",
-            font=('Segoe UI', 16),
+            text="Exporting Files...",
+            font=('Segoe UI', 14),
             bg=self.colors['bg'],
-            fg=self.colors['text']).pack(pady=(0, 20))
+            fg=self.colors['text']).pack(pady=(0, 15))
 
-        progress_card = tk.Frame(self.current_frame, bg=self.colors['card'], padx=30, pady=25)
-        progress_card.pack(fill='x', pady=(0, 20))
+        progress_card = tk.Frame(self.current_frame, bg=self.colors['card'], padx=25, pady=20)
+        progress_card.pack(fill='x', pady=(0, 15))
 
         self.progress_status = tk.Label(progress_card,
             text="Preparing...",
-            font=('Segoe UI', 11),
+            font=('Segoe UI', 10),
             bg=self.colors['card'],
             fg=self.colors['text'])
-        self.progress_status.pack(anchor='w', pady=(0, 15))
+        self.progress_status.pack(anchor='w', pady=(0, 10))
 
         style = ttk.Style()
         style.theme_use('clam')
@@ -289,40 +295,40 @@ NOTE: Files already converted will be skipped to prevent duplicates.
 
         self.progress_bar = ttk.Progressbar(progress_card,
             style="Gold.Horizontal.TProgressbar",
-            length=500,
+            length=400,
             mode='determinate')
-        self.progress_bar.pack(fill='x', pady=(0, 10))
+        self.progress_bar.pack(fill='x', pady=(0, 8))
 
         self.progress_text = tk.Label(progress_card,
             text=f"0 of {total_files} files",
-            font=('Segoe UI', 10),
+            font=('Segoe UI', 9),
             bg=self.colors['card'],
             fg=self.colors['text_dim'])
         self.progress_text.pack(anchor='w')
 
         stats_frame = tk.Frame(progress_card, bg=self.colors['card'])
-        stats_frame.pack(fill='x', pady=(20, 0))
+        stats_frame.pack(fill='x', pady=(15, 0))
 
-        self.live_converted = self.create_live_stat(stats_frame, "Converted:", "0", self.colors['success'])
+        self.live_converted = self.create_live_stat(stats_frame, "Exported:", "0", self.colors['success'])
         self.live_skipped = self.create_live_stat(stats_frame, "Skipped:", "0", self.colors['warning'])
         self.live_errors = self.create_live_stat(stats_frame, "Errors:", "0", self.colors['error'])
 
         self.current_file_label = tk.Label(self.current_frame,
             text="",
-            font=('Consolas', 9),
+            font=('Consolas', 8),
             bg=self.colors['bg'],
             fg=self.colors['text_dim'])
-        self.current_file_label.pack(pady=(10, 0))
+        self.current_file_label.pack(pady=(8, 0))
 
     def create_live_stat(self, parent, label, value, color):
         """Create a live stat display"""
         frame = tk.Frame(parent, bg=self.colors['card'])
-        frame.pack(side='left', padx=(0, 30))
+        frame.pack(side='left', padx=(0, 25))
 
-        tk.Label(frame, text=label, font=('Segoe UI', 10),
+        tk.Label(frame, text=label, font=('Segoe UI', 9),
             bg=self.colors['card'], fg=self.colors['text_dim']).pack(side='left')
 
-        val_label = tk.Label(frame, text=value, font=('Segoe UI', 10, 'bold'),
+        val_label = tk.Label(frame, text=value, font=('Segoe UI', 9, 'bold'),
             bg=self.colors['card'], fg=color)
         val_label.pack(side='left', padx=(5, 0))
         return val_label
@@ -332,47 +338,76 @@ NOTE: Files already converted will be skipped to prevent duplicates.
         self.clear_content()
 
         self.current_frame = tk.Frame(self.root, bg=self.colors['bg'])
-        self.current_frame.pack(fill='both', expand=True, padx=40, pady=30)
+        self.current_frame.pack(fill='both', expand=True, padx=30, pady=20)
 
         header_frame = tk.Frame(self.current_frame, bg=self.colors['bg'])
-        header_frame.pack(fill='x', pady=(0, 20))
+        header_frame.pack(fill='x', pady=(0, 15))
 
         tk.Label(header_frame,
-            text="CONVERSION COMPLETE",
-            font=('Segoe UI', 16, 'bold'),
+            text="EXPORT COMPLETE",
+            font=('Segoe UI', 14, 'bold'),
             bg=self.colors['bg'],
             fg=self.colors['success']).pack(side='left')
 
-        summary_card = tk.Frame(self.current_frame, bg=self.colors['card'], padx=25, pady=20)
-        summary_card.pack(fill='x', pady=(0, 20))
+        summary_card = tk.Frame(self.current_frame, bg=self.colors['card'], padx=20, pady=15)
+        summary_card.pack(fill='x', pady=(0, 15))
 
         stats_frame = tk.Frame(summary_card, bg=self.colors['card'])
         stats_frame.pack(fill='x')
 
-        self.create_result_stat(stats_frame, "Converted", len(self.converted_files), self.colors['success'])
+        self.create_result_stat(stats_frame, "Exported", len(self.converted_files), self.colors['success'])
         self.create_result_stat(stats_frame, "Skipped", len(self.skipped_files), self.colors['warning'])
         self.create_result_stat(stats_frame, "Errors", len(self.error_files), self.colors['error'])
 
         if self.converted_files:
-            self.create_file_list("CONVERTED FILES", self.converted_files, self.colors['success'])
+            self.create_file_list("EXPORTED FILES", self.converted_files, self.converted_paths, self.colors['success'])
 
         if self.skipped_files:
-            self.create_file_list("SKIPPED FILES (already converted)", self.skipped_files, self.colors['warning'])
+            self.create_file_list("SKIPPED FILES (already exist)", self.skipped_files, [], self.colors['warning'])
 
         if self.error_files:
-            self.create_file_list("FAILED FILES", self.error_files, self.colors['error'])
+            self.create_file_list("FAILED FILES", self.error_files, [], self.colors['error'])
 
         btn_frame = tk.Frame(self.current_frame, bg=self.colors['bg'])
-        btn_frame.pack(fill='x', pady=(20, 0))
+        btn_frame.pack(fill='x', pady=(15, 0))
+
+        # Action buttons
+        if self.converted_paths:
+            open_folder_btn = tk.Button(btn_frame,
+                text="Open Folder",
+                font=('Segoe UI', 10),
+                bg=self.colors['card'],
+                fg=self.colors['accent'],
+                activebackground=self.colors['sidebar'],
+                activeforeground=self.colors['accent'],
+                padx=15, pady=6,
+                cursor='hand2',
+                relief='flat',
+                command=self.open_output_folder)
+            open_folder_btn.pack(side='left', padx=(0, 10))
+
+            if len(self.converted_paths) == 1:
+                view_btn = tk.Button(btn_frame,
+                    text="View File",
+                    font=('Segoe UI', 10),
+                    bg=self.colors['card'],
+                    fg=self.colors['accent'],
+                    activebackground=self.colors['sidebar'],
+                    activeforeground=self.colors['accent'],
+                    padx=15, pady=6,
+                    cursor='hand2',
+                    relief='flat',
+                    command=lambda: self.open_file(self.converted_paths[0]))
+                view_btn.pack(side='left', padx=(0, 10))
 
         convert_more_btn = tk.Button(btn_frame,
-            text="Convert More Files",
-            font=('Segoe UI', 11, 'bold'),
+            text="Export More",
+            font=('Segoe UI', 10, 'bold'),
             bg=self.colors['accent'],
             fg='#1a1a1a',
             activebackground=self.colors['hover'],
             activeforeground='#1a1a1a',
-            padx=25, pady=10,
+            padx=20, pady=6,
             cursor='hand2',
             relief='flat',
             command=self.show_welcome_screen)
@@ -380,12 +415,12 @@ NOTE: Files already converted will be skipped to prevent duplicates.
 
         exit_btn = tk.Button(btn_frame,
             text="Exit",
-            font=('Segoe UI', 11),
+            font=('Segoe UI', 10),
             bg=self.colors['border'],
             fg=self.colors['text'],
             activebackground='#444444',
             activeforeground=self.colors['text'],
-            padx=35, pady=10,
+            padx=25, pady=6,
             cursor='hand2',
             relief='flat',
             command=self.root.quit)
@@ -394,40 +429,70 @@ NOTE: Files already converted will be skipped to prevent duplicates.
     def create_result_stat(self, parent, label, value, color):
         """Create a result statistic display"""
         frame = tk.Frame(parent, bg=self.colors['card'])
-        frame.pack(side='left', padx=(0, 40))
+        frame.pack(side='left', padx=(0, 30))
 
-        tk.Label(frame, text=str(value), font=('Segoe UI', 24, 'bold'),
+        tk.Label(frame, text=str(value), font=('Segoe UI', 20, 'bold'),
             bg=self.colors['card'], fg=color).pack()
-        tk.Label(frame, text=label, font=('Segoe UI', 10),
+        tk.Label(frame, text=label, font=('Segoe UI', 9),
             bg=self.colors['card'], fg=self.colors['text_dim']).pack()
 
-    def create_file_list(self, title, files, color):
-        """Create a scrollable file list"""
+    def create_file_list(self, title, files, paths, color):
+        """Create a file list with clickable items"""
         list_frame = tk.Frame(self.current_frame, bg=self.colors['sidebar'])
-        list_frame.pack(fill='x', pady=(0, 15))
+        list_frame.pack(fill='x', pady=(0, 10))
 
         header = tk.Frame(list_frame, bg=self.colors['border'])
         header.pack(fill='x')
-        tk.Label(header, text=title, font=('Segoe UI', 9, 'bold'),
+        tk.Label(header, text=title, font=('Segoe UI', 8, 'bold'),
             bg=self.colors['border'], fg=color,
-            padx=15, pady=5).pack(anchor='w')
+            padx=10, pady=3).pack(anchor='w')
 
-        display_files = files[:5]
-        for f in display_files:
-            tk.Label(list_frame, text=f"  {f}", font=('Consolas', 9),
-                bg=self.colors['sidebar'], fg=self.colors['accent'],
-                anchor='w').pack(fill='x', padx=10, pady=2)
+        display_files = files[:4]
+        display_paths = paths[:4] if paths else []
 
-        if len(files) > 5:
-            tk.Label(list_frame, text=f"  ... and {len(files) - 5} more",
-                font=('Consolas', 9, 'italic'),
+        for i, f in enumerate(display_files):
+            file_path = display_paths[i] if i < len(display_paths) else None
+
+            if file_path:
+                # Clickable file
+                file_label = tk.Label(list_frame, text=f"  {f}", font=('Consolas', 8),
+                    bg=self.colors['sidebar'], fg=self.colors['accent'],
+                    anchor='w', cursor='hand2')
+                file_label.pack(fill='x', padx=8, pady=1)
+                file_label.bind('<Button-1>', lambda e, p=file_path: self.open_file(p))
+                file_label.bind('<Enter>', lambda e, l=file_label: l.config(fg=self.colors['hover']))
+                file_label.bind('<Leave>', lambda e, l=file_label: l.config(fg=self.colors['accent']))
+            else:
+                tk.Label(list_frame, text=f"  {f}", font=('Consolas', 8),
+                    bg=self.colors['sidebar'], fg=self.colors['accent'],
+                    anchor='w').pack(fill='x', padx=8, pady=1)
+
+        if len(files) > 4:
+            tk.Label(list_frame, text=f"  ... and {len(files) - 4} more",
+                font=('Consolas', 8, 'italic'),
                 bg=self.colors['sidebar'], fg=self.colors['accent'],
-                anchor='w').pack(fill='x', padx=10, pady=2)
+                anchor='w').pack(fill='x', padx=8, pady=1)
+
+    def open_file(self, filepath):
+        """Open a file with default application"""
+        try:
+            os.startfile(filepath)
+        except Exception as e:
+            messagebox.showerror("Error", f"Could not open file: {e}")
+
+    def open_output_folder(self):
+        """Open the output folder in Explorer"""
+        if self.converted_paths:
+            folder = Path(self.converted_paths[0]).parent
+            try:
+                subprocess.run(['explorer', str(folder)])
+            except Exception as e:
+                messagebox.showerror("Error", f"Could not open folder: {e}")
 
     # ==================== FILE SELECTION ====================
 
     def select_single_file(self):
-        """Select a single Word document to convert"""
+        """Select a single .gdoc file"""
         if not self.service:
             messagebox.showerror("Error", "Not connected to Google Drive.\nPlease wait for connection.")
             return
@@ -436,9 +501,9 @@ NOTE: Files already converted will be skipped to prevent duplicates.
         self.root.update()
 
         file = filedialog.askopenfilename(
-            title="Select Word Document",
+            title="Select Google Doc File",
             initialdir="G:/My Drive/00 - Trajanus USA",
-            filetypes=[("Word documents", "*.docx"), ("All files", "*.*")],
+            filetypes=[("Google Doc files", "*.gdoc"), ("All files", "*.*")],
             parent=self.root)
 
         self.root.lift()
@@ -448,7 +513,7 @@ NOTE: Files already converted will be skipped to prevent duplicates.
             self.convert_files([Path(file)])
 
     def select_folder(self):
-        """Select a folder to convert all .docx files"""
+        """Select a folder to export all .gdoc files"""
         if not self.service:
             messagebox.showerror("Error", "Not connected to Google Drive.\nPlease wait for connection.")
             return
@@ -457,7 +522,7 @@ NOTE: Files already converted will be skipped to prevent duplicates.
         self.root.update()
 
         folder = filedialog.askdirectory(
-            title="Select Folder with Word Documents",
+            title="Select Folder with Google Docs",
             initialdir="G:/My Drive/00 - Trajanus USA",
             parent=self.root)
 
@@ -465,15 +530,14 @@ NOTE: Files already converted will be skipped to prevent duplicates.
         self.root.focus_force()
 
         if folder:
-            # Exclude temp files (~$*.docx)
-            docx_files = [f for f in Path(folder).glob('*.docx') if not f.name.startswith('~$')]
-            if docx_files:
-                self.convert_files(docx_files)
+            gdoc_files = list(Path(folder).glob('*.gdoc'))
+            if gdoc_files:
+                self.convert_files(gdoc_files)
             else:
-                messagebox.showinfo("No Files", f"No .docx files found in:\n{folder}")
+                messagebox.showinfo("No Files", f"No .gdoc files found in:\n{folder}")
 
     def select_multiple_files(self):
-        """Select multiple Word documents to convert"""
+        """Select multiple .gdoc files"""
         if not self.service:
             messagebox.showerror("Error", "Not connected to Google Drive.\nPlease wait for connection.")
             return
@@ -482,9 +546,9 @@ NOTE: Files already converted will be skipped to prevent duplicates.
         self.root.update()
 
         files = filedialog.askopenfilenames(
-            title="Select Word Documents (hold Ctrl to select multiple)",
+            title="Select Google Doc Files (Ctrl+Click for multiple)",
             initialdir="G:/My Drive/00 - Trajanus USA",
-            filetypes=[("Word documents", "*.docx"), ("All files", "*.*")],
+            filetypes=[("Google Doc files", "*.gdoc"), ("All files", "*.*")],
             parent=self.root)
 
         self.root.lift()
@@ -503,77 +567,104 @@ NOTE: Files already converted will be skipped to prevent duplicates.
             return
 
         if path.is_file():
-            if path.suffix.lower() == '.docx':
+            if path.suffix.lower() == '.gdoc':
                 self.convert_files([path])
             else:
-                messagebox.showerror("Error", "Not a Word document")
+                messagebox.showerror("Error", "Not a .gdoc file")
                 self.show_welcome_screen()
         else:
-            docx_files = [f for f in path.glob('*.docx') if not f.name.startswith('~$')]
-            if docx_files:
-                self.convert_files(docx_files)
+            gdoc_files = list(path.glob('*.gdoc'))
+            if gdoc_files:
+                self.convert_files(gdoc_files)
             else:
-                messagebox.showinfo("No Files", "No .docx files found")
+                messagebox.showinfo("No Files", "No .gdoc files found")
                 self.show_welcome_screen()
 
     # ==================== CONVERSION ====================
 
-    def convert_files(self, docx_files):
-        """Convert a list of Word documents"""
-        if not docx_files:
+    def extract_file_id(self, gdoc_path):
+        """Extract Google Drive file ID from .gdoc file"""
+        try:
+            with open(gdoc_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+
+            # Try JSON format first
+            try:
+                data = json.loads(content)
+                if 'doc_id' in data:
+                    return data['doc_id']
+                if 'url' in data:
+                    # Extract ID from URL
+                    match = re.search(r'/d/([a-zA-Z0-9_-]+)', data['url'])
+                    if match:
+                        return match.group(1)
+            except json.JSONDecodeError:
+                pass
+
+            # Try URL format
+            match = re.search(r'/d/([a-zA-Z0-9_-]+)', content)
+            if match:
+                return match.group(1)
+
+            return None
+
+        except Exception:
+            return None
+
+    def convert_files(self, gdoc_files):
+        """Convert a list of .gdoc files to .docx"""
+        if not gdoc_files:
             return
 
         self.converted_files = []
+        self.converted_paths = []
         self.skipped_files = []
         self.error_files = []
+        self.output_folder = gdoc_files[0].parent
 
-        self.show_progress_screen(len(docx_files))
+        self.show_progress_screen(len(gdoc_files))
         self.converting = True
 
         def do_convert():
-            source_folder = docx_files[0].parent
-
             self.root.after(0, lambda: self.progress_status.config(
-                text="Finding folder in Google Drive..."))
+                text="Exporting files..."))
 
-            folder_id = self.get_drive_folder_id(source_folder)
+            total = len(gdoc_files)
 
-            if not folder_id:
-                self.root.after(0, lambda: messagebox.showerror("Error",
-                    "Could not find folder in Google Drive.\nMake sure it's synced."))
-                self.root.after(0, self.show_welcome_screen)
-                return
-
-            self.root.after(0, lambda: self.progress_status.config(
-                text="Converting files..."))
-
-            total = len(docx_files)
-
-            for i, docx_file in enumerate(sorted(docx_files)):
+            for i, gdoc_file in enumerate(sorted(gdoc_files)):
                 percent = ((i + 1) / total) * 100
                 self.root.after(0, lambda p=percent: self.progress_bar.configure(value=p))
                 self.root.after(0, lambda i=i, t=total: self.progress_text.config(
                     text=f"{i + 1} of {t} files"))
-                self.root.after(0, lambda f=docx_file.name: self.current_file_label.config(
+                self.root.after(0, lambda f=gdoc_file.name: self.current_file_label.config(
                     text=f"Processing: {f}"))
 
-                gdoc_path = docx_file.with_suffix('.gdoc')
-                url_path = docx_file.with_suffix('.url')
-
-                if gdoc_path.exists() or url_path.exists():
-                    self.skipped_files.append(docx_file.name)
+                # Check if .docx already exists
+                docx_path = gdoc_file.with_suffix('.docx')
+                if docx_path.exists():
+                    self.skipped_files.append(gdoc_file.stem)
                     self.root.after(0, lambda: self.live_skipped.config(
                         text=str(len(self.skipped_files))))
                     continue
 
-                result = self.convert_docx_to_gdoc(docx_file, folder_id)
+                # Extract file ID from .gdoc
+                file_id = self.extract_file_id(gdoc_file)
+                if not file_id:
+                    self.error_files.append(gdoc_file.stem + " (bad .gdoc)")
+                    self.root.after(0, lambda: self.live_errors.config(
+                        text=str(len(self.error_files))))
+                    continue
+
+                # Export to docx
+                result = self.export_gdoc_to_docx(file_id, gdoc_file.stem, gdoc_file.parent)
 
                 if result:
-                    self.converted_files.append(docx_file.name)
+                    self.converted_files.append(result.name)
+                    self.converted_paths.append(str(result))
                     self.root.after(0, lambda: self.live_converted.config(
                         text=str(len(self.converted_files))))
                 else:
-                    self.error_files.append(docx_file.name)
+                    self.error_files.append(gdoc_file.stem)
                     self.root.after(0, lambda: self.live_errors.config(
                         text=str(len(self.error_files))))
 
@@ -582,27 +673,28 @@ NOTE: Files already converted will be skipped to prevent duplicates.
 
         threading.Thread(target=do_convert, daemon=True).start()
 
-    def convert_docx_to_gdoc(self, docx_file, folder_id):
-        """Upload and convert a single Word document"""
-        file_metadata = {
-            'name': docx_file.stem,
-            'mimeType': 'application/vnd.google-apps.document',
-            'parents': [folder_id]
-        }
-
-        media = MediaFileUpload(
-            str(docx_file),
-            mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            resumable=True
-        )
+    def export_gdoc_to_docx(self, file_id, file_name, output_folder):
+        """Export a Google Doc to .docx format"""
+        output_path = output_folder / f"{file_name}.docx"
 
         try:
-            file = self.service.files().create(
-                body=file_metadata,
-                media_body=media,
-                fields='id, name'
-            ).execute()
-            return file
+            request = self.service.files().export_media(
+                fileId=file_id,
+                mimeType='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            )
+
+            fh = io.BytesIO()
+            downloader = MediaIoBaseDownload(fh, request)
+            done = False
+
+            while not done:
+                status, done = downloader.next_chunk()
+
+            with open(output_path, 'wb') as f:
+                f.write(fh.getvalue())
+
+            return output_path
+
         except Exception:
             return None
 
@@ -645,35 +737,6 @@ NOTE: Files already converted will be skipped to prevent duplicates.
 
         return creds
 
-    def get_drive_folder_id(self, local_folder_path):
-        """Get Google Drive folder ID for a local path"""
-        path_str = str(local_folder_path).replace('\\', '/')
-
-        if 'My Drive/' in path_str:
-            relative_path = path_str.split('My Drive/')[1]
-        else:
-            return None
-
-        folder_names = [f for f in relative_path.split('/') if f]
-        if not folder_names:
-            return 'root'
-
-        current_id = 'root'
-        for folder_name in folder_names:
-            escaped_name = folder_name.replace("'", "\\'")
-            query = f"name='{escaped_name}' and mimeType='application/vnd.google-apps.folder' and trashed=false and '{current_id}' in parents"
-
-            try:
-                results = self.service.files().list(q=query, fields='files(id, name)').execute()
-                files = results.get('files', [])
-                if not files:
-                    return None
-                current_id = files[0]['id']
-            except Exception:
-                return None
-
-        return current_id
-
     def run(self):
         self.root.update_idletasks()
         width = self.root.winfo_width()
@@ -690,7 +753,7 @@ def main():
     if len(sys.argv) > 1:
         initial_path = sys.argv[1]
 
-    app = TrajanusDocxConverterGUI(initial_path)
+    app = TrajanusGdocConverterGUI(initial_path)
     app.run()
 
 

@@ -1,28 +1,29 @@
 #!/usr/bin/env python3
 """
-TRAJANUS DOCX TO GOOGLE DOCS CONVERTER
-Convert Word documents to Google Docs format
+TRAJANUS BATCH INGEST TOOL
+Ingest files into the knowledge base with embeddings
 Standard Tool UI Template
 """
 
 import os
 import sys
-import pickle
+import io
 import threading
 from pathlib import Path
+from datetime import datetime
+import time
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 
-from google.oauth2.credentials import Credentials
-from google.auth.transport.requests import Request
-from googleapiclient.discovery import build
-from googleapiclient.http import MediaFileUpload
+# Fix Windows console encoding
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
 
-class TrajanusDocxConverterGUI:
-    def __init__(self, initial_path=None):
+class TrajanusBatchIngestGUI:
+    def __init__(self):
         self.root = tk.Tk()
-        self.root.title("Trajanus - DOCX to GDocs Converter")
+        self.root.title("Trajanus - Batch Ingest Tool")
         self.root.geometry("624x520")
         self.root.resizable(True, True)
         self.root.minsize(480, 400)
@@ -45,25 +46,23 @@ class TrajanusDocxConverterGUI:
         self.root.configure(bg=self.colors['bg'])
 
         # State
-        self.service = None
-        self.converting = False
-        self.initial_path = initial_path
+        self.supabase = None
+        self.openai_client = None
+        self.processing = False
+        self.source_category = tk.StringVar(value="General")
 
         # Results storage
-        self.converted_files = []
+        self.processed_files = []
         self.skipped_files = []
         self.error_files = []
+        self.total_chunks = 0
 
         # Current frame reference
         self.current_frame = None
 
         self.setup_header()
-        self.connect_drive()
-
-        if self.initial_path:
-            self.root.after(500, lambda: self.process_initial_path())
-        else:
-            self.show_welcome_screen()
+        self.connect_services()
+        self.show_welcome_screen()
 
     def setup_header(self):
         """Create persistent header"""
@@ -72,7 +71,7 @@ class TrajanusDocxConverterGUI:
         self.header.pack_propagate(False)
 
         title = tk.Label(self.header,
-            text="TRAJANUS DOCX CONVERTER",
+            text="TRAJANUS BATCH INGEST",
             font=('Segoe UI', 18, 'bold'),
             bg=self.colors['accent'],
             fg='#1a1a1a')
@@ -84,7 +83,7 @@ class TrajanusDocxConverterGUI:
         self.status_bar.pack_propagate(False)
 
         self.connection_label = tk.Label(self.status_bar,
-            text="Connecting to Google Drive...",
+            text="Connecting to services...",
             font=('Segoe UI', 9),
             bg=self.colors['border'],
             fg=self.colors['text_dim'])
@@ -111,7 +110,7 @@ class TrajanusDocxConverterGUI:
 
         # Welcome text
         welcome = tk.Label(self.current_frame,
-            text="Welcome to the DOCX Converter",
+            text="Welcome to the Batch Ingest Tool",
             font=('Segoe UI', 16),
             bg=self.colors['bg'],
             fg=self.colors['text'])
@@ -121,16 +120,16 @@ class TrajanusDocxConverterGUI:
         info_frame = tk.Frame(self.current_frame, bg=self.colors['card'], padx=25, pady=20)
         info_frame.pack(fill='x', pady=(0, 25))
 
-        info_text = """This tool converts Word documents (.docx) to Google Docs format.
+        info_text = """This tool ingests files into the Trajanus Knowledge Base.
 
 HOW IT WORKS:
-  1. Select single file, multiple files, or entire folder
-  2. Files are uploaded to your Google Drive
-  3. Converted to native Google Docs format
-  4. Original .docx files remain unchanged
+  1. Select text files (.txt, .md, .json, etc.)
+  2. Choose a source category for organization
+  3. Files are chunked and embedded using OpenAI
+  4. Stored in Supabase for semantic search
 
-NOTE: Files already converted will be skipped to prevent duplicates.
-      Temp files (~$*.docx) are automatically excluded."""
+SUPPORTED: .txt, .md, .json, .py, .js, .html, .css, .yaml, .xml
+NOTE: Large files are automatically chunked for optimal retrieval."""
 
         tk.Label(info_frame,
             text=info_text,
@@ -139,9 +138,24 @@ NOTE: Files already converted will be skipped to prevent duplicates.
             fg=self.colors['text_dim'],
             justify='left').pack(anchor='w')
 
+        # Category selection
+        cat_frame = tk.Frame(self.current_frame, bg=self.colors['bg'])
+        cat_frame.pack(fill='x', pady=(0, 15))
+
+        tk.Label(cat_frame,
+            text="SOURCE CATEGORY:",
+            font=('Segoe UI', 10, 'bold'),
+            bg=self.colors['bg'],
+            fg=self.colors['text_dim']).pack(side='left')
+
+        categories = ["General", "Documentation", "Transcripts", "Research", "Code", "Meeting Notes", "Procedures"]
+        cat_dropdown = ttk.Combobox(cat_frame, textvariable=self.source_category,
+            values=categories, state='readonly', width=20)
+        cat_dropdown.pack(side='left', padx=(15, 0))
+
         # Mode selection title
         tk.Label(self.current_frame,
-            text="SELECT CONVERSION MODE",
+            text="SELECT INGEST MODE",
             font=('Segoe UI', 10, 'bold'),
             bg=self.colors['bg'],
             fg=self.colors['text_dim']).pack(pady=(10, 15))
@@ -153,22 +167,22 @@ NOTE: Files already converted will be skipped to prevent duplicates.
         # Create mode cards
         self.create_mode_card(btn_container,
             "SINGLE FILE",
-            "Select one .docx file to convert",
-            "Best for quick single conversions",
+            "Select one file to ingest",
+            "Best for quick single additions",
             self.select_single_file,
             side='left')
 
         self.create_mode_card(btn_container,
             "BATCH FOLDER",
-            "Convert all .docx files in a folder",
-            "Converts entire directory at once",
+            "Ingest all files in a folder",
+            "Process entire directory at once",
             self.select_folder,
             side='left')
 
         self.create_mode_card(btn_container,
             "MULTI-SELECT",
             "Pick multiple specific files",
-            "Choose exactly which files to convert",
+            "Choose exactly which files to ingest",
             self.select_multiple_files,
             side='left')
 
@@ -256,14 +270,14 @@ NOTE: Files already converted will be skipped to prevent duplicates.
         btn.pack(fill='x', pady=(5, 0))
 
     def show_progress_screen(self, total_files):
-        """Display conversion progress screen"""
+        """Display processing progress screen"""
         self.clear_content()
 
         self.current_frame = tk.Frame(self.root, bg=self.colors['bg'])
         self.current_frame.pack(fill='both', expand=True, padx=40, pady=30)
 
         tk.Label(self.current_frame,
-            text="Converting Files...",
+            text="Processing Files...",
             font=('Segoe UI', 16),
             bg=self.colors['bg'],
             fg=self.colors['text']).pack(pady=(0, 20))
@@ -303,8 +317,8 @@ NOTE: Files already converted will be skipped to prevent duplicates.
         stats_frame = tk.Frame(progress_card, bg=self.colors['card'])
         stats_frame.pack(fill='x', pady=(20, 0))
 
-        self.live_converted = self.create_live_stat(stats_frame, "Converted:", "0", self.colors['success'])
-        self.live_skipped = self.create_live_stat(stats_frame, "Skipped:", "0", self.colors['warning'])
+        self.live_processed = self.create_live_stat(stats_frame, "Processed:", "0", self.colors['success'])
+        self.live_chunks = self.create_live_stat(stats_frame, "Chunks:", "0", self.colors['accent'])
         self.live_errors = self.create_live_stat(stats_frame, "Errors:", "0", self.colors['error'])
 
         self.current_file_label = tk.Label(self.current_frame,
@@ -313,6 +327,24 @@ NOTE: Files already converted will be skipped to prevent duplicates.
             bg=self.colors['bg'],
             fg=self.colors['text_dim'])
         self.current_file_label.pack(pady=(10, 0))
+
+        # Log area
+        log_frame = tk.Frame(self.current_frame, bg=self.colors['sidebar'])
+        log_frame.pack(fill='both', expand=True, pady=(15, 0))
+
+        tk.Label(log_frame, text="PROCESSING LOG",
+            font=('Segoe UI', 9, 'bold'),
+            bg=self.colors['border'],
+            fg=self.colors['accent']).pack(fill='x', pady=5)
+
+        self.log_text = tk.Text(log_frame,
+            bg=self.colors['sidebar'],
+            fg=self.colors['accent'],
+            font=('Consolas', 9),
+            height=8,
+            wrap='word',
+            state='disabled')
+        self.log_text.pack(fill='both', expand=True, padx=10, pady=10)
 
     def create_live_stat(self, parent, label, value, color):
         """Create a live stat display"""
@@ -327,6 +359,15 @@ NOTE: Files already converted will be skipped to prevent duplicates.
         val_label.pack(side='left', padx=(5, 0))
         return val_label
 
+    def log(self, message):
+        """Add message to log"""
+        def do_log():
+            self.log_text.config(state='normal')
+            self.log_text.insert('end', message + '\n')
+            self.log_text.see('end')
+            self.log_text.config(state='disabled')
+        self.root.after(0, do_log)
+
     def show_completion_screen(self):
         """Display completion screen with results"""
         self.clear_content()
@@ -338,7 +379,7 @@ NOTE: Files already converted will be skipped to prevent duplicates.
         header_frame.pack(fill='x', pady=(0, 20))
 
         tk.Label(header_frame,
-            text="CONVERSION COMPLETE",
+            text="INGESTION COMPLETE",
             font=('Segoe UI', 16, 'bold'),
             bg=self.colors['bg'],
             fg=self.colors['success']).pack(side='left')
@@ -349,15 +390,12 @@ NOTE: Files already converted will be skipped to prevent duplicates.
         stats_frame = tk.Frame(summary_card, bg=self.colors['card'])
         stats_frame.pack(fill='x')
 
-        self.create_result_stat(stats_frame, "Converted", len(self.converted_files), self.colors['success'])
-        self.create_result_stat(stats_frame, "Skipped", len(self.skipped_files), self.colors['warning'])
+        self.create_result_stat(stats_frame, "Processed", len(self.processed_files), self.colors['success'])
+        self.create_result_stat(stats_frame, "Chunks Added", self.total_chunks, self.colors['accent'])
         self.create_result_stat(stats_frame, "Errors", len(self.error_files), self.colors['error'])
 
-        if self.converted_files:
-            self.create_file_list("CONVERTED FILES", self.converted_files, self.colors['success'])
-
-        if self.skipped_files:
-            self.create_file_list("SKIPPED FILES (already converted)", self.skipped_files, self.colors['warning'])
+        if self.processed_files:
+            self.create_file_list("PROCESSED FILES", self.processed_files, self.colors['success'])
 
         if self.error_files:
             self.create_file_list("FAILED FILES", self.error_files, self.colors['error'])
@@ -365,8 +403,8 @@ NOTE: Files already converted will be skipped to prevent duplicates.
         btn_frame = tk.Frame(self.current_frame, bg=self.colors['bg'])
         btn_frame.pack(fill='x', pady=(20, 0))
 
-        convert_more_btn = tk.Button(btn_frame,
-            text="Convert More Files",
+        more_btn = tk.Button(btn_frame,
+            text="Ingest More Files",
             font=('Segoe UI', 11, 'bold'),
             bg=self.colors['accent'],
             fg='#1a1a1a',
@@ -376,7 +414,7 @@ NOTE: Files already converted will be skipped to prevent duplicates.
             cursor='hand2',
             relief='flat',
             command=self.show_welcome_screen)
-        convert_more_btn.pack(side='left')
+        more_btn.pack(side='left')
 
         exit_btn = tk.Button(btn_frame,
             text="Exit",
@@ -427,37 +465,43 @@ NOTE: Files already converted will be skipped to prevent duplicates.
     # ==================== FILE SELECTION ====================
 
     def select_single_file(self):
-        """Select a single Word document to convert"""
-        if not self.service:
-            messagebox.showerror("Error", "Not connected to Google Drive.\nPlease wait for connection.")
+        """Select a single file to ingest"""
+        if not self.supabase:
+            messagebox.showerror("Error", "Not connected to services.\nPlease wait for connection.")
             return
 
         self.root.attributes('-topmost', False)
         self.root.update()
 
         file = filedialog.askopenfilename(
-            title="Select Word Document",
+            title="Select File to Ingest",
             initialdir="G:/My Drive/00 - Trajanus USA",
-            filetypes=[("Word documents", "*.docx"), ("All files", "*.*")],
+            filetypes=[
+                ("Text files", "*.txt"),
+                ("Markdown files", "*.md"),
+                ("JSON files", "*.json"),
+                ("Python files", "*.py"),
+                ("All files", "*.*")
+            ],
             parent=self.root)
 
         self.root.lift()
         self.root.focus_force()
 
         if file:
-            self.convert_files([Path(file)])
+            self.process_files([Path(file)])
 
     def select_folder(self):
-        """Select a folder to convert all .docx files"""
-        if not self.service:
-            messagebox.showerror("Error", "Not connected to Google Drive.\nPlease wait for connection.")
+        """Select a folder to ingest all supported files"""
+        if not self.supabase:
+            messagebox.showerror("Error", "Not connected to services.\nPlease wait for connection.")
             return
 
         self.root.attributes('-topmost', False)
         self.root.update()
 
         folder = filedialog.askdirectory(
-            title="Select Folder with Word Documents",
+            title="Select Folder to Ingest",
             initialdir="G:/My Drive/00 - Trajanus USA",
             parent=self.root)
 
@@ -465,214 +509,203 @@ NOTE: Files already converted will be skipped to prevent duplicates.
         self.root.focus_force()
 
         if folder:
-            # Exclude temp files (~$*.docx)
-            docx_files = [f for f in Path(folder).glob('*.docx') if not f.name.startswith('~$')]
-            if docx_files:
-                self.convert_files(docx_files)
+            supported = ['.txt', '.md', '.json', '.py', '.js', '.html', '.css', '.yaml', '.xml']
+            files = []
+            for ext in supported:
+                files.extend(Path(folder).glob(f'*{ext}'))
+
+            if files:
+                self.process_files(files)
             else:
-                messagebox.showinfo("No Files", f"No .docx files found in:\n{folder}")
+                messagebox.showinfo("No Files", f"No supported files found in:\n{folder}")
 
     def select_multiple_files(self):
-        """Select multiple Word documents to convert"""
-        if not self.service:
-            messagebox.showerror("Error", "Not connected to Google Drive.\nPlease wait for connection.")
+        """Select multiple files to ingest"""
+        if not self.supabase:
+            messagebox.showerror("Error", "Not connected to services.\nPlease wait for connection.")
             return
 
         self.root.attributes('-topmost', False)
         self.root.update()
 
         files = filedialog.askopenfilenames(
-            title="Select Word Documents (hold Ctrl to select multiple)",
+            title="Select Files to Ingest (Ctrl+Click for multiple)",
             initialdir="G:/My Drive/00 - Trajanus USA",
-            filetypes=[("Word documents", "*.docx"), ("All files", "*.*")],
+            filetypes=[
+                ("Text files", "*.txt"),
+                ("Markdown files", "*.md"),
+                ("JSON files", "*.json"),
+                ("Python files", "*.py"),
+                ("All files", "*.*")
+            ],
             parent=self.root)
 
         self.root.lift()
         self.root.focus_force()
 
         if files:
-            self.convert_files([Path(f) for f in files])
+            self.process_files([Path(f) for f in files])
 
-    def process_initial_path(self):
-        """Process path passed from command line"""
-        path = Path(self.initial_path)
+    # ==================== PROCESSING ====================
 
-        if not path.exists():
-            messagebox.showerror("Error", f"Path not found: {path}")
-            self.show_welcome_screen()
+    def chunk_text(self, text, chunk_size=1000, overlap=200):
+        """Split text into overlapping chunks"""
+        chunks = []
+        start = 0
+        while start < len(text):
+            end = start + chunk_size
+            if end < len(text):
+                search_start = max(start, end - 100)
+                sentence_end = max(
+                    text.rfind('. ', search_start, end),
+                    text.rfind('! ', search_start, end),
+                    text.rfind('? ', search_start, end)
+                )
+                if sentence_end != -1:
+                    end = sentence_end + 1
+            chunk = text[start:end].strip()
+            if chunk:
+                chunks.append(chunk)
+            start = end - overlap
+        return chunks
+
+    def process_files(self, files):
+        """Process a list of files"""
+        if not files:
             return
 
-        if path.is_file():
-            if path.suffix.lower() == '.docx':
-                self.convert_files([path])
-            else:
-                messagebox.showerror("Error", "Not a Word document")
-                self.show_welcome_screen()
-        else:
-            docx_files = [f for f in path.glob('*.docx') if not f.name.startswith('~$')]
-            if docx_files:
-                self.convert_files(docx_files)
-            else:
-                messagebox.showinfo("No Files", "No .docx files found")
-                self.show_welcome_screen()
-
-    # ==================== CONVERSION ====================
-
-    def convert_files(self, docx_files):
-        """Convert a list of Word documents"""
-        if not docx_files:
-            return
-
-        self.converted_files = []
+        self.processed_files = []
         self.skipped_files = []
         self.error_files = []
+        self.total_chunks = 0
 
-        self.show_progress_screen(len(docx_files))
-        self.converting = True
+        self.show_progress_screen(len(files))
+        self.processing = True
 
-        def do_convert():
-            source_folder = docx_files[0].parent
+        def do_process():
+            total = len(files)
+            category = self.source_category.get()
 
-            self.root.after(0, lambda: self.progress_status.config(
-                text="Finding folder in Google Drive..."))
-
-            folder_id = self.get_drive_folder_id(source_folder)
-
-            if not folder_id:
-                self.root.after(0, lambda: messagebox.showerror("Error",
-                    "Could not find folder in Google Drive.\nMake sure it's synced."))
-                self.root.after(0, self.show_welcome_screen)
-                return
-
-            self.root.after(0, lambda: self.progress_status.config(
-                text="Converting files..."))
-
-            total = len(docx_files)
-
-            for i, docx_file in enumerate(sorted(docx_files)):
+            for i, filepath in enumerate(sorted(files)):
                 percent = ((i + 1) / total) * 100
                 self.root.after(0, lambda p=percent: self.progress_bar.configure(value=p))
                 self.root.after(0, lambda i=i, t=total: self.progress_text.config(
                     text=f"{i + 1} of {t} files"))
-                self.root.after(0, lambda f=docx_file.name: self.current_file_label.config(
+                self.root.after(0, lambda f=filepath.name: self.current_file_label.config(
                     text=f"Processing: {f}"))
 
-                gdoc_path = docx_file.with_suffix('.gdoc')
-                url_path = docx_file.with_suffix('.url')
+                chunks_added = self.process_single_file(filepath, category)
 
-                if gdoc_path.exists() or url_path.exists():
-                    self.skipped_files.append(docx_file.name)
-                    self.root.after(0, lambda: self.live_skipped.config(
-                        text=str(len(self.skipped_files))))
-                    continue
-
-                result = self.convert_docx_to_gdoc(docx_file, folder_id)
-
-                if result:
-                    self.converted_files.append(docx_file.name)
-                    self.root.after(0, lambda: self.live_converted.config(
-                        text=str(len(self.converted_files))))
+                if chunks_added > 0:
+                    self.processed_files.append(filepath.name)
+                    self.total_chunks += chunks_added
+                    self.root.after(0, lambda: self.live_processed.config(
+                        text=str(len(self.processed_files))))
+                    self.root.after(0, lambda c=self.total_chunks: self.live_chunks.config(
+                        text=str(c)))
+                elif chunks_added == 0:
+                    self.skipped_files.append(filepath.name)
                 else:
-                    self.error_files.append(docx_file.name)
+                    self.error_files.append(filepath.name)
                     self.root.after(0, lambda: self.live_errors.config(
                         text=str(len(self.error_files))))
 
-            self.converting = False
+            self.processing = False
             self.root.after(0, self.show_completion_screen)
 
-        threading.Thread(target=do_convert, daemon=True).start()
+        threading.Thread(target=do_process, daemon=True).start()
 
-    def convert_docx_to_gdoc(self, docx_file, folder_id):
-        """Upload and convert a single Word document"""
-        file_metadata = {
-            'name': docx_file.stem,
-            'mimeType': 'application/vnd.google-apps.document',
-            'parents': [folder_id]
-        }
-
-        media = MediaFileUpload(
-            str(docx_file),
-            mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            resumable=True
-        )
+    def process_single_file(self, filepath, category):
+        """Process a single file and return chunks added"""
+        self.log(f"Processing: {filepath.name}")
 
         try:
-            file = self.service.files().create(
-                body=file_metadata,
-                media_body=media,
-                fields='id, name'
-            ).execute()
-            return file
-        except Exception:
-            return None
+            with open(filepath, 'r', encoding='utf-8') as f:
+                content = f.read()
+        except Exception as e:
+            self.log(f"  ERROR: Could not read file - {e}")
+            return -1
 
-    # ==================== GOOGLE DRIVE ====================
+        if len(content) < 50:
+            self.log(f"  SKIP: File too short ({len(content)} chars)")
+            return 0
 
-    def connect_drive(self):
-        """Connect to Google Drive"""
+        chunks = self.chunk_text(content)
+        self.log(f"  Created {len(chunks)} chunks")
+
+        added = 0
+        for i, chunk in enumerate(chunks, 1):
+            try:
+                response = self.openai_client.embeddings.create(
+                    input=chunk,
+                    model="text-embedding-3-small"
+                )
+                embedding = response.data[0].embedding
+            except Exception as e:
+                self.log(f"  ERROR: Chunk {i} embedding failed")
+                continue
+
+            try:
+                relative_path = str(filepath).replace("G:\\My Drive\\00 - Trajanus USA\\", "")
+                data = {
+                    "url": f"file:///{relative_path}",
+                    "chunk_number": i,
+                    "title": f"{filepath.stem} (Part {i})",
+                    "summary": ' '.join(chunk.split()[:20]) + '...',
+                    "content": chunk,
+                    "metadata": {
+                        "source": category,
+                        "filename": filepath.name,
+                        "file_type": filepath.suffix,
+                        "total_chunks": len(chunks),
+                        "processed_at": datetime.now().isoformat()
+                    },
+                    "embedding": embedding
+                }
+                self.supabase.table('knowledge_base').insert(data).execute()
+                added += 1
+                time.sleep(0.1)
+            except Exception as e:
+                if '23505' not in str(e):
+                    self.log(f"  ERROR: Chunk {i} DB insert failed")
+
+        self.log(f"  DONE: Added {added}/{len(chunks)} chunks")
+        return added
+
+    # ==================== SERVICES ====================
+
+    def connect_services(self):
+        """Connect to Supabase and OpenAI"""
         def do_connect():
             try:
-                creds = self.get_credentials()
-                if creds:
-                    self.service = build('drive', 'v3', credentials=creds)
-                    self.root.after(0, lambda: self.connection_status.config(
-                        text="Connected", fg=self.colors['success']))
-                else:
-                    self.root.after(0, lambda: self.connection_status.config(
-                        text="Not Connected", fg=self.colors['error']))
+                self.load_env()
+
+                from openai import OpenAI
+                from supabase import create_client
+
+                self.supabase = create_client(
+                    os.getenv('SUPABASE_URL'),
+                    os.getenv('SUPABASE_ANON_KEY')
+                )
+                self.openai_client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+
+                self.root.after(0, lambda: self.connection_status.config(
+                    text="Connected", fg=self.colors['success']))
             except Exception as e:
                 self.root.after(0, lambda: self.connection_status.config(
                     text="Connection Failed", fg=self.colors['error']))
 
         threading.Thread(target=do_connect, daemon=True).start()
 
-    def get_credentials(self):
-        """Load Google Drive credentials"""
-        creds_path = Path('G:/My Drive/00 - Trajanus USA/00-Command-Center/001 Credentials')
-        token_path = creds_path / 'token.pickle'
-
-        if not token_path.exists():
-            return None
-
-        with open(token_path, 'rb') as token:
-            creds = pickle.load(token)
-
-        if not creds or not creds.valid:
-            if creds and creds.expired and creds.refresh_token:
-                creds.refresh(Request())
-                with open(token_path, 'wb') as token:
-                    pickle.dump(creds, token)
-
-        return creds
-
-    def get_drive_folder_id(self, local_folder_path):
-        """Get Google Drive folder ID for a local path"""
-        path_str = str(local_folder_path).replace('\\', '/')
-
-        if 'My Drive/' in path_str:
-            relative_path = path_str.split('My Drive/')[1]
-        else:
-            return None
-
-        folder_names = [f for f in relative_path.split('/') if f]
-        if not folder_names:
-            return 'root'
-
-        current_id = 'root'
-        for folder_name in folder_names:
-            escaped_name = folder_name.replace("'", "\\'")
-            query = f"name='{escaped_name}' and mimeType='application/vnd.google-apps.folder' and trashed=false and '{current_id}' in parents"
-
-            try:
-                results = self.service.files().list(q=query, fields='files(id, name)').execute()
-                files = results.get('files', [])
-                if not files:
-                    return None
-                current_id = files[0]['id']
-            except Exception:
-                return None
-
-        return current_id
+    def load_env(self):
+        """Load .env file"""
+        env_path = Path('G:/My Drive/00 - Trajanus USA/00-Command-Center/.env')
+        with open(env_path, 'r', encoding='utf-8-sig') as f:
+            for line in f:
+                line = line.strip()
+                if line and '=' in line and not line.startswith('#'):
+                    key, value = line.split('=', 1)
+                    os.environ[key.strip()] = value.strip()
 
     def run(self):
         self.root.update_idletasks()
@@ -686,11 +719,7 @@ NOTE: Files already converted will be skipped to prevent duplicates.
 
 
 def main():
-    initial_path = None
-    if len(sys.argv) > 1:
-        initial_path = sys.argv[1]
-
-    app = TrajanusDocxConverterGUI(initial_path)
+    app = TrajanusBatchIngestGUI()
     app.run()
 
 
