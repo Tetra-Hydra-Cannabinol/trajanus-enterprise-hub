@@ -23,6 +23,34 @@ fn open_terminal(path: String) -> Result<(), String> {
 }
 
 #[tauri::command]
+fn launch_vscode(path: String) -> Result<(), String> {
+    Command::new("code")
+        .arg(&path)
+        .spawn()
+        .map_err(|e| e.to_string())?;
+    Ok(())
+}
+
+#[tauri::command]
+fn launch_git_bash(path: String) -> Result<(), String> {
+    Command::new("C:\\Program Files\\Git\\git-bash.exe")
+        .arg(format!("--cd={}", path))
+        .spawn()
+        .map_err(|e| e.to_string())?;
+    Ok(())
+}
+
+#[tauri::command]
+fn launch_claude_code(path: String) -> Result<(), String> {
+    // Try to launch claude in a new terminal window
+    Command::new("cmd")
+        .args(["/c", "start", "cmd", "/k", &format!("cd /d \"{}\" && claude", path)])
+        .spawn()
+        .map_err(|e| e.to_string())?;
+    Ok(())
+}
+
+#[tauri::command]
 fn write_file(path: String, content: String) -> Result<(), String> {
     if let Some(parent) = Path::new(&path).parent() {
         fs::create_dir_all(parent).map_err(|e| e.to_string())?;
@@ -106,6 +134,9 @@ pub fn run() {
             file_exists,
             open_path,
             open_terminal,
+            launch_vscode,
+            launch_git_bash,
+            launch_claude_code,
             git_push,
             run_powershell_script,
             run_python_script

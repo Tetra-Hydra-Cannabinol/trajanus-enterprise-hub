@@ -3,34 +3,481 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PM Toolkit - Trajanus Enterprise Hub</title>
-    <link rel="stylesheet" href="../styles/main.css">
-    <link rel="stylesheet" href="../styles/workspace.css">
+    <title>PM Toolkit - Trajanus Command Center</title>
+    <link rel="stylesheet" href="../styles/developer-v2.css">
+    <style>
+        /* PM Toolkit specific styles */
+        .workspace-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .workspace-header h1 {
+            color: var(--button-fill);
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .workspace-header p {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        /* 4-Panel Grid */
+        .workspace-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 1px;
+            flex: 1;
+            background: var(--border-color);
+            overflow: hidden;
+        }
+
+        .panel {
+            background: var(--bg-primary);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--button-fill);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .panel-content {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        /* Document Browser */
+        .file-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            background: var(--bg-sidebar);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .file-item:hover {
+            background: rgba(212, 165, 116, 0.15);
+        }
+
+        .file-item.selected {
+            background: rgba(212, 165, 116, 0.25);
+            border-left: 3px solid var(--button-fill);
+        }
+
+        .file-name {
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
+        /* Template Selection */
+        .template-group {
+            margin-bottom: 16px;
+        }
+
+        .template-group label {
+            display: block;
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .template-select {
+            width: 100%;
+            padding: 10px 12px;
+            background: var(--bg-sidebar);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-size: 13px;
+        }
+
+        .template-select:focus {
+            outline: none;
+            border-color: var(--button-fill);
+        }
+
+        /* Output Area */
+        .output-area {
+            flex: 1;
+            background: var(--bg-sidebar);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 12px;
+            font-size: 13px;
+            line-height: 1.6;
+            overflow-y: auto;
+            min-height: 150px;
+        }
+
+        .output-area.empty::before {
+            content: 'Select a document and template to generate output...';
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .output-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--button-fill);
+            color: #1a1a1a;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--button-hover);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--button-fill);
+            color: var(--button-fill);
+        }
+
+        /* Claude Chat */
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 12px;
+            min-height: 100px;
+        }
+
+        .chat-message {
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .chat-message.user {
+            background: rgba(212, 165, 116, 0.2);
+            margin-left: 20%;
+        }
+
+        .chat-message.assistant {
+            background: rgba(255, 255, 255, 0.05);
+            margin-right: 20%;
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 10px 12px;
+            background: var(--bg-sidebar);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-size: 13px;
+            resize: none;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--button-fill);
+        }
+
+        /* System Log */
+        .system-log {
+            background: var(--bg-console);
+            border-top: 1px solid var(--border-color);
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .system-log-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .system-log-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--button-fill);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .clear-log-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        .log-output {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 16px;
+            font-family: 'Consolas', monospace;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .log-entry { margin-bottom: 2px; }
+        .log-entry .timestamp { color: var(--text-secondary); }
+        .log-entry.success { color: var(--success); }
+        .log-entry.info { color: var(--text-secondary); }
+        .log-entry.error { color: var(--error); }
+    </style>
 </head>
 <body>
-    <div class="workspace-container">
-        <header class="workspace-header">
-            <h1>PM Toolkit</h1>
-            <button class="btn" onclick="Navigation.goHome()">Home</button>
-        </header>
-        <main class="workspace-grid">
-            <section class="panel panel-1" id="document-browser">
-                <!-- Populated by fileManager.js -->
-            </section>
-            <section class="panel panel-2" id="template-selection">
-                <!-- Populated by templates.js -->
-            </section>
-            <section class="panel panel-3" id="review-modify">
-                <!-- Populated by workspace.js -->
-            </section>
-            <section class="panel panel-4" id="claude-assistant">
-                <!-- Populated by workspace.js -->
-            </section>
-        </main>
+    <div class="app-container">
+        <!-- Simplified Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">TRAJANUS Command Center</div>
+            </div>
+            <nav class="nav-section">
+                <div class="nav-section-title">Toolkits</div>
+                <a href="pm.html" class="nav-item active">PM Toolkit</a>
+                <a href="qcm.html" class="nav-item">QCM Toolkit</a>
+                <a href="traffic.html" class="nav-item">Traffic Studies</a>
+                <a href="developer.html" class="nav-item">Developer Toolkit</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-wrapper">
+            <main class="main-area">
+                <header class="workspace-header">
+                    <h1>PM Toolkit v1.0</h1>
+                    <p>Project Management - RFIs, submittals, schedules, costs</p>
+                </header>
+
+                <!-- 4-Panel Workspace -->
+                <div class="workspace-grid">
+                    <!-- Panel 1: Document Browser -->
+                    <section class="panel" id="document-browser">
+                        <div class="panel-header">Document Browser</div>
+                        <div class="panel-content">
+                            <div class="file-list" id="file-list">
+                                <div class="file-item" onclick="PMToolkit.selectFile(this, 'RFI-001.pdf')">
+                                    <span class="file-name">RFI-001.pdf</span>
+                                </div>
+                                <div class="file-item" onclick="PMToolkit.selectFile(this, 'Submittal-Log.xlsx')">
+                                    <span class="file-name">Submittal-Log.xlsx</span>
+                                </div>
+                                <div class="file-item" onclick="PMToolkit.selectFile(this, 'Schedule-Update.mpp')">
+                                    <span class="file-name">Schedule-Update.mpp</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Panel 2: Template Selection -->
+                    <section class="panel" id="template-selection">
+                        <div class="panel-header">Template Selection</div>
+                        <div class="panel-content">
+                            <div class="template-group">
+                                <label>Document Type</label>
+                                <select class="template-select" id="doc-type" onchange="PMToolkit.updateTemplate()">
+                                    <option value="">Select type...</option>
+                                    <option value="rfi">RFI Response</option>
+                                    <option value="submittal">Submittal Review</option>
+                                    <option value="schedule">Schedule Analysis</option>
+                                    <option value="cost">Cost Estimate</option>
+                                </select>
+                            </div>
+                            <div class="template-group">
+                                <label>Output Format</label>
+                                <select class="template-select" id="output-format">
+                                    <option value="memo">Memo Format</option>
+                                    <option value="formal">Formal Letter</option>
+                                    <option value="email">Email Draft</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary" onclick="PMToolkit.generateOutput()" style="width: 100%; margin-top: 16px;">
+                                Generate Output
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Panel 3: Review/Modify -->
+                    <section class="panel" id="review-modify">
+                        <div class="panel-header">Review / Modify</div>
+                        <div class="panel-content" style="display: flex; flex-direction: column;">
+                            <div class="output-area empty" id="output-area"></div>
+                            <div class="output-actions">
+                                <button class="btn btn-secondary" onclick="PMToolkit.copyOutput()">Copy</button>
+                                <button class="btn btn-secondary" onclick="PMToolkit.exportOutput()">Export</button>
+                                <button class="btn btn-primary" onclick="PMToolkit.sendToAssistant()">Send to Assistant</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Panel 4: Claude Assistant -->
+                    <section class="panel" id="claude-assistant">
+                        <div class="panel-header">Claude Assistant</div>
+                        <div class="panel-content" style="display: flex; flex-direction: column;">
+                            <div class="chat-messages" id="chat-messages"></div>
+                            <div class="chat-input-area">
+                                <textarea class="chat-input" id="chat-input" rows="2" placeholder="Ask Claude about this document..."></textarea>
+                                <button class="btn btn-primary" onclick="PMToolkit.sendMessage()">Send</button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </main>
+
+            <!-- System Log -->
+            <div class="system-log">
+                <div class="system-log-header">
+                    <span class="system-log-title">System Log</span>
+                    <button class="clear-log-btn" onclick="PMToolkit.clearLog()">Clear</button>
+                </div>
+                <div class="log-output" id="log-output">
+                    <div class="log-entry info"><span class="timestamp">[--:--:--]</span> PM Toolkit ready.</div>
+                </div>
+            </div>
+        </div>
     </div>
-    <script src="../scripts/navigation.js"></script>
-    <script src="../scripts/fileManager.js"></script>
-    <script src="../scripts/templates.js"></script>
-    <script src="../scripts/workspace.js"></script>
+
+    <script>
+        const PMToolkit = {
+            selectedFile: null,
+
+            log(message, type = 'info') {
+                const logOutput = document.getElementById('log-output');
+                const timestamp = new Date().toLocaleTimeString('en-US', { hour12: false });
+                const entry = document.createElement('div');
+                entry.className = `log-entry ${type}`;
+                entry.innerHTML = `<span class="timestamp">[${timestamp}]</span> ${message}`;
+                logOutput.appendChild(entry);
+                logOutput.scrollTop = logOutput.scrollHeight;
+            },
+
+            clearLog() {
+                document.getElementById('log-output').innerHTML =
+                    '<div class="log-entry info"><span class="timestamp">[--:--:--]</span> Log cleared.</div>';
+            },
+
+            selectFile(element, filename) {
+                document.querySelectorAll('.file-item').forEach(el => el.classList.remove('selected'));
+                element.classList.add('selected');
+                this.selectedFile = filename;
+                this.log(`Selected: ${filename}`);
+            },
+
+            updateTemplate() {
+                const docType = document.getElementById('doc-type').value;
+                if (docType) {
+                    this.log(`Template changed to: ${docType}`);
+                }
+            },
+
+            generateOutput() {
+                if (!this.selectedFile) {
+                    this.log('Please select a document first', 'error');
+                    return;
+                }
+                const docType = document.getElementById('doc-type').value;
+                if (!docType) {
+                    this.log('Please select a document type', 'error');
+                    return;
+                }
+
+                const outputArea = document.getElementById('output-area');
+                outputArea.classList.remove('empty');
+                outputArea.textContent = `Generated ${docType} output for ${this.selectedFile}...\n\nThis is a placeholder for the generated content.`;
+                this.log(`Generated ${docType} for ${this.selectedFile}`, 'success');
+            },
+
+            copyOutput() {
+                const output = document.getElementById('output-area').textContent;
+                if (output) {
+                    navigator.clipboard.writeText(output);
+                    this.log('Output copied to clipboard', 'success');
+                }
+            },
+
+            exportOutput() {
+                this.log('Export functionality coming soon...', 'info');
+            },
+
+            sendToAssistant() {
+                const output = document.getElementById('output-area').textContent;
+                if (output) {
+                    this.addChatMessage('user', 'Please review this output:\n' + output.substring(0, 100) + '...');
+                    this.log('Sent to Claude Assistant');
+                }
+            },
+
+            addChatMessage(role, content) {
+                const messages = document.getElementById('chat-messages');
+                const msg = document.createElement('div');
+                msg.className = `chat-message ${role}`;
+                msg.textContent = content;
+                messages.appendChild(msg);
+                messages.scrollTop = messages.scrollHeight;
+            },
+
+            sendMessage() {
+                const input = document.getElementById('chat-input');
+                const message = input.value.trim();
+                if (message) {
+                    this.addChatMessage('user', message);
+                    input.value = '';
+                    this.log('Message sent to Claude');
+
+                    // Simulate response
+                    setTimeout(() => {
+                        this.addChatMessage('assistant', 'I can help you with that PM task. What specific aspect would you like me to address?');
+                    }, 500);
+                }
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            PMToolkit.log('PM Toolkit loaded', 'info');
+        });
+    </script>
 </body>
 </html>

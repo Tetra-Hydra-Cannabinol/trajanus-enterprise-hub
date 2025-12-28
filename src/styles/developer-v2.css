@@ -417,6 +417,18 @@ body {
     color: var(--error);
 }
 
+.log-entry.error {
+    color: var(--error);
+}
+
+/* Nav item as link */
+a.nav-item {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 /* ==================== SCROLLBAR STYLING ==================== */
 ::-webkit-scrollbar {
     width: 8px;

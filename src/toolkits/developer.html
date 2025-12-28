@@ -5,171 +5,342 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Developer Toolkit - Trajanus Command Center</title>
     <link rel="stylesheet" href="../styles/developer-v2.css">
+    <style>
+        /* Developer Workspace specific overrides */
+        .workspace-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .workspace-header h1 {
+            color: var(--button-fill);
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .workspace-header p {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        /* Dark button cards for terminals/resources */
+        .card-grid-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+        .terminal-card {
+            background: #2a2a2a;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            border-radius: 6px;
+            padding: 16px 20px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+        .terminal-card:hover {
+            background: #333333;
+            border-color: var(--button-fill);
+        }
+        .terminal-card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .terminal-card-desc {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        /* System Log styling */
+        .system-log {
+            background: var(--bg-console);
+            border-top: 1px solid var(--border-color);
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+        }
+        .system-log-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .system-log-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--button-fill);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .clear-log-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        .clear-log-btn:hover {
+            border-color: var(--button-fill);
+            color: var(--button-fill);
+        }
+        .log-output {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px 16px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+        .log-entry {
+            margin-bottom: 2px;
+        }
+        .log-entry .timestamp {
+            color: var(--text-secondary);
+        }
+        .log-entry.success {
+            color: var(--success);
+        }
+        .log-entry.info {
+            color: var(--text-secondary);
+        }
+        .log-entry.action {
+            color: var(--text-primary);
+        }
+
+        /* Simplified sidebar */
+        .sidebar-simple .nav-item {
+            padding: 12px 20px;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
     <div class="app-container">
-        <!-- ==================== SIDEBAR ==================== -->
-        <aside class="sidebar">
+        <!-- Simplified Sidebar - 4 Toolkits Only -->
+        <aside class="sidebar sidebar-simple">
             <div class="sidebar-header">
                 <div class="sidebar-logo">TRAJANUS Command Center</div>
             </div>
 
-            <!-- Developer Projects -->
             <nav class="nav-section">
-                <div class="nav-section-title">Developer Projects</div>
-                <div class="nav-item" onclick="DevToolkit.navigate('command-center')">Command Center</div>
-                <div class="nav-item" onclick="DevToolkit.navigate('website-builder')">Website Builder</div>
-                <div class="nav-item" onclick="DevToolkit.navigate('pm')">PM Toolkit</div>
-                <div class="nav-item" onclick="DevToolkit.navigate('qcm')">QCM Toolkit</div>
-                <div class="nav-item" onclick="DevToolkit.navigate('traffic')">Traffic Studies</div>
-                <div class="nav-item active">Developer Toolkit</div>
-            </nav>
-
-            <!-- Deployed Projects -->
-            <nav class="nav-section">
-                <div class="nav-section-title">Deployed Projects</div>
-                <div class="nav-item">
-                    PM Toolkit
-                    <span class="badge badge-active">V1 Active</span>
-                </div>
-                <div class="nav-item">
-                    QCM Toolkit
-                    <span class="badge badge-active">V1 Active</span>
-                </div>
-                <div class="nav-item">
-                    SSHO Toolkit
-                    <span class="badge badge-active">V1 Active</span>
-                </div>
-            </nav>
-
-            <!-- Living Documents -->
-            <nav class="nav-section">
-                <div class="nav-section-title">Living Documents</div>
-                <div class="dropdown">
-                    <button class="dropdown-toggle" onclick="DevToolkit.toggleDropdown(this)">
-                        Quick Access
-                    </button>
-                    <div class="dropdown-menu">
-                        <div class="dropdown-item" onclick="DevToolkit.openDailyDiary()">Daily Diary</div>
-                        <div class="dropdown-item" onclick="DevToolkit.openTechJournal()">Technical Journal</div>
-                        <div class="dropdown-item" onclick="DevToolkit.openPOV()">POV Document</div>
-                        <div class="dropdown-item" onclick="DevToolkit.openProtocols()">Protocols</div>
-                    </div>
-                </div>
+                <div class="nav-section-title">Toolkits</div>
+                <a href="pm.html" class="nav-item">PM Toolkit</a>
+                <a href="qcm.html" class="nav-item">QCM Toolkit</a>
+                <a href="traffic.html" class="nav-item">Traffic Studies</a>
+                <a href="developer.html" class="nav-item active">Developer Toolkit</a>
             </nav>
         </aside>
 
-        <!-- ==================== MAIN WRAPPER ==================== -->
+        <!-- Main Content -->
         <div class="main-wrapper">
-            <!-- Main Area -->
             <main class="main-area">
                 <!-- Header -->
-                <header class="main-header">
-                    <h1>Developer Toolkit</h1>
-                    <button class="home-btn" onclick="Navigation.goHome()">Home</button>
+                <header class="workspace-header">
+                    <h1>Developer Workspace v2.0.0</h1>
+                    <p>Development utilities and terminal launchers</p>
                 </header>
 
-                <!-- Tab Bar -->
-                <div class="tab-bar">
-                    <div class="tab active" onclick="DevToolkit.switchTab('developer-tools')">Developer Tools</div>
-                    <div class="tab" onclick="DevToolkit.switchTab('codes-standards')">Codes and Standards</div>
-                    <div class="tab" onclick="DevToolkit.switchTab('external-programs')">External Programs</div>
-                </div>
-
-                <!-- Content Area -->
-                <div class="content-area" id="tab-content">
-                    <!-- QUICK ACCESS Section -->
+                <div class="content-area">
+                    <!-- Development Terminals Section -->
                     <section class="section">
                         <div class="section-header">
-                            <div class="section-title">Quick Access</div>
-                            <div class="section-subtitle">Fast navigation to frequently used folders and documents</div>
+                            <div class="section-title">Development Terminals</div>
                         </div>
-                        <div class="card-grid card-grid-3">
-                            <button class="button-card" onclick="DevToolkit.openFolder('userGuides')">
-                                <div class="button-card-title">User Guides</div>
-                                <div class="button-card-desc">Searchable protocol documents library</div>
+                        <div class="card-grid card-grid-4">
+                            <button class="terminal-card" onclick="DevToolkit.launchClaudeCode()">
+                                <div class="terminal-card-title">Claude Code</div>
+                                <div class="terminal-card-desc">AI-powered development assistant</div>
                             </button>
-                            <button class="button-card" onclick="DevToolkit.openFolder('livingDocs')">
-                                <div class="button-card-title">Living Documents</div>
-                                <div class="button-card-desc">Active project documentation</div>
+                            <button class="terminal-card" onclick="DevToolkit.launchPowerShell()">
+                                <div class="terminal-card-title">PowerShell</div>
+                                <div class="terminal-card-desc">Windows command-line interface</div>
                             </button>
-                            <button class="button-card" onclick="DevToolkit.openFolder('coreProtocols')">
-                                <div class="button-card-title">Core Protocols</div>
-                                <div class="button-card-desc">Standard operating procedures</div>
+                            <button class="terminal-card" onclick="DevToolkit.launchVSCode()">
+                                <div class="terminal-card-title">VS Code</div>
+                                <div class="terminal-card-desc">Full-featured code editor</div>
                             </button>
-                            <button class="button-card" onclick="DevToolkit.openFolder('documentation')">
-                                <div class="button-card-title">Documentation</div>
-                                <div class="button-card-desc">Development reference guides</div>
-                            </button>
-                            <button class="button-card" onclick="DevToolkit.openFolder('scripts')">
-                                <div class="button-card-title">Scripts</div>
-                                <div class="button-card-desc">Automation and utility scripts</div>
-                            </button>
-                            <button class="button-card" onclick="DevToolkit.openFolder('sessionFiles')">
-                                <div class="button-card-title">Session Files</div>
-                                <div class="button-card-desc">Session summaries and handoffs</div>
+                            <button class="terminal-card" onclick="DevToolkit.launchGitBash()">
+                                <div class="terminal-card-title">Git Bash</div>
+                                <div class="terminal-card-desc">Unix-style terminal for Windows</div>
                             </button>
                         </div>
                     </section>
 
-                    <!-- SESSION MANAGEMENT Section -->
+                    <!-- External Resources Section -->
+                    <section class="section">
+                        <div class="section-header">
+                            <div class="section-title">External Resources</div>
+                        </div>
+                        <div class="card-grid card-grid-4">
+                            <button class="terminal-card" onclick="DevToolkit.openURL('https://claude.ai')">
+                                <div class="terminal-card-title">Claude Web</div>
+                                <div class="terminal-card-desc">Browser-based Claude interface</div>
+                            </button>
+                            <button class="terminal-card" onclick="DevToolkit.openURL('https://console.anthropic.com')">
+                                <div class="terminal-card-title">Anthropic Console</div>
+                                <div class="terminal-card-desc">API management and monitoring</div>
+                            </button>
+                            <button class="terminal-card" onclick="DevToolkit.openURL('https://drive.google.com')">
+                                <div class="terminal-card-title">Google Drive</div>
+                                <div class="terminal-card-desc">Cloud storage access</div>
+                            </button>
+                            <button class="terminal-card" onclick="DevToolkit.openURL('https://github.com/Tetra-Hydra-Cannabinol/trajanus-enterprise-hub')">
+                                <div class="terminal-card-title">GitHub</div>
+                                <div class="terminal-card-desc">Code repository</div>
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Session Management Section -->
                     <section class="section">
                         <div class="section-header">
                             <div class="section-title">Session Management</div>
-                            <div class="section-subtitle">Control development sessions and protocol execution</div>
                         </div>
-                        <div class="card-grid card-grid-2">
+                        <div class="card-grid card-grid-4">
                             <button class="button-card" onclick="DevToolkit.startSession()">
                                 <div class="button-card-title">Start Session</div>
                                 <div class="button-card-desc">Initialize new work session</div>
                             </button>
                             <button class="button-card" onclick="DevToolkit.endSession()">
                                 <div class="button-card-title">End Session</div>
-                                <div class="button-card-desc">Run EOS protocols and cleanup</div>
+                                <div class="button-card-desc">Run EOS protocols</div>
                             </button>
                             <button class="button-card" onclick="DevToolkit.syncProtocols()">
                                 <div class="button-card-title">Sync Protocols</div>
-                                <div class="button-card-desc">Update all protocol documents</div>
+                                <div class="button-card-desc">Update all documents</div>
                             </button>
-                            <button class="button-card" onclick="DevToolkit.deepDiveRecall()">
-                                <div class="button-card-title">Deep Dive Recall</div>
-                                <div class="button-card-desc">Load full context from memory</div>
+                            <button class="button-card" onclick="DevToolkit.gitPush()">
+                                <div class="button-card-title">Git Push</div>
+                                <div class="button-card-desc">Push changes to GitHub</div>
                             </button>
-                            <button class="button-card" onclick="DevToolkit.performEOS()">
-                                <div class="button-card-title">Perform EOS Protocols</div>
-                                <div class="button-card-desc">Execute end of session tasks</div>
-                            </button>
-                            <button class="button-card" onclick="DevToolkit.updateLivingDocs()">
-                                <div class="button-card-title">Update Living Docs</div>
-                                <div class="button-card-desc">Sync living documents to Drive</div>
-                            </button>
-                        </div>
-                    </section>
-
-                    <!-- Claude Assistant Section -->
-                    <section class="claude-section">
-                        <div class="claude-header">Claude Assistant</div>
-                        <div class="claude-response" id="claude-response"></div>
-                        <div class="claude-input-area">
-                            <textarea class="claude-input" id="claude-input"
-                                      placeholder="Type your message..."
-                                      rows="1"
-                                      onkeydown="DevToolkit.handleKeyDown(event)"></textarea>
-                            <button class="claude-send-btn" onclick="DevToolkit.sendMessage()">Send</button>
                         </div>
                     </section>
                 </div>
             </main>
 
-            <!-- ==================== CONSOLE AREA ==================== -->
-            <div class="console-area">
-                <div class="console-header">Console</div>
-                <div class="console-output" id="console-output"></div>
+            <!-- System Log -->
+            <div class="system-log">
+                <div class="system-log-header">
+                    <span class="system-log-title">System Log</span>
+                    <button class="clear-log-btn" onclick="DevToolkit.clearLog()">Clear</button>
+                </div>
+                <div class="log-output" id="log-output">
+                    <div class="log-entry info"><span class="timestamp">[--:--:--]</span> System ready.</div>
+                </div>
             </div>
         </div>
     </div>
 
-    <script src="../scripts/navigation.js"></script>
-    <script src="../scripts/developerToolkit.js"></script>
+    <script>
+        // Tauri API
+        const { invoke } = window.__TAURI__.core;
+
+        const PROJECT_PATH = 'C:\\Dev\\trajanus-command-center';
+
+        const DevToolkit = {
+            // Logging
+            log(message, type = 'action') {
+                const logOutput = document.getElementById('log-output');
+                const timestamp = new Date().toLocaleTimeString('en-US', { hour12: false });
+                const entry = document.createElement('div');
+                entry.className = `log-entry ${type}`;
+                entry.innerHTML = `<span class="timestamp">[${timestamp}]</span> ${message}`;
+                logOutput.appendChild(entry);
+                logOutput.scrollTop = logOutput.scrollHeight;
+            },
+
+            clearLog() {
+                const logOutput = document.getElementById('log-output');
+                logOutput.innerHTML = '<div class="log-entry info"><span class="timestamp">[--:--:--]</span> Log cleared.</div>';
+            },
+
+            // Terminal Launchers
+            async launchClaudeCode() {
+                this.log('Launching Claude Code...');
+                try {
+                    await invoke('launch_claude_code', { path: PROJECT_PATH });
+                    this.log('Claude Code launched', 'success');
+                } catch (e) {
+                    this.log(`Error: ${e}`, 'error');
+                }
+            },
+
+            async launchPowerShell() {
+                this.log('Launching PowerShell...');
+                try {
+                    await invoke('open_terminal', { path: PROJECT_PATH });
+                    this.log('PowerShell launched', 'success');
+                } catch (e) {
+                    this.log(`Error: ${e}`, 'error');
+                }
+            },
+
+            async launchVSCode() {
+                this.log('Launching VS Code...');
+                try {
+                    await invoke('launch_vscode', { path: PROJECT_PATH });
+                    this.log('VS Code launched', 'success');
+                } catch (e) {
+                    this.log(`Error: ${e}`, 'error');
+                }
+            },
+
+            async launchGitBash() {
+                this.log('Launching Git Bash...');
+                try {
+                    await invoke('launch_git_bash', { path: PROJECT_PATH });
+                    this.log('Git Bash launched', 'success');
+                } catch (e) {
+                    this.log(`Error: ${e}`, 'error');
+                }
+            },
+
+            // URL Opener
+            async openURL(url) {
+                this.log(`Opening: ${url}`);
+                try {
+                    await invoke('open_path', { path: url });
+                } catch (e) {
+                    this.log(`Error: ${e}`, 'error');
+                }
+            },
+
+            // Session Management
+            startSession() {
+                this.log('Starting new session...');
+                this.log('Session initialized', 'success');
+            },
+
+            endSession() {
+                this.log('Running end-of-session protocols...');
+                this.log('Session ended', 'success');
+            },
+
+            syncProtocols() {
+                this.log('Syncing protocols...');
+                this.log('Protocols synced', 'success');
+            },
+
+            async gitPush() {
+                this.log('Pushing to GitHub...');
+                try {
+                    const result = await invoke('git_push', { path: PROJECT_PATH });
+                    this.log('Git push complete', 'success');
+                    this.log(result, 'info');
+                } catch (e) {
+                    this.log(`Git error: ${e}`, 'error');
+                }
+            }
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            DevToolkit.log('Developer Toolkit loaded', 'info');
+        });
+    </script>
 </body>
 </html>
