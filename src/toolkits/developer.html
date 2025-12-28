@@ -119,9 +119,14 @@
     </style>
 </head>
 <body>
+    <!-- Sidebar Toggle Button -->
+    <button class="sidebar-toggle" onclick="DevToolkit.toggleSidebar()" title="Toggle Sidebar">
+        <span id="sidebar-icon">&#9664;</span>
+    </button>
+
     <div class="app-container">
         <!-- Simplified Sidebar - 4 Toolkits Only -->
-        <aside class="sidebar sidebar-simple">
+        <aside class="sidebar sidebar-simple" id="sidebar">
             <div class="sidebar-header">
                 <div class="sidebar-logo">TRAJANUS Command Center</div>
             </div>
@@ -219,6 +224,43 @@
                             </button>
                         </div>
                     </section>
+
+                    <!-- Python Scripts Section -->
+                    <section class="section">
+                        <div class="section-header">
+                            <div class="section-title">Python Scripts</div>
+                        </div>
+                        <div class="card-grid card-grid-4">
+                            <button class="button-card" onclick="DevToolkit.runPythonScript('query_kb.py')">
+                                <div class="button-card-title">Query KB</div>
+                                <div class="button-card-desc">Search knowledge base</div>
+                            </button>
+                            <button class="button-card" onclick="DevToolkit.runPythonScript('batch_ingest_files.py')">
+                                <div class="button-card-title">Batch Ingest</div>
+                                <div class="button-card-desc">Ingest docs to KB</div>
+                            </button>
+                            <button class="button-card" onclick="DevToolkit.runPythonScript('CONVERT_TXT_TO_GDOCS.py')">
+                                <div class="button-card-title">TXT to GDocs</div>
+                                <div class="button-card-desc">Convert text files</div>
+                            </button>
+                            <button class="button-card" onclick="DevToolkit.runPythonScript('CONVERT_DOCX_TO_GDOCS.py')">
+                                <div class="button-card-title">DOCX to GDocs</div>
+                                <div class="button-card-desc">Convert Word docs</div>
+                            </button>
+                            <button class="button-card" onclick="DevToolkit.runPythonScript('CONVERT_MD_TO_GDOCS_PERMANENT.py')">
+                                <div class="button-card-title">MD to GDocs</div>
+                                <div class="button-card-desc">Convert Markdown</div>
+                            </button>
+                            <button class="button-card" onclick="DevToolkit.runPythonScript('CONVERT_GDOCS_TO_DOCX.py')">
+                                <div class="button-card-title">GDocs to DOCX</div>
+                                <div class="button-card-desc">Export to Word</div>
+                            </button>
+                            <button class="button-card" onclick="DevToolkit.runPythonScript('CONVERT_MD_TO_DOCX.py')">
+                                <div class="button-card-title">MD to DOCX</div>
+                                <div class="button-card-desc">Markdown to Word</div>
+                            </button>
+                        </div>
+                    </section>
                 </div>
             </main>
 
@@ -240,6 +282,7 @@
         const { invoke } = window.__TAURI__.core;
 
         const PROJECT_PATH = 'C:\\Dev\\trajanus-command-center';
+        const SCRIPTS_PATH = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\';
 
         const DevToolkit = {
             // Logging
@@ -334,11 +377,40 @@
                 } catch (e) {
                     this.log(`Git error: ${e}`, 'error');
                 }
+            },
+
+            // Sidebar Toggle
+            toggleSidebar() {
+                document.body.classList.toggle('sidebar-collapsed');
+                const icon = document.getElementById('sidebar-icon');
+                const isCollapsed = document.body.classList.contains('sidebar-collapsed');
+                icon.innerHTML = isCollapsed ? '&#9654;' : '&#9664;';
+                localStorage.setItem('sidebarCollapsed', isCollapsed);
+                this.log(isCollapsed ? 'Sidebar collapsed' : 'Sidebar expanded', 'info');
+            },
+
+            // Python Scripts
+            async runPythonScript(scriptName) {
+                this.log(`Running: ${scriptName}...`);
+                try {
+                    const result = await invoke('run_python_script', {
+                        script_path: SCRIPTS_PATH + scriptName
+                    });
+                    this.log('Script launched', 'success');
+                    if (result) this.log(result, 'info');
+                } catch (e) {
+                    this.log(`Script error: ${e}`, 'error');
+                }
             }
         };
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
+            // Restore sidebar state
+            if (localStorage.getItem('sidebarCollapsed') === 'true') {
+                document.body.classList.add('sidebar-collapsed');
+                document.getElementById('sidebar-icon').innerHTML = '&#9654;';
+            }
             DevToolkit.log('Developer Toolkit loaded', 'info');
         });
     </script>

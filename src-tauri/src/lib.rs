@@ -112,16 +112,14 @@ fn run_powershell_script(script_path: String) -> Result<String, String> {
 
 #[tauri::command]
 fn run_python_script(script_path: String) -> Result<String, String> {
-    let output = Command::new("python")
-        .arg(&script_path)
-        .output()
+    // Spawn Python script in a new terminal window (non-blocking)
+    // This allows scripts with GUI dialogs to work properly
+    Command::new("cmd")
+        .args(["/c", "start", "cmd", "/k", &format!("python \"{}\"", script_path)])
+        .spawn()
         .map_err(|e| e.to_string())?;
 
-    if !output.status.success() {
-        return Err(String::from_utf8_lossy(&output.stderr).to_string());
-    }
-
-    Ok(String::from_utf8_lossy(&output.stdout).to_string())
+    Ok(format!("Launched: {}", script_path))
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
