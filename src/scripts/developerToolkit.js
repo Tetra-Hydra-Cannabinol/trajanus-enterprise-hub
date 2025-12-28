@@ -26,9 +26,9 @@ const DevToolkit = {
     openTerminal: async function() {
         try {
             if (window.__TAURI__) {
-                await window.__TAURI__.shell.open('powershell.exe', ['-NoExit', '-Command', `cd "${this.paths.project}"`]);
+                await window.__TAURI__.core.invoke('open_terminal', { path: this.paths.project });
+                this.showStatus('Terminal opened', 'success');
             } else {
-                // Fallback for browser testing
                 this.showStatus('Terminal: Would open PowerShell at ' + this.paths.project);
             }
         } catch (error) {
@@ -40,7 +40,7 @@ const DevToolkit = {
         this.showStatus('Running git push...');
         try {
             if (window.__TAURI__) {
-                const result = await window.__TAURI__.invoke('git_push', { path: this.paths.project });
+                const result = await window.__TAURI__.core.invoke('git_push', { path: this.paths.project });
                 this.showStatus('Git push complete: ' + result, 'success');
             } else {
                 this.showStatus('Git push: Would run in Tauri environment');
@@ -53,7 +53,8 @@ const DevToolkit = {
     openFolder: async function(path) {
         try {
             if (window.__TAURI__) {
-                await window.__TAURI__.shell.open(path);
+                await window.__TAURI__.core.invoke('open_path', { path: path });
+                this.showStatus('Opened: ' + path.split('\\').pop(), 'success');
             } else {
                 this.showStatus('Would open: ' + path);
             }
@@ -88,7 +89,7 @@ const DevToolkit = {
     openDocument: async function(path) {
         try {
             if (window.__TAURI__) {
-                await window.__TAURI__.shell.open(path);
+                await window.__TAURI__.core.invoke('open_path', { path: path });
             } else {
                 this.showStatus('Would open: ' + path);
             }
@@ -101,11 +102,11 @@ const DevToolkit = {
         try {
             if (window.__TAURI__) {
                 // Check if file exists, create if not
-                const exists = await window.__TAURI__.invoke('file_exists', { path: path });
+                const exists = await window.__TAURI__.core.invoke('file_exists', { path: path });
                 if (!exists) {
-                    await window.__TAURI__.invoke('write_file', { path: path, content: template });
+                    await window.__TAURI__.core.invoke('write_file', { path: path, content: template });
                 }
-                await window.__TAURI__.shell.open(path);
+                await window.__TAURI__.core.invoke('open_path', { path: path });
             } else {
                 this.showStatus('Would open/create: ' + path);
             }
@@ -168,7 +169,7 @@ const DevToolkit = {
     runScript: async function(scriptName) {
         try {
             if (window.__TAURI__) {
-                const result = await window.__TAURI__.invoke('run_powershell_script', {
+                const result = await window.__TAURI__.core.invoke('run_powershell_script', {
                     scriptPath: `${this.paths.scripts}\\${scriptName}`
                 });
                 this.showStatus(`${scriptName} completed`, 'success');
@@ -184,7 +185,7 @@ const DevToolkit = {
     runPythonScript: async function(scriptName) {
         try {
             if (window.__TAURI__) {
-                const result = await window.__TAURI__.invoke('run_python_script', {
+                const result = await window.__TAURI__.core.invoke('run_python_script', {
                     scriptPath: `${this.paths.scripts}\\${scriptName}`
                 });
                 this.showStatus(`${scriptName} completed`, 'success');
@@ -329,7 +330,7 @@ Format as a professional handoff document.`;
         // Try to read from .env file via Tauri
         if (window.__TAURI__) {
             try {
-                const envContent = await window.__TAURI__.invoke('read_file', {
+                const envContent = await window.__TAURI__.core.invoke('read_file', {
                     path: `${this.paths.credentials}\\.env`
                 });
                 const match = envContent.match(/ANTHROPIC_API_KEY=(.+)/);

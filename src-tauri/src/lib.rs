@@ -1,10 +1,25 @@
 use std::fs;
 use std::path::Path;
 use std::process::Command;
+use tauri_plugin_shell::ShellExt;
 
 #[tauri::command]
 fn read_file(path: String) -> Result<String, String> {
     fs::read_to_string(&path).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+async fn open_path(app: tauri::AppHandle, path: String) -> Result<(), String> {
+    app.shell().open(&path, None).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn open_terminal(path: String) -> Result<(), String> {
+    Command::new("powershell")
+        .args(["-NoExit", "-Command", &format!("cd \"{}\"", path)])
+        .spawn()
+        .map_err(|e| e.to_string())?;
+    Ok(())
 }
 
 #[tauri::command]
@@ -89,6 +104,8 @@ pub fn run() {
             read_file,
             write_file,
             file_exists,
+            open_path,
+            open_terminal,
             git_push,
             run_powershell_script,
             run_python_script
