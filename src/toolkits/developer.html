@@ -3,73 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Developer Toolkit - Trajanus Enterprise Hub</title>
-    <link rel="stylesheet" href="../styles/main.css">
-    <link rel="stylesheet" href="../styles/developer.css">
+    <title>Developer Toolkit - Trajanus Command Center</title>
+    <link rel="stylesheet" href="../styles/developer-v2.css">
 </head>
 <body>
-    <div class="dev-container">
-        <header class="dev-header">
-            <h1>Developer Toolkit</h1>
-            <button class="btn" onclick="Navigation.goHome()">Home</button>
-        </header>
-
-        <main class="control-panel">
-            <!-- Row 1: Session Management & Scripts -->
-            <div class="button-group session">
-                <h3>Session Management</h3>
-                <div class="buttons">
-                    <button class="btn" onclick="DevToolkit.startSession()">Start Session</button>
-                    <button class="btn" onclick="DevToolkit.endSession()">End Session</button>
-                    <button class="btn" onclick="DevToolkit.sessionSummary()">Session Summary</button>
-                    <button class="btn" onclick="DevToolkit.handoffDoc()">Handoff Doc</button>
-                </div>
+    <div class="app-container">
+        <!-- ==================== SIDEBAR ==================== -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">TRAJANUS Command Center</div>
             </div>
 
-            <div class="button-group scripts">
-                <h3>Scripts</h3>
-                <div class="buttons">
-                    <button class="btn" onclick="DevToolkit.eosProtocol()">EOS Protocol</button>
-                    <button class="btn" onclick="DevToolkit.convertFiles()">Convert Files</button>
-                    <button class="btn" onclick="DevToolkit.batchIngest()">Batch Ingest</button>
-                    <button class="btn" onclick="DevToolkit.kbQuery()">KB Query</button>
-                </div>
-            </div>
+            <!-- Developer Projects -->
+            <nav class="nav-section">
+                <div class="nav-section-title">Developer Projects</div>
+                <div class="nav-item" onclick="DevToolkit.navigate('command-center')">Command Center</div>
+                <div class="nav-item" onclick="DevToolkit.navigate('website-builder')">Website Builder</div>
+                <div class="nav-item" onclick="DevToolkit.navigate('pm')">PM Toolkit</div>
+                <div class="nav-item" onclick="DevToolkit.navigate('qcm')">QCM Toolkit</div>
+                <div class="nav-item" onclick="DevToolkit.navigate('traffic')">Traffic Studies</div>
+                <div class="nav-item active">Developer Toolkit</div>
+            </nav>
 
-            <!-- Row 2: Utilities & Living Documents -->
-            <div class="button-group utilities">
-                <h3>Utilities</h3>
-                <div class="buttons">
-                    <button class="btn" onclick="DevToolkit.openCommandCenter()">Command Center</button>
-                    <button class="btn" onclick="DevToolkit.openScriptsFolder()">Scripts Folder</button>
-                    <button class="btn" onclick="DevToolkit.gitPush()">GitHub Push</button>
-                    <button class="btn" onclick="DevToolkit.openTerminal()">Open Terminal</button>
+            <!-- Deployed Projects -->
+            <nav class="nav-section">
+                <div class="nav-section-title">Deployed Projects</div>
+                <div class="nav-item">
+                    PM Toolkit
+                    <span class="badge badge-active">V1 Active</span>
                 </div>
-            </div>
+                <div class="nav-item">
+                    QCM Toolkit
+                    <span class="badge badge-active">V1 Active</span>
+                </div>
+                <div class="nav-item">
+                    SSHO Toolkit
+                    <span class="badge badge-active">V1 Active</span>
+                </div>
+            </nav>
 
-            <div class="button-group documents">
-                <h3>Living Documents</h3>
-                <div class="buttons">
-                    <button class="btn" onclick="DevToolkit.openDailyDiary()">Daily Diary</button>
-                    <button class="btn" onclick="DevToolkit.openTechJournal()">Technical Journal</button>
-                    <button class="btn" onclick="DevToolkit.openPOV()">POV Document</button>
-                    <button class="btn" onclick="DevToolkit.openProtocols()">Protocols</button>
+            <!-- Living Documents -->
+            <nav class="nav-section">
+                <div class="nav-section-title">Living Documents</div>
+                <div class="dropdown">
+                    <button class="dropdown-toggle" onclick="DevToolkit.toggleDropdown(this)">
+                        Quick Access
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item" onclick="DevToolkit.openDailyDiary()">Daily Diary</div>
+                        <div class="dropdown-item" onclick="DevToolkit.openTechJournal()">Technical Journal</div>
+                        <div class="dropdown-item" onclick="DevToolkit.openPOV()">POV Document</div>
+                        <div class="dropdown-item" onclick="DevToolkit.openProtocols()">Protocols</div>
+                    </div>
                 </div>
-            </div>
+            </nav>
+        </aside>
 
-            <!-- Row 3: Claude Assistant (spans full width) -->
-            <section class="claude-section">
-                <h3>Claude Assistant</h3>
-                <div class="claude-response" id="claude-response"></div>
-                <div class="claude-input-area">
-                    <textarea class="claude-input" id="claude-input"
-                              placeholder="Type your message..."
-                              rows="2"
-                              onkeydown="DevToolkit.handleKeyDown(event)"></textarea>
-                    <button class="btn btn-primary" onclick="DevToolkit.sendMessage()">Send</button>
+        <!-- ==================== MAIN WRAPPER ==================== -->
+        <div class="main-wrapper">
+            <!-- Main Area -->
+            <main class="main-area">
+                <!-- Header -->
+                <header class="main-header">
+                    <h1>Developer Toolkit</h1>
+                    <button class="home-btn" onclick="Navigation.goHome()">Home</button>
+                </header>
+
+                <!-- Tab Bar -->
+                <div class="tab-bar">
+                    <div class="tab active" onclick="DevToolkit.switchTab('developer-tools')">Developer Tools</div>
+                    <div class="tab" onclick="DevToolkit.switchTab('codes-standards')">Codes and Standards</div>
+                    <div class="tab" onclick="DevToolkit.switchTab('external-programs')">External Programs</div>
                 </div>
-            </section>
-        </main>
+
+                <!-- Content Area -->
+                <div class="content-area" id="tab-content">
+                    <!-- QUICK ACCESS Section -->
+                    <section class="section">
+                        <div class="section-header">
+                            <div class="section-title">Quick Access</div>
+                            <div class="section-subtitle">Fast navigation to frequently used folders and documents</div>
+                        </div>
+                        <div class="card-grid card-grid-3">
+                            <button class="button-card" onclick="DevToolkit.openFolder('userGuides')">
+                                <div class="button-card-title">User Guides</div>
+                                <div class="button-card-desc">Searchable protocol documents library</div>
+                            </button>
+                            <button class="button-card" onclick="DevToolkit.openFolder('livingDocs')">
+                                <div class="button-card-title">Living Documents</div>
+                                <div class="button-card-desc">Active project documentation</div>
+                            </button>
+                            <button class="button-card" onclick="DevToolkit.openFolder('coreProtocols')">
+                                <div class="button-card-title">Core Protocols</div>
+                                <div class="button-card-desc">Standard operating procedures</div>
+                            </button>
+                            <button class="button-card" onclick="DevToolkit.openFolder('documentation')">
+                                <div class="button-card-title">Documentation</div>
+                                <div class="button-card-desc">Development reference guides</div>
+                            </button>
+                            <button class="button-card" onclick="DevToolkit.openFolder('scripts')">
+                                <div class="button-card-title">Scripts</div>
+                                <div class="button-card-desc">Automation and utility scripts</div>
+                            </button>
+                            <button class="button-card" onclick="DevToolkit.openFolder('sessionFiles')">
+                                <div class="button-card-title">Session Files</div>
+                                <div class="button-card-desc">Session summaries and handoffs</div>
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- SESSION MANAGEMENT Section -->
+                    <section class="section">
+                        <div class="section-header">
+                            <div class="section-title">Session Management</div>
+                            <div class="section-subtitle">Control development sessions and protocol execution</div>
+                        </div>
+                        <div class="card-grid card-grid-2">
+                            <button class="button-card" onclick="DevToolkit.startSession()">
+                                <div class="button-card-title">Start Session</div>
+                                <div class="button-card-desc">Initialize new work session</div>
+                            </button>
+                            <button class="button-card" onclick="DevToolkit.endSession()">
+                                <div class="button-card-title">End Session</div>
+                                <div class="button-card-desc">Run EOS protocols and cleanup</div>
+                            </button>
+                            <button class="button-card" onclick="DevToolkit.syncProtocols()">
+                                <div class="button-card-title">Sync Protocols</div>
+                                <div class="button-card-desc">Update all protocol documents</div>
+                            </button>
+                            <button class="button-card" onclick="DevToolkit.deepDiveRecall()">
+                                <div class="button-card-title">Deep Dive Recall</div>
+                                <div class="button-card-desc">Load full context from memory</div>
+                            </button>
+                            <button class="button-card" onclick="DevToolkit.performEOS()">
+                                <div class="button-card-title">Perform EOS Protocols</div>
+                                <div class="button-card-desc">Execute end of session tasks</div>
+                            </button>
+                            <button class="button-card" onclick="DevToolkit.updateLivingDocs()">
+                                <div class="button-card-title">Update Living Docs</div>
+                                <div class="button-card-desc">Sync living documents to Drive</div>
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Claude Assistant Section -->
+                    <section class="claude-section">
+                        <div class="claude-header">Claude Assistant</div>
+                        <div class="claude-response" id="claude-response"></div>
+                        <div class="claude-input-area">
+                            <textarea class="claude-input" id="claude-input"
+                                      placeholder="Type your message..."
+                                      rows="1"
+                                      onkeydown="DevToolkit.handleKeyDown(event)"></textarea>
+                            <button class="claude-send-btn" onclick="DevToolkit.sendMessage()">Send</button>
+                        </div>
+                    </section>
+                </div>
+            </main>
+
+            <!-- ==================== CONSOLE AREA ==================== -->
+            <div class="console-area">
+                <div class="console-header">Console</div>
+                <div class="console-output" id="console-output"></div>
+            </div>
+        </div>
     </div>
 
     <script src="../scripts/navigation.js"></script>

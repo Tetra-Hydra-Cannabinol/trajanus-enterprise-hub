@@ -10,10 +10,11 @@
     "windows": [
       {
         "title": "Trajanus Command Center",
-        "width": 1920,
-        "height": 1080,
+        "width": 1400,
+        "height": 900,
         "resizable": true,
-        "fullscreen": false
+        "fullscreen": false,
+        "center": true
       }
     ],
     "security": {
