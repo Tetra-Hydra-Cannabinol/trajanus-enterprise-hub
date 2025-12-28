@@ -397,7 +397,7 @@
                                 <div class="button-card-title">DOCX to GDocs</div>
                                 <div class="button-card-desc">Convert Word docs</div>
                             </button>
-                            <button class="button-card" onclick="DevToolkit.openScriptWithBrowser({title: 'Markdown to Google Docs', scriptPath: SCRIPTS_PATH + 'CONVERT_MD_TO_GDOCS_PERMANENT.py', fileFilter: '.md'})">
+                            <button class="button-card" onclick="DevToolkit.launchConverterTool('CONVERT_MD_TO_GDOCS_PERMANENT.py')">
                                 <div class="button-card-title">MD to GDocs</div>
                                 <div class="button-card-desc">Convert Markdown</div>
                             </button>
@@ -564,6 +564,18 @@
             // Python Scripts - opens folder browser with config
             openScriptWithBrowser(config) {
                 FolderBrowser.open(config);
+            },
+
+            // Launch converter tool directly (has its own GUI)
+            async launchConverterTool(scriptName) {
+                this.log(`Launching: ${scriptName}...`);
+                try {
+                    const params = { scriptPath: SCRIPTS_PATH + scriptName };
+                    const result = await invoke('run_python_script', params);
+                    this.log('Converter tool opened', 'success');
+                } catch (e) {
+                    this.log(`Launch error: ${e}`, 'error');
+                }
             },
 
             // Direct script run (with optional target path)
