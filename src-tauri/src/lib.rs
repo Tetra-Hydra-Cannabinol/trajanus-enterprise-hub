@@ -2,6 +2,50 @@ use std::fs;
 use std::path::Path;
 use std::process::Command;
 use tauri_plugin_shell::ShellExt;
+use serde::Serialize;
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+struct DirEntry {
+    name: String,
+    path: String,
+    is_dir: bool,
+}
+
+#[tauri::command]
+fn list_directory(path: String) -> Result<Vec<DirEntry>, String> {
+    let dir_path = Path::new(&path);
+    if !dir_path.exists() {
+        return Err(format!("Path not found: {}", path));
+    }
+    if !dir_path.is_dir() {
+        return Err(format!("Not a directory: {}", path));
+    }
+
+    let mut entries: Vec<DirEntry> = Vec::new();
+
+    for entry in fs::read_dir(dir_path).map_err(|e| e.to_string())? {
+        let entry = entry.map_err(|e| e.to_string())?;
+        let metadata = entry.metadata().map_err(|e| e.to_string())?;
+
+        entries.push(DirEntry {
+            name: entry.file_name().to_string_lossy().to_string(),
+            path: entry.path().to_string_lossy().to_string(),
+            is_dir: metadata.is_dir(),
+        });
+    }
+
+    // Sort: directories first, then by name
+    entries.sort_by(|a, b| {
+        match (a.is_dir, b.is_dir) {
+            (true, false) => std::cmp::Ordering::Less,
+            (false, true) => std::cmp::Ordering::Greater,
+            _ => a.name.to_lowercase().cmp(&b.name.to_lowercase()),
+        }
+    });
+
+    Ok(entries)
+}
 
 #[tauri::command]
 fn read_file(path: String) -> Result<String, String> {
@@ -111,15 +155,30 @@ fn run_powershell_script(script_path: String) -> Result<String, String> {
 }
 
 #[tauri::command]
-fn run_python_script(script_path: String) -> Result<String, String> {
-    // Spawn Python script in a new terminal window (non-blocking)
-    // This allows scripts with GUI dialogs to work properly
-    Command::new("cmd")
-        .args(["/c", "start", "cmd", "/k", &format!("python \"{}\"", script_path)])
-        .spawn()
-        .map_err(|e| e.to_string())?;
+fn run_python_script(script_path: String, target_path: Option<String>) -> Result<String, String> {
+    // Validate script path exists
+    if !Path::new(&script_path).exists() {
+        return Err(format!("Script not found: {}", script_path));
+    }
 
-    Ok(format!("Launched: {}", script_path))
+    // Build command
+    let mut cmd = Command::new("cmd");
+    cmd.arg("/k").arg("python").arg(&script_path);
+
+    // Add target path as argument if provided
+    if let Some(target) = &target_path {
+        cmd.arg(target);
+    }
+
+    // Set working directory and spawn
+    cmd.current_dir(Path::new(&script_path).parent().unwrap_or(Path::new(".")))
+        .spawn()
+        .map_err(|e| format!("Failed to execute: {}", e))?;
+
+    match target_path {
+        Some(target) => Ok(format!("Launched: {} with target: {}", script_path, target)),
+        None => Ok(format!("Launched: {}", script_path)),
+    }
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -127,6 +186,7 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_shell::init())
         .invoke_handler(tauri::generate_handler![
+            list_directory,
             read_file,
             write_file,
             file_exists,
