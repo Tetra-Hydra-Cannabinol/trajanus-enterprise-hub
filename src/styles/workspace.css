@@ -85,13 +85,13 @@
 }
 
 .upload-area:hover {
-    border-color: var(--accent-blue);
+    border-color: var(--accent-gold);
     background: var(--hover-bg);
 }
 
 .upload-area.dragover {
-    border-color: var(--accent-blue);
-    background: rgba(74, 158, 255, 0.1);
+    border-color: var(--accent-gold);
+    background: rgba(212, 165, 116, 0.1);
 }
 
 .file-list {
@@ -177,7 +177,7 @@
 
 .template-select:focus {
     outline: none;
-    border-color: var(--accent-blue);
+    border-color: var(--accent-gold);
 }
 
 .mode-toggle {
@@ -190,8 +190,9 @@
 }
 
 .mode-toggle .btn.active {
-    background: var(--accent-blue);
-    border-color: var(--accent-blue);
+    background: var(--accent-gold);
+    border-color: var(--accent-gold);
+    color: #1a1a1a;
 }
 
 .template-info {
@@ -260,7 +261,7 @@
 }
 
 .chat-message.user {
-    background: var(--accent-blue);
+    background: rgba(212, 165, 116, 0.3);
     margin-left: 2rem;
 }
 
@@ -287,7 +288,7 @@
 
 .chat-input:focus {
     outline: none;
-    border-color: var(--accent-blue);
+    border-color: var(--accent-gold);
 }
 
 .context-indicator {
@@ -297,5 +298,5 @@
 }
 
 .context-indicator span {
-    color: var(--accent-blue);
+    color: var(--accent-gold);
 }

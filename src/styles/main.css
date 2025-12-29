@@ -1,23 +1,23 @@
 /* Trajanus Enterprise Hub - Main Styles */
 
 :root {
-    --bg-primary: #1a1a2e;
-    --bg-secondary: #16213e;
-    --bg-panel: #0f0f1a;
-    --bg-input: #1a1a2e;
-    --border-color: #2a2a4a;
-    --text-primary: #ffffff;
-    --text-secondary: #a0a0b0;
-    --text-muted: #606070;
-    --accent-blue: #4a9eff;
-    --accent-green: #4aff9e;
-    --accent-orange: #ff9e4a;
-    --accent-purple: #9e4aff;
-    --hover-bg: #252545;
-    --button-bg: #2a2a4a;
-    --button-hover: #3a3a5a;
-    --danger: #ff4a4a;
-    --success: #4aff4a;
+    --bg-primary: #2d2d2d;
+    --bg-secondary: #252525;
+    --bg-panel: #1a1a1a;
+    --bg-input: #2d2d2d;
+    --border-color: #3d3d3d;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --text-muted: #666666;
+    --accent-gold: #d4a574;
+    --accent-hover: #e8922a;
+    --accent-green: #4a9f4a;
+    --accent-orange: #e8922a;
+    --hover-bg: #363636;
+    --button-bg: #3d3d3d;
+    --button-hover: #4d4d4d;
+    --danger: #e74c3c;
+    --success: #4a9f4a;
 }
 
 * {
@@ -70,7 +70,7 @@ body {
     font-size: 3rem;
     font-weight: 700;
     letter-spacing: 0.2em;
-    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    background: linear-gradient(135deg, var(--accent-gold), var(--accent-hover));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -105,7 +105,7 @@ body {
 
 .toolkit-card:hover {
     background: var(--hover-bg);
-    border-color: var(--accent-blue);
+    border-color: var(--accent-gold);
     transform: translateY(-2px);
 }
 
@@ -120,10 +120,10 @@ body {
     font-size: 0.875rem;
 }
 
-.toolkit-card.pm { border-left: 3px solid var(--accent-blue); }
-.toolkit-card.traffic { border-left: 3px solid var(--accent-green); }
-.toolkit-card.developer { border-left: 3px solid var(--accent-purple); }
-.toolkit-card.qcm { border-left: 3px solid var(--accent-orange); }
+.toolkit-card.pm { border-left: 3px solid var(--accent-gold); }
+.toolkit-card.traffic { border-left: 3px solid var(--accent-gold); }
+.toolkit-card.developer { border-left: 3px solid var(--accent-gold); }
+.toolkit-card.qcm { border-left: 3px solid var(--accent-gold); }
 
 /* Buttons */
 .btn {
@@ -139,16 +139,17 @@ body {
 
 .btn:hover {
     background: var(--button-hover);
-    border-color: var(--accent-blue);
+    border-color: var(--accent-gold);
 }
 
 .btn-primary {
-    background: var(--accent-blue);
-    border-color: var(--accent-blue);
+    background: var(--accent-gold);
+    border-color: var(--accent-gold);
+    color: #1a1a1a;
 }
 
 .btn-primary:hover {
-    background: #3a8eef;
+    background: var(--accent-hover);
 }
 
 /* Scrollbar */
