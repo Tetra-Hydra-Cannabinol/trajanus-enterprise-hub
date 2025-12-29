@@ -1,13 +1,23 @@
 {
+  "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
-  "description": "Capability for the main window",
-  "windows": ["main"],
+  "description": "Capability for the main window with embedded Claude webview",
+  "windows": ["main", "claude-embedded"],
   "permissions": [
     "core:default",
     "shell:allow-open",
     "shell:allow-execute",
     "shell:allow-spawn",
     "shell:allow-stdin-write",
-    "shell:allow-kill"
-  ]
+    "shell:allow-kill",
+    "core:webview:default",
+    "core:webview:allow-create-webview",
+    "core:webview:allow-create-webview-window",
+    "core:webview:allow-set-webview-position",
+    "core:webview:allow-set-webview-size",
+    "core:window:default"
+  ],
+  "remote": {
+    "urls": ["https://claude.ai/*", "https://*.claude.ai/*"]
+  }
 }

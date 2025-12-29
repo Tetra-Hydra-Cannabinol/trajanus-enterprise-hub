@@ -542,38 +542,144 @@
             color: var(--gold);
         }
 
-        .claude-webview-container {
-            min-height: 800px;
+        /* ========================== */
+        /* EMBEDDED CLAUDE SECTION    */
+        /* ========================== */
+        .claude-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .claude-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .claude-header-left h3 {
+            color: var(--gold);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .claude-header-left p {
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .claude-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .claude-ctrl-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .claude-ctrl-btn.primary {
+            background: var(--gold);
+            border: none;
+            color: var(--bg-base);
+        }
+
+        .claude-ctrl-btn.primary:hover {
+            background: var(--gold-hover);
+        }
+
+        .claude-ctrl-btn.secondary {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+        }
+
+        .claude-ctrl-btn.secondary:hover {
+            border-color: var(--error);
+            color: var(--error);
+        }
+
+        /* Container where webview renders */
+        .claude-container {
+            position: relative;
+            width: 100%;
+            height: 800px;
             background: var(--bg-base);
         }
 
-        .claude-webview-container webview {
-            width: 100%;
-            height: 800px;
-            border: none;
-        }
-
-        .webview-placeholder {
+        /* Placeholder shown before webview loads */
+        .claude-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 800px;
-            color: var(--text-muted);
             text-align: center;
-            padding: 40px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
         }
 
-        .webview-placeholder h4 {
+        .placeholder-icon {
             color: var(--gold);
-            font-size: 18px;
+            font-size: 56px;
+            margin-bottom: 20px;
+        }
+
+        .claude-placeholder h4 {
+            color: var(--gold);
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
             margin-bottom: 12px;
         }
 
-        .webview-placeholder p {
+        .claude-placeholder p {
+            color: var(--text-secondary);
             font-size: 14px;
-            max-width: 400px;
-            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        .placeholder-btn {
+            background: var(--gold);
+            color: var(--bg-base);
+            border: none;
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .placeholder-btn:hover {
+            background: var(--gold-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(212, 165, 116, 0.3);
+        }
+
+        .placeholder-hint {
+            color: var(--text-muted);
+            font-size: 11px;
+            margin-top: 16px;
         }
 
         /* ========================== */
@@ -666,7 +772,6 @@
             <h1 class="page-title">Developer Toolkit</h1>
         </div>
         <div class="header-controls">
-            <button class="header-btn" onclick="Output.clear()">Clear Log</button>
         </div>
     </header>
 
@@ -1058,37 +1163,34 @@
             </p>
         </div>
 
-        <!-- Claude.ai Webview -->
-        <div class="claude-workspace">
-            <div class="workspace-header">
-                <div class="workspace-header-left">
+        <!-- Claude.ai Embedded Container -->
+        <div class="claude-section">
+            <div class="claude-header">
+                <div class="claude-header-left">
                     <h3>CLAUDE.AI</h3>
-                    <p>Full Claude interface - your account, projects, memory, and all features.</p>
+                    <p>Full Claude interface embedded in workspace</p>
                 </div>
-                <div class="workspace-actions">
-                    <button class="workspace-btn" onclick="Claude.refresh()">Refresh</button>
-                    <button class="workspace-btn" onclick="Claude.openExternal()">Open in Browser</button>
+                <div class="claude-controls">
+                    <button class="claude-ctrl-btn primary" id="btn-open-claude" onclick="Claude.embed()">
+                        <span>&#9654;</span> Open Claude
+                    </button>
+                    <button class="claude-ctrl-btn secondary" id="btn-close-claude" onclick="Claude.close()" style="display: none;">
+                        <span>&#10005;</span> Close
+                    </button>
                 </div>
             </div>
-            <div class="claude-webview-container">
-                <webview
-                    id="claude-webview"
-                    src="https://claude.ai"
-                    style="width: 100%; height: 800px;"
-                    allowpopups
-                ></webview>
-            </div>
-        </div>
 
-        <!-- Output Terminal -->
-        <div class="terminal-container">
-            <div class="terminal-header">
-                <h3>Output Terminal</h3>
-                <button class="terminal-btn" onclick="Output.clear()">Clear</button>
-            </div>
-            <div class="terminal-output" id="outputContent">
-                <div class="output-line info">[System] Developer Toolkit initialized</div>
-                <div class="output-line info">[System] Trajanus Engineered Intelligence ready</div>
+            <!-- This div defines WHERE the webview appears -->
+            <div id="claude-container" class="claude-container">
+                <!-- Placeholder shown before webview loads -->
+                <div id="claude-placeholder" class="claude-placeholder">
+                    <div class="placeholder-icon">&#9830;</div>
+                    <h4>CLAUDE.AI</h4>
+                    <p>Click to embed Claude interface in this workspace</p>
+                    <button class="placeholder-btn" onclick="Claude.embed()">Open Claude.ai</button>
+                    <span class="placeholder-hint">Use email login for best compatibility</span>
+                </div>
+                <!-- Webview renders HERE, on top of placeholder -->
             </div>
         </div>
 
@@ -1103,7 +1205,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             updateGreeting();
             updateDate();
-            Output.log('info', 'Developer Toolkit ready');
+            console.log('Developer Toolkit ready');
         });
 
         function updateGreeting() {
@@ -1143,7 +1245,7 @@
             },
 
             async launch(appKey) {
-                Output.log('info', `Launching ${appKey}...`);
+                console.log(`Launching ${appKey}...`);
                 try {
                     if (appKey === 'vscode') {
                         await invoke('launch_vscode', { path: PROJECT_PATH });
@@ -1156,9 +1258,9 @@
                     } else {
                         await invoke('open_path', { path: this.commands[appKey] });
                     }
-                    Output.log('success', `${appKey} launched`);
+                    console.log(`${appKey} launched`);
                 } catch (e) {
-                    Output.log('error', `Failed to launch ${appKey}: ${e}`);
+                    console.error(`Failed to launch ${appKey}: ${e}`);
                 }
             }
         };
@@ -1166,14 +1268,14 @@
         // Script Runner
         const Scripts = {
             async run(scriptName) {
-                Output.log('info', `Running: ${scriptName}...`);
+                console.log(`Running: ${scriptName}...`);
                 try {
                     await invoke('run_python_script', {
                         script_path: SCRIPTS_PATH + scriptName
                     });
-                    Output.log('success', `Script launched: ${scriptName}`);
+                    console.log(`Script launched: ${scriptName}`);
                 } catch (e) {
-                    Output.log('error', `Failed to run ${scriptName}: ${e}`);
+                    console.error(`Failed to run ${scriptName}: ${e}`);
                 }
             }
         };
@@ -1181,36 +1283,36 @@
         // Session Management
         const Session = {
             start() {
-                Output.log('info', 'Starting new session...');
-                Output.log('success', 'Session started - ' + new Date().toLocaleString());
+                console.log('Starting new session...');
+                console.log('Session started - ' + new Date().toLocaleString());
             },
             end() {
-                Output.log('info', 'Ending session...');
-                Output.log('success', 'Session ended');
+                console.log('Ending session...');
+                console.log('Session ended');
             },
             export() {
-                Output.log('info', 'Exporting session...');
-                Output.log('warning', 'Export feature - coming soon');
+                console.log('Exporting session...');
+                console.warn('Export feature - coming soon');
             },
             handoff() {
-                Output.log('info', 'Creating handoff document...');
-                Output.log('warning', 'Handoff feature - coming soon');
+                console.log('Creating handoff document...');
+                console.warn('Handoff feature - coming soon');
             }
         };
 
         // Agent Controller
         const Agents = {
             async activate(agentName) {
-                Output.log('info', `Activating ${agentName} agent...`);
+                console.log(`Activating ${agentName} agent...`);
                 try {
                     // Query KB for skill and load as system prompt
-                    Output.log('success', `${agentName} agent activated`);
+                    console.log(`${agentName} agent activated`);
                 } catch (e) {
-                    Output.log('error', `Failed to activate ${agentName}: ${e}`);
+                    console.error(`Failed to activate ${agentName}: ${e}`);
                 }
             },
             async deploy(agentName) {
-                Output.log('info', `Deploying ${agentName} agent...`);
+                console.log(`Deploying ${agentName} agent...`);
                 const scriptMap = {
                     'research': 'research_agent.py',
                     'compliance': 'compliance_officer.py',
@@ -1222,36 +1324,106 @@
             }
         };
 
-        // Claude Controller
+        // Claude Embedded Controller
         const Claude = {
-            refresh() {
-                const webview = document.getElementById('claude-webview');
-                if (webview) {
-                    webview.reload();
-                    Output.log('info', 'Claude webview refreshed');
+            isEmbedded: false,
+
+            async embed() {
+                console.log('Embedding Claude.ai...');
+                const container = document.getElementById('claude-container');
+                const rect = container.getBoundingClientRect();
+
+                // Get position relative to window
+                const x = rect.left;
+                const y = rect.top;
+                const width = rect.width;
+                const height = rect.height;
+
+                console.log(`Container position: x=${x}, y=${y}, w=${width}, h=${height}`);
+
+                try {
+                    await invoke('embed_claude', { x, y, width, height });
+                    console.log('Claude.ai embedded successfully');
+                    this.isEmbedded = true;
+                    this.updateUI();
+                } catch (e) {
+                    console.error('Failed to embed Claude.ai:', e);
+                    alert('Error embedding Claude: ' + e);
                 }
             },
-            openExternal() {
-                invoke('open_path', { path: 'https://claude.ai' });
-                Output.log('info', 'Opening claude.ai in browser');
+
+            async close() {
+                console.log('Closing embedded Claude.ai...');
+                try {
+                    await invoke('close_claude');
+                    console.log('Claude.ai closed');
+                    this.isEmbedded = false;
+                    this.updateUI();
+                } catch (e) {
+                    console.error('Failed to close Claude.ai:', e);
+                }
+            },
+
+            async resize() {
+                if (!this.isEmbedded) return;
+
+                const container = document.getElementById('claude-container');
+                const rect = container.getBoundingClientRect();
+
+                try {
+                    await invoke('resize_claude', {
+                        x: rect.left,
+                        y: rect.top,
+                        width: rect.width,
+                        height: rect.height
+                    });
+                } catch (e) {
+                    console.error('Failed to resize Claude.ai:', e);
+                }
+            },
+
+            async checkStatus() {
+                try {
+                    this.isEmbedded = await invoke('is_claude_embedded');
+                    this.updateUI();
+                } catch (e) {
+                    console.error('Failed to check Claude status:', e);
+                }
+            },
+
+            updateUI() {
+                const placeholder = document.getElementById('claude-placeholder');
+                const openBtn = document.getElementById('btn-open-claude');
+                const closeBtn = document.getElementById('btn-close-claude');
+
+                if (this.isEmbedded) {
+                    placeholder.style.display = 'none';
+                    openBtn.style.display = 'none';
+                    closeBtn.style.display = 'inline-flex';
+                } else {
+                    placeholder.style.display = 'flex';
+                    openBtn.style.display = 'inline-flex';
+                    closeBtn.style.display = 'none';
+                }
             }
         };
 
-        // Output Controller
-        const Output = {
-            log(type, message) {
-                const container = document.getElementById('outputContent');
-                const timestamp = new Date().toLocaleTimeString();
-                const line = document.createElement('div');
-                line.className = `output-line ${type}`;
-                line.textContent = `[${timestamp}] ${message}`;
-                container.appendChild(line);
-                container.scrollTop = container.scrollHeight;
-            },
-            clear() {
-                document.getElementById('outputContent').innerHTML = '<div class="output-line info">[System] Log cleared</div>';
-            }
-        };
+        // Initialize Claude and handle window resize
+        document.addEventListener('DOMContentLoaded', () => {
+            Claude.checkStatus();
+        });
+
+        // Resize webview when window resizes
+        window.addEventListener('resize', () => {
+            Claude.resize();
+        });
+
+        // Also resize on scroll (in case page layout shifts)
+        let resizeTimeout;
+        window.addEventListener('scroll', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => Claude.resize(), 100);
+        });
     </script>
 </body>
 </html>

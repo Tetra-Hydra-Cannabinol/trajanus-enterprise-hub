@@ -2,6 +2,7 @@ use std::fs;
 use std::path::Path;
 use std::process::Command;
 use tauri_plugin_shell::ShellExt;
+use tauri::{Manager, WebviewBuilder, WebviewUrl, LogicalPosition, LogicalSize};
 use serde::{Serialize, Deserialize};
 use reqwest::Client;
 
@@ -277,6 +278,59 @@ async fn chat_with_claude(message: String, context: Option<String>) -> Result<St
     Ok(text)
 }
 
+// ==================== EMBEDDED CLAUDE WEBVIEW ====================
+
+#[tauri::command]
+async fn embed_claude(app: tauri::AppHandle, x: f64, y: f64, width: f64, height: f64) -> Result<(), String> {
+    // Close existing claude webview if present
+    if let Some(existing) = app.get_webview("claude-embedded") {
+        existing.close().map_err(|e| e.to_string())?;
+    }
+
+    // Get the WebviewWindow first, then extract the Window
+    let webview_window = app.get_webview_window("main")
+        .ok_or("Main window not found")?;
+
+    // Get the underlying Window to add child webview
+    let main_window = webview_window.as_ref().window();
+
+    // Add Claude as child webview INSIDE main window
+    main_window.add_child(
+        WebviewBuilder::new(
+            "claude-embedded",
+            WebviewUrl::External("https://claude.ai".parse().unwrap())
+        )
+        .user_agent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")
+        .auto_resize(),
+        LogicalPosition::new(x, y),
+        LogicalSize::new(width, height),
+    ).map_err(|e| e.to_string())?;
+
+    Ok(())
+}
+
+#[tauri::command]
+async fn close_claude(app: tauri::AppHandle) -> Result<(), String> {
+    if let Some(webview) = app.get_webview("claude-embedded") {
+        webview.close().map_err(|e| e.to_string())?;
+    }
+    Ok(())
+}
+
+#[tauri::command]
+async fn resize_claude(app: tauri::AppHandle, x: f64, y: f64, width: f64, height: f64) -> Result<(), String> {
+    if let Some(webview) = app.get_webview("claude-embedded") {
+        webview.set_position(LogicalPosition::new(x, y)).map_err(|e| e.to_string())?;
+        webview.set_size(LogicalSize::new(width, height)).map_err(|e| e.to_string())?;
+    }
+    Ok(())
+}
+
+#[tauri::command]
+async fn is_claude_embedded(app: tauri::AppHandle) -> bool {
+    app.get_webview("claude-embedded").is_some()
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
@@ -294,7 +348,11 @@ pub fn run() {
             git_push,
             run_powershell_script,
             run_python_script,
-            chat_with_claude
+            chat_with_claude,
+            embed_claude,
+            close_claude,
+            resize_claude,
+            is_claude_embedded
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
