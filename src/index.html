@@ -3,40 +3,394 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trajanus Command Center</title>
+    <title>Trajanus Enterprise Hub</title>
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-    <div class="landing-container">
-        <header class="landing-header">
-            <div class="logo-container">
-                <span class="logo-text">EI<sup class="trademark">TM</sup></span>
+    <div class="app-wrapper">
+        <!-- Header Bar -->
+        <header class="header-bar">
+            <div class="header-brand">
+                <span class="header-logo">&#9670;</span>
+                <span class="header-title">TRAJANUS ENTERPRISE HUB</span>
             </div>
-            <h1>TRAJANUS COMMAND CENTER</h1>
-            <p class="subtitle">Trajanus USA - Engineered Intelligence</p>
+            <div class="header-controls">
+                <div class="header-search">
+                    <span>&#128269;</span>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <button class="header-icon-btn" title="Settings">&#9881;</button>
+                <button class="header-icon-btn" title="User">&#128100;</button>
+            </div>
         </header>
 
-        <nav class="toolkit-grid">
-            <a href="toolkits/pm.html" class="toolkit-card pm">
-                <h2>PM Toolkit</h2>
-                <p>Project Management - RFIs, submittals, schedules, costs</p>
-            </a>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Executive Summary -->
+            <section class="executive-summary">
+                <div class="summary-header">
+                    <h1 class="greeting">
+                        <span id="greeting-text">Good morning</span>, <span class="greeting-name">Bill</span>.
+                    </h1>
+                    <span class="current-date" id="current-date">December 29, 2025</span>
+                </div>
 
-            <a href="toolkits/traffic.html" class="toolkit-card traffic">
-                <h2>Traffic Studies</h2>
-                <p>TIS reports, trip generation, LOS analysis</p>
-            </a>
+                <div class="contract-card">
+                    <div class="contract-label">Active Contract</div>
+                    <div class="contract-title">SOUTHCOM Guatemala Infrastructure - W9127823R0034</div>
+                    <div class="contract-divider"></div>
+                    <div class="contract-metrics">
+                        <div class="metric">
+                            <div class="metric-label">Contract Value</div>
+                            <div class="metric-value">$47.2M</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Status</div>
+                            <div class="metric-value status-active">&#9679; Active</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Phase</div>
+                            <div class="metric-value">Construction</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Days Active</div>
+                            <div class="metric-value">847</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-            <a href="toolkits/developer.html" class="toolkit-card developer">
-                <h2>Developer Toolkit</h2>
-                <p>KB management, agents, session docs, dev tools</p>
-            </a>
+            <!-- Quick Stats -->
+            <section class="quick-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">&#9670;</div>
+                    <div class="stat-number">247</div>
+                    <div class="stat-label">Documents this month</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">&#9670;</div>
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Pending submittals</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">&#9670;</div>
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Open RFIs</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">&#9670;</div>
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Actions due this week</div>
+                </div>
+            </section>
 
-            <a href="toolkits/qcm.html" class="toolkit-card qcm">
-                <h2>QCM Toolkit</h2>
-                <p>Submittal review, inspections, deficiency tracking</p>
-            </a>
-        </nav>
+            <!-- Operations Section -->
+            <section class="operations-section">
+                <div class="section-header">
+                    <h2 class="section-title">Operations</h2>
+                </div>
+
+                <div class="operations-grid">
+                    <!-- Project Management -->
+                    <a href="toolkits/pm.html" class="toolkit-card">
+                        <div class="toolkit-header">
+                            <span class="toolkit-icon">&#9670;</span>
+                            <h3 class="toolkit-title">Project Management</h3>
+                        </div>
+                        <div class="toolkit-divider"></div>
+                        <ul class="toolkit-features">
+                            <li>Schedule Analysis & Tracking</li>
+                            <li>Cost Management & EV Reports</li>
+                            <li>Document Control Systems</li>
+                            <li>RFI & Correspondence</li>
+                        </ul>
+                        <div class="toolkit-actions">
+                            <span class="toolkit-badge">Procore</span>
+                            <span class="toolkit-badge">P6</span>
+                        </div>
+                        <div class="toolkit-enter">
+                            Enter Toolkit <span>&#9654;</span>
+                        </div>
+                    </a>
+
+                    <!-- Quality Control -->
+                    <a href="toolkits/qcm.html" class="toolkit-card">
+                        <div class="toolkit-header">
+                            <span class="toolkit-icon">&#9670;</span>
+                            <h3 class="toolkit-title">Quality Control</h3>
+                        </div>
+                        <div class="toolkit-divider"></div>
+                        <ul class="toolkit-features">
+                            <li>Submittal Review & Processing</li>
+                            <li>Inspection Documentation</li>
+                            <li>Deficiency Tracking</li>
+                            <li>QC/QA Checklists</li>
+                        </ul>
+                        <div class="toolkit-actions">
+                            <span class="toolkit-badge">RMS 3.0</span>
+                            <span class="toolkit-badge">QC Logs</span>
+                        </div>
+                        <div class="toolkit-enter">
+                            Enter Toolkit <span>&#9654;</span>
+                        </div>
+                    </a>
+
+                    <!-- Traffic Studies -->
+                    <a href="toolkits/traffic.html" class="toolkit-card">
+                        <div class="toolkit-header">
+                            <span class="toolkit-icon">&#9670;</span>
+                            <h3 class="toolkit-title">Traffic Studies</h3>
+                        </div>
+                        <div class="toolkit-divider"></div>
+                        <ul class="toolkit-features">
+                            <li>Traffic Impact Analysis</li>
+                            <li>Study Requirements & Guides</li>
+                            <li>Data Processing Tools</li>
+                            <li>Report Generation</li>
+                        </ul>
+                        <div class="toolkit-actions">
+                            <span class="toolkit-badge">Synchro</span>
+                            <span class="toolkit-badge">HCS</span>
+                        </div>
+                        <div class="toolkit-enter">
+                            Enter Toolkit <span>&#9654;</span>
+                        </div>
+                    </a>
+
+                    <!-- Developer Toolkit -->
+                    <a href="toolkits/developer.html" class="toolkit-card">
+                        <div class="toolkit-header">
+                            <span class="toolkit-icon">&#9670;</span>
+                            <h3 class="toolkit-title">Developer Toolkit</h3>
+                        </div>
+                        <div class="toolkit-divider"></div>
+                        <ul class="toolkit-features">
+                            <li>Script Browser & Execution</li>
+                            <li>File Format Conversion</li>
+                            <li>Session Documentation</li>
+                            <li>Claude AI Assistant</li>
+                        </ul>
+                        <div class="toolkit-actions">
+                            <span class="toolkit-badge">Scripts</span>
+                            <span class="toolkit-badge">Converters</span>
+                        </div>
+                        <div class="toolkit-enter">
+                            Enter Toolkit <span>&#9654;</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Quick Tools Section -->
+            <section class="quick-tools-section">
+                <div class="section-header">
+                    <h2 class="section-title">Quick Tools</h2>
+                </div>
+
+                <div class="quick-tools-grid">
+                    <div class="quick-tool" onclick="Hub.launchTool('md-to-docs')">
+                        <div class="quick-tool-icon">&#128196;</div>
+                        <div class="quick-tool-label">MD to Docs</div>
+                    </div>
+                    <div class="quick-tool" onclick="Hub.launchTool('xer-parse')">
+                        <div class="quick-tool-icon">&#128202;</div>
+                        <div class="quick-tool-label">XER Parse</div>
+                    </div>
+                    <div class="quick-tool" onclick="Hub.launchTool('converter')">
+                        <div class="quick-tool-icon">&#128260;</div>
+                        <div class="quick-tool-label">Converter</div>
+                    </div>
+                    <div class="quick-tool" onclick="Hub.launchTool('browser')">
+                        <div class="quick-tool-icon">&#128193;</div>
+                        <div class="quick-tool-label">Browser</div>
+                    </div>
+                    <div class="quick-tool" onclick="Hub.launchTool('journal')">
+                        <div class="quick-tool-icon">&#128203;</div>
+                        <div class="quick-tool-label">Journal</div>
+                    </div>
+                    <div class="quick-tool" onclick="Hub.launchTool('claude')">
+                        <div class="quick-tool-icon">&#129302;</div>
+                        <div class="quick-tool-label">Claude</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Applications Section -->
+            <section class="applications-section">
+                <div class="section-header">
+                    <h2 class="section-title">Applications</h2>
+                </div>
+
+                <div class="applications-grid">
+                    <div class="app-category">
+                        <h4>Federal & DoD</h4>
+                        <ul class="app-list">
+                            <li><a href="https://rms.usace.army.mil" target="_blank" class="app-link"><span class="app-link-icon">&#9670;</span> RMS 3.0</a></li>
+                            <li><a href="https://cefms.usace.army.mil" target="_blank" class="app-link"><span class="app-link-icon">&#9670;</span> CEFMS</a></li>
+                            <li><a href="#" class="app-link"><span class="app-link-icon">&#9670;</span> ENG Form 4025</a></li>
+                            <li><a href="#" class="app-link"><span class="app-link-icon">&#9670;</span> eCMS</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="app-category">
+                        <h4>Project Controls</h4>
+                        <ul class="app-list">
+                            <li><a href="#" class="app-link"><span class="app-link-icon">&#9670;</span> Primavera P6</a></li>
+                            <li><a href="https://app.procore.com" target="_blank" class="app-link"><span class="app-link-icon">&#9670;</span> Procore</a></li>
+                            <li><a href="#" class="app-link"><span class="app-link-icon">&#9670;</span> Oracle Unifier</a></li>
+                            <li><a href="#" class="app-link"><span class="app-link-icon">&#9670;</span> Microsoft Project</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="app-category">
+                        <h4>Communication</h4>
+                        <ul class="app-list">
+                            <li><a href="https://teams.microsoft.com" target="_blank" class="app-link"><span class="app-link-icon">&#9670;</span> Microsoft Teams</a></li>
+                            <li><a href="https://outlook.office.com" target="_blank" class="app-link"><span class="app-link-icon">&#9670;</span> Outlook</a></li>
+                            <li><a href="https://zoom.us" target="_blank" class="app-link"><span class="app-link-icon">&#9670;</span> Zoom</a></li>
+                            <li><a href="https://claude.ai" target="_blank" class="app-link"><span class="app-link-icon">&#9670;</span> Claude AI</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="app-category">
+                        <h4>Documentation</h4>
+                        <ul class="app-list">
+                            <li><a href="https://drive.google.com" target="_blank" class="app-link"><span class="app-link-icon">&#9670;</span> Google Drive</a></li>
+                            <li><a href="#" class="app-link"><span class="app-link-icon">&#9670;</span> SharePoint</a></li>
+                            <li><a href="#" class="app-link"><span class="app-link-icon">&#9670;</span> Bluebeam Revu</a></li>
+                            <li><a href="https://github.com" target="_blank" class="app-link"><span class="app-link-icon">&#9670;</span> GitHub</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Activity Section -->
+            <section class="activity-section">
+                <div class="section-header">
+                    <h2 class="section-title">Recent Activity</h2>
+                </div>
+
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-content">
+                            <span class="activity-dot"></span>
+                            <span class="activity-text">Session Summary uploaded to 03-Output</span>
+                        </div>
+                        <span class="activity-time">2 hours ago</span>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-content">
+                            <span class="activity-dot"></span>
+                            <span class="activity-text">XER Schedule W9127823R0034_Nov parsed</span>
+                        </div>
+                        <span class="activity-time">Yesterday</span>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-content">
+                            <span class="activity-dot"></span>
+                            <span class="activity-text">Submittal #247-ELEC converted to PDF</span>
+                        </div>
+                        <span class="activity-time">Dec 27</span>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-content">
+                            <span class="activity-dot"></span>
+                            <span class="activity-text">QCM Inspection Report generated</span>
+                        </div>
+                        <span class="activity-time">Dec 27</span>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-content">
+                            <span class="activity-dot"></span>
+                            <span class="activity-text">Traffic Study data imported</span>
+                        </div>
+                        <span class="activity-time">Dec 26</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <span class="footer-item">Trajanus USA</span>
+            <span class="footer-item">High Springs, FL</span>
+            <span class="footer-item">v0.3.0</span>
+            <span class="footer-item footer-status">
+                <span class="status-dot"></span>
+                Connected
+            </span>
+        </footer>
     </div>
+
+    <script>
+        // Tauri API
+        const { invoke } = window.__TAURI__.core;
+
+        // Hub Controller
+        const Hub = {
+            init() {
+                this.updateGreeting();
+                this.updateDate();
+            },
+
+            updateGreeting() {
+                const hour = new Date().getHours();
+                let greeting = 'Good evening';
+                if (hour < 12) greeting = 'Good morning';
+                else if (hour < 17) greeting = 'Good afternoon';
+                document.getElementById('greeting-text').textContent = greeting;
+            },
+
+            updateDate() {
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                const date = new Date().toLocaleDateString('en-US', options);
+                document.getElementById('current-date').textContent = date;
+            },
+
+            async launchTool(tool) {
+                const SCRIPTS_PATH = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\';
+
+                switch(tool) {
+                    case 'md-to-docs':
+                        try {
+                            await invoke('run_python_script', {
+                                scriptPath: SCRIPTS_PATH + 'CONVERT_MD_TO_GDOCS_PERMANENT.py'
+                            });
+                        } catch(e) {
+                            console.error('Failed to launch MD to Docs:', e);
+                        }
+                        break;
+                    case 'xer-parse':
+                        // Future: XER parser
+                        console.log('XER Parse - Coming soon');
+                        break;
+                    case 'converter':
+                        window.location.href = 'toolkits/developer.html';
+                        break;
+                    case 'browser':
+                        try {
+                            await invoke('run_python_script', {
+                                scriptPath: SCRIPTS_PATH + 'SCRIPT_BROWSER.py'
+                            });
+                        } catch(e) {
+                            console.error('Failed to launch browser:', e);
+                        }
+                        break;
+                    case 'journal':
+                        // Future: Journal template
+                        console.log('Journal - Coming soon');
+                        break;
+                    case 'claude':
+                        window.location.href = 'toolkits/developer.html';
+                        break;
+                }
+            }
+        };
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            Hub.init();
+        });
+    </script>
 </body>
 </html>
