@@ -3,12 +3,12 @@
 
 /* ==================== COLOR PALETTE ==================== */
 :root {
-    /* Backgrounds - Darkest to Lightest for elevation */
-    --bg-base: #1a1a1a;
-    --bg-surface: #232323;
-    --bg-card: #2d2d2d;
-    --bg-elevated: #353535;
-    --bg-hover: #3d3d3d;
+    /* Backgrounds - Lighter palette for better readability */
+    --bg-base: #3a3a3a;
+    --bg-surface: #424242;
+    --bg-card: #4a4a4a;
+    --bg-elevated: #525252;
+    --bg-hover: #5a5a5a;
 
     /* Accent */
     --accent-gold: #d4a574;
@@ -16,9 +16,9 @@
     --accent-hover: #e8922a;
 
     /* Text */
-    --text-primary: #e8e8e8;
-    --text-secondary: #a0a0a0;
-    --text-muted: #707070;
+    --text-primary: #ffffff;
+    --text-secondary: #f5f5f5;
+    --text-muted: #a0a0a0;
 
     /* Status */
     --status-success: #4ade80;
@@ -26,7 +26,7 @@
     --status-error: #f87171;
 
     /* Borders */
-    --border-subtle: #3d3d3d;
+    --border-subtle: #5a5a5a;
     --border-accent: #d4a574;
 
     /* Spacing */
@@ -167,20 +167,39 @@ a:hover {
     color: var(--accent-gold);
 }
 
-/* ==================== EXECUTIVE SUMMARY ==================== */
-.executive-summary {
+/* ==================== HERO TITLE ==================== */
+.hero-title {
+    text-align: center;
     margin-bottom: var(--space-xl);
+    padding: var(--space-lg) 0;
 }
 
-.summary-header {
+.hero-title h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--accent-gold);
+    margin: 0;
+}
+
+.hero-title .trademark {
+    color: var(--text-primary);
+    font-weight: 400;
+    margin-left: var(--space-md);
+}
+
+/* ==================== GREETING ROW ==================== */
+.greeting-row {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
     margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--border-subtle);
 }
 
 .greeting {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 300;
     color: var(--text-primary);
 }
@@ -190,64 +209,155 @@ a:hover {
 }
 
 .current-date {
-    color: var(--text-secondary);
+    color: var(--text-muted);
     font-size: 0.875rem;
 }
 
-.contract-card {
+/* ==================== WELCOME SECTION ==================== */
+.welcome-section {
     background: var(--bg-surface);
     border-radius: 8px;
-    padding: var(--space-lg);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-xl);
     border-left: 4px solid var(--accent-gold);
 }
 
-.contract-label {
-    font-size: 0.75rem;
+.welcome-title {
+    font-size: 1rem;
     font-weight: 600;
-    color: var(--accent-gold);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    margin-bottom: var(--space-sm);
+    color: var(--accent-gold);
+    margin-bottom: var(--space-lg);
 }
 
-.contract-title {
-    font-size: 1.125rem;
-    font-weight: 500;
+.welcome-intro {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-xl);
+}
+
+.welcome-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+}
+
+.welcome-block h3 {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-gold);
     margin-bottom: var(--space-md);
 }
 
-.contract-divider {
+.welcome-block p {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-sm);
+}
+
+.welcome-block ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.welcome-block li {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    padding: var(--space-xs) 0;
+    padding-left: var(--space-md);
+    position: relative;
+}
+
+.welcome-block li::before {
+    content: "\2022";
+    color: var(--accent-gold);
+    position: absolute;
+    left: 0;
+}
+
+/* ==================== ACTIVE PROJECTS ==================== */
+.projects-section {
+    margin-bottom: var(--space-xl);
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+}
+
+.project-card {
+    background: var(--bg-surface);
+    border-radius: 8px;
+    padding: var(--space-lg);
+    border-left: 3px solid var(--accent-gold);
+    transition: all 0.2s ease;
+}
+
+.project-card:hover {
+    background: var(--bg-elevated);
+    transform: translateX(4px);
+}
+
+.project-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent-gold);
+    margin-bottom: var(--space-sm);
+}
+
+.project-subtitle {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-md);
+}
+
+.project-divider {
     height: 1px;
     background: var(--border-subtle);
     margin-bottom: var(--space-md);
 }
 
-.contract-metrics {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-lg);
+.project-details {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
 }
 
-.metric {
-    text-align: center;
-}
-
-.metric-label {
-    font-size: 0.75rem;
+.project-details strong {
     color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: var(--space-xs);
+    font-weight: 400;
 }
 
-.metric-value {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--text-primary);
+.project-status {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
 }
 
-.metric-value.status-active {
-    color: var(--status-success);
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.status-dot.active {
+    background: var(--status-success);
+}
+
+.status-dot.planning {
+    background: var(--status-warning);
+}
+
+/* ==================== EXECUTIVE SUMMARY (Legacy) ==================== */
+.executive-summary {
+    margin-bottom: var(--space-xl);
 }
 
 /* ==================== QUICK STATS ==================== */
@@ -391,12 +501,21 @@ a:hover {
     border: 1px solid var(--border-subtle);
 }
 
+.toolkit-description {
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--border-subtle);
+}
+
 .toolkit-enter {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     gap: var(--space-sm);
-    color: var(--text-secondary);
+    color: var(--text-muted);
     font-size: 0.875rem;
     margin-top: auto;
     transition: color 0.2s ease;
@@ -596,9 +715,17 @@ a:hover {
 
 /* Tablet */
 @media (max-width: 1199px) {
-    .contract-metrics {
+    .hero-title h1 {
+        font-size: 2rem;
+    }
+
+    .welcome-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+
+    .projects-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: var(--space-md);
     }
 
     .quick-stats {
@@ -625,13 +752,28 @@ a:hover {
         display: none;
     }
 
-    .summary-header {
+    .hero-title h1 {
+        font-size: 1.5rem;
+        letter-spacing: 0.05em;
+    }
+
+    .hero-title .trademark {
+        display: block;
+        margin-left: 0;
+        margin-top: var(--space-sm);
+    }
+
+    .greeting-row {
         flex-direction: column;
         gap: var(--space-sm);
     }
 
-    .contract-metrics {
-        grid-template-columns: repeat(2, 1fr);
+    .welcome-section {
+        padding: var(--space-lg);
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
     }
 
     .quick-stats {
@@ -652,5 +794,9 @@ a:hover {
 @media (min-width: 1600px) {
     .main-content {
         max-width: 1800px;
+    }
+
+    .hero-title h1 {
+        font-size: 3rem;
     }
 }

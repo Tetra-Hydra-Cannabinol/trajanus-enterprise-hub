@@ -12,7 +12,7 @@
         <header class="header-bar">
             <div class="header-brand">
                 <span class="header-logo">&#9670;</span>
-                <span class="header-title">TRAJANUS ENTERPRISE HUB</span>
+                <span class="header-title">TRAJANUS</span>
             </div>
             <div class="header-controls">
                 <div class="header-search">
@@ -26,35 +26,107 @@
 
         <!-- Main Content -->
         <main class="main-content">
-            <!-- Executive Summary -->
-            <section class="executive-summary">
-                <div class="summary-header">
-                    <h1 class="greeting">
-                        <span id="greeting-text">Good morning</span>, <span class="greeting-name">Bill</span>.
-                    </h1>
-                    <span class="current-date" id="current-date">December 29, 2025</span>
+            <!-- Hero Title -->
+            <section class="hero-title">
+                <h1>TRAJANUS ENTERPRISE HUB <span class="trademark">| EI&#8482;</span></h1>
+            </section>
+
+            <!-- Greeting Row -->
+            <div class="greeting-row">
+                <h2 class="greeting">
+                    <span id="greeting-text">Good morning</span>, <span class="greeting-name">Bill</span>.
+                </h2>
+                <span class="current-date" id="current-date">December 29, 2025</span>
+            </div>
+
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <h2 class="welcome-title">Welcome to the Trajanus Enterprise Hub</h2>
+                <p class="welcome-intro">
+                    The Enterprise Hub is your central command interface for construction project management,
+                    quality control, traffic engineering, and development operations. Built on Trajanus
+                    Engineered Intelligence (EI&#8482;), this platform integrates federal contract management
+                    workflows with AI-assisted tools and automation.
+                </p>
+
+                <div class="welcome-grid">
+                    <div class="welcome-block">
+                        <h3>Platforms</h3>
+                        <p>Four specialized toolkits provide focused functionality:</p>
+                        <ul>
+                            <li>Project Management - Scheduling, cost tracking, document control, EV reporting</li>
+                            <li>Quality Control - Submittal review, inspections, deficiency tracking, QC logs</li>
+                            <li>Traffic Studies - Impact analysis, data processing, report generation</li>
+                            <li>Developer Toolkit - Scripts, file conversion, session management, AI tools</li>
+                        </ul>
+                    </div>
+
+                    <div class="welcome-block">
+                        <h3>Navigation</h3>
+                        <p>Click any toolkit card to enter that platform. Use Quick Tools for frequently accessed functions. External Applications open partner systems in new tabs.</p>
+                    </div>
+
+                    <div class="welcome-block">
+                        <h3>AI Integration</h3>
+                        <ul>
+                            <li>Claude Assistant - Embedded AI panel for quick questions and task support</li>
+                            <li>Claude Full Chat - Opens claude.ai for extended conversations and complex work</li>
+                        </ul>
+                        <p>Your active projects and recent activity are displayed below.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Active Projects -->
+            <section class="projects-section">
+                <div class="section-header">
+                    <h2 class="section-title">Active Projects</h2>
                 </div>
 
-                <div class="contract-card">
-                    <div class="contract-label">Active Contract</div>
-                    <div class="contract-title">SOUTHCOM Guatemala Infrastructure - W9127823R0034</div>
-                    <div class="contract-divider"></div>
-                    <div class="contract-metrics">
-                        <div class="metric">
-                            <div class="metric-label">Contract Value</div>
-                            <div class="metric-value">$47.2M</div>
+                <div class="projects-grid">
+                    <!-- SOUTHCOM Guatemala -->
+                    <div class="project-card">
+                        <div class="project-name">SOUTHCOM Guatemala</div>
+                        <div class="project-subtitle">Infrastructure</div>
+                        <div class="project-divider"></div>
+                        <div class="project-details">
+                            <strong>Contract:</strong> W9127823R0034<br>
+                            <strong>Value:</strong> $47.2M<br>
+                            <strong>Type:</strong> Federal Construction<br>
+                            <div class="project-status">
+                                <span class="status-dot active"></span>
+                                <span>Active - Day 847</span>
+                            </div>
                         </div>
-                        <div class="metric">
-                            <div class="metric-label">Status</div>
-                            <div class="metric-value status-active">&#9679; Active</div>
+                    </div>
+
+                    <!-- Grace Fellowship -->
+                    <div class="project-card">
+                        <div class="project-name">Grace Fellowship</div>
+                        <div class="project-subtitle">Traffic Study</div>
+                        <div class="project-divider"></div>
+                        <div class="project-details">
+                            <strong>Client:</strong> Grace Fellowship Church<br>
+                            <strong>Type:</strong> Traffic Impact Analysis<br>
+                            <div class="project-status">
+                                <span class="status-dot active"></span>
+                                <span>Active</span>
+                            </div>
                         </div>
-                        <div class="metric">
-                            <div class="metric-label">Phase</div>
-                            <div class="metric-value">Construction</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-label">Days Active</div>
-                            <div class="metric-value">847</div>
+                    </div>
+
+                    <!-- Kwajalein -->
+                    <div class="project-card">
+                        <div class="project-name">Base Housing - Kwajalein</div>
+                        <div class="project-subtitle"></div>
+                        <div class="project-divider"></div>
+                        <div class="project-details">
+                            <strong>Location:</strong> Kwajalein Atoll, Marshall Islands<br>
+                            <strong>Type:</strong> Military Housing<br>
+                            <div class="project-status">
+                                <span class="status-dot planning"></span>
+                                <span>Planning</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -104,6 +176,10 @@
                             <li>Document Control Systems</li>
                             <li>RFI & Correspondence</li>
                         </ul>
+                        <div class="toolkit-description">
+                            Integrated scheduling, cost tracking, and document control for federal construction contracts.
+                            Connects to Primavera P6, Procore, and Corps of Engineers systems.
+                        </div>
                         <div class="toolkit-actions">
                             <span class="toolkit-badge">Procore</span>
                             <span class="toolkit-badge">P6</span>
@@ -126,6 +202,10 @@
                             <li>Deficiency Tracking</li>
                             <li>QC/QA Checklists</li>
                         </ul>
+                        <div class="toolkit-description">
+                            Submittal processing, inspection documentation, and deficiency tracking.
+                            Interfaces with RMS 3.0 and generates QC reports for USACE compliance.
+                        </div>
                         <div class="toolkit-actions">
                             <span class="toolkit-badge">RMS 3.0</span>
                             <span class="toolkit-badge">QC Logs</span>
@@ -148,6 +228,10 @@
                             <li>Data Processing Tools</li>
                             <li>Report Generation</li>
                         </ul>
+                        <div class="toolkit-description">
+                            Traffic impact analysis and study generation. Processes data from Synchro, HCS,
+                            and field counts to produce jurisdiction-compliant reports.
+                        </div>
                         <div class="toolkit-actions">
                             <span class="toolkit-badge">Synchro</span>
                             <span class="toolkit-badge">HCS</span>
@@ -170,6 +254,10 @@
                             <li>Session Documentation</li>
                             <li>Claude AI Assistant</li>
                         </ul>
+                        <div class="toolkit-description">
+                            Session management, script execution, and AI-assisted development.
+                            Central control for file conversion, automation, and Claude integration.
+                        </div>
                         <div class="toolkit-actions">
                             <span class="toolkit-badge">Scripts</span>
                             <span class="toolkit-badge">Converters</span>
@@ -316,7 +404,7 @@
             <span class="footer-item">High Springs, FL</span>
             <span class="footer-item">v0.3.0</span>
             <span class="footer-item footer-status">
-                <span class="status-dot"></span>
+                <span class="status-dot active"></span>
                 Connected
             </span>
         </footer>
