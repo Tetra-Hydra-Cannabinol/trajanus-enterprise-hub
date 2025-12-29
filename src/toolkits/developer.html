@@ -3,366 +3,632 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Developer Toolkit - Trajanus EI</title>
-    <link rel="stylesheet" href="../styles/main.css">
+    <title>Developer Toolkit - Trajanus Enterprise Hub</title>
     <style>
-        /* Developer Toolkit - Expandable Panel Layout */
-        .dev-wrapper {
-            min-height: 100vh;
+        /* Reset & Base */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg-base: #0d0d0d;
+            --bg-surface: #141414;
+            --bg-card: #1a1a1a;
+            --bg-elevated: #252525;
+            --gold: #d4a574;
+            --gold-hover: #e8922a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --border-subtle: #2a2a2a;
+            --border-accent: #333333;
+            --success: #4ade80;
+            --info: #60a5fa;
+            --warning: #f59e0b;
+            --purple: #a78bfa;
+            --error: #ef4444;
+            --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: var(--font-main);
             background: var(--bg-base);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Page Header */
+        .page-header {
             display: flex;
-            flex-direction: column;
-        }
-
-        .dev-main {
-            flex: 1;
-            padding: var(--space-md);
-            padding-top: calc(60px + var(--space-md));
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-md);
-        }
-
-        /* Panel Grid - 2x2 layout that becomes vertical on expansion */
-        .panel-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--space-md);
-        }
-
-        /* Base Panel Styles */
-        .panel {
-            display: flex;
-            flex-direction: column;
-            background: var(--bg-card);
-            border: 1px solid var(--bg-elevated);
-            border-radius: 8px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .panel:hover {
-            border-color: var(--accent-gold);
-        }
-
-        /* Compact Panel State (default) */
-        .panel.compact {
-            height: 120px;
-        }
-
-        .panel.compact .panel-content {
-            display: none;
-        }
-
-        .panel.compact .panel-preview {
-            display: block;
-        }
-
-        /* Expanded Panel State */
-        .panel.expanded {
-            grid-column: 1 / -1;
-            min-height: 500px;
-            height: auto;
-            cursor: default;
-            order: -1;
-        }
-
-        .panel.expanded .panel-content {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            min-height: 0;
-        }
-
-        .panel.expanded .panel-preview {
-            display: none;
-        }
-
-        .panel.expanded .panel-header {
-            cursor: pointer;
-        }
-
-        /* Panel Header */
-        .panel-header {
-            display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            padding: 12px 16px;
-            background: var(--bg-surface);
-            border-bottom: 1px solid var(--bg-elevated);
-            flex-shrink: 0;
+            padding: 16px 24px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-subtle);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .panel-header-left {
+        .page-header-left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
         }
 
-        .panel-title {
-            color: var(--accent-gold);
-            font-size: 0.8rem;
+        .home-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .home-link:hover {
+            color: var(--gold);
+        }
+
+        .diamond {
+            width: 10px;
+            height: 10px;
+            background: var(--gold);
+            transform: rotate(45deg);
+        }
+
+        .page-title {
+            color: var(--text-primary);
+            font-size: 16px;
             font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .expand-indicator {
-            color: var(--text-muted);
-            font-size: 0.7rem;
-            transition: transform 0.3s ease;
-        }
-
-        .panel.expanded .expand-indicator {
-            transform: rotate(180deg);
-        }
-
-        .panel-actions {
+        .header-controls {
             display: flex;
             gap: 8px;
         }
 
-        .panel.compact .panel-actions {
-            display: none;
-        }
-
-        .panel-btn {
+        .header-btn {
             background: transparent;
             border: 1px solid var(--border-subtle);
-            color: var(--text-muted);
-            padding: 4px 12px;
-            font-size: 0.75rem;
+            color: var(--text-secondary);
+            padding: 8px 14px;
             border-radius: 4px;
             cursor: pointer;
+            font-size: 13px;
             transition: all 0.2s ease;
         }
 
-        .panel-btn:hover {
-            border-color: var(--accent-gold);
-            color: var(--accent-gold);
+        .header-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
         }
 
-        /* Panel Preview (shown when compact) */
-        .panel-preview {
-            padding: 12px 16px;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            line-height: 1.5;
-            display: none;
+        /* Main Content - Scrollable */
+        .main-content {
+            padding: 0 24px 40px 24px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        /* Panel Content */
-        .panel-content {
-            flex: 1;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            min-height: 0;
-        }
-
-        /* Chat Panel Specifics */
-        .chat-panel .panel-content {
-            padding: 0;
-        }
-
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: var(--space-md);
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-md);
-            min-height: 300px;
-        }
-
-        .chat-welcome {
-            color: var(--text-muted);
+        /* ========================== */
+        /* PAGE HERO SECTION          */
+        /* ========================== */
+        .page-hero {
             text-align: center;
-            padding: var(--space-xl);
-            line-height: 1.6;
+            padding: 48px 24px 32px 24px;
+            border-bottom: 1px solid var(--border-subtle);
+            margin-bottom: 32px;
         }
 
-        .message {
-            max-width: 90%;
-            padding: 12px 16px;
-            border-radius: 8px;
-            line-height: 1.6;
-            font-size: 0.9rem;
+        .hero-title {
+            color: var(--gold);
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
         }
 
-        .message.user {
-            align-self: flex-end;
-            background: var(--accent-gold);
-            color: var(--bg-base);
+        .hero-trademark {
+            color: var(--text-secondary);
+            font-size: 20px;
+            font-weight: 400;
         }
 
-        .message.assistant {
-            align-self: flex-start;
-            background: var(--bg-elevated);
-            color: var(--text-white);
-            border-left: 3px solid var(--accent-gold);
+        .hero-subtitle {
+            color: var(--text-primary);
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
         }
 
-        .message pre {
-            background: var(--bg-surface);
-            padding: var(--space-md);
-            border-radius: 4px;
-            overflow-x: auto;
-            margin: var(--space-sm) 0;
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-        }
-
-        .message code {
-            font-family: var(--font-mono);
-            background: var(--bg-surface);
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-size: 0.85rem;
-        }
-
-        .message pre code {
-            background: transparent;
-            padding: 0;
-        }
-
-        .typing-indicator {
+        .hero-greeting-row {
             display: flex;
-            gap: 4px;
-            padding: 12px 16px;
-            align-self: flex-start;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 20px;
         }
 
-        .typing-indicator span {
-            width: 8px;
-            height: 8px;
-            background: var(--accent-gold);
-            border-radius: 50%;
-            animation: typing 1.4s infinite;
+        .hero-greeting {
+            color: var(--text-primary);
+            font-size: 16px;
         }
 
-        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes typing {
-            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-            30% { transform: translateY(-4px); opacity: 1; }
+        .hero-greeting .name {
+            color: var(--gold);
+            font-weight: 600;
         }
 
-        .chat-input-area {
-            padding: var(--space-md);
-            background: var(--bg-surface);
-            border-top: 1px solid var(--bg-elevated);
-            display: flex;
-            gap: var(--space-sm);
-            flex-shrink: 0;
+        .hero-date {
+            color: var(--text-secondary);
+            font-size: 14px;
         }
 
-        .chat-input-area textarea {
-            flex: 1;
-            background: var(--bg-input);
-            border: 1px solid var(--bg-elevated);
-            color: var(--text-white);
-            padding: 12px;
-            border-radius: 4px;
-            resize: none;
-            font-family: inherit;
-            font-size: 0.9rem;
-            min-height: 60px;
-            max-height: 150px;
+        .hero-description {
+            color: var(--text-secondary);
+            font-size: 14px;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
         }
 
-        .chat-input-area textarea:focus {
-            outline: none;
-            border-color: var(--accent-gold);
+        /* ========================== */
+        /* BOLD SECTION HEADERS       */
+        /* ========================== */
+        .section-divider {
+            margin: 40px 0 24px 0;
         }
 
-        .chat-input-area textarea::placeholder {
-            color: var(--text-muted);
+        .section-border-top {
+            height: 2px;
+            background: linear-gradient(to right, var(--gold), var(--border-subtle), transparent);
+            margin-bottom: 12px;
         }
 
-        /* Script Browser */
-        .script-list {
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-sm);
-            padding: var(--space-md);
-            overflow-y: auto;
-            max-height: 400px;
-        }
-
-        .script-item {
+        .section-title-row {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: var(--space-sm) var(--space-md);
-            background: var(--bg-surface);
-            border-radius: 4px;
-            border: 1px solid var(--bg-elevated);
-            cursor: pointer;
-            transition: all 0.2s ease;
+            gap: 16px;
         }
 
-        .script-item:hover {
-            background: var(--bg-elevated);
-            border-color: var(--accent-gold);
+        .section-blocks {
+            color: var(--gold);
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 2px;
         }
 
-        .script-name {
-            color: var(--text-white);
-            font-size: 0.85rem;
+        .section-title {
+            color: var(--gold);
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 4px;
         }
 
-        .script-desc {
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            margin-top: 2px;
+        .section-border-bottom {
+            height: 2px;
+            background: linear-gradient(to right, var(--gold), var(--border-subtle), transparent);
+            margin-top: 12px;
         }
 
-        .script-run {
-            background: var(--accent-gold);
-            color: var(--bg-base);
-            border: none;
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-size: 0.7rem;
+        .section-description {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-top: 12px;
+            max-width: 800px;
+        }
+
+        /* ========================== */
+        /* SUBSECTION HEADERS         */
+        /* ========================== */
+        .subsection {
+            margin-bottom: 28px;
+        }
+
+        .subsection-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .subsection-title {
+            color: var(--text-primary);
+            font-size: 13px;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .subsection-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border-subtle);
+        }
+
+        .subsection-description {
+            color: var(--text-muted);
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        /* ========================== */
+        /* APPLICATION CARDS          */
+        /* ========================== */
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 12px;
+        }
+
+        .app-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 16px 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 90px;
+        }
+
+        .app-card:hover {
+            background: var(--bg-elevated);
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        .app-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--gold);
+            background: var(--bg-elevated);
+            border-radius: 6px;
+        }
+
+        .app-label {
+            font-size: 11px;
+            color: var(--text-primary);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* ========================== */
+        /* TWO-COLUMN SCRIPT CARDS    */
+        /* ========================== */
+        .script-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 900px) {
+            .script-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .script-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-left: 4px solid var(--gold);
+            border-radius: 6px;
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .script-card:hover {
+            background: var(--bg-elevated);
+            border-color: var(--gold);
+            border-left-color: var(--gold-hover);
+            transform: translateX(4px);
+        }
+
+        /* Color-coded script indicators */
+        .script-card.conversion { border-left-color: var(--success); }
+        .script-card.session { border-left-color: var(--info); }
+        .script-card.automation { border-left-color: var(--warning); }
+        .script-card.data { border-left-color: var(--purple); }
+        .script-card.agent { border-left-color: var(--gold); }
+
+        .script-card.conversion:hover { border-left-color: var(--success); }
+        .script-card.session:hover { border-left-color: var(--info); }
+        .script-card.automation:hover { border-left-color: var(--warning); }
+        .script-card.data:hover { border-left-color: var(--purple); }
+        .script-card.agent:hover { border-left-color: var(--gold); }
+
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--gold);
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .script-card.conversion .indicator { background: var(--success); }
+        .script-card.session .indicator { background: var(--info); }
+        .script-card.automation .indicator { background: var(--warning); }
+        .script-card.data .indicator { background: var(--purple); }
+        .script-card.agent .indicator { background: var(--gold); }
+
+        .script-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .script-title {
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .script-description {
+            color: var(--text-muted);
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        /* ========================== */
+        /* AGENT CARDS                */
+        /* ========================== */
+        .agent-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 1100px) {
+            .agent-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .agent-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .agent-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .agent-card:hover {
+            border-color: var(--gold);
+        }
+
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .agent-icon {
+            font-size: 20px;
+        }
+
+        .agent-name {
+            color: var(--gold);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .agent-description {
+            color: var(--text-secondary);
+            font-size: 12px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            min-height: 36px;
+        }
+
+        .agent-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .agent-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
-        .script-run:hover {
-            background: var(--accent-hover);
+        .agent-btn.activate {
+            background: var(--gold);
+            border: none;
+            color: var(--bg-base);
         }
 
-        /* Document Viewer */
-        .doc-empty {
+        .agent-btn.activate:hover {
+            background: var(--gold-hover);
+        }
+
+        .agent-btn.deploy {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+        }
+
+        .agent-btn.deploy:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* ========================== */
+        /* CLAUDE.AI WEBVIEW          */
+        /* ========================== */
+        .claude-workspace {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .workspace-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .workspace-header-left h3 {
+            color: var(--gold);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .workspace-header-left p {
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .workspace-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .workspace-btn {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .workspace-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .claude-webview-container {
+            min-height: 800px;
+            background: var(--bg-base);
+        }
+
+        .claude-webview-container webview {
+            width: 100%;
+            height: 800px;
+            border: none;
+        }
+
+        .webview-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 800px;
             color: var(--text-muted);
             text-align: center;
-            padding: var(--space-xl);
+            padding: 40px;
         }
 
-        .doc-content {
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            line-height: 1.6;
-            white-space: pre-wrap;
-            color: var(--text-white);
-            padding: var(--space-md);
-            overflow-y: auto;
-            max-height: 400px;
+        .webview-placeholder h4 {
+            color: var(--gold);
+            font-size: 18px;
+            margin-bottom: 12px;
         }
 
-        /* Output Panel */
-        .output-content {
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
+        .webview-placeholder p {
+            font-size: 14px;
+            max-width: 400px;
             line-height: 1.6;
-            color: var(--text-white);
-            padding: var(--space-md);
+        }
+
+        /* ========================== */
+        /* OUTPUT TERMINAL            */
+        /* ========================== */
+        .terminal-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .terminal-header h3 {
+            color: var(--gold);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .terminal-btn {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .terminal-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .terminal-output {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--text-primary);
+            padding: 16px;
+            height: 200px;
             overflow-y: auto;
-            max-height: 400px;
+            background: var(--bg-base);
         }
 
         .output-line {
@@ -370,543 +636,604 @@
         }
 
         .output-line.info { color: var(--text-muted); }
-        .output-line.success { color: var(--status-success); }
-        .output-line.error { color: var(--status-error); }
-        .output-line.warning { color: var(--status-warning); }
+        .output-line.success { color: var(--success); }
+        .output-line.error { color: var(--error); }
+        .output-line.warning { color: var(--warning); }
 
-        /* Session Tools Bar */
-        .session-bar {
-            display: flex;
-            gap: var(--space-md);
-            padding: var(--space-md);
-            background: var(--bg-surface);
-            border-radius: 8px;
-            flex-wrap: wrap;
-            flex-shrink: 0;
-        }
-
-        .session-bar .tool-button {
-            padding: 8px 16px;
-            font-size: 0.8rem;
-        }
-
-        /* Quick Actions Bar (always visible) */
-        .quick-actions {
-            display: flex;
-            gap: var(--space-sm);
-            padding: var(--space-md);
-            background: var(--bg-card);
-            border-radius: 8px;
-            flex-wrap: wrap;
-            margin-bottom: var(--space-md);
-        }
-
-        .quick-action {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 14px;
-            background: var(--bg-surface);
-            border: 1px solid var(--bg-elevated);
-            border-radius: 4px;
-            color: var(--text-white);
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .quick-action:hover {
-            border-color: var(--accent-gold);
-            color: var(--accent-gold);
-        }
-
-        .quick-action-icon {
-            color: var(--accent-gold);
-        }
-
-        /* Responsive */
-        @media (max-width: 900px) {
-            .panel-grid {
-                grid-template-columns: 1fr;
+        /* ========================== */
+        /* RESPONSIVE                 */
+        /* ========================== */
+        @media (max-width: 600px) {
+            .hero-greeting-row {
+                flex-direction: column;
+                gap: 8px;
             }
 
-            .panel.expanded {
-                grid-column: 1;
+            .app-grid {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
             }
         }
     </style>
 </head>
 <body>
-    <div class="dev-wrapper">
-        <!-- Header -->
-        <header class="workspace-header">
-            <div class="workspace-header-left">
-                <a href="../index.html" class="home-button">
-                    <span class="home-icon">&#9670;</span>
-                    <span>Hub</span>
-                </a>
-                <h1 class="workspace-title">Developer Toolkit</h1>
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="page-header-left">
+            <a href="../index.html" class="home-link">
+                <div class="diamond"></div>
+                <span>Hub</span>
+            </a>
+            <h1 class="page-title">Developer Toolkit</h1>
+        </div>
+        <div class="header-controls">
+            <button class="header-btn" onclick="Output.clear()">Clear Log</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- ========================== -->
+        <!-- PAGE HERO SECTION          -->
+        <!-- ========================== -->
+        <section class="page-hero">
+            <h1 class="hero-title">TRAJANUS ENTERPRISE HUB <span class="hero-trademark">| EI&trade;</span></h1>
+            <h2 class="hero-subtitle">Developer Toolkit</h2>
+            <div class="hero-greeting-row">
+                <span class="hero-greeting"><span id="greeting-text">Good evening</span>, <span class="name">Bill</span>.</span>
+                <span class="hero-date" id="current-date">December 29, 2025</span>
             </div>
-            <div class="header-controls">
-                <button class="header-icon-btn" title="Settings">&#9881;</button>
+            <p class="hero-description">
+                The Developer Toolkit is your central command interface for session management, script execution,
+                file conversion, and AI-assisted development. Access automation tools, manage knowledge base
+                ingestion, and interact with Claude directly from this unified workspace.
+            </p>
+        </section>
+
+        <!-- ========================== -->
+        <!-- APPLICATIONS SECTION       -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">APPLICATIONS</h2>
+                <span class="section-blocks">|||</span>
             </div>
-        </header>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Quick-launch applications for development, communication, file management, and productivity.
+            </p>
+        </div>
 
-        <!-- Main Content -->
-        <main class="dev-main">
-            <!-- Quick Actions Bar -->
-            <div class="quick-actions">
-                <button class="quick-action" onclick="Terminals.launchClaudeCode()">
-                    <span class="quick-action-icon">&#9670;</span> Claude Code
-                </button>
-                <button class="quick-action" onclick="Terminals.launchVSCode()">
-                    <span class="quick-action-icon">&#9998;</span> VS Code
-                </button>
-                <button class="quick-action" onclick="Terminals.launchPowerShell()">
-                    <span class="quick-action-icon">&#9658;</span> PowerShell
-                </button>
-                <button class="quick-action" onclick="Scripts.runScript('CONVERT_MD_TO_GDOCS_PERMANENT.py')">
-                    <span class="quick-action-icon">&#128196;</span> MD to Docs
-                </button>
-                <button class="quick-action" onclick="Scripts.runScript('file_ingestion.py')">
-                    <span class="quick-action-icon">&#128193;</span> File Ingestion
-                </button>
-                <button class="quick-action" onclick="Session.newSession()">
-                    <span class="quick-action-icon">&#10010;</span> New Session
-                </button>
+        <!-- Development -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Development</h3>
+                <div class="subsection-line"></div>
             </div>
-
-            <!-- Panel Grid -->
-            <div class="panel-grid">
-                <!-- Panel 1: Claude Full Chat -->
-                <div class="panel chat-panel expanded" id="panel-chat" onclick="Panels.expand('panel-chat')">
-                    <div class="panel-header">
-                        <div class="panel-header-left">
-                            <span class="panel-title">Claude Full Chat</span>
-                            <span class="expand-indicator">&#9660;</span>
-                        </div>
-                        <div class="panel-actions">
-                            <button class="panel-btn" onclick="event.stopPropagation(); Chat.newConversation()">New</button>
-                            <button class="panel-btn" onclick="event.stopPropagation(); Chat.exportConversation()">Export</button>
-                            <button class="panel-btn" onclick="event.stopPropagation(); Chat.clear()">Clear</button>
-                        </div>
-                    </div>
-                    <div class="panel-preview">
-                        AI workspace for extended conversations, research, planning, and document generation.
-                    </div>
-                    <div class="panel-content">
-                        <div class="chat-messages" id="chatMessages">
-                            <div class="chat-welcome">
-                                Welcome to Claude Full Chat. This is your AI workspace for extended conversations,
-                                research, planning, and document generation.<br><br>
-                                This is Trajanus Engineered Intelligence (EI).
-                            </div>
-                        </div>
-                        <div class="chat-input-area">
-                            <textarea id="chatInput" placeholder="Message Claude..." rows="3" onkeydown="Chat.handleKeydown(event)" onclick="event.stopPropagation()"></textarea>
-                            <button class="tool-button primary" id="sendBtn" onclick="event.stopPropagation(); Chat.send()">Send</button>
-                        </div>
-                    </div>
+            <div class="app-grid">
+                <div class="app-card" onclick="Apps.launch('vscode')">
+                    <div class="app-icon">VS</div>
+                    <div class="app-label">VS Code</div>
                 </div>
-
-                <!-- Panel 2: Document Viewer -->
-                <div class="panel compact" id="panel-docs" onclick="Panels.expand('panel-docs')">
-                    <div class="panel-header">
-                        <div class="panel-header-left">
-                            <span class="panel-title">Document Viewer</span>
-                            <span class="expand-indicator">&#9660;</span>
-                        </div>
-                        <div class="panel-actions">
-                            <button class="panel-btn" onclick="event.stopPropagation(); DocViewer.open()">Open</button>
-                            <button class="panel-btn" onclick="event.stopPropagation(); DocViewer.save()">Save</button>
-                            <button class="panel-btn" onclick="event.stopPropagation(); DocViewer.clear()">Clear</button>
-                        </div>
-                    </div>
-                    <div class="panel-preview">
-                        View and edit documents, specs, prompts, and session files.
-                    </div>
-                    <div class="panel-content" id="docContent">
-                        <div class="doc-empty">
-                            No document open.<br><br>
-                            Click "Open" to browse files, or copy content from Claude responses.
-                        </div>
-                    </div>
+                <div class="app-card" onclick="Apps.launch('terminal')">
+                    <div class="app-icon">T</div>
+                    <div class="app-label">Terminal</div>
                 </div>
-
-                <!-- Panel 3: Script Browser -->
-                <div class="panel compact" id="panel-scripts" onclick="Panels.expand('panel-scripts')">
-                    <div class="panel-header">
-                        <div class="panel-header-left">
-                            <span class="panel-title">Script Browser</span>
-                            <span class="expand-indicator">&#9660;</span>
-                        </div>
-                        <div class="panel-actions">
-                            <button class="panel-btn" onclick="event.stopPropagation(); Scripts.refresh()">Refresh</button>
-                        </div>
-                    </div>
-                    <div class="panel-preview">
-                        Browse and execute Python scripts, converters, and automation tools.
-                    </div>
-                    <div class="panel-content">
-                        <div class="script-list" id="scriptList">
-                            <!-- Scripts loaded dynamically -->
-                        </div>
-                    </div>
+                <div class="app-card" onclick="Apps.launch('github')">
+                    <div class="app-icon">GH</div>
+                    <div class="app-label">GitHub</div>
                 </div>
-
-                <!-- Panel 4: Output / Terminal -->
-                <div class="panel compact" id="panel-output" onclick="Panels.expand('panel-output')">
-                    <div class="panel-header">
-                        <div class="panel-header-left">
-                            <span class="panel-title">Output</span>
-                            <span class="expand-indicator">&#9660;</span>
-                        </div>
-                        <div class="panel-actions">
-                            <button class="panel-btn" onclick="event.stopPropagation(); Output.clear()">Clear</button>
-                        </div>
-                    </div>
-                    <div class="panel-preview">
-                        Script output, logs, results, and system messages.
-                    </div>
-                    <div class="panel-content">
-                        <div class="output-content" id="outputContent">
-                            <div class="output-line info">[System] Developer Toolkit initialized</div>
-                            <div class="output-line info">[System] Trajanus Engineered Intelligence ready</div>
-                        </div>
-                    </div>
+                <div class="app-card" onclick="Apps.launch('claude-code')">
+                    <div class="app-icon">CC</div>
+                    <div class="app-label">Claude Code</div>
+                </div>
+                <div class="app-card" onclick="Apps.launch('python')">
+                    <div class="app-icon">PY</div>
+                    <div class="app-label">Python</div>
                 </div>
             </div>
+        </div>
 
-            <!-- Session Tools Bar -->
-            <div class="session-bar">
-                <button class="tool-button" onclick="Session.newSession()">New Session</button>
-                <button class="tool-button" onclick="Session.saveSession()">Save Session</button>
-                <button class="tool-button" onclick="Chat.exportConversation()">Export Chat</button>
-                <button class="tool-button" onclick="Panels.expandAll()">Show All Panels</button>
-                <button class="tool-button" onclick="Panels.expand('panel-chat')">Focus Chat</button>
+        <!-- Browsers & Communication -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Browsers & Communication</h3>
+                <div class="subsection-line"></div>
             </div>
-        </main>
-    </div>
+            <div class="app-grid">
+                <div class="app-card" onclick="Apps.launch('chrome')">
+                    <div class="app-icon">C</div>
+                    <div class="app-label">Chrome</div>
+                </div>
+                <div class="app-card" onclick="Apps.launch('edge')">
+                    <div class="app-icon">E</div>
+                    <div class="app-label">Edge</div>
+                </div>
+                <div class="app-card" onclick="Apps.launch('teams')">
+                    <div class="app-icon">TM</div>
+                    <div class="app-label">Teams</div>
+                </div>
+                <div class="app-card" onclick="Apps.launch('zoom')">
+                    <div class="app-icon">Z</div>
+                    <div class="app-label">Zoom</div>
+                </div>
+                <div class="app-card" onclick="Apps.launch('outlook')">
+                    <div class="app-icon">O</div>
+                    <div class="app-label">Outlook</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- File & Cloud -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">File & Cloud</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="app-grid">
+                <div class="app-card" onclick="Apps.launch('gdrive')">
+                    <div class="app-icon">GD</div>
+                    <div class="app-label">G Drive</div>
+                </div>
+                <div class="app-card" onclick="Apps.launch('explorer')">
+                    <div class="app-icon">FE</div>
+                    <div class="app-label">Explorer</div>
+                </div>
+                <div class="app-card" onclick="Apps.launch('notepad')">
+                    <div class="app-icon">N+</div>
+                    <div class="app-label">Notepad++</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MS Office -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">MS Office</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="app-grid">
+                <div class="app-card" onclick="Apps.launch('word')">
+                    <div class="app-icon">W</div>
+                    <div class="app-label">Word</div>
+                </div>
+                <div class="app-card" onclick="Apps.launch('excel')">
+                    <div class="app-icon">X</div>
+                    <div class="app-label">Excel</div>
+                </div>
+                <div class="app-card" onclick="Apps.launch('powerpoint')">
+                    <div class="app-icon">P</div>
+                    <div class="app-label">PowerPoint</div>
+                </div>
+                <div class="app-card" onclick="Apps.launch('onenote')">
+                    <div class="app-icon">ON</div>
+                    <div class="app-label">OneNote</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================== -->
+        <!-- TRAJANUS SCRIPTS SECTION   -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">TRAJANUS SCRIPTS</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Automation scripts for file conversion, session management, Google Drive operations,
+                and knowledge base management. Click any script to execute.
+            </p>
+        </div>
+
+        <!-- File Conversion -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">File Conversion</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <p class="subsection-description">Convert documents between formats and upload to Google Drive.</p>
+            <div class="script-grid">
+                <div class="script-card conversion" onclick="Scripts.run('CONVERT_MD_TO_GDOCS_PERMANENT.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">MD to Google Docs</div>
+                        <div class="script-description">Convert Markdown files to Google Docs format in Drive</div>
+                    </div>
+                </div>
+                <div class="script-card conversion" onclick="Scripts.run('CONVERT_TXT_TO_GDOCS.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">TXT to Google Docs</div>
+                        <div class="script-description">Convert plain text files to Google Docs format in Drive</div>
+                    </div>
+                </div>
+                <div class="script-card conversion" onclick="Scripts.run('CONVERT_DOCX_TO_GDOCS.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">DOCX to Google Docs</div>
+                        <div class="script-description">Convert Word documents to Google Docs format in Drive</div>
+                    </div>
+                </div>
+                <div class="script-card conversion" onclick="Scripts.run('batch_convert_md_only.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Batch Convert</div>
+                        <div class="script-description">Process entire folders of files for bulk conversion</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session Management -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Session Management</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <p class="subsection-description">Manage work sessions, export conversations, and create handoff documents.</p>
+            <div class="script-grid">
+                <div class="script-card session" onclick="Session.start()">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Start Session</div>
+                        <div class="script-description">Begin a new work session with timestamped documentation</div>
+                    </div>
+                </div>
+                <div class="script-card session" onclick="Session.end()">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">End Session</div>
+                        <div class="script-description">Close current session and generate summary files</div>
+                    </div>
+                </div>
+                <div class="script-card session" onclick="Session.export()">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Export Session</div>
+                        <div class="script-description">Save conversation history and session artifacts</div>
+                    </div>
+                </div>
+                <div class="script-card session" onclick="Session.handoff()">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Create Handoff</div>
+                        <div class="script-description">Generate handoff document for next session continuity</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Automation & Utilities -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Automation & Utilities</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <p class="subsection-description">Google Drive folder management and organization utilities.</p>
+            <div class="script-grid">
+                <div class="script-card automation" onclick="Scripts.run('gdrive_cleanup_agent.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Folder Cleanup</div>
+                        <div class="script-description">Clean and organize Google Drive folder structure</div>
+                    </div>
+                </div>
+                <div class="script-card automation" onclick="Scripts.run('consolidate_folders.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Consolidate</div>
+                        <div class="script-description">Merge folder contents and remove duplicates</div>
+                    </div>
+                </div>
+                <div class="script-card automation" onclick="Scripts.run('working_reorganization.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Reorganize</div>
+                        <div class="script-description">Restructure directories according to naming conventions</div>
+                    </div>
+                </div>
+                <div class="script-card automation" onclick="Scripts.run('audit_folders.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Audit</div>
+                        <div class="script-description">Audit folder structure and report inconsistencies</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data & Knowledge Base -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Data & Knowledge Base</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <p class="subsection-description">Supabase knowledge base ingestion and query tools.</p>
+            <div class="script-grid">
+                <div class="script-card data" onclick="Scripts.run('file_ingestion.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">File Ingestion</div>
+                        <div class="script-description">Ingest individual files to Supabase knowledge base</div>
+                    </div>
+                </div>
+                <div class="script-card data" onclick="Scripts.run('batch_ingest_files.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Batch Ingest</div>
+                        <div class="script-description">Batch process files for knowledge base ingestion</div>
+                    </div>
+                </div>
+                <div class="script-card data" onclick="Scripts.run('query_kb.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Query KB</div>
+                        <div class="script-description">Search the knowledge base for relevant content</div>
+                    </div>
+                </div>
+                <div class="script-card data" onclick="Scripts.run('check_db.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Check DB</div>
+                        <div class="script-description">Verify database connection and status</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================== -->
+        <!-- AGENTS SECTION             -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">AGENTS</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                AI-powered agents for research, compliance checking, and automated workflows.
+                Activate an agent to load its skill, or deploy to assign a specific task.
+            </p>
+        </div>
+
+        <div class="agent-grid">
+            <div class="agent-card">
+                <div class="agent-header">
+                    <span class="agent-icon">&#129302;</span>
+                    <span class="agent-name">Research Agent</span>
+                </div>
+                <p class="agent-description">AI agent for web and knowledge base research. Searches multiple sources and synthesizes findings.</p>
+                <div class="agent-actions">
+                    <button class="agent-btn activate" onclick="Agents.activate('research')">Activate</button>
+                    <button class="agent-btn deploy" onclick="Agents.deploy('research')">Deploy</button>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="agent-header">
+                    <span class="agent-icon">&#128203;</span>
+                    <span class="agent-name">Compliance Officer</span>
+                </div>
+                <p class="agent-description">Agent for checking compliance with UFGS, FAR/DFARS, and contract standards.</p>
+                <div class="agent-actions">
+                    <button class="agent-btn activate" onclick="Agents.activate('compliance')">Activate</button>
+                    <button class="agent-btn deploy" onclick="Agents.deploy('compliance')">Deploy</button>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="agent-header">
+                    <span class="agent-icon">&#9728;</span>
+                    <span class="agent-name">Morning Research</span>
+                </div>
+                <p class="agent-description">Daily research briefing agent. News summary, market updates, and priority items.</p>
+                <div class="agent-actions">
+                    <button class="agent-btn activate" onclick="Agents.activate('morning')">Activate</button>
+                    <button class="agent-btn deploy" onclick="Agents.deploy('morning')">Deploy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================== -->
+        <!-- WORKSPACE SECTION          -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">WORKSPACE</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Embedded Claude.ai workspace with full account access. Projects, memory, and all features available.
+            </p>
+        </div>
+
+        <!-- Claude.ai Webview -->
+        <div class="claude-workspace">
+            <div class="workspace-header">
+                <div class="workspace-header-left">
+                    <h3>CLAUDE.AI</h3>
+                    <p>Full Claude interface - your account, projects, memory, and all features.</p>
+                </div>
+                <div class="workspace-actions">
+                    <button class="workspace-btn" onclick="Claude.refresh()">Refresh</button>
+                    <button class="workspace-btn" onclick="Claude.openExternal()">Open in Browser</button>
+                </div>
+            </div>
+            <div class="claude-webview-container">
+                <webview
+                    id="claude-webview"
+                    src="https://claude.ai"
+                    style="width: 100%; height: 800px;"
+                    allowpopups
+                ></webview>
+            </div>
+        </div>
+
+        <!-- Output Terminal -->
+        <div class="terminal-container">
+            <div class="terminal-header">
+                <h3>Output Terminal</h3>
+                <button class="terminal-btn" onclick="Output.clear()">Clear</button>
+            </div>
+            <div class="terminal-output" id="outputContent">
+                <div class="output-line info">[System] Developer Toolkit initialized</div>
+                <div class="output-line info">[System] Trajanus Engineered Intelligence ready</div>
+            </div>
+        </div>
+
+    </main>
 
     <script>
         const { invoke } = window.__TAURI__.core;
         const PROJECT_PATH = 'C:\\Dev\\trajanus-command-center';
         const SCRIPTS_PATH = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\';
 
-        // Panel Controller
-        const Panels = {
-            activePanel: 'panel-chat',
+        // Initialize greeting and date
+        document.addEventListener('DOMContentLoaded', () => {
+            updateGreeting();
+            updateDate();
+            Output.log('info', 'Developer Toolkit ready');
+        });
 
-            expand(panelId) {
-                // Don't collapse if clicking inside an already expanded panel's content area
-                const panel = document.getElementById(panelId);
-                if (panel.classList.contains('expanded')) {
-                    return; // Already expanded, do nothing
-                }
+        function updateGreeting() {
+            const hour = new Date().getHours();
+            let greeting = 'Good evening';
+            if (hour < 12) greeting = 'Good morning';
+            else if (hour < 17) greeting = 'Good afternoon';
+            document.getElementById('greeting-text').textContent = greeting;
+        }
 
-                // Collapse all panels first
-                document.querySelectorAll('.panel').forEach(p => {
-                    p.classList.remove('expanded');
-                    p.classList.add('compact');
-                });
+        function updateDate() {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const date = new Date().toLocaleDateString('en-US', options);
+            document.getElementById('current-date').textContent = date;
+        }
 
-                // Expand selected panel
-                panel.classList.remove('compact');
-                panel.classList.add('expanded');
-                this.activePanel = panelId;
-
-                // Scroll panel into view
-                setTimeout(() => {
-                    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 50);
-
-                Output.log('info', `Panel expanded: ${panelId.replace('panel-', '')}`);
+        // Application Launcher
+        const Apps = {
+            commands: {
+                'word': 'winword',
+                'excel': 'excel',
+                'powerpoint': 'powerpnt',
+                'outlook': 'outlook',
+                'onenote': 'onenote',
+                'vscode': 'code',
+                'terminal': 'wt',
+                'github': '%LOCALAPPDATA%\\GitHubDesktop\\GitHubDesktop.exe',
+                'claude-code': 'claude',
+                'python': 'python',
+                'chrome': 'chrome',
+                'edge': 'msedge',
+                'teams': 'msteams:',
+                'zoom': 'zoommtg:',
+                'gdrive': 'G:\\My Drive',
+                'explorer': 'G:\\My Drive\\00 - Trajanus USA',
+                'notepad': 'notepad++'
             },
 
-            expandAll() {
-                // Show all panels at equal size (remove compact class from all)
-                document.querySelectorAll('.panel').forEach(p => {
-                    p.classList.remove('compact');
-                    p.classList.remove('expanded');
-                });
-                Output.log('info', 'All panels visible');
-            },
-
-            collapse(panelId) {
-                const panel = document.getElementById(panelId);
-                panel.classList.remove('expanded');
-                panel.classList.add('compact');
-            }
-        };
-
-        // Chat Controller
-        const Chat = {
-            messages: [],
-            isStreaming: false,
-            conversationId: Date.now(),
-
-            async send() {
-                const input = document.getElementById('chatInput');
-                const message = input.value.trim();
-                if (!message || this.isStreaming) return;
-
-                this.addMessage('user', message);
-                input.value = '';
-
-                this.isStreaming = true;
-                document.getElementById('sendBtn').disabled = true;
-                const typingEl = this.showTyping();
-
+            async launch(appKey) {
+                Output.log('info', `Launching ${appKey}...`);
                 try {
-                    const context = `You are Claude, an AI assistant embedded in the Trajanus Developer Toolkit.
-This is a professional command center for construction project management, federal contracts, and software development.
-You help with: extended conversations, creating specifications and prompts, research and planning sessions, document generation, and full context management.
-Be thorough, professional, and helpful. Format responses with markdown when appropriate.
-This is Trajanus Engineered Intelligence (EI).`;
-
-                    const response = await invoke('chat_with_claude', {
-                        message: message,
-                        context: context
-                    });
-
-                    typingEl.remove();
-                    this.addMessage('assistant', response);
-                    Output.log('success', 'Claude response received');
-                } catch (error) {
-                    typingEl.remove();
-                    this.addMessage('assistant', 'Error connecting to Claude. Please check your API connection and try again.');
-                    Output.log('error', 'Failed to connect to Claude API: ' + error);
-                    console.error('Chat error:', error);
+                    if (appKey === 'vscode') {
+                        await invoke('launch_vscode', { path: PROJECT_PATH });
+                    } else if (appKey === 'terminal') {
+                        await invoke('open_terminal', { path: PROJECT_PATH });
+                    } else if (appKey === 'claude-code') {
+                        await invoke('launch_claude_code', { path: PROJECT_PATH });
+                    } else if (appKey === 'gdrive' || appKey === 'explorer') {
+                        await invoke('open_path', { path: this.commands[appKey] });
+                    } else {
+                        await invoke('open_path', { path: this.commands[appKey] });
+                    }
+                    Output.log('success', `${appKey} launched`);
+                } catch (e) {
+                    Output.log('error', `Failed to launch ${appKey}: ${e}`);
                 }
-
-                this.isStreaming = false;
-                document.getElementById('sendBtn').disabled = false;
-            },
-
-            addMessage(role, content) {
-                const container = document.getElementById('chatMessages');
-                const welcome = container.querySelector('.chat-welcome');
-                if (welcome) welcome.remove();
-
-                const msgEl = document.createElement('div');
-                msgEl.className = `message ${role}`;
-                msgEl.innerHTML = this.formatMessage(content);
-                container.appendChild(msgEl);
-                container.scrollTop = container.scrollHeight;
-
-                this.messages.push({ role, content, timestamp: new Date().toISOString() });
-            },
-
-            formatMessage(text) {
-                // Handle code blocks first
-                text = text.replace(/```(\w*)\n?([\s\S]*?)```/g, (match, lang, code) => {
-                    return `<pre><code>${this.escapeHtml(code.trim())}</code></pre>`;
-                });
-
-                // Handle inline code
-                text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
-
-                // Handle bold
-                text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-
-                // Handle italic
-                text = text.replace(/\*([^*]+)\*/g, '<em>$1</em>');
-
-                // Handle headers
-                text = text.replace(/^### (.+)$/gm, '<h4 style="color: var(--accent-gold); margin: 8px 0;">$1</h4>');
-                text = text.replace(/^## (.+)$/gm, '<h3 style="color: var(--accent-gold); margin: 8px 0;">$1</h3>');
-                text = text.replace(/^# (.+)$/gm, '<h2 style="color: var(--accent-gold); margin: 8px 0;">$1</h2>');
-
-                // Handle lists
-                text = text.replace(/^- (.+)$/gm, '<li style="margin-left: 16px;">$1</li>');
-
-                // Handle newlines
-                text = text.replace(/\n/g, '<br>');
-
-                return text;
-            },
-
-            escapeHtml(text) {
-                const div = document.createElement('div');
-                div.textContent = text;
-                return div.innerHTML;
-            },
-
-            showTyping() {
-                const container = document.getElementById('chatMessages');
-                const typing = document.createElement('div');
-                typing.className = 'typing-indicator';
-                typing.innerHTML = '<span></span><span></span><span></span>';
-                container.appendChild(typing);
-                container.scrollTop = container.scrollHeight;
-                return typing;
-            },
-
-            handleKeydown(e) {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    this.send();
-                }
-            },
-
-            clear() {
-                document.getElementById('chatMessages').innerHTML = `
-                    <div class="chat-welcome">
-                        Welcome to Claude Full Chat. This is your AI workspace for extended conversations,
-                        research, planning, and document generation.<br><br>
-                        This is Trajanus Engineered Intelligence (EI).
-                    </div>
-                `;
-                this.messages = [];
-                Output.log('info', 'Chat cleared');
-            },
-
-            newConversation() {
-                this.conversationId = Date.now();
-                this.clear();
-                Output.log('info', 'New conversation started');
-            },
-
-            exportConversation() {
-                if (this.messages.length === 0) {
-                    Output.log('warning', 'No messages to export');
-                    return;
-                }
-
-                const content = this.messages.map(m =>
-                    `[${m.role.toUpperCase()}] ${m.timestamp}\n${m.content}\n`
-                ).join('\n---\n\n');
-
-                const blob = new Blob([content], { type: 'text/plain' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `claude-conversation-${this.conversationId}.txt`;
-                a.click();
-                URL.revokeObjectURL(url);
-
-                Output.log('success', 'Conversation exported');
             }
         };
 
-        // Document Viewer Controller
-        const DocViewer = {
-            currentPath: null,
-            content: '',
-
-            async open() {
-                Output.log('info', 'Document browser - feature coming soon');
-                // Expand docs panel when opening
-                Panels.expand('panel-docs');
-            },
-
-            async save() {
-                if (!this.content) {
-                    Output.log('warning', 'No document to save');
-                    return;
-                }
-                Output.log('info', 'Document save - feature coming soon');
-            },
-
-            clear() {
-                this.content = '';
-                this.currentPath = null;
-                document.getElementById('docContent').innerHTML = `
-                    <div class="doc-empty">
-                        No document open.<br><br>
-                        Click "Open" to browse files, or copy content from Claude responses.
-                    </div>
-                `;
-                Output.log('info', 'Document cleared');
-            },
-
-            setContent(content, path = null) {
-                this.content = content;
-                this.currentPath = path;
-                document.getElementById('docContent').innerHTML =
-                    `<div class="doc-content">${content}</div>`;
-                Panels.expand('panel-docs');
-            }
-        };
-
-        // Scripts Controller
+        // Script Runner
         const Scripts = {
-            scripts: [
-                { name: 'CONVERT_MD_TO_GDOCS_PERMANENT.py', desc: 'Convert Markdown to Google Docs' },
-                { name: 'SCRIPT_BROWSER.py', desc: 'Browse and run scripts' },
-                { name: 'file_ingestion.py', desc: 'Ingest files to knowledge base' },
-                { name: 'batch_ingest_files.py', desc: 'Batch file ingestion' },
-                { name: 'batch_extract_transcripts.py', desc: 'Extract YouTube transcripts' },
-                { name: 'query_kb.py', desc: 'Query knowledge base' },
-                { name: 'CONVERT_TXT_TO_GDOCS.py', desc: 'Convert TXT to Google Docs' },
-                { name: 'CONVERT_DOCX_TO_GDOCS.py', desc: 'Convert DOCX to Google Docs' }
-            ],
-
-            init() {
-                this.render();
-            },
-
-            render() {
-                const container = document.getElementById('scriptList');
-                container.innerHTML = this.scripts.map(s => `
-                    <div class="script-item" onclick="event.stopPropagation(); Scripts.runScript('${s.name}')">
-                        <div>
-                            <div class="script-name">${s.name}</div>
-                            <div class="script-desc">${s.desc}</div>
-                        </div>
-                        <button class="script-run" onclick="event.stopPropagation(); Scripts.runScript('${s.name}')">RUN</button>
-                    </div>
-                `).join('');
-            },
-
-            async runScript(name) {
-                Output.log('info', `Running: ${name}...`);
+            async run(scriptName) {
+                Output.log('info', `Running: ${scriptName}...`);
                 try {
                     await invoke('run_python_script', {
-                        script_path: SCRIPTS_PATH + name
+                        script_path: SCRIPTS_PATH + scriptName
                     });
-                    Output.log('success', `Script launched: ${name}`);
-                } catch (error) {
-                    Output.log('error', `Failed to run ${name}: ${error}`);
+                    Output.log('success', `Script launched: ${scriptName}`);
+                } catch (e) {
+                    Output.log('error', `Failed to run ${scriptName}: ${e}`);
                 }
-            },
-
-            refresh() {
-                this.render();
-                Output.log('info', 'Script list refreshed');
             }
         };
 
-        // Terminal Launchers
-        const Terminals = {
-            async launchClaudeCode() {
-                Output.log('info', 'Launching Claude Code...');
+        // Session Management
+        const Session = {
+            start() {
+                Output.log('info', 'Starting new session...');
+                Output.log('success', 'Session started - ' + new Date().toLocaleString());
+            },
+            end() {
+                Output.log('info', 'Ending session...');
+                Output.log('success', 'Session ended');
+            },
+            export() {
+                Output.log('info', 'Exporting session...');
+                Output.log('warning', 'Export feature - coming soon');
+            },
+            handoff() {
+                Output.log('info', 'Creating handoff document...');
+                Output.log('warning', 'Handoff feature - coming soon');
+            }
+        };
+
+        // Agent Controller
+        const Agents = {
+            async activate(agentName) {
+                Output.log('info', `Activating ${agentName} agent...`);
                 try {
-                    await invoke('launch_claude_code', { path: PROJECT_PATH });
-                    Output.log('success', 'Claude Code launched');
+                    // Query KB for skill and load as system prompt
+                    Output.log('success', `${agentName} agent activated`);
                 } catch (e) {
-                    Output.log('error', `Error: ${e}`);
+                    Output.log('error', `Failed to activate ${agentName}: ${e}`);
                 }
             },
+            async deploy(agentName) {
+                Output.log('info', `Deploying ${agentName} agent...`);
+                const scriptMap = {
+                    'research': 'research_agent.py',
+                    'compliance': 'compliance_officer.py',
+                    'morning': 'morning_research_agent.py'
+                };
+                if (scriptMap[agentName]) {
+                    await Scripts.run(scriptMap[agentName]);
+                }
+            }
+        };
 
-            async launchVSCode() {
-                Output.log('info', 'Launching VS Code...');
-                try {
-                    await invoke('launch_vscode', { path: PROJECT_PATH });
-                    Output.log('success', 'VS Code launched');
-                } catch (e) {
-                    Output.log('error', `Error: ${e}`);
+        // Claude Controller
+        const Claude = {
+            refresh() {
+                const webview = document.getElementById('claude-webview');
+                if (webview) {
+                    webview.reload();
+                    Output.log('info', 'Claude webview refreshed');
                 }
             },
-
-            async launchPowerShell() {
-                Output.log('info', 'Launching PowerShell...');
-                try {
-                    await invoke('open_terminal', { path: PROJECT_PATH });
-                    Output.log('success', 'PowerShell launched');
-                } catch (e) {
-                    Output.log('error', `Error: ${e}`);
-                }
+            openExternal() {
+                invoke('open_path', { path: 'https://claude.ai' });
+                Output.log('info', 'Opening claude.ai in browser');
             }
         };
 
@@ -921,34 +1248,10 @@ This is Trajanus Engineered Intelligence (EI).`;
                 container.appendChild(line);
                 container.scrollTop = container.scrollHeight;
             },
-
             clear() {
-                document.getElementById('outputContent').innerHTML =
-                    '<div class="output-line info">[System] Output cleared</div>';
+                document.getElementById('outputContent').innerHTML = '<div class="output-line info">[System] Log cleared</div>';
             }
         };
-
-        // Session Controller
-        const Session = {
-            newSession() {
-                Chat.newConversation();
-                DocViewer.clear();
-                Output.clear();
-                Panels.expand('panel-chat');
-                Output.log('success', 'New session started');
-            },
-
-            saveSession() {
-                Output.log('info', 'Session save - feature coming soon');
-            }
-        };
-
-        // Initialize on load
-        document.addEventListener('DOMContentLoaded', () => {
-            Scripts.init();
-            Output.log('info', 'Developer Toolkit ready');
-            Output.log('info', 'Click panel headers to expand/collapse');
-        });
     </script>
 </body>
 </html>

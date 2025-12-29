@@ -6,34 +6,36 @@
     <title>Project Management - Trajanus Enterprise Hub</title>
     <link rel="stylesheet" href="../styles/main.css">
     <style>
-        /* Workspace Layout */
+        /* ==================== WORKSPACE LAYOUT ==================== */
         .workspace-container {
             display: flex;
             flex-direction: column;
             height: 100vh;
             background: var(--bg-base);
+            overflow: hidden;
         }
 
         .workspace-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 24px;
+            padding: 12px 24px;
             background: var(--bg-surface);
             border-bottom: 1px solid var(--border-subtle);
+            flex-shrink: 0;
         }
 
         .workspace-header h1 {
             color: var(--accent-gold);
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
             margin: 0;
         }
 
         .workspace-header p {
             color: var(--text-muted);
-            font-size: 12px;
-            margin: 4px 0 0 0;
+            font-size: 11px;
+            margin: 2px 0 0 0;
         }
 
         .home-btn {
@@ -56,89 +58,332 @@
             color: var(--bg-base);
         }
 
-        /* 4-Panel Grid */
-        .workspace-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
-            gap: 1px;
+        /* ==================== MAIN CONTENT ==================== */
+        .workspace-main {
             flex: 1;
-            background: var(--border-subtle);
+            display: flex;
             overflow: hidden;
         }
 
-        .panel {
+        /* ==================== LEFT SIDEBAR ==================== */
+        .sidebar {
+            width: 280px;
             background: var(--bg-surface);
-            padding: 16px;
+            border-right: 1px solid var(--border-subtle);
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            overflow-y: auto;
+            flex-shrink: 0;
         }
 
-        .panel-header {
-            font-size: 11px;
+        .section-divider {
+            padding: 12px 16px 8px 16px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .section-title {
+            font-size: 10px;
             font-weight: 600;
             color: var(--accent-gold);
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border-subtle);
         }
 
-        .panel-content {
-            flex: 1;
-            overflow-y: auto;
+        /* ==================== EXTERNAL SYSTEMS ==================== */
+        .systems-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            padding: 12px 16px;
         }
 
-        /* Document Browser */
-        .file-list {
+        .system-btn {
             display: flex;
             flex-direction: column;
-            gap: 4px;
-        }
-
-        .file-item {
-            display: flex;
             align-items: center;
-            padding: 10px 12px;
+            gap: 4px;
+            padding: 12px 8px;
             background: var(--bg-card);
-            border-radius: 4px;
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
             cursor: pointer;
             transition: all 0.2s;
-            border-left: 3px solid transparent;
+            text-decoration: none;
         }
 
-        .file-item:hover {
+        .system-btn:hover {
             background: var(--bg-hover);
+            border-color: var(--accent-gold);
         }
 
-        .file-item.selected {
-            background: rgba(212, 165, 116, 0.15);
-            border-left-color: var(--accent-gold);
+        .system-icon {
+            font-size: 20px;
+            color: var(--accent-gold);
         }
 
-        .file-name {
-            font-size: 13px;
+        .system-label {
+            font-size: 10px;
             color: var(--text-light);
+            text-align: center;
         }
 
-        /* Template Selection */
-        .template-group {
-            margin-bottom: 16px;
+        /* ==================== REFERENCE DOCUMENTS ==================== */
+        .doc-category {
+            padding: 8px 16px;
         }
 
-        .template-group label {
-            display: block;
+        .doc-category-header {
             font-size: 11px;
+            font-weight: 500;
             color: var(--text-muted);
             margin-bottom: 6px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
+        .doc-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .doc-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 10px;
+            background: var(--bg-card);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 12px;
+            color: var(--text-light);
+            border-left: 2px solid transparent;
+        }
+
+        .doc-item:hover {
+            background: var(--bg-hover);
+            border-left-color: var(--accent-gold);
+        }
+
+        .doc-item.selected {
+            background: rgba(212, 165, 116, 0.15);
+            border-left-color: var(--accent-gold);
+        }
+
+        /* ==================== AGENTS SECTION ==================== */
+        .agents-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 12px 16px;
+        }
+
+        .agent-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .agent-btn:hover {
+            background: var(--bg-hover);
+            border-color: var(--accent-gold);
+        }
+
+        .agent-icon {
+            font-size: 16px;
+            color: var(--accent-gold);
+        }
+
+        .agent-info {
+            flex: 1;
+        }
+
+        .agent-name {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+
+        .agent-desc {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        /* ==================== PANELS AREA ==================== */
+        .panels-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 16px;
+            gap: 12px;
+        }
+
+        .panel {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-subtle);
+            cursor: pointer;
+        }
+
+        .panel-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .panel-expand-icon {
+            color: var(--text-muted);
+            transition: transform 0.3s;
+        }
+
+        .panel.compact {
+            cursor: pointer;
+        }
+
+        .panel.compact .panel-content {
+            display: none;
+        }
+
+        .panel.compact .panel-expand-icon {
+            transform: rotate(0deg);
+        }
+
+        .panel.expanded {
+            min-height: 600px;
+        }
+
+        .panel.expanded .panel-content {
+            display: flex;
+            flex-direction: column;
+            height: 550px;
+        }
+
+        .panel.expanded .panel-expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .panel-content {
+            padding: 16px;
+            overflow: hidden;
+        }
+
+        /* ==================== DOCUMENT BROWSER PANEL ==================== */
+        .browser-toolbar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .browser-path {
+            flex: 1;
+            padding: 8px 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .browser-path:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+
+        .file-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 8px;
+            overflow-y: auto;
+        }
+
+        .file-card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .file-card:hover {
+            background: var(--bg-hover);
+            border-color: var(--accent-gold);
+        }
+
+        .file-card.selected {
+            background: rgba(212, 165, 116, 0.15);
+            border-color: var(--accent-gold);
+        }
+
+        .file-icon {
+            font-size: 24px;
+            color: var(--accent-gold);
+        }
+
+        .file-info {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .file-name {
+            font-size: 12px;
+            color: var(--text-light);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .file-meta {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        /* ==================== TEMPLATE PANEL ==================== */
+        .template-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 500px;
+        }
+
+        .template-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .template-group label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         .template-select {
-            width: 100%;
             padding: 10px 12px;
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
@@ -157,7 +402,14 @@
             color: var(--text-light);
         }
 
-        /* Output Area */
+        /* ==================== OUTPUT PANEL ==================== */
+        .output-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
         .output-area {
             flex: 1;
             background: var(--bg-card);
@@ -167,8 +419,8 @@
             font-size: 13px;
             line-height: 1.6;
             overflow-y: auto;
-            min-height: 120px;
             color: var(--text-light);
+            white-space: pre-wrap;
         }
 
         .output-area.empty {
@@ -185,43 +437,18 @@
             margin-top: 12px;
         }
 
-        /* Buttons */
-        .btn {
-            padding: 8px 16px;
-            border-radius: 4px;
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
+        /* ==================== CHAT PANEL ==================== */
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
 
-        .btn-primary {
-            background: var(--accent-gold);
-            color: var(--bg-base);
-            border: none;
-            font-weight: 500;
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-gold-bright);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-light);
-            border: 1px solid var(--border-subtle);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--accent-gold);
-            color: var(--accent-gold);
-        }
-
-        /* Chat */
         .chat-messages {
             flex: 1;
             overflow-y: auto;
             margin-bottom: 12px;
-            min-height: 80px;
         }
 
         .chat-message {
@@ -234,13 +461,13 @@
 
         .chat-message.user {
             background: rgba(212, 165, 116, 0.15);
-            margin-left: 15%;
+            margin-left: 20%;
             color: var(--text-light);
         }
 
         .chat-message.assistant {
             background: var(--bg-card);
-            margin-right: 15%;
+            margin-right: 20%;
             color: var(--text-light);
         }
 
@@ -270,14 +497,45 @@
             color: var(--text-muted);
         }
 
-        /* Typing Indicator */
+        /* ==================== BUTTONS ==================== */
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent-gold);
+            color: var(--bg-base);
+            font-weight: 500;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-gold-bright);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-light);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        /* ==================== TYPING INDICATOR ==================== */
         .typing-indicator {
             display: flex;
             gap: 4px;
             padding: 12px 14px;
             background: var(--bg-card);
             border-radius: 8px;
-            margin-right: 15%;
+            margin-right: 20%;
             width: fit-content;
         }
 
@@ -297,20 +555,21 @@
             30% { transform: translateY(-4px); opacity: 1; }
         }
 
-        /* System Log */
+        /* ==================== SYSTEM LOG ==================== */
         .system-log {
             background: var(--bg-base);
             border-top: 1px solid var(--border-subtle);
-            height: 120px;
+            height: 100px;
             display: flex;
             flex-direction: column;
+            flex-shrink: 0;
         }
 
         .system-log-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 16px;
+            padding: 6px 16px;
             background: var(--bg-surface);
             border-bottom: 1px solid var(--border-subtle);
         }
@@ -341,10 +600,10 @@
         .log-output {
             flex: 1;
             overflow-y: auto;
-            padding: 8px 16px;
+            padding: 6px 16px;
             font-family: 'Consolas', 'Monaco', monospace;
             font-size: 11px;
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         .log-entry {
@@ -355,17 +614,9 @@
             color: var(--text-muted);
         }
 
-        .log-entry.success {
-            color: var(--success);
-        }
-
-        .log-entry.info {
-            color: var(--text-muted);
-        }
-
-        .log-entry.error {
-            color: var(--error);
-        }
+        .log-entry.success { color: var(--success); }
+        .log-entry.info { color: var(--text-muted); }
+        .log-entry.error { color: var(--error); }
     </style>
 </head>
 <body>
@@ -373,95 +624,260 @@
         <header class="workspace-header">
             <div>
                 <h1>Project Management</h1>
-                <p>RFIs, submittals, schedules, cost tracking</p>
+                <p>RFIs, submittals, schedules, cost tracking, federal compliance</p>
             </div>
             <a href="../index.html" class="home-btn">
                 <span>&#9670;</span> Hub
             </a>
         </header>
 
-        <!-- 4-Panel Workspace -->
-        <div class="workspace-grid">
-            <!-- Panel 1: Document Browser -->
-            <section class="panel">
-                <div class="panel-header">Document Browser</div>
-                <div class="panel-content">
-                    <div class="file-list" id="file-list">
-                        <div class="file-item" onclick="PM.selectFile(this, 'RFI-001-Foundation.pdf')">
-                            <span class="file-name">RFI-001-Foundation.pdf</span>
-                        </div>
-                        <div class="file-item" onclick="PM.selectFile(this, 'RFI-002-Electrical.pdf')">
-                            <span class="file-name">RFI-002-Electrical.pdf</span>
-                        </div>
-                        <div class="file-item" onclick="PM.selectFile(this, 'Submittal-Log-2025.xlsx')">
-                            <span class="file-name">Submittal-Log-2025.xlsx</span>
-                        </div>
-                        <div class="file-item" onclick="PM.selectFile(this, 'Schedule-Update-Dec.mpp')">
-                            <span class="file-name">Schedule-Update-Dec.mpp</span>
-                        </div>
-                        <div class="file-item" onclick="PM.selectFile(this, 'Cost-Estimate-Rev2.xlsx')">
-                            <span class="file-name">Cost-Estimate-Rev2.xlsx</span>
-                        </div>
-                    </div>
+        <div class="workspace-main">
+            <!-- Left Sidebar -->
+            <aside class="sidebar">
+                <!-- External Systems -->
+                <div class="section-divider">
+                    <span class="section-title">External Systems</span>
                 </div>
-            </section>
+                <div class="systems-grid">
+                    <a href="https://app.procore.com" target="_blank" class="system-btn">
+                        <span class="system-icon">&#9632;</span>
+                        <span class="system-label">Procore</span>
+                    </a>
+                    <a href="#" class="system-btn" onclick="PM.launchApp('p6'); return false;">
+                        <span class="system-icon">&#9670;</span>
+                        <span class="system-label">Primavera P6</span>
+                    </a>
+                    <a href="https://rms.usace.army.mil" target="_blank" class="system-btn">
+                        <span class="system-icon">&#9733;</span>
+                        <span class="system-label">RMS 3.0</span>
+                    </a>
+                    <a href="https://cefms.usace.army.mil" target="_blank" class="system-btn">
+                        <span class="system-icon">&#9679;</span>
+                        <span class="system-label">CEFMS</span>
+                    </a>
+                    <a href="#" class="system-btn" onclick="PM.launchApp('msproject'); return false;">
+                        <span class="system-icon">&#9638;</span>
+                        <span class="system-label">MS Project</span>
+                    </a>
+                    <a href="#" class="system-btn" onclick="PM.launchApp('excel'); return false;">
+                        <span class="system-icon">&#9638;</span>
+                        <span class="system-label">Excel</span>
+                    </a>
+                </div>
 
-            <!-- Panel 2: Template Selection -->
-            <section class="panel">
-                <div class="panel-header">Template Selection</div>
-                <div class="panel-content">
-                    <div class="template-group">
-                        <label>Document Type</label>
-                        <select class="template-select" id="doc-type" onchange="PM.updateTemplate()">
-                            <option value="">Select type...</option>
-                            <option value="rfi">RFI Response</option>
-                            <option value="submittal">Submittal Review</option>
-                            <option value="schedule">Schedule Analysis</option>
-                            <option value="cost">Cost Estimate</option>
-                            <option value="meeting">Meeting Minutes</option>
-                        </select>
-                    </div>
-                    <div class="template-group">
-                        <label>Output Format</label>
-                        <select class="template-select" id="output-format">
-                            <option value="memo">Memo Format</option>
-                            <option value="formal">Formal Letter</option>
-                            <option value="email">Email Draft</option>
-                            <option value="report">Report</option>
-                        </select>
-                    </div>
-                    <button class="btn btn-primary" onclick="PM.generateOutput()" style="width: 100%; margin-top: 16px;">
-                        Generate Output
-                    </button>
+                <!-- Reference Documents -->
+                <div class="section-divider">
+                    <span class="section-title">Reference Documents</span>
                 </div>
-            </section>
 
-            <!-- Panel 3: Review/Modify -->
-            <section class="panel">
-                <div class="panel-header">Review / Modify</div>
-                <div class="panel-content" style="display: flex; flex-direction: column;">
-                    <div class="output-area empty" id="output-area">
-                        Select a document and template to generate output...
-                    </div>
-                    <div class="output-actions">
-                        <button class="btn btn-secondary" onclick="PM.copyOutput()">Copy</button>
-                        <button class="btn btn-secondary" onclick="PM.exportOutput()">Export</button>
-                        <button class="btn btn-primary" onclick="PM.sendToAssistant()">Send to Claude</button>
+                <div class="doc-category">
+                    <div class="doc-category-header">Contract Documents</div>
+                    <div class="doc-list">
+                        <div class="doc-item" onclick="PM.selectDoc(this, 'contract')">Contract W9127823R0034</div>
+                        <div class="doc-item" onclick="PM.selectDoc(this, 'mods')">Modifications Log</div>
+                        <div class="doc-item" onclick="PM.selectDoc(this, 'specs')">Specifications Index</div>
                     </div>
                 </div>
-            </section>
 
-            <!-- Panel 4: Claude Assistant -->
-            <section class="panel">
-                <div class="panel-header">Claude Assistant</div>
-                <div class="panel-content" style="display: flex; flex-direction: column;">
-                    <div class="chat-messages" id="chat-messages"></div>
-                    <div class="chat-input-area">
-                        <textarea class="chat-input" id="chat-input" rows="2" placeholder="Ask Claude about project management..."></textarea>
-                        <button class="btn btn-primary" onclick="PM.sendMessage()">Send</button>
+                <div class="doc-category">
+                    <div class="doc-category-header">Schedule</div>
+                    <div class="doc-list">
+                        <div class="doc-item" onclick="PM.selectDoc(this, 'baseline')">Baseline Schedule</div>
+                        <div class="doc-item" onclick="PM.selectDoc(this, 'current')">Current Update</div>
+                        <div class="doc-item" onclick="PM.selectDoc(this, 'lookahead')">3-Week Lookahead</div>
                     </div>
                 </div>
-            </section>
+
+                <div class="doc-category">
+                    <div class="doc-category-header">Cost Control</div>
+                    <div class="doc-list">
+                        <div class="doc-item" onclick="PM.selectDoc(this, 'sov')">Schedule of Values</div>
+                        <div class="doc-item" onclick="PM.selectDoc(this, 'payapps')">Payment Applications</div>
+                        <div class="doc-item" onclick="PM.selectDoc(this, 'changes')">Change Orders</div>
+                    </div>
+                </div>
+
+                <!-- Agents -->
+                <div class="section-divider">
+                    <span class="section-title">Agents</span>
+                </div>
+                <div class="agents-list">
+                    <div class="agent-btn" onclick="PM.deployAgent('rfi-drafter')">
+                        <span class="agent-icon">&#9998;</span>
+                        <div class="agent-info">
+                            <div class="agent-name">RFI Drafter</div>
+                            <div class="agent-desc">Generate RFI responses</div>
+                        </div>
+                    </div>
+                    <div class="agent-btn" onclick="PM.deployAgent('schedule-analyst')">
+                        <span class="agent-icon">&#128197;</span>
+                        <div class="agent-info">
+                            <div class="agent-name">Schedule Analyst</div>
+                            <div class="agent-desc">CPM & delay analysis</div>
+                        </div>
+                    </div>
+                    <div class="agent-btn" onclick="PM.deployAgent('cost-reviewer')">
+                        <span class="agent-icon">&#128176;</span>
+                        <div class="agent-info">
+                            <div class="agent-name">Cost Reviewer</div>
+                            <div class="agent-desc">Pay app & change review</div>
+                        </div>
+                    </div>
+                    <div class="agent-btn" onclick="PM.deployAgent('submittal-tracker')">
+                        <span class="agent-icon">&#128196;</span>
+                        <div class="agent-info">
+                            <div class="agent-name">Submittal Tracker</div>
+                            <div class="agent-desc">Status & compliance check</div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Panels Area -->
+            <main class="panels-area">
+                <!-- Document Browser Panel -->
+                <section class="panel expanded" id="panel-browser" onclick="PM.Panels.handleClick(event, 'panel-browser')">
+                    <div class="panel-header">
+                        <span class="panel-title">Document Browser</span>
+                        <span class="panel-expand-icon">&#9660;</span>
+                    </div>
+                    <div class="panel-content">
+                        <div class="browser-toolbar">
+                            <input type="text" class="browser-path" id="browser-path" value="G:\My Drive\00 - Trajanus USA\Projects\SOUTHCOM Guatemala\">
+                            <button class="btn btn-secondary" onclick="PM.browsePath()">Browse</button>
+                        </div>
+                        <div class="file-grid" id="file-grid">
+                            <div class="file-card" onclick="PM.selectFile(this, 'RFI-001-Foundation.pdf')">
+                                <span class="file-icon">&#128196;</span>
+                                <div class="file-info">
+                                    <div class="file-name">RFI-001-Foundation.pdf</div>
+                                    <div class="file-meta">PDF - 2.4 MB</div>
+                                </div>
+                            </div>
+                            <div class="file-card" onclick="PM.selectFile(this, 'RFI-002-Electrical.pdf')">
+                                <span class="file-icon">&#128196;</span>
+                                <div class="file-info">
+                                    <div class="file-name">RFI-002-Electrical.pdf</div>
+                                    <div class="file-meta">PDF - 1.8 MB</div>
+                                </div>
+                            </div>
+                            <div class="file-card" onclick="PM.selectFile(this, 'Schedule-Dec-2025.xer')">
+                                <span class="file-icon">&#128202;</span>
+                                <div class="file-info">
+                                    <div class="file-name">Schedule-Dec-2025.xer</div>
+                                    <div class="file-meta">XER - 856 KB</div>
+                                </div>
+                            </div>
+                            <div class="file-card" onclick="PM.selectFile(this, 'SOV-Rev5.xlsx')">
+                                <span class="file-icon">&#128200;</span>
+                                <div class="file-info">
+                                    <div class="file-name">SOV-Rev5.xlsx</div>
+                                    <div class="file-meta">Excel - 124 KB</div>
+                                </div>
+                            </div>
+                            <div class="file-card" onclick="PM.selectFile(this, 'PayApp-18.pdf')">
+                                <span class="file-icon">&#128176;</span>
+                                <div class="file-info">
+                                    <div class="file-name">PayApp-18.pdf</div>
+                                    <div class="file-meta">PDF - 3.2 MB</div>
+                                </div>
+                            </div>
+                            <div class="file-card" onclick="PM.selectFile(this, 'Mod-007-EWO.pdf')">
+                                <span class="file-icon">&#128221;</span>
+                                <div class="file-info">
+                                    <div class="file-name">Mod-007-EWO.pdf</div>
+                                    <div class="file-meta">PDF - 1.1 MB</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Template Selection Panel -->
+                <section class="panel compact" id="panel-template" onclick="PM.Panels.handleClick(event, 'panel-template')">
+                    <div class="panel-header">
+                        <span class="panel-title">Template Selection</span>
+                        <span class="panel-expand-icon">&#9660;</span>
+                    </div>
+                    <div class="panel-content">
+                        <div class="template-form">
+                            <div class="template-group">
+                                <label>Document Type</label>
+                                <select class="template-select" id="doc-type" onclick="event.stopPropagation()">
+                                    <option value="">Select type...</option>
+                                    <option value="rfi">RFI Response</option>
+                                    <option value="submittal">Submittal Review</option>
+                                    <option value="schedule">Schedule Analysis</option>
+                                    <option value="cost">Cost Estimate</option>
+                                    <option value="meeting">Meeting Minutes</option>
+                                    <option value="letter">Formal Letter</option>
+                                    <option value="payapp">Payment Application Review</option>
+                                </select>
+                            </div>
+                            <div class="template-group">
+                                <label>Output Format</label>
+                                <select class="template-select" id="output-format" onclick="event.stopPropagation()">
+                                    <option value="memo">Memo Format</option>
+                                    <option value="formal">Formal Letter</option>
+                                    <option value="email">Email Draft</option>
+                                    <option value="report">Report</option>
+                                </select>
+                            </div>
+                            <div class="template-group">
+                                <label>Recipient</label>
+                                <select class="template-select" id="recipient" onclick="event.stopPropagation()">
+                                    <option value="cor">Contracting Officer Rep</option>
+                                    <option value="ace">ACE</option>
+                                    <option value="sub">Subcontractor</option>
+                                    <option value="internal">Internal</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary" onclick="event.stopPropagation(); PM.generateOutput();">Generate Output</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Output Panel -->
+                <section class="panel compact" id="panel-output" onclick="PM.Panels.handleClick(event, 'panel-output')">
+                    <div class="panel-header">
+                        <span class="panel-title">Review / Modify</span>
+                        <span class="panel-expand-icon">&#9660;</span>
+                    </div>
+                    <div class="panel-content">
+                        <div class="output-container">
+                            <div class="output-area empty" id="output-area">
+                                Select a document and template to generate output...
+                            </div>
+                            <div class="output-actions">
+                                <button class="btn btn-secondary" onclick="event.stopPropagation(); PM.copyOutput();">Copy</button>
+                                <button class="btn btn-secondary" onclick="event.stopPropagation(); PM.exportOutput();">Export to GDocs</button>
+                                <button class="btn btn-primary" onclick="event.stopPropagation(); PM.sendToAssistant();">Send to Claude</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Claude Assistant Panel -->
+                <section class="panel compact" id="panel-claude" onclick="PM.Panels.handleClick(event, 'panel-claude')">
+                    <div class="panel-header">
+                        <span class="panel-title">Claude Assistant (PM Specialist)</span>
+                        <span class="panel-expand-icon">&#9660;</span>
+                    </div>
+                    <div class="panel-content">
+                        <div class="chat-container">
+                            <div class="chat-messages" id="chat-messages">
+                                <div class="chat-message assistant">
+                                    I'm your Project Management specialist. I can help with RFIs, submittals, schedule analysis, cost tracking, and federal contract compliance. What would you like to work on?
+                                </div>
+                            </div>
+                            <div class="chat-input-area">
+                                <textarea class="chat-input" id="chat-input" rows="2" placeholder="Ask about RFIs, schedules, costs, or federal compliance..." onclick="event.stopPropagation()"></textarea>
+                                <button class="btn btn-primary" onclick="event.stopPropagation(); PM.sendMessage();">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
         </div>
 
         <!-- System Log -->
@@ -482,8 +898,43 @@
 
         const PM = {
             selectedFile: null,
+            selectedDoc: null,
             isProcessing: false,
 
+            // ==================== PANEL MANAGEMENT ====================
+            Panels: {
+                activePanel: 'panel-browser',
+
+                handleClick(event, panelId) {
+                    const panel = document.getElementById(panelId);
+                    if (panel.classList.contains('compact')) {
+                        event.stopPropagation();
+                        this.expand(panelId);
+                    }
+                },
+
+                expand(panelId) {
+                    const panel = document.getElementById(panelId);
+                    if (panel.classList.contains('expanded')) return;
+
+                    document.querySelectorAll('.panel').forEach(p => {
+                        p.classList.remove('expanded');
+                        p.classList.add('compact');
+                    });
+
+                    panel.classList.remove('compact');
+                    panel.classList.add('expanded');
+                    this.activePanel = panelId;
+
+                    setTimeout(() => {
+                        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 50);
+
+                    PM.log(`Panel expanded: ${panelId.replace('panel-', '')}`);
+                }
+            },
+
+            // ==================== LOGGING ====================
             log(message, type = 'info') {
                 const logOutput = document.getElementById('log-output');
                 const timestamp = new Date().toLocaleTimeString('en-US', { hour12: false });
@@ -499,20 +950,65 @@
                     '<div class="log-entry info"><span class="timestamp">[--:--:--]</span> Log cleared.</div>';
             },
 
+            // ==================== APP LAUNCHERS ====================
+            async launchApp(app) {
+                const commands = {
+                    'p6': 'start "" "C:\\Program Files\\Oracle\\Primavera P6\\PM.exe"',
+                    'msproject': 'start winproj',
+                    'excel': 'start excel'
+                };
+
+                if (commands[app]) {
+                    this.log(`Launching ${app}...`);
+                    try {
+                        await invoke('open_terminal', { path: '.' });
+                    } catch (e) {
+                        this.log(`Failed to launch ${app}: ${e}`, 'error');
+                    }
+                }
+            },
+
+            // ==================== DOCUMENT SELECTION ====================
+            selectDoc(element, docId) {
+                document.querySelectorAll('.doc-item').forEach(el => el.classList.remove('selected'));
+                element.classList.add('selected');
+                this.selectedDoc = docId;
+                this.log(`Selected reference: ${docId}`);
+            },
+
             selectFile(element, filename) {
-                document.querySelectorAll('.file-item').forEach(el => el.classList.remove('selected'));
+                document.querySelectorAll('.file-card').forEach(el => el.classList.remove('selected'));
                 element.classList.add('selected');
                 this.selectedFile = filename;
                 this.log(`Selected: ${filename}`);
             },
 
-            updateTemplate() {
-                const docType = document.getElementById('doc-type').value;
-                if (docType) {
-                    this.log(`Template: ${docType}`);
+            async browsePath() {
+                const path = document.getElementById('browser-path').value;
+                this.log(`Browsing: ${path}`);
+                try {
+                    const entries = await invoke('list_directory', { path });
+                    this.log(`Found ${entries.length} items`, 'success');
+                } catch (e) {
+                    this.log(`Browse failed: ${e}`, 'error');
                 }
             },
 
+            // ==================== AGENT DEPLOYMENT ====================
+            deployAgent(agentId) {
+                const agents = {
+                    'rfi-drafter': 'RFI Drafter agent activated. Ready to generate RFI responses based on selected documents.',
+                    'schedule-analyst': 'Schedule Analyst agent activated. Ready to analyze CPM schedules and identify delays.',
+                    'cost-reviewer': 'Cost Reviewer agent activated. Ready to review payment applications and change orders.',
+                    'submittal-tracker': 'Submittal Tracker agent activated. Ready to check submittal status and compliance.'
+                };
+
+                this.log(`Deploying agent: ${agentId}`, 'success');
+                this.addChatMessage('assistant', agents[agentId] || `Agent ${agentId} activated.`);
+                this.Panels.expand('panel-claude');
+            },
+
+            // ==================== OUTPUT GENERATION ====================
             generateOutput() {
                 if (!this.selectedFile) {
                     this.log('Please select a document first', 'error');
@@ -525,10 +1021,12 @@
                 }
 
                 const format = document.getElementById('output-format').value;
+                const recipient = document.getElementById('recipient').value;
                 const outputArea = document.getElementById('output-area');
                 outputArea.classList.remove('empty');
-                outputArea.textContent = `${docType.toUpperCase()} - ${format.toUpperCase()}\n\nDocument: ${this.selectedFile}\n\nGenerated content will appear here.\n\nThis is a placeholder for AI-generated project management documentation based on the selected document and template.`;
+                outputArea.textContent = `${docType.toUpperCase()} - ${format.toUpperCase()}\n\nDocument: ${this.selectedFile}\nRecipient: ${recipient}\n\nGenerated content will appear here.\n\nThis is a placeholder for AI-generated project management documentation.`;
                 this.log(`Generated ${docType} (${format}) for ${this.selectedFile}`, 'success');
+                this.Panels.expand('panel-output');
             },
 
             copyOutput() {
@@ -540,7 +1038,8 @@
             },
 
             exportOutput() {
-                this.log('Export functionality coming soon...', 'info');
+                this.log('Exporting to Google Docs...', 'info');
+                // Would integrate with GDocs API
             },
 
             sendToAssistant() {
@@ -548,9 +1047,11 @@
                 if (output && !output.includes('Select a document')) {
                     this.addChatMessage('user', 'Please review this output:\n' + output);
                     this.sendToClaude('Please review and provide feedback on this project management document:\n' + output);
+                    this.Panels.expand('panel-claude');
                 }
             },
 
+            // ==================== CHAT FUNCTIONS ====================
             addChatMessage(role, content) {
                 const messages = document.getElementById('chat-messages');
                 const msg = document.createElement('div');
@@ -577,10 +1078,11 @@
                 this.showTyping();
 
                 try {
-                    const context = `You are a Project Management assistant for federal construction contracts.
-                    You help with RFIs, submittals, schedules, cost estimates, and general PM tasks.
-                    You are familiar with USACE/Corps of Engineers requirements, Primavera P6, Procore, and RMS.
-                    Keep responses concise and actionable.`;
+                    const context = `You are a Project Management specialist for federal construction contracts.
+                    You help with RFIs, submittals, schedules (CPM/P6), cost estimates, payment applications, and change orders.
+                    You are familiar with USACE/Corps of Engineers requirements, FAR/DFAR, Primavera P6, Procore, and RMS 3.0.
+                    Current project: SOUTHCOM Guatemala (W9127823R0034) - $47.2M federal construction.
+                    Keep responses concise, professional, and actionable.`;
 
                     const response = await invoke('chat_with_claude', {
                         message: message,
@@ -610,6 +1112,7 @@
             }
         };
 
+        // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             PM.log('PM workspace loaded', 'info');
 
