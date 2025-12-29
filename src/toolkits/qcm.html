@@ -290,8 +290,12 @@
     </div>
 
     <script>
+        // Tauri API
+        const { invoke } = window.__TAURI__.core;
+
         const QCMToolkit = {
             selectedFile: null,
+            isProcessing: false,
 
             log(message, type = 'info') {
                 const logOutput = document.getElementById('log-output');
@@ -351,8 +355,9 @@
             sendToAssistant() {
                 const output = document.getElementById('output-area').textContent;
                 if (output) {
-                    this.addChatMessage('user', 'Review:\n' + output.substring(0, 100) + '...');
-                    this.log('Sent to Claude');
+                    const truncated = output.length > 500 ? output.substring(0, 500) + '...' : output;
+                    this.addChatMessage('user', 'Review:\n' + truncated);
+                    this.sendToClaude('Please review this QCM submittal and provide feedback:\n' + output);
                 }
             },
 
@@ -365,21 +370,60 @@
                 messages.scrollTop = messages.scrollHeight;
             },
 
-            sendMessage() {
+            async sendToClaude(message) {
+                if (this.isProcessing) return;
+                this.isProcessing = true;
+                this.log('Sending to Claude API...', 'info');
+
+                const thinkingMsg = document.createElement('div');
+                thinkingMsg.className = 'chat-message assistant';
+                thinkingMsg.id = 'thinking-indicator';
+                thinkingMsg.textContent = 'Thinking...';
+                document.getElementById('chat-messages').appendChild(thinkingMsg);
+
+                try {
+                    const context = `You are a QCM (Quality Control Management) assistant for construction projects.
+                    You help review submittals, inspection reports, deficiency logs, and NCRs.
+                    Focus on compliance, specifications, and actionable feedback. Keep responses concise.`;
+
+                    const response = await invoke('chat_with_claude', {
+                        message: message,
+                        context: context
+                    });
+
+                    document.getElementById('thinking-indicator')?.remove();
+                    this.addChatMessage('assistant', response);
+                    this.log('Claude response received', 'success');
+                } catch (error) {
+                    document.getElementById('thinking-indicator')?.remove();
+                    this.addChatMessage('assistant', 'Error: ' + error);
+                    this.log('Claude API error: ' + error, 'error');
+                } finally {
+                    this.isProcessing = false;
+                }
+            },
+
+            async sendMessage() {
                 const input = document.getElementById('chat-input');
                 const message = input.value.trim();
-                if (message) {
+                if (message && !this.isProcessing) {
                     this.addChatMessage('user', message);
                     input.value = '';
-                    this.log('Message sent');
-                    setTimeout(() => {
-                        this.addChatMessage('assistant', 'I can help with your QCM review. What would you like me to check?');
-                    }, 500);
+                    await this.sendToClaude(message);
                 }
             }
         };
 
-        document.addEventListener('DOMContentLoaded', () => QCMToolkit.log('QCM Toolkit loaded', 'info'));
+        document.addEventListener('DOMContentLoaded', () => {
+            QCMToolkit.log('QCM Toolkit loaded', 'info');
+
+            document.getElementById('chat-input').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    QCMToolkit.sendMessage();
+                }
+            });
+        });
     </script>
 </body>
 </html>

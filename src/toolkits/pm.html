@@ -381,8 +381,12 @@
     </div>
 
     <script>
+        // Tauri API
+        const { invoke } = window.__TAURI__.core;
+
         const PMToolkit = {
             selectedFile: null,
+            isProcessing: false,
 
             log(message, type = 'info') {
                 const logOutput = document.getElementById('log-output');
@@ -445,8 +449,9 @@
             sendToAssistant() {
                 const output = document.getElementById('output-area').textContent;
                 if (output) {
-                    this.addChatMessage('user', 'Please review this output:\n' + output.substring(0, 100) + '...');
-                    this.log('Sent to Claude Assistant');
+                    const truncated = output.length > 500 ? output.substring(0, 500) + '...' : output;
+                    this.addChatMessage('user', 'Please review this output:\n' + truncated);
+                    this.sendToClaude('Please review and provide feedback on this project management output:\n' + output);
                 }
             },
 
@@ -459,24 +464,63 @@
                 messages.scrollTop = messages.scrollHeight;
             },
 
-            sendMessage() {
+            async sendToClaude(message) {
+                if (this.isProcessing) return;
+                this.isProcessing = true;
+                this.log('Sending to Claude API...', 'info');
+
+                // Show thinking indicator
+                const thinkingMsg = document.createElement('div');
+                thinkingMsg.className = 'chat-message assistant';
+                thinkingMsg.id = 'thinking-indicator';
+                thinkingMsg.textContent = 'Thinking...';
+                document.getElementById('chat-messages').appendChild(thinkingMsg);
+
+                try {
+                    const context = `You are a helpful PM (Project Management) assistant for construction projects.
+                    You help with RFIs, submittals, schedules, cost estimates, and general PM tasks.
+                    Keep responses concise and actionable.`;
+
+                    const response = await invoke('chat_with_claude', {
+                        message: message,
+                        context: context
+                    });
+
+                    // Remove thinking indicator
+                    document.getElementById('thinking-indicator')?.remove();
+
+                    this.addChatMessage('assistant', response);
+                    this.log('Claude response received', 'success');
+                } catch (error) {
+                    document.getElementById('thinking-indicator')?.remove();
+                    this.addChatMessage('assistant', 'Error: ' + error);
+                    this.log('Claude API error: ' + error, 'error');
+                } finally {
+                    this.isProcessing = false;
+                }
+            },
+
+            async sendMessage() {
                 const input = document.getElementById('chat-input');
                 const message = input.value.trim();
-                if (message) {
+                if (message && !this.isProcessing) {
                     this.addChatMessage('user', message);
                     input.value = '';
-                    this.log('Message sent to Claude');
-
-                    // Simulate response
-                    setTimeout(() => {
-                        this.addChatMessage('assistant', 'I can help you with that PM task. What specific aspect would you like me to address?');
-                    }, 500);
+                    await this.sendToClaude(message);
                 }
             }
         };
 
         document.addEventListener('DOMContentLoaded', () => {
             PMToolkit.log('PM Toolkit loaded', 'info');
+
+            // Enable Enter key to send messages
+            document.getElementById('chat-input').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    PMToolkit.sendMessage();
+                }
+            });
         });
     </script>
 </body>

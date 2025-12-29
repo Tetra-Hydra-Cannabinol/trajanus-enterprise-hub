@@ -13,6 +13,13 @@
     --badge-orange: #e8922a;
     --error: #ff4a4a;
     --border-color: #333333;
+
+    /* Elevation system (replaces shadows on dark themes) */
+    --elevation-0: #1a1a1a;
+    --elevation-1: #252525;
+    --elevation-2: #2d2d2d;
+    --elevation-3: #353535;
+    --elevation-4: #3d3d3d;
 }
 
 /* ==================== RESET & BASE ==================== */
@@ -254,14 +261,12 @@ body {
     padding: 12px 20px;
     cursor: pointer;
     text-align: left;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     transition: all 0.2s ease;
 }
 
 .button-card:hover {
     background: linear-gradient(135deg, #e8b584 0%, #d4a574 100%);
     transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 .button-card:active {
@@ -549,7 +554,7 @@ a.nav-item {
     width: 28px;
     height: 28px;
     background: var(--button-fill);
-    border: none;
+    border: 2px solid var(--elevation-3);
     border-radius: 50%;
     cursor: pointer;
     z-index: 100;
@@ -559,7 +564,6 @@ a.nav-item {
     font-size: 14px;
     color: #1a1a1a;
     transition: left 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .sidebar-toggle:hover {

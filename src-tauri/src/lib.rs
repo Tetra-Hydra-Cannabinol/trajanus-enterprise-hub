@@ -2,7 +2,8 @@ use std::fs;
 use std::path::Path;
 use std::process::Command;
 use tauri_plugin_shell::ShellExt;
-use serde::Serialize;
+use serde::{Serialize, Deserialize};
+use reqwest::Client;
 
 #[derive(Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -181,6 +182,101 @@ fn run_python_script(script_path: String, target_path: Option<String>) -> Result
     }
 }
 
+// ==================== CLAUDE API ====================
+
+#[derive(Serialize)]
+struct ClaudeMessage {
+    role: String,
+    content: String,
+}
+
+#[derive(Serialize)]
+struct ClaudeRequest {
+    model: String,
+    max_tokens: u32,
+    messages: Vec<ClaudeMessage>,
+}
+
+#[derive(Deserialize)]
+struct ClaudeContentBlock {
+    #[serde(rename = "type")]
+    content_type: String,
+    text: Option<String>,
+}
+
+#[derive(Deserialize)]
+struct ClaudeResponse {
+    content: Vec<ClaudeContentBlock>,
+}
+
+#[tauri::command]
+async fn chat_with_claude(message: String, context: Option<String>) -> Result<String, String> {
+    // Read API key from file
+    let api_key_path = "G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\001 Credentials\\Trajanus Command Center api key.txt";
+    let api_key = fs::read_to_string(api_key_path)
+        .map_err(|e| format!("Failed to read API key: {}", e))?
+        .trim()
+        .to_string();
+
+    // Build messages array
+    let mut messages = Vec::new();
+
+    // Add context as system-like user message if provided
+    if let Some(ctx) = context {
+        messages.push(ClaudeMessage {
+            role: "user".to_string(),
+            content: format!("Context for this conversation:\n{}\n\nNow, please respond to my next message.", ctx),
+        });
+        messages.push(ClaudeMessage {
+            role: "assistant".to_string(),
+            content: "I understand. I'll use that context to help with your questions. What would you like to know?".to_string(),
+        });
+    }
+
+    // Add the user's message
+    messages.push(ClaudeMessage {
+        role: "user".to_string(),
+        content: message,
+    });
+
+    let request_body = ClaudeRequest {
+        model: "claude-sonnet-4-5-20250929".to_string(),
+        max_tokens: 1024,
+        messages,
+    };
+
+    let client = Client::new();
+    let response = client
+        .post("https://api.anthropic.com/v1/messages")
+        .header("Content-Type", "application/json")
+        .header("x-api-key", &api_key)
+        .header("anthropic-version", "2023-06-01")
+        .json(&request_body)
+        .send()
+        .await
+        .map_err(|e| format!("API request failed: {}", e))?;
+
+    if !response.status().is_success() {
+        let error_text = response.text().await.unwrap_or_default();
+        return Err(format!("API error: {}", error_text));
+    }
+
+    let claude_response: ClaudeResponse = response
+        .json()
+        .await
+        .map_err(|e| format!("Failed to parse response: {}", e))?;
+
+    // Extract text from response
+    let text = claude_response
+        .content
+        .iter()
+        .filter_map(|block| block.text.clone())
+        .collect::<Vec<_>>()
+        .join("\n");
+
+    Ok(text)
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
@@ -197,7 +293,8 @@ pub fn run() {
             launch_claude_code,
             git_push,
             run_powershell_script,
-            run_python_script
+            run_python_script,
+            chat_with_claude
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
