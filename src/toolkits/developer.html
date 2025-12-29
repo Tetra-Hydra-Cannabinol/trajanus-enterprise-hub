@@ -543,143 +543,349 @@
         }
 
         /* ========================== */
-        /* EMBEDDED CLAUDE SECTION    */
+        /* CHAT ASSISTANT SECTION     */
         /* ========================== */
-        .claude-section {
+        .chat-section {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
             border-radius: 8px;
             overflow: hidden;
             margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 700px;
         }
 
-        .claude-header {
+        .chat-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 16px 20px;
             background: var(--bg-surface);
             border-bottom: 1px solid var(--border-subtle);
+            flex-shrink: 0;
         }
 
-        .claude-header-left h3 {
+        .chat-header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .chat-header-left h3 {
             color: var(--gold);
             font-size: 14px;
             font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
-            margin-bottom: 4px;
+            margin: 0;
         }
 
-        .claude-header-left p {
+        .skill-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .skill-selector label {
             color: var(--text-muted);
             font-size: 12px;
         }
 
-        .claude-controls {
-            display: flex;
-            gap: 8px;
-        }
-
-        .claude-ctrl-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 16px;
+        .skill-selector select {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-primary);
+            padding: 6px 12px;
             border-radius: 4px;
             font-size: 12px;
-            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .skill-selector select:hover {
+            border-color: var(--gold);
+        }
+
+        .chat-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .voice-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            color: var(--text-secondary);
+            font-size: 12px;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
-        .claude-ctrl-btn.primary {
+        .voice-toggle:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .voice-toggle.active {
             background: var(--gold);
-            border: none;
+            border-color: var(--gold);
             color: var(--bg-base);
         }
 
-        .claude-ctrl-btn.primary:hover {
-            background: var(--gold-hover);
-        }
-
-        .claude-ctrl-btn.secondary {
+        .clear-chat-btn {
             background: transparent;
             border: 1px solid var(--border-subtle);
             color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .claude-ctrl-btn.secondary:hover {
+        .clear-chat-btn:hover {
             border-color: var(--error);
             color: var(--error);
         }
 
-        /* Container where webview renders */
-        .claude-container {
-            position: relative;
-            width: 100%;
-            height: 800px;
+        /* Chat Messages Area */
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
             background: var(--bg-base);
         }
 
-        /* Placeholder shown before webview loads */
-        .claude-placeholder {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+        .chat-message {
             display: flex;
-            flex-direction: column;
+            gap: 12px;
+            max-width: 85%;
+        }
+
+        .chat-message.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .chat-message.assistant {
+            align-self: flex-start;
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
-        }
-
-        .placeholder-icon {
-            color: var(--gold);
-            font-size: 56px;
-            margin-bottom: 20px;
-        }
-
-        .claude-placeholder h4 {
-            color: var(--gold);
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-bottom: 12px;
-        }
-
-        .claude-placeholder p {
-            color: var(--text-secondary);
             font-size: 14px;
-            margin-bottom: 28px;
+            font-weight: 700;
+            flex-shrink: 0;
         }
 
-        .placeholder-btn {
+        .chat-message.user .message-avatar {
             background: var(--gold);
             color: var(--bg-base);
+        }
+
+        .chat-message.assistant .message-avatar {
+            background: var(--bg-elevated);
+            color: var(--gold);
+        }
+
+        .message-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 12px 16px;
+        }
+
+        .chat-message.user .message-content {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--bg-base);
+        }
+
+        .chat-message.assistant .message-content {
+            background: var(--bg-card);
+        }
+
+        .message-text {
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .message-skill {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .chat-message.user .message-skill {
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Loading indicator */
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 8px 0;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-indicator span:nth-child(1) { animation-delay: 0s; }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-6px); opacity: 1; }
+        }
+
+        /* Chat Input Area */
+        .chat-input-area {
+            padding: 16px 20px;
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border-subtle);
+            flex-shrink: 0;
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: var(--font-main);
+            resize: none;
+            min-height: 48px;
+            max-height: 150px;
+            line-height: 1.5;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .chat-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .send-btn {
+            background: var(--gold);
             border: none;
-            padding: 14px 32px;
-            border-radius: 6px;
+            color: var(--bg-base);
+            padding: 12px 24px;
+            border-radius: 8px;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .placeholder-btn:hover {
+        .send-btn:hover:not(:disabled) {
             background: var(--gold-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(212, 165, 116, 0.3);
         }
 
-        .placeholder-hint {
-            color: var(--text-muted);
-            font-size: 11px;
-            margin-top: 16px;
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Welcome message */
+        .chat-welcome {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .chat-welcome-icon {
+            font-size: 48px;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .chat-welcome h4 {
+            color: var(--gold);
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .chat-welcome p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* Speaking indicator */
+        .speaking-indicator {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            color: var(--gold);
+            font-size: 12px;
+            padding: 4px 8px;
+            background: var(--bg-elevated);
+            border-radius: 4px;
+        }
+
+        .speaking-indicator.active {
+            display: flex;
+        }
+
+        .speaking-indicator .wave {
+            display: flex;
+            gap: 2px;
+        }
+
+        .speaking-indicator .wave span {
+            width: 3px;
+            height: 12px;
+            background: var(--gold);
+            animation: wave 0.8s infinite ease-in-out;
+        }
+
+        .speaking-indicator .wave span:nth-child(1) { animation-delay: 0s; }
+        .speaking-indicator .wave span:nth-child(2) { animation-delay: 0.1s; }
+        .speaking-indicator .wave span:nth-child(3) { animation-delay: 0.2s; }
+        .speaking-indicator .wave span:nth-child(4) { animation-delay: 0.3s; }
+
+        @keyframes wave {
+            0%, 100% { transform: scaleY(0.5); }
+            50% { transform: scaleY(1); }
         }
 
         /* ========================== */
@@ -1148,49 +1354,78 @@
         </div>
 
         <!-- ========================== -->
-        <!-- WORKSPACE SECTION          -->
+        <!-- AI ASSISTANT SECTION       -->
         <!-- ========================== -->
         <div class="section-divider">
             <div class="section-border-top"></div>
             <div class="section-title-row">
                 <span class="section-blocks">|||</span>
-                <h2 class="section-title">WORKSPACE</h2>
+                <h2 class="section-title">AI ASSISTANT</h2>
                 <span class="section-blocks">|||</span>
             </div>
             <div class="section-border-bottom"></div>
             <p class="section-description">
-                Embedded Claude.ai workspace with full account access. Projects, memory, and all features available.
+                Integrated Claude assistant with specialized Skills. Select a skill to load context-specific system prompts for focused assistance.
             </p>
         </div>
 
-        <!-- Claude.ai Embedded Container -->
-        <div class="claude-section">
-            <div class="claude-header">
-                <div class="claude-header-left">
-                    <h3>CLAUDE.AI</h3>
-                    <p>Full Claude interface embedded in workspace</p>
+        <!-- Chat Assistant Interface -->
+        <div class="chat-section">
+            <div class="chat-header">
+                <div class="chat-header-left">
+                    <h3>TRAJANUS ASSISTANT</h3>
+                    <div class="skill-selector">
+                        <label for="skill-select">Skill:</label>
+                        <select id="skill-select" onchange="ChatAssistant.loadSkill(this.value)">
+                            <option value="">General Assistant</option>
+                            <option value="research">Research Agent</option>
+                            <option value="compliance">Compliance Officer</option>
+                            <option value="developer">Developer Assistant</option>
+                            <option value="project-manager">Project Manager</option>
+                            <option value="construction">Construction Expert</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="claude-controls">
-                    <button class="claude-ctrl-btn primary" id="btn-open-claude" onclick="Claude.embed()">
-                        <span>&#9654;</span> Open Claude
+                <div class="chat-controls">
+                    <div class="speaking-indicator" id="speaking-indicator">
+                        <div class="wave">
+                            <span></span><span></span><span></span><span></span>
+                        </div>
+                        <span>Speaking...</span>
+                    </div>
+                    <button class="voice-toggle" id="voice-toggle" onclick="ChatAssistant.toggleVoice()">
+                        <span id="voice-icon">&#128264;</span>
+                        <span id="voice-label">Voice Off</span>
                     </button>
-                    <button class="claude-ctrl-btn secondary" id="btn-close-claude" onclick="Claude.close()" style="display: none;">
-                        <span>&#10005;</span> Close
-                    </button>
+                    <button class="clear-chat-btn" onclick="ChatAssistant.clear()">Clear</button>
                 </div>
             </div>
 
-            <!-- This div defines WHERE the webview appears -->
-            <div id="claude-container" class="claude-container">
-                <!-- Placeholder shown before webview loads -->
-                <div id="claude-placeholder" class="claude-placeholder">
-                    <div class="placeholder-icon">&#9830;</div>
-                    <h4>CLAUDE.AI</h4>
-                    <p>Click to embed Claude interface in this workspace</p>
-                    <button class="placeholder-btn" onclick="Claude.embed()">Open Claude.ai</button>
-                    <span class="placeholder-hint">Use email login for best compatibility</span>
+            <!-- Messages Area -->
+            <div class="chat-messages" id="chat-messages">
+                <div class="chat-welcome" id="chat-welcome">
+                    <div class="chat-welcome-icon">&#9830;</div>
+                    <h4>Trajanus Assistant</h4>
+                    <p>Select a skill above or ask me anything. I can help with research, development, project management, and construction expertise.</p>
                 </div>
-                <!-- Webview renders HERE, on top of placeholder -->
+            </div>
+
+            <!-- Input Area -->
+            <div class="chat-input-area">
+                <div class="chat-input-wrapper">
+                    <textarea
+                        class="chat-input"
+                        id="chat-input"
+                        placeholder="Type your message..."
+                        rows="1"
+                        onkeydown="ChatAssistant.handleKeydown(event)"
+                        oninput="ChatAssistant.autoResize(this)"
+                    ></textarea>
+                    <button class="send-btn" id="send-btn" onclick="ChatAssistant.send()">
+                        <span>Send</span>
+                        <span>&#10148;</span>
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -1305,7 +1540,17 @@
             async activate(agentName) {
                 console.log(`Activating ${agentName} agent...`);
                 try {
-                    // Query KB for skill and load as system prompt
+                    // Load agent skill into chat assistant
+                    const skillMap = {
+                        'research': 'research',
+                        'compliance': 'compliance',
+                        'morning': 'research'
+                    };
+                    const skill = skillMap[agentName];
+                    if (skill) {
+                        document.getElementById('skill-select').value = skill;
+                        await ChatAssistant.loadSkill(skill);
+                    }
                     console.log(`${agentName} agent activated`);
                 } catch (e) {
                     console.error(`Failed to activate ${agentName}: ${e}`);
@@ -1324,105 +1569,294 @@
             }
         };
 
-        // Claude Embedded Controller
-        const Claude = {
-            isEmbedded: false,
+        // Chat Assistant Controller
+        const ChatAssistant = {
+            messages: [],
+            currentSkill: null,
+            skillContext: null,
+            voiceEnabled: false,
+            isLoading: false,
+            synth: window.speechSynthesis,
+            preferredVoice: null,
 
-            async embed() {
-                console.log('Embedding Claude.ai...');
-                const container = document.getElementById('claude-container');
-                const rect = container.getBoundingClientRect();
-
-                // Get position relative to window
-                const x = rect.left;
-                const y = rect.top;
-                const width = rect.width;
-                const height = rect.height;
-
-                console.log(`Container position: x=${x}, y=${y}, w=${width}, h=${height}`);
-
-                try {
-                    await invoke('embed_claude', { x, y, width, height });
-                    console.log('Claude.ai embedded successfully');
-                    this.isEmbedded = true;
-                    this.updateUI();
-                } catch (e) {
-                    console.error('Failed to embed Claude.ai:', e);
-                    alert('Error embedding Claude: ' + e);
+            // Skill definitions with system prompts
+            skills: {
+                'research': {
+                    name: 'Research Agent',
+                    prompt: `You are a Research Agent for Trajanus USA, a construction management company.
+Your role is to help research topics, find information, synthesize findings from multiple sources, and provide well-organized summaries.
+Focus on accuracy, cite sources when possible, and present information in a clear, structured format.
+You have expertise in construction industry research, market analysis, competitor research, and general business intelligence.`
+                },
+                'compliance': {
+                    name: 'Compliance Officer',
+                    prompt: `You are a Compliance Officer assistant for Trajanus USA, specializing in federal construction contracts.
+Your expertise includes:
+- UFGS (Unified Facilities Guide Specifications)
+- FAR (Federal Acquisition Regulations)
+- DFARS (Defense Federal Acquisition Regulation Supplement)
+- Contract compliance and documentation requirements
+- Quality control and safety standards
+Help users understand compliance requirements, review documents for compliance issues, and provide guidance on federal construction regulations.`
+                },
+                'developer': {
+                    name: 'Developer Assistant',
+                    prompt: `You are a Developer Assistant for Trajanus USA software development.
+Your expertise includes:
+- Tauri 2.0 desktop application development
+- Rust backend development
+- JavaScript/TypeScript frontend
+- Python automation scripts
+- Database design and management
+- API integration
+Help with code review, debugging, architecture decisions, and development best practices.`
+                },
+                'project-manager': {
+                    name: 'Project Manager',
+                    prompt: `You are a Project Manager assistant for Trajanus USA construction projects.
+Your expertise includes:
+- Project scheduling and timeline management
+- Resource allocation and budgeting
+- Risk management and mitigation
+- Stakeholder communication
+- Construction project workflows
+- Documentation and reporting
+Help with project planning, status updates, and management best practices.`
+                },
+                'construction': {
+                    name: 'Construction Expert',
+                    prompt: `You are a Construction Expert assistant for Trajanus USA.
+Your expertise includes:
+- Construction methods and techniques
+- Material specifications and selection
+- Building codes and standards
+- Cost estimation
+- Site management
+- Safety protocols
+- Equipment and tools
+Provide technical guidance on construction-related questions and best practices.`
                 }
             },
 
-            async close() {
-                console.log('Closing embedded Claude.ai...');
-                try {
-                    await invoke('close_claude');
-                    console.log('Claude.ai closed');
-                    this.isEmbedded = false;
-                    this.updateUI();
-                } catch (e) {
-                    console.error('Failed to close Claude.ai:', e);
+            init() {
+                // Initialize speech synthesis
+                if (this.synth) {
+                    // Wait for voices to load
+                    if (this.synth.getVoices().length === 0) {
+                        this.synth.addEventListener('voiceschanged', () => {
+                            this.selectPreferredVoice();
+                        });
+                    } else {
+                        this.selectPreferredVoice();
+                    }
+                }
+                console.log('Chat Assistant initialized');
+            },
+
+            selectPreferredVoice() {
+                const voices = this.synth.getVoices();
+                // Prefer Microsoft voices on Windows, or any English voice
+                this.preferredVoice = voices.find(v => v.name.includes('Microsoft') && v.lang.startsWith('en')) ||
+                                      voices.find(v => v.lang.startsWith('en-US')) ||
+                                      voices.find(v => v.lang.startsWith('en')) ||
+                                      voices[0];
+                console.log('Selected voice:', this.preferredVoice?.name);
+            },
+
+            async loadSkill(skillKey) {
+                if (!skillKey) {
+                    this.currentSkill = null;
+                    this.skillContext = null;
+                    console.log('Loaded: General Assistant');
+                    return;
+                }
+
+                const skill = this.skills[skillKey];
+                if (skill) {
+                    this.currentSkill = skillKey;
+                    this.skillContext = skill.prompt;
+                    console.log(`Loaded skill: ${skill.name}`);
                 }
             },
 
-            async resize() {
-                if (!this.isEmbedded) return;
+            async send() {
+                const input = document.getElementById('chat-input');
+                const message = input.value.trim();
 
-                const container = document.getElementById('claude-container');
-                const rect = container.getBoundingClientRect();
+                if (!message || this.isLoading) return;
+
+                // Hide welcome message
+                const welcome = document.getElementById('chat-welcome');
+                if (welcome) welcome.style.display = 'none';
+
+                // Add user message to UI
+                this.addMessage('user', message);
+                input.value = '';
+                this.autoResize(input);
+
+                // Show loading
+                this.setLoading(true);
 
                 try {
-                    await invoke('resize_claude', {
-                        x: rect.left,
-                        y: rect.top,
-                        width: rect.width,
-                        height: rect.height
+                    // Call Claude API via Tauri
+                    const response = await invoke('chat_with_claude', {
+                        message: message,
+                        context: this.skillContext
                     });
-                } catch (e) {
-                    console.error('Failed to resize Claude.ai:', e);
+
+                    // Add assistant response
+                    this.addMessage('assistant', response);
+
+                    // Speak if voice enabled
+                    if (this.voiceEnabled) {
+                        this.speak(response);
+                    }
+                } catch (error) {
+                    console.error('Chat error:', error);
+                    this.addMessage('assistant', `Error: ${error}. Please check the API key configuration.`);
+                }
+
+                this.setLoading(false);
+            },
+
+            addMessage(role, content) {
+                const messagesContainer = document.getElementById('chat-messages');
+                const skillName = this.currentSkill ? this.skills[this.currentSkill].name : 'General';
+
+                const messageEl = document.createElement('div');
+                messageEl.className = `chat-message ${role}`;
+                messageEl.innerHTML = `
+                    <div class="message-avatar">${role === 'user' ? 'B' : 'T'}</div>
+                    <div class="message-content">
+                        <div class="message-text">${this.escapeHtml(content)}</div>
+                        ${role === 'assistant' ? `<div class="message-skill">${skillName}</div>` : ''}
+                    </div>
+                `;
+
+                messagesContainer.appendChild(messageEl);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+                // Store message
+                this.messages.push({ role, content, skill: this.currentSkill });
+            },
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            },
+
+            setLoading(loading) {
+                this.isLoading = loading;
+                const sendBtn = document.getElementById('send-btn');
+                const messagesContainer = document.getElementById('chat-messages');
+
+                sendBtn.disabled = loading;
+
+                // Add or remove typing indicator
+                const existingIndicator = document.getElementById('typing-indicator');
+                if (loading && !existingIndicator) {
+                    const indicator = document.createElement('div');
+                    indicator.id = 'typing-indicator';
+                    indicator.className = 'chat-message assistant';
+                    indicator.innerHTML = `
+                        <div class="message-avatar">T</div>
+                        <div class="message-content">
+                            <div class="typing-indicator">
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+                    `;
+                    messagesContainer.appendChild(indicator);
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                } else if (!loading && existingIndicator) {
+                    existingIndicator.remove();
                 }
             },
 
-            async checkStatus() {
-                try {
-                    this.isEmbedded = await invoke('is_claude_embedded');
-                    this.updateUI();
-                } catch (e) {
-                    console.error('Failed to check Claude status:', e);
-                }
-            },
+            toggleVoice() {
+                this.voiceEnabled = !this.voiceEnabled;
+                const toggle = document.getElementById('voice-toggle');
+                const icon = document.getElementById('voice-icon');
+                const label = document.getElementById('voice-label');
 
-            updateUI() {
-                const placeholder = document.getElementById('claude-placeholder');
-                const openBtn = document.getElementById('btn-open-claude');
-                const closeBtn = document.getElementById('btn-close-claude');
-
-                if (this.isEmbedded) {
-                    placeholder.style.display = 'none';
-                    openBtn.style.display = 'none';
-                    closeBtn.style.display = 'inline-flex';
+                if (this.voiceEnabled) {
+                    toggle.classList.add('active');
+                    icon.innerHTML = '&#128266;'; // Speaker with sound waves
+                    label.textContent = 'Voice On';
                 } else {
-                    placeholder.style.display = 'flex';
-                    openBtn.style.display = 'inline-flex';
-                    closeBtn.style.display = 'none';
+                    toggle.classList.remove('active');
+                    icon.innerHTML = '&#128264;'; // Muted speaker
+                    label.textContent = 'Voice Off';
+                    // Stop any ongoing speech
+                    this.synth.cancel();
+                    this.setSpeaking(false);
                 }
+                console.log('Voice output:', this.voiceEnabled ? 'enabled' : 'disabled');
+            },
+
+            speak(text) {
+                if (!this.synth || !this.voiceEnabled) return;
+
+                // Cancel any ongoing speech
+                this.synth.cancel();
+
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.voice = this.preferredVoice;
+                utterance.rate = 1.0;
+                utterance.pitch = 1.0;
+                utterance.volume = 1.0;
+
+                utterance.onstart = () => this.setSpeaking(true);
+                utterance.onend = () => this.setSpeaking(false);
+                utterance.onerror = () => this.setSpeaking(false);
+
+                this.synth.speak(utterance);
+            },
+
+            setSpeaking(speaking) {
+                const indicator = document.getElementById('speaking-indicator');
+                if (speaking) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            },
+
+            clear() {
+                // Stop any speech
+                if (this.synth) this.synth.cancel();
+                this.setSpeaking(false);
+
+                // Clear messages
+                this.messages = [];
+                const messagesContainer = document.getElementById('chat-messages');
+                messagesContainer.innerHTML = `
+                    <div class="chat-welcome" id="chat-welcome">
+                        <div class="chat-welcome-icon">&#9830;</div>
+                        <h4>Trajanus Assistant</h4>
+                        <p>Select a skill above or ask me anything. I can help with research, development, project management, and construction expertise.</p>
+                    </div>
+                `;
+                console.log('Chat cleared');
+            },
+
+            handleKeydown(event) {
+                if (event.key === 'Enter' && !event.shiftKey) {
+                    event.preventDefault();
+                    this.send();
+                }
+            },
+
+            autoResize(textarea) {
+                textarea.style.height = 'auto';
+                textarea.style.height = Math.min(textarea.scrollHeight, 150) + 'px';
             }
         };
 
-        // Initialize Claude and handle window resize
+        // Initialize Chat Assistant
         document.addEventListener('DOMContentLoaded', () => {
-            Claude.checkStatus();
-        });
-
-        // Resize webview when window resizes
-        window.addEventListener('resize', () => {
-            Claude.resize();
-        });
-
-        // Also resize on scroll (in case page layout shifts)
-        let resizeTimeout;
-        window.addEventListener('scroll', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => Claude.resize(), 100);
+            ChatAssistant.init();
         });
     </script>
 </body>
