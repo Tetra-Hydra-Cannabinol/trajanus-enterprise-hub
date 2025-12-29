@@ -6,13 +6,12 @@
     <title>Developer Toolkit - Trajanus EI</title>
     <link rel="stylesheet" href="../styles/main.css">
     <style>
-        /* Developer Toolkit - 4 Panel Layout */
+        /* Developer Toolkit - Expandable Panel Layout */
         .dev-wrapper {
+            min-height: 100vh;
+            background: var(--bg-base);
             display: flex;
             flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
-            background: var(--bg-base);
         }
 
         .dev-main {
@@ -21,28 +20,70 @@
             padding-top: calc(60px + var(--space-md));
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            gap: var(--space-md);
         }
 
+        /* Panel Grid - 2x2 layout that becomes vertical on expansion */
         .panel-grid {
-            flex: 1;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
             gap: var(--space-md);
-            min-height: 0;
         }
 
+        /* Base Panel Styles */
         .panel {
             display: flex;
             flex-direction: column;
-            min-height: 0;
-            overflow: hidden;
             background: var(--bg-card);
             border: 1px solid var(--bg-elevated);
             border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
+        .panel:hover {
+            border-color: var(--accent-gold);
+        }
+
+        /* Compact Panel State (default) */
+        .panel.compact {
+            height: 120px;
+        }
+
+        .panel.compact .panel-content {
+            display: none;
+        }
+
+        .panel.compact .panel-preview {
+            display: block;
+        }
+
+        /* Expanded Panel State */
+        .panel.expanded {
+            grid-column: 1 / -1;
+            min-height: 500px;
+            height: auto;
+            cursor: default;
+            order: -1;
+        }
+
+        .panel.expanded .panel-content {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .panel.expanded .panel-preview {
+            display: none;
+        }
+
+        .panel.expanded .panel-header {
+            cursor: pointer;
+        }
+
+        /* Panel Header */
         .panel-header {
             display: flex;
             justify-content: space-between;
@@ -53,6 +94,12 @@
             flex-shrink: 0;
         }
 
+        .panel-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
         .panel-title {
             color: var(--accent-gold);
             font-size: 0.8rem;
@@ -61,9 +108,23 @@
             text-transform: uppercase;
         }
 
+        .expand-indicator {
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            transition: transform 0.3s ease;
+        }
+
+        .panel.expanded .expand-indicator {
+            transform: rotate(180deg);
+        }
+
         .panel-actions {
             display: flex;
             gap: 8px;
+        }
+
+        .panel.compact .panel-actions {
+            display: none;
         }
 
         .panel-btn {
@@ -82,16 +143,26 @@
             color: var(--accent-gold);
         }
 
+        /* Panel Preview (shown when compact) */
+        .panel-preview {
+            padding: 12px 16px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            line-height: 1.5;
+            display: none;
+        }
+
+        /* Panel Content */
         .panel-content {
             flex: 1;
-            overflow-y: auto;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
             min-height: 0;
         }
 
-        /* Chat Panel */
+        /* Chat Panel Specifics */
         .chat-panel .panel-content {
-            display: flex;
-            flex-direction: column;
             padding: 0;
         }
 
@@ -102,6 +173,7 @@
             display: flex;
             flex-direction: column;
             gap: var(--space-md);
+            min-height: 300px;
         }
 
         .chat-welcome {
@@ -216,6 +288,8 @@
             flex-direction: column;
             gap: var(--space-sm);
             padding: var(--space-md);
+            overflow-y: auto;
+            max-height: 400px;
         }
 
         .script-item {
@@ -238,6 +312,12 @@
         .script-name {
             color: var(--text-white);
             font-size: 0.85rem;
+        }
+
+        .script-desc {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            margin-top: 2px;
         }
 
         .script-run {
@@ -270,6 +350,8 @@
             white-space: pre-wrap;
             color: var(--text-white);
             padding: var(--space-md);
+            overflow-y: auto;
+            max-height: 400px;
         }
 
         /* Output Panel */
@@ -279,6 +361,8 @@
             line-height: 1.6;
             color: var(--text-white);
             padding: var(--space-md);
+            overflow-y: auto;
+            max-height: 400px;
         }
 
         .output-line {
@@ -296,7 +380,7 @@
             gap: var(--space-md);
             padding: var(--space-md);
             background: var(--bg-surface);
-            border-top: 1px solid var(--bg-elevated);
+            border-radius: 8px;
             flex-wrap: wrap;
             flex-shrink: 0;
         }
@@ -306,11 +390,48 @@
             font-size: 0.8rem;
         }
 
+        /* Quick Actions Bar (always visible) */
+        .quick-actions {
+            display: flex;
+            gap: var(--space-sm);
+            padding: var(--space-md);
+            background: var(--bg-card);
+            border-radius: 8px;
+            flex-wrap: wrap;
+            margin-bottom: var(--space-md);
+        }
+
+        .quick-action {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            background: var(--bg-surface);
+            border: 1px solid var(--bg-elevated);
+            border-radius: 4px;
+            color: var(--text-white);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .quick-action:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .quick-action-icon {
+            color: var(--accent-gold);
+        }
+
         /* Responsive */
-        @media (max-width: 1199px) {
+        @media (max-width: 900px) {
             .panel-grid {
                 grid-template-columns: 1fr;
-                grid-template-rows: repeat(4, minmax(250px, 1fr));
+            }
+
+            .panel.expanded {
+                grid-column: 1;
             }
         }
     </style>
@@ -331,18 +452,47 @@
             </div>
         </header>
 
-        <!-- Main 4-Panel Layout -->
+        <!-- Main Content -->
         <main class="dev-main">
+            <!-- Quick Actions Bar -->
+            <div class="quick-actions">
+                <button class="quick-action" onclick="Terminals.launchClaudeCode()">
+                    <span class="quick-action-icon">&#9670;</span> Claude Code
+                </button>
+                <button class="quick-action" onclick="Terminals.launchVSCode()">
+                    <span class="quick-action-icon">&#9998;</span> VS Code
+                </button>
+                <button class="quick-action" onclick="Terminals.launchPowerShell()">
+                    <span class="quick-action-icon">&#9658;</span> PowerShell
+                </button>
+                <button class="quick-action" onclick="Scripts.runScript('CONVERT_MD_TO_GDOCS_PERMANENT.py')">
+                    <span class="quick-action-icon">&#128196;</span> MD to Docs
+                </button>
+                <button class="quick-action" onclick="Scripts.runScript('file_ingestion.py')">
+                    <span class="quick-action-icon">&#128193;</span> File Ingestion
+                </button>
+                <button class="quick-action" onclick="Session.newSession()">
+                    <span class="quick-action-icon">&#10010;</span> New Session
+                </button>
+            </div>
+
+            <!-- Panel Grid -->
             <div class="panel-grid">
                 <!-- Panel 1: Claude Full Chat -->
-                <div class="panel chat-panel">
+                <div class="panel chat-panel expanded" id="panel-chat" onclick="Panels.expand('panel-chat')">
                     <div class="panel-header">
-                        <span class="panel-title">Claude Full Chat</span>
-                        <div class="panel-actions">
-                            <button class="panel-btn" onclick="Chat.newConversation()">New</button>
-                            <button class="panel-btn" onclick="Chat.exportConversation()">Export</button>
-                            <button class="panel-btn" onclick="Chat.clear()">Clear</button>
+                        <div class="panel-header-left">
+                            <span class="panel-title">Claude Full Chat</span>
+                            <span class="expand-indicator">&#9660;</span>
                         </div>
+                        <div class="panel-actions">
+                            <button class="panel-btn" onclick="event.stopPropagation(); Chat.newConversation()">New</button>
+                            <button class="panel-btn" onclick="event.stopPropagation(); Chat.exportConversation()">Export</button>
+                            <button class="panel-btn" onclick="event.stopPropagation(); Chat.clear()">Clear</button>
+                        </div>
+                    </div>
+                    <div class="panel-preview">
+                        AI workspace for extended conversations, research, planning, and document generation.
                     </div>
                     <div class="panel-content">
                         <div class="chat-messages" id="chatMessages">
@@ -353,21 +503,27 @@
                             </div>
                         </div>
                         <div class="chat-input-area">
-                            <textarea id="chatInput" placeholder="Message Claude..." rows="3" onkeydown="Chat.handleKeydown(event)"></textarea>
-                            <button class="tool-button primary" id="sendBtn" onclick="Chat.send()">Send</button>
+                            <textarea id="chatInput" placeholder="Message Claude..." rows="3" onkeydown="Chat.handleKeydown(event)" onclick="event.stopPropagation()"></textarea>
+                            <button class="tool-button primary" id="sendBtn" onclick="event.stopPropagation(); Chat.send()">Send</button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Panel 2: Document Viewer -->
-                <div class="panel">
+                <div class="panel compact" id="panel-docs" onclick="Panels.expand('panel-docs')">
                     <div class="panel-header">
-                        <span class="panel-title">Document Viewer</span>
-                        <div class="panel-actions">
-                            <button class="panel-btn" onclick="DocViewer.open()">Open</button>
-                            <button class="panel-btn" onclick="DocViewer.save()">Save</button>
-                            <button class="panel-btn" onclick="DocViewer.clear()">Clear</button>
+                        <div class="panel-header-left">
+                            <span class="panel-title">Document Viewer</span>
+                            <span class="expand-indicator">&#9660;</span>
                         </div>
+                        <div class="panel-actions">
+                            <button class="panel-btn" onclick="event.stopPropagation(); DocViewer.open()">Open</button>
+                            <button class="panel-btn" onclick="event.stopPropagation(); DocViewer.save()">Save</button>
+                            <button class="panel-btn" onclick="event.stopPropagation(); DocViewer.clear()">Clear</button>
+                        </div>
+                    </div>
+                    <div class="panel-preview">
+                        View and edit documents, specs, prompts, and session files.
                     </div>
                     <div class="panel-content" id="docContent">
                         <div class="doc-empty">
@@ -378,12 +534,18 @@
                 </div>
 
                 <!-- Panel 3: Script Browser -->
-                <div class="panel">
+                <div class="panel compact" id="panel-scripts" onclick="Panels.expand('panel-scripts')">
                     <div class="panel-header">
-                        <span class="panel-title">Script Browser</span>
-                        <div class="panel-actions">
-                            <button class="panel-btn" onclick="Scripts.refresh()">Refresh</button>
+                        <div class="panel-header-left">
+                            <span class="panel-title">Script Browser</span>
+                            <span class="expand-indicator">&#9660;</span>
                         </div>
+                        <div class="panel-actions">
+                            <button class="panel-btn" onclick="event.stopPropagation(); Scripts.refresh()">Refresh</button>
+                        </div>
+                    </div>
+                    <div class="panel-preview">
+                        Browse and execute Python scripts, converters, and automation tools.
                     </div>
                     <div class="panel-content">
                         <div class="script-list" id="scriptList">
@@ -393,12 +555,18 @@
                 </div>
 
                 <!-- Panel 4: Output / Terminal -->
-                <div class="panel">
+                <div class="panel compact" id="panel-output" onclick="Panels.expand('panel-output')">
                     <div class="panel-header">
-                        <span class="panel-title">Output</span>
-                        <div class="panel-actions">
-                            <button class="panel-btn" onclick="Output.clear()">Clear</button>
+                        <div class="panel-header-left">
+                            <span class="panel-title">Output</span>
+                            <span class="expand-indicator">&#9660;</span>
                         </div>
+                        <div class="panel-actions">
+                            <button class="panel-btn" onclick="event.stopPropagation(); Output.clear()">Clear</button>
+                        </div>
+                    </div>
+                    <div class="panel-preview">
+                        Script output, logs, results, and system messages.
                     </div>
                     <div class="panel-content">
                         <div class="output-content" id="outputContent">
@@ -413,11 +581,9 @@
             <div class="session-bar">
                 <button class="tool-button" onclick="Session.newSession()">New Session</button>
                 <button class="tool-button" onclick="Session.saveSession()">Save Session</button>
-                <button class="tool-button" onclick="Terminals.launchClaudeCode()">Claude Code</button>
-                <button class="tool-button" onclick="Terminals.launchVSCode()">VS Code</button>
-                <button class="tool-button" onclick="Terminals.launchPowerShell()">PowerShell</button>
-                <button class="tool-button" onclick="Scripts.runScript('CONVERT_MD_TO_GDOCS_PERMANENT.py')">MD to Docs</button>
-                <button class="tool-button" onclick="Scripts.runScript('file_ingestion.py')">File Ingestion</button>
+                <button class="tool-button" onclick="Chat.exportConversation()">Export Chat</button>
+                <button class="tool-button" onclick="Panels.expandAll()">Show All Panels</button>
+                <button class="tool-button" onclick="Panels.expand('panel-chat')">Focus Chat</button>
             </div>
         </main>
     </div>
@@ -426,6 +592,52 @@
         const { invoke } = window.__TAURI__.core;
         const PROJECT_PATH = 'C:\\Dev\\trajanus-command-center';
         const SCRIPTS_PATH = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\';
+
+        // Panel Controller
+        const Panels = {
+            activePanel: 'panel-chat',
+
+            expand(panelId) {
+                // Don't collapse if clicking inside an already expanded panel's content area
+                const panel = document.getElementById(panelId);
+                if (panel.classList.contains('expanded')) {
+                    return; // Already expanded, do nothing
+                }
+
+                // Collapse all panels first
+                document.querySelectorAll('.panel').forEach(p => {
+                    p.classList.remove('expanded');
+                    p.classList.add('compact');
+                });
+
+                // Expand selected panel
+                panel.classList.remove('compact');
+                panel.classList.add('expanded');
+                this.activePanel = panelId;
+
+                // Scroll panel into view
+                setTimeout(() => {
+                    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 50);
+
+                Output.log('info', `Panel expanded: ${panelId.replace('panel-', '')}`);
+            },
+
+            expandAll() {
+                // Show all panels at equal size (remove compact class from all)
+                document.querySelectorAll('.panel').forEach(p => {
+                    p.classList.remove('compact');
+                    p.classList.remove('expanded');
+                });
+                Output.log('info', 'All panels visible');
+            },
+
+            collapse(panelId) {
+                const panel = document.getElementById(panelId);
+                panel.classList.remove('expanded');
+                panel.classList.add('compact');
+            }
+        };
 
         // Chat Controller
         const Chat = {
@@ -584,6 +796,8 @@ This is Trajanus Engineered Intelligence (EI).`;
 
             async open() {
                 Output.log('info', 'Document browser - feature coming soon');
+                // Expand docs panel when opening
+                Panels.expand('panel-docs');
             },
 
             async save() {
@@ -611,6 +825,7 @@ This is Trajanus Engineered Intelligence (EI).`;
                 this.currentPath = path;
                 document.getElementById('docContent').innerHTML =
                     `<div class="doc-content">${content}</div>`;
+                Panels.expand('panel-docs');
             }
         };
 
@@ -634,8 +849,11 @@ This is Trajanus Engineered Intelligence (EI).`;
             render() {
                 const container = document.getElementById('scriptList');
                 container.innerHTML = this.scripts.map(s => `
-                    <div class="script-item" onclick="Scripts.runScript('${s.name}')">
-                        <span class="script-name">${s.name}</span>
+                    <div class="script-item" onclick="event.stopPropagation(); Scripts.runScript('${s.name}')">
+                        <div>
+                            <div class="script-name">${s.name}</div>
+                            <div class="script-desc">${s.desc}</div>
+                        </div>
                         <button class="script-run" onclick="event.stopPropagation(); Scripts.runScript('${s.name}')">RUN</button>
                     </div>
                 `).join('');
@@ -645,7 +863,7 @@ This is Trajanus Engineered Intelligence (EI).`;
                 Output.log('info', `Running: ${name}...`);
                 try {
                     await invoke('run_python_script', {
-                        scriptPath: SCRIPTS_PATH + name
+                        script_path: SCRIPTS_PATH + name
                     });
                     Output.log('success', `Script launched: ${name}`);
                 } catch (error) {
@@ -716,6 +934,7 @@ This is Trajanus Engineered Intelligence (EI).`;
                 Chat.newConversation();
                 DocViewer.clear();
                 Output.clear();
+                Panels.expand('panel-chat');
                 Output.log('success', 'New session started');
             },
 
@@ -728,6 +947,7 @@ This is Trajanus Engineered Intelligence (EI).`;
         document.addEventListener('DOMContentLoaded', () => {
             Scripts.init();
             Output.log('info', 'Developer Toolkit ready');
+            Output.log('info', 'Click panel headers to expand/collapse');
         });
     </script>
 </body>
