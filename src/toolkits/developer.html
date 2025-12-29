@@ -3,728 +3,731 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Developer Toolkit - Trajanus Command Center</title>
-    <link rel="stylesheet" href="../styles/developer-v2.css">
+    <title>Developer Toolkit - Trajanus EI</title>
+    <link rel="stylesheet" href="../styles/main.css">
     <style>
-        /* Developer Workspace specific overrides */
-        .workspace-header {
-            padding: 20px 25px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .workspace-header h1 {
-            color: var(--button-fill);
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-        .workspace-header p {
-            color: var(--text-secondary);
-            font-size: 12px;
+        /* Developer Toolkit - 4 Panel Layout */
+        .dev-wrapper {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+            background: var(--bg-base);
         }
 
-        /* Dark button cards for terminals/resources */
-        .card-grid-4 {
-            grid-template-columns: repeat(4, 1fr);
+        .dev-main {
+            flex: 1;
+            padding: var(--space-md);
+            padding-top: calc(60px + var(--space-md));
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
-        .terminal-card {
-            background: #2a2a2a;
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            border-radius: 6px;
-            padding: 16px 20px;
+
+        .panel-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: var(--space-md);
+            min-height: 0;
+        }
+
+        .panel {
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            overflow: hidden;
+            background: var(--bg-card);
+            border: 1px solid var(--bg-elevated);
+            border-radius: 8px;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--bg-elevated);
+            flex-shrink: 0;
+        }
+
+        .panel-title {
+            color: var(--accent-gold);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .panel-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .panel-btn {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            border-radius: 4px;
             cursor: pointer;
-            text-align: left;
             transition: all 0.2s ease;
         }
-        .terminal-card:hover {
-            background: #333333;
-            border-color: var(--button-fill);
-        }
-        .terminal-card-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-        .terminal-card-desc {
-            font-size: 11px;
-            color: var(--text-secondary);
+
+        .panel-btn:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
         }
 
-        /* System Log styling */
-        .system-log {
-            background: var(--bg-console);
-            border-top: 1px solid var(--border-color);
-            height: 200px;
-            display: flex;
-            flex-direction: column;
-        }
-        .system-log-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 16px;
-            background: rgba(255, 255, 255, 0.02);
-            border-bottom: 1px solid var(--border-color);
-        }
-        .system-log-title {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--button-fill);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .clear-log-btn {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 11px;
-            cursor: pointer;
-        }
-        .clear-log-btn:hover {
-            border-color: var(--button-fill);
-            color: var(--button-fill);
-        }
-        .log-output {
+        .panel-content {
             flex: 1;
             overflow-y: auto;
-            padding: 10px 16px;
-            font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 12px;
-            line-height: 1.8;
-        }
-        .log-entry {
-            margin-bottom: 2px;
-        }
-        .log-entry .timestamp {
-            color: var(--text-secondary);
-        }
-        .log-entry.success {
-            color: var(--success);
-        }
-        .log-entry.info {
-            color: var(--text-secondary);
-        }
-        .log-entry.action {
-            color: var(--text-primary);
+            min-height: 0;
         }
 
-        /* Simplified sidebar */
-        .sidebar-simple .nav-item {
-            padding: 12px 20px;
-            font-size: 14px;
-        }
-
-        /* Folder Browser Modal */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-overlay.active {
+        /* Chat Panel */
+        .chat-panel .panel-content {
             display: flex;
+            flex-direction: column;
+            padding: 0;
         }
-        .folder-modal {
-            background: var(--bg-sidebar);
-            border: 1px solid var(--button-fill);
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: var(--space-md);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .chat-welcome {
+            color: var(--text-muted);
+            text-align: center;
+            padding: var(--space-xl);
+            line-height: 1.6;
+        }
+
+        .message {
+            max-width: 90%;
+            padding: 12px 16px;
             border-radius: 8px;
-            width: 600px;
-            max-height: 80vh;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: var(--accent-gold);
+            color: var(--bg-base);
+        }
+
+        .message.assistant {
+            align-self: flex-start;
+            background: var(--bg-elevated);
+            color: var(--text-white);
+            border-left: 3px solid var(--accent-gold);
+        }
+
+        .message pre {
+            background: var(--bg-surface);
+            padding: var(--space-md);
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: var(--space-sm) 0;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+        }
+
+        .message code {
+            font-family: var(--font-mono);
+            background: var(--bg-surface);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.85rem;
+        }
+
+        .message pre code {
+            background: transparent;
+            padding: 0;
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 12px 16px;
+            align-self: flex-start;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-4px); opacity: 1; }
+        }
+
+        .chat-input-area {
+            padding: var(--space-md);
+            background: var(--bg-surface);
+            border-top: 1px solid var(--bg-elevated);
+            display: flex;
+            gap: var(--space-sm);
+            flex-shrink: 0;
+        }
+
+        .chat-input-area textarea {
+            flex: 1;
+            background: var(--bg-input);
+            border: 1px solid var(--bg-elevated);
+            color: var(--text-white);
+            padding: 12px;
+            border-radius: 4px;
+            resize: none;
+            font-family: inherit;
+            font-size: 0.9rem;
+            min-height: 60px;
+            max-height: 150px;
+        }
+
+        .chat-input-area textarea:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+
+        .chat-input-area textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* Script Browser */
+        .script-list {
             display: flex;
             flex-direction: column;
+            gap: var(--space-sm);
+            padding: var(--space-md);
         }
-        .folder-modal-header {
-            padding: 16px 20px;
-            border-bottom: 1px solid var(--border-color);
+
+        .script-item {
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
+            padding: var(--space-sm) var(--space-md);
+            background: var(--bg-surface);
+            border-radius: 4px;
+            border: 1px solid var(--bg-elevated);
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
-        .folder-modal-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--button-fill);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+
+        .script-item:hover {
+            background: var(--bg-elevated);
+            border-color: var(--accent-gold);
         }
-        .folder-modal-close {
-            background: none;
+
+        .script-name {
+            color: var(--text-white);
+            font-size: 0.85rem;
+        }
+
+        .script-run {
+            background: var(--accent-gold);
+            color: var(--bg-base);
             border: none;
-            color: var(--text-secondary);
-            font-size: 20px;
-            cursor: pointer;
-        }
-        .folder-modal-close:hover {
-            color: var(--error);
-        }
-        .folder-path-bar {
-            padding: 12px 20px;
-            background: var(--bg-primary);
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-        .folder-path-display {
-            flex: 1;
-            font-family: 'Consolas', monospace;
-            font-size: 12px;
-            color: var(--text-primary);
-            background: var(--bg-console);
-            padding: 8px 12px;
+            padding: 4px 12px;
             border-radius: 4px;
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .folder-nav-btn {
-            background: var(--bg-console);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-        .folder-nav-btn:hover {
-            border-color: var(--button-fill);
-            color: var(--button-fill);
-        }
-        .folder-list {
-            flex: 1;
-            overflow-y: auto;
-            padding: 10px;
-            max-height: 400px;
-        }
-        .folder-item {
-            display: flex;
-            align-items: center;
-            padding: 10px 14px;
-            cursor: pointer;
-            border-radius: 4px;
-            margin-bottom: 2px;
-            transition: background 0.15s;
-        }
-        .folder-item:hover {
-            background: rgba(212, 165, 116, 0.1);
-        }
-        .folder-item.selected {
-            background: rgba(212, 165, 116, 0.2);
-            border: 1px solid var(--button-fill);
-        }
-        .folder-item-icon {
-            width: 24px;
-            margin-right: 10px;
-            font-size: 16px;
-        }
-        .folder-item-name {
-            font-size: 13px;
-            color: var(--text-primary);
-        }
-        .folder-item.is-file .folder-item-name {
-            color: var(--text-secondary);
-        }
-        .folder-modal-footer {
-            padding: 16px 20px;
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: flex-end;
-            gap: 12px;
-        }
-        .modal-btn {
-            padding: 10px 20px;
-            border-radius: 4px;
-            font-size: 13px;
+            font-size: 0.7rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
         }
-        .modal-btn-cancel {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
+
+        .script-run:hover {
+            background: var(--accent-hover);
         }
-        .modal-btn-cancel:hover {
-            border-color: var(--text-primary);
-            color: var(--text-primary);
+
+        /* Document Viewer */
+        .doc-empty {
+            color: var(--text-muted);
+            text-align: center;
+            padding: var(--space-xl);
         }
-        .modal-btn-run {
-            background: var(--button-fill);
-            border: none;
-            color: #1a1a1a;
+
+        .doc-content {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            color: var(--text-white);
+            padding: var(--space-md);
         }
-        .modal-btn-run:hover {
-            background: var(--button-hover);
+
+        /* Output Panel */
+        .output-content {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            line-height: 1.6;
+            color: var(--text-white);
+            padding: var(--space-md);
+        }
+
+        .output-line {
+            padding: 2px 0;
+        }
+
+        .output-line.info { color: var(--text-muted); }
+        .output-line.success { color: var(--status-success); }
+        .output-line.error { color: var(--status-error); }
+        .output-line.warning { color: var(--status-warning); }
+
+        /* Session Tools Bar */
+        .session-bar {
+            display: flex;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            background: var(--bg-surface);
+            border-top: 1px solid var(--bg-elevated);
+            flex-wrap: wrap;
+            flex-shrink: 0;
+        }
+
+        .session-bar .tool-button {
+            padding: 8px 16px;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1199px) {
+            .panel-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(4, minmax(250px, 1fr));
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Sidebar Toggle Button -->
-    <button class="sidebar-toggle" onclick="DevToolkit.toggleSidebar()" title="Toggle Sidebar">
-        <span id="sidebar-icon">&#9664;</span>
-    </button>
-
-    <div class="app-container">
-        <!-- Simplified Sidebar - 4 Toolkits Only -->
-        <aside class="sidebar sidebar-simple" id="sidebar">
-            <div class="sidebar-header">
-                <div class="sidebar-logo">TRAJANUS Command Center</div>
+    <div class="dev-wrapper">
+        <!-- Header -->
+        <header class="workspace-header">
+            <div class="workspace-header-left">
+                <a href="../index.html" class="home-button">
+                    <span class="home-icon">&#9670;</span>
+                    <span>Hub</span>
+                </a>
+                <h1 class="workspace-title">Developer Toolkit</h1>
             </div>
+            <div class="header-controls">
+                <button class="header-icon-btn" title="Settings">&#9881;</button>
+            </div>
+        </header>
 
-            <nav class="nav-section">
-                <div class="nav-section-title">Toolkits</div>
-                <a href="pm.html" class="nav-item">PM Toolkit</a>
-                <a href="qcm.html" class="nav-item">QCM Toolkit</a>
-                <a href="traffic.html" class="nav-item">Traffic Studies</a>
-                <a href="developer.html" class="nav-item active">Developer Toolkit</a>
-            </nav>
-        </aside>
-
-        <!-- Main Content -->
-        <div class="main-wrapper">
-            <main class="main-area">
-                <!-- Header -->
-                <header class="workspace-header">
-                    <h1>Developer Workspace v2.0.0</h1>
-                    <p>Development utilities and terminal launchers</p>
-                </header>
-
-                <div class="content-area">
-                    <!-- Development Terminals Section -->
-                    <section class="section">
-                        <div class="section-header">
-                            <div class="section-title">Development Terminals</div>
+        <!-- Main 4-Panel Layout -->
+        <main class="dev-main">
+            <div class="panel-grid">
+                <!-- Panel 1: Claude Full Chat -->
+                <div class="panel chat-panel">
+                    <div class="panel-header">
+                        <span class="panel-title">Claude Full Chat</span>
+                        <div class="panel-actions">
+                            <button class="panel-btn" onclick="Chat.newConversation()">New</button>
+                            <button class="panel-btn" onclick="Chat.exportConversation()">Export</button>
+                            <button class="panel-btn" onclick="Chat.clear()">Clear</button>
                         </div>
-                        <div class="card-grid card-grid-4">
-                            <button class="terminal-card" onclick="DevToolkit.launchClaudeCode()">
-                                <div class="terminal-card-title">Claude Code</div>
-                                <div class="terminal-card-desc">AI-powered development assistant</div>
-                            </button>
-                            <button class="terminal-card" onclick="DevToolkit.launchPowerShell()">
-                                <div class="terminal-card-title">PowerShell</div>
-                                <div class="terminal-card-desc">Windows command-line interface</div>
-                            </button>
-                            <button class="terminal-card" onclick="DevToolkit.launchVSCode()">
-                                <div class="terminal-card-title">VS Code</div>
-                                <div class="terminal-card-desc">Full-featured code editor</div>
-                            </button>
-                            <button class="terminal-card" onclick="DevToolkit.launchGitBash()">
-                                <div class="terminal-card-title">Git Bash</div>
-                                <div class="terminal-card-desc">Unix-style terminal for Windows</div>
-                            </button>
+                    </div>
+                    <div class="panel-content">
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="chat-welcome">
+                                Welcome to Claude Full Chat. This is your AI workspace for extended conversations,
+                                research, planning, and document generation.<br><br>
+                                This is Trajanus Engineered Intelligence (EI).
+                            </div>
                         </div>
-                    </section>
-
-                    <!-- External Resources Section -->
-                    <section class="section">
-                        <div class="section-header">
-                            <div class="section-title">External Resources</div>
+                        <div class="chat-input-area">
+                            <textarea id="chatInput" placeholder="Message Claude..." rows="3" onkeydown="Chat.handleKeydown(event)"></textarea>
+                            <button class="tool-button primary" id="sendBtn" onclick="Chat.send()">Send</button>
                         </div>
-                        <div class="card-grid card-grid-4">
-                            <button class="terminal-card" onclick="DevToolkit.openURL('https://claude.ai')">
-                                <div class="terminal-card-title">Claude Web</div>
-                                <div class="terminal-card-desc">Browser-based Claude interface</div>
-                            </button>
-                            <button class="terminal-card" onclick="DevToolkit.openURL('https://console.anthropic.com')">
-                                <div class="terminal-card-title">Anthropic Console</div>
-                                <div class="terminal-card-desc">API management and monitoring</div>
-                            </button>
-                            <button class="terminal-card" onclick="DevToolkit.openURL('https://drive.google.com')">
-                                <div class="terminal-card-title">Google Drive</div>
-                                <div class="terminal-card-desc">Cloud storage access</div>
-                            </button>
-                            <button class="terminal-card" onclick="DevToolkit.openURL('https://github.com/Tetra-Hydra-Cannabinol/trajanus-enterprise-hub')">
-                                <div class="terminal-card-title">GitHub</div>
-                                <div class="terminal-card-desc">Code repository</div>
-                            </button>
-                        </div>
-                    </section>
-
-                    <!-- Session Management Section -->
-                    <section class="section">
-                        <div class="section-header">
-                            <div class="section-title">Session Management</div>
-                        </div>
-                        <div class="card-grid card-grid-4">
-                            <button class="button-card" onclick="DevToolkit.startSession()">
-                                <div class="button-card-title">Start Session</div>
-                                <div class="button-card-desc">Initialize new work session</div>
-                            </button>
-                            <button class="button-card" onclick="DevToolkit.endSession()">
-                                <div class="button-card-title">End Session</div>
-                                <div class="button-card-desc">Run EOS protocols</div>
-                            </button>
-                            <button class="button-card" onclick="DevToolkit.syncProtocols()">
-                                <div class="button-card-title">Sync Protocols</div>
-                                <div class="button-card-desc">Update all documents</div>
-                            </button>
-                            <button class="button-card" onclick="DevToolkit.gitPush()">
-                                <div class="button-card-title">Git Push</div>
-                                <div class="button-card-desc">Push changes to GitHub</div>
-                            </button>
-                        </div>
-                    </section>
-
-                    <!-- Python Scripts Section -->
-                    <section class="section">
-                        <div class="section-header">
-                            <div class="section-title">Python Scripts</div>
-                        </div>
-                        <div class="card-grid card-grid-4">
-                            <button class="button-card" onclick="DevToolkit.openScriptWithBrowser({title: 'Query Knowledge Base', scriptPath: SCRIPTS_PATH + 'query_kb.py', fileFilter: null})">
-                                <div class="button-card-title">Query KB</div>
-                                <div class="button-card-desc">Search knowledge base</div>
-                            </button>
-                            <button class="button-card" onclick="DevToolkit.openScriptWithBrowser({title: 'Batch Ingest Files', scriptPath: SCRIPTS_PATH + 'batch_ingest_files.py', fileFilter: null})">
-                                <div class="button-card-title">Batch Ingest</div>
-                                <div class="button-card-desc">Ingest docs to KB</div>
-                            </button>
-                            <button class="button-card" onclick="DevToolkit.openScriptWithBrowser({title: 'TXT to Google Docs', scriptPath: SCRIPTS_PATH + 'CONVERT_TXT_TO_GDOCS.py', fileFilter: '.txt'})">
-                                <div class="button-card-title">TXT to GDocs</div>
-                                <div class="button-card-desc">Convert text files</div>
-                            </button>
-                            <button class="button-card" onclick="DevToolkit.openScriptWithBrowser({title: 'DOCX to Google Docs', scriptPath: SCRIPTS_PATH + 'CONVERT_DOCX_TO_GDOCS.py', fileFilter: '.docx'})">
-                                <div class="button-card-title">DOCX to GDocs</div>
-                                <div class="button-card-desc">Convert Word docs</div>
-                            </button>
-                            <button class="button-card" onclick="DevToolkit.launchConverterTool('CONVERT_MD_TO_GDOCS_PERMANENT.py')">
-                                <div class="button-card-title">MD to GDocs</div>
-                                <div class="button-card-desc">Convert Markdown</div>
-                            </button>
-                            <button class="button-card" onclick="DevToolkit.openScriptWithBrowser({title: 'Google Docs to DOCX', scriptPath: SCRIPTS_PATH + 'CONVERT_GDOCS_TO_DOCX.py', fileFilter: null})">
-                                <div class="button-card-title">GDocs to DOCX</div>
-                                <div class="button-card-desc">Export to Word</div>
-                            </button>
-                            <button class="button-card" onclick="DevToolkit.openScriptWithBrowser({title: 'Markdown to DOCX', scriptPath: SCRIPTS_PATH + 'CONVERT_MD_TO_DOCX.py', fileFilter: '.md'})">
-                                <div class="button-card-title">MD to DOCX</div>
-                                <div class="button-card-desc">Markdown to Word</div>
-                            </button>
-                        </div>
-                    </section>
+                    </div>
                 </div>
-            </main>
 
-            <!-- System Log -->
-            <div class="system-log">
-                <div class="system-log-header">
-                    <span class="system-log-title">System Log</span>
-                    <button class="clear-log-btn" onclick="DevToolkit.clearLog()">Clear</button>
+                <!-- Panel 2: Document Viewer -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <span class="panel-title">Document Viewer</span>
+                        <div class="panel-actions">
+                            <button class="panel-btn" onclick="DocViewer.open()">Open</button>
+                            <button class="panel-btn" onclick="DocViewer.save()">Save</button>
+                            <button class="panel-btn" onclick="DocViewer.clear()">Clear</button>
+                        </div>
+                    </div>
+                    <div class="panel-content" id="docContent">
+                        <div class="doc-empty">
+                            No document open.<br><br>
+                            Click "Open" to browse files, or copy content from Claude responses.
+                        </div>
+                    </div>
                 </div>
-                <div class="log-output" id="log-output">
-                    <div class="log-entry info"><span class="timestamp">[--:--:--]</span> System ready.</div>
+
+                <!-- Panel 3: Script Browser -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <span class="panel-title">Script Browser</span>
+                        <div class="panel-actions">
+                            <button class="panel-btn" onclick="Scripts.refresh()">Refresh</button>
+                        </div>
+                    </div>
+                    <div class="panel-content">
+                        <div class="script-list" id="scriptList">
+                            <!-- Scripts loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel 4: Output / Terminal -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <span class="panel-title">Output</span>
+                        <div class="panel-actions">
+                            <button class="panel-btn" onclick="Output.clear()">Clear</button>
+                        </div>
+                    </div>
+                    <div class="panel-content">
+                        <div class="output-content" id="outputContent">
+                            <div class="output-line info">[System] Developer Toolkit initialized</div>
+                            <div class="output-line info">[System] Trajanus Engineered Intelligence ready</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Folder Browser Modal -->
-    <div class="modal-overlay" id="folder-modal">
-        <div class="folder-modal">
-            <div class="folder-modal-header">
-                <span class="folder-modal-title" id="modal-title">Select Folder</span>
-                <button class="folder-modal-close" onclick="FolderBrowser.close()">&times;</button>
+            <!-- Session Tools Bar -->
+            <div class="session-bar">
+                <button class="tool-button" onclick="Session.newSession()">New Session</button>
+                <button class="tool-button" onclick="Session.saveSession()">Save Session</button>
+                <button class="tool-button" onclick="Terminals.launchClaudeCode()">Claude Code</button>
+                <button class="tool-button" onclick="Terminals.launchVSCode()">VS Code</button>
+                <button class="tool-button" onclick="Terminals.launchPowerShell()">PowerShell</button>
+                <button class="tool-button" onclick="Scripts.runScript('CONVERT_MD_TO_GDOCS_PERMANENT.py')">MD to Docs</button>
+                <button class="tool-button" onclick="Scripts.runScript('file_ingestion.py')">File Ingestion</button>
             </div>
-            <div class="folder-path-bar">
-                <button class="folder-nav-btn" onclick="FolderBrowser.goUp()">Parent</button>
-                <button class="folder-nav-btn" onclick="FolderBrowser.goHome()">Home</button>
-                <div class="folder-path-display" id="current-path">G:\My Drive\00 - Trajanus USA</div>
-            </div>
-            <div class="folder-list" id="folder-list">
-                <!-- Populated by JavaScript -->
-            </div>
-            <div class="folder-modal-footer">
-                <button class="modal-btn modal-btn-cancel" onclick="FolderBrowser.close()">Cancel</button>
-                <button class="modal-btn modal-btn-run" onclick="FolderBrowser.runScript()">Run Script</button>
-            </div>
-        </div>
+        </main>
     </div>
 
     <script>
-        // Tauri API
         const { invoke } = window.__TAURI__.core;
-
         const PROJECT_PATH = 'C:\\Dev\\trajanus-command-center';
         const SCRIPTS_PATH = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\';
 
-        const DevToolkit = {
-            // Logging
-            log(message, type = 'action') {
-                const logOutput = document.getElementById('log-output');
-                const timestamp = new Date().toLocaleTimeString('en-US', { hour12: false });
-                const entry = document.createElement('div');
-                entry.className = `log-entry ${type}`;
-                entry.innerHTML = `<span class="timestamp">[${timestamp}]</span> ${message}`;
-                logOutput.appendChild(entry);
-                logOutput.scrollTop = logOutput.scrollHeight;
-            },
+        // Chat Controller
+        const Chat = {
+            messages: [],
+            isStreaming: false,
+            conversationId: Date.now(),
 
-            clearLog() {
-                const logOutput = document.getElementById('log-output');
-                logOutput.innerHTML = '<div class="log-entry info"><span class="timestamp">[--:--:--]</span> Log cleared.</div>';
-            },
+            async send() {
+                const input = document.getElementById('chatInput');
+                const message = input.value.trim();
+                if (!message || this.isStreaming) return;
 
-            // Terminal Launchers
-            async launchClaudeCode() {
-                this.log('Launching Claude Code...');
+                this.addMessage('user', message);
+                input.value = '';
+
+                this.isStreaming = true;
+                document.getElementById('sendBtn').disabled = true;
+                const typingEl = this.showTyping();
+
                 try {
-                    await invoke('launch_claude_code', { path: PROJECT_PATH });
-                    this.log('Claude Code launched', 'success');
-                } catch (e) {
-                    this.log(`Error: ${e}`, 'error');
+                    const context = `You are Claude, an AI assistant embedded in the Trajanus Developer Toolkit.
+This is a professional command center for construction project management, federal contracts, and software development.
+You help with: extended conversations, creating specifications and prompts, research and planning sessions, document generation, and full context management.
+Be thorough, professional, and helpful. Format responses with markdown when appropriate.
+This is Trajanus Engineered Intelligence (EI).`;
+
+                    const response = await invoke('chat_with_claude', {
+                        message: message,
+                        context: context
+                    });
+
+                    typingEl.remove();
+                    this.addMessage('assistant', response);
+                    Output.log('success', 'Claude response received');
+                } catch (error) {
+                    typingEl.remove();
+                    this.addMessage('assistant', 'Error connecting to Claude. Please check your API connection and try again.');
+                    Output.log('error', 'Failed to connect to Claude API: ' + error);
+                    console.error('Chat error:', error);
+                }
+
+                this.isStreaming = false;
+                document.getElementById('sendBtn').disabled = false;
+            },
+
+            addMessage(role, content) {
+                const container = document.getElementById('chatMessages');
+                const welcome = container.querySelector('.chat-welcome');
+                if (welcome) welcome.remove();
+
+                const msgEl = document.createElement('div');
+                msgEl.className = `message ${role}`;
+                msgEl.innerHTML = this.formatMessage(content);
+                container.appendChild(msgEl);
+                container.scrollTop = container.scrollHeight;
+
+                this.messages.push({ role, content, timestamp: new Date().toISOString() });
+            },
+
+            formatMessage(text) {
+                // Handle code blocks first
+                text = text.replace(/```(\w*)\n?([\s\S]*?)```/g, (match, lang, code) => {
+                    return `<pre><code>${this.escapeHtml(code.trim())}</code></pre>`;
+                });
+
+                // Handle inline code
+                text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+                // Handle bold
+                text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+                // Handle italic
+                text = text.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+
+                // Handle headers
+                text = text.replace(/^### (.+)$/gm, '<h4 style="color: var(--accent-gold); margin: 8px 0;">$1</h4>');
+                text = text.replace(/^## (.+)$/gm, '<h3 style="color: var(--accent-gold); margin: 8px 0;">$1</h3>');
+                text = text.replace(/^# (.+)$/gm, '<h2 style="color: var(--accent-gold); margin: 8px 0;">$1</h2>');
+
+                // Handle lists
+                text = text.replace(/^- (.+)$/gm, '<li style="margin-left: 16px;">$1</li>');
+
+                // Handle newlines
+                text = text.replace(/\n/g, '<br>');
+
+                return text;
+            },
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            },
+
+            showTyping() {
+                const container = document.getElementById('chatMessages');
+                const typing = document.createElement('div');
+                typing.className = 'typing-indicator';
+                typing.innerHTML = '<span></span><span></span><span></span>';
+                container.appendChild(typing);
+                container.scrollTop = container.scrollHeight;
+                return typing;
+            },
+
+            handleKeydown(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    this.send();
                 }
             },
 
-            async launchPowerShell() {
-                this.log('Launching PowerShell...');
+            clear() {
+                document.getElementById('chatMessages').innerHTML = `
+                    <div class="chat-welcome">
+                        Welcome to Claude Full Chat. This is your AI workspace for extended conversations,
+                        research, planning, and document generation.<br><br>
+                        This is Trajanus Engineered Intelligence (EI).
+                    </div>
+                `;
+                this.messages = [];
+                Output.log('info', 'Chat cleared');
+            },
+
+            newConversation() {
+                this.conversationId = Date.now();
+                this.clear();
+                Output.log('info', 'New conversation started');
+            },
+
+            exportConversation() {
+                if (this.messages.length === 0) {
+                    Output.log('warning', 'No messages to export');
+                    return;
+                }
+
+                const content = this.messages.map(m =>
+                    `[${m.role.toUpperCase()}] ${m.timestamp}\n${m.content}\n`
+                ).join('\n---\n\n');
+
+                const blob = new Blob([content], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `claude-conversation-${this.conversationId}.txt`;
+                a.click();
+                URL.revokeObjectURL(url);
+
+                Output.log('success', 'Conversation exported');
+            }
+        };
+
+        // Document Viewer Controller
+        const DocViewer = {
+            currentPath: null,
+            content: '',
+
+            async open() {
+                Output.log('info', 'Document browser - feature coming soon');
+            },
+
+            async save() {
+                if (!this.content) {
+                    Output.log('warning', 'No document to save');
+                    return;
+                }
+                Output.log('info', 'Document save - feature coming soon');
+            },
+
+            clear() {
+                this.content = '';
+                this.currentPath = null;
+                document.getElementById('docContent').innerHTML = `
+                    <div class="doc-empty">
+                        No document open.<br><br>
+                        Click "Open" to browse files, or copy content from Claude responses.
+                    </div>
+                `;
+                Output.log('info', 'Document cleared');
+            },
+
+            setContent(content, path = null) {
+                this.content = content;
+                this.currentPath = path;
+                document.getElementById('docContent').innerHTML =
+                    `<div class="doc-content">${content}</div>`;
+            }
+        };
+
+        // Scripts Controller
+        const Scripts = {
+            scripts: [
+                { name: 'CONVERT_MD_TO_GDOCS_PERMANENT.py', desc: 'Convert Markdown to Google Docs' },
+                { name: 'SCRIPT_BROWSER.py', desc: 'Browse and run scripts' },
+                { name: 'file_ingestion.py', desc: 'Ingest files to knowledge base' },
+                { name: 'batch_ingest_files.py', desc: 'Batch file ingestion' },
+                { name: 'batch_extract_transcripts.py', desc: 'Extract YouTube transcripts' },
+                { name: 'query_kb.py', desc: 'Query knowledge base' },
+                { name: 'CONVERT_TXT_TO_GDOCS.py', desc: 'Convert TXT to Google Docs' },
+                { name: 'CONVERT_DOCX_TO_GDOCS.py', desc: 'Convert DOCX to Google Docs' }
+            ],
+
+            init() {
+                this.render();
+            },
+
+            render() {
+                const container = document.getElementById('scriptList');
+                container.innerHTML = this.scripts.map(s => `
+                    <div class="script-item" onclick="Scripts.runScript('${s.name}')">
+                        <span class="script-name">${s.name}</span>
+                        <button class="script-run" onclick="event.stopPropagation(); Scripts.runScript('${s.name}')">RUN</button>
+                    </div>
+                `).join('');
+            },
+
+            async runScript(name) {
+                Output.log('info', `Running: ${name}...`);
                 try {
-                    await invoke('open_terminal', { path: PROJECT_PATH });
-                    this.log('PowerShell launched', 'success');
+                    await invoke('run_python_script', {
+                        scriptPath: SCRIPTS_PATH + name
+                    });
+                    Output.log('success', `Script launched: ${name}`);
+                } catch (error) {
+                    Output.log('error', `Failed to run ${name}: ${error}`);
+                }
+            },
+
+            refresh() {
+                this.render();
+                Output.log('info', 'Script list refreshed');
+            }
+        };
+
+        // Terminal Launchers
+        const Terminals = {
+            async launchClaudeCode() {
+                Output.log('info', 'Launching Claude Code...');
+                try {
+                    await invoke('launch_claude_code', { path: PROJECT_PATH });
+                    Output.log('success', 'Claude Code launched');
                 } catch (e) {
-                    this.log(`Error: ${e}`, 'error');
+                    Output.log('error', `Error: ${e}`);
                 }
             },
 
             async launchVSCode() {
-                this.log('Launching VS Code...');
+                Output.log('info', 'Launching VS Code...');
                 try {
                     await invoke('launch_vscode', { path: PROJECT_PATH });
-                    this.log('VS Code launched', 'success');
+                    Output.log('success', 'VS Code launched');
                 } catch (e) {
-                    this.log(`Error: ${e}`, 'error');
+                    Output.log('error', `Error: ${e}`);
                 }
             },
 
-            async launchGitBash() {
-                this.log('Launching Git Bash...');
+            async launchPowerShell() {
+                Output.log('info', 'Launching PowerShell...');
                 try {
-                    await invoke('launch_git_bash', { path: PROJECT_PATH });
-                    this.log('Git Bash launched', 'success');
+                    await invoke('open_terminal', { path: PROJECT_PATH });
+                    Output.log('success', 'PowerShell launched');
                 } catch (e) {
-                    this.log(`Error: ${e}`, 'error');
-                }
-            },
-
-            // URL Opener
-            async openURL(url) {
-                this.log(`Opening: ${url}`);
-                try {
-                    await invoke('open_path', { path: url });
-                } catch (e) {
-                    this.log(`Error: ${e}`, 'error');
-                }
-            },
-
-            // Session Management
-            startSession() {
-                this.log('Starting new session...');
-                this.log('Session initialized', 'success');
-            },
-
-            endSession() {
-                this.log('Running end-of-session protocols...');
-                this.log('Session ended', 'success');
-            },
-
-            syncProtocols() {
-                this.log('Syncing protocols...');
-                this.log('Protocols synced', 'success');
-            },
-
-            async gitPush() {
-                this.log('Pushing to GitHub...');
-                try {
-                    const result = await invoke('git_push', { path: PROJECT_PATH });
-                    this.log('Git push complete', 'success');
-                    this.log(result, 'info');
-                } catch (e) {
-                    this.log(`Git error: ${e}`, 'error');
-                }
-            },
-
-            // Sidebar Toggle
-            toggleSidebar() {
-                document.body.classList.toggle('sidebar-collapsed');
-                const icon = document.getElementById('sidebar-icon');
-                const isCollapsed = document.body.classList.contains('sidebar-collapsed');
-                icon.innerHTML = isCollapsed ? '&#9654;' : '&#9664;';
-                localStorage.setItem('sidebarCollapsed', isCollapsed);
-                this.log(isCollapsed ? 'Sidebar collapsed' : 'Sidebar expanded', 'info');
-            },
-
-            // Python Scripts - opens folder browser with config
-            openScriptWithBrowser(config) {
-                FolderBrowser.open(config);
-            },
-
-            // Launch converter tool directly (has its own GUI)
-            async launchConverterTool(scriptName) {
-                this.log(`Launching: ${scriptName}...`);
-                try {
-                    const params = { scriptPath: SCRIPTS_PATH + scriptName };
-                    const result = await invoke('run_python_script', params);
-                    this.log('Converter tool opened', 'success');
-                } catch (e) {
-                    this.log(`Launch error: ${e}`, 'error');
-                }
-            },
-
-            // Direct script run (with optional target path)
-            async runPythonScript(scriptName, targetPath = null) {
-                this.log(`Running: ${scriptName}...`);
-                try {
-                    const params = { scriptPath: SCRIPTS_PATH + scriptName };
-                    if (targetPath) {
-                        params.targetPath = targetPath;
-                    }
-                    const result = await invoke('run_python_script', params);
-                    this.log('Script launched', 'success');
-                    if (result) this.log(result, 'info');
-                } catch (e) {
-                    this.log(`Script error: ${e}`, 'error');
+                    Output.log('error', `Error: ${e}`);
                 }
             }
         };
 
-        // Folder Browser Controller
-        const FolderBrowser = {
-            currentPath: 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center',
-            homePath: 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center',
-            selectedPath: null,
-            config: null,  // {title, scriptPath, fileFilter, selectType}
-
-            async open(config) {
-                this.config = config;
-                this.selectedPath = null;
-                document.getElementById('modal-title').textContent = config.title || 'Select Folder';
-                document.getElementById('folder-modal').classList.add('active');
-                await this.loadDirectory(this.currentPath);
+        // Output Controller
+        const Output = {
+            log(type, message) {
+                const container = document.getElementById('outputContent');
+                const timestamp = new Date().toLocaleTimeString();
+                const line = document.createElement('div');
+                line.className = `output-line ${type}`;
+                line.textContent = `[${timestamp}] ${message}`;
+                container.appendChild(line);
+                container.scrollTop = container.scrollHeight;
             },
 
-            close() {
-                document.getElementById('folder-modal').classList.remove('active');
-                this.selectedPath = null;
-                // Don't clear config here - we need it for runScript
-            },
-
-            async loadDirectory(path) {
-                try {
-                    const entries = await invoke('list_directory', { path });
-                    this.currentPath = path;
-                    this.selectedPath = path; // Default to current folder
-                    document.getElementById('current-path').textContent = path;
-                    this.renderList(entries);
-                } catch (e) {
-                    DevToolkit.log(`Error loading directory: ${e}`, 'error');
-                }
-            },
-
-            renderList(entries) {
-                const list = document.getElementById('folder-list');
-                list.innerHTML = '';
-
-                // Filter files based on config.fileFilter
-                const filter = this.config?.fileFilter;
-
-                entries.forEach(entry => {
-                    // If file filter set, only show matching files (always show folders)
-                    if (!entry.isDir && filter) {
-                        const ext = entry.name.substring(entry.name.lastIndexOf('.')).toLowerCase();
-                        if (ext !== filter.toLowerCase()) {
-                            return; // Skip non-matching files
-                        }
-                    }
-
-                    const item = document.createElement('div');
-                    item.className = `folder-item ${entry.isDir ? 'is-folder' : 'is-file'}`;
-                    item.innerHTML = `
-                        <span class="folder-item-icon">${entry.isDir ? '&#128193;' : '&#128196;'}</span>
-                        <span class="folder-item-name">${entry.name}</span>
-                    `;
-
-                    if (entry.isDir) {
-                        item.ondblclick = () => this.loadDirectory(entry.path);
-                        item.onclick = () => this.selectItem(entry.path, item);
-                    } else {
-                        item.onclick = () => this.selectItem(entry.path, item);
-                    }
-
-                    list.appendChild(item);
-                });
-            },
-
-            selectItem(path, element) {
-                // Remove previous selection
-                document.querySelectorAll('.folder-item.selected').forEach(el => {
-                    el.classList.remove('selected');
-                });
-                // Add selection to clicked item
-                element.classList.add('selected');
-                this.selectedPath = path;
-            },
-
-            async goUp() {
-                const parts = this.currentPath.split('\\');
-                if (parts.length > 1) {
-                    parts.pop();
-                    const parentPath = parts.join('\\');
-                    if (parentPath) {
-                        await this.loadDirectory(parentPath);
-                    }
-                }
-            },
-
-            goHome() {
-                this.loadDirectory(this.homePath);
-            },
-
-            async runScript() {
-                if (!this.config || !this.config.scriptPath) {
-                    DevToolkit.log('No script configured', 'error');
-                    return;
-                }
-
-                const scriptPath = this.config.scriptPath;
-                const targetPath = this.selectedPath || this.currentPath;
-
-                // Close modal and clear config
-                document.getElementById('folder-modal').classList.remove('active');
-                this.config = null;
-                this.selectedPath = null;
-
-                DevToolkit.log(`Selected: ${targetPath}`, 'info');
-                DevToolkit.log(`Running: ${scriptPath}...`);
-
-                try {
-                    const result = await invoke('run_python_script', {
-                        scriptPath: scriptPath,
-                        targetPath: targetPath
-                    });
-                    DevToolkit.log('Script launched', 'success');
-                    if (result) DevToolkit.log(result, 'info');
-                } catch (e) {
-                    DevToolkit.log(`Script error: ${e}`, 'error');
-                }
+            clear() {
+                document.getElementById('outputContent').innerHTML =
+                    '<div class="output-line info">[System] Output cleared</div>';
             }
         };
 
-        // Initialize
+        // Session Controller
+        const Session = {
+            newSession() {
+                Chat.newConversation();
+                DocViewer.clear();
+                Output.clear();
+                Output.log('success', 'New session started');
+            },
+
+            saveSession() {
+                Output.log('info', 'Session save - feature coming soon');
+            }
+        };
+
+        // Initialize on load
         document.addEventListener('DOMContentLoaded', () => {
-            // Restore sidebar state
-            if (localStorage.getItem('sidebarCollapsed') === 'true') {
-                document.body.classList.add('sidebar-collapsed');
-                document.getElementById('sidebar-icon').innerHTML = '&#9654;';
-            }
-            DevToolkit.log('Developer Toolkit loaded', 'info');
+            Scripts.init();
+            Output.log('info', 'Developer Toolkit ready');
         });
     </script>
 </body>

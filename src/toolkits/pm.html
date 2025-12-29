@@ -3,23 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PM Toolkit - Trajanus Command Center</title>
-    <link rel="stylesheet" href="../styles/developer-v2.css">
+    <title>Project Management - Trajanus Enterprise Hub</title>
+    <link rel="stylesheet" href="../styles/main.css">
     <style>
-        /* PM Toolkit specific styles */
+        /* Workspace Layout */
+        .workspace-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background: var(--bg-base);
+        }
+
         .workspace-header {
-            padding: 20px 25px;
-            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
         }
+
         .workspace-header h1 {
-            color: var(--button-fill);
-            font-size: 18px;
+            color: var(--accent-gold);
+            font-size: 20px;
             font-weight: 600;
-            margin-bottom: 4px;
+            margin: 0;
         }
+
         .workspace-header p {
-            color: var(--text-secondary);
+            color: var(--text-muted);
             font-size: 12px;
+            margin: 4px 0 0 0;
+        }
+
+        .home-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            font-size: 13px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .home-btn:hover {
+            background: var(--accent-gold);
+            color: var(--bg-base);
         }
 
         /* 4-Panel Grid */
@@ -29,12 +63,12 @@
             grid-template-rows: 1fr 1fr;
             gap: 1px;
             flex: 1;
-            background: var(--border-color);
+            background: var(--border-subtle);
             overflow: hidden;
         }
 
         .panel {
-            background: var(--bg-primary);
+            background: var(--bg-surface);
             padding: 16px;
             display: flex;
             flex-direction: column;
@@ -42,14 +76,14 @@
         }
 
         .panel-header {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
-            color: var(--button-fill);
+            color: var(--accent-gold);
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 12px;
             padding-bottom: 8px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-subtle);
         }
 
         .panel-content {
@@ -67,25 +101,26 @@
         .file-item {
             display: flex;
             align-items: center;
-            padding: 8px 12px;
-            background: var(--bg-sidebar);
+            padding: 10px 12px;
+            background: var(--bg-card);
             border-radius: 4px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
         }
 
         .file-item:hover {
-            background: rgba(212, 165, 116, 0.15);
+            background: var(--bg-hover);
         }
 
         .file-item.selected {
-            background: rgba(212, 165, 116, 0.25);
-            border-left: 3px solid var(--button-fill);
+            background: rgba(212, 165, 116, 0.15);
+            border-left-color: var(--accent-gold);
         }
 
         .file-name {
             font-size: 13px;
-            color: var(--text-primary);
+            color: var(--text-light);
         }
 
         /* Template Selection */
@@ -96,42 +131,51 @@
         .template-group label {
             display: block;
             font-size: 11px;
-            color: var(--text-secondary);
+            color: var(--text-muted);
             margin-bottom: 6px;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .template-select {
             width: 100%;
             padding: 10px 12px;
-            background: var(--bg-sidebar);
-            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
             border-radius: 4px;
-            color: var(--text-primary);
+            color: var(--text-light);
             font-size: 13px;
         }
 
         .template-select:focus {
             outline: none;
-            border-color: var(--button-fill);
+            border-color: var(--accent-gold);
+        }
+
+        .template-select option {
+            background: var(--bg-card);
+            color: var(--text-light);
         }
 
         /* Output Area */
         .output-area {
             flex: 1;
-            background: var(--bg-sidebar);
-            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
             border-radius: 4px;
             padding: 12px;
             font-size: 13px;
             line-height: 1.6;
             overflow-y: auto;
-            min-height: 150px;
+            min-height: 120px;
+            color: var(--text-light);
         }
 
-        .output-area.empty::before {
-            content: 'Select a document and template to generate output...';
-            color: var(--text-secondary);
+        .output-area.empty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
             font-style: italic;
         }
 
@@ -141,6 +185,7 @@
             margin-top: 12px;
         }
 
+        /* Buttons */
         .btn {
             padding: 8px 16px;
             border-radius: 4px;
@@ -150,32 +195,33 @@
         }
 
         .btn-primary {
-            background: var(--button-fill);
-            color: #1a1a1a;
+            background: var(--accent-gold);
+            color: var(--bg-base);
             border: none;
+            font-weight: 500;
         }
 
         .btn-primary:hover {
-            background: var(--button-hover);
+            background: var(--accent-gold-bright);
         }
 
         .btn-secondary {
             background: transparent;
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
+            color: var(--text-light);
+            border: 1px solid var(--border-subtle);
         }
 
         .btn-secondary:hover {
-            border-color: var(--button-fill);
-            color: var(--button-fill);
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
         }
 
-        /* Claude Chat */
+        /* Chat */
         .chat-messages {
             flex: 1;
             overflow-y: auto;
             margin-bottom: 12px;
-            min-height: 100px;
+            min-height: 80px;
         }
 
         .chat-message {
@@ -183,16 +229,19 @@
             border-radius: 8px;
             margin-bottom: 8px;
             font-size: 13px;
+            line-height: 1.5;
         }
 
         .chat-message.user {
-            background: rgba(212, 165, 116, 0.2);
-            margin-left: 20%;
+            background: rgba(212, 165, 116, 0.15);
+            margin-left: 15%;
+            color: var(--text-light);
         }
 
         .chat-message.assistant {
-            background: rgba(255, 255, 255, 0.05);
-            margin-right: 20%;
+            background: var(--bg-card);
+            margin-right: 15%;
+            color: var(--text-light);
         }
 
         .chat-input-area {
@@ -203,24 +252,56 @@
         .chat-input {
             flex: 1;
             padding: 10px 12px;
-            background: var(--bg-sidebar);
-            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
             border-radius: 4px;
-            color: var(--text-primary);
+            color: var(--text-light);
             font-size: 13px;
             resize: none;
+            font-family: inherit;
         }
 
         .chat-input:focus {
             outline: none;
-            border-color: var(--button-fill);
+            border-color: var(--accent-gold);
+        }
+
+        .chat-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* Typing Indicator */
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 12px 14px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            margin-right: 15%;
+            width: fit-content;
+        }
+
+        .typing-indicator span {
+            width: 6px;
+            height: 6px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-4px); opacity: 1; }
         }
 
         /* System Log */
         .system-log {
-            background: var(--bg-console);
-            border-top: 1px solid var(--border-color);
-            height: 150px;
+            background: var(--bg-base);
+            border-top: 1px solid var(--border-subtle);
+            height: 120px;
             display: flex;
             flex-direction: column;
         }
@@ -230,152 +311,167 @@
             justify-content: space-between;
             align-items: center;
             padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.02);
-            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
         }
 
         .system-log-title {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 600;
-            color: var(--button-fill);
+            color: var(--accent-gold);
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
         .clear-log-btn {
             background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
             padding: 3px 8px;
             border-radius: 4px;
             font-size: 10px;
             cursor: pointer;
         }
 
+        .clear-log-btn:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
         .log-output {
             flex: 1;
             overflow-y: auto;
             padding: 8px 16px;
-            font-family: 'Consolas', monospace;
+            font-family: 'Consolas', 'Monaco', monospace;
             font-size: 11px;
             line-height: 1.6;
         }
 
-        .log-entry { margin-bottom: 2px; }
-        .log-entry .timestamp { color: var(--text-secondary); }
-        .log-entry.success { color: var(--success); }
-        .log-entry.info { color: var(--text-secondary); }
-        .log-entry.error { color: var(--error); }
+        .log-entry {
+            margin-bottom: 2px;
+        }
+
+        .log-entry .timestamp {
+            color: var(--text-muted);
+        }
+
+        .log-entry.success {
+            color: var(--success);
+        }
+
+        .log-entry.info {
+            color: var(--text-muted);
+        }
+
+        .log-entry.error {
+            color: var(--error);
+        }
     </style>
 </head>
 <body>
-    <div class="app-container">
-        <!-- Simplified Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <div class="sidebar-logo">TRAJANUS Command Center</div>
+    <div class="workspace-container">
+        <header class="workspace-header">
+            <div>
+                <h1>Project Management</h1>
+                <p>RFIs, submittals, schedules, cost tracking</p>
             </div>
-            <nav class="nav-section">
-                <div class="nav-section-title">Toolkits</div>
-                <a href="pm.html" class="nav-item active">PM Toolkit</a>
-                <a href="qcm.html" class="nav-item">QCM Toolkit</a>
-                <a href="traffic.html" class="nav-item">Traffic Studies</a>
-                <a href="developer.html" class="nav-item">Developer Toolkit</a>
-            </nav>
-        </aside>
+            <a href="../index.html" class="home-btn">
+                <span>&#9670;</span> Hub
+            </a>
+        </header>
 
-        <!-- Main Content -->
-        <div class="main-wrapper">
-            <main class="main-area">
-                <header class="workspace-header">
-                    <h1>PM Toolkit v1.0</h1>
-                    <p>Project Management - RFIs, submittals, schedules, costs</p>
-                </header>
-
-                <!-- 4-Panel Workspace -->
-                <div class="workspace-grid">
-                    <!-- Panel 1: Document Browser -->
-                    <section class="panel" id="document-browser">
-                        <div class="panel-header">Document Browser</div>
-                        <div class="panel-content">
-                            <div class="file-list" id="file-list">
-                                <div class="file-item" onclick="PMToolkit.selectFile(this, 'RFI-001.pdf')">
-                                    <span class="file-name">RFI-001.pdf</span>
-                                </div>
-                                <div class="file-item" onclick="PMToolkit.selectFile(this, 'Submittal-Log.xlsx')">
-                                    <span class="file-name">Submittal-Log.xlsx</span>
-                                </div>
-                                <div class="file-item" onclick="PMToolkit.selectFile(this, 'Schedule-Update.mpp')">
-                                    <span class="file-name">Schedule-Update.mpp</span>
-                                </div>
-                            </div>
+        <!-- 4-Panel Workspace -->
+        <div class="workspace-grid">
+            <!-- Panel 1: Document Browser -->
+            <section class="panel">
+                <div class="panel-header">Document Browser</div>
+                <div class="panel-content">
+                    <div class="file-list" id="file-list">
+                        <div class="file-item" onclick="PM.selectFile(this, 'RFI-001-Foundation.pdf')">
+                            <span class="file-name">RFI-001-Foundation.pdf</span>
                         </div>
-                    </section>
-
-                    <!-- Panel 2: Template Selection -->
-                    <section class="panel" id="template-selection">
-                        <div class="panel-header">Template Selection</div>
-                        <div class="panel-content">
-                            <div class="template-group">
-                                <label>Document Type</label>
-                                <select class="template-select" id="doc-type" onchange="PMToolkit.updateTemplate()">
-                                    <option value="">Select type...</option>
-                                    <option value="rfi">RFI Response</option>
-                                    <option value="submittal">Submittal Review</option>
-                                    <option value="schedule">Schedule Analysis</option>
-                                    <option value="cost">Cost Estimate</option>
-                                </select>
-                            </div>
-                            <div class="template-group">
-                                <label>Output Format</label>
-                                <select class="template-select" id="output-format">
-                                    <option value="memo">Memo Format</option>
-                                    <option value="formal">Formal Letter</option>
-                                    <option value="email">Email Draft</option>
-                                </select>
-                            </div>
-                            <button class="btn btn-primary" onclick="PMToolkit.generateOutput()" style="width: 100%; margin-top: 16px;">
-                                Generate Output
-                            </button>
+                        <div class="file-item" onclick="PM.selectFile(this, 'RFI-002-Electrical.pdf')">
+                            <span class="file-name">RFI-002-Electrical.pdf</span>
                         </div>
-                    </section>
-
-                    <!-- Panel 3: Review/Modify -->
-                    <section class="panel" id="review-modify">
-                        <div class="panel-header">Review / Modify</div>
-                        <div class="panel-content" style="display: flex; flex-direction: column;">
-                            <div class="output-area empty" id="output-area"></div>
-                            <div class="output-actions">
-                                <button class="btn btn-secondary" onclick="PMToolkit.copyOutput()">Copy</button>
-                                <button class="btn btn-secondary" onclick="PMToolkit.exportOutput()">Export</button>
-                                <button class="btn btn-primary" onclick="PMToolkit.sendToAssistant()">Send to Assistant</button>
-                            </div>
+                        <div class="file-item" onclick="PM.selectFile(this, 'Submittal-Log-2025.xlsx')">
+                            <span class="file-name">Submittal-Log-2025.xlsx</span>
                         </div>
-                    </section>
-
-                    <!-- Panel 4: Claude Assistant -->
-                    <section class="panel" id="claude-assistant">
-                        <div class="panel-header">Claude Assistant</div>
-                        <div class="panel-content" style="display: flex; flex-direction: column;">
-                            <div class="chat-messages" id="chat-messages"></div>
-                            <div class="chat-input-area">
-                                <textarea class="chat-input" id="chat-input" rows="2" placeholder="Ask Claude about this document..."></textarea>
-                                <button class="btn btn-primary" onclick="PMToolkit.sendMessage()">Send</button>
-                            </div>
+                        <div class="file-item" onclick="PM.selectFile(this, 'Schedule-Update-Dec.mpp')">
+                            <span class="file-name">Schedule-Update-Dec.mpp</span>
                         </div>
-                    </section>
+                        <div class="file-item" onclick="PM.selectFile(this, 'Cost-Estimate-Rev2.xlsx')">
+                            <span class="file-name">Cost-Estimate-Rev2.xlsx</span>
+                        </div>
+                    </div>
                 </div>
-            </main>
+            </section>
 
-            <!-- System Log -->
-            <div class="system-log">
-                <div class="system-log-header">
-                    <span class="system-log-title">System Log</span>
-                    <button class="clear-log-btn" onclick="PMToolkit.clearLog()">Clear</button>
+            <!-- Panel 2: Template Selection -->
+            <section class="panel">
+                <div class="panel-header">Template Selection</div>
+                <div class="panel-content">
+                    <div class="template-group">
+                        <label>Document Type</label>
+                        <select class="template-select" id="doc-type" onchange="PM.updateTemplate()">
+                            <option value="">Select type...</option>
+                            <option value="rfi">RFI Response</option>
+                            <option value="submittal">Submittal Review</option>
+                            <option value="schedule">Schedule Analysis</option>
+                            <option value="cost">Cost Estimate</option>
+                            <option value="meeting">Meeting Minutes</option>
+                        </select>
+                    </div>
+                    <div class="template-group">
+                        <label>Output Format</label>
+                        <select class="template-select" id="output-format">
+                            <option value="memo">Memo Format</option>
+                            <option value="formal">Formal Letter</option>
+                            <option value="email">Email Draft</option>
+                            <option value="report">Report</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="PM.generateOutput()" style="width: 100%; margin-top: 16px;">
+                        Generate Output
+                    </button>
                 </div>
-                <div class="log-output" id="log-output">
-                    <div class="log-entry info"><span class="timestamp">[--:--:--]</span> PM Toolkit ready.</div>
+            </section>
+
+            <!-- Panel 3: Review/Modify -->
+            <section class="panel">
+                <div class="panel-header">Review / Modify</div>
+                <div class="panel-content" style="display: flex; flex-direction: column;">
+                    <div class="output-area empty" id="output-area">
+                        Select a document and template to generate output...
+                    </div>
+                    <div class="output-actions">
+                        <button class="btn btn-secondary" onclick="PM.copyOutput()">Copy</button>
+                        <button class="btn btn-secondary" onclick="PM.exportOutput()">Export</button>
+                        <button class="btn btn-primary" onclick="PM.sendToAssistant()">Send to Claude</button>
+                    </div>
                 </div>
+            </section>
+
+            <!-- Panel 4: Claude Assistant -->
+            <section class="panel">
+                <div class="panel-header">Claude Assistant</div>
+                <div class="panel-content" style="display: flex; flex-direction: column;">
+                    <div class="chat-messages" id="chat-messages"></div>
+                    <div class="chat-input-area">
+                        <textarea class="chat-input" id="chat-input" rows="2" placeholder="Ask Claude about project management..."></textarea>
+                        <button class="btn btn-primary" onclick="PM.sendMessage()">Send</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- System Log -->
+        <div class="system-log">
+            <div class="system-log-header">
+                <span class="system-log-title">System Log</span>
+                <button class="clear-log-btn" onclick="PM.clearLog()">Clear</button>
+            </div>
+            <div class="log-output" id="log-output">
+                <div class="log-entry info"><span class="timestamp">[--:--:--]</span> Project Management workspace ready.</div>
             </div>
         </div>
     </div>
@@ -384,7 +480,7 @@
         // Tauri API
         const { invoke } = window.__TAURI__.core;
 
-        const PMToolkit = {
+        const PM = {
             selectedFile: null,
             isProcessing: false,
 
@@ -413,7 +509,7 @@
             updateTemplate() {
                 const docType = document.getElementById('doc-type').value;
                 if (docType) {
-                    this.log(`Template changed to: ${docType}`);
+                    this.log(`Template: ${docType}`);
                 }
             },
 
@@ -428,15 +524,16 @@
                     return;
                 }
 
+                const format = document.getElementById('output-format').value;
                 const outputArea = document.getElementById('output-area');
                 outputArea.classList.remove('empty');
-                outputArea.textContent = `Generated ${docType} output for ${this.selectedFile}...\n\nThis is a placeholder for the generated content.`;
-                this.log(`Generated ${docType} for ${this.selectedFile}`, 'success');
+                outputArea.textContent = `${docType.toUpperCase()} - ${format.toUpperCase()}\n\nDocument: ${this.selectedFile}\n\nGenerated content will appear here.\n\nThis is a placeholder for AI-generated project management documentation based on the selected document and template.`;
+                this.log(`Generated ${docType} (${format}) for ${this.selectedFile}`, 'success');
             },
 
             copyOutput() {
                 const output = document.getElementById('output-area').textContent;
-                if (output) {
+                if (output && !output.includes('Select a document')) {
                     navigator.clipboard.writeText(output);
                     this.log('Output copied to clipboard', 'success');
                 }
@@ -448,10 +545,9 @@
 
             sendToAssistant() {
                 const output = document.getElementById('output-area').textContent;
-                if (output) {
-                    const truncated = output.length > 500 ? output.substring(0, 500) + '...' : output;
-                    this.addChatMessage('user', 'Please review this output:\n' + truncated);
-                    this.sendToClaude('Please review and provide feedback on this project management output:\n' + output);
+                if (output && !output.includes('Select a document')) {
+                    this.addChatMessage('user', 'Please review this output:\n' + output);
+                    this.sendToClaude('Please review and provide feedback on this project management document:\n' + output);
                 }
             },
 
@@ -464,21 +560,26 @@
                 messages.scrollTop = messages.scrollHeight;
             },
 
+            showTyping() {
+                const messages = document.getElementById('chat-messages');
+                const typing = document.createElement('div');
+                typing.className = 'typing-indicator';
+                typing.id = 'typing-indicator';
+                typing.innerHTML = '<span></span><span></span><span></span>';
+                messages.appendChild(typing);
+                messages.scrollTop = messages.scrollHeight;
+            },
+
             async sendToClaude(message) {
                 if (this.isProcessing) return;
                 this.isProcessing = true;
-                this.log('Sending to Claude API...', 'info');
-
-                // Show thinking indicator
-                const thinkingMsg = document.createElement('div');
-                thinkingMsg.className = 'chat-message assistant';
-                thinkingMsg.id = 'thinking-indicator';
-                thinkingMsg.textContent = 'Thinking...';
-                document.getElementById('chat-messages').appendChild(thinkingMsg);
+                this.log('Sending to Claude...', 'info');
+                this.showTyping();
 
                 try {
-                    const context = `You are a helpful PM (Project Management) assistant for construction projects.
+                    const context = `You are a Project Management assistant for federal construction contracts.
                     You help with RFIs, submittals, schedules, cost estimates, and general PM tasks.
+                    You are familiar with USACE/Corps of Engineers requirements, Primavera P6, Procore, and RMS.
                     Keep responses concise and actionable.`;
 
                     const response = await invoke('chat_with_claude', {
@@ -486,15 +587,13 @@
                         context: context
                     });
 
-                    // Remove thinking indicator
-                    document.getElementById('thinking-indicator')?.remove();
-
+                    document.getElementById('typing-indicator')?.remove();
                     this.addChatMessage('assistant', response);
-                    this.log('Claude response received', 'success');
+                    this.log('Response received', 'success');
                 } catch (error) {
-                    document.getElementById('thinking-indicator')?.remove();
+                    document.getElementById('typing-indicator')?.remove();
                     this.addChatMessage('assistant', 'Error: ' + error);
-                    this.log('Claude API error: ' + error, 'error');
+                    this.log('API error: ' + error, 'error');
                 } finally {
                     this.isProcessing = false;
                 }
@@ -512,13 +611,12 @@
         };
 
         document.addEventListener('DOMContentLoaded', () => {
-            PMToolkit.log('PM Toolkit loaded', 'info');
+            PM.log('PM workspace loaded', 'info');
 
-            // Enable Enter key to send messages
             document.getElementById('chat-input').addEventListener('keypress', (e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
-                    PMToolkit.sendMessage();
+                    PM.sendMessage();
                 }
             });
         });

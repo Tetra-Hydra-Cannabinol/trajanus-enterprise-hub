@@ -15,10 +15,6 @@
                 <span class="header-title">TRAJANUS</span>
             </div>
             <div class="header-controls">
-                <div class="header-search">
-                    <span>&#128269;</span>
-                    <input type="text" placeholder="Search...">
-                </div>
                 <button class="header-icon-btn" title="Settings">&#9881;</button>
                 <button class="header-icon-btn" title="User">&#128100;</button>
             </div>
@@ -48,32 +44,67 @@
                     Engineered Intelligence (EI&#8482;), this platform integrates federal contract management
                     workflows with AI-assisted tools and automation.
                 </p>
+            </section>
 
-                <div class="welcome-grid">
-                    <div class="welcome-block">
-                        <h3>Platforms</h3>
-                        <p>Four specialized toolkits provide focused functionality:</p>
-                        <ul>
-                            <li>Project Management - Scheduling, cost tracking, document control, EV reporting</li>
-                            <li>Quality Control - Submittal review, inspections, deficiency tracking, QC logs</li>
-                            <li>Traffic Studies - Impact analysis, data processing, report generation</li>
-                            <li>Developer Toolkit - Scripts, file conversion, session management, AI tools</li>
-                        </ul>
-                    </div>
+            <!-- Platforms Section -->
+            <section class="platforms-section">
+                <div class="section-header">
+                    <h2 class="section-title">Platforms</h2>
+                </div>
 
-                    <div class="welcome-block">
-                        <h3>Navigation</h3>
-                        <p>Click any toolkit card to enter that platform. Use Quick Tools for frequently accessed functions. External Applications open partner systems in new tabs.</p>
-                    </div>
+                <div class="platforms-grid">
+                    <!-- Project Management -->
+                    <a href="toolkits/pm.html" class="platform-card">
+                        <h3 class="platform-title">Project Management</h3>
+                        <p class="platform-description">
+                            Integrated scheduling, cost tracking, and document control for federal construction contracts.
+                            Connects to Primavera P6, Procore, and Corps of Engineers systems.
+                        </p>
+                        <div class="platform-tags">
+                            <span class="platform-tag">Procore</span>
+                            <span class="platform-tag">P6</span>
+                            <span class="platform-tag">RMS</span>
+                        </div>
+                    </a>
 
-                    <div class="welcome-block">
-                        <h3>AI Integration</h3>
-                        <ul>
-                            <li>Claude Assistant - Embedded AI panel for quick questions and task support</li>
-                            <li>Claude Full Chat - Opens claude.ai for extended conversations and complex work</li>
-                        </ul>
-                        <p>Your active projects and recent activity are displayed below.</p>
-                    </div>
+                    <!-- Quality Control -->
+                    <a href="toolkits/qcm.html" class="platform-card">
+                        <h3 class="platform-title">Quality Control</h3>
+                        <p class="platform-description">
+                            Submittal processing, inspection documentation, and deficiency tracking.
+                            Interfaces with RMS 3.0 and generates QC reports for USACE compliance.
+                        </p>
+                        <div class="platform-tags">
+                            <span class="platform-tag">RMS 3.0</span>
+                            <span class="platform-tag">QC Logs</span>
+                        </div>
+                    </a>
+
+                    <!-- Traffic Studies -->
+                    <a href="toolkits/traffic.html" class="platform-card">
+                        <h3 class="platform-title">Traffic Studies</h3>
+                        <p class="platform-description">
+                            Traffic impact analysis and study generation. Processes data from Synchro, HCS,
+                            and field counts to produce jurisdiction-compliant reports.
+                        </p>
+                        <div class="platform-tags">
+                            <span class="platform-tag">Synchro</span>
+                            <span class="platform-tag">HCS</span>
+                        </div>
+                    </a>
+
+                    <!-- Developer Toolkit -->
+                    <a href="toolkits/developer.html" class="platform-card">
+                        <h3 class="platform-title">Developer Toolkit</h3>
+                        <p class="platform-description">
+                            Session management, script execution, and AI-assisted development.
+                            Central control for file conversion, automation, and Claude integration.
+                        </p>
+                        <div class="platform-tags">
+                            <span class="platform-tag">Claude</span>
+                            <span class="platform-tag">Scripts</span>
+                        </div>
+                    </a>
                 </div>
             </section>
 
@@ -84,15 +115,14 @@
                 </div>
 
                 <div class="projects-grid">
-                    <!-- SOUTHCOM Guatemala -->
                     <div class="project-card">
                         <div class="project-name">SOUTHCOM Guatemala</div>
                         <div class="project-subtitle">Infrastructure</div>
                         <div class="project-divider"></div>
                         <div class="project-details">
-                            <strong>Contract:</strong> W9127823R0034<br>
-                            <strong>Value:</strong> $47.2M<br>
-                            <strong>Type:</strong> Federal Construction<br>
+                            Contract: W9127823R0034<br>
+                            Value: $47.2M<br>
+                            Type: Federal Construction
                             <div class="project-status">
                                 <span class="status-dot active"></span>
                                 <span>Active - Day 847</span>
@@ -100,14 +130,13 @@
                         </div>
                     </div>
 
-                    <!-- Grace Fellowship -->
                     <div class="project-card">
                         <div class="project-name">Grace Fellowship</div>
                         <div class="project-subtitle">Traffic Study</div>
                         <div class="project-divider"></div>
                         <div class="project-details">
-                            <strong>Client:</strong> Grace Fellowship Church<br>
-                            <strong>Type:</strong> Traffic Impact Analysis<br>
+                            Client: Grace Fellowship Church<br>
+                            Type: Traffic Impact Analysis
                             <div class="project-status">
                                 <span class="status-dot active"></span>
                                 <span>Active</span>
@@ -115,14 +144,13 @@
                         </div>
                     </div>
 
-                    <!-- Kwajalein -->
                     <div class="project-card">
                         <div class="project-name">Base Housing - Kwajalein</div>
-                        <div class="project-subtitle"></div>
+                        <div class="project-subtitle">Military Housing</div>
                         <div class="project-divider"></div>
                         <div class="project-details">
-                            <strong>Location:</strong> Kwajalein Atoll, Marshall Islands<br>
-                            <strong>Type:</strong> Military Housing<br>
+                            Location: Kwajalein Atoll, Marshall Islands<br>
+                            Type: Military Housing
                             <div class="project-status">
                                 <span class="status-dot planning"></span>
                                 <span>Planning</span>
@@ -132,144 +160,7 @@
                 </div>
             </section>
 
-            <!-- Quick Stats -->
-            <section class="quick-stats">
-                <div class="stat-card">
-                    <div class="stat-icon">&#9670;</div>
-                    <div class="stat-number">247</div>
-                    <div class="stat-label">Documents this month</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">&#9670;</div>
-                    <div class="stat-number">12</div>
-                    <div class="stat-label">Pending submittals</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">&#9670;</div>
-                    <div class="stat-number">3</div>
-                    <div class="stat-label">Open RFIs</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">&#9670;</div>
-                    <div class="stat-number">8</div>
-                    <div class="stat-label">Actions due this week</div>
-                </div>
-            </section>
-
-            <!-- Operations Section -->
-            <section class="operations-section">
-                <div class="section-header">
-                    <h2 class="section-title">Operations</h2>
-                </div>
-
-                <div class="operations-grid">
-                    <!-- Project Management -->
-                    <a href="toolkits/pm.html" class="toolkit-card">
-                        <div class="toolkit-header">
-                            <span class="toolkit-icon">&#9670;</span>
-                            <h3 class="toolkit-title">Project Management</h3>
-                        </div>
-                        <div class="toolkit-divider"></div>
-                        <ul class="toolkit-features">
-                            <li>Schedule Analysis & Tracking</li>
-                            <li>Cost Management & EV Reports</li>
-                            <li>Document Control Systems</li>
-                            <li>RFI & Correspondence</li>
-                        </ul>
-                        <div class="toolkit-description">
-                            Integrated scheduling, cost tracking, and document control for federal construction contracts.
-                            Connects to Primavera P6, Procore, and Corps of Engineers systems.
-                        </div>
-                        <div class="toolkit-actions">
-                            <span class="toolkit-badge">Procore</span>
-                            <span class="toolkit-badge">P6</span>
-                        </div>
-                        <div class="toolkit-enter">
-                            Enter Toolkit <span>&#9654;</span>
-                        </div>
-                    </a>
-
-                    <!-- Quality Control -->
-                    <a href="toolkits/qcm.html" class="toolkit-card">
-                        <div class="toolkit-header">
-                            <span class="toolkit-icon">&#9670;</span>
-                            <h3 class="toolkit-title">Quality Control</h3>
-                        </div>
-                        <div class="toolkit-divider"></div>
-                        <ul class="toolkit-features">
-                            <li>Submittal Review & Processing</li>
-                            <li>Inspection Documentation</li>
-                            <li>Deficiency Tracking</li>
-                            <li>QC/QA Checklists</li>
-                        </ul>
-                        <div class="toolkit-description">
-                            Submittal processing, inspection documentation, and deficiency tracking.
-                            Interfaces with RMS 3.0 and generates QC reports for USACE compliance.
-                        </div>
-                        <div class="toolkit-actions">
-                            <span class="toolkit-badge">RMS 3.0</span>
-                            <span class="toolkit-badge">QC Logs</span>
-                        </div>
-                        <div class="toolkit-enter">
-                            Enter Toolkit <span>&#9654;</span>
-                        </div>
-                    </a>
-
-                    <!-- Traffic Studies -->
-                    <a href="toolkits/traffic.html" class="toolkit-card">
-                        <div class="toolkit-header">
-                            <span class="toolkit-icon">&#9670;</span>
-                            <h3 class="toolkit-title">Traffic Studies</h3>
-                        </div>
-                        <div class="toolkit-divider"></div>
-                        <ul class="toolkit-features">
-                            <li>Traffic Impact Analysis</li>
-                            <li>Study Requirements & Guides</li>
-                            <li>Data Processing Tools</li>
-                            <li>Report Generation</li>
-                        </ul>
-                        <div class="toolkit-description">
-                            Traffic impact analysis and study generation. Processes data from Synchro, HCS,
-                            and field counts to produce jurisdiction-compliant reports.
-                        </div>
-                        <div class="toolkit-actions">
-                            <span class="toolkit-badge">Synchro</span>
-                            <span class="toolkit-badge">HCS</span>
-                        </div>
-                        <div class="toolkit-enter">
-                            Enter Toolkit <span>&#9654;</span>
-                        </div>
-                    </a>
-
-                    <!-- Developer Toolkit -->
-                    <a href="toolkits/developer.html" class="toolkit-card">
-                        <div class="toolkit-header">
-                            <span class="toolkit-icon">&#9670;</span>
-                            <h3 class="toolkit-title">Developer Toolkit</h3>
-                        </div>
-                        <div class="toolkit-divider"></div>
-                        <ul class="toolkit-features">
-                            <li>Script Browser & Execution</li>
-                            <li>File Format Conversion</li>
-                            <li>Session Documentation</li>
-                            <li>Claude AI Assistant</li>
-                        </ul>
-                        <div class="toolkit-description">
-                            Session management, script execution, and AI-assisted development.
-                            Central control for file conversion, automation, and Claude integration.
-                        </div>
-                        <div class="toolkit-actions">
-                            <span class="toolkit-badge">Scripts</span>
-                            <span class="toolkit-badge">Converters</span>
-                        </div>
-                        <div class="toolkit-enter">
-                            Enter Toolkit <span>&#9654;</span>
-                        </div>
-                    </a>
-                </div>
-            </section>
-
-            <!-- Quick Tools Section -->
+            <!-- Quick Tools -->
             <section class="quick-tools-section">
                 <div class="section-header">
                     <h2 class="section-title">Quick Tools</h2>
@@ -292,18 +183,39 @@
                         <div class="quick-tool-icon">&#128193;</div>
                         <div class="quick-tool-label">Browser</div>
                     </div>
-                    <div class="quick-tool" onclick="Hub.launchTool('journal')">
-                        <div class="quick-tool-icon">&#128203;</div>
-                        <div class="quick-tool-label">Journal</div>
+                </div>
+            </section>
+
+            <!-- Claude Assistant -->
+            <section class="claude-section">
+                <div class="section-header">
+                    <h2 class="section-title">Claude Assistant</h2>
+                </div>
+
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <h3>Claude Assistant</h3>
+                        <div class="chat-actions">
+                            <button class="chat-action" onclick="Chat.clear()">Clear</button>
+                        </div>
                     </div>
-                    <div class="quick-tool" onclick="Hub.launchTool('claude')">
-                        <div class="quick-tool-icon">&#129302;</div>
-                        <div class="quick-tool-label">Claude</div>
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="chat-welcome">
+                            Welcome to the Trajanus Claude Assistant. Ask questions about your projects,
+                            get help with tasks, or start a conversation.
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <textarea id="chatInput" placeholder="Message Claude..." rows="1" onkeydown="Chat.handleKeydown(event)"></textarea>
+                        <button class="tool-button primary" id="sendBtn" onclick="Chat.send()">Send</button>
+                    </div>
+                    <div class="chat-footer">
+                        <a href="toolkits/developer.html">Open Full Chat in Developer Toolkit &#8594;</a>
                     </div>
                 </div>
             </section>
 
-            <!-- Applications Section -->
+            <!-- Applications -->
             <section class="applications-section">
                 <div class="section-header">
                     <h2 class="section-title">Applications</h2>
@@ -351,58 +263,13 @@
                     </div>
                 </div>
             </section>
-
-            <!-- Recent Activity Section -->
-            <section class="activity-section">
-                <div class="section-header">
-                    <h2 class="section-title">Recent Activity</h2>
-                </div>
-
-                <div class="activity-list">
-                    <div class="activity-item">
-                        <div class="activity-content">
-                            <span class="activity-dot"></span>
-                            <span class="activity-text">Session Summary uploaded to 03-Output</span>
-                        </div>
-                        <span class="activity-time">2 hours ago</span>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-content">
-                            <span class="activity-dot"></span>
-                            <span class="activity-text">XER Schedule W9127823R0034_Nov parsed</span>
-                        </div>
-                        <span class="activity-time">Yesterday</span>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-content">
-                            <span class="activity-dot"></span>
-                            <span class="activity-text">Submittal #247-ELEC converted to PDF</span>
-                        </div>
-                        <span class="activity-time">Dec 27</span>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-content">
-                            <span class="activity-dot"></span>
-                            <span class="activity-text">QCM Inspection Report generated</span>
-                        </div>
-                        <span class="activity-time">Dec 27</span>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-content">
-                            <span class="activity-dot"></span>
-                            <span class="activity-text">Traffic Study data imported</span>
-                        </div>
-                        <span class="activity-time">Dec 26</span>
-                    </div>
-                </div>
-            </section>
         </main>
 
         <!-- Footer -->
         <footer class="footer">
             <span class="footer-item">Trajanus USA</span>
             <span class="footer-item">High Springs, FL</span>
-            <span class="footer-item">v0.3.0</span>
+            <span class="footer-item">v0.4.0</span>
             <span class="footer-item footer-status">
                 <span class="status-dot active"></span>
                 Connected
@@ -449,7 +316,6 @@
                         }
                         break;
                     case 'xer-parse':
-                        // Future: XER parser
                         console.log('XER Parse - Coming soon');
                         break;
                     case 'converter':
@@ -464,14 +330,98 @@
                             console.error('Failed to launch browser:', e);
                         }
                         break;
-                    case 'journal':
-                        // Future: Journal template
-                        console.log('Journal - Coming soon');
-                        break;
-                    case 'claude':
-                        window.location.href = 'toolkits/developer.html';
-                        break;
                 }
+            }
+        };
+
+        // Chat Controller
+        const Chat = {
+            messages: [],
+            isStreaming: false,
+
+            async send() {
+                const input = document.getElementById('chatInput');
+                const message = input.value.trim();
+                if (!message || this.isStreaming) return;
+
+                // Add user message
+                this.addMessage('user', message);
+                input.value = '';
+
+                // Show typing indicator
+                this.isStreaming = true;
+                document.getElementById('sendBtn').disabled = true;
+                const typingEl = this.showTyping();
+
+                try {
+                    const response = await invoke('chat_with_claude', {
+                        message: message,
+                        context: 'You are Claude, an AI assistant embedded in the Trajanus Enterprise Hub. This is a command center for construction project management. Be helpful, concise, and professional.'
+                    });
+
+                    typingEl.remove();
+                    this.addMessage('assistant', response);
+                } catch (error) {
+                    typingEl.remove();
+                    this.addMessage('assistant', 'Error connecting to Claude. Please try again.');
+                    console.error('Chat error:', error);
+                }
+
+                this.isStreaming = false;
+                document.getElementById('sendBtn').disabled = false;
+            },
+
+            addMessage(role, content) {
+                const container = document.getElementById('chatMessages');
+
+                // Remove welcome message if present
+                const welcome = container.querySelector('.chat-welcome');
+                if (welcome) welcome.remove();
+
+                const msgEl = document.createElement('div');
+                msgEl.className = `message ${role}`;
+                msgEl.innerHTML = `<div class="message-content">${this.formatMessage(content)}</div>`;
+                container.appendChild(msgEl);
+                container.scrollTop = container.scrollHeight;
+
+                this.messages.push({ role, content });
+            },
+
+            formatMessage(text) {
+                // Basic markdown: bold, code blocks, inline code
+                return text
+                    .replace(/```(\w*)\n?([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
+                    .replace(/`([^`]+)`/g, '<code>$1</code>')
+                    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\n/g, '<br>');
+            },
+
+            showTyping() {
+                const container = document.getElementById('chatMessages');
+                const typing = document.createElement('div');
+                typing.className = 'typing-indicator';
+                typing.innerHTML = '<span></span><span></span><span></span>';
+                container.appendChild(typing);
+                container.scrollTop = container.scrollHeight;
+                return typing;
+            },
+
+            handleKeydown(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    this.send();
+                }
+            },
+
+            clear() {
+                const container = document.getElementById('chatMessages');
+                container.innerHTML = `
+                    <div class="chat-welcome">
+                        Welcome to the Trajanus Claude Assistant. Ask questions about your projects,
+                        get help with tasks, or start a conversation.
+                    </div>
+                `;
+                this.messages = [];
             }
         };
 
