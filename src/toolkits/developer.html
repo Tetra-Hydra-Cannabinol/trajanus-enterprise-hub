@@ -1405,62 +1405,30 @@
             <div class="chat-header">
                 <div class="chat-header-left">
                     <h3>TRAJANUS ASSISTANT</h3>
-                    <div class="skill-selector">
-                        <label for="skill-select">Skill:</label>
-                        <select id="skill-select" onchange="ChatAssistant.loadSkill(this.value)">
-                            <option value="">General Assistant</option>
-                            <option value="research">Research Agent</option>
-                            <option value="compliance">Compliance Officer</option>
-                            <option value="developer">Developer Assistant</option>
-                            <option value="project-manager">Project Manager</option>
-                            <option value="construction">Construction Expert</option>
-                        </select>
-                    </div>
                 </div>
                 <div class="chat-controls">
-                    <div class="speaking-indicator" id="speaking-indicator">
-                        <div class="wave">
-                            <span></span><span></span><span></span><span></span>
-                        </div>
-                        <span>Speaking...</span>
-                    </div>
-                    <button class="voice-toggle" id="voice-toggle" onclick="ChatAssistant.toggleVoice()">
-                        <span id="voice-icon">&#128264;</span>
-                        <span id="voice-label">Voice Off</span>
-                    </button>
-                    <button class="clear-chat-btn" onclick="ChatAssistant.clear()">Clear</button>
+                    <button class="clear-chat-btn" onclick="ChatAssistant.clear()">Clear Chat</button>
                 </div>
             </div>
 
             <!-- Messages Area -->
             <div class="chat-messages" id="chat-messages">
-                <div class="chat-welcome" id="chat-welcome">
-                    <div class="chat-welcome-icon">&#9830;</div>
-                    <h4>Trajanus Assistant</h4>
-                    <p>Select a skill above or ask me anything. I can help with research, development, project management, and construction expertise.</p>
-                </div>
+                <!-- Welcome message added by JavaScript -->
             </div>
 
             <!-- Input Area -->
             <div class="chat-input-area">
                 <div class="chat-input-wrapper">
-                    <button class="mic-btn" id="mic-btn" onclick="ChatAssistant.toggleMic()" title="Voice input">
-                        <span id="mic-icon">&#127908;</span>
-                    </button>
                     <textarea
                         class="chat-input"
                         id="chat-input"
-                        placeholder="Type or speak your message..."
+                        placeholder="Type your message..."
                         rows="1"
                         onkeydown="ChatAssistant.handleKeydown(event)"
                         oninput="ChatAssistant.autoResize(this)"
                     ></textarea>
-                    <button class="stop-btn" id="stop-btn" onclick="ChatAssistant.stopSpeaking()" title="Stop speaking">
-                        <span>&#9209;</span>
-                    </button>
                     <button class="send-btn" id="send-btn" onclick="ChatAssistant.send()">
                         <span>Send</span>
-                        <span>&#10148;</span>
                     </button>
                 </div>
             </div>
@@ -1469,7 +1437,26 @@
     </main>
 
     <script>
-        const { invoke } = window.__TAURI__.core;
+        // Safely get invoke - handle if Tauri not ready
+        let invoke;
+        try {
+            if (window.__TAURI__ && window.__TAURI__.core) {
+                invoke = window.__TAURI__.core.invoke;
+                console.log('Tauri invoke loaded successfully');
+            } else {
+                console.error('Tauri not available at script load');
+                invoke = async (cmd, args) => {
+                    console.error('Tauri invoke called but not available:', cmd, args);
+                    throw new Error('Tauri not available');
+                };
+            }
+        } catch (e) {
+            console.error('Error loading Tauri invoke:', e);
+            invoke = async (cmd, args) => {
+                throw new Error('Tauri not available: ' + e);
+            };
+        }
+
         const PROJECT_PATH = 'C:\\Dev\\trajanus-command-center';
         const SCRIPTS_PATH = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\';
 
@@ -1478,6 +1465,8 @@
             updateGreeting();
             updateDate();
             console.log('Developer Toolkit ready');
+            console.log('Tauri check:', !!window.__TAURI__);
+            console.log('invoke type:', typeof invoke);
         });
 
         function updateGreeting() {
@@ -1606,201 +1595,24 @@
             }
         };
 
-        // Chat Assistant Controller
+        // Simple Chat Assistant Controller
         const ChatAssistant = {
             messages: [],
-            currentSkill: null,
-            skillContext: null,
-            voiceEnabled: false,
             isLoading: false,
-            synth: window.speechSynthesis,
-            preferredVoice: null,
-            recognition: null,
-            isListening: false,
-
-            // Skill definitions with system prompts
-            skills: {
-                'research': {
-                    name: 'Research Agent',
-                    prompt: `You are a Research Agent for Trajanus USA, a construction management company.
-Your role is to help research topics, find information, synthesize findings from multiple sources, and provide well-organized summaries.
-Focus on accuracy, cite sources when possible, and present information in a clear, structured format.
-You have expertise in construction industry research, market analysis, competitor research, and general business intelligence.`
-                },
-                'compliance': {
-                    name: 'Compliance Officer',
-                    prompt: `You are a Compliance Officer assistant for Trajanus USA, specializing in federal construction contracts.
-Your expertise includes:
-- UFGS (Unified Facilities Guide Specifications)
-- FAR (Federal Acquisition Regulations)
-- DFARS (Defense Federal Acquisition Regulation Supplement)
-- Contract compliance and documentation requirements
-- Quality control and safety standards
-Help users understand compliance requirements, review documents for compliance issues, and provide guidance on federal construction regulations.`
-                },
-                'developer': {
-                    name: 'Developer Assistant',
-                    prompt: `You are a Developer Assistant for Trajanus USA software development.
-Your expertise includes:
-- Tauri 2.0 desktop application development
-- Rust backend development
-- JavaScript/TypeScript frontend
-- Python automation scripts
-- Database design and management
-- API integration
-Help with code review, debugging, architecture decisions, and development best practices.`
-                },
-                'project-manager': {
-                    name: 'Project Manager',
-                    prompt: `You are a Project Manager assistant for Trajanus USA construction projects.
-Your expertise includes:
-- Project scheduling and timeline management
-- Resource allocation and budgeting
-- Risk management and mitigation
-- Stakeholder communication
-- Construction project workflows
-- Documentation and reporting
-Help with project planning, status updates, and management best practices.`
-                },
-                'construction': {
-                    name: 'Construction Expert',
-                    prompt: `You are a Construction Expert assistant for Trajanus USA.
-Your expertise includes:
-- Construction methods and techniques
-- Material specifications and selection
-- Building codes and standards
-- Cost estimation
-- Site management
-- Safety protocols
-- Equipment and tools
-Provide technical guidance on construction-related questions and best practices.`
-                }
-            },
 
             init() {
-                console.log('Initializing Chat Assistant...');
-
-                // Check Tauri availability
-                if (window.__TAURI__) {
-                    console.log('Tauri available');
-                } else {
-                    console.error('Tauri not available!');
-                }
-
-                // Initialize speech synthesis
-                if (this.synth) {
-                    if (this.synth.getVoices().length === 0) {
-                        this.synth.addEventListener('voiceschanged', () => {
-                            this.selectPreferredVoice();
-                        });
-                    } else {
-                        this.selectPreferredVoice();
-                    }
-                }
-
-                // Initialize speech recognition
-                this.initSpeechRecognition();
-
-                console.log('Chat Assistant initialized');
+                console.log('Chat Assistant ready');
+                // Show welcome message from assistant
+                this.showWelcome();
             },
 
-            initSpeechRecognition() {
-                if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-                    console.warn('Speech recognition not supported');
-                    const micBtn = document.getElementById('mic-btn');
-                    if (micBtn) micBtn.style.display = 'none';
-                    return;
-                }
+            showWelcome() {
+                const messagesContainer = document.getElementById('chat-messages');
+                const welcome = document.getElementById('chat-welcome');
+                if (welcome) welcome.style.display = 'none';
 
-                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-                this.recognition = new SpeechRecognition();
-                this.recognition.continuous = false;
-                this.recognition.interimResults = true;
-                this.recognition.lang = 'en-US';
-
-                this.recognition.onstart = () => {
-                    console.log('Listening...');
-                    this.isListening = true;
-                    const micBtn = document.getElementById('mic-btn');
-                    const micIcon = document.getElementById('mic-icon');
-                    micBtn.classList.add('listening');
-                    micIcon.innerHTML = '&#128308;'; // Red circle
-                };
-
-                this.recognition.onend = () => {
-                    console.log('Stopped listening');
-                    this.isListening = false;
-                    const micBtn = document.getElementById('mic-btn');
-                    const micIcon = document.getElementById('mic-icon');
-                    micBtn.classList.remove('listening');
-                    micIcon.innerHTML = '&#127908;'; // Microphone
-                };
-
-                this.recognition.onresult = (event) => {
-                    const transcript = Array.from(event.results)
-                        .map(result => result[0].transcript)
-                        .join('');
-
-                    document.getElementById('chat-input').value = transcript;
-
-                    // Auto-send on final result
-                    if (event.results[event.results.length - 1].isFinal) {
-                        setTimeout(() => this.send(), 500);
-                    }
-                };
-
-                this.recognition.onerror = (event) => {
-                    console.error('Speech recognition error:', event.error);
-                    this.isListening = false;
-                    const micBtn = document.getElementById('mic-btn');
-                    const micIcon = document.getElementById('mic-icon');
-                    micBtn.classList.remove('listening');
-                    micIcon.innerHTML = '&#127908;';
-                };
-
-                console.log('Speech recognition initialized');
-            },
-
-            toggleMic() {
-                if (!this.recognition) {
-                    this.initSpeechRecognition();
-                    if (!this.recognition) return;
-                }
-
-                if (this.isListening) {
-                    this.recognition.stop();
-                } else {
-                    this.recognition.start();
-                }
-            },
-
-            selectPreferredVoice() {
-                const voices = this.synth.getVoices();
-                console.log('Available voices:', voices.length);
-
-                // Prefer Microsoft David or other quality English voices
-                this.preferredVoice = voices.find(v => v.name.includes('Microsoft David')) ||
-                                      voices.find(v => v.name.includes('Microsoft') && v.lang.startsWith('en')) ||
-                                      voices.find(v => v.lang.startsWith('en-US')) ||
-                                      voices.find(v => v.lang.startsWith('en')) ||
-                                      voices[0];
-                console.log('Selected voice:', this.preferredVoice?.name);
-            },
-
-            async loadSkill(skillKey) {
-                if (!skillKey) {
-                    this.currentSkill = null;
-                    this.skillContext = null;
-                    console.log('Loaded: General Assistant');
-                    return;
-                }
-
-                const skill = this.skills[skillKey];
-                if (skill) {
-                    this.currentSkill = skillKey;
-                    this.skillContext = skill.prompt;
-                    console.log(`Loaded skill: ${skill.name}`);
-                }
+                // Add assistant greeting
+                this.addMessage('assistant', 'Hello! I\'m your Trajanus Assistant. What can I help you with today?');
             },
 
             async send() {
@@ -1808,12 +1620,6 @@ Provide technical guidance on construction-related questions and best practices.
                 const message = input.value.trim();
 
                 if (!message || this.isLoading) return;
-
-                console.log('Sending message:', message);
-
-                // Hide welcome message
-                const welcome = document.getElementById('chat-welcome');
-                if (welcome) welcome.style.display = 'none';
 
                 // Add user message to UI
                 this.addMessage('user', message);
@@ -1824,27 +1630,18 @@ Provide technical guidance on construction-related questions and best practices.
                 this.setLoading(true);
 
                 try {
-                    console.log('Calling invoke chat_with_claude...');
-                    console.log('Context:', this.skillContext ? 'Custom skill' : 'None');
-
                     // Call Claude API via Tauri
                     const response = await invoke('chat_with_claude', {
                         message: message,
-                        context: this.skillContext
+                        context: null
                     });
-
-                    console.log('Got response:', response.substring(0, 100) + '...');
 
                     // Add assistant response
                     this.addMessage('assistant', response);
 
-                    // Speak if voice enabled
-                    if (this.voiceEnabled) {
-                        this.speak(response);
-                    }
                 } catch (error) {
                     console.error('Chat error:', error);
-                    this.addMessage('assistant', `Error: ${error}\n\nPlease check:\n1. API key exists at credentials path\n2. Internet connection\n3. Console for details`);
+                    this.addMessage('assistant', `I encountered an error: ${error}`);
                 }
 
                 this.setLoading(false);
@@ -1852,7 +1649,6 @@ Provide technical guidance on construction-related questions and best practices.
 
             addMessage(role, content) {
                 const messagesContainer = document.getElementById('chat-messages');
-                const skillName = this.currentSkill ? this.skills[this.currentSkill].name : 'General';
 
                 const messageEl = document.createElement('div');
                 messageEl.className = `chat-message ${role}`;
@@ -1860,15 +1656,13 @@ Provide technical guidance on construction-related questions and best practices.
                     <div class="message-avatar">${role === 'user' ? 'B' : 'T'}</div>
                     <div class="message-content">
                         <div class="message-text">${this.escapeHtml(content)}</div>
-                        ${role === 'assistant' ? `<div class="message-skill">${skillName}</div>` : ''}
                     </div>
                 `;
 
                 messagesContainer.appendChild(messageEl);
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
-                // Store message
-                this.messages.push({ role, content, skill: this.currentSkill });
+                this.messages.push({ role, content });
             },
 
             escapeHtml(text) {
@@ -1884,7 +1678,6 @@ Provide technical guidance on construction-related questions and best practices.
 
                 sendBtn.disabled = loading;
 
-                // Add or remove typing indicator
                 const existingIndicator = document.getElementById('typing-indicator');
                 if (loading && !existingIndicator) {
                     const indicator = document.createElement('div');
@@ -1905,97 +1698,11 @@ Provide technical guidance on construction-related questions and best practices.
                 }
             },
 
-            toggleVoice() {
-                this.voiceEnabled = !this.voiceEnabled;
-                const toggle = document.getElementById('voice-toggle');
-                const icon = document.getElementById('voice-icon');
-                const label = document.getElementById('voice-label');
-
-                if (this.voiceEnabled) {
-                    toggle.classList.add('active');
-                    icon.innerHTML = '&#128266;'; // Speaker with sound waves
-                    label.textContent = 'Voice On';
-                    console.log('Voice enabled');
-                } else {
-                    toggle.classList.remove('active');
-                    icon.innerHTML = '&#128264;'; // Muted speaker
-                    label.textContent = 'Voice Off';
-                    this.synth.cancel();
-                    this.setSpeaking(false);
-                    console.log('Voice disabled');
-                }
-            },
-
-            speak(text) {
-                if (!this.synth || !this.voiceEnabled) return;
-
-                console.log('Speaking response...');
-
-                // Cancel any ongoing speech
-                this.synth.cancel();
-
-                // Clean text for better speech
-                const cleanText = text
-                    .replace(/```[\s\S]*?```/g, 'code block omitted')
-                    .replace(/\*\*/g, '')
-                    .replace(/\n{2,}/g, '. ')
-                    .substring(0, 5000);
-
-                const utterance = new SpeechSynthesisUtterance(cleanText);
-                utterance.voice = this.preferredVoice;
-                utterance.rate = 1.0;
-                utterance.pitch = 1.0;
-                utterance.volume = 1.0;
-
-                utterance.onstart = () => {
-                    console.log('Started speaking');
-                    this.setSpeaking(true);
-                };
-                utterance.onend = () => {
-                    console.log('Finished speaking');
-                    this.setSpeaking(false);
-                };
-                utterance.onerror = (e) => {
-                    console.error('Speech error:', e);
-                    this.setSpeaking(false);
-                };
-
-                this.synth.speak(utterance);
-            },
-
-            stopSpeaking() {
-                if (this.synth) {
-                    this.synth.cancel();
-                    this.setSpeaking(false);
-                    console.log('Speech stopped');
-                }
-            },
-
-            setSpeaking(speaking) {
-                const indicator = document.getElementById('speaking-indicator');
-                if (speaking) {
-                    indicator.classList.add('active');
-                } else {
-                    indicator.classList.remove('active');
-                }
-            },
-
             clear() {
-                // Stop any speech
-                if (this.synth) this.synth.cancel();
-                this.setSpeaking(false);
-
-                // Clear messages
                 this.messages = [];
                 const messagesContainer = document.getElementById('chat-messages');
-                messagesContainer.innerHTML = `
-                    <div class="chat-welcome" id="chat-welcome">
-                        <div class="chat-welcome-icon">&#9830;</div>
-                        <h4>Trajanus Assistant</h4>
-                        <p>Select a skill above or ask me anything. I can help with research, development, project management, and construction expertise.</p>
-                    </div>
-                `;
-                console.log('Chat cleared');
+                messagesContainer.innerHTML = '';
+                this.showWelcome();
             },
 
             handleKeydown(event) {
