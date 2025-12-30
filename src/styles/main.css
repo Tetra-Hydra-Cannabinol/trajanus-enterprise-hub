@@ -292,16 +292,23 @@ a:hover {
 
 .platform-title {
     color: var(--accent-gold);
-    font-size: 1.125rem;
+    font-size: 2.25rem;
     font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
+    margin-bottom: var(--space-sm);
+}
+
+.platform-subtitle {
+    color: var(--text-muted);
+    font-size: 1rem;
+    font-style: italic;
     margin-bottom: var(--space-md);
 }
 
 .platform-description {
     color: var(--text-white);
-    font-size: 0.9rem;
+    font-size: 1.8rem;
     line-height: 1.6;
     margin-bottom: var(--space-md);
 }
