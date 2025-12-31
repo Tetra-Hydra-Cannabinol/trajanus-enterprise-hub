@@ -1,35 +1,40 @@
 /* Trajanus Enterprise Hub - Main Styles */
 /* Engineered Intelligence (EI) Design System */
 
-/* ==================== COLOR PALETTE ==================== */
+/* ==================== COLOR PALETTE - NAVY/SILVER ==================== */
 :root {
-    /* Backgrounds - Full Black */
-    --bg-base: #0d0d0d;
-    --bg-surface: #141414;
-    --bg-card: #1a1a1a;
-    --bg-elevated: #222222;
-    --bg-hover: #2a2a2a;
-    --bg-input: #1a1a1a;
+    /* Backgrounds - Navy */
+    --bg-base: #0a0f14;
+    --bg-surface: #0d1b2a;
+    --bg-card: #1a2d42;
+    --bg-elevated: #243447;
+    --bg-hover: #2d4a6a;
+    --bg-input: #0d1b2a;
 
-    /* Accent */
-    --accent-gold: #d4a574;
-    --accent-gold-bright: #e8b88a;
-    --accent-hover: #e8922a;
+    /* Accent - Silver */
+    --accent: #c0c0c0;
+    --accent-bright: #e0e0e0;
+    --accent-dim: #808080;
+    --accent-hover: #f0f0f0;
+
+    /* Legacy aliases (for compatibility) */
+    --accent-gold: #c0c0c0;
+    --accent-gold-bright: #e0e0e0;
 
     /* Text */
     --text-white: #ffffff;
     --text-light: #f5f5f5;
-    --text-gold: #d4a574;
-    --text-muted: #888888;
+    --text-gold: #c0c0c0;
+    --text-muted: #8892a0;
 
     /* Status */
-    --status-success: #4ade80;
-    --status-warning: #fbbf24;
-    --status-error: #f87171;
+    --status-success: #4a9f4a;
+    --status-warning: #c4944a;
+    --status-error: #c44a4a;
 
     /* Borders */
-    --border-subtle: #2a2a2a;
-    --border-accent: #d4a574;
+    --border-subtle: #2d4a6a;
+    --border-accent: #c0c0c0;
 
     /* Spacing */
     --space-xs: 4px;
@@ -292,7 +297,7 @@ a:hover {
 
 .platform-title {
     color: var(--accent-gold);
-    font-size: 2.25rem;
+    font-size: 1.7rem;
     font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
@@ -301,14 +306,14 @@ a:hover {
 
 .platform-subtitle {
     color: var(--text-muted);
-    font-size: 1rem;
+    font-size: 0.75rem;
     font-style: italic;
     margin-bottom: var(--space-md);
 }
 
 .platform-description {
     color: var(--text-white);
-    font-size: 1.8rem;
+    font-size: 1.35rem;
     line-height: 1.6;
     margin-bottom: var(--space-md);
 }
@@ -897,4 +902,394 @@ a:hover {
     .hero-title h1 {
         font-size: 3rem;
     }
+}
+
+/* ============================================
+   CHAT TERMINAL - NAVY/SILVER
+   ============================================ */
+.chat-terminal-container {
+  padding: 0 2rem 2rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.chat-terminal {
+  background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-card) 100%);
+  border: 1px solid var(--accent-dim);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.chat-terminal .chat-header {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-surface) 100%);
+  border-bottom: 1px solid var(--accent-dim);
+}
+
+.chat-terminal .chat-title {
+  font-weight: 700;
+  color: var(--accent-bright);
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  flex: 1;
+}
+
+.chat-terminal .chat-status {
+  color: var(--status-success);
+  font-size: 0.85rem;
+  margin-right: 16px;
+}
+
+.chat-collapse-btn {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 20px;
+  transition: all 0.2s ease;
+}
+
+.chat-collapse-btn:hover {
+  background: var(--accent);
+  color: var(--bg-base);
+}
+
+.chat-terminal .chat-messages {
+  height: 250px;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.chat-terminal .message {
+  max-width: 80%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.chat-terminal .message.assistant {
+  background: rgba(192, 192, 192, 0.1);
+  border: 1px solid var(--accent-dim);
+  border-left: 3px solid var(--accent);
+  color: var(--text-white);
+  align-self: flex-start;
+}
+
+.chat-terminal .message.user {
+  background: var(--bg-elevated);
+  border: 1px solid var(--accent-dim);
+  color: var(--accent-bright);
+  align-self: flex-end;
+}
+
+.chat-terminal .chat-input-container {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  border-top: 1px solid var(--accent-dim);
+  background: var(--bg-card);
+}
+
+.chat-terminal #chat-input {
+  flex: 1;
+  background: var(--bg-base);
+  border: 1px solid var(--accent-dim);
+  color: var(--text-white);
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 1rem;
+  resize: none;
+}
+
+.chat-terminal #chat-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.chat-terminal .chat-send-btn {
+  background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-surface) 100%);
+  color: var(--accent-bright);
+  border: 1px solid var(--accent);
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: all 0.2s ease;
+}
+
+.chat-terminal .chat-send-btn:hover {
+  background: linear-gradient(180deg, var(--bg-hover) 0%, var(--bg-card) 100%);
+  border-color: var(--accent-bright);
+}
+
+.chat-terminal.collapsed .chat-messages,
+.chat-terminal.collapsed .chat-input-container {
+  display: none;
+}
+
+/* ============================================
+   PROJECT SIDEBAR - NAVY/SILVER
+   ============================================ */
+.project-sidebar {
+  position: fixed;
+  left: 0;
+  top: 60px;
+  bottom: 0;
+  width: 280px;
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border-subtle);
+  overflow-y: auto;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.sidebar-header h2 {
+  color: var(--accent-bright);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.new-project-btn {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.new-project-btn:hover {
+  background: var(--accent);
+  color: var(--bg-base);
+}
+
+.project-section {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.section-header-sidebar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.section-header-sidebar:hover {
+  background: var(--bg-card);
+}
+
+.project-count {
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+}
+
+.project-list {
+  padding: 0;
+}
+
+.project-item {
+  display: block;
+  padding: 10px 16px 10px 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+}
+
+.project-item:hover {
+  background: var(--bg-card);
+  border-left-color: var(--accent-dim);
+}
+
+.project-item.selected {
+  background: var(--bg-card);
+  border-left-color: var(--accent);
+}
+
+.project-item .project-name {
+  color: var(--text-white);
+  font-size: 0.875rem;
+  margin-bottom: 2px;
+}
+
+.project-item .project-meta {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.project-item.delivered {
+  opacity: 0.7;
+}
+
+.delivered-section .section-header-sidebar {
+  color: var(--status-success);
+}
+
+/* Main content shift when sidebar is visible */
+.has-sidebar .main-content {
+  margin-left: 280px;
+  max-width: calc(1400px - 280px);
+}
+
+/* ============================================
+   NEW PROJECT MODAL
+   ============================================ */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal-overlay.visible {
+  display: flex;
+}
+
+.modal-content {
+  background: var(--bg-card);
+  border: 1px solid var(--accent-dim);
+  border-radius: 8px;
+  padding: 24px;
+  width: 400px;
+  max-width: 90vw;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.modal-header h3 {
+  color: var(--accent-bright);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  color: var(--accent);
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  color: var(--text-white);
+  font-size: 0.9rem;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.form-group select option {
+  background: var(--bg-surface);
+  color: var(--text-white);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn-primary {
+  background: linear-gradient(180deg, var(--bg-elevated) 0%, var(--bg-card) 100%);
+  border: 1px solid var(--accent);
+  color: var(--accent-bright);
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(180deg, var(--bg-hover) 0%, var(--bg-elevated) 100%);
 }

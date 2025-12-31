@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-    <div class="app-wrapper">
+    <div class="app-wrapper has-sidebar">
         <!-- Header Bar -->
         <header class="header-bar">
             <div class="header-brand">
@@ -15,10 +15,58 @@
                 <span class="header-title">TRAJANUS</span>
             </div>
             <div class="header-controls">
-                <button class="header-icon-btn" title="Settings">&#9881;</button>
-                <button class="header-icon-btn" title="User">&#128100;</button>
+                <button class="header-icon-btn" title="Settings" onclick="log('Settings coming soon...', 'info')">&#9881;</button>
+                <button class="header-icon-btn" title="User" onclick="log('User profile coming soon...', 'info')">&#128100;</button>
             </div>
         </header>
+
+        <!-- Project Sidebar -->
+        <nav class="project-sidebar">
+            <div class="sidebar-header">
+                <h2>PROJECTS</h2>
+                <button class="new-project-btn" onclick="showNewProjectModal()">+ New</button>
+            </div>
+
+            <div class="project-section">
+                <div class="section-header-sidebar" onclick="toggleSection('traffic')">
+                    <span>&#128678; Traffic Studies</span>
+                    <span class="project-count" id="traffic-count">0</span>
+                </div>
+                <div class="project-list" id="traffic-projects"></div>
+            </div>
+
+            <div class="project-section">
+                <div class="section-header-sidebar" onclick="toggleSection('qcm')">
+                    <span>&#10003; Quality Control</span>
+                    <span class="project-count" id="qcm-count">0</span>
+                </div>
+                <div class="project-list" id="qcm-projects"></div>
+            </div>
+
+            <div class="project-section">
+                <div class="section-header-sidebar" onclick="toggleSection('pm')">
+                    <span>&#128203; Project Management</span>
+                    <span class="project-count" id="pm-count">0</span>
+                </div>
+                <div class="project-list" id="pm-projects"></div>
+            </div>
+
+            <div class="project-section">
+                <div class="section-header-sidebar" onclick="toggleSection('dev')">
+                    <span>&#128736; Development</span>
+                    <span class="project-count" id="dev-count">0</span>
+                </div>
+                <div class="project-list" id="dev-projects"></div>
+            </div>
+
+            <div class="project-section delivered-section">
+                <div class="section-header-sidebar" onclick="toggleSection('delivered')">
+                    <span>&#128230; Client Deliverables</span>
+                    <span class="project-count" id="delivered-count">0</span>
+                </div>
+                <div class="project-list" id="delivered-projects"></div>
+            </div>
+        </nav>
 
         <!-- Main Content -->
         <main class="main-content">
@@ -32,7 +80,7 @@
                 <h2 class="greeting">
                     <span id="greeting-text">Good morning</span>, <span class="greeting-name">Bill</span>.
                 </h2>
-                <span class="current-date" id="current-date">December 29, 2025</span>
+                <span class="current-date" id="current-date">December 31, 2025</span>
             </div>
 
             <!-- Welcome Section -->
@@ -45,6 +93,26 @@
                     workflows with AI-assisted tools and automation.
                 </p>
             </section>
+
+            <!-- TRAJANUS CHAT TERMINAL -->
+            <div class="chat-terminal-container">
+              <div class="chat-terminal">
+                <div class="chat-header">
+                  <span class="chat-title">TRAJANUS EI&#8482;</span>
+                  <span class="chat-status">&#9679; Online</span>
+                  <button class="chat-collapse-btn" onclick="toggleChat()">&#8722;</button>
+                </div>
+                <div class="chat-messages" id="chat-messages">
+                  <div class="message assistant">
+                    <span class="message-text">Trajanus ready. How can I assist?</span>
+                  </div>
+                </div>
+                <div class="chat-input-container">
+                  <textarea id="chat-input" placeholder="Ask Trajanus..." rows="2"></textarea>
+                  <button class="chat-send-btn" onclick="sendMessage()">SEND</button>
+                </div>
+              </div>
+            </div>
 
             <!-- Platforms Section -->
             <section class="platforms-section">
@@ -70,7 +138,7 @@
                     <!-- Project Management -->
                     <a href="toolkits/pm.html" class="platform-card">
                         <h3 class="platform-title">Project Management</h3>
-                        <p class="platform-subtitle">Knomad Prime's Workspace</p>
+                        <p class="platform-subtitle">User Workspace</p>
                         <p class="platform-description">
                             Integrated scheduling, cost tracking, and document control for federal construction contracts.
                             Connects to Primavera P6, Procore, and Corps of Engineers systems.
@@ -85,7 +153,7 @@
                     <!-- Quality Control -->
                     <a href="toolkits/qcm.html" class="platform-card">
                         <h3 class="platform-title">Quality Control</h3>
-                        <p class="platform-subtitle">Knomad Prime's Workspace</p>
+                        <p class="platform-subtitle">User Workspace</p>
                         <p class="platform-description">
                             Submittal processing, inspection documentation, and deficiency tracking.
                             Interfaces with RMS 3.0 and generates QC reports for USACE compliance.
@@ -99,7 +167,7 @@
                     <!-- Traffic Studies -->
                     <a href="toolkits/traffic.html" class="platform-card">
                         <h3 class="platform-title">Traffic Studies</h3>
-                        <p class="platform-subtitle">Knomad Prime's Workspace</p>
+                        <p class="platform-subtitle">User Workspace</p>
                         <p class="platform-description">
                             Traffic impact analysis and study generation. Processes data from Synchro, HCS,
                             and field counts to produce jurisdiction-compliant reports.
@@ -112,55 +180,14 @@
                 </div>
             </section>
 
-            <!-- Active Projects -->
+            <!-- Active Projects (Now dynamic) -->
             <section class="projects-section">
                 <div class="section-header">
                     <h2 class="section-title">Active Projects</h2>
                 </div>
 
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <div class="project-name">SOUTHCOM Guatemala</div>
-                        <div class="project-subtitle">Infrastructure</div>
-                        <div class="project-divider"></div>
-                        <div class="project-details">
-                            Contract: W9127823R0034<br>
-                            Value: $47.2M<br>
-                            Type: Federal Construction
-                            <div class="project-status">
-                                <span class="status-dot active"></span>
-                                <span>Active - Day 847</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="project-card">
-                        <div class="project-name">Grace Fellowship</div>
-                        <div class="project-subtitle">Traffic Study</div>
-                        <div class="project-divider"></div>
-                        <div class="project-details">
-                            Client: Grace Fellowship Church<br>
-                            Type: Traffic Impact Analysis
-                            <div class="project-status">
-                                <span class="status-dot active"></span>
-                                <span>Active</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="project-card">
-                        <div class="project-name">Base Housing - Kwajalein</div>
-                        <div class="project-subtitle">Military Housing</div>
-                        <div class="project-divider"></div>
-                        <div class="project-details">
-                            Location: Kwajalein Atoll, Marshall Islands<br>
-                            Type: Military Housing
-                            <div class="project-status">
-                                <span class="status-dot planning"></span>
-                                <span>Planning</span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="projects-grid" id="active-projects-grid">
+                    <!-- Dynamically populated -->
                 </div>
             </section>
 
@@ -190,35 +217,6 @@
                 </div>
             </section>
 
-            <!-- Claude Assistant -->
-            <section class="claude-section">
-                <div class="section-header">
-                    <h2 class="section-title">Claude Assistant</h2>
-                </div>
-
-                <div class="chat-container">
-                    <div class="chat-header">
-                        <h3>Claude Assistant</h3>
-                        <div class="chat-actions">
-                            <button class="chat-action" onclick="Chat.clear()">Clear</button>
-                        </div>
-                    </div>
-                    <div class="chat-messages" id="chatMessages">
-                        <div class="chat-welcome">
-                            Welcome to the Trajanus Claude Assistant. Ask questions about your projects,
-                            get help with tasks, or start a conversation.
-                        </div>
-                    </div>
-                    <div class="chat-input-area">
-                        <textarea id="chatInput" placeholder="Message Claude..." rows="1" onkeydown="Chat.handleKeydown(event)"></textarea>
-                        <button class="tool-button primary" id="sendBtn" onclick="Chat.send()">Send</button>
-                    </div>
-                    <div class="chat-footer">
-                        <a href="toolkits/developer.html">Open Full Chat in Developer Toolkit &#8594;</a>
-                    </div>
-                </div>
-            </section>
-
             <!-- Applications -->
             <section class="applications-section">
                 <div class="section-header">
@@ -231,18 +229,18 @@
                         <ul class="app-list">
                             <li><a href="https://rms.usace.army.mil" target="_blank" class="app-link"><span class="app-link-icon">&#9670;</span> RMS 3.0</a></li>
                             <li><a href="https://cefms.usace.army.mil" target="_blank" class="app-link"><span class="app-link-icon">&#9670;</span> CEFMS</a></li>
-                            <li><a href="#" class="app-link"><span class="app-link-icon">&#9670;</span> ENG Form 4025</a></li>
-                            <li><a href="#" class="app-link"><span class="app-link-icon">&#9670;</span> eCMS</a></li>
+                            <li><a href="#" onclick="log('ENG Form 4025 coming soon...', 'info'); return false;" class="app-link"><span class="app-link-icon">&#9670;</span> ENG Form 4025</a></li>
+                            <li><a href="#" onclick="log('eCMS coming soon...', 'info'); return false;" class="app-link"><span class="app-link-icon">&#9670;</span> eCMS</a></li>
                         </ul>
                     </div>
 
                     <div class="app-category">
                         <h4>Project Controls</h4>
                         <ul class="app-list">
-                            <li><a href="#" class="app-link"><span class="app-link-icon">&#9670;</span> Primavera P6</a></li>
+                            <li><a href="#" onclick="log('Primavera P6 integration coming soon...', 'info'); return false;" class="app-link"><span class="app-link-icon">&#9670;</span> Primavera P6</a></li>
                             <li><a href="https://app.procore.com" target="_blank" class="app-link"><span class="app-link-icon">&#9670;</span> Procore</a></li>
-                            <li><a href="#" class="app-link"><span class="app-link-icon">&#9670;</span> Oracle Unifier</a></li>
-                            <li><a href="#" class="app-link"><span class="app-link-icon">&#9670;</span> Microsoft Project</a></li>
+                            <li><a href="#" onclick="log('Oracle Unifier coming soon...', 'info'); return false;" class="app-link"><span class="app-link-icon">&#9670;</span> Oracle Unifier</a></li>
+                            <li><a href="#" onclick="log('Microsoft Project coming soon...', 'info'); return false;" class="app-link"><span class="app-link-icon">&#9670;</span> Microsoft Project</a></li>
                         </ul>
                     </div>
 
@@ -260,8 +258,8 @@
                         <h4>Documentation</h4>
                         <ul class="app-list">
                             <li><a href="https://drive.google.com" target="_blank" class="app-link"><span class="app-link-icon">&#9670;</span> Google Drive</a></li>
-                            <li><a href="#" class="app-link"><span class="app-link-icon">&#9670;</span> SharePoint</a></li>
-                            <li><a href="#" class="app-link"><span class="app-link-icon">&#9670;</span> Bluebeam Revu</a></li>
+                            <li><a href="#" onclick="log('SharePoint coming soon...', 'info'); return false;" class="app-link"><span class="app-link-icon">&#9670;</span> SharePoint</a></li>
+                            <li><a href="#" onclick="log('Bluebeam Revu coming soon...', 'info'); return false;" class="app-link"><span class="app-link-icon">&#9670;</span> Bluebeam Revu</a></li>
                             <li><a href="https://github.com" target="_blank" class="app-link"><span class="app-link-icon">&#9670;</span> GitHub</a></li>
                         </ul>
                     </div>
@@ -273,7 +271,7 @@
         <footer class="footer">
             <span class="footer-item">Trajanus USA</span>
             <span class="footer-item">High Springs, FL</span>
-            <span class="footer-item">v0.4.0</span>
+            <span class="footer-item">v0.5.0</span>
             <span class="footer-item footer-status">
                 <span class="status-dot active"></span>
                 Connected
@@ -281,15 +279,366 @@
         </footer>
     </div>
 
+    <!-- New Project Modal -->
+    <div class="modal-overlay" id="newProjectModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>NEW PROJECT</h3>
+                <button class="modal-close" onclick="hideNewProjectModal()">&times;</button>
+            </div>
+            <div class="form-group">
+                <label for="newProjectName">Project Name</label>
+                <input type="text" id="newProjectName" placeholder="e.g., Grace Fellowship TIS">
+            </div>
+            <div class="form-group">
+                <label for="newProjectPlatform">Platform</label>
+                <select id="newProjectPlatform">
+                    <option value="">Select platform...</option>
+                    <option value="traffic">Traffic Studies</option>
+                    <option value="qcm">Quality Control</option>
+                    <option value="pm">Project Management</option>
+                    <option value="dev">Development</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="newProjectClient">Client Name</label>
+                <input type="text" id="newProjectClient" placeholder="e.g., Grace Fellowship Church">
+            </div>
+            <div class="form-group">
+                <label for="newProjectCreator">Creator</label>
+                <input type="text" id="newProjectCreator" value="Bill King">
+            </div>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="hideNewProjectModal()">Cancel</button>
+                <button class="btn-primary" onclick="createProject()">Create Project</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Tauri API
         const { invoke } = window.__TAURI__.core;
 
-        // Hub Controller
+        // ============================================
+        // LOGGING SYSTEM
+        // ============================================
+        function log(message, type = 'info') {
+            const prefix = {
+                'info': '[INFO]',
+                'success': '[SUCCESS]',
+                'warning': '[WARNING]',
+                'error': '[ERROR]'
+            };
+            console.log(`${prefix[type] || '[LOG]'} ${message}`);
+
+            // Show toast notification
+            showToast(message, type);
+        }
+
+        function showToast(message, type = 'info') {
+            // Remove existing toast
+            const existing = document.querySelector('.toast');
+            if (existing) existing.remove();
+
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 80px;
+                right: 20px;
+                padding: 12px 20px;
+                background: var(--bg-card);
+                border: 1px solid var(--accent-dim);
+                border-left: 3px solid ${type === 'error' ? 'var(--status-error)' : type === 'success' ? 'var(--status-success)' : 'var(--accent)'};
+                color: var(--text-white);
+                border-radius: 4px;
+                z-index: 9999;
+                animation: slideIn 0.3s ease;
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // ============================================
+        // PROJECT STORE
+        // ============================================
+        const projectStore = {
+            projects: [],
+
+            create: function(projectData) {
+                const id = `PRJ-${new Date().getFullYear()}-${String(this.projects.length + 1).padStart(3, '0')}`;
+                const project = {
+                    id: id,
+                    ...projectData,
+                    createdAt: new Date().toISOString(),
+                    status: 'active',
+                    documents: [],
+                    lastModified: new Date().toISOString(),
+                    deliveredAt: null
+                };
+                this.projects.push(project);
+                this.save();
+                return project;
+            },
+
+            getByPlatform: function(platform) {
+                return this.projects.filter(p => p.platform === platform && p.status !== 'delivered');
+            },
+
+            getActive: function() {
+                return this.projects.filter(p => p.status === 'active');
+            },
+
+            getDelivered: function() {
+                return this.projects.filter(p => p.status === 'delivered');
+            },
+
+            markComplete: function(id) {
+                const project = this.projects.find(p => p.id === id);
+                if (project) {
+                    project.status = 'complete';
+                    project.lastModified = new Date().toISOString();
+                    this.save();
+                }
+            },
+
+            deliver: function(id) {
+                const project = this.projects.find(p => p.id === id);
+                if (project) {
+                    project.status = 'delivered';
+                    project.deliveredAt = new Date().toISOString();
+                    this.save();
+                }
+            },
+
+            save: function() {
+                localStorage.setItem('trajanus_projects', JSON.stringify(this.projects));
+            },
+
+            load: function() {
+                const stored = localStorage.getItem('trajanus_projects');
+                if (stored) {
+                    this.projects = JSON.parse(stored);
+                } else {
+                    // Initialize with default projects
+                    this.projects = [
+                        {
+                            id: 'PRJ-2025-001',
+                            name: 'SOUTHCOM Guatemala',
+                            platform: 'pm',
+                            creator: 'Bill King',
+                            createdAt: '2025-01-01T00:00:00Z',
+                            status: 'active',
+                            client: 'USACE',
+                            documents: [],
+                            notes: 'Contract: W9127823R0034, Value: $47.2M',
+                            lastModified: new Date().toISOString(),
+                            deliveredAt: null
+                        },
+                        {
+                            id: 'PRJ-2025-002',
+                            name: 'Grace Fellowship TIS',
+                            platform: 'traffic',
+                            creator: 'Bill King',
+                            createdAt: '2025-12-01T00:00:00Z',
+                            status: 'active',
+                            client: 'Grace Fellowship Church',
+                            documents: [],
+                            notes: 'Traffic Impact Study',
+                            lastModified: new Date().toISOString(),
+                            deliveredAt: null
+                        },
+                        {
+                            id: 'PRJ-2025-003',
+                            name: 'Base Housing - Kwajalein',
+                            platform: 'pm',
+                            creator: 'Bill King',
+                            createdAt: '2025-06-01T00:00:00Z',
+                            status: 'active',
+                            client: 'US Army',
+                            documents: [],
+                            notes: 'Military Housing, Kwajalein Atoll',
+                            lastModified: new Date().toISOString(),
+                            deliveredAt: null
+                        }
+                    ];
+                    this.save();
+                }
+            }
+        };
+
+        // ============================================
+        // PROJECT UI FUNCTIONS
+        // ============================================
+        let currentProject = null;
+
+        function formatDate(isoString) {
+            if (!isoString) return 'N/A';
+            const date = new Date(isoString);
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+
+        function renderProjectList() {
+            const platforms = ['traffic', 'qcm', 'pm', 'dev'];
+
+            platforms.forEach(platform => {
+                const projects = projectStore.getByPlatform(platform);
+                const container = document.getElementById(`${platform}-projects`);
+                const countEl = document.getElementById(`${platform}-count`);
+
+                if (countEl) countEl.textContent = projects.length;
+
+                if (container) {
+                    container.innerHTML = projects.map(p => `
+                        <div class="project-item ${p.status} ${currentProject && currentProject.id === p.id ? 'selected' : ''}"
+                             id="project-${p.id}"
+                             onclick="selectProject('${p.id}')">
+                            <div class="project-name">${p.name}</div>
+                            <div class="project-meta">${p.creator} &bull; ${formatDate(p.lastModified)}</div>
+                        </div>
+                    `).join('');
+                }
+            });
+
+            // Delivered projects
+            const delivered = projectStore.getDelivered();
+            const deliveredCount = document.getElementById('delivered-count');
+            const deliveredContainer = document.getElementById('delivered-projects');
+
+            if (deliveredCount) deliveredCount.textContent = delivered.length;
+            if (deliveredContainer) {
+                deliveredContainer.innerHTML = delivered.map(p => `
+                    <div class="project-item delivered" id="project-${p.id}" onclick="selectProject('${p.id}')">
+                        <div class="project-name">${p.name}</div>
+                        <div class="project-meta">Delivered ${formatDate(p.deliveredAt)}</div>
+                    </div>
+                `).join('');
+            }
+
+            // Render active projects grid
+            renderActiveProjectsGrid();
+        }
+
+        function renderActiveProjectsGrid() {
+            const activeProjects = projectStore.getActive().slice(0, 6);
+            const grid = document.getElementById('active-projects-grid');
+
+            if (!grid) return;
+
+            if (activeProjects.length === 0) {
+                grid.innerHTML = '<div class="project-card"><div class="project-name">No active projects</div><div class="project-subtitle">Create a new project to get started</div></div>';
+                return;
+            }
+
+            grid.innerHTML = activeProjects.map(p => {
+                const platformLabels = {
+                    'traffic': 'Traffic Study',
+                    'qcm': 'Quality Control',
+                    'pm': 'Project Management',
+                    'dev': 'Development'
+                };
+                return `
+                    <div class="project-card" onclick="selectProject('${p.id}')" style="cursor: pointer;">
+                        <div class="project-name">${p.name}</div>
+                        <div class="project-subtitle">${platformLabels[p.platform] || p.platform}</div>
+                        <div class="project-divider"></div>
+                        <div class="project-details">
+                            Client: ${p.client || 'N/A'}<br>
+                            ${p.notes || ''}
+                            <div class="project-status">
+                                <span class="status-dot active"></span>
+                                <span>${p.status.charAt(0).toUpperCase() + p.status.slice(1)}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function selectProject(projectId) {
+            const project = projectStore.projects.find(p => p.id === projectId);
+            if (!project) return;
+
+            currentProject = project;
+
+            // Update sidebar selection
+            document.querySelectorAll('.project-item').forEach(el => el.classList.remove('selected'));
+            const projectEl = document.getElementById(`project-${projectId}`);
+            if (projectEl) projectEl.classList.add('selected');
+
+            // Navigate to appropriate platform
+            const platformUrls = {
+                'traffic': 'toolkits/traffic.html',
+                'qcm': 'toolkits/qcm.html',
+                'pm': 'toolkits/pm.html',
+                'dev': 'toolkits/developer.html'
+            };
+
+            if (platformUrls[project.platform]) {
+                log(`Opening project: ${project.name}`, 'success');
+                // Store selected project for the platform page
+                sessionStorage.setItem('currentProject', JSON.stringify(project));
+                window.location.href = platformUrls[project.platform];
+            }
+        }
+
+        function toggleSection(platform) {
+            const list = document.getElementById(`${platform}-projects`);
+            if (list) {
+                list.style.display = list.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+
+        // ============================================
+        // NEW PROJECT MODAL
+        // ============================================
+        function showNewProjectModal() {
+            document.getElementById('newProjectModal').classList.add('visible');
+        }
+
+        function hideNewProjectModal() {
+            document.getElementById('newProjectModal').classList.remove('visible');
+            // Clear form
+            document.getElementById('newProjectName').value = '';
+            document.getElementById('newProjectPlatform').value = '';
+            document.getElementById('newProjectClient').value = '';
+        }
+
+        function createProject() {
+            const name = document.getElementById('newProjectName').value.trim();
+            const platform = document.getElementById('newProjectPlatform').value;
+            const client = document.getElementById('newProjectClient').value.trim();
+            const creator = document.getElementById('newProjectCreator').value.trim() || 'Bill King';
+
+            if (!name || !platform) {
+                log('Project name and platform are required', 'error');
+                return;
+            }
+
+            const project = projectStore.create({
+                name: name,
+                platform: platform,
+                client: client,
+                creator: creator,
+                notes: ''
+            });
+
+            renderProjectList();
+            hideNewProjectModal();
+
+            log(`Created project: ${project.name} (${project.id})`, 'success');
+        }
+
+        // ============================================
+        // HUB CONTROLLER
+        // ============================================
         const Hub = {
             init() {
                 this.updateGreeting();
                 this.updateDate();
+                projectStore.load();
+                renderProjectList();
             },
 
             updateGreeting() {
@@ -315,12 +664,13 @@
                             await invoke('run_python_script', {
                                 scriptPath: SCRIPTS_PATH + 'CONVERT_MD_TO_GDOCS_PERMANENT.py'
                             });
+                            log('Launching MD to Docs converter...', 'success');
                         } catch(e) {
-                            console.error('Failed to launch MD to Docs:', e);
+                            log('Failed to launch MD to Docs: ' + e, 'error');
                         }
                         break;
                     case 'xer-parse':
-                        console.log('XER Parse - Coming soon');
+                        log('XER Parse - Coming soon...', 'info');
                         break;
                     case 'converter':
                         window.location.href = 'toolkits/developer.html';
@@ -330,109 +680,133 @@
                             await invoke('run_python_script', {
                                 scriptPath: SCRIPTS_PATH + 'SCRIPT_BROWSER.py'
                             });
+                            log('Launching Script Browser...', 'success');
                         } catch(e) {
-                            console.error('Failed to launch browser:', e);
+                            log('Script Browser not found', 'warning');
                         }
                         break;
+                    default:
+                        log(`Unknown tool: ${tool}`, 'warning');
                 }
             }
         };
 
-        // Chat Controller
-        const Chat = {
-            messages: [],
-            isStreaming: false,
-
-            async send() {
-                const input = document.getElementById('chatInput');
-                const message = input.value.trim();
-                if (!message || this.isStreaming) return;
-
-                // Add user message
-                this.addMessage('user', message);
-                input.value = '';
-
-                // Show typing indicator
-                this.isStreaming = true;
-                document.getElementById('sendBtn').disabled = true;
-                const typingEl = this.showTyping();
-
-                try {
-                    const response = await invoke('chat_with_claude', {
-                        message: message,
-                        context: 'You are Claude, an AI assistant embedded in the Trajanus Enterprise Hub. This is a command center for construction project management. Be helpful, concise, and professional.'
-                    });
-
-                    typingEl.remove();
-                    this.addMessage('assistant', response);
-                } catch (error) {
-                    typingEl.remove();
-                    this.addMessage('assistant', 'Error connecting to Claude. Please try again.');
-                    console.error('Chat error:', error);
-                }
-
-                this.isStreaming = false;
-                document.getElementById('sendBtn').disabled = false;
-            },
-
-            addMessage(role, content) {
-                const container = document.getElementById('chatMessages');
-
-                // Remove welcome message if present
-                const welcome = container.querySelector('.chat-welcome');
-                if (welcome) welcome.remove();
-
-                const msgEl = document.createElement('div');
-                msgEl.className = `message ${role}`;
-                msgEl.innerHTML = `<div class="message-content">${this.formatMessage(content)}</div>`;
-                container.appendChild(msgEl);
-                container.scrollTop = container.scrollHeight;
-
-                this.messages.push({ role, content });
-            },
-
-            formatMessage(text) {
-                // Basic markdown: bold, code blocks, inline code
-                return text
-                    .replace(/```(\w*)\n?([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
-                    .replace(/`([^`]+)`/g, '<code>$1</code>')
-                    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-                    .replace(/\n/g, '<br>');
-            },
-
-            showTyping() {
-                const container = document.getElementById('chatMessages');
-                const typing = document.createElement('div');
-                typing.className = 'typing-indicator';
-                typing.innerHTML = '<span></span><span></span><span></span>';
-                container.appendChild(typing);
-                container.scrollTop = container.scrollHeight;
-                return typing;
-            },
-
-            handleKeydown(e) {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    this.send();
-                }
-            },
-
-            clear() {
-                const container = document.getElementById('chatMessages');
-                container.innerHTML = `
-                    <div class="chat-welcome">
-                        Welcome to the Trajanus Claude Assistant. Ask questions about your projects,
-                        get help with tasks, or start a conversation.
-                    </div>
-                `;
-                this.messages = [];
+        // ============================================
+        // CHAT TERMINAL
+        // ============================================
+        // API key loaded from localStorage or prompted from user
+        function getApiKey() {
+            let key = localStorage.getItem('anthropic_api_key');
+            if (!key) {
+                key = prompt('Enter your Anthropic API key:');
+                if (key) localStorage.setItem('anthropic_api_key', key);
             }
-        };
+            return key;
+        }
 
-        // Initialize on load
+        const systemPrompt = `You are Trajanus, the AI assistant embedded in the Trajanus Enterprise Hub. You specialize in:
+- Tauri 2.0 application development
+- Rust backend programming
+- JavaScript/TypeScript frontend
+- Construction management workflows (Procore, P6, RMS 3.0)
+- Debugging and architecture decisions
+- Federal contract compliance (USACE, NAVFAC)
+- Traffic impact studies and engineering
+
+You work for Bill King (Knomad Prime) at Trajanus USA. Be direct, technical, and action-oriented. No fluff or platitudes. Military-style communication appreciated.`;
+
+        let chatHistory = [];
+
+        function toggleChat() {
+            const terminal = document.querySelector('.chat-terminal');
+            const btn = document.querySelector('.chat-collapse-btn');
+            terminal.classList.toggle('collapsed');
+            btn.innerHTML = terminal.classList.contains('collapsed') ? '+' : '&#8722;';
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const messagesDiv = document.getElementById('chat-messages');
+            const userText = input.value.trim();
+
+            if (!userText) return;
+
+            // Add user message to UI
+            messagesDiv.innerHTML += `<div class="message user"><span class="message-text">${userText}</span></div>`;
+            input.value = '';
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+            // Add to history
+            chatHistory.push({ role: 'user', content: userText });
+
+            const apiKey = getApiKey();
+            if (!apiKey) {
+                messagesDiv.innerHTML += `<div class="message assistant"><span class="message-text">API key required. Refresh to try again.</span></div>`;
+                return;
+            }
+
+            try {
+                const response = await fetch('https://api.anthropic.com/v1/messages', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-api-key': apiKey,
+                        'anthropic-version': '2023-06-01',
+                        'anthropic-dangerous-direct-browser-access': 'true'
+                    },
+                    body: JSON.stringify({
+                        model: 'claude-sonnet-4-20250514',
+                        max_tokens: 1024,
+                        system: systemPrompt,
+                        messages: chatHistory
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    messagesDiv.innerHTML += `<div class="message assistant"><span class="message-text">API Error: ${data.error.message}</span></div>`;
+                    return;
+                }
+
+                if (!data.content || !data.content[0]) {
+                    messagesDiv.innerHTML += `<div class="message assistant"><span class="message-text">Unexpected response. Check console.</span></div>`;
+                    console.log('Full response:', data);
+                    return;
+                }
+
+                const assistantMessage = data.content[0].text;
+                chatHistory.push({ role: 'assistant', content: assistantMessage });
+                messagesDiv.innerHTML += `<div class="message assistant"><span class="message-text">${assistantMessage}</span></div>`;
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+            } catch (error) {
+                messagesDiv.innerHTML += `<div class="message assistant"><span class="message-text">Error: ${error.message}</span></div>`;
+            }
+        }
+
+        // ============================================
+        // INITIALIZATION
+        // ============================================
         document.addEventListener('DOMContentLoaded', () => {
             Hub.init();
+
+            // Chat enter key handler
+            document.getElementById('chat-input').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
         });
     </script>
+
+    <style>
+        /* Toast animation */
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
 </body>
 </html>

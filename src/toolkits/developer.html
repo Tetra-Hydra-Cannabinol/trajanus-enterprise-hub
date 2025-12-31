@@ -9,22 +9,29 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --bg-base: #0d0d0d;
-            --bg-surface: #141414;
-            --bg-card: #1a1a1a;
-            --bg-elevated: #252525;
-            --gold: #d4a574;
-            --gold-hover: #e8922a;
+            /* Navy/Silver Palette */
+            --bg-base: #0a0f14;
+            --bg-surface: #0d1b2a;
+            --bg-card: #1a2d42;
+            --bg-elevated: #243447;
+            --bg-hover: #2d4a6a;
+            --accent: #c0c0c0;
+            --accent-bright: #e0e0e0;
+            --accent-dim: #808080;
+            --accent-hover: #f0f0f0;
+            /* Legacy aliases */
+            --gold: #c0c0c0;
+            --gold-hover: #e0e0e0;
             --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
-            --text-muted: #666666;
-            --border-subtle: #2a2a2a;
-            --border-accent: #333333;
-            --success: #4ade80;
+            --text-secondary: #8892a0;
+            --text-muted: #606878;
+            --border-subtle: #2d4a6a;
+            --border-accent: #c0c0c0;
+            --success: #4a9f4a;
             --info: #60a5fa;
-            --warning: #f59e0b;
+            --warning: #c4944a;
             --purple: #a78bfa;
-            --error: #ef4444;
+            --error: #c44a4a;
             --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --font-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
         }
@@ -1330,6 +1337,98 @@
         </div>
 
         <!-- ========================== -->
+        <!-- PYTHON TOOLS SECTION       -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">PYTHON TOOLS</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Navy/Silver themed GUI tools for knowledge base operations, file conversion, and research automation.
+                Each tool opens in its own managed window.
+            </p>
+        </div>
+
+        <!-- Knowledge Base Tools -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Knowledge Base Tools</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <p class="subsection-description">GUI tools for querying and ingesting documents into the Trajanus Knowledge Base.</p>
+            <div class="script-grid">
+                <div class="script-card data" onclick="Scripts.run('QUERY_KB_TOOL.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Query KB Tool</div>
+                        <div class="script-description">Semantic search, browse sources, view recent documents</div>
+                    </div>
+                </div>
+                <div class="script-card data" onclick="Scripts.run('BATCH_INGEST_TOOL.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Batch Ingest Tool</div>
+                        <div class="script-description">Single file, batch folder, or multi-select ingestion</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Converter Tools -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Converter Tools</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <p class="subsection-description">Convert documents between formats with Google Drive integration.</p>
+            <div class="script-grid">
+                <div class="script-card conversion" onclick="Scripts.run('CONVERT_MD_TO_GDOCS_PERMANENT.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">MD → GDocs Tool</div>
+                        <div class="script-description">Convert Markdown files to Google Docs format</div>
+                    </div>
+                </div>
+                <div class="script-card conversion" onclick="Scripts.run('CONVERT_GDOCS_TO_DOCX.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">GDocs → DOCX Tool</div>
+                        <div class="script-description">Export Google Docs to Word document format</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Research & Agent Tools -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Research & Agent Tools</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <p class="subsection-description">YouTube transcript extraction and research agent management.</p>
+            <div class="script-grid">
+                <div class="script-card agent" onclick="Scripts.run('YOUTUBE_TRANSCRIPT_TOOL.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">YouTube Transcripts</div>
+                        <div class="script-description">Scan, extract transcripts, ingest to KB, full pipeline</div>
+                    </div>
+                </div>
+                <div class="script-card agent" onclick="Scripts.run('AGENT_RUNNER_TOOL.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Agent Runner</div>
+                        <div class="script-description">Launch research agents: YouTube, Document Hunter, KB Ingester</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================== -->
         <!-- AGENTS SECTION             -->
         <!-- ========================== -->
         <div class="section-divider">
@@ -1437,36 +1536,21 @@
     </main>
 
     <script>
-        // Safely get invoke - handle if Tauri not ready
-        let invoke;
-        try {
-            if (window.__TAURI__ && window.__TAURI__.core) {
-                invoke = window.__TAURI__.core.invoke;
-                console.log('Tauri invoke loaded successfully');
-            } else {
-                console.error('Tauri not available at script load');
-                invoke = async (cmd, args) => {
-                    console.error('Tauri invoke called but not available:', cmd, args);
-                    throw new Error('Tauri not available');
-                };
-            }
-        } catch (e) {
-            console.error('Error loading Tauri invoke:', e);
-            invoke = async (cmd, args) => {
-                throw new Error('Tauri not available: ' + e);
-            };
-        }
-
         const PROJECT_PATH = 'C:\\Dev\\trajanus-command-center';
         const SCRIPTS_PATH = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\';
+
+        // Get invoke function - Tauri 2.0 with withGlobalTauri
+        function getInvoke() {
+            if (window.__TAURI__ && window.__TAURI__.core && window.__TAURI__.core.invoke) {
+                return window.__TAURI__.core.invoke;
+            }
+            return null;
+        }
 
         // Initialize greeting and date
         document.addEventListener('DOMContentLoaded', () => {
             updateGreeting();
             updateDate();
-            console.log('Developer Toolkit ready');
-            console.log('Tauri check:', !!window.__TAURI__);
-            console.log('invoke type:', typeof invoke);
         });
 
         function updateGreeting() {
@@ -1506,7 +1590,9 @@
             },
 
             async launch(appKey) {
-                console.log(`Launching ${appKey}...`);
+                const invoke = getInvoke();
+                if (!invoke) return;
+
                 try {
                     if (appKey === 'vscode') {
                         await invoke('launch_vscode', { path: PROJECT_PATH });
@@ -1519,7 +1605,6 @@
                     } else {
                         await invoke('open_path', { path: this.commands[appKey] });
                     }
-                    console.log(`${appKey} launched`);
                 } catch (e) {
                     console.error(`Failed to launch ${appKey}: ${e}`);
                 }
@@ -1529,12 +1614,13 @@
         // Script Runner
         const Scripts = {
             async run(scriptName) {
-                console.log(`Running: ${scriptName}...`);
+                const invoke = getInvoke();
+                if (!invoke) return;
+
                 try {
                     await invoke('run_python_script', {
-                        script_path: SCRIPTS_PATH + scriptName
+                        scriptPath: SCRIPTS_PATH + scriptName
                     });
-                    console.log(`Script launched: ${scriptName}`);
                 } catch (e) {
                     console.error(`Failed to run ${scriptName}: ${e}`);
                 }
@@ -1630,6 +1716,12 @@
                 this.setLoading(true);
 
                 try {
+                    // Get invoke function
+                    const invoke = getInvoke();
+                    if (!invoke) {
+                        throw new Error('Tauri not available');
+                    }
+
                     // Call Claude API via Tauri
                     const response = await invoke('chat_with_claude', {
                         message: message,
