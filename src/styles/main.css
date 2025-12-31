@@ -1293,3 +1293,92 @@ a:hover {
 .btn-primary:hover {
   background: linear-gradient(180deg, var(--bg-hover) 0%, var(--bg-elevated) 100%);
 }
+
+/* ============================================
+   STICKY NAVIGATION BUTTONS
+   ============================================ */
+.sticky-nav {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 9999;
+}
+
+.nav-btn {
+    background: linear-gradient(180deg, #1a2d42 0%, #0d1b2a 100%);
+    border: 1px solid #c0c0c0;
+    color: #c0c0c0;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    min-width: 70px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    transition: all 0.2s;
+}
+
+.nav-btn:hover {
+    background: linear-gradient(180deg, #2a4a6a 0%, #1a2d42 100%);
+    border-color: #e0e0e0;
+    color: #e0e0e0;
+}
+
+/* ============================================
+   PROJECT STATUS COLORS
+   ============================================ */
+.project-status-active {
+    border-left: 4px solid #4CAF50 !important; /* GREEN - Active */
+}
+
+.project-status-pending {
+    border-left: 4px solid #FFC107 !important; /* YELLOW - Pending */
+}
+
+.project-status-completed {
+    border-left: 4px solid #2196F3 !important; /* BLUE - Completed */
+}
+
+/* ============================================
+   COMPACT PROJECT CARDS
+   ============================================ */
+.projects-grid.compact {
+    gap: var(--space-md);
+}
+
+.project-card.compact {
+    padding: var(--space-md);
+}
+
+.project-card.compact .project-name {
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+}
+
+.project-card.compact .project-subtitle {
+    font-size: 0.75rem;
+    margin-bottom: var(--space-sm);
+}
+
+.project-card.compact .project-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+}
+
+.project-card.compact .project-client {
+    color: var(--text-muted);
+}
+
+.project-card.compact .project-status-label {
+    color: var(--accent);
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+}

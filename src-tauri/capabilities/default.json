@@ -1,8 +1,8 @@
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
-  "description": "Capability for the main window with embedded Claude webview",
-  "windows": ["main", "claude-embedded"],
+  "description": "Capability for main window with Claude multiwebview (Quad Chat)",
+  "windows": ["main", "claude-embedded", "claude-quad-1", "claude-quad-2", "claude-quad-3"],
   "permissions": [
     "core:default",
     "shell:allow-open",
@@ -15,7 +15,8 @@
     "core:webview:allow-create-webview-window",
     "core:webview:allow-set-webview-position",
     "core:webview:allow-set-webview-size",
-    "core:window:default"
+    "core:window:default",
+    "core:window:allow-inner-size"
   ],
   "remote": {
     "urls": ["https://claude.ai/*", "https://*.claude.ai/*"]

@@ -12,10 +12,11 @@
       {
         "label": "main",
         "title": "Trajanus Command Center",
-        "width": 1400,
-        "height": 900,
+        "width": 1280,
+        "height": 800,
         "resizable": true,
         "fullscreen": false,
+        "maximizable": true,
         "center": true
       }
     ],

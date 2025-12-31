@@ -860,6 +860,38 @@
             50% { opacity: 0.6; }
         }
 
+        /* Sticky Navigation Buttons */
+        .sticky-nav {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 9999;
+        }
+
+        .nav-btn {
+            background: linear-gradient(180deg, #1a2d42 0%, #0d1b2a 100%);
+            border: 1px solid #c0c0c0;
+            color: #c0c0c0;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            min-width: 70px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(180deg, #2a4a6a 0%, #1a2d42 100%);
+            border-color: #e0e0e0;
+            color: #e0e0e0;
+        }
+
         /* Welcome message */
         .chat-welcome {
             text-align: center;
@@ -1534,6 +1566,16 @@
         </div>
 
     </main>
+
+    <!-- Sticky Navigation Buttons -->
+    <div class="sticky-nav">
+        <button class="nav-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Return to Top">
+            ↑ Top
+        </button>
+        <button class="nav-btn" onclick="window.location.href='../index.html'" title="Back to Hub">
+            ⌂ Hub
+        </button>
+    </div>
 
     <script>
         const PROJECT_PATH = 'C:\\Dev\\trajanus-command-center';

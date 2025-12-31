@@ -357,6 +357,129 @@ async fn is_claude_embedded(app: tauri::AppHandle) -> bool {
     app.get_webview("claude-embedded").is_some()
 }
 
+// ==================== QUAD CHAT - MULTIPLE CLAUDE WEBVIEWS ====================
+
+/// Enable quad chat mode - creates 3 Claude.ai webviews alongside the main app
+/// Layout: Main app shrinks to top-left, 3 Claude panels fill the rest
+#[tauri::command]
+async fn enable_quad_chat(app: tauri::AppHandle) -> Result<String, String> {
+    println!("=== Enabling Quad Chat Mode ===");
+
+    // Get the main window
+    let webview_window = app.get_webview_window("main")
+        .ok_or("Main window not found")?;
+
+    let main_window = webview_window.as_ref().window();
+
+    // Get window size
+    let size = main_window.inner_size().map_err(|e| e.to_string())?;
+    let width = size.width as f64;
+    let height = size.height as f64;
+
+    println!("Window size: {}x{}", width, height);
+
+    // Calculate panel sizes (2x2 grid)
+    let panel_width = width / 2.0;
+    let panel_height = height / 2.0;
+
+    // User agent for Claude.ai
+    let user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
+
+    // Close existing quad chat webviews if they exist
+    for label in ["claude-quad-1", "claude-quad-2", "claude-quad-3"] {
+        if let Some(existing) = app.get_webview(label) {
+            let _ = existing.close();
+        }
+    }
+
+    // WEBVIEW 1: Claude.ai Chat 1 (top-right)
+    main_window.add_child(
+        WebviewBuilder::new(
+            "claude-quad-1",
+            WebviewUrl::External("https://claude.ai".parse().unwrap()),
+        )
+        .user_agent(user_agent)
+        .auto_resize(),
+        LogicalPosition::new(panel_width, 0.0),
+        LogicalSize::new(panel_width, panel_height),
+    ).map_err(|e| format!("Failed to create claude-quad-1: {}", e))?;
+
+    println!("Created claude-quad-1 at ({}, 0) size {}x{}", panel_width, panel_width, panel_height);
+
+    // WEBVIEW 2: Claude.ai Chat 2 (bottom-left)
+    main_window.add_child(
+        WebviewBuilder::new(
+            "claude-quad-2",
+            WebviewUrl::External("https://claude.ai".parse().unwrap()),
+        )
+        .user_agent(user_agent)
+        .auto_resize(),
+        LogicalPosition::new(0.0, panel_height),
+        LogicalSize::new(panel_width, panel_height),
+    ).map_err(|e| format!("Failed to create claude-quad-2: {}", e))?;
+
+    println!("Created claude-quad-2 at (0, {}) size {}x{}", panel_height, panel_width, panel_height);
+
+    // WEBVIEW 3: Claude.ai Chat 3 (bottom-right)
+    main_window.add_child(
+        WebviewBuilder::new(
+            "claude-quad-3",
+            WebviewUrl::External("https://claude.ai".parse().unwrap()),
+        )
+        .user_agent(user_agent)
+        .auto_resize(),
+        LogicalPosition::new(panel_width, panel_height),
+        LogicalSize::new(panel_width, panel_height),
+    ).map_err(|e| format!("Failed to create claude-quad-3: {}", e))?;
+
+    println!("Created claude-quad-3 at ({}, {}) size {}x{}", panel_width, panel_height, panel_width, panel_height);
+
+    // Resize the main webview to top-left quadrant
+    if let Some(main_webview) = app.get_webview("main") {
+        main_webview.set_position(LogicalPosition::new(0.0, 0.0)).map_err(|e| e.to_string())?;
+        main_webview.set_size(LogicalSize::new(panel_width, panel_height)).map_err(|e| e.to_string())?;
+        println!("Resized main webview to top-left quadrant");
+    }
+
+    Ok("Quad Chat Mode enabled - 3 Claude.ai panels created".to_string())
+}
+
+/// Disable quad chat mode - closes all Claude webviews and restores main app to full size
+#[tauri::command]
+async fn disable_quad_chat(app: tauri::AppHandle) -> Result<String, String> {
+    println!("=== Disabling Quad Chat Mode ===");
+
+    // Close all quad chat webviews
+    for label in ["claude-quad-1", "claude-quad-2", "claude-quad-3"] {
+        if let Some(webview) = app.get_webview(label) {
+            webview.close().map_err(|e| format!("Failed to close {}: {}", label, e))?;
+            println!("Closed {}", label);
+        }
+    }
+
+    // Get the main window to restore size
+    let webview_window = app.get_webview_window("main")
+        .ok_or("Main window not found")?;
+
+    let main_window = webview_window.as_ref().window();
+    let size = main_window.inner_size().map_err(|e| e.to_string())?;
+
+    // Restore main webview to full size
+    if let Some(main_webview) = app.get_webview("main") {
+        main_webview.set_position(LogicalPosition::new(0.0, 0.0)).map_err(|e| e.to_string())?;
+        main_webview.set_size(LogicalSize::new(size.width as f64, size.height as f64)).map_err(|e| e.to_string())?;
+        println!("Restored main webview to full size");
+    }
+
+    Ok("Quad Chat Mode disabled".to_string())
+}
+
+/// Check if quad chat mode is active
+#[tauri::command]
+async fn is_quad_chat_enabled(app: tauri::AppHandle) -> bool {
+    app.get_webview("claude-quad-1").is_some()
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
@@ -378,7 +501,10 @@ pub fn run() {
             embed_claude,
             close_claude,
             resize_claude,
-            is_claude_embedded
+            is_claude_embedded,
+            enable_quad_chat,
+            disable_quad_chat,
+            is_quad_chat_enabled
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
