@@ -1,28 +1,27 @@
-# Rust build artifacts
-target/
-
-# Node.js
-node_modules/
-
-# Build outputs
-dist/
-
-# Environment files
+# Environment
 .env
 .env.local
 .env.*.local
 
-# Logs
-*.log
-npm-debug.log*
+# Credentials
+*.key
+*.pem
+credentials/
+001 Credentials/
+token.pickle
+token.json
 
-# OS files
+# Build
+node_modules/
+target/
+dist/
+*.exe
+
+# IDE
+.vscode/
+.idea/
+
+# OS
 .DS_Store
 Thumbs.db
 nul
-
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
