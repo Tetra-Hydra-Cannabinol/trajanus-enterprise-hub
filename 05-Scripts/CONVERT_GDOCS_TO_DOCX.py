@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 """
-TRAJANUS GOOGLE DOCS TO DOCX CONVERTER
+TRAJANUS GDOCS-DOCX CONVERTER
 Export Google Docs (.gdoc files) to Word (.docx) format
-Standard Tool UI Template
-
-.gdoc files are JSON containing: {"url": "https://docs.google.com/document/d/FILE_ID/edit", ...}
+Enhanced with 3D buttons and scrollable interface
 """
 
 import os
@@ -25,27 +23,134 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload
 
 
+class BeveledButton(tk.Canvas):
+    """3D Beveled button with machine indicator light effect"""
+
+    def __init__(self, parent, text, command=None, width=180, height=40,
+                 bg_color='#d4a574', fg_color='#1a1a1a', style='gold', **kwargs):
+        super().__init__(parent, width=width, height=height,
+                        bg=parent.cget('bg'), highlightthickness=0, **kwargs)
+
+        self.command = command
+        self.text = text
+        self.width = width
+        self.height = height
+        self.style = style
+        self.pressed = False
+
+        self.schemes = {
+            'gold': {
+                'face': '#d4a574',
+                'light': '#f0c896',
+                'dark': '#8a6b4a',
+                'text': '#1a1a1a',
+                'glow': '#ffe4c4'
+            },
+            'dark': {
+                'face': '#404040',
+                'light': '#606060',
+                'dark': '#252525',
+                'text': '#ffffff',
+                'glow': '#555555'
+            },
+            'success': {
+                'face': '#4a9f4a',
+                'light': '#6abf6a',
+                'dark': '#2a7f2a',
+                'text': '#ffffff',
+                'glow': '#7fcf7f'
+            }
+        }
+
+        self.colors = self.schemes.get(style, self.schemes['gold'])
+        self.draw_button()
+
+        self.bind('<Enter>', self.on_enter)
+        self.bind('<Leave>', self.on_leave)
+        self.bind('<Button-1>', self.on_press)
+        self.bind('<ButtonRelease-1>', self.on_release)
+
+    def draw_button(self, pressed=False):
+        self.delete('all')
+        w, h = self.width, self.height
+        bevel = 3
+        colors = self.colors
+
+        if pressed:
+            outer_light = colors['dark']
+            outer_dark = colors['light']
+            face = colors['dark']
+        else:
+            outer_light = colors['light']
+            outer_dark = colors['dark']
+            face = colors['face']
+
+        self.create_polygon(8, 0, w-8, 0, w, 8, w-bevel, 8+bevel,
+            8+bevel, bevel, bevel, 8+bevel, bevel, h-8-bevel,
+            0, h-8, 0, 8, fill=outer_light, outline='')
+
+        self.create_polygon(w, 8, w, h-8, w-8, h, 8, h,
+            8+bevel, h-bevel, w-8-bevel, h-bevel,
+            w-bevel, h-8-bevel, w-bevel, 8+bevel, fill=outer_dark, outline='')
+
+        self.create_rectangle(bevel+1, bevel+1, w-bevel-1, h-bevel-1,
+            fill=face, outline='')
+
+        if not pressed:
+            self.create_rectangle(bevel+4, bevel+2, w-bevel-4, bevel+5,
+                fill=colors['glow'], outline='')
+
+        self.create_text(w/2, h/2 + (2 if pressed else 0),
+            text=self.text, font=('Segoe UI', 10, 'bold'), fill=colors['text'])
+
+    def on_enter(self, event):
+        self.config(cursor='hand2')
+
+    def on_leave(self, event):
+        self.config(cursor='')
+        if self.pressed:
+            self.pressed = False
+            self.draw_button(pressed=False)
+
+    def on_press(self, event):
+        self.pressed = True
+        self.draw_button(pressed=True)
+
+    def on_release(self, event):
+        if self.pressed:
+            self.pressed = False
+            self.draw_button(pressed=False)
+            if self.command:
+                self.command()
+
+
 class TrajanusGdocConverterGUI:
     def __init__(self, initial_path=None):
         self.root = tk.Tk()
-        self.root.title("Trajanus - GDocs to DOCX Converter")
-        self.root.geometry("624x520")
+        self.root.title("Trajanus - GDocs-DOCX Converter")
+        self.root.geometry("750x650")
         self.root.resizable(True, True)
-        self.root.minsize(480, 400)
+        self.root.minsize(650, 550)
 
-        # Standard colors (all tools use same palette)
+        # Navy/Gold palette for comparison
         self.colors = {
-            'bg': '#2d2d2d',
-            'sidebar': '#252525',
-            'card': '#363636',
+            'bg': '#0d1b2a',
+            'bg_light': '#1b263b',
+            'card': '#243447',
             'accent': '#d4a574',
-            'hover': '#e8922a',
+            'hover': '#e8b88a',
             'text': '#ffffff',
-            'text_dim': '#888888',
+            'text_dim': '#8892a0',
             'success': '#4a9f4a',
             'warning': '#e8922a',
             'error': '#e74c3c',
-            'border': '#333333'
+            'border': '#2d4a6a',
+            'divider': '#d4a574',
+            'btn_face': '#d4a574',
+            'btn_light': '#f0c896',
+            'btn_dark': '#8a6b4a',
+            'btn_text': '#0d1b2a',
+            'btn_glow': '#ffe4c4'
         }
 
         self.root.configure(bg=self.colors['bg'])
@@ -57,13 +162,14 @@ class TrajanusGdocConverterGUI:
 
         # Results storage
         self.converted_files = []
-        self.converted_paths = []  # Store full paths for opening
+        self.converted_paths = []
         self.skipped_files = []
         self.error_files = []
         self.output_folder = None
 
         # Current frame reference
         self.current_frame = None
+        self.scroll_canvas = None
 
         self.setup_header()
         self.connect_drive()
@@ -74,127 +180,156 @@ class TrajanusGdocConverterGUI:
             self.show_welcome_screen()
 
     def setup_header(self):
-        """Create persistent header"""
-        self.header = tk.Frame(self.root, bg=self.colors['accent'], height=50)
+        """Create compact header (matches other tools)"""
+        self.header = tk.Frame(self.root, bg=self.colors['accent'], height=35)
         self.header.pack(fill='x')
         self.header.pack_propagate(False)
 
         title = tk.Label(self.header,
-            text="TRAJANUS GDOCS TO DOCX",
-            font=('Segoe UI', 16, 'bold'),
+            text="TRAJANUS GDOCS-DOCX CONVERTER",
+            font=('Segoe UI', 12, 'bold'),
             bg=self.colors['accent'],
             fg='#1a1a1a')
-        title.pack(pady=12)
+        title.pack(pady=7)
 
         # Connection status bar
-        self.status_bar = tk.Frame(self.root, bg=self.colors['border'], height=25)
+        self.status_bar = tk.Frame(self.root, bg=self.colors['border'], height=24)
         self.status_bar.pack(fill='x')
         self.status_bar.pack_propagate(False)
 
         self.connection_label = tk.Label(self.status_bar,
             text="Connecting to Google Drive...",
-            font=('Segoe UI', 9),
+            font=('Segoe UI', 8),
             bg=self.colors['border'],
             fg=self.colors['text_dim'])
-        self.connection_label.pack(side='left', padx=15, pady=3)
+        self.connection_label.pack(side='left', padx=10, pady=3)
 
         self.connection_status = tk.Label(self.status_bar,
             text="",
-            font=('Segoe UI', 9, 'bold'),
+            font=('Segoe UI', 8, 'bold'),
             bg=self.colors['border'],
             fg=self.colors['warning'])
-        self.connection_status.pack(side='right', padx=15, pady=3)
+        self.connection_status.pack(side='right', padx=10, pady=3)
+
+    def create_scrollable_frame(self):
+        """Create a scrollable content area"""
+        container = tk.Frame(self.root, bg=self.colors['bg'])
+        container.pack(fill='both', expand=True)
+
+        self.scroll_canvas = tk.Canvas(container, bg=self.colors['bg'], highlightthickness=0)
+        scrollbar = ttk.Scrollbar(container, orient='vertical', command=self.scroll_canvas.yview)
+
+        self.scrollable_frame = tk.Frame(self.scroll_canvas, bg=self.colors['bg'])
+        self.scrollable_frame.bind('<Configure>',
+            lambda e: self.scroll_canvas.configure(scrollregion=self.scroll_canvas.bbox('all')))
+
+        self.canvas_window = self.scroll_canvas.create_window((0, 0), window=self.scrollable_frame, anchor='nw')
+        self.scroll_canvas.bind('<Configure>', self.on_canvas_configure)
+        self.scroll_canvas.configure(yscrollcommand=scrollbar.set)
+        self.scroll_canvas.bind_all('<MouseWheel>', self.on_mousewheel)
+
+        scrollbar.pack(side='right', fill='y')
+        self.scroll_canvas.pack(side='left', fill='both', expand=True)
+
+        return self.scrollable_frame
+
+    def on_canvas_configure(self, event):
+        self.scroll_canvas.itemconfig(self.canvas_window, width=event.width)
+
+    def on_mousewheel(self, event):
+        if self.scroll_canvas:
+            self.scroll_canvas.yview_scroll(int(-1*(event.delta/120)), 'units')
+
+    def create_section_divider(self, parent, title=""):
+        """Create a gold divider line with optional title"""
+        divider_frame = tk.Frame(parent, bg=self.colors['bg'])
+        divider_frame.pack(fill='x', pady=(15, 10))
+
+        if title:
+            tk.Label(divider_frame, text=title, font=('Segoe UI', 9, 'bold'),
+                    bg=self.colors['bg'], fg=self.colors['accent']).pack(anchor='w')
+
+        tk.Frame(divider_frame, bg=self.colors['divider'], height=2).pack(fill='x', pady=(3, 0))
 
     def clear_content(self):
         """Clear current content frame"""
         if self.current_frame:
             self.current_frame.destroy()
+        if self.scroll_canvas:
+            self.scroll_canvas.unbind_all('<MouseWheel>')
+            self.scroll_canvas.master.destroy()
+            self.scroll_canvas = None
 
     def show_welcome_screen(self):
         """Display welcome/mode selection screen"""
         self.clear_content()
 
-        self.current_frame = tk.Frame(self.root, bg=self.colors['bg'])
-        self.current_frame.pack(fill='both', expand=True, padx=30, pady=20)
+        self.current_frame = self.create_scrollable_frame()
+        content = tk.Frame(self.current_frame, bg=self.colors['bg'])
+        content.pack(fill='both', expand=True, padx=30, pady=20)
 
-        # Welcome text
-        welcome = tk.Label(self.current_frame,
-            text="Welcome to the GDocs to DOCX Converter",
-            font=('Segoe UI', 14),
-            bg=self.colors['bg'],
-            fg=self.colors['text'])
-        welcome.pack(pady=(0, 15))
+        # Tool description card
+        desc_card = tk.Frame(content, bg=self.colors['card'], padx=20, pady=15)
+        desc_card.pack(fill='x', pady=(0, 15))
 
-        # Info card
-        info_frame = tk.Frame(self.current_frame, bg=self.colors['card'], padx=20, pady=15)
-        info_frame.pack(fill='x', pady=(0, 20))
+        tk.Label(desc_card,
+            text="TOOL DESCRIPTION",
+            font=('Segoe UI', 9, 'bold'),
+            bg=self.colors['card'],
+            fg=self.colors['accent']).pack(anchor='w')
 
-        info_text = """This tool exports Google Docs to Word (.docx) format.
-
-HOW IT WORKS:
-  1. Select .gdoc files (Google Doc shortcuts)
-  2. Tool reads the document ID from each file
-  3. Exports from Google Drive as .docx
-  4. Saves to same folder as the .gdoc file
-
-NOTE: Requires Google Drive Desktop sync."""
-
-        tk.Label(info_frame,
-            text=info_text,
+        tk.Label(desc_card,
+            text="Exports Google Docs (.gdoc files) to Word (.docx) format.\nReads document ID from .gdoc file and downloads from Google Drive.",
             font=('Segoe UI', 10),
             bg=self.colors['card'],
-            fg=self.colors['text_dim'],
-            justify='left').pack(anchor='w')
+            fg=self.colors['text'],
+            justify='left').pack(anchor='w', pady=(5, 0))
 
-        # Mode selection title
-        tk.Label(self.current_frame,
-            text="SELECT EXPORT MODE",
-            font=('Segoe UI', 9, 'bold'),
-            bg=self.colors['bg'],
-            fg=self.colors['text_dim']).pack(pady=(5, 10))
+        self.create_section_divider(content, "HOW TO USE")
 
-        # Mode buttons container
-        btn_container = tk.Frame(self.current_frame, bg=self.colors['bg'])
-        btn_container.pack(fill='x')
+        # Instructions
+        instructions_card = tk.Frame(content, bg=self.colors['bg_light'], padx=20, pady=15)
+        instructions_card.pack(fill='x', pady=(0, 15))
 
-        # Create mode cards
-        self.create_mode_card(btn_container,
-            "SINGLE FILE",
-            "Select one .gdoc file",
-            "Quick single export",
-            self.select_single_file,
-            side='left')
+        instructions = [
+            "1. Select .gdoc files (Google Doc shortcuts)",
+            "2. Tool reads the document ID from each file",
+            "3. Exports from Google Drive as .docx",
+            "4. Saves to same folder as the .gdoc file",
+            "",
+            "NOTE: Requires Google Drive Desktop sync."
+        ]
 
-        self.create_mode_card(btn_container,
-            "BATCH FOLDER",
-            "Export all .gdoc in folder",
-            "Batch process directory",
-            self.select_folder,
-            side='left')
+        for inst in instructions:
+            color = self.colors['accent'] if inst.startswith('NOTE') else self.colors['text']
+            tk.Label(instructions_card,
+                text=inst,
+                font=('Segoe UI', 10),
+                bg=self.colors['bg_light'],
+                fg=color,
+                justify='left').pack(anchor='w', pady=1)
 
-        self.create_mode_card(btn_container,
-            "MULTI-SELECT",
-            "Pick multiple files",
-            "Choose specific files",
-            self.select_multiple_files,
-            side='left')
+        self.create_section_divider(content, "SELECT EXPORT MODE")
+
+        # Mode buttons container - use BeveledButtons
+        btn_container = tk.Frame(content, bg=self.colors['bg'])
+        btn_container.pack(fill='x', pady=(10, 0))
+
+        BeveledButton(btn_container, "SINGLE FILE",
+                     command=self.select_single_file, width=200, height=45).pack(side='left', padx=(0, 10))
+        BeveledButton(btn_container, "BATCH FOLDER",
+                     command=self.select_folder, width=200, height=45).pack(side='left', padx=(0, 10))
+        BeveledButton(btn_container, "MULTI-SELECT",
+                     command=self.select_multiple_files, width=200, height=45).pack(side='left')
+
+        self.create_section_divider(content)
 
         # Exit button at bottom
-        exit_frame = tk.Frame(self.current_frame, bg=self.colors['bg'])
-        exit_frame.pack(fill='x', pady=(20, 0))
+        exit_frame = tk.Frame(content, bg=self.colors['bg'])
+        exit_frame.pack(fill='x', pady=(10, 0))
 
-        exit_btn = tk.Button(exit_frame,
-            text="Exit",
-            font=('Segoe UI', 10),
-            bg=self.colors['border'],
-            fg=self.colors['text'],
-            activebackground='#444444',
-            activeforeground=self.colors['text'],
-            padx=25, pady=6,
-            cursor='hand2',
-            relief='flat',
-            command=self.root.quit)
-        exit_btn.pack(side='right')
+        BeveledButton(exit_frame, "EXIT", command=self.root.quit,
+                     width=120, height=38, style='dark').pack(side='right')
 
     def create_mode_card(self, parent, title, subtitle, description, command, side='left'):
         """Create a mode selection card - entire card is clickable"""

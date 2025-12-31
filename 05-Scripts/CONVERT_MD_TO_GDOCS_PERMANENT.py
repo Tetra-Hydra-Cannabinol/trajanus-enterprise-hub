@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """
 TRAJANUS MARKDOWN TO GOOGLE DOCS CONVERTER
-Complete professional tool with multi-screen interface
+Enhanced with scrollable interface, 3D buttons, and KB integration
 """
 
 import os
 import sys
 import pickle
 import threading
+import subprocess
 from pathlib import Path
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
@@ -18,19 +19,147 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 
 
+class BeveledButton(tk.Canvas):
+    """3D Beveled button with machine indicator light effect"""
+
+    def __init__(self, parent, text, command=None, width=180, height=40,
+                 bg_color='#d4a574', fg_color='#1a1a1a', style='gold', **kwargs):
+        super().__init__(parent, width=width, height=height,
+                        bg=parent.cget('bg'), highlightthickness=0, **kwargs)
+
+        self.command = command
+        self.text = text
+        self.width = width
+        self.height = height
+        self.style = style
+        self.pressed = False
+
+        # Color schemes
+        self.schemes = {
+            'gold': {
+                'face': '#d4a574',
+                'light': '#f0c896',
+                'dark': '#8a6b4a',
+                'text': '#1a1a1a',
+                'glow': '#ffe4c4'
+            },
+            'dark': {
+                'face': '#404040',
+                'light': '#606060',
+                'dark': '#252525',
+                'text': '#ffffff',
+                'glow': '#555555'
+            },
+            'success': {
+                'face': '#4a9f4a',
+                'light': '#6abf6a',
+                'dark': '#2a7f2a',
+                'text': '#ffffff',
+                'glow': '#7fcf7f'
+            }
+        }
+
+        self.colors = self.schemes.get(style, self.schemes['gold'])
+
+        self.draw_button()
+
+        # Bind events
+        self.bind('<Enter>', self.on_enter)
+        self.bind('<Leave>', self.on_leave)
+        self.bind('<Button-1>', self.on_press)
+        self.bind('<ButtonRelease-1>', self.on_release)
+
+    def draw_button(self, pressed=False):
+        """Draw the 3D beveled button"""
+        self.delete('all')
+
+        w, h = self.width, self.height
+        r = 8  # Corner radius
+        bevel = 3  # Bevel thickness
+
+        colors = self.colors
+
+        if pressed:
+            # Pressed state - inverted bevel
+            outer_light = colors['dark']
+            outer_dark = colors['light']
+            face = colors['dark']
+        else:
+            outer_light = colors['light']
+            outer_dark = colors['dark']
+            face = colors['face']
+
+        # Outer bevel (light edge - top/left)
+        self.create_polygon(
+            r, 0, w-r, 0, w, r, w-bevel, r+bevel,
+            r+bevel, bevel, bevel, r+bevel, bevel, h-r-bevel,
+            0, h-r, 0, r,
+            fill=outer_light, outline=''
+        )
+
+        # Outer bevel (dark edge - bottom/right)
+        self.create_polygon(
+            w, r, w, h-r, w-r, h, r, h,
+            r+bevel, h-bevel, w-r-bevel, h-bevel,
+            w-bevel, h-r-bevel, w-bevel, r+bevel,
+            fill=outer_dark, outline=''
+        )
+
+        # Main face with rounded corners effect
+        self.create_rectangle(
+            bevel+1, bevel+1, w-bevel-1, h-bevel-1,
+            fill=face, outline=''
+        )
+
+        # Indicator light effect (subtle glow at top)
+        if not pressed:
+            self.create_rectangle(
+                bevel+4, bevel+2, w-bevel-4, bevel+5,
+                fill=colors['glow'], outline=''
+            )
+
+        # Text
+        self.create_text(
+            w/2, h/2 + (2 if pressed else 0),
+            text=self.text,
+            font=('Segoe UI', 10, 'bold'),
+            fill=colors['text']
+        )
+
+    def on_enter(self, event):
+        self.config(cursor='hand2')
+
+    def on_leave(self, event):
+        self.config(cursor='')
+        if self.pressed:
+            self.pressed = False
+            self.draw_button(pressed=False)
+
+    def on_press(self, event):
+        self.pressed = True
+        self.draw_button(pressed=True)
+
+    def on_release(self, event):
+        if self.pressed:
+            self.pressed = False
+            self.draw_button(pressed=False)
+            if self.command:
+                self.command()
+
+
 class TrajanusConverterGUI:
     def __init__(self, initial_path=None):
         self.root = tk.Tk()
-        self.root.title("Trajanus - Markdown Converter")
-        self.root.geometry("700x600")
+        self.root.title("Trajanus - MD-GDocs Converter")
+        self.root.geometry("750x650")
         self.root.resizable(True, True)
-        self.root.minsize(600, 500)
+        self.root.minsize(650, 550)
 
         # Custom colors (match Enterprise Hub)
         self.colors = {
-            'bg': '#2d2d2d',  # Lighter charcoal background
-            'sidebar': '#252525',
-            'card': '#363636',  # Slightly lighter cards
+            'bg': '#1a1a1a',
+            'bg_light': '#2d2d2d',
+            'card': '#363636',
             'accent': '#d4a574',
             'hover': '#e8922a',
             'text': '#ffffff',
@@ -38,7 +167,8 @@ class TrajanusConverterGUI:
             'success': '#4a9f4a',
             'warning': '#e8922a',
             'error': '#e74c3c',
-            'border': '#333333'
+            'border': '#444444',
+            'divider': '#d4a574'
         }
 
         self.root.configure(bg=self.colors['bg'])
@@ -47,14 +177,16 @@ class TrajanusConverterGUI:
         self.service = None
         self.converting = False
         self.initial_path = initial_path
+        self.last_folder_path = None
 
-        # Results storage
+        # Results storage - now stores tuples of (md_name, gdoc_name)
         self.converted_files = []
         self.skipped_files = []
         self.error_files = []
 
         # Current frame reference
         self.current_frame = None
+        self.scroll_canvas = None
 
         self.setup_header()
         self.connect_drive()
@@ -66,156 +198,201 @@ class TrajanusConverterGUI:
             self.show_welcome_screen()
 
     def setup_header(self):
-        """Create persistent header"""
-        self.header = tk.Frame(self.root, bg=self.colors['accent'], height=60)
+        """Create compact header (50% smaller)"""
+        self.header = tk.Frame(self.root, bg=self.colors['accent'], height=35)
         self.header.pack(fill='x')
         self.header.pack_propagate(False)
 
         title = tk.Label(self.header,
-            text="TRAJANUS MARKDOWN CONVERTER",
-            font=('Segoe UI', 18, 'bold'),
+            text="TRAJANUS MD-GDOCS CONVERTER",
+            font=('Segoe UI', 12, 'bold'),
             bg=self.colors['accent'],
             fg='#1a1a1a')
-        title.pack(pady=15)
+        title.pack(pady=7)
 
         # Connection status bar
-        self.status_bar = tk.Frame(self.root, bg=self.colors['border'], height=30)
+        self.status_bar = tk.Frame(self.root, bg=self.colors['border'], height=24)
         self.status_bar.pack(fill='x')
         self.status_bar.pack_propagate(False)
 
         self.connection_label = tk.Label(self.status_bar,
             text="Connecting to Google Drive...",
-            font=('Segoe UI', 9),
+            font=('Segoe UI', 8),
             bg=self.colors['border'],
             fg=self.colors['text_dim'])
-        self.connection_label.pack(side='left', padx=15, pady=5)
+        self.connection_label.pack(side='left', padx=10, pady=3)
 
         self.connection_status = tk.Label(self.status_bar,
             text="",
-            font=('Segoe UI', 9, 'bold'),
+            font=('Segoe UI', 8, 'bold'),
             bg=self.colors['border'],
             fg=self.colors['warning'])
-        self.connection_status.pack(side='right', padx=15, pady=5)
+        self.connection_status.pack(side='right', padx=10, pady=3)
+
+    def create_scrollable_frame(self):
+        """Create a scrollable content area"""
+        # Container for canvas and scrollbar
+        container = tk.Frame(self.root, bg=self.colors['bg'])
+        container.pack(fill='both', expand=True)
+
+        # Canvas for scrolling
+        self.scroll_canvas = tk.Canvas(container, bg=self.colors['bg'],
+                                       highlightthickness=0)
+        scrollbar = ttk.Scrollbar(container, orient='vertical',
+                                  command=self.scroll_canvas.yview)
+
+        # Scrollable frame inside canvas
+        self.scrollable_frame = tk.Frame(self.scroll_canvas, bg=self.colors['bg'])
+
+        self.scrollable_frame.bind(
+            '<Configure>',
+            lambda e: self.scroll_canvas.configure(scrollregion=self.scroll_canvas.bbox('all'))
+        )
+
+        self.canvas_window = self.scroll_canvas.create_window(
+            (0, 0), window=self.scrollable_frame, anchor='nw'
+        )
+
+        # Bind canvas resize to adjust frame width
+        self.scroll_canvas.bind('<Configure>', self.on_canvas_configure)
+
+        self.scroll_canvas.configure(yscrollcommand=scrollbar.set)
+
+        # Mouse wheel scrolling
+        self.scroll_canvas.bind_all('<MouseWheel>', self.on_mousewheel)
+
+        scrollbar.pack(side='right', fill='y')
+        self.scroll_canvas.pack(side='left', fill='both', expand=True)
+
+        return self.scrollable_frame
+
+    def on_canvas_configure(self, event):
+        """Adjust scrollable frame width when canvas resizes"""
+        self.scroll_canvas.itemconfig(self.canvas_window, width=event.width)
+
+    def on_mousewheel(self, event):
+        """Handle mouse wheel scrolling"""
+        if self.scroll_canvas:
+            self.scroll_canvas.yview_scroll(int(-1*(event.delta/120)), 'units')
 
     def clear_content(self):
         """Clear current content frame"""
         if self.current_frame:
             self.current_frame.destroy()
+        if self.scroll_canvas:
+            self.scroll_canvas.unbind_all('<MouseWheel>')
+            self.scroll_canvas.master.destroy()
+            self.scroll_canvas = None
+
+    def create_section_divider(self, parent, title=""):
+        """Create a gold divider line with optional title"""
+        divider_frame = tk.Frame(parent, bg=self.colors['bg'])
+        divider_frame.pack(fill='x', pady=(15, 10))
+
+        if title:
+            tk.Label(divider_frame, text=title, font=('Segoe UI', 9, 'bold'),
+                    bg=self.colors['bg'], fg=self.colors['accent']).pack(anchor='w')
+
+        # Gold line
+        tk.Frame(divider_frame, bg=self.colors['divider'], height=2).pack(fill='x', pady=(3, 0))
 
     def show_welcome_screen(self):
         """Display welcome/mode selection screen"""
         self.clear_content()
 
-        self.current_frame = tk.Frame(self.root, bg=self.colors['bg'])
-        self.current_frame.pack(fill='both', expand=True, padx=40, pady=30)
+        self.current_frame = self.create_scrollable_frame()
+        content = tk.Frame(self.current_frame, bg=self.colors['bg'])
+        content.pack(fill='both', expand=True, padx=30, pady=20)
 
-        # Welcome text
-        welcome = tk.Label(self.current_frame,
-            text="Welcome to the Markdown Converter",
-            font=('Segoe UI', 16),
-            bg=self.colors['bg'],
-            fg=self.colors['text'])
-        welcome.pack(pady=(0, 20))
+        # Tool description (under hero)
+        desc_card = tk.Frame(content, bg=self.colors['card'], padx=20, pady=15)
+        desc_card.pack(fill='x', pady=(0, 15))
 
-        # Info card
-        info_frame = tk.Frame(self.current_frame, bg=self.colors['card'], padx=25, pady=20)
-        info_frame.pack(fill='x', pady=(0, 25))
-
-        info_text = """This tool converts Markdown (.md) files to Google Docs format.
-
-HOW IT WORKS:
-  1. Select single file, multiple files, or entire folder
-  2. Files are uploaded to your Google Drive
-  3. Converted to native Google Docs format
-  4. Original .md files remain unchanged
-
-NOTE: Files already converted will be skipped to prevent duplicates.
-      The tool checks for existing .gdoc files before converting."""
-
-        tk.Label(info_frame,
-            text=info_text,
-            font=('Segoe UI', 11),
+        tk.Label(desc_card,
+            text="TOOL DESCRIPTION",
+            font=('Segoe UI', 9, 'bold'),
             bg=self.colors['card'],
-            fg=self.colors['text_dim'],
-            justify='left').pack(anchor='w')
+            fg=self.colors['accent']).pack(anchor='w')
 
-        # Mode selection title
-        tk.Label(self.current_frame,
-            text="SELECT CONVERSION MODE",
-            font=('Segoe UI', 10, 'bold'),
-            bg=self.colors['bg'],
-            fg=self.colors['text_dim']).pack(pady=(10, 15))
+        tk.Label(desc_card,
+            text="Converts Markdown (.md) files to native Google Docs format.\nFiles are uploaded to Google Drive and converted automatically.",
+            font=('Segoe UI', 10),
+            bg=self.colors['card'],
+            fg=self.colors['text'],
+            justify='left').pack(anchor='w', pady=(5, 0))
 
-        # Mode buttons container - horizontal row
-        btn_container = tk.Frame(self.current_frame, bg=self.colors['bg'])
-        btn_container.pack(fill='x')
+        self.create_section_divider(content, "HOW TO USE")
 
-        # Create compact mode buttons (horizontal)
-        self.create_mode_button(btn_container, "SINGLE FILE", self.select_single_file)
-        self.create_mode_button(btn_container, "BATCH FOLDER", self.select_folder)
-        self.create_mode_button(btn_container, "MULTI-SELECT", self.select_multiple_files)
+        # Instructions
+        instructions_card = tk.Frame(content, bg=self.colors['bg_light'], padx=20, pady=15)
+        instructions_card.pack(fill='x', pady=(0, 15))
+
+        instructions = [
+            "1. Select conversion mode below (Single, Batch, or Multi-Select)",
+            "2. Choose the file(s) or folder to convert",
+            "3. Wait for conversion to complete",
+            "4. Review created files and optionally parse to KB",
+            "",
+            "NOTE: Already converted files are skipped automatically."
+        ]
+
+        for inst in instructions:
+            color = self.colors['accent'] if inst.startswith('NOTE') else self.colors['text']
+            tk.Label(instructions_card,
+                text=inst,
+                font=('Segoe UI', 10),
+                bg=self.colors['bg_light'],
+                fg=color,
+                justify='left').pack(anchor='w', pady=1)
+
+        self.create_section_divider(content, "SELECT CONVERSION MODE")
+
+        # Mode buttons container
+        btn_container = tk.Frame(content, bg=self.colors['bg'])
+        btn_container.pack(fill='x', pady=(10, 0))
+
+        # Create 3D beveled mode buttons
+        BeveledButton(btn_container, "SINGLE FILE",
+                     command=self.select_single_file, width=200, height=45).pack(side='left', padx=(0, 10))
+        BeveledButton(btn_container, "BATCH FOLDER",
+                     command=self.select_folder, width=200, height=45).pack(side='left', padx=(0, 10))
+        BeveledButton(btn_container, "MULTI-SELECT",
+                     command=self.select_multiple_files, width=200, height=45).pack(side='left')
+
+        self.create_section_divider(content)
 
         # Exit button at bottom
-        exit_frame = tk.Frame(self.current_frame, bg=self.colors['bg'])
-        exit_frame.pack(fill='x', pady=(30, 0))
+        exit_frame = tk.Frame(content, bg=self.colors['bg'])
+        exit_frame.pack(fill='x', pady=(10, 0))
 
-        exit_btn = tk.Button(exit_frame,
-            text="Exit",
-            font=('Segoe UI', 10),
-            bg=self.colors['border'],
-            fg=self.colors['text'],
-            activebackground='#444444',
-            activeforeground=self.colors['text'],
-            padx=30, pady=8,
-            cursor='hand2',
-            relief='flat',
-            command=self.root.quit)
-        exit_btn.pack(side='right')
-
-    def create_mode_button(self, parent, title, command):
-        """Create a compact mode selection button"""
-        def on_click():
-            print(f"DEBUG: Button '{title}' clicked")
-            command()
-
-        btn = tk.Button(parent,
-            text=title,
-            font=('Segoe UI', 11, 'bold'),
-            bg=self.colors['accent'],
-            fg='#1a1a1a',
-            activebackground=self.colors['hover'],
-            activeforeground='#1a1a1a',
-            padx=20, pady=12,
-            cursor='hand2',
-            relief='flat',
-            command=on_click)
-        btn.pack(side='left', padx=(0, 10), fill='x', expand=True)
-        print(f"DEBUG: Created button '{title}'")
+        BeveledButton(exit_frame, "EXIT", command=self.root.quit,
+                     width=120, height=38, style='dark').pack(side='right')
 
     def show_progress_screen(self, total_files):
         """Display conversion progress screen"""
         self.clear_content()
 
-        self.current_frame = tk.Frame(self.root, bg=self.colors['bg'])
-        self.current_frame.pack(fill='both', expand=True, padx=40, pady=30)
+        self.current_frame = self.create_scrollable_frame()
+        content = tk.Frame(self.current_frame, bg=self.colors['bg'])
+        content.pack(fill='both', expand=True, padx=30, pady=20)
 
         # Title
-        tk.Label(self.current_frame,
+        tk.Label(content,
             text="Converting Files...",
-            font=('Segoe UI', 16),
+            font=('Segoe UI', 14, 'bold'),
             bg=self.colors['bg'],
-            fg=self.colors['text']).pack(pady=(0, 20))
+            fg=self.colors['text']).pack(pady=(0, 15))
 
         # Progress info card
-        progress_card = tk.Frame(self.current_frame, bg=self.colors['card'], padx=30, pady=25)
-        progress_card.pack(fill='x', pady=(0, 20))
+        progress_card = tk.Frame(content, bg=self.colors['card'], padx=25, pady=20)
+        progress_card.pack(fill='x', pady=(0, 15))
 
         self.progress_status = tk.Label(progress_card,
             text="Preparing...",
-            font=('Segoe UI', 11),
+            font=('Segoe UI', 10),
             bg=self.colors['card'],
             fg=self.colors['text'])
-        self.progress_status.pack(anchor='w', pady=(0, 15))
+        self.progress_status.pack(anchor='w', pady=(0, 12))
 
         # Progress bar
         style = ttk.Style()
@@ -231,154 +408,164 @@ NOTE: Files already converted will be skipped to prevent duplicates.
             style="Gold.Horizontal.TProgressbar",
             length=500,
             mode='determinate')
-        self.progress_bar.pack(fill='x', pady=(0, 10))
+        self.progress_bar.pack(fill='x', pady=(0, 8))
 
         self.progress_text = tk.Label(progress_card,
             text=f"0 of {total_files} files",
-            font=('Segoe UI', 10),
+            font=('Segoe UI', 9),
             bg=self.colors['card'],
             fg=self.colors['text_dim'])
         self.progress_text.pack(anchor='w')
 
         # Live stats
         stats_frame = tk.Frame(progress_card, bg=self.colors['card'])
-        stats_frame.pack(fill='x', pady=(20, 0))
+        stats_frame.pack(fill='x', pady=(15, 0))
 
         self.live_converted = self.create_live_stat(stats_frame, "Converted:", "0", self.colors['success'])
         self.live_skipped = self.create_live_stat(stats_frame, "Skipped:", "0", self.colors['warning'])
         self.live_errors = self.create_live_stat(stats_frame, "Errors:", "0", self.colors['error'])
 
         # Current file label
-        self.current_file_label = tk.Label(self.current_frame,
+        self.current_file_label = tk.Label(content,
             text="",
             font=('Consolas', 9),
             bg=self.colors['bg'],
             fg=self.colors['text_dim'])
-        self.current_file_label.pack(pady=(10, 0))
+        self.current_file_label.pack(pady=(8, 0))
 
     def create_live_stat(self, parent, label, value, color):
         """Create a live stat display"""
         frame = tk.Frame(parent, bg=self.colors['card'])
-        frame.pack(side='left', padx=(0, 30))
+        frame.pack(side='left', padx=(0, 25))
 
-        tk.Label(frame, text=label, font=('Segoe UI', 10),
+        tk.Label(frame, text=label, font=('Segoe UI', 9),
             bg=self.colors['card'], fg=self.colors['text_dim']).pack(side='left')
 
-        val_label = tk.Label(frame, text=value, font=('Segoe UI', 10, 'bold'),
+        val_label = tk.Label(frame, text=value, font=('Segoe UI', 9, 'bold'),
             bg=self.colors['card'], fg=color)
-        val_label.pack(side='left', padx=(5, 0))
+        val_label.pack(side='left', padx=(4, 0))
         return val_label
 
     def show_completion_screen(self):
         """Display completion screen with results"""
         self.clear_content()
 
-        self.current_frame = tk.Frame(self.root, bg=self.colors['bg'])
-        self.current_frame.pack(fill='both', expand=True, padx=40, pady=30)
+        self.current_frame = self.create_scrollable_frame()
+        content = tk.Frame(self.current_frame, bg=self.colors['bg'])
+        content.pack(fill='both', expand=True, padx=30, pady=20)
 
         # Success header
-        header_frame = tk.Frame(self.current_frame, bg=self.colors['bg'])
-        header_frame.pack(fill='x', pady=(0, 20))
-
-        tk.Label(header_frame,
+        tk.Label(content,
             text="CONVERSION COMPLETE",
-            font=('Segoe UI', 16, 'bold'),
+            font=('Segoe UI', 14, 'bold'),
             bg=self.colors['bg'],
-            fg=self.colors['success']).pack(side='left')
+            fg=self.colors['success']).pack(anchor='w', pady=(0, 15))
 
         # Results summary card
-        summary_card = tk.Frame(self.current_frame, bg=self.colors['card'], padx=25, pady=20)
-        summary_card.pack(fill='x', pady=(0, 20))
+        summary_card = tk.Frame(content, bg=self.colors['card'], padx=20, pady=15)
+        summary_card.pack(fill='x', pady=(0, 15))
 
         stats_frame = tk.Frame(summary_card, bg=self.colors['card'])
         stats_frame.pack(fill='x')
 
-        self.create_result_stat(stats_frame, "Converted", len(self.converted_files), self.colors['success'])
+        self.create_result_stat(stats_frame, "Created", len(self.converted_files), self.colors['success'])
         self.create_result_stat(stats_frame, "Skipped", len(self.skipped_files), self.colors['warning'])
         self.create_result_stat(stats_frame, "Errors", len(self.error_files), self.colors['error'])
 
-        # Converted files list (if any)
+        # Created files list (showing NEW Google Doc names)
         if self.converted_files:
-            self.create_file_list("CONVERTED FILES", self.converted_files, self.colors['success'])
+            self.create_section_divider(content, "CREATED GOOGLE DOCS")
+            self.create_file_list(content, self.converted_files, self.colors['success'], show_gdoc=True)
 
-        # Skipped files list (if any)
+        # Skipped files list
         if self.skipped_files:
-            self.create_file_list("SKIPPED FILES (already converted)", self.skipped_files, self.colors['warning'])
+            self.create_section_divider(content, "SKIPPED (already exists)")
+            self.create_file_list(content, self.skipped_files, self.colors['warning'])
 
-        # Error files list (if any)
+        # Error files list
         if self.error_files:
-            self.create_file_list("FAILED FILES", self.error_files, self.colors['error'])
+            self.create_section_divider(content, "FAILED")
+            self.create_file_list(content, self.error_files, self.colors['error'])
 
-        # Action buttons
-        btn_frame = tk.Frame(self.current_frame, bg=self.colors['bg'])
-        btn_frame.pack(fill='x', pady=(20, 0))
+        self.create_section_divider(content)
 
-        convert_more_btn = tk.Button(btn_frame,
-            text="Convert More Files",
-            font=('Segoe UI', 11, 'bold'),
-            bg=self.colors['accent'],
-            fg='#1a1a1a',
-            activebackground=self.colors['hover'],
-            activeforeground='#1a1a1a',
-            padx=25, pady=10,
-            cursor='hand2',
-            relief='flat',
-            command=self.show_welcome_screen)
-        convert_more_btn.pack(side='left')
+        # Action buttons row 1 - Folder and Convert More
+        btn_frame1 = tk.Frame(content, bg=self.colors['bg'])
+        btn_frame1.pack(fill='x', pady=(10, 8))
 
-        exit_btn = tk.Button(btn_frame,
-            text="Exit",
-            font=('Segoe UI', 11),
-            bg=self.colors['border'],
-            fg=self.colors['text'],
-            activebackground='#444444',
-            activeforeground=self.colors['text'],
-            padx=35, pady=10,
-            cursor='hand2',
-            relief='flat',
-            command=self.root.quit)
-        exit_btn.pack(side='right')
+        if self.last_folder_path:
+            BeveledButton(btn_frame1, "OPEN FOLDER",
+                         command=self.open_folder, width=160, height=42).pack(side='left', padx=(0, 10))
+
+        BeveledButton(btn_frame1, "CONVERT MORE",
+                     command=self.show_welcome_screen, width=160, height=42).pack(side='left', padx=(0, 10))
+
+        BeveledButton(btn_frame1, "EXIT", command=self.root.quit,
+                     width=100, height=42, style='dark').pack(side='right')
+
+        # Action buttons row 2 - Parse options (only if files were converted)
+        if self.converted_files:
+            btn_frame2 = tk.Frame(content, bg=self.colors['bg'])
+            btn_frame2.pack(fill='x', pady=(0, 10))
+
+            BeveledButton(btn_frame2, "PARSE TO KB",
+                         command=self.parse_files, width=180, height=42, style='success').pack(side='left', padx=(0, 10))
+            BeveledButton(btn_frame2, "PARSE & INGEST",
+                         command=self.parse_and_ingest, width=180, height=42, style='success').pack(side='left')
 
     def create_result_stat(self, parent, label, value, color):
         """Create a result statistic display"""
         frame = tk.Frame(parent, bg=self.colors['card'])
-        frame.pack(side='left', padx=(0, 40))
+        frame.pack(side='left', padx=(0, 35))
 
-        tk.Label(frame, text=str(value), font=('Segoe UI', 24, 'bold'),
+        tk.Label(frame, text=str(value), font=('Segoe UI', 20, 'bold'),
             bg=self.colors['card'], fg=color).pack()
-        tk.Label(frame, text=label, font=('Segoe UI', 10),
+        tk.Label(frame, text=label, font=('Segoe UI', 9),
             bg=self.colors['card'], fg=self.colors['text_dim']).pack()
 
-    def create_file_list(self, title, files, color):
-        """Create a scrollable file list"""
-        list_frame = tk.Frame(self.current_frame, bg=self.colors['sidebar'])
-        list_frame.pack(fill='x', pady=(0, 15))
+    def create_file_list(self, parent, files, color, show_gdoc=False):
+        """Create a scrollable file list showing Google Doc names"""
+        list_frame = tk.Frame(parent, bg=self.colors['bg_light'], padx=15, pady=10)
+        list_frame.pack(fill='x', pady=(0, 10))
 
-        # Header
-        header = tk.Frame(list_frame, bg=self.colors['border'])
-        header.pack(fill='x')
-        tk.Label(header, text=title, font=('Segoe UI', 9, 'bold'),
-            bg=self.colors['border'], fg=color,
-            padx=15, pady=5).pack(anchor='w')
+        for f in files:
+            if show_gdoc and isinstance(f, tuple):
+                # Show the Google Doc name (new file created)
+                display_name = f"  {f[1]}"  # f[1] is gdoc name
+            else:
+                display_name = f"  {f}" if isinstance(f, str) else f"  {f[0]}"
 
-        # File list (max 5 visible) - gold text
-        display_files = files[:5]
-        for f in display_files:
-            tk.Label(list_frame, text=f"  {f}", font=('Consolas', 9),
-                bg=self.colors['sidebar'], fg=self.colors['accent'],
-                anchor='w').pack(fill='x', padx=10, pady=2)
+            tk.Label(list_frame, text=display_name, font=('Consolas', 9),
+                bg=self.colors['bg_light'], fg=self.colors['accent'],
+                anchor='w').pack(fill='x', pady=1)
 
-        if len(files) > 5:
-            tk.Label(list_frame, text=f"  ... and {len(files) - 5} more",
-                font=('Consolas', 9, 'italic'),
-                bg=self.colors['sidebar'], fg=self.colors['accent'],
-                anchor='w').pack(fill='x', padx=10, pady=2)
+    def open_folder(self):
+        """Open the folder containing converted files"""
+        if self.last_folder_path and os.path.exists(self.last_folder_path):
+            subprocess.run(['explorer', str(self.last_folder_path)])
+
+    def parse_files(self):
+        """Launch the parse/ingestion tool for parsing only"""
+        script_path = Path(__file__).parent / 'BATCH_INGEST_TOOL.py'
+        if script_path.exists():
+            subprocess.Popen(['python', str(script_path), '--parse-only'])
+            messagebox.showinfo("Parse", "KB Parser tool launched.\nFiles will be parsed for knowledge base.")
+        else:
+            messagebox.showerror("Error", "BATCH_INGEST_TOOL.py not found.")
+
+    def parse_and_ingest(self):
+        """Launch the parse and ingest tool"""
+        script_path = Path(__file__).parent / 'BATCH_INGEST_TOOL.py'
+        if script_path.exists():
+            subprocess.Popen(['python', str(script_path)])
+            messagebox.showinfo("Parse & Ingest", "KB Ingestion tool launched.\nFiles will be parsed and ingested to knowledge base.")
+        else:
+            messagebox.showerror("Error", "BATCH_INGEST_TOOL.py not found.")
 
     # ==================== FILE SELECTION ====================
 
     def select_single_file(self):
         """Select a single markdown file to convert"""
-        # Withdraw window so dialog appears on top
         self.root.withdraw()
         self.root.update()
 
@@ -387,7 +574,6 @@ NOTE: Files already converted will be skipped to prevent duplicates.
             initialdir="G:/My Drive/00 - Trajanus USA",
             filetypes=[("Markdown files", "*.md"), ("All files", "*.*")])
 
-        # Restore window
         self.root.deiconify()
         self.root.lift()
         self.root.focus_force()
@@ -396,22 +582,18 @@ NOTE: Files already converted will be skipped to prevent duplicates.
             if not self.service:
                 messagebox.showerror("Error", "Not connected to Google Drive.\nPlease wait for connection.")
                 return
+            self.last_folder_path = Path(file).parent
             self.convert_files([Path(file)])
 
     def select_folder(self):
         """Select a folder to convert all .md files"""
-        print("DEBUG: select_folder called")
-        # Withdraw window so dialog appears on top
         self.root.withdraw()
         self.root.update()
-        print("DEBUG: Opening folder dialog...")
 
         folder = filedialog.askdirectory(
             title="Select Folder with Markdown Files",
             initialdir="G:/My Drive/00 - Trajanus USA")
-        print(f"DEBUG: Folder selected: {folder}")
 
-        # Restore window
         self.root.deiconify()
         self.root.lift()
         self.root.focus_force()
@@ -422,13 +604,13 @@ NOTE: Files already converted will be skipped to prevent duplicates.
                 if not self.service:
                     messagebox.showerror("Error", "Not connected to Google Drive.\nPlease wait for connection.")
                     return
+                self.last_folder_path = Path(folder)
                 self.convert_files(md_files)
             else:
                 messagebox.showinfo("No Files", f"No .md files found in:\n{folder}")
 
     def select_multiple_files(self):
         """Select multiple markdown files to convert"""
-        # Withdraw window so dialog appears on top
         self.root.withdraw()
         self.root.update()
 
@@ -437,7 +619,6 @@ NOTE: Files already converted will be skipped to prevent duplicates.
             initialdir="G:/My Drive/00 - Trajanus USA",
             filetypes=[("Markdown files", "*.md"), ("All files", "*.*")])
 
-        # Restore window
         self.root.deiconify()
         self.root.lift()
         self.root.focus_force()
@@ -446,6 +627,7 @@ NOTE: Files already converted will be skipped to prevent duplicates.
             if not self.service:
                 messagebox.showerror("Error", "Not connected to Google Drive.\nPlease wait for connection.")
                 return
+            self.last_folder_path = Path(files[0]).parent
             self.convert_files([Path(f) for f in files])
 
     def process_initial_path(self):
@@ -459,6 +641,7 @@ NOTE: Files already converted will be skipped to prevent duplicates.
 
         if path.is_file():
             if path.suffix.lower() == '.md':
+                self.last_folder_path = path.parent
                 self.convert_files([path])
             else:
                 messagebox.showerror("Error", "Not a markdown file")
@@ -466,6 +649,7 @@ NOTE: Files already converted will be skipped to prevent duplicates.
         else:
             md_files = list(path.glob('*.md'))
             if md_files:
+                self.last_folder_path = path
                 self.convert_files(md_files)
             else:
                 messagebox.showinfo("No Files", "No .md files found")
@@ -489,7 +673,6 @@ NOTE: Files already converted will be skipped to prevent duplicates.
         def do_convert():
             source_folder = md_files[0].parent
 
-            # Update status
             self.root.after(0, lambda: self.progress_status.config(
                 text="Finding folder in Google Drive..."))
 
@@ -507,7 +690,6 @@ NOTE: Files already converted will be skipped to prevent duplicates.
             total = len(md_files)
 
             for i, md_file in enumerate(sorted(md_files)):
-                # Update progress
                 percent = ((i + 1) / total) * 100
                 self.root.after(0, lambda p=percent: self.progress_bar.configure(value=p))
                 self.root.after(0, lambda i=i, t=total: self.progress_text.config(
@@ -528,7 +710,9 @@ NOTE: Files already converted will be skipped to prevent duplicates.
                 result = self.convert_md_to_gdoc(md_file, folder_id)
 
                 if result:
-                    self.converted_files.append(md_file.name)
+                    # Store tuple of (md_name, gdoc_name)
+                    gdoc_name = result.get('name', md_file.stem)
+                    self.converted_files.append((md_file.name, gdoc_name))
                     self.root.after(0, lambda: self.live_converted.config(
                         text=str(len(self.converted_files))))
                 else:

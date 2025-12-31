@@ -2,7 +2,7 @@
 """
 TRAJANUS QUERY KB TOOL
 Search and browse the knowledge base
-Standard Tool UI Template
+Enhanced with 3D buttons and scrollable interface
 """
 
 import os
@@ -18,28 +18,338 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='repla
 sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
 
+class BeveledButton(tk.Canvas):
+    """3D Beveled button with machine indicator light effect"""
+
+    def __init__(self, parent, text, command=None, width=180, height=40,
+                 style='primary', palette=None, **kwargs):
+        super().__init__(parent, width=width, height=height,
+                        bg=parent.cget('bg'), highlightthickness=0, **kwargs)
+
+        self.command = command
+        self.text = text
+        self.width = width
+        self.height = height
+        self.style = style
+        self.pressed = False
+
+        # Use palette colors if provided, otherwise use defaults
+        if palette and style == 'primary':
+            self.colors = {
+                'face': palette.get('btn_face', '#c0c0c0'),
+                'light': palette.get('btn_light', '#e0e0e0'),
+                'dark': palette.get('btn_dark', '#808080'),
+                'text': palette.get('btn_text', '#1a1a1a'),
+                'glow': palette.get('btn_glow', '#f0f0f0')
+            }
+        elif palette and style == 'dark':
+            self.colors = {
+                'face': palette.get('bg_light', '#1b263b'),
+                'light': palette.get('border', '#2d4a6a'),
+                'dark': palette.get('bg', '#0d1b2a'),
+                'text': palette.get('text', '#ffffff'),
+                'glow': palette.get('border', '#3a5a7a')
+            }
+        else:
+            # Fallback schemes
+            schemes = {
+                'primary': {
+                    'face': '#c0c0c0', 'light': '#e0e0e0', 'dark': '#808080',
+                    'text': '#1a1a1a', 'glow': '#f0f0f0'
+                },
+                'dark': {
+                    'face': '#404040', 'light': '#606060', 'dark': '#252525',
+                    'text': '#ffffff', 'glow': '#555555'
+                }
+            }
+            self.colors = schemes.get(style, schemes['primary'])
+
+        self.draw_button()
+
+        self.bind('<Enter>', self.on_enter)
+        self.bind('<Leave>', self.on_leave)
+        self.bind('<Button-1>', self.on_press)
+        self.bind('<ButtonRelease-1>', self.on_release)
+
+    def draw_button(self, pressed=False):
+        self.delete('all')
+        w, h = self.width, self.height
+        bevel = 3
+        colors = self.colors
+
+        if pressed:
+            outer_light = colors['dark']
+            outer_dark = colors['light']
+            face = colors['dark']
+        else:
+            outer_light = colors['light']
+            outer_dark = colors['dark']
+            face = colors['face']
+
+        self.create_polygon(8, 0, w-8, 0, w, 8, w-bevel, 8+bevel,
+            8+bevel, bevel, bevel, 8+bevel, bevel, h-8-bevel,
+            0, h-8, 0, 8, fill=outer_light, outline='')
+
+        self.create_polygon(w, 8, w, h-8, w-8, h, 8, h,
+            8+bevel, h-bevel, w-8-bevel, h-bevel,
+            w-bevel, h-8-bevel, w-bevel, 8+bevel, fill=outer_dark, outline='')
+
+        self.create_rectangle(bevel+1, bevel+1, w-bevel-1, h-bevel-1,
+            fill=face, outline='')
+
+        if not pressed:
+            self.create_rectangle(bevel+4, bevel+2, w-bevel-4, bevel+5,
+                fill=colors['glow'], outline='')
+
+        self.create_text(w/2, h/2 + (2 if pressed else 0),
+            text=self.text, font=('Segoe UI', 10, 'bold'), fill=colors['text'])
+
+    def on_enter(self, event):
+        self.config(cursor='hand2')
+
+    def on_leave(self, event):
+        self.config(cursor='')
+        if self.pressed:
+            self.pressed = False
+            self.draw_button(pressed=False)
+
+    def on_press(self, event):
+        self.pressed = True
+        self.draw_button(pressed=True)
+
+    def on_release(self, event):
+        if self.pressed:
+            self.pressed = False
+            self.draw_button(pressed=False)
+            if self.command:
+                self.command()
+
+
 class TrajanusQueryKBGUI:
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title("Trajanus - Query KB Tool")
-        self.root.geometry("624x520")
+        self.root.title("Trajanus - Knowledge Base Query")
+        self.root.geometry("620x420")
         self.root.resizable(True, True)
-        self.root.minsize(480, 400)
+        self.root.minsize(550, 380)
 
-        # Standard colors (all tools use same palette)
-        self.colors = {
-            'bg': '#2d2d2d',
-            'sidebar': '#252525',
-            'card': '#363636',
-            'accent': '#d4a574',
-            'hover': '#e8922a',
-            'text': '#ffffff',
-            'text_dim': '#888888',
-            'success': '#4a9f4a',
-            'warning': '#e8922a',
-            'error': '#e74c3c',
-            'border': '#333333'
+        # ============ COLOR PALETTES ============
+        # Change ACTIVE_PALETTE to test different themes
+        ACTIVE_PALETTE = "black_gold"  # Options: gold, navy_silver, ocean, forest, midnight, green_silver, black_silver, black_red, brown_orange, navy_gold, black_gold
+
+        PALETTES = {
+            'gold': {
+                'bg': '#1a1a1a',
+                'bg_light': '#2d2d2d',
+                'card': '#363636',
+                'accent': '#d4a574',
+                'hover': '#e8922a',
+                'text': '#ffffff',
+                'text_dim': '#888888',
+                'success': '#4a9f4a',
+                'warning': '#e8922a',
+                'error': '#e74c3c',
+                'border': '#444444',
+                'divider': '#d4a574',
+                'btn_face': '#d4a574',
+                'btn_light': '#f0c896',
+                'btn_dark': '#8a6b4a',
+                'btn_text': '#1a1a1a',
+                'btn_glow': '#ffe4c4'
+            },
+            'navy_silver': {
+                'bg': '#0d1b2a',
+                'bg_light': '#1b263b',
+                'card': '#243447',
+                'accent': '#c0c0c0',
+                'hover': '#e0e0e0',
+                'text': '#ffffff',
+                'text_dim': '#8892a0',
+                'success': '#4a9f4a',
+                'warning': '#e8922a',
+                'error': '#e74c3c',
+                'border': '#2d4a6a',
+                'divider': '#c0c0c0',
+                'btn_face': '#c0c0c0',
+                'btn_light': '#e0e0e0',
+                'btn_dark': '#808080',
+                'btn_text': '#0d1b2a',
+                'btn_glow': '#f0f0f0'
+            },
+            'ocean': {
+                'bg': '#0a1628',
+                'bg_light': '#112240',
+                'card': '#1a3a5c',
+                'accent': '#64b5f6',
+                'hover': '#90caf9',
+                'text': '#ffffff',
+                'text_dim': '#8aa8c7',
+                'success': '#4a9f4a',
+                'warning': '#e8922a',
+                'error': '#e74c3c',
+                'border': '#1e4976',
+                'divider': '#64b5f6',
+                'btn_face': '#64b5f6',
+                'btn_light': '#90caf9',
+                'btn_dark': '#1976d2',
+                'btn_text': '#0a1628',
+                'btn_glow': '#bbdefb'
+            },
+            'forest': {
+                'bg': '#0d1f0d',
+                'bg_light': '#1a3a1a',
+                'card': '#245024',
+                'accent': '#81c784',
+                'hover': '#a5d6a7',
+                'text': '#ffffff',
+                'text_dim': '#8faf8f',
+                'success': '#4caf50',
+                'warning': '#e8922a',
+                'error': '#e74c3c',
+                'border': '#2e6b2e',
+                'divider': '#81c784',
+                'btn_face': '#81c784',
+                'btn_light': '#a5d6a7',
+                'btn_dark': '#388e3c',
+                'btn_text': '#0d1f0d',
+                'btn_glow': '#c8e6c9'
+            },
+            'midnight': {
+                'bg': '#1a1a2e',
+                'bg_light': '#252542',
+                'card': '#2d2d4a',
+                'accent': '#b39ddb',
+                'hover': '#d1c4e9',
+                'text': '#ffffff',
+                'text_dim': '#9090b0',
+                'success': '#4a9f4a',
+                'warning': '#e8922a',
+                'error': '#e74c3c',
+                'border': '#3d3d6b',
+                'divider': '#b39ddb',
+                'btn_face': '#b39ddb',
+                'btn_light': '#d1c4e9',
+                'btn_dark': '#7e57c2',
+                'btn_text': '#1a1a2e',
+                'btn_glow': '#ede7f6'
+            },
+            'green_silver': {
+                'bg': '#0a1a0a',
+                'bg_light': '#1a2a1a',
+                'card': '#243424',
+                'accent': '#c0c0c0',
+                'hover': '#e0e0e0',
+                'text': '#ffffff',
+                'text_dim': '#8a9a8a',
+                'success': '#4a9f4a',
+                'warning': '#e8922a',
+                'error': '#e74c3c',
+                'border': '#2a4a2a',
+                'divider': '#c0c0c0',
+                'btn_face': '#c0c0c0',
+                'btn_light': '#e0e0e0',
+                'btn_dark': '#808080',
+                'btn_text': '#0a1a0a',
+                'btn_glow': '#f0f0f0'
+            },
+            'black_silver': {
+                'bg': '#0a0a0a',
+                'bg_light': '#1a1a1a',
+                'card': '#252525',
+                'accent': '#c0c0c0',
+                'hover': '#e0e0e0',
+                'text': '#ffffff',
+                'text_dim': '#888888',
+                'success': '#4a9f4a',
+                'warning': '#e8922a',
+                'error': '#e74c3c',
+                'border': '#333333',
+                'divider': '#c0c0c0',
+                'btn_face': '#c0c0c0',
+                'btn_light': '#e0e0e0',
+                'btn_dark': '#808080',
+                'btn_text': '#0a0a0a',
+                'btn_glow': '#f0f0f0'
+            },
+            'black_red': {
+                'bg': '#0a0a0a',
+                'bg_light': '#1a1a1a',
+                'card': '#252525',
+                'accent': '#e53935',
+                'hover': '#ff6659',
+                'text': '#ffffff',
+                'text_dim': '#888888',
+                'success': '#4a9f4a',
+                'warning': '#e8922a',
+                'error': '#e74c3c',
+                'border': '#333333',
+                'divider': '#e53935',
+                'btn_face': '#e53935',
+                'btn_light': '#ff6659',
+                'btn_dark': '#a00000',
+                'btn_text': '#ffffff',
+                'btn_glow': '#ff8a80'
+            },
+            'brown_orange': {
+                'bg': '#1a120a',
+                'bg_light': '#2a1f14',
+                'card': '#3a2a1a',
+                'accent': '#ff9800',
+                'hover': '#ffb74d',
+                'text': '#ffffff',
+                'text_dim': '#a08060',
+                'success': '#4a9f4a',
+                'warning': '#e8922a',
+                'error': '#e74c3c',
+                'border': '#4a3a2a',
+                'divider': '#ff9800',
+                'btn_face': '#ff9800',
+                'btn_light': '#ffb74d',
+                'btn_dark': '#c66900',
+                'btn_text': '#1a120a',
+                'btn_glow': '#ffe0b2'
+            },
+            'navy_gold': {
+                'bg': '#0d1b2a',
+                'bg_light': '#1b263b',
+                'card': '#243447',
+                'accent': '#d4a574',
+                'hover': '#e8b88a',
+                'text': '#ffffff',
+                'text_dim': '#8892a0',
+                'success': '#4a9f4a',
+                'warning': '#e8922a',
+                'error': '#e74c3c',
+                'border': '#2d4a6a',
+                'divider': '#d4a574',
+                'btn_face': '#d4a574',
+                'btn_light': '#f0c896',
+                'btn_dark': '#8a6b4a',
+                'btn_text': '#0d1b2a',
+                'btn_glow': '#ffe4c4'
+            },
+            'black_gold': {
+                'bg': '#0a0a0a',
+                'bg_light': '#1a1a1a',
+                'card': '#252525',
+                'accent': '#d4a574',
+                'hover': '#e8b88a',
+                'text': '#ffffff',
+                'text_dim': '#888888',
+                'success': '#4a9f4a',
+                'warning': '#e8922a',
+                'error': '#e74c3c',
+                'border': '#333333',
+                'divider': '#d4a574',
+                'btn_face': '#d4a574',
+                'btn_light': '#f0c896',
+                'btn_dark': '#8a6b4a',
+                'btn_text': '#0a0a0a',
+                'btn_glow': '#ffe4c4'
+            }
         }
+
+        self.colors = PALETTES[ACTIVE_PALETTE]
 
         self.root.configure(bg=self.colors['bg'])
 
@@ -51,134 +361,294 @@ class TrajanusQueryKBGUI:
 
         # Current frame reference
         self.current_frame = None
+        self.scroll_canvas = None
 
         self.setup_header()
         self.connect_services()
         self.show_welcome_screen()
 
     def setup_header(self):
-        """Create persistent header"""
-        self.header = tk.Frame(self.root, bg=self.colors['accent'], height=60)
+        """Create compact header (matches conversion tool)"""
+        self.header = tk.Frame(self.root, bg=self.colors['accent'], height=35)
         self.header.pack(fill='x')
         self.header.pack_propagate(False)
 
         title = tk.Label(self.header,
-            text="TRAJANUS QUERY KB",
-            font=('Segoe UI', 18, 'bold'),
+            text="TRAJANUS KNOWLEDGE BASE QUERY",
+            font=('Segoe UI', 14, 'bold'),
             bg=self.colors['accent'],
             fg='#1a1a1a')
-        title.pack(pady=15)
+        title.pack(pady=5)
 
         # Connection status bar
-        self.status_bar = tk.Frame(self.root, bg=self.colors['border'], height=30)
+        self.status_bar = tk.Frame(self.root, bg=self.colors['border'], height=24)
         self.status_bar.pack(fill='x')
         self.status_bar.pack_propagate(False)
 
         self.connection_label = tk.Label(self.status_bar,
             text="Connecting to services...",
-            font=('Segoe UI', 9),
+            font=('Segoe UI', 8),
             bg=self.colors['border'],
             fg=self.colors['text_dim'])
-        self.connection_label.pack(side='left', padx=15, pady=5)
+        self.connection_label.pack(side='left', padx=10, pady=3)
 
         self.connection_status = tk.Label(self.status_bar,
             text="",
-            font=('Segoe UI', 9, 'bold'),
+            font=('Segoe UI', 8, 'bold'),
             bg=self.colors['border'],
             fg=self.colors['warning'])
-        self.connection_status.pack(side='right', padx=15, pady=5)
+        self.connection_status.pack(side='right', padx=10, pady=3)
+
+    def create_scrollable_frame(self):
+        """Create a scrollable content area"""
+        container = tk.Frame(self.root, bg=self.colors['bg'])
+        container.pack(fill='both', expand=True)
+
+        self.scroll_canvas = tk.Canvas(container, bg=self.colors['bg'], highlightthickness=0)
+        scrollbar = ttk.Scrollbar(container, orient='vertical', command=self.scroll_canvas.yview)
+
+        self.scrollable_frame = tk.Frame(self.scroll_canvas, bg=self.colors['bg'])
+        self.scrollable_frame.bind('<Configure>',
+            lambda e: self.scroll_canvas.configure(scrollregion=self.scroll_canvas.bbox('all')))
+
+        self.canvas_window = self.scroll_canvas.create_window((0, 0), window=self.scrollable_frame, anchor='nw')
+        self.scroll_canvas.bind('<Configure>', self.on_canvas_configure)
+        self.scroll_canvas.configure(yscrollcommand=scrollbar.set)
+        self.scroll_canvas.bind_all('<MouseWheel>', self.on_mousewheel)
+
+        scrollbar.pack(side='right', fill='y')
+        self.scroll_canvas.pack(side='left', fill='both', expand=True)
+
+        return self.scrollable_frame
+
+    def on_canvas_configure(self, event):
+        self.scroll_canvas.itemconfig(self.canvas_window, width=event.width)
+
+    def on_mousewheel(self, event):
+        if self.scroll_canvas:
+            self.scroll_canvas.yview_scroll(int(-1*(event.delta/120)), 'units')
+
+    def create_section_divider(self, parent, title=""):
+        """Create a gold divider line with optional title"""
+        divider_frame = tk.Frame(parent, bg=self.colors['bg'])
+        divider_frame.pack(fill='x', pady=(15, 10))
+
+        if title:
+            tk.Label(divider_frame, text=title, font=('Segoe UI', 9, 'bold'),
+                    bg=self.colors['bg'], fg=self.colors['accent']).pack(anchor='w')
+
+        tk.Frame(divider_frame, bg=self.colors['divider'], height=2).pack(fill='x', pady=(3, 0))
 
     def clear_content(self):
         """Clear current content frame"""
         if self.current_frame:
             self.current_frame.destroy()
+        if self.scroll_canvas:
+            self.scroll_canvas.unbind_all('<MouseWheel>')
+            self.scroll_canvas.master.destroy()
+            self.scroll_canvas = None
 
     def show_welcome_screen(self):
-        """Display welcome/mode selection screen"""
+        """Display 3-section welcome screen with black/gold theme"""
         self.clear_content()
 
-        self.current_frame = tk.Frame(self.root, bg=self.colors['bg'])
-        self.current_frame.pack(fill='both', expand=True, padx=40, pady=30)
+        # Create scrollable container
+        scrollable = self.create_scrollable_frame()
+        self.current_frame = tk.Frame(scrollable, bg=self.colors['bg'])
+        self.current_frame.pack(fill='both', expand=True, padx=20, pady=12)
 
-        # Welcome text
-        welcome = tk.Label(self.current_frame,
-            text="Welcome to the Query KB Tool",
-            font=('Segoe UI', 16),
+        # ═══════════════════════════════════════════════════════════════
+        # SECTION 1: TOOL DESCRIPTION
+        # ═══════════════════════════════════════════════════════════════
+        tk.Label(self.current_frame,
+            text="TOOL DESCRIPTION",
+            font=('Segoe UI', 11, 'bold'),
             bg=self.colors['bg'],
-            fg=self.colors['text'])
-        welcome.pack(pady=(0, 20))
+            fg=self.colors['accent']).pack(anchor='w')
 
-        # Info card
-        info_frame = tk.Frame(self.current_frame, bg=self.colors['card'], padx=25, pady=20)
-        info_frame.pack(fill='x', pady=(0, 25))
+        tk.Label(self.current_frame,
+            text="Query and retrieve documents from the Trajanus Knowledge Base.\nSupports AI-powered semantic search, category browsing, and recent document access.",
+            font=('Segoe UI', 9),
+            bg=self.colors['bg'],
+            fg=self.colors['text'],
+            justify='left').pack(anchor='w', pady=(4, 8))
 
-        info_text = """This tool searches the Trajanus Knowledge Base.
+        # Gold divider line
+        tk.Frame(self.current_frame, bg=self.colors['divider'], height=2).pack(fill='x', pady=(0, 12))
 
-HOW IT WORKS:
-  1. Enter a natural language query
-  2. Query is converted to embedding vector
-  3. Semantic similarity search finds matches
-  4. Results ranked by relevance score
+        # ═══════════════════════════════════════════════════════════════
+        # SECTION 2: SEARCH TYPE DESCRIPTIONS
+        # ═══════════════════════════════════════════════════════════════
+        tk.Label(self.current_frame,
+            text="SEARCH TYPES",
+            font=('Segoe UI', 11, 'bold'),
+            bg=self.colors['bg'],
+            fg=self.colors['accent']).pack(anchor='w')
 
-FEATURES: Semantic search, browse by source, view recent sessions
-TIP: Use natural language - "How do we handle QCM reviews?" """
+        # Search type explanations
+        search_info = tk.Frame(self.current_frame, bg=self.colors['bg'])
+        search_info.pack(fill='x', pady=(6, 8))
 
-        tk.Label(info_frame,
-            text=info_text,
-            font=('Segoe UI', 11),
-            bg=self.colors['card'],
+        tk.Label(search_info,
+            text="SEMANTIC SEARCH",
+            font=('Segoe UI', 9, 'bold'),
+            bg=self.colors['bg'],
+            fg=self.colors['text']).pack(anchor='w')
+        tk.Label(search_info,
+            text="Find documents using AI-powered natural language matching. Enter any query and the system finds relevant content based on meaning, not just keywords.",
+            font=('Segoe UI', 8),
+            bg=self.colors['bg'],
             fg=self.colors['text_dim'],
+            wraplength=560,
+            justify='left').pack(anchor='w', pady=(0, 6))
+
+        tk.Label(search_info,
+            text="BROWSE SOURCES",
+            font=('Segoe UI', 9, 'bold'),
+            bg=self.colors['bg'],
+            fg=self.colors['text']).pack(anchor='w')
+        tk.Label(search_info,
+            text="Navigate documents organized by category and document type. View the full catalog structure and select specific documents to examine.",
+            font=('Segoe UI', 8),
+            bg=self.colors['bg'],
+            fg=self.colors['text_dim'],
+            wraplength=560,
+            justify='left').pack(anchor='w', pady=(0, 6))
+
+        tk.Label(search_info,
+            text="RECENT",
+            font=('Segoe UI', 9, 'bold'),
+            bg=self.colors['bg'],
+            fg=self.colors['text']).pack(anchor='w')
+        tk.Label(search_info,
+            text="View the most recently added documents to the knowledge base. Useful for finding new content and tracking what's been ingested.",
+            font=('Segoe UI', 8),
+            bg=self.colors['bg'],
+            fg=self.colors['text_dim'],
+            wraplength=560,
             justify='left').pack(anchor='w')
 
-        # Mode selection title
+        # Gold divider line
+        tk.Frame(self.current_frame, bg=self.colors['divider'], height=2).pack(fill='x', pady=(12, 12))
+
+        # ═══════════════════════════════════════════════════════════════
+        # SECTION 3: ACTION BUTTONS
+        # ═══════════════════════════════════════════════════════════════
         tk.Label(self.current_frame,
-            text="SELECT QUERY MODE",
-            font=('Segoe UI', 10, 'bold'),
+            text="SELECT ACTION",
+            font=('Segoe UI', 11, 'bold'),
             bg=self.colors['bg'],
-            fg=self.colors['text_dim']).pack(pady=(10, 15))
+            fg=self.colors['accent']).pack(anchor='w', pady=(0, 8))
 
-        # Mode buttons container
-        btn_container = tk.Frame(self.current_frame, bg=self.colors['bg'])
-        btn_container.pack(fill='x')
+        # Button row
+        btn_row = tk.Frame(self.current_frame, bg=self.colors['bg'])
+        btn_row.pack(fill='x', pady=(0, 8))
 
-        # Create mode cards
-        self.create_mode_card(btn_container,
-            "SEMANTIC SEARCH",
-            "Natural language query",
-            "AI-powered similarity search",
-            self.show_search_screen,
-            side='left')
+        BeveledButton(btn_row, "SEMANTIC SEARCH",
+                     command=self.show_search_screen, width=160, height=36, palette=self.colors).pack(side='left', padx=(0, 10))
+        BeveledButton(btn_row, "BROWSE SOURCES",
+                     command=self.show_sources_screen, width=160, height=36, palette=self.colors).pack(side='left', padx=(0, 10))
+        BeveledButton(btn_row, "RECENT",
+                     command=self.show_recent_screen, width=100, height=36, palette=self.colors).pack(side='left')
 
-        self.create_mode_card(btn_container,
-            "BROWSE SOURCES",
-            "View by category",
-            "Explore documents by source",
-            self.show_sources_screen,
-            side='left')
+        # Exit button row
+        exit_row = tk.Frame(self.current_frame, bg=self.colors['bg'])
+        exit_row.pack(fill='x', pady=(4, 0))
+        BeveledButton(exit_row, "EXIT", command=self.root.quit,
+                     width=80, height=30, style='dark', palette=self.colors).pack(side='right')
 
-        self.create_mode_card(btn_container,
-            "RECENT SESSIONS",
-            "View latest entries",
-            "See most recent additions",
-            self.show_recent_screen,
-            side='left')
+    def show_results_screen(self, filename, operation, results):
+        """Display results after a search operation with file actions"""
+        self.clear_content()
 
-        # Exit button at bottom
-        exit_frame = tk.Frame(self.current_frame, bg=self.colors['bg'])
-        exit_frame.pack(fill='x', pady=(30, 0))
+        # Create scrollable container
+        scrollable = self.create_scrollable_frame()
+        self.current_frame = tk.Frame(scrollable, bg=self.colors['bg'])
+        self.current_frame.pack(fill='both', expand=True, padx=20, pady=12)
 
-        exit_btn = tk.Button(exit_frame,
-            text="Exit",
-            font=('Segoe UI', 10),
-            bg=self.colors['border'],
-            fg=self.colors['text'],
-            activebackground='#444444',
-            activeforeground=self.colors['text'],
-            padx=30, pady=8,
-            cursor='hand2',
-            relief='flat',
-            command=self.root.quit)
-        exit_btn.pack(side='right')
+        # ═══════════════════════════════════════════════════════════════
+        # SECTION 1: OPERATION RESULTS
+        # ═══════════════════════════════════════════════════════════════
+        tk.Label(self.current_frame,
+            text="OPERATION RESULTS",
+            font=('Segoe UI', 11, 'bold'),
+            bg=self.colors['bg'],
+            fg=self.colors['accent']).pack(anchor='w')
+
+        # Results info
+        info_frame = tk.Frame(self.current_frame, bg=self.colors['bg'])
+        info_frame.pack(fill='x', pady=(8, 8))
+
+        # Filename
+        tk.Label(info_frame,
+            text=f"FILENAME: {filename}",
+            font=('Segoe UI', 9, 'bold'),
+            bg=self.colors['bg'],
+            fg=self.colors['text']).pack(anchor='w')
+
+        # Operation
+        tk.Label(info_frame,
+            text=f"OPERATION: {operation}",
+            font=('Segoe UI', 9),
+            bg=self.colors['bg'],
+            fg=self.colors['text_dim']).pack(anchor='w', pady=(2, 0))
+
+        # Results
+        tk.Label(info_frame,
+            text=f"RESULTS: {results}",
+            font=('Segoe UI', 9),
+            bg=self.colors['bg'],
+            fg=self.colors['success']).pack(anchor='w', pady=(2, 0))
+
+        # Gold divider line
+        tk.Frame(self.current_frame, bg=self.colors['divider'], height=2).pack(fill='x', pady=(12, 12))
+
+        # ═══════════════════════════════════════════════════════════════
+        # SECTION 2: FILE ACTIONS
+        # ═══════════════════════════════════════════════════════════════
+        tk.Label(self.current_frame,
+            text="FILE ACTIONS",
+            font=('Segoe UI', 11, 'bold'),
+            bg=self.colors['bg'],
+            fg=self.colors['accent']).pack(anchor='w', pady=(0, 8))
+
+        # Action buttons
+        action_row = tk.Frame(self.current_frame, bg=self.colors['bg'])
+        action_row.pack(fill='x', pady=(0, 8))
+
+        BeveledButton(action_row, "SAVE",
+                     command=lambda: self.file_action('save'), width=120, height=36, palette=self.colors).pack(side='left', padx=(0, 10))
+        BeveledButton(action_row, "DOWNLOAD",
+                     command=lambda: self.file_action('download'), width=120, height=36, palette=self.colors).pack(side='left', padx=(0, 10))
+        BeveledButton(action_row, "ADD TO PROJECT",
+                     command=lambda: self.file_action('add_project'), width=140, height=36, palette=self.colors).pack(side='left')
+
+        # Gold divider line
+        tk.Frame(self.current_frame, bg=self.colors['divider'], height=2).pack(fill='x', pady=(12, 12))
+
+        # Navigation
+        nav_row = tk.Frame(self.current_frame, bg=self.colors['bg'])
+        nav_row.pack(fill='x')
+        BeveledButton(nav_row, "BACK",
+                     command=self.show_welcome_screen, width=80, height=30, style='dark', palette=self.colors).pack(side='left')
+        BeveledButton(nav_row, "EXIT", command=self.root.quit,
+                     width=80, height=30, style='dark', palette=self.colors).pack(side='right')
+
+    def file_action(self, action_type):
+        """Handle file actions - placeholder for future implementation"""
+        from tkinter import filedialog
+        if action_type == 'save':
+            path = filedialog.asksaveasfilename(title="Save File As")
+            if path:
+                self.connection_label.config(text=f"Save location: {path}")
+        elif action_type == 'download':
+            path = filedialog.askdirectory(title="Select Download Location")
+            if path:
+                self.connection_label.config(text=f"Download to: {path}")
+        elif action_type == 'add_project':
+            path = filedialog.askdirectory(title="Select Project Folder")
+            if path:
+                self.connection_label.config(text=f"Add to project: {path}")
 
     def create_mode_card(self, parent, title, subtitle, description, command, side='left'):
         """Create a mode selection card - entire card is clickable"""
