@@ -24,7 +24,7 @@ class BeveledButton(tk.Canvas):
     """3D Beveled button with machine indicator light effect"""
 
     def __init__(self, parent, text, command=None, width=180, height=40,
-                 bg_color='#d4a574', fg_color='#1a1a1a', style='gold', **kwargs):
+                 style='primary', palette=None, **kwargs):
         super().__init__(parent, width=width, height=height,
                         bg=parent.cget('bg'), highlightthickness=0, **kwargs)
 
@@ -35,31 +35,49 @@ class BeveledButton(tk.Canvas):
         self.style = style
         self.pressed = False
 
-        self.schemes = {
-            'gold': {
-                'face': '#c0c0c0',
-                'light': '#e0e0e0',
-                'dark': '#808080',
-                'text': '#0d1b2a',
-                'glow': '#f0f0f0'
-            },
-            'dark': {
-                'face': '#404040',
-                'light': '#606060',
-                'dark': '#252525',
-                'text': '#ffffff',
-                'glow': '#555555'
-            },
-            'success': {
-                'face': '#4a9f4a',
-                'light': '#6abf6a',
-                'dark': '#2a7f2a',
-                'text': '#ffffff',
-                'glow': '#7fcf7f'
+        # Use palette colors if provided, otherwise use defaults
+        if palette and style == 'primary':
+            self.colors = {
+                'face': palette.get('btn_face', '#d4a574'),
+                'light': palette.get('btn_light', '#f0c896'),
+                'dark': palette.get('btn_dark', '#8a6b4a'),
+                'text': palette.get('btn_text', '#0a0a0a'),
+                'glow': palette.get('btn_glow', '#ffe4c4')
             }
-        }
+        elif palette and style == 'dark':
+            self.colors = {
+                'face': palette.get('bg_light', '#1a1a1a'),
+                'light': palette.get('border', '#333333'),
+                'dark': palette.get('bg', '#0a0a0a'),
+                'text': palette.get('text', '#ffffff'),
+                'glow': '#555555'
+            }
+        else:
+            self.schemes = {
+                'primary': {
+                    'face': '#d4a574',
+                    'light': '#f0c896',
+                    'dark': '#8a6b4a',
+                    'text': '#0a0a0a',
+                    'glow': '#ffe4c4'
+                },
+                'dark': {
+                    'face': '#404040',
+                    'light': '#606060',
+                    'dark': '#252525',
+                    'text': '#ffffff',
+                    'glow': '#555555'
+                },
+                'success': {
+                    'face': '#4a9f4a',
+                    'light': '#6abf6a',
+                    'dark': '#2a7f2a',
+                    'text': '#ffffff',
+                    'glow': '#7fcf7f'
+                }
+            }
+            self.colors = self.schemes.get(style, self.schemes['primary'])
 
-        self.colors = self.schemes.get(style, self.schemes['gold'])
         self.draw_button()
 
         self.bind('<Enter>', self.on_enter)
@@ -129,25 +147,25 @@ class TrajanusBatchIngestGUI:
         self.root.resizable(True, True)
         self.root.minsize(650, 550)
 
-        # Navy/Silver palette for comparison
+        # Black/Gold palette (standard for all tools)
         self.colors = {
-            'bg': '#0d1b2a',
-            'bg_light': '#1b263b',
-            'card': '#243447',
-            'accent': '#c0c0c0',
-            'hover': '#e0e0e0',
+            'bg': '#0a0a0a',
+            'bg_light': '#1a1a1a',
+            'card': '#252525',
+            'accent': '#d4a574',
+            'hover': '#e8b88a',
             'text': '#ffffff',
-            'text_dim': '#8892a0',
+            'text_dim': '#888888',
             'success': '#4a9f4a',
             'warning': '#e8922a',
             'error': '#e74c3c',
-            'border': '#2d4a6a',
-            'divider': '#c0c0c0',
-            'btn_face': '#c0c0c0',
-            'btn_light': '#e0e0e0',
-            'btn_dark': '#808080',
-            'btn_text': '#0d1b2a',
-            'btn_glow': '#f0f0f0'
+            'border': '#333333',
+            'divider': '#d4a574',
+            'btn_face': '#d4a574',
+            'btn_light': '#f0c896',
+            'btn_dark': '#8a6b4a',
+            'btn_text': '#0a0a0a',
+            'btn_glow': '#ffe4c4'
         }
 
         self.root.configure(bg=self.colors['bg'])
@@ -254,90 +272,128 @@ class TrajanusBatchIngestGUI:
             self.scroll_canvas = None
 
     def show_welcome_screen(self):
-        """Display welcome/mode selection screen"""
+        """Display 3-section welcome screen with black/gold theme"""
         self.clear_content()
 
-        self.current_frame = self.create_scrollable_frame()
-        content = tk.Frame(self.current_frame, bg=self.colors['bg'])
-        content.pack(fill='both', expand=True, padx=30, pady=20)
+        # Create scrollable container
+        scrollable = self.create_scrollable_frame()
+        self.current_frame = tk.Frame(scrollable, bg=self.colors['bg'])
+        self.current_frame.pack(fill='both', expand=True, padx=20, pady=12)
 
-        # Tool description card
-        desc_card = tk.Frame(content, bg=self.colors['card'], padx=20, pady=15)
-        desc_card.pack(fill='x', pady=(0, 15))
-
-        tk.Label(desc_card,
+        # ═══════════════════════════════════════════════════════════════
+        # SECTION 1: TOOL DESCRIPTION
+        # ═══════════════════════════════════════════════════════════════
+        tk.Label(self.current_frame,
             text="TOOL DESCRIPTION",
-            font=('Segoe UI', 9, 'bold'),
-            bg=self.colors['card'],
+            font=('Segoe UI', 11, 'bold'),
+            bg=self.colors['bg'],
             fg=self.colors['accent']).pack(anchor='w')
 
-        tk.Label(desc_card,
-            text="Ingests files into the Trajanus Knowledge Base.\nFiles are chunked, embedded with OpenAI, and stored in Supabase for semantic search.",
-            font=('Segoe UI', 10),
-            bg=self.colors['card'],
-            fg=self.colors['text'],
-            justify='left').pack(anchor='w', pady=(5, 0))
-
-        self.create_section_divider(content, "HOW TO USE")
-
-        # Instructions
-        instructions_card = tk.Frame(content, bg=self.colors['bg_light'], padx=20, pady=15)
-        instructions_card.pack(fill='x', pady=(0, 15))
-
-        instructions = [
-            "1. Select text files (.txt, .md, .json, .py, etc.)",
-            "2. Choose a source category for organization",
-            "3. Files are chunked and embedded automatically",
-            "4. Stored in Supabase for semantic search",
-            "",
-            "NOTE: Large files are automatically chunked for optimal retrieval."
-        ]
-
-        for inst in instructions:
-            color = self.colors['accent'] if inst.startswith('NOTE') else self.colors['text']
-            tk.Label(instructions_card,
-                text=inst,
-                font=('Segoe UI', 10),
-                bg=self.colors['bg_light'],
-                fg=color,
-                justify='left').pack(anchor='w', pady=1)
-
-        # Category selection
-        cat_frame = tk.Frame(content, bg=self.colors['bg'])
-        cat_frame.pack(fill='x', pady=(10, 5))
-
-        tk.Label(cat_frame,
-            text="SOURCE CATEGORY:",
-            font=('Segoe UI', 10, 'bold'),
+        tk.Label(self.current_frame,
+            text="Ingest files into the Trajanus Knowledge Base.\nFiles are chunked, embedded with OpenAI, and stored in Supabase for semantic search.",
+            font=('Segoe UI', 9),
             bg=self.colors['bg'],
-            fg=self.colors['text_dim']).pack(side='left')
+            fg=self.colors['text'],
+            justify='left').pack(anchor='w', pady=(4, 8))
+
+        # Gold divider line
+        tk.Frame(self.current_frame, bg=self.colors['divider'], height=2).pack(fill='x', pady=(0, 12))
+
+        # ═══════════════════════════════════════════════════════════════
+        # SECTION 2: INGEST MODE DESCRIPTIONS
+        # ═══════════════════════════════════════════════════════════════
+        tk.Label(self.current_frame,
+            text="INGEST MODES",
+            font=('Segoe UI', 11, 'bold'),
+            bg=self.colors['bg'],
+            fg=self.colors['accent']).pack(anchor='w')
+
+        # Mode explanations
+        mode_info = tk.Frame(self.current_frame, bg=self.colors['bg'])
+        mode_info.pack(fill='x', pady=(6, 8))
+
+        tk.Label(mode_info,
+            text="SINGLE FILE",
+            font=('Segoe UI', 9, 'bold'),
+            bg=self.colors['bg'],
+            fg=self.colors['text']).pack(anchor='w')
+        tk.Label(mode_info,
+            text="Select and ingest one file at a time. Best for adding individual documents or testing the ingest process.",
+            font=('Segoe UI', 8),
+            bg=self.colors['bg'],
+            fg=self.colors['text_dim'],
+            wraplength=560,
+            justify='left').pack(anchor='w', pady=(0, 6))
+
+        tk.Label(mode_info,
+            text="BATCH FOLDER",
+            font=('Segoe UI', 9, 'bold'),
+            bg=self.colors['bg'],
+            fg=self.colors['text']).pack(anchor='w')
+        tk.Label(mode_info,
+            text="Select a folder and ingest all supported files within it. Processes .txt, .md, .json, .py and other text formats.",
+            font=('Segoe UI', 8),
+            bg=self.colors['bg'],
+            fg=self.colors['text_dim'],
+            wraplength=560,
+            justify='left').pack(anchor='w', pady=(0, 6))
+
+        tk.Label(mode_info,
+            text="MULTI-SELECT",
+            font=('Segoe UI', 9, 'bold'),
+            bg=self.colors['bg'],
+            fg=self.colors['text']).pack(anchor='w')
+        tk.Label(mode_info,
+            text="Select multiple specific files from different locations. Hold Ctrl to select multiple files in the dialog.",
+            font=('Segoe UI', 8),
+            bg=self.colors['bg'],
+            fg=self.colors['text_dim'],
+            wraplength=560,
+            justify='left').pack(anchor='w')
+
+        # Gold divider line
+        tk.Frame(self.current_frame, bg=self.colors['divider'], height=2).pack(fill='x', pady=(12, 12))
+
+        # ═══════════════════════════════════════════════════════════════
+        # SECTION 3: ACTION BUTTONS
+        # ═══════════════════════════════════════════════════════════════
+        tk.Label(self.current_frame,
+            text="SELECT ACTION",
+            font=('Segoe UI', 11, 'bold'),
+            bg=self.colors['bg'],
+            fg=self.colors['accent']).pack(anchor='w', pady=(0, 8))
+
+        # Category selection row
+        cat_row = tk.Frame(self.current_frame, bg=self.colors['bg'])
+        cat_row.pack(fill='x', pady=(0, 10))
+
+        tk.Label(cat_row,
+            text="CATEGORY:",
+            font=('Segoe UI', 9, 'bold'),
+            bg=self.colors['bg'],
+            fg=self.colors['text']).pack(side='left')
 
         categories = ["General", "Documentation", "Transcripts", "Research", "Code", "Meeting Notes", "Procedures"]
-        cat_dropdown = ttk.Combobox(cat_frame, textvariable=self.source_category,
-            values=categories, state='readonly', width=20)
-        cat_dropdown.pack(side='left', padx=(15, 0))
+        cat_dropdown = ttk.Combobox(cat_row, textvariable=self.source_category,
+            values=categories, state='readonly', width=18)
+        cat_dropdown.pack(side='left', padx=(10, 0))
 
-        self.create_section_divider(content, "SELECT INGEST MODE")
+        # Button row
+        btn_row = tk.Frame(self.current_frame, bg=self.colors['bg'])
+        btn_row.pack(fill='x', pady=(0, 8))
 
-        # Mode buttons container - use BeveledButtons
-        btn_container = tk.Frame(content, bg=self.colors['bg'])
-        btn_container.pack(fill='x', pady=(10, 0))
+        BeveledButton(btn_row, "SINGLE FILE",
+                     command=self.select_single_file, width=140, height=36, palette=self.colors).pack(side='left', padx=(0, 10))
+        BeveledButton(btn_row, "BATCH FOLDER",
+                     command=self.select_folder, width=140, height=36, palette=self.colors).pack(side='left', padx=(0, 10))
+        BeveledButton(btn_row, "MULTI-SELECT",
+                     command=self.select_multiple_files, width=140, height=36, palette=self.colors).pack(side='left')
 
-        BeveledButton(btn_container, "SINGLE FILE",
-                     command=self.select_single_file, width=200, height=45).pack(side='left', padx=(0, 10))
-        BeveledButton(btn_container, "BATCH FOLDER",
-                     command=self.select_folder, width=200, height=45).pack(side='left', padx=(0, 10))
-        BeveledButton(btn_container, "MULTI-SELECT",
-                     command=self.select_multiple_files, width=200, height=45).pack(side='left')
-
-        self.create_section_divider(content)
-
-        # Exit button at bottom
-        exit_frame = tk.Frame(content, bg=self.colors['bg'])
-        exit_frame.pack(fill='x', pady=(10, 0))
-
-        BeveledButton(exit_frame, "EXIT", command=self.root.quit,
-                     width=120, height=38, style='dark').pack(side='right')
+        # Exit button row
+        exit_row = tk.Frame(self.current_frame, bg=self.colors['bg'])
+        exit_row.pack(fill='x', pady=(4, 0))
+        BeveledButton(exit_row, "EXIT", command=self.root.quit,
+                     width=80, height=30, style='dark', palette=self.colors).pack(side='right')
 
     def create_mode_card(self, parent, title, subtitle, description, command, side='left'):
         """Create a mode selection card - entire card is clickable"""
