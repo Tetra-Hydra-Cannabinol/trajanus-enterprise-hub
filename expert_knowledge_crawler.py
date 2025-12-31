@@ -42,26 +42,19 @@ def clean_text(text):
     return text.encode('ascii', 'ignore').decode('ascii')
 
 # ============================================================
-# API KEY ROTATION SYSTEM - 10 KEYS
+# API KEY - LOADED FROM ENVIRONMENT VARIABLE
 # ============================================================
 
-API_KEYS = [
-    "REDACTED_YOUTUBE_KEY_1",  # Key 1 - FRESH NEW PROJECT
-    "REDACTED_YOUTUBE_KEY_2",  # Key 2
-    "REDACTED_YOUTUBE_KEY_3",  # Key 3
-    "REDACTED_YOUTUBE_KEY_4",  # Key 4
-    "REDACTED_YOUTUBE_KEY_5",  # Key 5
-    "REDACTED_YOUTUBE_KEY_6",  # Key 6
-    "REDACTED_YOUTUBE_KEY_7",  # Key 7
-    "REDACTED_YOUTUBE_KEY_8",  # Key 8
-    "REDACTED_YOUTUBE_KEY_9",  # Key 9
-    "REDACTED_YOUTUBE_KEY_10",  # Key 10
-    "REDACTED_YOUTUBE_KEY_11",  # Key 11
-]
+API_KEY = os.getenv('YOUTUBE_API_KEY')
+if not API_KEY:
+    raise ValueError("YOUTUBE_API_KEY environment variable not set. Set it with: export YOUTUBE_API_KEY='your-api-key'")
+
+# Single key mode (rotation removed for security)
+API_KEYS = [API_KEY]
 
 # Key management
 current_key_index = 0
-key_status = {i: {"status": "untested", "queries": 0, "exhausted_at": None} for i in range(len(API_KEYS))}
+key_status = {0: {"status": "untested", "queries": 0, "exhausted_at": None}}
 
 # ============================================================
 # CONFIGURATION

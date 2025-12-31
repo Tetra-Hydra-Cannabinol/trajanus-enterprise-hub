@@ -106,10 +106,14 @@
 
     <script>
         // ============================================
-        // SUPABASE CONFIGURATION
+        // SUPABASE CONFIGURATION - LOAD FROM CONFIG OR PROMPT
         // ============================================
-        const SUPABASE_URL = 'https://iaxtwrswinygwwwdkvok.supabase.co';
-        const SUPABASE_ANON_KEY = 'REDACTED_SUPABASE_KEY';
+        const SUPABASE_URL = window.SUPABASE_CONFIG?.url || localStorage.getItem('SUPABASE_URL') || prompt('Enter Supabase URL:');
+        const SUPABASE_ANON_KEY = window.SUPABASE_CONFIG?.key || localStorage.getItem('SUPABASE_KEY') || prompt('Enter Supabase Anon Key:');
+
+        // Store for future use
+        if (SUPABASE_URL) localStorage.setItem('SUPABASE_URL', SUPABASE_URL);
+        if (SUPABASE_ANON_KEY) localStorage.setItem('SUPABASE_KEY', SUPABASE_ANON_KEY);
 
         var supabaseClient = null;
         var supabaseStats = { totalDocs: 0, totalChunks: 0 };
