@@ -135,7 +135,7 @@ class TrajanusQueryKBGUI:
 
         # ============ COLOR PALETTES ============
         # Change ACTIVE_PALETTE to test different themes
-        ACTIVE_PALETTE = "black_gold"  # Options: gold, navy_silver, ocean, forest, midnight, green_silver, black_silver, black_red, brown_orange, navy_gold, black_gold
+        ACTIVE_PALETTE = "navy_silver"  # Options: gold, navy_silver, ocean, forest, midnight, green_silver, black_silver, black_red, brown_orange, navy_gold, black_gold
 
         PALETTES = {
             'gold': {

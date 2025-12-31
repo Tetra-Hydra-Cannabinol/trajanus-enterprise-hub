@@ -152,25 +152,25 @@ class TrajanusYouTubeTool:
         self.root.resizable(True, True)
         self.root.minsize(600, 500)
 
-        # Black/Gold palette (standard for all tools)
+        # Navy/Silver palette (standard for all tools)
         self.colors = {
-            'bg': '#0a0a0a',
-            'bg_light': '#1a1a1a',
-            'card': '#252525',
-            'accent': '#d4a574',
-            'hover': '#e8b88a',
+            'bg': '#0d1b2a',
+            'bg_light': '#1b263b',
+            'card': '#243447',
+            'accent': '#c0c0c0',
+            'hover': '#e0e0e0',
             'text': '#ffffff',
-            'text_dim': '#888888',
+            'text_dim': '#8892a0',
             'success': '#4a9f4a',
             'warning': '#e8922a',
             'error': '#e74c3c',
-            'border': '#333333',
-            'divider': '#d4a574',
-            'btn_face': '#d4a574',
-            'btn_light': '#f0c896',
-            'btn_dark': '#8a6b4a',
-            'btn_text': '#0a0a0a',
-            'btn_glow': '#ffe4c4'
+            'border': '#2d4a6a',
+            'divider': '#c0c0c0',
+            'btn_face': '#c0c0c0',
+            'btn_light': '#e0e0e0',
+            'btn_dark': '#808080',
+            'btn_text': '#0d1b2a',
+            'btn_glow': '#f0f0f0'
         }
 
         self.root.configure(bg=self.colors['bg'])
