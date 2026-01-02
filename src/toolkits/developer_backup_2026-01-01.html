@@ -1017,121 +1017,10 @@
             padding: 2px 0;
         }
 
-        .terminal-section {
-            margin-top: 2rem;
-        }
-
-        .terminal-tabs {
-            display: flex;
-            gap: 0;
-        }
-
-        .terminal-tab {
-            background: var(--bg-surface);
-            border: none;
-            border-bottom: 2px solid transparent;
-            color: var(--text-secondary);
-            padding: 10px 20px;
-            font-size: 12px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .terminal-tab:hover {
-            color: var(--text-primary);
-            background: var(--bg-card);
-        }
-
-        .terminal-tab.active {
-            color: var(--gold);
-            border-bottom-color: var(--gold);
-            background: var(--bg-card);
-        }
-
-        .terminal-content {
-            display: none;
-        }
-
-        .terminal-content.active {
-            display: block;
-        }
-
-        .terminal-line {
-            padding: 2px 0;
-            font-family: var(--font-mono);
-            font-size: 12px;
-        }
-
         .output-line.info { color: var(--text-muted); }
         .output-line.success { color: var(--success); }
         .output-line.error { color: var(--error); }
         .output-line.warning { color: var(--warning); }
-
-        /* Claude Chat in Terminal */
-        .claude-chat-container {
-            display: flex;
-            flex-direction: column;
-            height: 250px;
-        }
-
-        .claude-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 12px;
-            background: var(--bg-base);
-        }
-
-        .claude-message {
-            margin-bottom: 10px;
-            padding: 8px 12px;
-            border-radius: 8px;
-            max-width: 85%;
-        }
-
-        .claude-message.user {
-            background: var(--gold);
-            color: var(--bg-base);
-            margin-left: auto;
-        }
-
-        .claude-message.assistant {
-            background: var(--bg-surface);
-            color: var(--text-primary);
-        }
-
-        .claude-input-area {
-            display: flex;
-            gap: 8px;
-            padding: 10px;
-            background: var(--bg-surface);
-            border-top: 1px solid var(--border-subtle);
-        }
-
-        .claude-input-area textarea {
-            flex: 1;
-            background: var(--bg-base);
-            border: 1px solid var(--border-subtle);
-            color: var(--text-primary);
-            padding: 8px;
-            border-radius: 4px;
-            resize: none;
-            font-family: inherit;
-        }
-
-        .claude-input-area button {
-            background: var(--gold);
-            color: var(--bg-base);
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-        }
-
-        .claude-input-area button:hover {
-            opacity: 0.9;
-        }
 
         /* ========================== */
         /* RESPONSIVE                 */
@@ -1637,41 +1526,6 @@
             </div>
         </div>
 
-        <!-- Terminal Section with Tabs -->
-        <section class="terminal-section">
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <div class="terminal-tabs">
-                        <button class="terminal-tab active" onclick="Terminal.switchTab('devtools')">DevTools</button>
-                        <button class="terminal-tab" onclick="Terminal.switchTab('codes')">Codes</button>
-                        <button class="terminal-tab" onclick="Terminal.switchTab('external')">External</button>
-                        <button class="terminal-tab" onclick="Terminal.switchTab('claude')">Claude Chat</button>
-                    </div>
-                    <button class="terminal-btn" onclick="Terminal.clear()">Clear</button>
-                </div>
-                <div class="terminal-body">
-                    <div id="terminal-devtools" class="terminal-content active">
-                        <div class="terminal-output"></div>
-                    </div>
-                    <div id="terminal-codes" class="terminal-content">
-                        <div class="terminal-output"></div>
-                    </div>
-                    <div id="terminal-external" class="terminal-content">
-                        <div class="terminal-output"></div>
-                    </div>
-                    <div id="terminal-claude" class="terminal-content">
-                        <div class="claude-chat-container">
-                            <div class="claude-messages" id="claude-chat-messages"></div>
-                            <div class="claude-input-area">
-                                <textarea id="claude-chat-input" placeholder="Message Claude..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();Terminal.sendClaudeMessage();}"></textarea>
-                                <button onclick="Terminal.sendClaudeMessage()">Send</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
     </main>
 
     <!-- Sticky Navigation Buttons -->
@@ -1845,41 +1699,17 @@
                 this.setLoading(true);
 
                 try {
-                    let response;
-
-                    // Check if running in Tauri or browser
-                    if (window.__TAURI__) {
-                        // Tauri mode - use invoke
-                        const invoke = getInvoke();
-                        response = await invoke('chat_with_claude', {
-                            message: message,
-                            context: null
-                        });
-                    } else {
-                        // Browser mode - direct API call
-                        const apiResponse = await fetch('https://api.anthropic.com/v1/messages', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'x-api-key': 'REDACTED_API_KEY',
-                                'anthropic-version': '2023-06-01',
-                                'anthropic-dangerous-direct-browser-access': 'true'
-                            },
-                            body: JSON.stringify({
-                                model: 'claude-sonnet-4-20250514',
-                                max_tokens: 4096,
-                                messages: [{ role: 'user', content: message }]
-                            })
-                        });
-
-                        if (!apiResponse.ok) {
-                            const errorData = await apiResponse.json();
-                            throw new Error(errorData.error?.message || 'API request failed');
-                        }
-
-                        const data = await apiResponse.json();
-                        response = data.content[0].text;
+                    // Get invoke function
+                    const invoke = getInvoke();
+                    if (!invoke) {
+                        throw new Error('Tauri not available');
                     }
+
+                    // Call Claude API via Tauri
+                    const response = await invoke('chat_with_claude', {
+                        message: message,
+                        context: null
+                    });
 
                     // Add assistant response
                     this.addMessage('assistant', response);
@@ -1963,97 +1793,9 @@
             }
         };
 
-        // Terminal Controller with Tabs
-        const Terminal = {
-            currentTab: 'devtools',
-
-            switchTab(tabName) {
-                // Update tab buttons
-                document.querySelectorAll('.terminal-tab').forEach(btn => btn.classList.remove('active'));
-                document.querySelector(`[onclick="Terminal.switchTab('${tabName}')"]`).classList.add('active');
-
-                // Update content panels
-                document.querySelectorAll('.terminal-content').forEach(panel => panel.classList.remove('active'));
-                document.getElementById(`terminal-${tabName}`).classList.add('active');
-
-                this.currentTab = tabName;
-                this.log(`Switched to ${tabName} tab`);
-            },
-
-            clear() {
-                const output = document.querySelector(`#terminal-${this.currentTab} .terminal-output`);
-                output.innerHTML = '';
-                this.log('Terminal cleared');
-            },
-
-            log(message) {
-                const output = document.querySelector(`#terminal-${this.currentTab} .terminal-output`);
-                const timestamp = new Date().toLocaleTimeString();
-                output.innerHTML += `<div class="terminal-line">[${timestamp}] ${message}</div>`;
-                output.scrollTop = output.scrollHeight;
-            },
-
-            // Claude Chat functionality
-            claudeMessages: [],
-
-            async sendClaudeMessage() {
-                const input = document.getElementById('claude-chat-input');
-                const message = input.value.trim();
-                if (!message) return;
-
-                this.addClaudeMessage('user', message);
-                input.value = '';
-
-                try {
-                    const response = await fetch('https://api.anthropic.com/v1/messages', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'x-api-key': 'REDACTED_API_KEY',
-                            'anthropic-version': '2023-06-01',
-                            'anthropic-dangerous-direct-browser-access': 'true'
-                        },
-                        body: JSON.stringify({
-                            model: 'claude-sonnet-4-20250514',
-                            max_tokens: 4096,
-                            messages: this.claudeMessages
-                        })
-                    });
-                    const data = await response.json();
-                    if (data.content && data.content[0]) {
-                        this.addClaudeMessage('assistant', data.content[0].text);
-                    } else if (data.error) {
-                        this.addClaudeMessage('assistant', 'Error: ' + data.error.message);
-                    }
-                } catch (error) {
-                    this.addClaudeMessage('assistant', 'Error: ' + error.message);
-                }
-            },
-
-            addClaudeMessage(role, content) {
-                this.claudeMessages.push({ role, content });
-                const container = document.getElementById('claude-chat-messages');
-                const div = document.createElement('div');
-                div.className = 'claude-message ' + role;
-                div.textContent = content;
-                container.appendChild(div);
-                container.scrollTop = container.scrollHeight;
-            },
-
-            clearClaudeChat() {
-                this.claudeMessages = [];
-                document.getElementById('claude-chat-messages').innerHTML = '';
-            },
-
-            init() {
-                this.log('Terminal ready');
-            }
-        };
-
-        // Initialize Chat Assistant and Terminal
+        // Initialize Chat Assistant
         document.addEventListener('DOMContentLoaded', () => {
             ChatAssistant.init();
-            Terminal.init();
         });
     </script>
 </body>

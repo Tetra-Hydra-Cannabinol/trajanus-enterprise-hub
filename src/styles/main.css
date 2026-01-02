@@ -66,7 +66,25 @@ body {
     color: var(--text-white);
     min-height: 100vh;
     line-height: 1.5;
+    max-width: 100vw;
     overflow-x: hidden;
+    font-size: 14px;
+}
+
+/* Small labels and badges */
+.sidebar-badge, .btn-label, .btn-description, .project-count, .platform-tag {
+    font-size: 0.8rem;
+}
+
+/* Headers reduced */
+h1, h2, h3, .section-title, .subsection-title, .platform-title {
+    font-size: 0.9em;
+}
+
+/* Buttons compact */
+.tool-button, .nav-btn, .new-project-btn {
+    padding: 6px 10px;
+    font-size: 0.8rem;
 }
 
 a {
@@ -90,9 +108,10 @@ a:hover {
     flex: 1;
     padding: var(--space-xl);
     padding-top: calc(60px + var(--space-xl));
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
     width: 100%;
+    overflow-x: hidden;
 }
 
 /* ==================== HEADER BAR ==================== */
@@ -895,12 +914,8 @@ a:hover {
 }
 
 @media (min-width: 1600px) {
-    .main-content {
-        max-width: 1600px;
-    }
-
     .hero-title h1 {
-        font-size: 3rem;
+        font-size: 2.75rem;
     }
 }
 
@@ -909,7 +924,7 @@ a:hover {
    ============================================ */
 .chat-terminal-container {
   padding: 0 2rem 2rem 2rem;
-  max-width: 1400px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -1046,6 +1061,7 @@ a:hover {
   top: 60px;
   bottom: 0;
   width: 280px;
+  flex-shrink: 0;
   background: var(--bg-surface);
   border-right: 1px solid var(--border-subtle);
   overflow-y: auto;
@@ -1157,7 +1173,8 @@ a:hover {
 /* Main content shift when sidebar is visible */
 .has-sidebar .main-content {
   margin-left: 280px;
-  max-width: calc(1400px - 280px);
+  max-width: calc(100vw - 300px);
+  width: calc(100% - 280px);
 }
 
 /* ============================================

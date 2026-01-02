@@ -70,14 +70,10 @@
             width: 280px;
             background: var(--bg-surface);
             border-right: 1px solid var(--border-subtle);
-            display: none; /* Hidden by default - full-width QCM mode */
+            display: flex;
             flex-direction: column;
             overflow-y: auto;
             flex-shrink: 0;
-        }
-
-        .sidebar.visible {
-            display: flex; /* Show when toggled */
         }
 
         .section-divider {
@@ -639,17 +635,12 @@
     <div class="workspace-container">
         <header class="workspace-header">
             <div>
-                <h1>Quality Control <span style="color: var(--text-muted); font-weight: 400;">| Trajanus EI™</span></h1>
+                <h1>Quality Control</h1>
                 <p>Submittals, inspections, deficiency tracking, RMS compliance</p>
             </div>
-            <div style="display: flex; gap: 8px;">
-                <button class="home-btn" onclick="QCM.toggleSidebar()" title="Toggle Sidebar">
-                    <span>☰</span> Tools
-                </button>
-                <a href="../index.html" class="home-btn">
-                    <span>&#9670;</span> Hub
-                </a>
-            </div>
+            <a href="../index.html" class="home-btn">
+                <span>&#9670;</span> Hub
+            </a>
         </header>
 
         <div class="workspace-main">
@@ -881,7 +872,7 @@
                             <div class="output-actions">
                                 <button class="btn btn-secondary" onclick="event.stopPropagation(); QCM.copyOutput();">Copy</button>
                                 <button class="btn btn-secondary" onclick="event.stopPropagation(); QCM.exportToRMS();">Export to RMS</button>
-                                <button class="btn btn-primary" onclick="event.stopPropagation(); QCM.sendToAssistant();">Send to Trajanus for Review</button>
+                                <button class="btn btn-primary" onclick="event.stopPropagation(); QCM.sendToAssistant();">Send to Claude</button>
                             </div>
                         </div>
                     </div>
@@ -930,12 +921,6 @@
             selectedFile: null,
             selectedDoc: null,
             isProcessing: false,
-
-            // ==================== SIDEBAR TOGGLE ====================
-            toggleSidebar() {
-                const sidebar = document.querySelector('.sidebar');
-                sidebar.classList.toggle('visible');
-            },
 
             // ==================== PANEL MANAGEMENT ====================
             Panels: {

@@ -161,6 +161,28 @@
                 </div>
             </section>
 
+            <!-- Claude Chat Section -->
+            <section class="claude-section">
+                <div class="section-header">
+                    <h2 class="section-title">Claude Assistant</h2>
+                </div>
+                <div class="chat-container" id="claude-chat">
+                    <div class="chat-header">
+                        <h3>TRAJANUS</h3>
+                        <div class="chat-actions">
+                            <button class="chat-action" onclick="clearChat()">Clear</button>
+                        </div>
+                    </div>
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="chat-welcome">Ask Trajanus anything...</div>
+                    </div>
+                    <div class="chat-input-area">
+                        <textarea id="chat-input" placeholder="Type your message..." rows="1" onkeydown="handleChatKeydown(event)"></textarea>
+                        <button class="tool-button primary" onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+            </section>
+
             <!-- Projects (Renamed from Active Projects) -->
             <section class="projects-section">
                 <div class="section-header">
@@ -300,8 +322,14 @@
     </div>
 
     <script>
-        // Tauri API
-        const { invoke } = window.__TAURI__.core;
+        // Tauri API - Browser-safe check
+        function getInvoke() {
+            if (window.__TAURI__ && window.__TAURI__.core && window.__TAURI__.core.invoke) {
+                return window.__TAURI__.core.invoke;
+            }
+            return null;
+        }
+        const invoke = getInvoke();
 
         // ============================================
         // LOGGING SYSTEM
@@ -698,6 +726,115 @@
                 }
             }
         };
+
+        // ============================================
+        // CLAUDE CHAT - Direct Anthropic API
+        // ============================================
+        const ChatAssistant = {
+            apiKey: 'REDACTED_API_KEY',
+            model: 'claude-sonnet-4-20250514',
+            messages: [],
+
+            async send(userMessage) {
+                this.messages.push({ role: 'user', content: userMessage });
+
+                try {
+                    const response = await fetch('https://api.anthropic.com/v1/messages', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-api-key': this.apiKey,
+                            'anthropic-version': '2023-06-01',
+                            'anthropic-dangerous-direct-browser-access': 'true'
+                        },
+                        body: JSON.stringify({
+                            model: this.model,
+                            max_tokens: 1024,
+                            system: 'You are Trajanus, an AI assistant for the Trajanus Enterprise Hub. You help with project management, quality control, traffic engineering, and development tasks. Be concise and professional.',
+                            messages: this.messages
+                        })
+                    });
+
+                    if (!response.ok) {
+                        const error = await response.json();
+                        throw new Error(error.error?.message || 'API request failed');
+                    }
+
+                    const data = await response.json();
+                    const assistantMessage = data.content[0].text;
+                    this.messages.push({ role: 'assistant', content: assistantMessage });
+                    return assistantMessage;
+                } catch (error) {
+                    console.error('Chat error:', error);
+                    throw error;
+                }
+            },
+
+            clear() {
+                this.messages = [];
+            }
+        };
+
+        function addMessage(content, role) {
+            const messagesDiv = document.getElementById('chat-messages');
+            const welcome = messagesDiv.querySelector('.chat-welcome');
+            if (welcome) welcome.remove();
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${role}`;
+            messageDiv.textContent = content;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const messagesDiv = document.getElementById('chat-messages');
+            const typing = document.createElement('div');
+            typing.className = 'typing-indicator';
+            typing.id = 'typing-indicator';
+            typing.innerHTML = '<span></span><span></span><span></span>';
+            messagesDiv.appendChild(typing);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const typing = document.getElementById('typing-indicator');
+            if (typing) typing.remove();
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            if (!message) return;
+
+            input.value = '';
+            addMessage(message, 'user');
+            showTypingIndicator();
+
+            try {
+                const response = await ChatAssistant.send(message);
+                hideTypingIndicator();
+                addMessage(response, 'assistant');
+            } catch (error) {
+                hideTypingIndicator();
+                addMessage('Error: ' + error.message, 'assistant');
+                log('Chat error: ' + error.message, 'error');
+            }
+        }
+
+        function handleChatKeydown(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        function clearChat() {
+            ChatAssistant.clear();
+            const messagesDiv = document.getElementById('chat-messages');
+            messagesDiv.innerHTML = '<div class="chat-welcome">Ask Trajanus anything...</div>';
+            log('Chat cleared', 'info');
+        }
 
         // Return to Hub function
         function returnToHub() {

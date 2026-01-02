@@ -10,13 +10,12 @@
     "withGlobalTauri": true,
     "windows": [
       {
-        "label": "main",
         "title": "Trajanus Command Center",
-        "width": 1280,
-        "height": 800,
+        "width": 1400,
+        "height": 900,
         "resizable": true,
-        "fullscreen": false,
         "maximizable": true,
+        "fullscreen": false,
         "center": true
       }
     ],
