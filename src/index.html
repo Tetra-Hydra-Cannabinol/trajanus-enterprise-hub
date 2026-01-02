@@ -731,7 +731,7 @@
         // CLAUDE CHAT - Direct Anthropic API
         // ============================================
         const ChatAssistant = {
-            apiKey: 'REDACTED_API_KEY',
+            apiKey: window.ANTHROPIC_API_KEY || '',
             model: 'claude-sonnet-4-20250514',
             messages: [],
 
