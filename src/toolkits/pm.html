@@ -893,8 +893,35 @@
     </div>
 
     <script>
-        // Tauri API
-        const { invoke } = window.__TAURI__.core;
+        // Safe Tauri API wrapper - returns null in browser mode
+        function getInvoke() {
+            if (window.__TAURI__ && window.__TAURI__.core && window.__TAURI__.core.invoke) {
+                return window.__TAURI__.core.invoke;
+            }
+            return null;
+        }
+
+        // Notification helper for browser feedback
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `<span>${message}</span>`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                border-radius: 8px;
+                background: ${type === 'warning' ? '#2d2a00' : '#0a1929'};
+                border: 1px solid ${type === 'warning' ? '#d4af37' : '#4fc3f7'};
+                color: ${type === 'warning' ? '#d4af37' : '#e0e0e0'};
+                font-size: 14px;
+                z-index: 9999;
+                animation: slideIn 0.3s ease;
+            `;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
 
         const PM = {
             selectedFile: null,
@@ -951,7 +978,26 @@
             },
 
             // ==================== APP LAUNCHERS ====================
+            webUrls: {
+                'excel': 'https://office.live.com/start/excel.aspx'
+            },
+
             async launchApp(app) {
+                const invoke = getInvoke();
+
+                // Browser fallback mode
+                if (!invoke) {
+                    if (this.webUrls[app]) {
+                        window.open(this.webUrls[app], '_blank');
+                        this.log(`Opening ${app} online...`, 'success');
+                        showNotification(`Opening ${app} in browser...`, 'info');
+                    } else {
+                        this.log(`${app} requires the desktop app`, 'error');
+                        showNotification(`${app} requires the desktop app`, 'warning');
+                    }
+                    return;
+                }
+
                 const commands = {
                     'p6': 'start "" "C:\\Program Files\\Oracle\\Primavera P6\\PM.exe"',
                     'msproject': 'start winproj',
@@ -984,7 +1030,16 @@
             },
 
             async browsePath() {
+                const invoke = getInvoke();
                 const path = document.getElementById('browser-path').value;
+
+                // Browser fallback mode
+                if (!invoke) {
+                    this.log(`File browsing requires the desktop app`, 'error');
+                    showNotification('File browsing requires the desktop app', 'warning');
+                    return;
+                }
+
                 this.log(`Browsing: ${path}`);
                 try {
                     const entries = await invoke('list_directory', { path });

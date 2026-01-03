@@ -1,23 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<!-- saved from url=(0032)http://127.0.0.1:1430/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script>// Copyright 2019-2024 Tauri Programme within The Commons Conservancy
+// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
+
+// taken from https://github.com/thedodd/trunk/blob/5c799dc35f1f1d8f8d3d30c8723cbb761a9b6a08/src/autoreload.js
+
+;(function () {
+  const reload_url = 'ws://127.0.0.1:1430/__tauri_cli'
+  const url = reload_url ? reload_url : window.location.href
+  const poll_interval = 5000
+  const reload_upon_connect = () => {
+    window.setTimeout(() => {
+      // when we successfully reconnect, we'll force a
+      // reload (since we presumably lost connection to
+      // tauri-cli due to it being killed)
+      const ws = new WebSocket(url)
+      ws.onopen = () => window.location.reload()
+      ws.onclose = reload_upon_connect
+    }, poll_interval)
+  }
+
+  const ws = new WebSocket(url)
+  ws.onmessage = (ev) => {
+    const msg = JSON.parse(ev.data)
+    if (msg.reload) {
+      window.location.reload()
+    }
+  }
+  ws.onclose = reload_upon_connect
+})()
+</script>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trajanus Enterprise Hub</title>
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="./main.css">
 </head>
 <body>
     <div class="app-wrapper has-sidebar">
         <!-- Header Bar -->
         <header class="header-bar">
             <div class="header-brand">
-                <span class="header-logo">&#9670;</span>
+                <span class="header-logo">◆</span>
                 <span class="header-title">TRAJANUS</span>
             </div>
             <div class="header-controls">
                 <button class="header-icon-btn quad-chat-btn" id="quad-chat-toggle" title="Quad Chat Mode" onclick="toggleQuadChat()">⊞</button>
-                <button class="header-icon-btn" title="Settings" onclick="log('Settings coming soon...', 'info')">&#9881;</button>
-                <button class="header-icon-btn" title="User" onclick="log('User profile coming soon...', 'info')">&#128100;</button>
+                <button class="header-icon-btn" title="Settings" onclick="log(&#39;Settings coming soon...&#39;, &#39;info&#39;)">⚙</button>
+                <button class="header-icon-btn" title="User" onclick="log(&#39;User profile coming soon...&#39;, &#39;info&#39;)">👤</button>
             </div>
         </header>
 
@@ -29,40 +59,55 @@
             </div>
 
             <div class="project-section">
-                <div class="section-header-sidebar" onclick="toggleSection('traffic')">
-                    <span>&#128678; Traffic Studies</span>
-                    <span class="project-count" id="traffic-count">0</span>
+                <div class="section-header-sidebar" onclick="toggleSection(&#39;traffic&#39;)">
+                    <span>🚦 Traffic Studies</span>
+                    <span class="project-count" id="traffic-count">1</span>
                 </div>
-                <div class="project-list" id="traffic-projects"></div>
+                <div class="project-list" id="traffic-projects">
+                        <div class="project-item active " id="project-PRJ-2025-002" onclick="selectProject(&#39;PRJ-2025-002&#39;)">
+                            <div class="project-name">Grace Fellowship TIS</div>
+                            <div class="project-meta">Bill King • Dec 31</div>
+                        </div>
+                    </div>
             </div>
 
             <div class="project-section">
-                <div class="section-header-sidebar" onclick="toggleSection('qcm')">
-                    <span>&#10003; Quality Control</span>
+                <div class="section-header-sidebar" onclick="toggleSection(&#39;qcm&#39;)">
+                    <span>✓ Quality Control</span>
                     <span class="project-count" id="qcm-count">0</span>
                 </div>
                 <div class="project-list" id="qcm-projects"></div>
             </div>
 
             <div class="project-section">
-                <div class="section-header-sidebar" onclick="toggleSection('pm')">
-                    <span>&#128203; Project Management</span>
-                    <span class="project-count" id="pm-count">0</span>
+                <div class="section-header-sidebar" onclick="toggleSection(&#39;pm&#39;)">
+                    <span>📋 Project Management</span>
+                    <span class="project-count" id="pm-count">2</span>
                 </div>
-                <div class="project-list" id="pm-projects"></div>
+                <div class="project-list" id="pm-projects">
+                        <div class="project-item active " id="project-PRJ-2025-001" onclick="selectProject(&#39;PRJ-2025-001&#39;)">
+                            <div class="project-name">SOUTHCOM Guatemala</div>
+                            <div class="project-meta">Bill King • Dec 31</div>
+                        </div>
+                    
+                        <div class="project-item active " id="project-PRJ-2025-003" onclick="selectProject(&#39;PRJ-2025-003&#39;)">
+                            <div class="project-name">Base Housing - Kwajalein</div>
+                            <div class="project-meta">Bill King • Dec 31</div>
+                        </div>
+                    </div>
             </div>
 
             <div class="project-section">
-                <div class="section-header-sidebar" onclick="toggleSection('dev')">
-                    <span>&#128736; Development</span>
+                <div class="section-header-sidebar" onclick="toggleSection(&#39;dev&#39;)">
+                    <span>🛠 Development</span>
                     <span class="project-count" id="dev-count">0</span>
                 </div>
                 <div class="project-list" id="dev-projects"></div>
             </div>
 
             <div class="project-section delivered-section">
-                <div class="section-header-sidebar" onclick="toggleSection('delivered')">
-                    <span>&#128230; Client Deliverables</span>
+                <div class="section-header-sidebar" onclick="toggleSection(&#39;delivered&#39;)">
+                    <span>📦 Client Deliverables</span>
                     <span class="project-count" id="delivered-count">0</span>
                 </div>
                 <div class="project-list" id="delivered-projects"></div>
@@ -73,7 +118,7 @@
         <main class="main-content">
             <!-- Hero Title -->
             <section class="hero-title">
-                <h1>TRAJANUS ENTERPRISE HUB <span class="trademark">| EI&#8482;</span></h1>
+                <h1>TRAJANUS ENTERPRISE HUB <span class="trademark">| EI™</span></h1>
             </section>
 
             <!-- Greeting Row -->
@@ -81,7 +126,7 @@
                 <h2 class="greeting">
                     <span id="greeting-text">Good morning</span>, <span class="greeting-name">Bill</span>.
                 </h2>
-                <span class="current-date" id="current-date">December 31, 2025</span>
+                <span class="current-date" id="current-date">January 3, 2026</span>
             </div>
 
             <!-- Welcome Section -->
@@ -90,7 +135,7 @@
                 <p class="welcome-intro">
                     The Enterprise Hub is your central command interface for construction project management,
                     quality control, traffic engineering, and development operations. Built on Trajanus
-                    Engineered Intelligence (EI&#8482;), this platform integrates federal contract management
+                    Engineered Intelligence (EI™), this platform integrates federal contract management
                     workflows with AI-assisted tools and automation.
                 </p>
             </section>
@@ -103,7 +148,7 @@
 
                 <div class="platforms-grid">
                     <!-- Developer Workspace -->
-                    <a href="toolkits/developer.html" class="platform-card">
+                    <a href="http://127.0.0.1:1430/toolkits/developer.html" class="platform-card">
                         <h3 class="platform-title">Developer Workspace</h3>
                         <p class="platform-subtitle">Knomad Prime's Workspace</p>
                         <p class="platform-description">
@@ -117,7 +162,7 @@
                     </a>
 
                     <!-- Project Management -->
-                    <a href="toolkits/pm.html" class="platform-card">
+                    <a href="http://127.0.0.1:1430/toolkits/pm.html" class="platform-card">
                         <h3 class="platform-title">Project Management</h3>
                         <p class="platform-subtitle">User Workspace</p>
                         <p class="platform-description">
@@ -132,7 +177,7 @@
                     </a>
 
                     <!-- Quality Control -->
-                    <a href="toolkits/qcm.html" class="platform-card">
+                    <a href="http://127.0.0.1:1430/toolkits/qcm.html" class="platform-card">
                         <h3 class="platform-title">Quality Control</h3>
                         <p class="platform-subtitle">User Workspace</p>
                         <p class="platform-description">
@@ -146,7 +191,7 @@
                     </a>
 
                     <!-- Traffic Studies -->
-                    <a href="toolkits/traffic.html" class="platform-card">
+                    <a href="http://127.0.0.1:1430/toolkits/traffic.html" class="platform-card">
                         <h3 class="platform-title">Traffic Studies</h3>
                         <p class="platform-subtitle">User Workspace</p>
                         <p class="platform-description">
@@ -190,7 +235,32 @@
                 </div>
 
                 <div class="projects-grid compact" id="active-projects-grid">
-                    <!-- Dynamically populated -->
+                    <div class="project-card compact project-status-active" onclick="selectProject(&#39;PRJ-2025-001&#39;)" style="cursor: pointer;">
+                        <div class="project-name">SOUTHCOM Guatemala</div>
+                        <div class="project-subtitle">Project Management</div>
+                        <div class="project-details">
+                            <span class="project-client">USACE</span>
+                            <span class="project-status-label">Active</span>
+                        </div>
+                    </div>
+                
+                    <div class="project-card compact project-status-active" onclick="selectProject(&#39;PRJ-2025-002&#39;)" style="cursor: pointer;">
+                        <div class="project-name">Grace Fellowship TIS</div>
+                        <div class="project-subtitle">Traffic Study</div>
+                        <div class="project-details">
+                            <span class="project-client">Grace Fellowship Church</span>
+                            <span class="project-status-label">Active</span>
+                        </div>
+                    </div>
+                
+                    <div class="project-card compact project-status-active" onclick="selectProject(&#39;PRJ-2025-003&#39;)" style="cursor: pointer;">
+                        <div class="project-name">Base Housing - Kwajalein</div>
+                        <div class="project-subtitle">Project Management</div>
+                        <div class="project-details">
+                            <span class="project-client">US Army</span>
+                            <span class="project-status-label">Active</span>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -201,32 +271,32 @@
                 </div>
 
                 <div class="quick-tools-grid">
-                    <div class="quick-tool" onclick="Hub.launchApp('word')">
+                    <div class="quick-tool" onclick="Hub.launchApp(&#39;word&#39;)">
                         <div class="quick-tool-icon">W</div>
                         <div class="quick-tool-label">Word</div>
                     </div>
-                    <div class="quick-tool" onclick="Hub.launchApp('excel')">
+                    <div class="quick-tool" onclick="Hub.launchApp(&#39;excel&#39;)">
                         <div class="quick-tool-icon">X</div>
                         <div class="quick-tool-label">Excel</div>
                     </div>
-                    <div class="quick-tool" onclick="Hub.launchApp('teams')">
+                    <div class="quick-tool" onclick="Hub.launchApp(&#39;teams&#39;)">
                         <div class="quick-tool-icon">T</div>
                         <div class="quick-tool-label">Teams</div>
                     </div>
-                    <div class="quick-tool" onclick="Hub.launchApp('outlook')">
+                    <div class="quick-tool" onclick="Hub.launchApp(&#39;outlook&#39;)">
                         <div class="quick-tool-icon">O</div>
                         <div class="quick-tool-label">Outlook</div>
                     </div>
-                    <div class="quick-tool" onclick="Hub.launchApp('adobe')">
+                    <div class="quick-tool" onclick="Hub.launchApp(&#39;adobe&#39;)">
                         <div class="quick-tool-icon">A</div>
                         <div class="quick-tool-label">Adobe</div>
                     </div>
-                    <div class="quick-tool" onclick="Hub.launchApp('calc')">
-                        <div class="quick-tool-icon">&#128290;</div>
+                    <div class="quick-tool" onclick="Hub.launchApp(&#39;calc&#39;)">
+                        <div class="quick-tool-icon">🔢</div>
                         <div class="quick-tool-label">Calc</div>
                     </div>
-                    <div class="quick-tool" onclick="Hub.launchApp('gmail')">
-                        <div class="quick-tool-icon">&#9993;</div>
+                    <div class="quick-tool" onclick="Hub.launchApp(&#39;gmail&#39;)">
+                        <div class="quick-tool-icon">✉</div>
                         <div class="quick-tool-label">Gmail</div>
                     </div>
                 </div>
@@ -240,22 +310,22 @@
 
                 <div class="applications-grid">
                     <div class="app-category">
-                        <h4>Federal & DoD</h4>
+                        <h4>Federal &amp; DoD</h4>
                         <ul class="app-list">
-                            <li><a href="https://rms.usace.army.mil" target="_blank" class="app-link"><span class="app-link-icon">&#9670;</span> RMS 3.0</a></li>
-                            <li><a href="https://cefms.usace.army.mil" target="_blank" class="app-link"><span class="app-link-icon">&#9670;</span> CEFMS</a></li>
-                            <li><a href="#" onclick="log('ENG Form 4025 coming soon...', 'info'); return false;" class="app-link"><span class="app-link-icon">&#9670;</span> ENG Form 4025</a></li>
-                            <li><a href="#" onclick="log('eCMS coming soon...', 'info'); return false;" class="app-link"><span class="app-link-icon">&#9670;</span> eCMS</a></li>
+                            <li><a href="https://rms.usace.army.mil/" target="_blank" class="app-link"><span class="app-link-icon">◆</span> RMS 3.0</a></li>
+                            <li><a href="https://cefms.usace.army.mil/" target="_blank" class="app-link"><span class="app-link-icon">◆</span> CEFMS</a></li>
+                            <li><a href="http://127.0.0.1:1430/index.html#" onclick="log(&#39;ENG Form 4025 coming soon...&#39;, &#39;info&#39;); return false;" class="app-link"><span class="app-link-icon">◆</span> ENG Form 4025</a></li>
+                            <li><a href="http://127.0.0.1:1430/index.html#" onclick="log(&#39;eCMS coming soon...&#39;, &#39;info&#39;); return false;" class="app-link"><span class="app-link-icon">◆</span> eCMS</a></li>
                         </ul>
                     </div>
 
                     <div class="app-category">
                         <h4>Project Controls</h4>
                         <ul class="app-list">
-                            <li><a href="#" onclick="log('Primavera P6 integration coming soon...', 'info'); return false;" class="app-link"><span class="app-link-icon">&#9670;</span> Primavera P6</a></li>
-                            <li><a href="https://app.procore.com" target="_blank" class="app-link"><span class="app-link-icon">&#9670;</span> Procore</a></li>
-                            <li><a href="#" onclick="log('Oracle Unifier coming soon...', 'info'); return false;" class="app-link"><span class="app-link-icon">&#9670;</span> Oracle Unifier</a></li>
-                            <li><a href="#" onclick="log('Microsoft Project coming soon...', 'info'); return false;" class="app-link"><span class="app-link-icon">&#9670;</span> Microsoft Project</a></li>
+                            <li><a href="http://127.0.0.1:1430/index.html#" onclick="log(&#39;Primavera P6 integration coming soon...&#39;, &#39;info&#39;); return false;" class="app-link"><span class="app-link-icon">◆</span> Primavera P6</a></li>
+                            <li><a href="https://app.procore.com/" target="_blank" class="app-link"><span class="app-link-icon">◆</span> Procore</a></li>
+                            <li><a href="http://127.0.0.1:1430/index.html#" onclick="log(&#39;Oracle Unifier coming soon...&#39;, &#39;info&#39;); return false;" class="app-link"><span class="app-link-icon">◆</span> Oracle Unifier</a></li>
+                            <li><a href="http://127.0.0.1:1430/index.html#" onclick="log(&#39;Microsoft Project coming soon...&#39;, &#39;info&#39;); return false;" class="app-link"><span class="app-link-icon">◆</span> Microsoft Project</a></li>
                         </ul>
                     </div>
 
@@ -265,7 +335,7 @@
 
         <!-- Sticky Navigation Buttons -->
         <div class="sticky-nav">
-            <button class="nav-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Return to Top">
+            <button class="nav-btn" onclick="window.scrollTo({top: 0, behavior: &#39;smooth&#39;})" title="Return to Top">
                 ↑ Top
             </button>
             <button class="nav-btn" onclick="returnToHub()" title="Back to Hub">
@@ -290,7 +360,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3>NEW PROJECT</h3>
-                <button class="modal-close" onclick="hideNewProjectModal()">&times;</button>
+                <button class="modal-close" onclick="hideNewProjectModal()">×</button>
             </div>
             <div class="form-group">
                 <label for="newProjectName">Project Name</label>
@@ -930,5 +1000,6 @@
             box-shadow: 0 0 8px rgba(76, 175, 80, 0.4);
         }
     </style>
-</body>
-</html>
+
+
+</body></html>

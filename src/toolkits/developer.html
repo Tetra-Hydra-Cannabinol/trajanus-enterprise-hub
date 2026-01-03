@@ -1738,9 +1738,35 @@
                 'notepad': 'notepad++'
             },
 
+            // Browser fallback URLs for web-accessible apps
+            webUrls: {
+                'github': 'https://github.com',
+                'chrome': 'https://google.com',
+                'edge': 'https://bing.com',
+                'teams': 'https://teams.microsoft.com',
+                'zoom': 'https://zoom.us/join',
+                'outlook': 'https://outlook.office.com',
+                'gdrive': 'https://drive.google.com',
+                'word': 'https://office.live.com/start/word.aspx',
+                'excel': 'https://office.live.com/start/excel.aspx',
+                'powerpoint': 'https://office.live.com/start/powerpoint.aspx',
+                'onenote': 'https://www.onenote.com',
+                'vscode': 'https://vscode.dev'
+            },
+
             async launch(appKey) {
                 const invoke = getInvoke();
-                if (!invoke) return;
+
+                // Browser fallback mode
+                if (!invoke) {
+                    if (this.webUrls[appKey]) {
+                        window.open(this.webUrls[appKey], '_blank');
+                        showNotification(`Opening ${appKey} in browser...`, 'info');
+                    } else {
+                        showNotification(`${appKey} requires the desktop app`, 'warning');
+                    }
+                    return;
+                }
 
                 try {
                     if (appKey === 'vscode') {
@@ -1760,11 +1786,39 @@
             }
         };
 
+        // Notification helper for browser feedback
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `<span>${message}</span>`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                border-radius: 8px;
+                background: ${type === 'warning' ? '#2d2a00' : '#0a1929'};
+                border: 1px solid ${type === 'warning' ? '#d4af37' : '#4fc3f7'};
+                color: ${type === 'warning' ? '#d4af37' : '#e0e0e0'};
+                font-size: 14px;
+                z-index: 9999;
+                animation: slideIn 0.3s ease;
+            `;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
         // Script Runner
         const Scripts = {
             async run(scriptName) {
                 const invoke = getInvoke();
-                if (!invoke) return;
+
+                // Browser fallback - scripts require desktop app
+                if (!invoke) {
+                    showNotification(`Script "${scriptName}" requires the desktop app`, 'warning');
+                    console.log(`[Browser Mode] Cannot run script: ${scriptName}`);
+                    return;
+                }
 
                 try {
                     await invoke('run_python_script', {

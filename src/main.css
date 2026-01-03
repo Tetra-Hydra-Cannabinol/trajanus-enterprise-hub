@@ -107,7 +107,7 @@ a:hover {
 .main-content {
     flex: 1;
     padding: var(--space-xl);
-    padding-top: calc(60px + 450px + var(--space-xl)); /* header + claude hero + spacing */
+    padding-top: calc(60px + var(--space-xl));
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
@@ -158,19 +158,6 @@ a:hover {
     display: flex;
     align-items: center;
     gap: var(--space-md);
-}
-
-.header-clock {
-    font-family: 'Consolas', 'Monaco', monospace;
-    font-size: 14px;
-    color: var(--accent-gold);
-    margin-right: 8px;
-}
-
-.header-status {
-    font-size: 12px;
-    color: #4CAF50;
-    margin-right: 8px;
 }
 
 .header-icon-btn {
@@ -511,147 +498,6 @@ a:hover {
     margin-bottom: var(--space-xl);
 }
 
-/* Claude Hero - Fixed prominent chat section */
-.claude-hero {
-    position: fixed;
-    top: 60px; /* Below the header */
-    left: 280px; /* After sidebar */
-    right: 0;
-    z-index: 99;
-    background: linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-card) 100%);
-    padding: var(--space-lg);
-    border-bottom: 2px solid var(--accent-gold);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-.claude-hero .section-header {
-    margin-bottom: var(--space-md);
-}
-
-.claude-hero .section-title {
-    font-size: 1.5rem;
-    color: var(--accent-gold);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-}
-
-.claude-hero .chat-container {
-    height: 500px;
-    min-height: 450px;
-    max-height: 60vh;
-    border: 2px solid var(--accent-gold);
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
-}
-
-.claude-hero .chat-header {
-    background: linear-gradient(90deg, var(--bg-elevated) 0%, var(--bg-surface) 100%);
-    padding: 16px 20px;
-}
-
-.claude-hero .chat-header h3 {
-    font-size: 1.1rem;
-    letter-spacing: 0.2em;
-}
-
-.claude-hero .chat-messages {
-    min-height: 350px;
-    max-height: calc(60vh - 120px);
-    flex: 1;
-    overflow-y: auto;
-}
-
-.claude-hero .chat-input-area {
-    padding: 16px 20px;
-    background: var(--bg-elevated);
-    border-top: 1px solid var(--accent-gold);
-}
-
-.claude-hero .chat-input-area textarea {
-    font-size: 1rem;
-    padding: 12px 16px;
-}
-
-.claude-hero .tool-button.primary {
-    padding: 12px 24px;
-    font-size: 1rem;
-    font-weight: 600;
-}
-
-/* Claude.ai Launch Panel */
-.claude-launch-panel {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    min-height: 350px;
-    background: var(--bg-elevated);
-    border-radius: 8px;
-    text-align: center;
-    padding: 24px;
-}
-
-.claude-launch-panel h3 {
-    font-size: 1.5rem;
-    color: var(--accent-gold);
-    margin-bottom: 12px;
-    letter-spacing: 0.15em;
-}
-
-.claude-launch-panel p {
-    color: var(--text-muted);
-    margin-bottom: 8px;
-    max-width: 400px;
-}
-
-.claude-launch-btn {
-    padding: 16px 48px;
-    font-size: 18px;
-    font-weight: 600;
-    background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-dim) 100%);
-    color: var(--bg-base);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    margin: 16px 0;
-    transition: all 0.2s ease;
-}
-
-.claude-launch-btn:hover {
-    background: linear-gradient(135deg, var(--accent-bright) 0%, var(--accent-gold) 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(192, 192, 192, 0.3);
-}
-
-.claude-note {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-top: 8px;
-}
-
-.api-chat-link {
-    font-size: 12px;
-    color: var(--accent-gold);
-    margin-top: 16px;
-    text-decoration: underline;
-}
-
-.api-chat-link:hover {
-    color: var(--accent-bright);
-}
-
-.api-chat-panel {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.api-chat-panel.hidden,
-.claude-launch-panel.hidden {
-    display: none;
-}
-
 .chat-container {
     display: flex;
     flex-direction: column;
@@ -749,19 +595,6 @@ a:hover {
 .message.assistant code {
     font-family: var(--font-mono);
     font-size: 0.85rem;
-}
-
-/* Streaming message cursor effect */
-.message.streaming::after {
-    content: '▌';
-    animation: blink 0.7s infinite;
-    color: var(--accent-gold);
-    font-weight: bold;
-}
-
-@keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
 }
 
 .typing-indicator {
@@ -1354,14 +1187,14 @@ a:hover {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.7);
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   z-index: 2000;
 }
 
-.modal-overlay.hidden {
-  display: none;
+.modal-overlay.visible {
+  display: flex;
 }
 
 .modal-content {
