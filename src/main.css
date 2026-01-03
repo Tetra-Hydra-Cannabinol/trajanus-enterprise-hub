@@ -493,14 +493,71 @@ a:hover {
     white-space: nowrap;
 }
 
+/* ==================== PANEL SYSTEM ==================== */
+.panel-section {
+    margin-bottom: var(--space-lg);
+    border: 1px solid var(--bg-elevated);
+    border-radius: 8px;
+    background: var(--bg-card);
+    overflow: hidden;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: var(--space-md) var(--space-lg);
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--bg-elevated);
+}
+
+.panel-header:hover {
+    background: var(--bg-elevated);
+}
+
+.panel-toggle {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    padding: 4px 8px;
+}
+
+.panel-toggle:hover {
+    color: var(--text-white);
+}
+
+.panel-section.collapsed .panel-toggle {
+    transform: rotate(-90deg);
+}
+
+.panel-content {
+    padding: var(--space-lg);
+    transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+    max-height: 2000px;
+    opacity: 1;
+    overflow: hidden;
+}
+
+.panel-section.collapsed .panel-content {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+}
+
+.panel-section.collapsed .panel-header {
+    border-bottom: none;
+}
+
 /* ==================== AI CHAT DUAL PANE ==================== */
 .ai-chat-section {
-    margin-bottom: var(--space-xl);
     position: sticky;
     top: 0;
     z-index: 10;
-    background: var(--bg-base);
-    padding-top: var(--space-md);
 }
 
 .chat-dual-pane {

@@ -141,10 +141,12 @@
             </section>
 
             <!-- AI Chat Section - Dual Pane -->
-            <section class="ai-chat-section">
-                <div class="section-header">
+            <section class="ai-chat-section panel-section" id="panel-ai">
+                <div class="section-header panel-header">
                     <h2 class="section-title">AI Assistants</h2>
+                    <button class="panel-toggle" id="toggle-ai" aria-label="Toggle panel">▼</button>
                 </div>
+                <div class="panel-content" id="content-ai">
                 <div class="chat-dual-pane">
                     <!-- Left: Trajanus Assistant -->
                     <div class="chat-pane trajanus-pane">
@@ -183,14 +185,16 @@
                         </div>
                     </div>
                 </div>
+                </div>
             </section>
 
             <!-- Platforms Section -->
-            <section class="platforms-section">
-                <div class="section-header">
+            <section class="platforms-section panel-section" id="panel-platforms">
+                <div class="section-header panel-header">
                     <h2 class="section-title">Platforms</h2>
+                    <button class="panel-toggle" id="toggle-platforms" aria-label="Toggle panel">▼</button>
                 </div>
-
+                <div class="panel-content" id="content-platforms">
                 <div class="platforms-grid">
                     <!-- Developer Workspace -->
                     <a href="./toolkits/developer.html" class="platform-card">
@@ -249,14 +253,16 @@
                         </div>
                     </a>
                 </div>
+                </div>
             </section>
 
-            <!-- Projects (Renamed from Active Projects) -->
-            <section class="projects-section">
-                <div class="section-header">
+            <!-- Projects Section -->
+            <section class="projects-section panel-section" id="panel-projects">
+                <div class="section-header panel-header">
                     <h2 class="section-title">Projects</h2>
+                    <button class="panel-toggle" id="toggle-projects" aria-label="Toggle panel">▼</button>
                 </div>
-
+                <div class="panel-content" id="content-projects">
                 <div class="projects-grid compact" id="active-projects-grid">
                     <div class="project-card compact project-status-active" onclick="selectProject(&#39;PRJ-2025-001&#39;)" style="cursor: pointer;">
                         <div class="project-name">SOUTHCOM Guatemala</div>
@@ -285,14 +291,16 @@
                         </div>
                     </div>
                 </div>
+                </div>
             </section>
 
-            <!-- Quick Tools - 7 Essential Apps -->
-            <section class="quick-tools-section">
-                <div class="section-header">
+            <!-- Quick Tools Section -->
+            <section class="quick-tools-section panel-section" id="panel-tools">
+                <div class="section-header panel-header">
                     <h2 class="section-title">Quick Tools</h2>
+                    <button class="panel-toggle" id="toggle-tools" aria-label="Toggle panel">▼</button>
                 </div>
-
+                <div class="panel-content" id="content-tools">
                 <div class="quick-tools-grid">
                     <div class="quick-tool" onclick="Hub.launchApp(&#39;word&#39;)">
                         <div class="quick-tool-icon">W</div>
@@ -322,6 +330,7 @@
                         <div class="quick-tool-icon">✉</div>
                         <div class="quick-tool-label">Gmail</div>
                     </div>
+                </div>
                 </div>
             </section>
 
@@ -1206,6 +1215,29 @@
                     }
                 });
             }
+
+            // Panel toggle handlers
+            const panels = ['ai', 'platforms', 'projects', 'tools'];
+            panels.forEach(panelId => {
+                const toggleBtn = document.getElementById(`toggle-${panelId}`);
+                const panel = document.getElementById(`panel-${panelId}`);
+                const header = panel?.querySelector('.panel-header');
+
+                if (toggleBtn && panel) {
+                    // Click on toggle button
+                    toggleBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        panel.classList.toggle('collapsed');
+                    });
+
+                    // Click on header also toggles
+                    if (header) {
+                        header.addEventListener('click', () => {
+                            panel.classList.toggle('collapsed');
+                        });
+                    }
+                }
+            });
         });
     </script>
 
