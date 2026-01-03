@@ -254,7 +254,7 @@ async fn chat_with_claude(message: String, context: Option<String>) -> Result<St
     println!("Total messages: {}", messages.len());
 
     let request_body = ClaudeRequest {
-        model: "claude-3-5-sonnet-20241022".to_string(),
+        model: "claude-sonnet-4-20250514".to_string(),
         max_tokens: 1024,
         messages,
     };
