@@ -493,6 +493,66 @@ a:hover {
     white-space: nowrap;
 }
 
+/* ==================== AI CHAT DUAL PANE ==================== */
+.ai-chat-section {
+    margin-bottom: var(--space-xl);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--bg-base);
+    padding-top: var(--space-md);
+}
+
+.chat-dual-pane {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.chat-pane {
+    min-width: 0;
+}
+
+.claude-embed-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-surface);
+    min-height: 300px;
+}
+
+.claude-embed-placeholder {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    color: var(--text-muted);
+}
+
+.claude-embed-placeholder p {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.claude-loading,
+.claude-embed-active {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.claude-webview {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+
 /* ==================== CLAUDE CHAT ==================== */
 .claude-section,
 .assistant-section {

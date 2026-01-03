@@ -377,6 +377,15 @@ async fn resize_claude(app: tauri::AppHandle, x: f64, y: f64, width: f64, height
 }
 
 #[tauri::command]
+async fn resize_embedded(app: tauri::AppHandle, x: f64, y: f64, width: f64, height: f64) -> Result<(), String> {
+    if let Some(webview) = app.get_webview("embedded-webview") {
+        webview.set_position(LogicalPosition::new(x, y)).map_err(|e| e.to_string())?;
+        webview.set_size(LogicalSize::new(width, height)).map_err(|e| e.to_string())?;
+    }
+    Ok(())
+}
+
+#[tauri::command]
 async fn is_claude_embedded(app: tauri::AppHandle) -> bool {
     app.get_webview("claude-embedded").is_some()
 }
@@ -527,6 +536,7 @@ pub fn run() {
             close_claude,
             close_embedded,
             resize_claude,
+            resize_embedded,
             is_claude_embedded,
             enable_quad_chat,
             disable_quad_chat,

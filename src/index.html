@@ -140,24 +140,47 @@
                 </p>
             </section>
 
-            <!-- Trajanus Assistant Section -->
-            <section class="assistant-section">
+            <!-- AI Chat Section - Dual Pane -->
+            <section class="ai-chat-section">
                 <div class="section-header">
-                    <h2 class="section-title">Trajanus Assistant</h2>
+                    <h2 class="section-title">AI Assistants</h2>
                 </div>
-                <div class="chat-container" id="claude-chat">
-                    <div class="chat-header">
-                        <h3>TRAJANUS</h3>
-                        <div class="chat-actions">
-                            <button class="chat-action" onclick="clearChat()">Clear</button>
+                <div class="chat-dual-pane">
+                    <!-- Left: Trajanus Assistant -->
+                    <div class="chat-pane trajanus-pane">
+                        <div class="chat-container" id="claude-chat">
+                            <div class="chat-header">
+                                <h3>TRAJANUS</h3>
+                                <div class="chat-actions">
+                                    <button class="chat-action" id="clear-chat-btn">Clear</button>
+                                </div>
+                            </div>
+                            <div class="chat-messages" id="chat-messages">
+                                <div class="chat-welcome">Ask Trajanus anything about the app...</div>
+                            </div>
+                            <div class="chat-input-area">
+                                <textarea id="chat-input" placeholder="How can I help you navigate?" rows="1"></textarea>
+                                <button class="tool-button primary" id="send-chat-btn">Send</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="chat-messages" id="chat-messages">
-                        <div class="chat-welcome">Ask Trajanus anything about the app...</div>
-                    </div>
-                    <div class="chat-input-area">
-                        <textarea id="chat-input" placeholder="How can I help you navigate?" rows="1" onkeydown="handleChatKeydown(event)"></textarea>
-                        <button class="tool-button primary" onclick="sendMessage()">Send</button>
+                    <!-- Right: Claude.ai Embed -->
+                    <div class="chat-pane claude-pane">
+                        <div class="chat-container">
+                            <div class="chat-header">
+                                <h3>CLAUDE.AI</h3>
+                                <div class="chat-actions">
+                                    <button class="chat-action" id="reload-claude-btn">Reload</button>
+                                    <button class="chat-action" id="open-claude-external-btn">Open External</button>
+                                </div>
+                            </div>
+                            <div class="claude-embed-container" id="claude-embed-container">
+                                <div class="claude-embed-placeholder">
+                                    <p>Claude.ai Chat</p>
+                                    <button class="tool-button primary" id="launch-claude-btn">Launch Claude.ai</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -981,6 +1004,112 @@
         }
 
         // ============================================
+        // CLAUDE.AI EMBED
+        // ============================================
+        let claudeEmbedActive = false;
+
+        async function launchClaudeEmbed() {
+            const container = document.getElementById('claude-embed-container');
+            if (!container) return;
+
+            const tauriInvoke = getInvoke();
+            if (!tauriInvoke) {
+                log('Tauri not available - opening in browser', 'warning');
+                window.open('https://claude.ai', '_blank');
+                return;
+            }
+
+            try {
+                log('Launching Claude.ai embed...', 'info');
+
+                // Show loading state
+                container.innerHTML = '<div class="claude-loading">Loading Claude.ai...</div>';
+
+                // Get container position for webview
+                const rect = container.getBoundingClientRect();
+
+                // Use existing embed_claude command
+                await tauriInvoke('embed_claude', {
+                    x: rect.left,
+                    y: rect.top,
+                    width: rect.width,
+                    height: rect.height
+                });
+
+                claudeEmbedActive = true;
+                container.innerHTML = '<div class="claude-embed-active">Claude.ai embedded above</div>';
+                log('Claude.ai embed launched', 'success');
+
+                // Add scroll listener to keep webview positioned
+                window.addEventListener('scroll', updateClaudePosition);
+                window.addEventListener('resize', updateClaudePosition);
+            } catch (e) {
+                log('Failed to embed Claude.ai: ' + e, 'error');
+                container.innerHTML = `
+                    <div class="claude-embed-placeholder">
+                        <p>Could not embed Claude.ai</p>
+                        <button class="tool-button primary" id="launch-claude-btn">Try Again</button>
+                    </div>
+                `;
+                // Re-attach event listener
+                document.getElementById('launch-claude-btn')?.addEventListener('click', launchClaudeEmbed);
+            }
+        }
+
+        function updateClaudePosition() {
+            if (!claudeEmbedActive) return;
+            const container = document.getElementById('claude-embed-container');
+            if (!container) return;
+
+            const tauriInvoke = getInvoke();
+            if (!tauriInvoke) return;
+
+            const rect = container.getBoundingClientRect();
+            tauriInvoke('resize_embedded', {
+                x: rect.left,
+                y: rect.top,
+                width: rect.width,
+                height: rect.height
+            }).catch(() => {});
+        }
+
+        async function reloadClaudeEmbed() {
+            const tauriInvoke = getInvoke();
+            if (!tauriInvoke) return;
+
+            // Close and reopen
+            try {
+                await tauriInvoke('close_embedded');
+                claudeEmbedActive = false;
+                setTimeout(() => launchClaudeEmbed(), 100);
+            } catch (e) {
+                log('Failed to reload: ' + e, 'error');
+            }
+        }
+
+        async function closeClaudeEmbed() {
+            const tauriInvoke = getInvoke();
+            if (!tauriInvoke) return;
+
+            try {
+                await tauriInvoke('close_embedded');
+                claudeEmbedActive = false;
+                const container = document.getElementById('claude-embed-container');
+                if (container) {
+                    container.innerHTML = `
+                        <div class="claude-embed-placeholder">
+                            <p>Claude.ai Chat</p>
+                            <button class="tool-button primary" id="launch-claude-btn">Launch Claude.ai</button>
+                        </div>
+                    `;
+                    document.getElementById('launch-claude-btn')?.addEventListener('click', launchClaudeEmbed);
+                }
+            } catch (e) {
+                log('Failed to close: ' + e, 'error');
+            }
+        }
+
+        // ============================================
         // QUAD CHAT MODE - Multiple Claude.ai Webviews
         // ============================================
         let quadChatEnabled = false;
@@ -1034,9 +1163,10 @@
             // Check quad chat status on load
             checkQuadChatStatus();
 
-            // Manually attach chat event handlers
-            const sendBtn = document.querySelector('.chat-input-area button');
+            // Manually attach chat event handlers (inline onclick blocked by CSP)
+            const sendBtn = document.getElementById('send-chat-btn');
             const chatInput = document.getElementById('chat-input');
+            const clearBtn = document.getElementById('clear-chat-btn');
 
             if (sendBtn) {
                 sendBtn.addEventListener('click', sendMessage);
@@ -1047,6 +1177,32 @@
                     if (e.key === 'Enter' && !e.shiftKey) {
                         e.preventDefault();
                         sendMessage();
+                    }
+                });
+            }
+
+            if (clearBtn) {
+                clearBtn.addEventListener('click', clearChat);
+            }
+
+            // Claude.ai embed handlers
+            const launchClaudeBtn = document.getElementById('launch-claude-btn');
+            const reloadClaudeBtn = document.getElementById('reload-claude-btn');
+            const openExternalBtn = document.getElementById('open-claude-external-btn');
+
+            if (launchClaudeBtn) {
+                launchClaudeBtn.addEventListener('click', launchClaudeEmbed);
+            }
+
+            if (reloadClaudeBtn) {
+                reloadClaudeBtn.addEventListener('click', reloadClaudeEmbed);
+            }
+
+            if (openExternalBtn) {
+                openExternalBtn.addEventListener('click', () => {
+                    const tauriInvoke = getInvoke();
+                    if (tauriInvoke) {
+                        tauriInvoke('open_path', { path: 'https://claude.ai' });
                     }
                 });
             }
