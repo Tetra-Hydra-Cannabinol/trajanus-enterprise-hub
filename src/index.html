@@ -148,7 +148,7 @@
 
                 <div class="platforms-grid">
                     <!-- Developer Workspace -->
-                    <a href="http://127.0.0.1:1430/toolkits/developer.html" class="platform-card">
+                    <a href="./toolkits/developer.html" class="platform-card">
                         <h3 class="platform-title">Developer Workspace</h3>
                         <p class="platform-subtitle">Knomad Prime's Workspace</p>
                         <p class="platform-description">
@@ -162,7 +162,7 @@
                     </a>
 
                     <!-- Project Management -->
-                    <a href="http://127.0.0.1:1430/toolkits/pm.html" class="platform-card">
+                    <a href="./toolkits/pm.html" class="platform-card">
                         <h3 class="platform-title">Project Management</h3>
                         <p class="platform-subtitle">User Workspace</p>
                         <p class="platform-description">
@@ -177,7 +177,7 @@
                     </a>
 
                     <!-- Quality Control -->
-                    <a href="http://127.0.0.1:1430/toolkits/qcm.html" class="platform-card">
+                    <a href="./toolkits/qcm.html" class="platform-card">
                         <h3 class="platform-title">Quality Control</h3>
                         <p class="platform-subtitle">User Workspace</p>
                         <p class="platform-description">
@@ -191,7 +191,7 @@
                     </a>
 
                     <!-- Traffic Studies -->
-                    <a href="http://127.0.0.1:1430/toolkits/traffic.html" class="platform-card">
+                    <a href="./toolkits/traffic.html" class="platform-card">
                         <h3 class="platform-title">Traffic Studies</h3>
                         <p class="platform-subtitle">User Workspace</p>
                         <p class="platform-description">
@@ -295,7 +295,7 @@
                         <div class="quick-tool-icon">🔢</div>
                         <div class="quick-tool-label">Calc</div>
                     </div>
-                    <div class="quick-tool" onclick="Hub.launchApp(&#39;gmail&#39;)">
+                    <div class="quick-tool" onclick="Hub.openEmbedded('https://mail.google.com', 'Gmail')">
                         <div class="quick-tool-icon">✉</div>
                         <div class="quick-tool-label">Gmail</div>
                     </div>
@@ -312,20 +312,20 @@
                     <div class="app-category">
                         <h4>Federal &amp; DoD</h4>
                         <ul class="app-list">
-                            <li><a href="https://rms.usace.army.mil/" target="_blank" class="app-link"><span class="app-link-icon">◆</span> RMS 3.0</a></li>
-                            <li><a href="https://cefms.usace.army.mil/" target="_blank" class="app-link"><span class="app-link-icon">◆</span> CEFMS</a></li>
-                            <li><a href="http://127.0.0.1:1430/index.html#" onclick="log(&#39;ENG Form 4025 coming soon...&#39;, &#39;info&#39;); return false;" class="app-link"><span class="app-link-icon">◆</span> ENG Form 4025</a></li>
-                            <li><a href="http://127.0.0.1:1430/index.html#" onclick="log(&#39;eCMS coming soon...&#39;, &#39;info&#39;); return false;" class="app-link"><span class="app-link-icon">◆</span> eCMS</a></li>
+                            <li><a href="#" onclick="Hub.openEmbedded('https://rms.usace.army.mil/', 'RMS 3.0'); return false;" class="app-link"><span class="app-link-icon">◆</span> RMS 3.0</a></li>
+                            <li><a href="#" onclick="Hub.openEmbedded('https://cefms.usace.army.mil/', 'CEFMS'); return false;" class="app-link"><span class="app-link-icon">◆</span> CEFMS</a></li>
+                            <li><a href="#" onclick="log('ENG Form 4025 coming soon...', 'info'); return false;" class="app-link"><span class="app-link-icon">◆</span> ENG Form 4025</a></li>
+                            <li><a href="#" onclick="log('eCMS coming soon...', 'info'); return false;" class="app-link"><span class="app-link-icon">◆</span> eCMS</a></li>
                         </ul>
                     </div>
 
                     <div class="app-category">
                         <h4>Project Controls</h4>
                         <ul class="app-list">
-                            <li><a href="http://127.0.0.1:1430/index.html#" onclick="log(&#39;Primavera P6 integration coming soon...&#39;, &#39;info&#39;); return false;" class="app-link"><span class="app-link-icon">◆</span> Primavera P6</a></li>
-                            <li><a href="https://app.procore.com/" target="_blank" class="app-link"><span class="app-link-icon">◆</span> Procore</a></li>
-                            <li><a href="http://127.0.0.1:1430/index.html#" onclick="log(&#39;Oracle Unifier coming soon...&#39;, &#39;info&#39;); return false;" class="app-link"><span class="app-link-icon">◆</span> Oracle Unifier</a></li>
-                            <li><a href="http://127.0.0.1:1430/index.html#" onclick="log(&#39;Microsoft Project coming soon...&#39;, &#39;info&#39;); return false;" class="app-link"><span class="app-link-icon">◆</span> Microsoft Project</a></li>
+                            <li><a href="#" onclick="log('Primavera P6 integration coming soon...', 'info'); return false;" class="app-link"><span class="app-link-icon">◆</span> Primavera P6</a></li>
+                            <li><a href="#" onclick="Hub.openEmbedded('https://app.procore.com/', 'Procore'); return false;" class="app-link"><span class="app-link-icon">◆</span> Procore</a></li>
+                            <li><a href="#" onclick="log('Oracle Unifier coming soon...', 'info'); return false;" class="app-link"><span class="app-link-icon">◆</span> Oracle Unifier</a></li>
+                            <li><a href="#" onclick="log('Microsoft Project coming soon...', 'info'); return false;" class="app-link"><span class="app-link-icon">◆</span> Microsoft Project</a></li>
                         </ul>
                     </div>
 
@@ -793,6 +793,61 @@
                     log(`Launching ${app}...`, 'success');
                 } catch(e) {
                     log(`Failed to launch ${app}: ${e}`, 'error');
+                }
+            },
+
+            // Open external URL in embedded modal webview
+            async openEmbedded(url, title) {
+                try {
+                    if (!invoke) {
+                        log('Tauri not available - cannot embed external sites', 'warning');
+                        return;
+                    }
+                    // Show loading toast
+                    log(`Opening ${title}...`, 'info');
+
+                    // Create embedded modal
+                    const modal = document.createElement('div');
+                    modal.id = 'embedded-modal';
+                    modal.className = 'modal-overlay active';
+                    modal.innerHTML = `
+                        <div class="embedded-modal-content">
+                            <div class="embedded-modal-header">
+                                <h3>${title}</h3>
+                                <button class="modal-close" onclick="Hub.closeEmbedded()">×</button>
+                            </div>
+                            <div class="embedded-modal-body" id="embedded-container">
+                                <div class="embedded-loading">Loading ${title}...</div>
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(modal);
+
+                    // Get container position for webview
+                    const container = document.getElementById('embedded-container');
+                    const rect = container.getBoundingClientRect();
+
+                    // Invoke Tauri to embed the URL
+                    await invoke('embed_url', {
+                        url: url,
+                        x: rect.left,
+                        y: rect.top,
+                        width: rect.width,
+                        height: rect.height
+                    });
+
+                    log(`${title} opened in embedded view`, 'success');
+                } catch(e) {
+                    log(`Failed to embed ${title}: ${e}`, 'error');
+                    this.closeEmbedded();
+                }
+            },
+
+            closeEmbedded() {
+                const modal = document.getElementById('embedded-modal');
+                if (modal) modal.remove();
+                if (invoke) {
+                    invoke('close_embedded').catch(() => {});
                 }
             }
         };

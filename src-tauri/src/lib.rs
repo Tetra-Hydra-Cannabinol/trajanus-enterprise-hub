@@ -304,11 +304,20 @@ async fn chat_with_claude(message: String, context: Option<String>) -> Result<St
     Ok(text)
 }
 
-// ==================== EMBEDDED CLAUDE WEBVIEW ====================
+// ==================== EMBEDDED WEBVIEW ====================
 
 #[tauri::command]
 async fn embed_claude(app: tauri::AppHandle, x: f64, y: f64, width: f64, height: f64) -> Result<(), String> {
-    // Close existing claude webview if present
+    embed_url(app, "https://claude.ai".to_string(), x, y, width, height).await
+}
+
+#[tauri::command]
+async fn embed_url(app: tauri::AppHandle, url: String, x: f64, y: f64, width: f64, height: f64) -> Result<(), String> {
+    // Close existing embedded webview if present
+    if let Some(existing) = app.get_webview("embedded-webview") {
+        existing.close().map_err(|e| e.to_string())?;
+    }
+    // Also close old claude-embedded for backwards compatibility
     if let Some(existing) = app.get_webview("claude-embedded") {
         existing.close().map_err(|e| e.to_string())?;
     }
@@ -320,11 +329,14 @@ async fn embed_claude(app: tauri::AppHandle, x: f64, y: f64, width: f64, height:
     // Get the underlying Window to add child webview
     let main_window = webview_window.as_ref().window();
 
-    // Add Claude as child webview INSIDE main window
+    // Parse the URL
+    let parsed_url: tauri::Url = url.parse().map_err(|e: <tauri::Url as std::str::FromStr>::Err| e.to_string())?;
+
+    // Add as child webview INSIDE main window
     main_window.add_child(
         WebviewBuilder::new(
-            "claude-embedded",
-            WebviewUrl::External("https://claude.ai".parse().unwrap())
+            "embedded-webview",
+            WebviewUrl::External(parsed_url)
         )
         .user_agent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")
         .auto_resize(),
@@ -332,6 +344,18 @@ async fn embed_claude(app: tauri::AppHandle, x: f64, y: f64, width: f64, height:
         LogicalSize::new(width, height),
     ).map_err(|e| e.to_string())?;
 
+    Ok(())
+}
+
+#[tauri::command]
+async fn close_embedded(app: tauri::AppHandle) -> Result<(), String> {
+    if let Some(webview) = app.get_webview("embedded-webview") {
+        webview.close().map_err(|e| e.to_string())?;
+    }
+    // Also close old claude-embedded for backwards compatibility
+    if let Some(webview) = app.get_webview("claude-embedded") {
+        webview.close().map_err(|e| e.to_string())?;
+    }
     Ok(())
 }
 
@@ -499,7 +523,9 @@ pub fn run() {
             run_python_script,
             chat_with_claude,
             embed_claude,
+            embed_url,
             close_claude,
+            close_embedded,
             resize_claude,
             is_claude_embedded,
             enable_quad_chat,
