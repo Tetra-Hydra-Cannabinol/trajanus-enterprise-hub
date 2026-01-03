@@ -140,6 +140,28 @@
                 </p>
             </section>
 
+            <!-- Trajanus Assistant Section -->
+            <section class="assistant-section">
+                <div class="section-header">
+                    <h2 class="section-title">Trajanus Assistant</h2>
+                </div>
+                <div class="chat-container" id="claude-chat">
+                    <div class="chat-header">
+                        <h3>TRAJANUS</h3>
+                        <div class="chat-actions">
+                            <button class="chat-action" onclick="clearChat()">Clear</button>
+                        </div>
+                    </div>
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="chat-welcome">Ask Trajanus anything about the app...</div>
+                    </div>
+                    <div class="chat-input-area">
+                        <textarea id="chat-input" placeholder="How can I help you navigate?" rows="1" onkeydown="handleChatKeydown(event)"></textarea>
+                        <button class="tool-button primary" onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+            </section>
+
             <!-- Platforms Section -->
             <section class="platforms-section">
                 <div class="section-header">
@@ -203,28 +225,6 @@
                             <span class="platform-tag">HCS</span>
                         </div>
                     </a>
-                </div>
-            </section>
-
-            <!-- Claude Chat Section -->
-            <section class="claude-section">
-                <div class="section-header">
-                    <h2 class="section-title">Claude Assistant</h2>
-                </div>
-                <div class="chat-container" id="claude-chat">
-                    <div class="chat-header">
-                        <h3>TRAJANUS</h3>
-                        <div class="chat-actions">
-                            <button class="chat-action" onclick="clearChat()">Clear</button>
-                        </div>
-                    </div>
-                    <div class="chat-messages" id="chat-messages">
-                        <div class="chat-welcome">Ask Trajanus anything...</div>
-                    </div>
-                    <div class="chat-input-area">
-                        <textarea id="chat-input" placeholder="Type your message..." rows="1" onkeydown="handleChatKeydown(event)"></textarea>
-                        <button class="tool-button primary" onclick="sendMessage()">Send</button>
-                    </div>
                 </div>
             </section>
 
@@ -875,7 +875,7 @@
                         body: JSON.stringify({
                             model: this.model,
                             max_tokens: 1024,
-                            system: 'You are Trajanus, an AI assistant for the Trajanus Enterprise Hub. You help with project management, quality control, traffic engineering, and development tasks. Be concise and professional.',
+                            system: 'You are the Trajanus Enterprise Hub assistant. Help users navigate the application and understand its features. Respond conversationally with complete sentences, proper punctuation, and paragraph formatting. Never use bullet points or numbered lists unless the user explicitly requests a list. Be warm, professional, and helpful.',
                             messages: this.messages
                         })
                     });

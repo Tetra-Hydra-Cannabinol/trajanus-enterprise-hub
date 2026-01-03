@@ -494,7 +494,8 @@ a:hover {
 }
 
 /* ==================== CLAUDE CHAT ==================== */
-.claude-section {
+.claude-section,
+.assistant-section {
     margin-bottom: var(--space-xl);
 }
 
