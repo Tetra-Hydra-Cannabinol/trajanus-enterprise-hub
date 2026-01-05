@@ -4,896 +4,1218 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Management - Trajanus Enterprise Hub</title>
-    <link rel="stylesheet" href="../main.css">
     <style>
-        /* ==================== WORKSPACE LAYOUT ==================== */
-        .workspace-container {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            background: var(--bg-base);
-            overflow: hidden;
+        /* Reset & Base */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            /* TRAJANUS BLACK/SILVER PALETTE - ALL SILVER ON BLACK */
+            --bg-base: #0a0a0a;
+            --bg-surface: #0a0a0a;
+            --bg-card: #0a0a0a;
+            --bg-elevated: #1a1a1a;
+            --bg-hover: #2a2a2a;
+            --accent: #c0c0c0;
+            --accent-bright: #e0e0e0;
+            --accent-dim: #a0a0a0;
+            --accent-hover: #ffffff;
+            --silver: #c0c0c0;
+            --silver-light: #e0e0e0;
+            --silver-dark: #a0a0a0;
+            --gold: #d4af37;
+            --gold-light: #f4cf57;
+            --gold-dark: #b4942f;
+            --blue: #4a90d9;
+            --blue-light: #6ab0f9;
+            --blue-dark: #3a70b9;
+            --text-primary: #c0c0c0;
+            --text-secondary: #c0c0c0;
+            --text-muted: #c0c0c0;
+            --border-subtle: #c0c0c0;
+            --border-accent: #c0c0c0;
+            --success: #4ade80;
+            --info: #60a5fa;
+            --warning: #fbbf24;
+            --purple: #a78bfa;
+            --error: #f87171;
+            --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
         }
 
-        .workspace-header {
+        html, body { height: 100%; }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-base);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Sticky Hero Section */
+        .hero-section {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--bg-base);
+            border-bottom: 1px solid var(--gold);
+            padding: 16px 32px;
+        }
+
+        .hero-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 24px;
-            background: var(--bg-surface);
-            border-bottom: 1px solid var(--border-subtle);
-            flex-shrink: 0;
         }
 
-        .workspace-header h1 {
-            color: var(--accent-gold);
-            font-size: 18px;
-            font-weight: 600;
-            margin: 0;
-        }
-
-        .workspace-header p {
-            color: var(--text-muted);
-            font-size: 11px;
-            margin: 2px 0 0 0;
-        }
-
-        .home-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: transparent;
-            border: 1px solid var(--accent-gold);
-            color: var(--accent-gold);
-            font-size: 13px;
-            border-radius: 4px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-
-        .home-btn:hover {
-            background: var(--accent-gold);
-            color: var(--bg-base);
-        }
-
-        /* ==================== MAIN CONTENT ==================== */
-        .workspace-main {
-            flex: 1;
-            display: flex;
-            overflow: hidden;
-        }
-
-        /* ==================== LEFT SIDEBAR ==================== */
-        .sidebar {
-            width: 280px;
-            background: var(--bg-surface);
-            border-right: 1px solid var(--border-subtle);
+        .hero-brand {
             display: flex;
             flex-direction: column;
-            overflow-y: auto;
-            flex-shrink: 0;
+            gap: 4px;
+            align-items: center;
+            text-align: center;
+            flex: 1;
         }
 
-        .section-divider {
-            padding: 12px 16px 8px 16px;
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .section-title {
-            font-size: 10px;
-            font-weight: 600;
-            color: var(--accent-gold);
+        .hero-company {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--gold);
             text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero-company .tm {
+            font-size: 8px;
+            vertical-align: super;
+        }
+
+        .hero-toolkit {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gold);
             letter-spacing: 1px;
         }
 
-        /* ==================== EXTERNAL SYSTEMS ==================== */
-        .systems-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            padding: 12px 16px;
+        .hero-description {
+            font-size: 13px;
+            color: var(--text-primary);
+            max-width: 500px;
+            line-height: 1.4;
+            margin-top: 4px;
         }
 
-        .system-btn {
+        .hero-home-btn {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 4px;
-            padding: 12px 8px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
+            gap: 8px;
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 14px;
             border-radius: 6px;
             cursor: pointer;
-            transition: all 0.2s;
             text-decoration: none;
-        }
-
-        .system-btn:hover {
-            background: var(--bg-hover);
-            border-color: var(--accent-gold);
-        }
-
-        .system-icon {
-            font-size: 20px;
-            color: var(--accent-gold);
-        }
-
-        .system-label {
-            font-size: 10px;
-            color: var(--text-light);
-            text-align: center;
-        }
-
-        /* ==================== REFERENCE DOCUMENTS ==================== */
-        .doc-category {
-            padding: 8px 16px;
-        }
-
-        .doc-category-header {
-            font-size: 11px;
-            font-weight: 500;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .doc-list {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .doc-item {
-            display: flex;
-            align-items: center;
-            padding: 8px 10px;
-            background: var(--bg-card);
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 12px;
-            color: var(--text-light);
-            border-left: 2px solid transparent;
-        }
-
-        .doc-item:hover {
-            background: var(--bg-hover);
-            border-left-color: var(--accent-gold);
-        }
-
-        .doc-item.selected {
-            background: rgba(212, 165, 116, 0.15);
-            border-left-color: var(--accent-gold);
-        }
-
-        /* ==================== AGENTS SECTION ==================== */
-        .agents-list {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            padding: 12px 16px;
-        }
-
-        .agent-btn {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 6px;
-            cursor: pointer;
             transition: all 0.2s;
         }
 
-        .agent-btn:hover {
-            background: var(--bg-hover);
-            border-color: var(--accent-gold);
+        .hero-home-btn:hover {
+            background: var(--gold);
+            color: var(--bg-base);
         }
 
-        .agent-icon {
+        .diamond {
+            width: 10px;
+            height: 10px;
+            background: var(--gold);
+            transform: rotate(45deg);
+        }
+
+        .page-title {
+            color: var(--text-primary);
             font-size: 16px;
-            color: var(--accent-gold);
-        }
-
-        .agent-info {
-            flex: 1;
-        }
-
-        .agent-name {
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--text-light);
-        }
-
-        .agent-desc {
-            font-size: 10px;
-            color: var(--text-muted);
-        }
-
-        /* ==================== PANELS AREA ==================== */
-        .panels-area {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-            padding: 16px;
-            gap: 12px;
-        }
-
-        .panel {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            overflow: hidden;
-        }
-
-        .panel-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 16px;
-            background: var(--bg-card);
-            border-bottom: 1px solid var(--border-subtle);
-            cursor: pointer;
-        }
-
-        .panel-title {
-            font-size: 12px;
             font-weight: 600;
-            color: var(--accent-gold);
-            text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        .panel-expand-icon {
-            color: var(--text-muted);
-            transition: transform 0.3s;
+        /* Main Content */
+        .main-content {
+            padding: 0 24px 40px 24px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .panel.compact {
-            cursor: pointer;
+        /* Page Hero Section */
+        .page-hero {
+            text-align: center;
+            padding: 48px 24px 32px 24px;
+            border-bottom: 1px solid var(--border-subtle);
+            margin-bottom: 32px;
         }
 
-        .panel.compact .panel-content {
-            display: none;
+        .hero-title {
+            color: var(--gold);
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
         }
 
-        .panel.compact .panel-expand-icon {
-            transform: rotate(0deg);
+        .hero-subtitle {
+            color: var(--text-primary);
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
         }
 
-        .panel.expanded {
-            min-height: 600px;
-        }
-
-        .panel.expanded .panel-content {
+        .hero-greeting-row {
             display: flex;
-            flex-direction: column;
-            height: 550px;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 20px;
         }
 
-        .panel.expanded .panel-expand-icon {
-            transform: rotate(180deg);
+        .hero-greeting {
+            color: var(--text-primary);
+            font-size: 16px;
         }
 
-        .panel-content {
-            padding: 16px;
-            overflow: hidden;
+        .hero-greeting .name {
+            color: var(--gold);
+            font-weight: 600;
         }
 
-        /* ==================== DOCUMENT BROWSER PANEL ==================== */
-        .browser-toolbar {
-            display: flex;
-            gap: 8px;
+        .hero-date {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .hero-description {
+            color: var(--text-secondary);
+            font-size: 14px;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Section Dividers */
+        .section-divider {
+            margin: 40px 0 24px 0;
+        }
+
+        .section-border-top {
+            height: 2px;
+            background: linear-gradient(to right, var(--gold), var(--border-subtle), transparent);
             margin-bottom: 12px;
         }
 
-        .browser-path {
-            flex: 1;
-            padding: 8px 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 4px;
-            font-size: 12px;
-            color: var(--text-light);
-        }
-
-        .browser-path:focus {
-            outline: none;
-            border-color: var(--accent-gold);
-        }
-
-        .file-grid {
-            flex: 1;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 8px;
-            overflow-y: auto;
-        }
-
-        .file-card {
+        .section-title-row {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .file-card:hover {
-            background: var(--bg-hover);
-            border-color: var(--accent-gold);
-        }
-
-        .file-card.selected {
-            background: rgba(212, 165, 116, 0.15);
-            border-color: var(--accent-gold);
-        }
-
-        .file-icon {
-            font-size: 24px;
-            color: var(--accent-gold);
-        }
-
-        .file-info {
-            flex: 1;
-            overflow: hidden;
-        }
-
-        .file-name {
-            font-size: 12px;
-            color: var(--text-light);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .file-meta {
-            font-size: 10px;
-            color: var(--text-muted);
-        }
-
-        /* ==================== TEMPLATE PANEL ==================== */
-        .template-form {
-            display: flex;
-            flex-direction: column;
             gap: 16px;
-            max-width: 500px;
         }
 
-        .template-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
+        .section-blocks {
+            color: var(--gold);
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 2px;
         }
 
-        .template-group label {
-            font-size: 11px;
-            color: var(--text-muted);
+        .section-title {
+            color: var(--gold);
+            font-size: 14px;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 4px;
         }
 
-        .template-select {
-            padding: 10px 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 4px;
-            color: var(--text-light);
-            font-size: 13px;
-        }
-
-        .template-select:focus {
-            outline: none;
-            border-color: var(--accent-gold);
-        }
-
-        .template-select option {
-            background: var(--bg-card);
-            color: var(--text-light);
-        }
-
-        /* ==================== OUTPUT PANEL ==================== */
-        .output-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .output-area {
-            flex: 1;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 4px;
-            padding: 12px;
-            font-size: 13px;
-            line-height: 1.6;
-            overflow-y: auto;
-            color: var(--text-light);
-            white-space: pre-wrap;
-        }
-
-        .output-area.empty {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            font-style: italic;
-        }
-
-        .output-actions {
-            display: flex;
-            gap: 8px;
+        .section-border-bottom {
+            height: 2px;
+            background: linear-gradient(to right, var(--gold), var(--gold-dark), transparent);
             margin-top: 12px;
         }
 
-        /* ==================== CHAT PANEL ==================== */
-        .chat-container {
+        .section-description {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-top: 12px;
+            max-width: 800px;
+        }
+
+        /* Subsection Headers */
+        .subsection {
+            margin-bottom: 28px;
+        }
+
+        .subsection-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .subsection-title {
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .subsection-line {
             flex: 1;
+            height: 1px;
+            background: var(--border-subtle);
+        }
+
+        .subsection-description {
+            color: var(--text-muted);
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        /* Application Cards */
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 12px;
+        }
+
+        .app-card {
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 8px;
+            padding: 16px 12px;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 90px;
+        }
+
+        .app-card:hover {
+            background: var(--bg-hover);
+            border-color: var(--blue-light);
+            transform: translateY(-2px);
+        }
+
+        .app-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--gold);
+            background: var(--bg-elevated);
+            border-radius: 6px;
+        }
+
+        .app-label {
+            font-size: 11px;
+            color: var(--text-primary);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Two-Column Script/Doc Cards */
+        .script-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 900px) {
+            .script-grid { grid-template-columns: 1fr; }
+        }
+
+        .script-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-left: 4px solid var(--gold);
+            border-radius: 6px;
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .script-card:hover {
+            background: var(--bg-elevated);
+            border-color: var(--gold);
+            transform: translateX(4px);
+        }
+
+        .script-card.contract { border-left-color: var(--info); }
+        .script-card.schedule { border-left-color: var(--warning); }
+        .script-card.cost { border-left-color: var(--success); }
+        .script-card.rfi { border-left-color: var(--purple); }
+
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--gold);
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .script-card.contract .indicator { background: var(--info); }
+        .script-card.schedule .indicator { background: var(--warning); }
+        .script-card.cost .indicator { background: var(--success); }
+        .script-card.rfi .indicator { background: var(--purple); }
+
+        .script-info { flex: 1; min-width: 0; }
+
+        .script-title {
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .script-description {
+            color: var(--text-muted);
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        /* Agent Cards */
+        .agent-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 1100px) { .agent-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 700px) { .agent-grid { grid-template-columns: 1fr; } }
+
+        .agent-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .agent-card:hover { border-color: var(--gold); }
+
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .agent-icon { font-size: 20px; }
+
+        .agent-name {
+            color: var(--gold);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .agent-description {
+            color: var(--text-secondary);
+            font-size: 12px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            min-height: 36px;
+        }
+
+        .agent-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .agent-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .agent-btn.activate {
+            background: var(--gold);
+            border: none;
+            color: var(--bg-base);
+        }
+
+        .agent-btn.activate:hover { background: var(--gold-hover); }
+
+        .agent-btn.deploy {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+        }
+
+        .agent-btn.deploy:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Chat Section */
+        .chat-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
             overflow: hidden;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+        }
+
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
+            flex-shrink: 0;
+        }
+
+        .chat-header h3 {
+            color: var(--gold);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .chat-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .clear-chat-btn {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .clear-chat-btn:hover {
+            border-color: var(--error);
+            color: var(--error);
         }
 
         .chat-messages {
             flex: 1;
             overflow-y: auto;
-            margin-bottom: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background: var(--bg-base);
         }
 
         .chat-message {
-            padding: 10px 14px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            font-size: 13px;
-            line-height: 1.5;
+            display: flex;
+            gap: 12px;
+            max-width: 85%;
         }
 
         .chat-message.user {
-            background: rgba(212, 165, 116, 0.15);
-            margin-left: 20%;
-            color: var(--text-light);
+            align-self: flex-end;
+            flex-direction: row-reverse;
         }
 
-        .chat-message.assistant {
-            background: var(--bg-card);
-            margin-right: 20%;
-            color: var(--text-light);
-        }
+        .chat-message.assistant { align-self: flex-start; }
 
-        .chat-input-area {
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
             display: flex;
-            gap: 8px;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
         }
 
-        .chat-input {
-            flex: 1;
-            padding: 10px 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 4px;
-            color: var(--text-light);
-            font-size: 13px;
-            resize: none;
-            font-family: inherit;
-        }
-
-        .chat-input:focus {
-            outline: none;
-            border-color: var(--accent-gold);
-        }
-
-        .chat-input::placeholder {
-            color: var(--text-muted);
-        }
-
-        /* ==================== BUTTONS ==================== */
-        .btn {
-            padding: 8px 16px;
-            border-radius: 4px;
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: none;
-        }
-
-        .btn-primary {
-            background: var(--accent-gold);
+        .chat-message.user .message-avatar {
+            background: var(--gold);
             color: var(--bg-base);
-            font-weight: 500;
         }
 
-        .btn-primary:hover {
-            background: var(--accent-gold-bright);
+        .chat-message.assistant .message-avatar {
+            background: var(--bg-elevated);
+            color: var(--gold);
         }
 
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-light);
-            border: 1px solid var(--border-subtle);
+        .message-content {
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 8px;
+            padding: 12px 16px;
         }
 
-        .btn-secondary:hover {
-            border-color: var(--accent-gold);
-            color: var(--accent-gold);
+        .chat-message.user .message-content {
+            background: var(--blue);
+            border-color: var(--blue);
+            color: var(--bg-base);
         }
 
-        /* ==================== TYPING INDICATOR ==================== */
+        .message-text {
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
         .typing-indicator {
             display: flex;
             gap: 4px;
-            padding: 12px 14px;
-            background: var(--bg-card);
-            border-radius: 8px;
-            margin-right: 20%;
-            width: fit-content;
+            padding: 8px 0;
         }
 
         .typing-indicator span {
-            width: 6px;
-            height: 6px;
-            background: var(--accent-gold);
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
             border-radius: 50%;
             animation: typing 1.4s infinite ease-in-out;
         }
 
+        .typing-indicator span:nth-child(1) { animation-delay: 0s; }
         .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
         .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
 
         @keyframes typing {
             0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-            30% { transform: translateY(-4px); opacity: 1; }
+            30% { transform: translateY(-6px); opacity: 1; }
         }
 
-        /* ==================== SYSTEM LOG ==================== */
-        .system-log {
-            background: var(--bg-base);
-            border-top: 1px solid var(--border-subtle);
-            height: 100px;
-            display: flex;
-            flex-direction: column;
+        .chat-input-area {
+            padding: 16px 20px;
+            background: var(--bg-surface);
+            border-top: 1px solid var(--blue);
             flex-shrink: 0;
         }
 
-        .system-log-header {
+        .chat-input-wrapper {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 6px 16px;
-            background: var(--bg-surface);
-            border-bottom: 1px solid var(--border-subtle);
+            gap: 12px;
+            align-items: flex-end;
         }
 
-        .system-log-title {
-            font-size: 10px;
-            font-weight: 600;
-            color: var(--accent-gold);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .clear-log-btn {
-            background: transparent;
-            border: 1px solid var(--border-subtle);
-            color: var(--text-muted);
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 10px;
-            cursor: pointer;
-        }
-
-        .clear-log-btn:hover {
-            border-color: var(--accent-gold);
-            color: var(--accent-gold);
-        }
-
-        .log-output {
+        .chat-input {
             flex: 1;
-            overflow-y: auto;
-            padding: 6px 16px;
-            font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 11px;
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: var(--font-main);
+            resize: none;
+            min-height: 48px;
+            max-height: 150px;
             line-height: 1.5;
         }
 
-        .log-entry {
-            margin-bottom: 2px;
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--blue-light);
         }
 
-        .log-entry .timestamp {
-            color: var(--text-muted);
+        .chat-input::placeholder { color: var(--text-muted); }
+
+        .send-btn {
+            background: var(--gold);
+            border: none;
+            color: var(--bg-base);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .log-entry.success { color: var(--success); }
-        .log-entry.info { color: var(--text-muted); }
-        .log-entry.error { color: var(--error); }
+        .send-btn:hover:not(:disabled) { background: var(--gold-hover); }
+        .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* Sticky Navigation */
+        .sticky-nav {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 9999;
+        }
+
+        .nav-btn {
+            background: linear-gradient(180deg, #1a2d42 0%, #0d1b2a 100%);
+            border: 1px solid #c0c0c0;
+            color: #c0c0c0;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            min-width: 70px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(180deg, #2a4a6a 0%, #1a2d42 100%);
+            border-color: #e0e0e0;
+            color: #e0e0e0;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .hero-greeting-row { flex-direction: column; gap: 8px; }
+            .app-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
+        }
+
+        /* ==================== TRAJANUS WINDOW SYSTEM ==================== */
+        .trajanus-window-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .trajanus-window {
+            background: #1a1a1a;
+            border: 2px solid #c0c0c0;
+            border-radius: 8px;
+            min-width: 500px;
+            max-width: 800px;
+            max-height: 80vh;
+            box-shadow: 0 0 30px rgba(192, 192, 192, 0.2), 0 0 60px rgba(0, 0, 0, 0.5);
+            animation: windowSlide 0.2s ease;
+        }
+
+        @keyframes windowSlide {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .trajanus-window-header {
+            background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
+            border-bottom: 1px solid #c0c0c0;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .trajanus-window-title {
+            color: #c0c0c0;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .trajanus-window-close {
+            background: transparent;
+            border: 1px solid #4a4a4a;
+            color: #c0c0c0;
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .trajanus-window-close:hover {
+            border-color: #c0c0c0;
+            background: #2d2d2d;
+        }
+
+        .trajanus-window-body {
+            padding: 24px;
+            color: #ffffff;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        /* Terminal styling */
+        .terminal-output {
+            background: #0a0a0a;
+            border: 1px solid #4a4a4a;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+
+        .terminal-line {
+            padding: 2px 0;
+            line-height: 1.4;
+        }
+
+        .terminal-line.success { color: #4ade80; }
+        .terminal-line.error { color: #f87171; }
+        .terminal-line.info { color: #60a5fa; }
+        .terminal-line.warning { color: #fbbf24; }
     </style>
 </head>
 <body>
-    <div class="workspace-container">
-        <header class="workspace-header">
-            <div>
-                <h1>Project Management</h1>
-                <p>RFIs, submittals, schedules, cost tracking, federal compliance</p>
+    <!-- Sticky Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-brand">
+                <div class="hero-company">Trajanus USA EI<span class="tm">™</span></div>
+                <div class="hero-toolkit">Project Management Toolkit</div>
+                <div class="hero-description">
+                    Complete PM workspace for RFIs, submittals, schedules, cost tracking, and federal contract compliance.
+                    Access Procore, Primavera P6, RMS 3.0, and other PM tools from this unified interface.
+                </div>
             </div>
-            <a href="../index.html" class="home-btn">
-                <span>&#9670;</span> Hub
-            </a>
-        </header>
-
-        <div class="workspace-main">
-            <!-- Left Sidebar -->
-            <aside class="sidebar">
-                <!-- External Systems -->
-                <div class="section-divider">
-                    <span class="section-title">External Systems</span>
-                </div>
-                <div class="systems-grid">
-                    <a href="https://app.procore.com" target="_blank" class="system-btn">
-                        <span class="system-icon">&#9632;</span>
-                        <span class="system-label">Procore</span>
-                    </a>
-                    <a href="#" class="system-btn" onclick="PM.launchApp('p6'); return false;">
-                        <span class="system-icon">&#9670;</span>
-                        <span class="system-label">Primavera P6</span>
-                    </a>
-                    <a href="https://rms.usace.army.mil" target="_blank" class="system-btn">
-                        <span class="system-icon">&#9733;</span>
-                        <span class="system-label">RMS 3.0</span>
-                    </a>
-                    <a href="https://cefms.usace.army.mil" target="_blank" class="system-btn">
-                        <span class="system-icon">&#9679;</span>
-                        <span class="system-label">CEFMS</span>
-                    </a>
-                    <a href="#" class="system-btn" onclick="PM.launchApp('msproject'); return false;">
-                        <span class="system-icon">&#9638;</span>
-                        <span class="system-label">MS Project</span>
-                    </a>
-                    <a href="#" class="system-btn" onclick="PM.launchApp('excel'); return false;">
-                        <span class="system-icon">&#9638;</span>
-                        <span class="system-label">Excel</span>
-                    </a>
-                </div>
-
-                <!-- Reference Documents -->
-                <div class="section-divider">
-                    <span class="section-title">Reference Documents</span>
-                </div>
-
-                <div class="doc-category">
-                    <div class="doc-category-header">Contract Documents</div>
-                    <div class="doc-list">
-                        <div class="doc-item" onclick="PM.selectDoc(this, 'contract')">Contract W9127823R0034</div>
-                        <div class="doc-item" onclick="PM.selectDoc(this, 'mods')">Modifications Log</div>
-                        <div class="doc-item" onclick="PM.selectDoc(this, 'specs')">Specifications Index</div>
-                    </div>
-                </div>
-
-                <div class="doc-category">
-                    <div class="doc-category-header">Schedule</div>
-                    <div class="doc-list">
-                        <div class="doc-item" onclick="PM.selectDoc(this, 'baseline')">Baseline Schedule</div>
-                        <div class="doc-item" onclick="PM.selectDoc(this, 'current')">Current Update</div>
-                        <div class="doc-item" onclick="PM.selectDoc(this, 'lookahead')">3-Week Lookahead</div>
-                    </div>
-                </div>
-
-                <div class="doc-category">
-                    <div class="doc-category-header">Cost Control</div>
-                    <div class="doc-list">
-                        <div class="doc-item" onclick="PM.selectDoc(this, 'sov')">Schedule of Values</div>
-                        <div class="doc-item" onclick="PM.selectDoc(this, 'payapps')">Payment Applications</div>
-                        <div class="doc-item" onclick="PM.selectDoc(this, 'changes')">Change Orders</div>
-                    </div>
-                </div>
-
-                <!-- Agents -->
-                <div class="section-divider">
-                    <span class="section-title">Agents</span>
-                </div>
-                <div class="agents-list">
-                    <div class="agent-btn" onclick="PM.deployAgent('rfi-drafter')">
-                        <span class="agent-icon">&#9998;</span>
-                        <div class="agent-info">
-                            <div class="agent-name">RFI Drafter</div>
-                            <div class="agent-desc">Generate RFI responses</div>
-                        </div>
-                    </div>
-                    <div class="agent-btn" onclick="PM.deployAgent('schedule-analyst')">
-                        <span class="agent-icon">&#128197;</span>
-                        <div class="agent-info">
-                            <div class="agent-name">Schedule Analyst</div>
-                            <div class="agent-desc">CPM & delay analysis</div>
-                        </div>
-                    </div>
-                    <div class="agent-btn" onclick="PM.deployAgent('cost-reviewer')">
-                        <span class="agent-icon">&#128176;</span>
-                        <div class="agent-info">
-                            <div class="agent-name">Cost Reviewer</div>
-                            <div class="agent-desc">Pay app & change review</div>
-                        </div>
-                    </div>
-                    <div class="agent-btn" onclick="PM.deployAgent('submittal-tracker')">
-                        <span class="agent-icon">&#128196;</span>
-                        <div class="agent-info">
-                            <div class="agent-name">Submittal Tracker</div>
-                            <div class="agent-desc">Status & compliance check</div>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-
-            <!-- Panels Area -->
-            <main class="panels-area">
-                <!-- Document Browser Panel -->
-                <section class="panel expanded" id="panel-browser" onclick="PM.Panels.handleClick(event, 'panel-browser')">
-                    <div class="panel-header">
-                        <span class="panel-title">Document Browser</span>
-                        <span class="panel-expand-icon">&#9660;</span>
-                    </div>
-                    <div class="panel-content">
-                        <div class="browser-toolbar">
-                            <input type="text" class="browser-path" id="browser-path" value="G:\My Drive\00 - Trajanus USA\Projects\SOUTHCOM Guatemala\">
-                            <button class="btn btn-secondary" onclick="PM.browsePath()">Browse</button>
-                        </div>
-                        <div class="file-grid" id="file-grid">
-                            <div class="file-card" onclick="PM.selectFile(this, 'RFI-001-Foundation.pdf')">
-                                <span class="file-icon">&#128196;</span>
-                                <div class="file-info">
-                                    <div class="file-name">RFI-001-Foundation.pdf</div>
-                                    <div class="file-meta">PDF - 2.4 MB</div>
-                                </div>
-                            </div>
-                            <div class="file-card" onclick="PM.selectFile(this, 'RFI-002-Electrical.pdf')">
-                                <span class="file-icon">&#128196;</span>
-                                <div class="file-info">
-                                    <div class="file-name">RFI-002-Electrical.pdf</div>
-                                    <div class="file-meta">PDF - 1.8 MB</div>
-                                </div>
-                            </div>
-                            <div class="file-card" onclick="PM.selectFile(this, 'Schedule-Dec-2025.xer')">
-                                <span class="file-icon">&#128202;</span>
-                                <div class="file-info">
-                                    <div class="file-name">Schedule-Dec-2025.xer</div>
-                                    <div class="file-meta">XER - 856 KB</div>
-                                </div>
-                            </div>
-                            <div class="file-card" onclick="PM.selectFile(this, 'SOV-Rev5.xlsx')">
-                                <span class="file-icon">&#128200;</span>
-                                <div class="file-info">
-                                    <div class="file-name">SOV-Rev5.xlsx</div>
-                                    <div class="file-meta">Excel - 124 KB</div>
-                                </div>
-                            </div>
-                            <div class="file-card" onclick="PM.selectFile(this, 'PayApp-18.pdf')">
-                                <span class="file-icon">&#128176;</span>
-                                <div class="file-info">
-                                    <div class="file-name">PayApp-18.pdf</div>
-                                    <div class="file-meta">PDF - 3.2 MB</div>
-                                </div>
-                            </div>
-                            <div class="file-card" onclick="PM.selectFile(this, 'Mod-007-EWO.pdf')">
-                                <span class="file-icon">&#128221;</span>
-                                <div class="file-info">
-                                    <div class="file-name">Mod-007-EWO.pdf</div>
-                                    <div class="file-meta">PDF - 1.1 MB</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Template Selection Panel -->
-                <section class="panel compact" id="panel-template" onclick="PM.Panels.handleClick(event, 'panel-template')">
-                    <div class="panel-header">
-                        <span class="panel-title">Template Selection</span>
-                        <span class="panel-expand-icon">&#9660;</span>
-                    </div>
-                    <div class="panel-content">
-                        <div class="template-form">
-                            <div class="template-group">
-                                <label>Document Type</label>
-                                <select class="template-select" id="doc-type" onclick="event.stopPropagation()">
-                                    <option value="">Select type...</option>
-                                    <option value="rfi">RFI Response</option>
-                                    <option value="submittal">Submittal Review</option>
-                                    <option value="schedule">Schedule Analysis</option>
-                                    <option value="cost">Cost Estimate</option>
-                                    <option value="meeting">Meeting Minutes</option>
-                                    <option value="letter">Formal Letter</option>
-                                    <option value="payapp">Payment Application Review</option>
-                                </select>
-                            </div>
-                            <div class="template-group">
-                                <label>Output Format</label>
-                                <select class="template-select" id="output-format" onclick="event.stopPropagation()">
-                                    <option value="memo">Memo Format</option>
-                                    <option value="formal">Formal Letter</option>
-                                    <option value="email">Email Draft</option>
-                                    <option value="report">Report</option>
-                                </select>
-                            </div>
-                            <div class="template-group">
-                                <label>Recipient</label>
-                                <select class="template-select" id="recipient" onclick="event.stopPropagation()">
-                                    <option value="cor">Contracting Officer Rep</option>
-                                    <option value="ace">ACE</option>
-                                    <option value="sub">Subcontractor</option>
-                                    <option value="internal">Internal</option>
-                                </select>
-                            </div>
-                            <button class="btn btn-primary" onclick="event.stopPropagation(); PM.generateOutput();">Generate Output</button>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Output Panel -->
-                <section class="panel compact" id="panel-output" onclick="PM.Panels.handleClick(event, 'panel-output')">
-                    <div class="panel-header">
-                        <span class="panel-title">Review / Modify</span>
-                        <span class="panel-expand-icon">&#9660;</span>
-                    </div>
-                    <div class="panel-content">
-                        <div class="output-container">
-                            <div class="output-area empty" id="output-area">
-                                Select a document and template to generate output...
-                            </div>
-                            <div class="output-actions">
-                                <button class="btn btn-secondary" onclick="event.stopPropagation(); PM.copyOutput();">Copy</button>
-                                <button class="btn btn-secondary" onclick="event.stopPropagation(); PM.exportOutput();">Export to GDocs</button>
-                                <button class="btn btn-primary" onclick="event.stopPropagation(); PM.sendToAssistant();">Send to Claude</button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Claude Assistant Panel -->
-                <section class="panel compact" id="panel-claude" onclick="PM.Panels.handleClick(event, 'panel-claude')">
-                    <div class="panel-header">
-                        <span class="panel-title">Claude Assistant (PM Specialist)</span>
-                        <span class="panel-expand-icon">&#9660;</span>
-                    </div>
-                    <div class="panel-content">
-                        <div class="chat-container">
-                            <div class="chat-messages" id="chat-messages">
-                                <div class="chat-message assistant">
-                                    I'm your Project Management specialist. I can help with RFIs, submittals, schedule analysis, cost tracking, and federal contract compliance. What would you like to work on?
-                                </div>
-                            </div>
-                            <div class="chat-input-area">
-                                <textarea class="chat-input" id="chat-input" rows="2" placeholder="Ask about RFIs, schedules, costs, or federal compliance..." onclick="event.stopPropagation()"></textarea>
-                                <button class="btn btn-primary" onclick="event.stopPropagation(); PM.sendMessage();">Send</button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </main>
-        </div>
-
-        <!-- System Log -->
-        <div class="system-log">
-            <div class="system-log-header">
-                <span class="system-log-title">System Log</span>
-                <button class="clear-log-btn" onclick="PM.clearLog()">Clear</button>
-            </div>
-            <div class="log-output" id="log-output">
-                <div class="log-entry info"><span class="timestamp">[--:--:--]</span> Project Management workspace ready.</div>
+            <div class="hero-nav">
+                <a href="../index.html" class="hero-home-btn">
+                    <span>◆</span> Hub
+                </a>
             </div>
         </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- AI ASSISTANT SECTION -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">AI ASSISTANT</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Project Management specialist for RFIs, submittals, schedules, and federal contract compliance.
+            </p>
+        </div>
+
+        <!-- Chat Section -->
+        <div class="chat-section">
+            <div class="chat-header">
+                <h3>TRAJANUS PM ASSISTANT</h3>
+                <div class="chat-controls">
+                    <button class="clear-chat-btn" id="btn-clear-chat">Clear Chat</button>
+                </div>
+            </div>
+            <div class="chat-messages" id="chat-messages"></div>
+            <div class="chat-input-area">
+                <div class="chat-input-wrapper">
+                    <textarea class="chat-input" id="chat-input" placeholder="Ask about RFIs, schedules, costs, or compliance..." rows="1"></textarea>
+                    <button class="send-btn" id="btn-send">Send</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- APPLICATIONS SECTION -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">APPLICATIONS</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Quick-launch applications for project management, communication, and productivity.
+            </p>
+        </div>
+
+        <!-- PM Tools -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">PM Tools</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="app-grid">
+                <div class="app-card" data-launch="procore">
+                    <div class="app-icon">PC</div>
+                    <div class="app-label">Procore</div>
+                </div>
+                <div class="app-card" data-launch="p6">
+                    <div class="app-icon">P6</div>
+                    <div class="app-label">Primavera P6</div>
+                </div>
+                <div class="app-card" data-launch="msproject">
+                    <div class="app-icon">MP</div>
+                    <div class="app-label">MS Project</div>
+                </div>
+                <div class="app-card" data-launch="rms">
+                    <div class="app-icon">RM</div>
+                    <div class="app-label">RMS 3.0</div>
+                </div>
+                <div class="app-card" data-launch="cefms">
+                    <div class="app-icon">CE</div>
+                    <div class="app-label">CEFMS</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MS Office -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">MS Office</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="app-grid">
+                <div class="app-card" data-launch="word">
+                    <div class="app-icon">W</div>
+                    <div class="app-label">Word</div>
+                </div>
+                <div class="app-card" data-launch="excel">
+                    <div class="app-icon">X</div>
+                    <div class="app-label">Excel</div>
+                </div>
+                <div class="app-card" data-launch="powerpoint">
+                    <div class="app-icon">P</div>
+                    <div class="app-label">PowerPoint</div>
+                </div>
+                <div class="app-card" data-launch="outlook">
+                    <div class="app-icon">O</div>
+                    <div class="app-label">Outlook</div>
+                </div>
+                <div class="app-card" data-launch="teams">
+                    <div class="app-icon">TM</div>
+                    <div class="app-label">Teams</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Browsers & File -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Browsers & Files</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="app-grid">
+                <div class="app-card" data-launch="chrome">
+                    <div class="app-icon">C</div>
+                    <div class="app-label">Chrome</div>
+                </div>
+                <div class="app-card" data-launch="edge">
+                    <div class="app-icon">E</div>
+                    <div class="app-label">Edge</div>
+                </div>
+                <div class="app-card" data-launch="gdrive">
+                    <div class="app-icon">GD</div>
+                    <div class="app-label">G Drive</div>
+                </div>
+                <div class="app-card" data-launch="explorer">
+                    <div class="app-icon">FE</div>
+                    <div class="app-label">Explorer</div>
+                </div>
+                <div class="app-card" data-launch="adobe">
+                    <div class="app-icon">PDF</div>
+                    <div class="app-label">Adobe</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- REFERENCE DOCUMENTS SECTION -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">REFERENCE DOCUMENTS</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Quick access to contract documents, schedules, and cost control files.
+            </p>
+        </div>
+
+        <!-- Contract Documents -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Contract Documents</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="script-grid">
+                <div class="script-card contract" data-doc="contract">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Contract W9127823R0034</div>
+                        <div class="script-description">Prime contract and terms</div>
+                    </div>
+                </div>
+                <div class="script-card contract" data-doc="mods">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Modifications Log</div>
+                        <div class="script-description">Contract modifications tracker</div>
+                    </div>
+                </div>
+                <div class="script-card contract" data-doc="specs">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Specifications Index</div>
+                        <div class="script-description">UFGS and project specifications</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Schedule -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Schedule</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="script-grid">
+                <div class="script-card schedule" data-doc="baseline">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Baseline Schedule</div>
+                        <div class="script-description">Approved CPM baseline</div>
+                    </div>
+                </div>
+                <div class="script-card schedule" data-doc="current">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Current Update</div>
+                        <div class="script-description">Latest schedule update</div>
+                    </div>
+                </div>
+                <div class="script-card schedule" data-doc="lookahead">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">3-Week Lookahead</div>
+                        <div class="script-description">Short-term planning</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cost Control -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Cost Control</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="script-grid">
+                <div class="script-card cost" data-doc="sov">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Schedule of Values</div>
+                        <div class="script-description">SOV breakdown</div>
+                    </div>
+                </div>
+                <div class="script-card cost" data-doc="payapps">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Payment Applications</div>
+                        <div class="script-description">Pay app tracker</div>
+                    </div>
+                </div>
+                <div class="script-card cost" data-doc="changes">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Change Orders</div>
+                        <div class="script-description">CO log and status</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AGENTS SECTION -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">AGENTS</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                AI-powered agents for RFI drafting, schedule analysis, cost review, and submittal tracking.
+            </p>
+        </div>
+
+        <div class="agent-grid">
+            <div class="agent-card">
+                <div class="agent-header">
+                    <span class="agent-icon">&#9998;</span>
+                    <span class="agent-name">RFI Drafter</span>
+                </div>
+                <p class="agent-description">Generate professional RFI responses based on contract documents and specifications.</p>
+                <div class="agent-actions">
+                    <button class="agent-btn activate" data-agent="rfi-drafter">Activate</button>
+                    <button class="agent-btn deploy" data-agent-deploy="rfi-drafter">Deploy</button>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="agent-header">
+                    <span class="agent-icon">&#128197;</span>
+                    <span class="agent-name">Schedule Analyst</span>
+                </div>
+                <p class="agent-description">CPM analysis, delay calculations, and schedule impact assessments.</p>
+                <div class="agent-actions">
+                    <button class="agent-btn activate" data-agent="schedule-analyst">Activate</button>
+                    <button class="agent-btn deploy" data-agent-deploy="schedule-analyst">Deploy</button>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="agent-header">
+                    <span class="agent-icon">&#128176;</span>
+                    <span class="agent-name">Cost Reviewer</span>
+                </div>
+                <p class="agent-description">Payment application review, change order analysis, and cost tracking.</p>
+                <div class="agent-actions">
+                    <button class="agent-btn activate" data-agent="cost-reviewer">Activate</button>
+                    <button class="agent-btn deploy" data-agent-deploy="cost-reviewer">Deploy</button>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="agent-header">
+                    <span class="agent-icon">&#128196;</span>
+                    <span class="agent-name">Submittal Tracker</span>
+                </div>
+                <p class="agent-description">Track submittal status, compliance checks, and approval workflows.</p>
+                <div class="agent-actions">
+                    <button class="agent-btn activate" data-agent="submittal-tracker">Activate</button>
+                    <button class="agent-btn deploy" data-agent-deploy="submittal-tracker">Deploy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- AGENT RUNNER SECTION -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">AGENT RUNNER</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Run specialized PM skills with AI-powered research.
+            </p>
+        </div>
+
+        <div class="agent-runner-panel" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+            <!-- Skill Selection -->
+            <div style="margin-bottom: 16px;">
+                <label style="display: block; color: var(--gold); font-size: 12px; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Select Skill</label>
+                <select id="agent-skill" style="width: 100%; padding: 10px 12px; background: var(--bg-base); border: 1px solid var(--border-subtle); border-radius: 4px; color: var(--text-primary); font-size: 14px;">
+                    <option value="schedule-narrative">Schedule Narrative</option>
+                    <option value="earned-value">Earned Value Analysis</option>
+                    <option value="rfi-response">RFI Response</option>
+                    <option value="change-order">Change Order Analysis</option>
+                </select>
+            </div>
+
+            <!-- Research Mode -->
+            <div style="margin-bottom: 16px;">
+                <label style="display: block; color: var(--gold); font-size: 12px; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Research Mode</label>
+                <div style="display: flex; gap: 12px;">
+                    <label style="display: flex; align-items: center; gap: 6px; color: var(--text-primary); cursor: pointer;">
+                        <input type="checkbox" id="research-external" checked style="accent-color: var(--gold);">
+                        <span>External (Web)</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 6px; color: var(--text-primary); cursor: pointer;">
+                        <input type="checkbox" id="research-internal" checked style="accent-color: var(--gold);">
+                        <span>Internal (GDrive)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Query Input -->
+            <div style="margin-bottom: 16px;">
+                <label style="display: block; color: var(--gold); font-size: 12px; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Query</label>
+                <textarea id="agent-query" rows="3" placeholder="Enter your PM analysis request..." style="width: 100%; padding: 10px 12px; background: var(--bg-base); border: 1px solid var(--border-subtle); border-radius: 4px; color: var(--text-primary); font-size: 14px; resize: vertical;"></textarea>
+            </div>
+
+            <!-- Run Button -->
+            <div style="display: flex; gap: 12px; margin-bottom: 16px;">
+                <button id="run-agent-btn" style="flex: 1; padding: 12px 20px; background: var(--gold); color: var(--bg-base); border: none; border-radius: 4px; font-size: 14px; font-weight: 600; cursor: pointer;">Run Agent</button>
+                <button id="clear-results-btn" style="padding: 12px 20px; background: transparent; border: 1px solid var(--border-subtle); color: var(--text-primary); border-radius: 4px; font-size: 14px; cursor: pointer;">Clear</button>
+            </div>
+
+            <!-- Results Display -->
+            <div id="agent-results" style="background: var(--bg-base); border: 1px solid var(--border-subtle); border-radius: 4px; padding: 16px; min-height: 120px; max-height: 400px; overflow-y: auto; font-size: 14px; color: var(--text-secondary);">
+                Results will appear here after running the agent...
+            </div>
+        </div>
+
+        <!-- TERMINAL SECTION -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">TERMINAL</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                External program output and command execution.
+            </p>
+        </div>
+
+        <div class="terminal-section" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 8px; margin-bottom: 20px;">
+            <div class="terminal-output" id="terminal-output" style="height: 200px; overflow-y: auto; padding: 16px; font-family: monospace; font-size: 12px; color: var(--text-secondary);">
+                <div style="color: var(--text-muted);">Terminal ready. External program output will appear here.</div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Sticky Navigation -->
+    <div class="sticky-nav">
+        <button class="nav-btn" id="btn-top">↑ Top</button>
+        <button class="nav-btn" id="btn-hub">⌂ Hub</button>
     </div>
 
     <script>
-        // Safe Tauri API wrapper - returns null in browser mode
+        // ==================== CONFIGURATION ====================
+        const SCRIPTS_PATH = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\';
+
+        // Get Tauri invoke
         function getInvoke() {
             if (window.__TAURI__ && window.__TAURI__.core && window.__TAURI__.core.invoke) {
                 return window.__TAURI__.core.invoke;
@@ -901,282 +1223,409 @@
             return null;
         }
 
-        // Notification helper for browser feedback
+        // Notification helper
         function showNotification(message, type = 'info') {
             const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.innerHTML = `<span>${message}</span>`;
             notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                padding: 12px 20px;
-                border-radius: 8px;
+                position: fixed; top: 20px; right: 20px; padding: 12px 20px;
+                border-radius: 8px; z-index: 9999; animation: slideIn 0.3s ease;
                 background: ${type === 'warning' ? '#2d2a00' : '#0a1929'};
                 border: 1px solid ${type === 'warning' ? '#d4af37' : '#4fc3f7'};
-                color: ${type === 'warning' ? '#d4af37' : '#e0e0e0'};
-                font-size: 14px;
-                z-index: 9999;
-                animation: slideIn 0.3s ease;
+                color: ${type === 'warning' ? '#d4af37' : '#e0e0e0'}; font-size: 14px;
             `;
+            notification.textContent = message;
             document.body.appendChild(notification);
             setTimeout(() => notification.remove(), 3000);
         }
 
-        const PM = {
-            selectedFile: null,
-            selectedDoc: null,
-            isProcessing: false,
+        // ==================== TRAJANUS WINDOW SYSTEM ====================
+        const TrajnausWindow = {
+            currentWindow: null,
 
-            // ==================== PANEL MANAGEMENT ====================
-            Panels: {
-                activePanel: 'panel-browser',
-
-                handleClick(event, panelId) {
-                    const panel = document.getElementById(panelId);
-                    if (panel.classList.contains('compact')) {
-                        event.stopPropagation();
-                        this.expand(panelId);
-                    }
-                },
-
-                expand(panelId) {
-                    const panel = document.getElementById(panelId);
-                    if (panel.classList.contains('expanded')) return;
-
-                    document.querySelectorAll('.panel').forEach(p => {
-                        p.classList.remove('expanded');
-                        p.classList.add('compact');
-                    });
-
-                    panel.classList.remove('compact');
-                    panel.classList.add('expanded');
-                    this.activePanel = panelId;
-
-                    setTimeout(() => {
-                        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }, 50);
-
-                    PM.log(`Panel expanded: ${panelId.replace('panel-', '')}`);
-                }
-            },
-
-            // ==================== LOGGING ====================
-            log(message, type = 'info') {
-                const logOutput = document.getElementById('log-output');
-                const timestamp = new Date().toLocaleTimeString('en-US', { hour12: false });
-                const entry = document.createElement('div');
-                entry.className = `log-entry ${type}`;
-                entry.innerHTML = `<span class="timestamp">[${timestamp}]</span> ${message}`;
-                logOutput.appendChild(entry);
-                logOutput.scrollTop = logOutput.scrollHeight;
-            },
-
-            clearLog() {
-                document.getElementById('log-output').innerHTML =
-                    '<div class="log-entry info"><span class="timestamp">[--:--:--]</span> Log cleared.</div>';
-            },
-
-            // ==================== APP LAUNCHERS ====================
-            webUrls: {
-                'excel': 'https://office.live.com/start/excel.aspx'
-            },
-
-            async launchApp(app) {
-                const invoke = getInvoke();
-
-                // Browser fallback mode
-                if (!invoke) {
-                    if (this.webUrls[app]) {
-                        window.open(this.webUrls[app], '_blank');
-                        this.log(`Opening ${app} online...`, 'success');
-                        showNotification(`Opening ${app} in browser...`, 'info');
-                    } else {
-                        this.log(`${app} requires the desktop app`, 'error');
-                        showNotification(`${app} requires the desktop app`, 'warning');
-                    }
-                    return;
-                }
-
-                const commands = {
-                    'p6': 'start "" "C:\\Program Files\\Oracle\\Primavera P6\\PM.exe"',
-                    'msproject': 'start winproj',
-                    'excel': 'start excel'
+            open(title, content, options = {}) {
+                this.close();
+                const overlay = document.createElement('div');
+                overlay.className = 'trajanus-window-overlay';
+                overlay.onclick = (e) => {
+                    if (e.target === overlay) this.close();
                 };
 
-                if (commands[app]) {
-                    this.log(`Launching ${app}...`);
-                    try {
-                        await invoke('open_terminal', { path: '.' });
-                    } catch (e) {
-                        this.log(`Failed to launch ${app}: ${e}`, 'error');
-                    }
-                }
+                const window = document.createElement('div');
+                window.className = 'trajanus-window';
+                window.innerHTML = `
+                    <div class="trajanus-window-header">
+                        <span class="trajanus-window-title">${title}</span>
+                        <button class="trajanus-window-close" onclick="TrajnausWindow.close()">×</button>
+                    </div>
+                    <div class="trajanus-window-body">${content}</div>
+                `;
+
+                overlay.appendChild(window);
+                document.body.appendChild(overlay);
+                this.currentWindow = overlay;
+                return overlay;
             },
 
-            // ==================== DOCUMENT SELECTION ====================
-            selectDoc(element, docId) {
-                document.querySelectorAll('.doc-item').forEach(el => el.classList.remove('selected'));
-                element.classList.add('selected');
-                this.selectedDoc = docId;
-                this.log(`Selected reference: ${docId}`);
-            },
-
-            selectFile(element, filename) {
-                document.querySelectorAll('.file-card').forEach(el => el.classList.remove('selected'));
-                element.classList.add('selected');
-                this.selectedFile = filename;
-                this.log(`Selected: ${filename}`);
-            },
-
-            async browsePath() {
-                const invoke = getInvoke();
-                const path = document.getElementById('browser-path').value;
-
-                // Browser fallback mode
-                if (!invoke) {
-                    this.log(`File browsing requires the desktop app`, 'error');
-                    showNotification('File browsing requires the desktop app', 'warning');
-                    return;
-                }
-
-                this.log(`Browsing: ${path}`);
-                try {
-                    const entries = await invoke('list_directory', { path });
-                    this.log(`Found ${entries.length} items`, 'success');
-                } catch (e) {
-                    this.log(`Browse failed: ${e}`, 'error');
-                }
-            },
-
-            // ==================== AGENT DEPLOYMENT ====================
-            deployAgent(agentId) {
-                const agents = {
-                    'rfi-drafter': 'RFI Drafter agent activated. Ready to generate RFI responses based on selected documents.',
-                    'schedule-analyst': 'Schedule Analyst agent activated. Ready to analyze CPM schedules and identify delays.',
-                    'cost-reviewer': 'Cost Reviewer agent activated. Ready to review payment applications and change orders.',
-                    'submittal-tracker': 'Submittal Tracker agent activated. Ready to check submittal status and compliance.'
-                };
-
-                this.log(`Deploying agent: ${agentId}`, 'success');
-                this.addChatMessage('assistant', agents[agentId] || `Agent ${agentId} activated.`);
-                this.Panels.expand('panel-claude');
-            },
-
-            // ==================== OUTPUT GENERATION ====================
-            generateOutput() {
-                if (!this.selectedFile) {
-                    this.log('Please select a document first', 'error');
-                    return;
-                }
-                const docType = document.getElementById('doc-type').value;
-                if (!docType) {
-                    this.log('Please select a document type', 'error');
-                    return;
-                }
-
-                const format = document.getElementById('output-format').value;
-                const recipient = document.getElementById('recipient').value;
-                const outputArea = document.getElementById('output-area');
-                outputArea.classList.remove('empty');
-                outputArea.textContent = `${docType.toUpperCase()} - ${format.toUpperCase()}\n\nDocument: ${this.selectedFile}\nRecipient: ${recipient}\n\nGenerated content will appear here.\n\nThis is a placeholder for AI-generated project management documentation.`;
-                this.log(`Generated ${docType} (${format}) for ${this.selectedFile}`, 'success');
-                this.Panels.expand('panel-output');
-            },
-
-            copyOutput() {
-                const output = document.getElementById('output-area').textContent;
-                if (output && !output.includes('Select a document')) {
-                    navigator.clipboard.writeText(output);
-                    this.log('Output copied to clipboard', 'success');
-                }
-            },
-
-            exportOutput() {
-                this.log('Exporting to Google Docs...', 'info');
-                // Would integrate with GDocs API
-            },
-
-            sendToAssistant() {
-                const output = document.getElementById('output-area').textContent;
-                if (output && !output.includes('Select a document')) {
-                    this.addChatMessage('user', 'Please review this output:\n' + output);
-                    this.sendToClaude('Please review and provide feedback on this project management document:\n' + output);
-                    this.Panels.expand('panel-claude');
-                }
-            },
-
-            // ==================== CHAT FUNCTIONS ====================
-            addChatMessage(role, content) {
-                const messages = document.getElementById('chat-messages');
-                const msg = document.createElement('div');
-                msg.className = `chat-message ${role}`;
-                msg.textContent = content;
-                messages.appendChild(msg);
-                messages.scrollTop = messages.scrollHeight;
-            },
-
-            showTyping() {
-                const messages = document.getElementById('chat-messages');
-                const typing = document.createElement('div');
-                typing.className = 'typing-indicator';
-                typing.id = 'typing-indicator';
-                typing.innerHTML = '<span></span><span></span><span></span>';
-                messages.appendChild(typing);
-                messages.scrollTop = messages.scrollHeight;
-            },
-
-            async sendToClaude(message) {
-                if (this.isProcessing) return;
-                this.isProcessing = true;
-                this.log('Sending to Claude...', 'info');
-                this.showTyping();
-
-                try {
-                    const context = `You are a Project Management specialist for federal construction contracts.
-                    You help with RFIs, submittals, schedules (CPM/P6), cost estimates, payment applications, and change orders.
-                    You are familiar with USACE/Corps of Engineers requirements, FAR/DFAR, Primavera P6, Procore, and RMS 3.0.
-                    Current project: SOUTHCOM Guatemala (W9127823R0034) - $47.2M federal construction.
-                    Keep responses concise, professional, and actionable.`;
-
-                    const response = await invoke('chat_with_claude', {
-                        message: message,
-                        context: context
-                    });
-
-                    document.getElementById('typing-indicator')?.remove();
-                    this.addChatMessage('assistant', response);
-                    this.log('Response received', 'success');
-                } catch (error) {
-                    document.getElementById('typing-indicator')?.remove();
-                    this.addChatMessage('assistant', 'Error: ' + error);
-                    this.log('API error: ' + error, 'error');
-                } finally {
-                    this.isProcessing = false;
-                }
-            },
-
-            async sendMessage() {
-                const input = document.getElementById('chat-input');
-                const message = input.value.trim();
-                if (message && !this.isProcessing) {
-                    this.addChatMessage('user', message);
-                    input.value = '';
-                    await this.sendToClaude(message);
+            close() {
+                if (this.currentWindow) {
+                    this.currentWindow.remove();
+                    this.currentWindow = null;
                 }
             }
         };
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            PM.log('PM workspace loaded', 'info');
+        // ==================== TERMINAL ====================
+        const Terminal = {
+            output(message, type = 'info') {
+                const terminal = document.getElementById('terminal-output');
+                const line = document.createElement('div');
+                line.className = `terminal-line ${type}`;
+                const timestamp = new Date().toLocaleTimeString();
+                line.innerHTML = `<span style="color: #606060;">[${timestamp}]</span> ${message}`;
+                terminal.appendChild(line);
+                terminal.scrollTop = terminal.scrollHeight;
+            },
 
-            document.getElementById('chat-input').addEventListener('keypress', (e) => {
+            clear() {
+                const terminal = document.getElementById('terminal-output');
+                terminal.innerHTML = '<div style="color: #808080;">Terminal cleared.</div>';
+            },
+
+            error(message) { this.output(message, 'error'); },
+            success(message) { this.output(message, 'success'); },
+            warning(message) { this.output(message, 'warning'); },
+            info(message) { this.output(message, 'info'); }
+        };
+
+        // ==================== APP LAUNCHER ====================
+        const Apps = {
+            commands: {
+                'word': 'winword', 'excel': 'excel', 'powerpoint': 'powerpnt',
+                'outlook': 'outlook', 'teams': 'msteams:', 'chrome': 'chrome',
+                'edge': 'msedge', 'gdrive': 'G:\\My Drive',
+                'explorer': 'G:\\My Drive\\00 - Trajanus USA',
+                'adobe': 'AcroRd32', 'p6': 'C:\\Program Files\\Oracle\\Primavera P6\\PM.exe',
+                'msproject': 'winproj', 'procore': 'https://app.procore.com',
+                'rms': 'https://rms.usace.army.mil', 'cefms': 'https://cefms.usace.army.mil'
+            },
+            webUrls: {
+                'procore': 'https://app.procore.com', 'rms': 'https://rms.usace.army.mil',
+                'cefms': 'https://cefms.usace.army.mil', 'word': 'https://office.live.com/start/word.aspx',
+                'excel': 'https://office.live.com/start/excel.aspx', 'powerpoint': 'https://office.live.com/start/powerpoint.aspx',
+                'outlook': 'https://outlook.office.com', 'teams': 'https://teams.microsoft.com',
+                'chrome': 'https://google.com', 'edge': 'https://bing.com', 'gdrive': 'https://drive.google.com'
+            },
+            async launch(appKey) {
+                Terminal.info(`Launching: ${appKey}`);
+                const invoke = getInvoke();
+
+                if (!invoke) {
+                    if (this.webUrls[appKey]) {
+                        window.open(this.webUrls[appKey], '_blank');
+                        Terminal.success(`Opened ${appKey} in browser`);
+                        showNotification(`Opening ${appKey} in browser...`, 'info');
+                    } else {
+                        Terminal.warning(`${appKey} requires the desktop app`);
+                        showNotification(`${appKey} requires the desktop app`, 'warning');
+                    }
+                    return;
+                }
+
+                try {
+                    if (['procore', 'rms', 'cefms'].includes(appKey)) {
+                        window.open(this.commands[appKey], '_blank');
+                        Terminal.success(`Opened ${appKey} in browser`);
+                    } else if (['gdrive', 'explorer'].includes(appKey)) {
+                        await invoke('open_path', { path: this.commands[appKey] });
+                        Terminal.success(`Opened ${appKey}`);
+                    } else {
+                        await invoke('open_path', { path: this.commands[appKey] });
+                        Terminal.success(`Launched ${appKey}`);
+                    }
+                    showNotification(`Launched ${appKey}`, 'info');
+                } catch (e) {
+                    Terminal.error(`Failed to launch ${appKey}: ${e}`);
+                    if (this.webUrls[appKey]) {
+                        window.open(this.webUrls[appKey], '_blank');
+                        Terminal.info(`Fallback: Opened ${appKey} in browser`);
+                    }
+                }
+            }
+        };
+
+        // ==================== DOCUMENT HANDLER ====================
+        const Documents = {
+            docs: {
+                'contract': { title: 'Contract W9127823R0034', path: 'G:\\My Drive\\00 - Trajanus USA\\PM\\Contract' },
+                'mods': { title: 'Modifications Log', path: 'G:\\My Drive\\00 - Trajanus USA\\PM\\Modifications' },
+                'specs': { title: 'Specifications Index', path: 'G:\\My Drive\\00 - Trajanus USA\\PM\\Specs' },
+                'baseline': { title: 'Baseline Schedule', path: 'G:\\My Drive\\00 - Trajanus USA\\PM\\Schedule\\Baseline' },
+                'current': { title: 'Current Update', path: 'G:\\My Drive\\00 - Trajanus USA\\PM\\Schedule\\Current' },
+                'lookahead': { title: '3-Week Lookahead', path: 'G:\\My Drive\\00 - Trajanus USA\\PM\\Schedule\\Lookahead' },
+                'sov': { title: 'Schedule of Values', path: 'G:\\My Drive\\00 - Trajanus USA\\PM\\Cost\\SOV' },
+                'payapps': { title: 'Payment Applications', path: 'G:\\My Drive\\00 - Trajanus USA\\PM\\Cost\\PayApps' },
+                'changes': { title: 'Change Orders', path: 'G:\\My Drive\\00 - Trajanus USA\\PM\\Cost\\Changes' }
+            },
+
+            async open(docId) {
+                const doc = this.docs[docId] || { title: docId, path: '' };
+                Terminal.info(`Opening document: ${doc.title}`);
+                showNotification(`Opening ${doc.title}...`, 'info');
+
+                const invoke = getInvoke();
+                if (!invoke) {
+                    TrajnausWindow.open(doc.title, `
+                        <p style="color: #b0b0b0; margin-bottom: 20px;">Document location:</p>
+                        <code style="background: #2d2d2d; padding: 10px; display: block; border-radius: 4px; color: #c0c0c0;">${doc.path}</code>
+                        <p style="color: #808080; margin-top: 20px; font-size: 13px;">
+                            [Browser Mode] Opening folders requires the desktop app.
+                        </p>
+                    `);
+                    return;
+                }
+
+                try {
+                    await invoke('open_path', { path: doc.path });
+                    Terminal.success(`Opened: ${doc.title}`);
+                } catch (e) {
+                    Terminal.error(`Failed to open ${doc.title}: ${e}`);
+                }
+            }
+        };
+
+        // ==================== AGENT CONTROLLER ====================
+        const Agents = {
+            activate(agentId) {
+                Terminal.info(`Activating agent: ${agentId}`);
+                const messages = {
+                    'rfi-drafter': 'RFI Drafter activated. I can help generate RFI responses.',
+                    'schedule-analyst': 'Schedule Analyst activated. Ready for CPM analysis.',
+                    'cost-reviewer': 'Cost Reviewer activated. Ready to review pay apps.',
+                    'submittal-tracker': 'Submittal Tracker activated. Ready for compliance checks.'
+                };
+                ChatAssistant.addMessage('assistant', messages[agentId] || `${agentId} activated.`);
+                showNotification(`${agentId} activated`, 'info');
+            },
+            deploy(agentId) {
+                Terminal.info(`Deploying agent: ${agentId}`);
+                showNotification(`Deploying ${agentId}...`, 'info');
+            }
+        };
+
+        // ==================== CHAT ASSISTANT ====================
+        const ChatAssistant = {
+            messages: [],
+            isLoading: false,
+
+            init() {
+                this.addMessage('assistant', 'I\'m your Project Management specialist. I can help with RFIs, submittals, schedule analysis, cost tracking, and federal contract compliance. What would you like to work on?');
+            },
+
+            async send() {
+                const input = document.getElementById('chat-input');
+                const message = input.value.trim();
+                if (!message || this.isLoading) return;
+
+                this.addMessage('user', message);
+                input.value = '';
+                this.setLoading(true);
+
+                try {
+                    const invoke = getInvoke();
+                    let response;
+
+                    if (invoke) {
+                        response = await invoke('chat_with_claude', {
+                            message: message,
+                            context: 'You are a Project Management specialist for federal construction contracts. Help with RFIs, submittals, schedules, costs, and USACE compliance.'
+                        });
+                    } else {
+                        response = 'Chat requires the desktop app for full functionality.';
+                    }
+                    this.addMessage('assistant', response);
+                } catch (error) {
+                    this.addMessage('assistant', `Error: ${error}`);
+                }
+                this.setLoading(false);
+            },
+
+            addMessage(role, content) {
+                const container = document.getElementById('chat-messages');
+                const msgEl = document.createElement('div');
+                msgEl.className = `chat-message ${role}`;
+                msgEl.innerHTML = `
+                    <div class="message-avatar">${role === 'user' ? 'B' : 'T'}</div>
+                    <div class="message-content"><div class="message-text">${this.escapeHtml(content)}</div></div>
+                `;
+                container.appendChild(msgEl);
+                container.scrollTop = container.scrollHeight;
+                this.messages.push({ role, content });
+            },
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            },
+
+            setLoading(loading) {
+                this.isLoading = loading;
+                document.getElementById('btn-send').disabled = loading;
+                const container = document.getElementById('chat-messages');
+                const existing = document.getElementById('typing-indicator');
+
+                if (loading && !existing) {
+                    const indicator = document.createElement('div');
+                    indicator.id = 'typing-indicator';
+                    indicator.className = 'chat-message assistant';
+                    indicator.innerHTML = `
+                        <div class="message-avatar">T</div>
+                        <div class="message-content"><div class="typing-indicator"><span></span><span></span><span></span></div></div>
+                    `;
+                    container.appendChild(indicator);
+                    container.scrollTop = container.scrollHeight;
+                } else if (!loading && existing) {
+                    existing.remove();
+                }
+            },
+
+            clear() {
+                this.messages = [];
+                document.getElementById('chat-messages').innerHTML = '';
+                this.init();
+            }
+        };
+
+        // ==================== AGENT RUNNER ====================
+        const AgentRunner = {
+            isRunning: false,
+
+            async run() {
+                if (this.isRunning) return;
+
+                const skill = document.getElementById('agent-skill').value;
+                const query = document.getElementById('agent-query').value.trim();
+                const externalMode = document.getElementById('research-external').checked;
+                const internalMode = document.getElementById('research-internal').checked;
+                const resultsDiv = document.getElementById('agent-results');
+
+                if (!query) {
+                    showNotification('Please enter a query', 'warning');
+                    return;
+                }
+
+                this.isRunning = true;
+                resultsDiv.innerHTML = '<div style="color: var(--gold);">Running agent...</div>';
+
+                const invoke = getInvoke();
+                if (!invoke) {
+                    setTimeout(() => {
+                        resultsDiv.innerHTML = `
+                            <div style="margin-bottom: 12px;">
+                                <strong style="color: var(--gold);">Skill:</strong> ${skill}<br>
+                                <strong style="color: var(--gold);">Mode:</strong> ${externalMode ? 'External' : ''} ${internalMode ? 'Internal' : ''}<br>
+                                <strong style="color: var(--gold);">Query:</strong> ${query}
+                            </div>
+                            <div style="color: var(--text-primary);">
+                                [Browser Mode] Agent Runner requires the desktop app for full functionality.
+                            </div>
+                        `;
+                        this.isRunning = false;
+                        showNotification('Agent completed (browser mode)', 'info');
+                    }, 1500);
+                    return;
+                }
+
+                try {
+                    let mode = 'both';
+                    if (externalMode && !internalMode) mode = 'external';
+                    if (!externalMode && internalMode) mode = 'internal';
+
+                    const scriptPath = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\AGENT_RUNNER_TOOL.py';
+                    const result = await invoke('run_python_script', {
+                        scriptPath: scriptPath,
+                        targetPath: JSON.stringify({ skill, query, mode })
+                    });
+
+                    resultsDiv.innerHTML = `<div style="color: var(--status-success);">${result}</div>`;
+                    showNotification('Agent completed', 'info');
+                } catch (error) {
+                    resultsDiv.innerHTML = `<div style="color: var(--status-error);">Error: ${error}</div>`;
+                    showNotification('Agent failed', 'warning');
+                } finally {
+                    this.isRunning = false;
+                }
+            },
+
+            clear() {
+                document.getElementById('agent-query').value = '';
+                document.getElementById('agent-results').innerHTML = 'Results will appear here after running the agent...';
+            }
+        };
+
+        // ==================== INITIALIZATION ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Update greeting and date
+            const hour = new Date().getHours();
+            let greeting = 'Good evening';
+            if (hour < 12) greeting = 'Good morning';
+            else if (hour < 17) greeting = 'Good afternoon';
+            document.getElementById('greeting-text').textContent = greeting;
+
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', options);
+
+            // Initialize chat
+            ChatAssistant.init();
+
+            // ==================== EVENT LISTENERS ====================
+
+            // App launchers
+            document.querySelectorAll('[data-launch]').forEach(el => {
+                el.addEventListener('click', () => Apps.launch(el.dataset.launch));
+            });
+
+            // Document cards
+            document.querySelectorAll('[data-doc]').forEach(el => {
+                el.addEventListener('click', () => Documents.open(el.dataset.doc));
+            });
+
+            // Agent activate buttons
+            document.querySelectorAll('[data-agent]').forEach(el => {
+                el.addEventListener('click', () => Agents.activate(el.dataset.agent));
+            });
+
+            // Agent deploy buttons
+            document.querySelectorAll('[data-agent-deploy]').forEach(el => {
+                el.addEventListener('click', () => Agents.deploy(el.dataset.agentDeploy));
+            });
+
+            // Chat send
+            document.getElementById('btn-send').addEventListener('click', () => ChatAssistant.send());
+
+            // Chat clear
+            document.getElementById('btn-clear-chat').addEventListener('click', () => ChatAssistant.clear());
+
+            // Chat input enter key
+            document.getElementById('chat-input').addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
-                    PM.sendMessage();
+                    ChatAssistant.send();
                 }
             });
+
+            // Navigation buttons
+            document.getElementById('btn-top').addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            document.getElementById('btn-hub').addEventListener('click', () => {
+                window.location.href = '../index.html';
+            });
+
+            // Agent Runner buttons
+            document.getElementById('run-agent-btn').addEventListener('click', () => AgentRunner.run());
+            document.getElementById('clear-results-btn').addEventListener('click', () => AgentRunner.clear());
         });
     </script>
 </body>

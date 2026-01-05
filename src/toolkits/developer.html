@@ -9,12 +9,12 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            /* TRAJANUS BLACK/SILVER PALETTE */
-            --bg-base: #1a1a1a;
-            --bg-surface: #2d2d2d;
-            --bg-card: #3d3d3d;
-            --bg-elevated: #4d4d4d;
-            --bg-hover: #5d5d5d;
+            /* TRAJANUS BLACK/SILVER PALETTE - ALL SILVER ON BLACK */
+            --bg-base: #0a0a0a;
+            --bg-surface: #0a0a0a;
+            --bg-card: #0a0a0a;
+            --bg-elevated: #1a1a1a;
+            --bg-hover: #2a2a2a;
             --accent: #c0c0c0;
             --accent-bright: #e0e0e0;
             --accent-dim: #a0a0a0;
@@ -22,12 +22,16 @@
             --silver: #c0c0c0;
             --silver-light: #e0e0e0;
             --silver-dark: #a0a0a0;
-            --gold: #c0c0c0;
-            --gold-hover: #e0e0e0;
-            --text-primary: #ffffff;
-            --text-secondary: #b0b0b0;
-            --text-muted: #808080;
-            --border-subtle: #4a4a4a;
+            --gold: #d4af37;
+            --gold-light: #f4cf57;
+            --gold-dark: #b4942f;
+            --blue: #4a90d9;
+            --blue-light: #6ab0f9;
+            --blue-dark: #3a70b9;
+            --text-primary: #c0c0c0;
+            --text-secondary: #c0c0c0;
+            --text-muted: #c0c0c0;
+            --border-subtle: #c0c0c0;
             --border-accent: #c0c0c0;
             --success: #4ade80;
             --info: #60a5fa;
@@ -49,51 +53,77 @@
             line-height: 1.6;
         }
 
-        /* Page Header */
-        .page-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 24px;
-            background: var(--bg-card);
-            border-bottom: 1px solid var(--border-subtle);
+        /* Sticky Hero Section */
+        .hero-section {
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+            background: var(--bg-base);
+            border-bottom: 1px solid var(--gold);
+            padding: 16px 32px;
         }
 
-        .page-header-left {
+        .hero-content {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 16px;
         }
 
-        .home-link {
+        .hero-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+        }
+
+        .hero-company {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero-company .tm {
+            font-size: 8px;
+            vertical-align: super;
+        }
+
+        .hero-toolkit {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+
+        .hero-description {
+            font-size: 13px;
+            color: var(--text-primary);
+            max-width: 500px;
+            line-height: 1.4;
+            margin-top: 4px;
+        }
+
+        .hero-home-btn {
             display: flex;
             align-items: center;
             gap: 8px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.2s ease;
-        }
-
-        .home-link:hover {
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid var(--gold);
             color: var(--gold);
+            font-size: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
         }
 
-        .diamond {
-            width: 10px;
-            height: 10px;
+        .hero-home-btn:hover {
             background: var(--gold);
-            transform: rotate(45deg);
-        }
-
-        .page-title {
-            color: var(--text-primary);
-            font-size: 16px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
+            color: var(--bg-base);
         }
 
         .header-controls {
@@ -224,7 +254,7 @@
 
         .section-border-bottom {
             height: 2px;
-            background: linear-gradient(to right, var(--gold), var(--border-subtle), transparent);
+            background: linear-gradient(to right, var(--gold), var(--gold-dark), transparent);
             margin-top: 12px;
         }
 
@@ -279,8 +309,8 @@
         }
 
         .app-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
             border-radius: 8px;
             padding: 16px 12px;
             display: flex;
@@ -294,8 +324,8 @@
         }
 
         .app-card:hover {
-            background: var(--bg-elevated);
-            border-color: var(--gold);
+            background: var(--bg-hover);
+            border-color: var(--blue-light);
             transform: translateY(-2px);
         }
 
@@ -711,20 +741,20 @@
         }
 
         .message-content {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
             border-radius: 8px;
             padding: 12px 16px;
         }
 
         .chat-message.user .message-content {
-            background: var(--gold);
-            border-color: var(--gold);
+            background: var(--blue);
+            border-color: var(--blue);
             color: var(--bg-base);
         }
 
         .chat-message.assistant .message-content {
-            background: var(--bg-card);
+            background: var(--bg-base);
         }
 
         .message-text {
@@ -773,7 +803,7 @@
         .chat-input-area {
             padding: 16px 20px;
             background: var(--bg-surface);
-            border-top: 1px solid var(--border-subtle);
+            border-top: 1px solid var(--blue);
             flex-shrink: 0;
         }
 
@@ -785,8 +815,8 @@
 
         .chat-input {
             flex: 1;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
             border-radius: 8px;
             padding: 12px 16px;
             color: var(--text-primary);
@@ -800,7 +830,7 @@
 
         .chat-input:focus {
             outline: none;
-            border-color: var(--gold);
+            border-color: var(--blue-light);
         }
 
         .chat-input::placeholder {
@@ -808,7 +838,7 @@
         }
 
         .send-btn {
-            background: var(--gold);
+            background: var(--blue);
             border: none;
             color: var(--bg-base);
             padding: 12px 24px;
@@ -1287,38 +1317,28 @@
     </style>
 </head>
 <body>
-    <!-- Page Header -->
-    <header class="page-header">
-        <div class="page-header-left">
-            <a href="../index.html" class="home-link">
-                <div class="diamond"></div>
-                <span>Hub</span>
-            </a>
-            <h1 class="page-title">Developer Toolkit</h1>
+    <!-- Sticky Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-brand">
+                <div class="hero-company">Trajanus USA EI<span class="tm">™</span></div>
+                <div class="hero-toolkit">Developer Toolkit</div>
+                <div class="hero-description">
+                    Central command interface for session management, script execution, file conversion,
+                    and AI-assisted development. Access automation tools, manage knowledge base ingestion,
+                    and interact with Claude directly from this unified workspace.
+                </div>
+            </div>
+            <div class="hero-nav">
+                <a href="../index.html" class="hero-home-btn">
+                    <span>◆</span> Hub
+                </a>
+            </div>
         </div>
-        <div class="header-controls">
-        </div>
-    </header>
+    </section>
 
     <!-- Main Content -->
     <main class="main-content">
-
-        <!-- ========================== -->
-        <!-- PAGE HERO SECTION          -->
-        <!-- ========================== -->
-        <section class="page-hero">
-            <h1 class="hero-title">TRAJANUS ENTERPRISE HUB <span class="hero-trademark">| EI&trade;</span></h1>
-            <h2 class="hero-subtitle">Developer Toolkit</h2>
-            <div class="hero-greeting-row">
-                <span class="hero-greeting"><span id="greeting-text">Good evening</span>, <span class="name">Bill</span>.</span>
-                <span class="hero-date" id="current-date">December 29, 2025</span>
-            </div>
-            <p class="hero-description">
-                The Developer Toolkit is your central command interface for session management, script execution,
-                file conversion, and AI-assisted development. Access automation tools, manage knowledge base
-                ingestion, and interact with Claude directly from this unified workspace.
-            </p>
-        </section>
 
         <!-- ========================== -->
         <!-- AI ASSISTANT SECTION       -->

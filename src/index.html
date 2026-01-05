@@ -112,6 +112,13 @@
                 </div>
                 <div class="project-list" id="delivered-projects"></div>
             </div>
+
+            <!-- Team Feedback Tab -->
+            <div class="feedback-tab" id="feedbackTab" onclick="showFeedbackPanel()">
+                <span class="feedback-tab-icon">💬</span>
+                <span class="feedback-tab-label">Team Feedback</span>
+                <span class="unread-badge" id="feedbackBadge" style="display: none;">0</span>
+            </div>
         </nav>
 
         <!-- Main Content -->
@@ -240,7 +247,7 @@
                     </a>
 
                     <!-- Traffic Studies Engineer -->
-                    <a href="./toolkits/tse.html" class="platform-card">
+                    <a href="./toolkits/traffic.html" class="platform-card">
                         <h3 class="platform-title">Traffic Studies</h3>
                         <p class="platform-subtitle">Engineer Workspace</p>
                         <p class="platform-description">
@@ -700,7 +707,7 @@
 
             // Navigate to appropriate platform
             const platformUrls = {
-                'traffic': 'toolkits/tse.html',
+                'traffic': 'toolkits/traffic.html',
                 'qcm': 'toolkits/qcm.html',
                 'pm': 'toolkits/pm.html',
                 'dev': 'toolkits/developer.html'
@@ -2033,7 +2040,1490 @@
             border-top-color: #c0c0c0;
             z-index: 9999;
         }
+
+        /* ==================== TEAM FEEDBACK BOARD ==================== */
+        .feedback-tab {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            margin: 16px 12px;
+            cursor: pointer;
+            border: 1px solid var(--blue, #4a90d9);
+            border-radius: 8px;
+            background: var(--bg-surface, #1a1a1a);
+            transition: all 0.2s ease;
+        }
+
+        .feedback-tab:hover {
+            background: rgba(74, 144, 217, 0.1);
+            border-color: var(--blue-light, #6ab0f9);
+        }
+
+        .feedback-tab.active {
+            background: rgba(74, 144, 217, 0.15);
+            border-color: var(--gold, #d4af37);
+        }
+
+        .feedback-tab-icon {
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
+
+        .feedback-tab-label {
+            flex: 1;
+            font-weight: 500;
+            color: var(--text-light, #c0c0c0);
+        }
+
+        .unread-badge {
+            background: var(--gold, #d4af37);
+            color: var(--bg-base, #0a0a0a);
+            font-size: 0.75em;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 10px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        /* Feedback Panel - Floating Resizable Window */
+        #feedbackPanel {
+            position: fixed;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 500px;
+            height: 600px;
+            min-width: 350px;
+            min-height: 400px;
+            max-width: 90vw;
+            max-height: 85vh;
+            background: var(--bg-surface, #1a1a1a);
+            border: 2px solid var(--blue, #4a90d9);
+            border-radius: 8px;
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            resize: both;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        #feedbackPanel.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .feedback-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--bg-base, #0a0a0a);
+            border-bottom: 1px solid var(--blue, #4a90d9);
+            cursor: move;
+            user-select: none;
+            flex-shrink: 0;
+        }
+
+        .feedback-header h3 {
+            margin: 0;
+            font-size: 1.1em;
+            color: var(--gold, #d4af37);
+        }
+
+        .feedback-close-btn {
+            background: none;
+            border: 1px solid var(--blue, #4a90d9);
+            color: var(--text-muted, #888);
+            font-size: 1.2em;
+            cursor: pointer;
+            padding: 4px 10px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .feedback-close-btn:hover {
+            border-color: var(--blue-light, #6ab0f9);
+            color: var(--text-light, #c0c0c0);
+        }
+
+        /* Category Filters */
+        .feedback-filters {
+            display: flex;
+            gap: 8px;
+            padding: 12px 16px;
+            background: var(--bg-base, #0a0a0a);
+            border-bottom: 1px solid var(--blue, #4a90d9);
+            flex-wrap: wrap;
+            flex-shrink: 0;
+        }
+
+        .feedback-filter-btn {
+            padding: 6px 12px;
+            background: var(--bg-surface, #1a1a1a);
+            border: 1px solid var(--blue, #4a90d9);
+            border-radius: 4px;
+            color: var(--text-light, #c0c0c0);
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.2s;
+        }
+
+        .feedback-filter-btn:hover {
+            background: var(--bg-hover, #2a2a2a);
+            border-color: var(--blue-light, #6ab0f9);
+        }
+
+        .feedback-filter-btn.active {
+            background: var(--blue, #4a90d9);
+            color: var(--bg-base, #0a0a0a);
+            border-color: var(--blue, #4a90d9);
+        }
+
+        /* Messages Area */
+        .feedback-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        .feedback-item {
+            background: var(--bg-base, #0a0a0a);
+            border: 1px solid var(--blue, #4a90d9);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+        }
+
+        .feedback-item.resolved {
+            opacity: 0.6;
+            background: var(--bg-surface, #1a1a1a);
+        }
+
+        .feedback-item.resolved .feedback-body {
+            text-decoration: line-through;
+        }
+
+        /* Resolve Checkbox */
+        .feedback-resolve-check {
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            margin-right: 8px;
+        }
+
+        .feedback-resolve-check input {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--gold, #d4af37);
+            cursor: pointer;
+        }
+
+        /* Item Actions */
+        .feedback-item-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .feedback-item-actions {
+            margin-left: auto;
+            display: flex;
+            gap: 4px;
+        }
+
+        .feedback-action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9em;
+            padding: 2px 6px;
+            border-radius: 4px;
+            opacity: 0.6;
+            transition: opacity 0.2s, background 0.2s;
+        }
+
+        .feedback-action-btn:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .feedback-action-btn.delete:hover {
+            background: rgba(255, 0, 0, 0.2);
+        }
+
+        .feedback-action-btn.small {
+            font-size: 0.75em;
+            padding: 1px 4px;
+        }
+
+        /* Toast Notification */
+        .feedback-toast {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold, #d4af37);
+            color: var(--bg-base, #0a0a0a);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: bold;
+            animation: fadeInOut 2s ease;
+            z-index: 1001;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+            15% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            85% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+        }
+
+        /* Header Toolbar */
+        .feedback-header-toolbar {
+            display: flex;
+            gap: 8px;
+        }
+
+        .feedback-header-btn {
+            background: none;
+            border: 1px solid var(--blue, #4a90d9);
+            color: var(--text-muted, #888);
+            font-size: 0.85em;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .feedback-header-btn:hover {
+            border-color: var(--gold, #d4af37);
+            color: var(--gold, #d4af37);
+        }
+
+        /* Introduction Section */
+        .feedback-intro {
+            padding: 12px 16px;
+            background: linear-gradient(180deg, rgba(74, 144, 217, 0.1) 0%, transparent 100%);
+            border-bottom: 1px solid var(--blue, #4a90d9);
+            font-size: 0.85em;
+            color: var(--text-muted, #888);
+            flex-shrink: 0;
+        }
+
+        .feedback-intro h4 {
+            margin: 0 0 8px 0;
+            color: var(--gold, #d4af37);
+            font-size: 1em;
+        }
+
+        .feedback-intro ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .feedback-intro li {
+            margin-bottom: 4px;
+        }
+
+        .feedback-intro-toggle {
+            background: none;
+            border: none;
+            color: var(--blue, #4a90d9);
+            cursor: pointer;
+            font-size: 0.8em;
+            padding: 0;
+            margin-top: 8px;
+        }
+
+        .feedback-intro-toggle:hover {
+            text-decoration: underline;
+        }
+
+        /* Expanded Input */
+        .feedback-expand-btn {
+            background: none;
+            border: 1px solid var(--blue, #4a90d9);
+            color: var(--text-muted, #888);
+            font-size: 0.8em;
+            padding: 2px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 8px;
+        }
+
+        .feedback-expand-btn:hover {
+            border-color: var(--gold, #d4af37);
+            color: var(--gold, #d4af37);
+        }
+
+        .feedback-form textarea.expanded {
+            min-height: 150px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           FEEDBACK MODALS - Viewer and Composer
+           ═══════════════════════════════════════════════════════════════ */
+        .feedback-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .feedback-modal.active {
+            display: flex;
+        }
+
+        .feedback-modal-content {
+            width: 700px;
+            max-width: 90vw;
+            height: 500px;
+            max-height: 80vh;
+            background: var(--bg-surface, #1a1a1a);
+            border: 2px solid var(--blue, #4a90d9);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .feedback-modal-content.composer {
+            height: 600px;
+        }
+
+        .feedback-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: var(--bg-base, #0a0a0a);
+            border-bottom: 1px solid var(--blue, #4a90d9);
+            flex-shrink: 0;
+        }
+
+        .feedback-modal-header h3 {
+            margin: 0;
+            color: var(--gold, #d4af37);
+            font-size: 1.1em;
+        }
+
+        .feedback-modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            font-size: 1em;
+            line-height: 1.6;
+            color: var(--text-light, #c0c0c0);
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .feedback-modal-body .viewer-meta {
+            color: var(--text-muted, #888);
+            font-size: 0.9em;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--blue, #4a90d9);
+        }
+
+        .feedback-modal-body .viewer-content {
+            font-size: 1.05em;
+        }
+
+        .feedback-modal-body .viewer-replies {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid var(--blue, #4a90d9);
+        }
+
+        .feedback-modal-body .viewer-replies h4 {
+            color: var(--gold, #d4af37);
+            margin: 0 0 12px 0;
+        }
+
+        .feedback-modal-body .viewer-reply {
+            background: var(--bg-base, #0a0a0a);
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-left: 3px solid var(--blue, #4a90d9);
+        }
+
+        /* Composer Styles */
+        .composer-body {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .composer-row {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 16px;
+        }
+
+        .composer-row:last-child {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .composer-row label {
+            color: var(--gold, #d4af37);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .composer-category-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .composer-cat-btn {
+            padding: 10px 16px;
+            background: var(--bg-base, #0a0a0a);
+            border: 1px solid var(--blue, #4a90d9);
+            border-radius: 6px;
+            color: var(--text-light, #c0c0c0);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .composer-cat-btn:hover {
+            border-color: var(--blue-light, #6ab0f9);
+            background: var(--bg-hover, #2a2a2a);
+        }
+
+        .composer-cat-btn.active {
+            background: var(--blue, #4a90d9);
+            color: var(--bg-base, #0a0a0a);
+            border-color: var(--blue, #4a90d9);
+        }
+
+        .composer-row textarea {
+            flex: 1;
+            min-height: 250px;
+            padding: 16px;
+            background: var(--bg-base, #0a0a0a);
+            border: 1px solid var(--blue, #4a90d9);
+            border-radius: 6px;
+            color: var(--text-light, #c0c0c0);
+            font-family: inherit;
+            font-size: 1em;
+            line-height: 1.5;
+            resize: none;
+        }
+
+        .composer-row textarea:focus {
+            outline: none;
+            border-color: var(--gold, #d4af37);
+        }
+
+        .feedback-modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            padding: 16px 20px;
+            background: var(--bg-base, #0a0a0a);
+            border-top: 1px solid var(--blue, #4a90d9);
+            flex-shrink: 0;
+        }
+
+        .btn-cancel {
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid var(--text-muted, #888);
+            border-radius: 6px;
+            color: var(--text-muted, #888);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-cancel:hover {
+            border-color: var(--text-light, #c0c0c0);
+            color: var(--text-light, #c0c0c0);
+        }
+
+        .btn-submit {
+            padding: 10px 24px;
+            background: var(--blue, #4a90d9);
+            border: none;
+            border-radius: 6px;
+            color: var(--bg-base, #0a0a0a);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-submit:hover {
+            background: var(--gold, #d4af37);
+        }
+
+        /* Clickable feedback items */
+        .feedback-item .feedback-body {
+            cursor: pointer;
+        }
+
+        .feedback-item .feedback-body:hover {
+            color: var(--gold, #d4af37);
+        }
+
+        .feedback-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .feedback-author {
+            font-weight: bold;
+            color: var(--gold, #d4af37);
+        }
+
+        .feedback-meta {
+            font-size: 0.8em;
+            color: var(--text-muted, #888);
+        }
+
+        .feedback-category {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            margin-left: 8px;
+        }
+
+        .category-works { background: #2d5a2d; color: #8fbc8f; }
+        .category-doesnt { background: #5a2d2d; color: #f08080; }
+        .category-suggestion { background: #5a5a2d; color: #f0e68c; }
+
+        .feedback-body {
+            color: var(--text-light, #c0c0c0);
+            line-height: 1.5;
+        }
+
+        /* Replies */
+        .feedback-replies {
+            margin-top: 12px;
+            padding-left: 16px;
+            border-left: 2px solid var(--blue, #4a90d9);
+        }
+
+        .reply-item {
+            background: var(--bg-surface, #1a1a1a);
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin-top: 8px;
+        }
+
+        .reply-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted, #888);
+            cursor: pointer;
+            font-size: 0.85em;
+            margin-top: 8px;
+        }
+
+        .reply-btn:hover {
+            color: var(--gold, #d4af37);
+        }
+
+        .reply-form {
+            margin-top: 8px;
+        }
+
+        .reply-form textarea {
+            width: 100%;
+            padding: 8px;
+            background: var(--bg-surface, #1a1a1a);
+            border: 1px solid var(--blue, #4a90d9);
+            border-radius: 4px;
+            color: var(--text-light, #c0c0c0);
+            resize: none;
+            font-family: inherit;
+            font-size: 0.9em;
+        }
+
+        /* New Message Form */
+        .feedback-form {
+            padding: 16px;
+            background: var(--bg-base, #0a0a0a);
+            border-top: 1px solid var(--blue, #4a90d9);
+            flex-shrink: 0;
+        }
+
+        .feedback-form-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .feedback-form-row label {
+            color: var(--gold, #d4af37);
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .feedback-form select {
+            flex: 1;
+            padding: 8px 12px;
+            background: var(--bg-surface, #1a1a1a);
+            border: 1px solid var(--blue, #4a90d9);
+            border-radius: 4px;
+            color: var(--text-light, #c0c0c0);
+        }
+
+        .feedback-form textarea {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-surface, #1a1a1a);
+            border: 1px solid var(--blue, #4a90d9);
+            border-radius: 4px;
+            color: var(--text-light, #c0c0c0);
+            resize: none;
+            font-family: inherit;
+            margin-bottom: 12px;
+        }
+
+        .feedback-form textarea:focus,
+        .feedback-form select:focus {
+            outline: none;
+            border-color: var(--blue-light, #6ab0f9);
+        }
+
+        .feedback-submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--blue, #4a90d9);
+            border: none;
+            border-radius: 4px;
+            color: var(--bg-base, #0a0a0a);
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .feedback-submit-btn:hover {
+            background: var(--blue-light, #6ab0f9);
+        }
+
+        .feedback-loading {
+            text-align: center;
+            color: var(--text-muted, #888);
+            padding: 40px;
+        }
+
+        /* User Selector */
+        .feedback-user-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg-base, #0a0a0a);
+            border-bottom: 1px solid var(--blue, #4a90d9);
+            flex-shrink: 0;
+        }
+
+        .feedback-user-selector label {
+            color: var(--text-muted, #888);
+            font-size: 0.85em;
+        }
+
+        .feedback-user-selector select {
+            padding: 4px 8px;
+            background: var(--bg-surface, #1a1a1a);
+            border: 1px solid var(--blue, #4a90d9);
+            border-radius: 4px;
+            color: var(--text-light, #c0c0c0);
+            font-size: 0.85em;
+        }
     </style>
 
+    <!-- Team Feedback Panel -->
+    <div id="feedbackPanel" class="feedback-panel">
+        <div class="feedback-header">
+            <h3>Team Feedback</h3>
+            <div class="feedback-header-toolbar">
+                <button class="feedback-header-btn" onclick="exportFeedbackToFile()" title="Export to file">📥 Export</button>
+                <button class="feedback-close-btn" onclick="hideFeedbackPanel()">&times;</button>
+            </div>
+        </div>
+
+        <div class="feedback-intro" id="feedbackIntro">
+            <h4>Welcome to Team Feedback</h4>
+            <ul>
+                <li><strong>What Works</strong> - Share features or workflows that are helpful</li>
+                <li><strong>What Doesn't</strong> - Report bugs, issues, or friction points</li>
+                <li><strong>Suggestions</strong> - Propose new features or improvements</li>
+            </ul>
+            <p style="margin: 8px 0 0 0;">
+                <strong>Tips:</strong> Check the box to mark items as addressed.
+                Use 📋 to copy and 🗑️ to delete. Click "Export" to save all feedback to a file.
+            </p>
+            <button class="feedback-intro-toggle" onclick="toggleFeedbackIntro()">Hide instructions</button>
+        </div>
+
+        <div class="feedback-user-selector">
+            <label>Posting as:</label>
+            <select id="feedbackUserSelect" onchange="setFeedbackUser(this.value)">
+                <option value="">Select your name...</option>
+                <option value="Bill">Bill</option>
+                <option value="Tom">Tom</option>
+                <option value="Chris">Chris</option>
+            </select>
+        </div>
+
+        <div class="feedback-filters">
+            <button class="feedback-filter-btn active" data-filter="all" onclick="filterFeedback('all')">All</button>
+            <button class="feedback-filter-btn" data-filter="works" onclick="filterFeedback('works')">What Works</button>
+            <button class="feedback-filter-btn" data-filter="doesnt" onclick="filterFeedback('doesnt')">What Doesn't</button>
+            <button class="feedback-filter-btn" data-filter="suggestion" onclick="filterFeedback('suggestion')">Suggestions</button>
+        </div>
+
+        <div class="feedback-messages" id="feedbackMessages">
+            <!-- Feedback items loaded dynamically -->
+            <div class="feedback-loading">Loading feedback...</div>
+        </div>
+
+        <div class="feedback-form">
+            <button class="feedback-submit-btn" onclick="openComposer()">+ New Feedback</button>
+        </div>
+    </div>
+
+    <!-- Message Viewer Modal -->
+    <div id="feedbackViewer" class="feedback-modal">
+        <div class="feedback-modal-content">
+            <div class="feedback-modal-header">
+                <h3 id="viewerTitle">Message</h3>
+                <div class="feedback-header-toolbar">
+                    <button class="feedback-header-btn" onclick="copyViewerContent()" title="Copy to clipboard">📋 Copy</button>
+                    <button class="feedback-close-btn" onclick="closeViewer()">&times;</button>
+                </div>
+            </div>
+            <div class="feedback-modal-body" id="viewerBody">
+                <!-- Message content loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Composer Modal -->
+    <div id="feedbackComposer" class="feedback-modal">
+        <div class="feedback-modal-content composer">
+            <div class="feedback-modal-header">
+                <h3>New Feedback</h3>
+                <button class="feedback-close-btn" onclick="closeComposer()">&times;</button>
+            </div>
+            <div class="feedback-modal-body composer-body">
+                <div class="composer-row">
+                    <label>Category:</label>
+                    <div class="composer-category-buttons">
+                        <button class="composer-cat-btn active" data-cat="works" onclick="selectComposerCategory('works')">✓ What Works</button>
+                        <button class="composer-cat-btn" data-cat="doesnt" onclick="selectComposerCategory('doesnt')">✗ What Doesn't</button>
+                        <button class="composer-cat-btn" data-cat="suggestion" onclick="selectComposerCategory('suggestion')">💡 Suggestion</button>
+                    </div>
+                </div>
+                <div class="composer-row">
+                    <label>Your Message:</label>
+                    <textarea id="composerInput" placeholder="Type your feedback here..."></textarea>
+                </div>
+            </div>
+            <div class="feedback-modal-footer">
+                <button class="btn-cancel" onclick="closeComposer()">Cancel</button>
+                <button class="btn-submit" onclick="submitComposer()">Submit Feedback</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ═══════════════════════════════════════════════════════════════
+        // TEAM FEEDBACK BOARD - Supabase Integration
+        // ═══════════════════════════════════════════════════════════════
+
+        const FEEDBACK_SUPABASE_URL = 'https://iaxtwrswinygwwwdkvok.supabase.co';
+        const FEEDBACK_SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlheHR3cnN3aW55Z3d3d2Rrdm9rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTc4NjAsImV4cCI6MjA4MDg3Mzg2MH0.JGSdki3TtDiRS7OQrpBDuyN4nxPW1Qc9ImMunnjHFoE';
+
+        let feedbackData = [];
+        let currentFeedbackFilter = 'all';
+        let currentFeedbackUser = localStorage.getItem('feedbackUser') || '';
+        let lastFeedbackCheck = localStorage.getItem('lastFeedbackCheck') || null;
+        let currentViewerPostId = null;
+        let composerCategory = 'works';
+
+        // Initialize feedback user on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const userSelect = document.getElementById('feedbackUserSelect');
+            if (userSelect && currentFeedbackUser) {
+                userSelect.value = currentFeedbackUser;
+            }
+            checkUnreadFeedback();
+            initFeedbackPanelDrag();
+            initFeedbackIntro();
+        });
+
+        // Drag functionality for feedback panel
+        function initFeedbackPanelDrag() {
+            const panel = document.getElementById('feedbackPanel');
+            const header = panel?.querySelector('.feedback-header');
+            if (!panel || !header) return;
+
+            let isDragging = false;
+            let startX, startY, startLeft, startTop;
+
+            header.addEventListener('mousedown', (e) => {
+                // Don't drag if clicking close button
+                if (e.target.closest('.feedback-close-btn')) return;
+
+                isDragging = true;
+                const rect = panel.getBoundingClientRect();
+                startX = e.clientX;
+                startY = e.clientY;
+                startLeft = rect.left;
+                startTop = rect.top;
+
+                // Remove center transform when starting drag
+                panel.style.left = rect.left + 'px';
+                panel.style.top = rect.top + 'px';
+                panel.style.transform = 'none';
+
+                document.body.style.userSelect = 'none';
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+
+                const dx = e.clientX - startX;
+                const dy = e.clientY - startY;
+
+                let newLeft = startLeft + dx;
+                let newTop = startTop + dy;
+
+                // Keep within viewport bounds
+                newLeft = Math.max(0, Math.min(newLeft, window.innerWidth - panel.offsetWidth));
+                newTop = Math.max(0, Math.min(newTop, window.innerHeight - 50));
+
+                panel.style.left = newLeft + 'px';
+                panel.style.top = newTop + 'px';
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+                document.body.style.userSelect = '';
+            });
+        }
+
+        function setFeedbackUser(user) {
+            currentFeedbackUser = user;
+            localStorage.setItem('feedbackUser', user);
+        }
+
+        function showFeedbackPanel() {
+            const panel = document.getElementById('feedbackPanel');
+            if (panel) {
+                // Reset to center position if not already positioned
+                if (!panel.style.left || panel.style.left === '50%') {
+                    panel.style.left = '50%';
+                    panel.style.top = '100px';
+                    panel.style.transform = 'translateX(-50%)';
+                }
+                panel.classList.add('active');
+                loadFeedback();
+                // Update last check time
+                localStorage.setItem('lastFeedbackCheck', new Date().toISOString());
+                updateUnreadBadge(0);
+            }
+        }
+
+        function hideFeedbackPanel() {
+            const panel = document.getElementById('feedbackPanel');
+            if (panel) {
+                panel.classList.remove('active');
+            }
+        }
+
+        async function loadFeedback() {
+            const messagesContainer = document.getElementById('feedbackMessages');
+            if (!messagesContainer) return;
+
+            messagesContainer.innerHTML = '<div class="feedback-loading">Loading feedback...</div>';
+
+            try {
+                const response = await fetch(
+                    `${FEEDBACK_SUPABASE_URL}/rest/v1/team_feedback?order=created_at.desc`,
+                    {
+                        headers: {
+                            'apikey': FEEDBACK_SUPABASE_KEY,
+                            'Authorization': `Bearer ${FEEDBACK_SUPABASE_KEY}`,
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                feedbackData = await response.json();
+                renderFeedback();
+                saveFeedbackBackup(); // Save local backup
+            } catch (error) {
+                console.error('Error loading feedback:', error);
+                messagesContainer.innerHTML = '<div class="feedback-error">Failed to load feedback. Please try again.</div>';
+            }
+        }
+
+        function renderFeedback() {
+            const messagesContainer = document.getElementById('feedbackMessages');
+            if (!messagesContainer) return;
+
+            // Filter feedback
+            let filtered = feedbackData;
+            if (currentFeedbackFilter !== 'all') {
+                filtered = feedbackData.filter(item => item.category === currentFeedbackFilter);
+            }
+
+            // Separate parent posts and replies
+            const parentPosts = filtered.filter(item => !item.parent_id);
+            const replies = filtered.filter(item => item.parent_id);
+
+            if (parentPosts.length === 0) {
+                messagesContainer.innerHTML = '<div class="feedback-empty">No feedback yet. Be the first to share!</div>';
+                return;
+            }
+
+            let html = '';
+            parentPosts.forEach(post => {
+                const postReplies = replies.filter(r => r.parent_id === post.id);
+                html += renderFeedbackItem(post, postReplies);
+            });
+
+            messagesContainer.innerHTML = html;
+        }
+
+        function renderFeedbackItem(post, replies = []) {
+            const categoryLabels = {
+                'works': '✓ Works',
+                'doesnt': '✗ Doesn\'t Work',
+                'suggestion': '💡 Suggestion'
+            };
+
+            const date = new Date(post.created_at).toLocaleDateString('en-US', {
+                month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+            });
+
+            const resolvedClass = post.resolved ? ' resolved' : '';
+            const resolvedCheck = post.resolved ? ' checked' : '';
+
+            let html = `
+                <div class="feedback-item${resolvedClass}" data-category="${post.category}" data-id="${post.id}">
+                    <div class="feedback-item-header">
+                        <label class="feedback-resolve-check" title="Mark as addressed">
+                            <input type="checkbox"${resolvedCheck} onchange="toggleResolved(${post.id}, this.checked)">
+                            <span class="checkmark"></span>
+                        </label>
+                        <span class="feedback-author">${post.author}</span>
+                        <span class="feedback-category-tag category-${post.category}">${categoryLabels[post.category] || post.category}</span>
+                        <span class="feedback-date">${date}</span>
+                        <div class="feedback-item-actions">
+                            <button class="feedback-action-btn" onclick="copyFeedback(${post.id})" title="Copy to clipboard">📋</button>
+                            <button class="feedback-action-btn delete" onclick="deleteFeedback(${post.id})" title="Delete">🗑️</button>
+                        </div>
+                    </div>
+                    <div class="feedback-body" onclick="openViewer(${post.id})">${escapeHtml(post.message)}</div>
+                    <div class="feedback-actions">
+                        <button class="feedback-reply-btn" onclick="toggleReplyForm(${post.id})">Reply</button>
+                    </div>
+                    <div class="reply-form" id="replyForm-${post.id}" style="display: none;">
+                        <textarea id="replyInput-${post.id}" placeholder="Write a reply..." rows="2"></textarea>
+                        <button onclick="postReply(${post.id})">Send Reply</button>
+                    </div>
+            `;
+
+            if (replies.length > 0) {
+                html += '<div class="feedback-replies">';
+                replies.forEach(reply => {
+                    const replyDate = new Date(reply.created_at).toLocaleDateString('en-US', {
+                        month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+                    });
+                    html += `
+                        <div class="feedback-reply">
+                            <span class="feedback-author">${reply.author}</span>
+                            <span class="feedback-date">${replyDate}</span>
+                            <div class="feedback-body">${escapeHtml(reply.message)}</div>
+                            <button class="feedback-action-btn small" onclick="copyText('${escapeHtml(reply.message).replace(/'/g, "\\'")}')">📋</button>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function toggleReplyForm(postId) {
+            const form = document.getElementById(`replyForm-${postId}`);
+            if (form) {
+                form.style.display = form.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+
+        // Toggle resolved status
+        async function toggleResolved(postId, resolved) {
+            try {
+                const response = await fetch(
+                    `${FEEDBACK_SUPABASE_URL}/rest/v1/team_feedback?id=eq.${postId}`,
+                    {
+                        method: 'PATCH',
+                        headers: {
+                            'apikey': FEEDBACK_SUPABASE_KEY,
+                            'Authorization': `Bearer ${FEEDBACK_SUPABASE_KEY}`,
+                            'Content-Type': 'application/json',
+                            'Prefer': 'return=minimal'
+                        },
+                        body: JSON.stringify({ resolved: resolved })
+                    }
+                );
+
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                // Update local data and re-render
+                const item = feedbackData.find(f => f.id === postId);
+                if (item) item.resolved = resolved;
+                renderFeedback();
+
+                // Save to local backup
+                saveFeedbackBackup();
+            } catch (error) {
+                console.error('Error updating resolved status:', error);
+                alert('Failed to update. Please try again.');
+            }
+        }
+
+        // Copy feedback to clipboard
+        function copyFeedback(postId) {
+            const post = feedbackData.find(f => f.id === postId);
+            if (!post) return;
+
+            const replies = feedbackData.filter(f => f.parent_id === postId);
+            let text = `[${post.category.toUpperCase()}] ${post.author} (${new Date(post.created_at).toLocaleDateString()}):\n${post.message}`;
+
+            if (replies.length > 0) {
+                text += '\n\nReplies:';
+                replies.forEach(r => {
+                    text += `\n- ${r.author}: ${r.message}`;
+                });
+            }
+
+            copyText(text);
+        }
+
+        // Copy text to clipboard
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showFeedbackToast('Copied to clipboard!');
+            }).catch(err => {
+                console.error('Copy failed:', err);
+                alert('Failed to copy to clipboard');
+            });
+        }
+
+        // Show toast notification
+        function showFeedbackToast(message) {
+            const existing = document.querySelector('.feedback-toast');
+            if (existing) existing.remove();
+
+            const toast = document.createElement('div');
+            toast.className = 'feedback-toast';
+            toast.textContent = message;
+            document.getElementById('feedbackPanel').appendChild(toast);
+
+            setTimeout(() => toast.remove(), 2000);
+        }
+
+        // Delete feedback
+        async function deleteFeedback(postId) {
+            if (!confirm('Delete this feedback and all its replies?')) return;
+
+            try {
+                // Delete replies first
+                await fetch(
+                    `${FEEDBACK_SUPABASE_URL}/rest/v1/team_feedback?parent_id=eq.${postId}`,
+                    {
+                        method: 'DELETE',
+                        headers: {
+                            'apikey': FEEDBACK_SUPABASE_KEY,
+                            'Authorization': `Bearer ${FEEDBACK_SUPABASE_KEY}`
+                        }
+                    }
+                );
+
+                // Delete main post
+                const response = await fetch(
+                    `${FEEDBACK_SUPABASE_URL}/rest/v1/team_feedback?id=eq.${postId}`,
+                    {
+                        method: 'DELETE',
+                        headers: {
+                            'apikey': FEEDBACK_SUPABASE_KEY,
+                            'Authorization': `Bearer ${FEEDBACK_SUPABASE_KEY}`
+                        }
+                    }
+                );
+
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                loadFeedback();
+                showFeedbackToast('Deleted successfully');
+            } catch (error) {
+                console.error('Error deleting feedback:', error);
+                alert('Failed to delete. Please try again.');
+            }
+        }
+
+        // Save local backup
+        function saveFeedbackBackup() {
+            const backup = {
+                timestamp: new Date().toISOString(),
+                data: feedbackData
+            };
+            localStorage.setItem('feedbackBackup', JSON.stringify(backup));
+        }
+
+        // Export all feedback to file
+        function exportFeedbackToFile() {
+            const categoryLabels = {
+                'works': 'WORKS',
+                'doesnt': 'DOESNT WORK',
+                'suggestion': 'SUGGESTION'
+            };
+
+            let content = `TEAM FEEDBACK EXPORT\n`;
+            content += `Generated: ${new Date().toLocaleString()}\n`;
+            content += `${'='.repeat(60)}\n\n`;
+
+            const parentPosts = feedbackData.filter(f => !f.parent_id);
+
+            parentPosts.forEach(post => {
+                const status = post.resolved ? '[RESOLVED]' : '[OPEN]';
+                content += `${status} [${categoryLabels[post.category] || post.category}]\n`;
+                content += `From: ${post.author} | ${new Date(post.created_at).toLocaleString()}\n`;
+                content += `${'-'.repeat(40)}\n`;
+                content += `${post.message}\n`;
+
+                const replies = feedbackData.filter(f => f.parent_id === post.id);
+                if (replies.length > 0) {
+                    content += `\nReplies:\n`;
+                    replies.forEach(r => {
+                        content += `  → ${r.author} (${new Date(r.created_at).toLocaleString()}):\n`;
+                        content += `    ${r.message}\n`;
+                    });
+                }
+
+                content += `\n${'='.repeat(60)}\n\n`;
+            });
+
+            // Create download
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Team_Feedback_${new Date().toISOString().split('T')[0]}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            showFeedbackToast('Exported to file!');
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // MESSAGE VIEWER MODAL
+        // ═══════════════════════════════════════════════════════════════
+
+        function openViewer(postId) {
+            const post = feedbackData.find(f => f.id === postId);
+            if (!post) return;
+
+            currentViewerPostId = postId;
+
+            const categoryLabels = {
+                'works': '✓ What Works',
+                'doesnt': '✗ What Doesn\'t Work',
+                'suggestion': '💡 Suggestion'
+            };
+
+            const date = new Date(post.created_at).toLocaleString();
+            const replies = feedbackData.filter(f => f.parent_id === postId);
+
+            // Build viewer content
+            let html = `
+                <div class="viewer-meta">
+                    <strong>${post.author}</strong> &nbsp;|&nbsp;
+                    ${categoryLabels[post.category] || post.category} &nbsp;|&nbsp;
+                    ${date}
+                    ${post.resolved ? ' &nbsp;|&nbsp; <span style="color: var(--gold);">✓ Addressed</span>' : ''}
+                </div>
+                <div class="viewer-content">${escapeHtml(post.message)}</div>
+            `;
+
+            if (replies.length > 0) {
+                html += `<div class="viewer-replies"><h4>Replies (${replies.length})</h4>`;
+                replies.forEach(r => {
+                    const replyDate = new Date(r.created_at).toLocaleString();
+                    html += `
+                        <div class="viewer-reply">
+                            <strong>${r.author}</strong> <span style="color: var(--text-muted);">${replyDate}</span>
+                            <div style="margin-top: 8px;">${escapeHtml(r.message)}</div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+
+            document.getElementById('viewerTitle').textContent = categoryLabels[post.category] || 'Message';
+            document.getElementById('viewerBody').innerHTML = html;
+            document.getElementById('feedbackViewer').classList.add('active');
+        }
+
+        function closeViewer() {
+            document.getElementById('feedbackViewer').classList.remove('active');
+            currentViewerPostId = null;
+        }
+
+        function copyViewerContent() {
+            if (!currentViewerPostId) return;
+            copyFeedback(currentViewerPostId);
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // MESSAGE COMPOSER MODAL
+        // ═══════════════════════════════════════════════════════════════
+
+        function openComposer() {
+            if (!currentFeedbackUser) {
+                alert('Please select your name first (in the main feedback panel).');
+                return;
+            }
+
+            composerCategory = 'works';
+            document.getElementById('composerInput').value = '';
+
+            // Reset category buttons
+            document.querySelectorAll('.composer-cat-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.cat === 'works');
+            });
+
+            document.getElementById('feedbackComposer').classList.add('active');
+            document.getElementById('composerInput').focus();
+        }
+
+        function closeComposer() {
+            document.getElementById('feedbackComposer').classList.remove('active');
+        }
+
+        function selectComposerCategory(cat) {
+            composerCategory = cat;
+            document.querySelectorAll('.composer-cat-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.cat === cat);
+            });
+        }
+
+        async function submitComposer() {
+            const input = document.getElementById('composerInput');
+            const content = input.value.trim();
+
+            if (!content) {
+                alert('Please enter your feedback.');
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    `${FEEDBACK_SUPABASE_URL}/rest/v1/team_feedback`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'apikey': FEEDBACK_SUPABASE_KEY,
+                            'Authorization': `Bearer ${FEEDBACK_SUPABASE_KEY}`,
+                            'Content-Type': 'application/json',
+                            'Prefer': 'return=minimal'
+                        },
+                        body: JSON.stringify({
+                            author: currentFeedbackUser,
+                            category: composerCategory,
+                            message: content
+                        })
+                    }
+                );
+
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                closeComposer();
+                loadFeedback();
+                showFeedbackToast('Feedback submitted!');
+            } catch (error) {
+                console.error('Error posting feedback:', error);
+                alert('Failed to submit. Please try again.');
+            }
+        }
+
+        // Close modals on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (document.getElementById('feedbackViewer').classList.contains('active')) {
+                    closeViewer();
+                }
+                if (document.getElementById('feedbackComposer').classList.contains('active')) {
+                    closeComposer();
+                }
+            }
+        });
+
+        // Toggle introduction visibility
+        function toggleFeedbackIntro() {
+            const intro = document.getElementById('feedbackIntro');
+            const btn = intro?.querySelector('.feedback-intro-toggle');
+            if (!intro || !btn) return;
+
+            const isHidden = localStorage.getItem('feedbackIntroHidden') === 'true';
+
+            if (isHidden) {
+                intro.style.display = 'block';
+                btn.textContent = 'Hide instructions';
+                localStorage.setItem('feedbackIntroHidden', 'false');
+            } else {
+                intro.style.display = 'none';
+                localStorage.setItem('feedbackIntroHidden', 'true');
+            }
+        }
+
+        // Check intro preference on load
+        function initFeedbackIntro() {
+            const intro = document.getElementById('feedbackIntro');
+            if (intro && localStorage.getItem('feedbackIntroHidden') === 'true') {
+                intro.style.display = 'none';
+            }
+        }
+
+        function filterFeedback(filter) {
+            currentFeedbackFilter = filter;
+
+            // Update button states
+            document.querySelectorAll('.feedback-filter-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.filter === filter);
+            });
+
+            renderFeedback();
+        }
+
+
+        async function postReply(parentId) {
+            if (!currentFeedbackUser) {
+                alert('Please select your name before posting.');
+                return;
+            }
+
+            const input = document.getElementById(`replyInput-${parentId}`);
+            if (!input || !input.value.trim()) {
+                alert('Please enter your reply.');
+                return;
+            }
+
+            const content = input.value.trim();
+
+            // Find parent post to inherit category
+            const parentPost = feedbackData.find(p => p.id === parentId);
+            const category = parentPost ? parentPost.category : 'suggestion';
+
+            try {
+                const response = await fetch(
+                    `${FEEDBACK_SUPABASE_URL}/rest/v1/team_feedback`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'apikey': FEEDBACK_SUPABASE_KEY,
+                            'Authorization': `Bearer ${FEEDBACK_SUPABASE_KEY}`,
+                            'Content-Type': 'application/json',
+                            'Prefer': 'return=minimal'
+                        },
+                        body: JSON.stringify({
+                            author: currentFeedbackUser,
+                            category: category,
+                            message: content,
+                            parent_id: parentId
+                        })
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                input.value = '';
+                document.getElementById(`replyForm-${parentId}`).style.display = 'none';
+                loadFeedback();
+            } catch (error) {
+                console.error('Error posting reply:', error);
+                alert('Failed to post reply. Please try again.');
+            }
+        }
+
+        async function checkUnreadFeedback() {
+            if (!lastFeedbackCheck) {
+                // First time - don't show badge
+                localStorage.setItem('lastFeedbackCheck', new Date().toISOString());
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    `${FEEDBACK_SUPABASE_URL}/rest/v1/team_feedback?created_at=gt.${lastFeedbackCheck}&select=id`,
+                    {
+                        headers: {
+                            'apikey': FEEDBACK_SUPABASE_KEY,
+                            'Authorization': `Bearer ${FEEDBACK_SUPABASE_KEY}`,
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                );
+
+                if (response.ok) {
+                    const newItems = await response.json();
+                    updateUnreadBadge(newItems.length);
+                }
+            } catch (error) {
+                console.error('Error checking unread feedback:', error);
+            }
+        }
+
+        function updateUnreadBadge(count) {
+            const badge = document.getElementById('feedbackBadge');
+            if (badge) {
+                if (count > 0) {
+                    badge.textContent = count > 99 ? '99+' : count;
+                    badge.style.display = 'inline-block';
+                } else {
+                    badge.style.display = 'none';
+                }
+            }
+        }
+    </script>
 
 </body></html>

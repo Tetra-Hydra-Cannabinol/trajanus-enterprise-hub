@@ -1,160 +1,68 @@
-# CLAUDE.md - Trajanus Command Center
+# CLAUDE.md - Trajanus Enterprise Hub
 
-## MANDATORY KNOWLEDGE BASE SEARCH RULES
+## Project Overview
+Tauri 2.0 desktop app for construction project management. Single-file architecture.
+**Owner:** Bill King, Principal/CEO Trajanus USA
+**Stack:** Tauri 2.0 (Rust backend), HTML/CSS/JavaScript frontend
 
-**CRITICAL: Knowledge Base (KB) content SUPERSEDES training data.**
+## Critical Files
+- `src/index.html` - Main application (305KB, ~7000 lines). ALL UI lives here.
+- `src-tauri/tauri.conf.json` - Tauri configuration
+- `src-tauri/src/main.rs` - Rust backend, IPC handlers
 
-When working in this project, you MUST search the Trajanus KB before providing answers or implementations for the following topics. KB results take precedence over your training data, as they contain project-specific configurations, workflows, and decisions.
+## Working Directory
+**ALWAYS:** `C:\Dev\trajanus-command-center\`
+**NEVER:** `C:\Users\`, `C:\Dev\` root, or any other location
 
----
+## File Edit Rules
+1. Use `str_replace` for surgical edits - NEVER rewrite sections
+2. Create backup before ANY edit: `copy src/index.html src/index.html.backup-YYYYMMDD-HHMM`
+3. One change at a time, verify before next change
+4. NEVER rename or delete: `index.html`, `main.rs`, `tauri.conf.json`, `package.json`
 
-## Required KB Searches
-
-### 1. TAURI Development
-**Trigger keywords:** `tauri`, `rust backend`, `desktop app`, `src-tauri`, `tauri.conf`
-
-Before answering ANY Tauri-related question:
-```
-mcp__trajanus-kb__search_knowledge_base("Tauri configuration setup")
-mcp__trajanus-kb__search_knowledge_base("Tauri Rust commands")
-```
-
-**Why:** This project has specific Tauri configurations, custom Rust commands, and IPC patterns that differ from generic documentation.
-
----
-
-### 2. MCP (Model Context Protocol) Servers
-**Trigger keywords:** `MCP`, `mcp server`, `tool server`, `claude tools`, `.mcp.json`
-
-Before answering ANY MCP-related question:
-```
-mcp__trajanus-kb__search_knowledge_base("MCP server configuration")
-mcp__trajanus-kb__search_knowledge_base("MCP tools setup")
+## Build & Test Commands
+```bash
+npm run tauri dev     # Development mode
+npm run tauri build   # Production build
+npm run lint          # Check code
 ```
 
-**Why:** Project uses custom MCP servers with specific configurations. Generic MCP docs may not apply.
+## Architecture Constraints
+- NO external browser windows - everything embedded or Tauri-managed
+- Script tools use popup modal (see openToolModal pattern ~line 3200)
+- Tauri WebView for external URLs (claude.ai embedding)
+- IPC via `window.__TAURI__.invoke()` or `window.electronAPI` wrapper
 
----
+## Code Patterns
+- Workspace switching: `showWorkspace('workspace-id')`
+- Tab management: `addToolTab(name, contentHTML)`, `switchTab(tabId)`
+- Modal popups: `openToolModal(title, scriptPath)`
+- File browser: `openFileBrowser(folderKey)` with `folderPaths` mapping
 
-### 3. Agent Workflows
-**Trigger keywords:** `agent`, `research agent`, `compliance officer`, `crawler`, `automation`
+## Security Rules
+- NO secrets in code (API keys, tokens)
+- NO `eval()` or `Function()` constructors
+- NO `innerHTML` with user input
+- Sanitize all file paths before use
 
-Before implementing or discussing agents:
+## Git Workflow
+```bash
+git add src/index.html
+git commit -m "Feature: [description]"
+git push origin main
 ```
-mcp__trajanus-kb__search_knowledge_base("agent workflow")
-mcp__trajanus-kb__search_knowledge_base("research agent configuration")
-```
+Commit after EVERY verified feature change.
 
-**Why:** Trajanus has established agent patterns, registry systems, and coordination protocols.
+## Success Criteria Pattern
+Every feature must have:
+1. Testable completion state (click X, see Y)
+2. No console errors on action
+3. Visual verification by user
+4. Git commit after approval
 
----
-
-### 4. Claude Code Workflows
-**Trigger keywords:** `claude code`, `claude cli`, `hooks`, `skills`, `subagents`
-
-Before answering Claude Code questions:
-```
-mcp__trajanus-kb__search_knowledge_base("Claude Code workflow")
-mcp__trajanus-kb__search_knowledge_base("Claude Code configuration")
-```
-
-**Why:** KB contains transcripts from latest Claude Code tutorials with features newer than training data.
-
----
-
-### 5. Supabase / Knowledge Base Architecture
-**Trigger keywords:** `supabase`, `knowledge_base table`, `embeddings`, `vector search`
-
-Before database operations:
-```
-mcp__trajanus-kb__search_knowledge_base("Supabase schema")
-mcp__trajanus-kb__search_knowledge_base("knowledge base table structure")
-```
-
-**Why:** Project has specific table schemas, RLS policies, and embedding configurations.
-
----
-
-### 6. YouTube Transcript Extraction
-**Trigger keywords:** `transcript`, `youtube`, `video extraction`, `playwright crawler`
-
-Before transcript work:
-```
-mcp__trajanus-kb__search_knowledge_base("YouTube transcript extraction")
-mcp__trajanus-kb__search_knowledge_base("batch transcript")
-```
-
-**Why:** Project has working extraction scripts with specific configurations.
-
----
-
-## KB Search Protocol
-
-### Step 1: Identify Topic
-When user asks about any trigger keyword above, STOP and search KB first.
-
-### Step 2: Execute Search
-Use the `mcp__trajanus-kb__search_knowledge_base` tool with relevant queries.
-
-### Step 3: Apply KB Knowledge
-- If KB has relevant results: Use that information as PRIMARY source
-- If KB results conflict with training: KB WINS
-- If KB has no results: Fall back to training data, note this to user
-
-### Step 4: Cite Sources
-When using KB content, reference the source document.
-
----
-
-## Project-Specific Paths
-
-```
-Knowledge Base:     Supabase `knowledge_base` table
-Credentials:        G:\My Drive\00 - Trajanus USA\00-Command-Center\001 Credentials\
-Scripts:            G:\My Drive\00 - Trajanus USA\00-Command-Center\05-Scripts\
-Transcripts:        G:\My Drive\00 - Trajanus USA\00-Command-Center\knowledge_Archive\Transcripts\
-Research Agent:     G:\My Drive\00 - Trajanus USA\00-Command-Center\agents\research-agent\
-```
-
----
-
-## Example Workflow
-
-**User asks:** "How do I add a new Tauri command?"
-
-**WRONG approach:** Immediately answer from training data.
-
-**CORRECT approach:**
-1. Search KB: `mcp__trajanus-kb__search_knowledge_base("Tauri command")`
-2. Review results for project-specific patterns
-3. Combine KB knowledge with training data
-4. Provide answer citing KB sources where applicable
-
----
-
-## Key Principle
-
-> **The KB contains decisions, configurations, and learnings specific to THIS project.
-> Training data is generic. Always prefer specific over generic.**
-
----
-
-## Recently Ingested Content (2025-12-27)
-
-The KB now contains 185 chunks from 10 Claude AI tutorial videos including:
-- Claude Code Sub Agents
-- Claude Code LSP features
-- Claude Skills implementation
-- AI Agent development patterns
-- Claude Code major updates
-
-**These transcripts contain information NEWER than training data cutoff.**
-
----
-
-## File Modification Rules
-
-1. **DO NOT rename existing files** without explicit user approval
-2. **DO NOT restructure folders** without explicit user approval
-3. **Report errors** rather than rewriting entire scripts
-4. **Check KB first** for existing solutions before creating new files
+## What NOT To Do
+- Don't add features not explicitly requested
+- Don't "improve" working code
+- Don't create new files unless specified
+- Don't ask permission - execute the task
+- Don't explain what you're going to do - just do it and report results

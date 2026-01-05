@@ -4,200 +4,628 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Traffic Studies - Trajanus Enterprise Hub</title>
-    <link rel="stylesheet" href="../main.css">
     <style>
-        /* ==================== WORKSPACE LAYOUT ==================== */
-        .workspace-container {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            background: var(--bg-base);
-            overflow: hidden;
+        /* ==================== CSS VARIABLES ==================== */
+        :root {
+            /* TRAJANUS BLACK/SILVER PALETTE - ALL SILVER ON BLACK */
+            --bg-base: #0a0a0a;
+            --bg-surface: #0a0a0a;
+            --bg-card: #0a0a0a;
+            --bg-elevated: #1a1a1a;
+            --bg-hover: #2a2a2a;
+            --border-subtle: #c0c0c0;
+            --border-accent: #c0c0c0;
+            --text-light: #c0c0c0;
+            --text-primary: #c0c0c0;
+            --text-secondary: #c0c0c0;
+            --text-muted: #c0c0c0;
+            --accent: #c0c0c0;
+            --accent-silver: #c0c0c0;
+            --silver: #c0c0c0;
+            --silver-light: #e0e0e0;
+            --silver-dark: #a0a0a0;
+            --gold: #d4af37;
+            --gold-light: #f4cf57;
+            --gold-dark: #b4942f;
+            --blue: #4a90d9;
+            --blue-light: #6ab0f9;
+            --blue-dark: #3a70b9;
+            --success: #4ade80;
+            --info: #60a5fa;
+            --warning: #fbbf24;
+            --error: #f87171;
         }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-base);
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        /* ==================== STICKY HERO SECTION ==================== */
+        .hero-section {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--bg-base);
+            border-bottom: 1px solid var(--gold);
+            padding: 16px 32px;
+        }
+
+        .hero-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hero-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+        }
+
+        .hero-company {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero-company .tm {
+            font-size: 8px;
+            vertical-align: super;
+        }
+
+        .hero-toolkit {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+
+        .hero-description {
+            font-size: 13px;
+            color: var(--text-light);
+            max-width: 400px;
+            line-height: 1.4;
+            margin-top: 4px;
+        }
+
+        .hero-nav {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .hero-home-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .hero-home-btn:hover {
+            background: var(--gold);
+            color: var(--bg-base);
+        }
+
+        /* ==================== INTRODUCTION SECTION ==================== */
+        .intro-section {
+            padding: 24px 32px;
+            background: var(--bg-base);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .intro-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .intro-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .intro-toggle {
+            font-size: 14px;
+            color: var(--text-muted);
+            transition: transform 0.3s;
+        }
+
+        .intro-toggle.collapsed {
+            transform: rotate(180deg);
+        }
+
+        .intro-content {
+            display: grid;
+            gap: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .intro-content.collapsed {
+            display: none;
+        }
+
+        /* Decision Tree */
+        .intro-decision {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .decision-card {
+            padding: 16px;
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .decision-card:hover {
+            background: var(--bg-hover);
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        .decision-card.selected {
+            border-color: var(--gold);
+            background: var(--bg-elevated);
+        }
+
+        .decision-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .decision-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+
+        .decision-desc {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* Tools Grid */
+        .intro-tools-section {
+            margin-top: 8px;
+        }
+
+        .intro-section-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .intro-tools-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+        }
+
+        .intro-tool-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 12px 8px;
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .intro-tool-card:hover {
+            background: var(--bg-hover);
+            border-color: var(--gold);
+        }
+
+        .intro-tool-icon {
+            font-size: 24px;
+        }
+
+        .intro-tool-name {
+            font-size: 11px;
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        /* Workflow Overview */
+        .intro-workflow {
+            margin-top: 8px;
+        }
+
+        .intro-workflow-steps {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .intro-workflow-step {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            background: var(--bg-base);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            font-size: 11px;
+            color: var(--text-light);
+        }
+
+        .intro-workflow-step .step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            background: var(--gold);
+            color: var(--bg-base);
+            border-radius: 50%;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .intro-workflow-connector {
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        /* Folders Reference */
+        .intro-folders {
+            margin-top: 8px;
+        }
+
+        .intro-folders-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+
+        .intro-folder {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            background: var(--bg-base);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            font-size: 11px;
+            color: var(--text-light);
+        }
+
+        .intro-folder-icon {
+            font-size: 16px;
+        }
+
+        /* Tips Section */
+        .intro-tips {
+            margin-top: 8px;
+        }
+
+        .intro-tips-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .intro-tip {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 12px;
+            background: var(--bg-base);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+        }
+
+        .intro-tip-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .intro-tip-text {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* ==================== WORKSPACE CONTAINER ==================== */
+        .workspace-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ==================== HEADER ==================== */
         .workspace-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 24px;
-            background: var(--bg-surface);
+            padding: 16px 32px;
+            background: var(--bg-base);
             border-bottom: 1px solid var(--border-subtle);
-            flex-shrink: 0;
         }
 
-        .workspace-header h1 {
-            color: var(--accent-gold);
-            font-size: 18px;
+        .header-title h1 {
+            color: var(--accent-silver);
+            font-size: 22px;
             font-weight: 600;
-            margin: 0;
+            margin-bottom: 4px;
         }
 
-        .workspace-header p {
+        .header-title p {
             color: var(--text-muted);
-            font-size: 11px;
-            margin: 2px 0 0 0;
+            font-size: 13px;
         }
 
         .home-btn {
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 16px;
+            padding: 10px 20px;
             background: transparent;
-            border: 1px solid var(--accent-gold);
-            color: var(--accent-gold);
-            font-size: 13px;
-            border-radius: 4px;
+            border: 1px solid var(--accent-silver);
+            color: var(--accent-silver);
+            font-size: 14px;
+            border-radius: 6px;
             cursor: pointer;
             text-decoration: none;
             transition: all 0.2s;
         }
 
         .home-btn:hover {
-            background: var(--accent-gold);
+            background: var(--accent-silver);
             color: var(--bg-base);
         }
 
         /* ==================== MAIN CONTENT ==================== */
-        .workspace-main {
+        .main-content {
             flex: 1;
-            display: flex;
-            overflow: hidden;
-        }
-
-        /* ==================== LEFT SIDEBAR ==================== */
-        .sidebar {
-            width: 280px;
-            background: var(--bg-surface);
-            border-right: 1px solid var(--border-subtle);
-            display: flex;
-            flex-direction: column;
+            padding: 24px 32px;
             overflow-y: auto;
-            flex-shrink: 0;
         }
 
+        /* ==================== SECTION DIVIDERS ==================== */
         .section-divider {
-            padding: 12px 16px 8px 16px;
-            border-bottom: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 32px 0 20px 0;
+        }
+
+        .section-divider:first-child {
+            margin-top: 0;
         }
 
         .section-title {
-            font-size: 10px;
+            font-size: 13px;
             font-weight: 600;
-            color: var(--accent-gold);
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            white-space: nowrap;
+        }
+
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+        }
+
+        /* ==================== APP GRID ==================== */
+        .app-category {
+            margin-bottom: 20px;
+        }
+
+        .category-label {
+            font-size: 11px;
+            color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 1px;
+            margin-bottom: 10px;
         }
 
-        /* ==================== EXTERNAL SYSTEMS ==================== */
-        .systems-grid {
+        .app-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            padding: 12px 16px;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 12px;
         }
 
-        .system-btn {
+        .app-card {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
-            padding: 12px 8px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 6px;
+            gap: 8px;
+            padding: 16px 12px;
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s;
             text-decoration: none;
         }
 
-        .system-btn:hover {
+        .app-card:hover {
             background: var(--bg-hover);
-            border-color: var(--accent-gold);
+            border-color: var(--blue-light);
+            transform: translateY(-2px);
         }
 
-        .system-icon {
-            font-size: 20px;
-            color: var(--accent-gold);
+        .app-icon {
+            font-size: 28px;
+            color: var(--accent-silver);
         }
 
-        .system-label {
-            font-size: 10px;
+        .app-label {
+            font-size: 12px;
             color: var(--text-light);
             text-align: center;
         }
 
-        /* ==================== REFERENCE DOCUMENTS ==================== */
+        /* ==================== SCRIPT CARDS ==================== */
+        .script-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+        }
+
+        .script-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .script-card:hover {
+            background: var(--bg-hover);
+            border-color: var(--blue-light);
+        }
+
+        .script-icon {
+            font-size: 22px;
+            color: var(--accent-silver);
+        }
+
+        .script-info {
+            flex: 1;
+        }
+
+        .script-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-light);
+            margin-bottom: 2px;
+        }
+
+        .script-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ==================== DOCUMENT SECTIONS ==================== */
         .doc-category {
-            padding: 8px 16px;
+            margin-bottom: 20px;
         }
 
         .doc-category-header {
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 500;
-            color: var(--text-muted);
-            margin-bottom: 6px;
+            color: var(--accent-silver);
+            margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        .doc-list {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .doc-item {
-            display: flex;
-            align-items: center;
-            padding: 8px 10px;
-            background: var(--bg-card);
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 12px;
-            color: var(--text-light);
-            border-left: 2px solid transparent;
-        }
-
-        .doc-item:hover {
-            background: var(--bg-hover);
-            border-left-color: var(--accent-gold);
-        }
-
-        .doc-item.selected {
-            background: rgba(212, 165, 116, 0.15);
-            border-left-color: var(--accent-gold);
-        }
-
-        /* ==================== AGENTS SECTION ==================== */
-        .agents-list {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            padding: 12px 16px;
-        }
-
-        .agent-btn {
-            display: flex;
-            align-items: center;
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 10px;
-            padding: 10px 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
+        }
+
+        .doc-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.2s;
         }
 
-        .agent-btn:hover {
+        .doc-card:hover {
             background: var(--bg-hover);
-            border-color: var(--accent-gold);
+            border-color: var(--blue-light);
+        }
+
+        .doc-icon {
+            font-size: 20px;
+            color: var(--accent-silver);
+        }
+
+        .doc-info {
+            flex: 1;
+        }
+
+        .doc-name {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        .doc-meta {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* ==================== AGENT CARDS ==================== */
+        .agent-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+        }
+
+        .agent-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px;
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .agent-card:hover {
+            background: var(--bg-hover);
+            border-color: var(--blue-light);
         }
 
         .agent-icon {
-            font-size: 16px;
-            color: var(--accent-gold);
+            font-size: 24px;
+            color: var(--accent-silver);
         }
 
         .agent-info {
@@ -205,356 +633,136 @@
         }
 
         .agent-name {
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 500;
             color: var(--text-light);
+            margin-bottom: 2px;
         }
 
         .agent-desc {
-            font-size: 10px;
+            font-size: 12px;
             color: var(--text-muted);
         }
 
-        /* ==================== PANELS AREA ==================== */
-        .panels-area {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-            padding: 16px;
-            gap: 12px;
+        .agent-status {
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: rgba(169, 180, 192, 0.1);
+            color: var(--accent-silver);
         }
 
-        .panel {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
+        /* ==================== CHAT SECTION ==================== */
+        .chat-section {
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
             border-radius: 8px;
-            transition: all 0.3s ease;
             overflow: hidden;
         }
 
-        .panel-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 16px;
-            background: var(--bg-card);
-            border-bottom: 1px solid var(--border-subtle);
-            cursor: pointer;
+        .chat-header {
+            padding: 14px 18px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--blue);
         }
 
-        .panel-title {
-            font-size: 12px;
+        .chat-header-title {
+            font-size: 14px;
             font-weight: 600;
-            color: var(--accent-gold);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            color: var(--gold);
         }
 
-        .panel-expand-icon {
-            color: var(--text-muted);
-            transition: transform 0.3s;
-        }
-
-        .panel.compact {
-            cursor: pointer;
-        }
-
-        .panel.compact .panel-content {
-            display: none;
-        }
-
-        .panel.compact .panel-expand-icon {
-            transform: rotate(0deg);
-        }
-
-        .panel.expanded {
-            min-height: 600px;
-        }
-
-        .panel.expanded .panel-content {
-            display: flex;
-            flex-direction: column;
-            height: 550px;
-        }
-
-        .panel.expanded .panel-expand-icon {
-            transform: rotate(180deg);
-        }
-
-        .panel-content {
-            padding: 16px;
-            overflow: hidden;
-        }
-
-        /* ==================== DATA BROWSER ==================== */
-        .browser-toolbar {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-
-        .browser-path {
-            flex: 1;
-            padding: 8px 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 4px;
+        .chat-header-subtitle {
             font-size: 12px;
-            color: var(--text-light);
-        }
-
-        .browser-path:focus {
-            outline: none;
-            border-color: var(--accent-gold);
-        }
-
-        .file-grid {
-            flex: 1;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 8px;
-            overflow-y: auto;
-        }
-
-        .file-card {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .file-card:hover {
-            background: var(--bg-hover);
-            border-color: var(--accent-gold);
-        }
-
-        .file-card.selected {
-            background: rgba(212, 165, 116, 0.15);
-            border-color: var(--accent-gold);
-        }
-
-        .file-icon {
-            font-size: 24px;
-            color: var(--accent-gold);
-        }
-
-        .file-info {
-            flex: 1;
-            overflow: hidden;
-        }
-
-        .file-name {
-            font-size: 12px;
-            color: var(--text-light);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .file-meta {
-            font-size: 10px;
             color: var(--text-muted);
-        }
-
-        .file-status {
-            font-size: 9px;
-            padding: 2px 6px;
-            border-radius: 3px;
-            margin-top: 2px;
-            display: inline-block;
-        }
-
-        .file-status.synchro { background: #20303a; color: #6495ed; }
-        .file-status.hcs { background: #302030; color: #9370db; }
-        .file-status.data { background: #1a3a1a; color: #4a9f4a; }
-
-        /* ==================== ANALYSIS PANEL ==================== */
-        .analysis-form {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            max-width: 500px;
-        }
-
-        .template-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .template-group label {
-            font-size: 11px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .template-select {
-            padding: 10px 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 4px;
-            color: var(--text-light);
-            font-size: 13px;
-        }
-
-        .template-select:focus {
-            outline: none;
-            border-color: var(--accent-gold);
-        }
-
-        .template-select option {
-            background: var(--bg-card);
-            color: var(--text-light);
-        }
-
-        /* ==================== OUTPUT PANEL ==================== */
-        .output-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .output-area {
-            flex: 1;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 4px;
-            padding: 12px;
-            font-size: 13px;
-            line-height: 1.6;
-            overflow-y: auto;
-            color: var(--text-light);
-            white-space: pre-wrap;
-        }
-
-        .output-area.empty {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            font-style: italic;
-        }
-
-        .output-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 12px;
-        }
-
-        /* ==================== CHAT PANEL ==================== */
-        .chat-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
         }
 
         .chat-messages {
-            flex: 1;
+            height: 300px;
             overflow-y: auto;
-            margin-bottom: 12px;
+            padding: 16px;
         }
 
         .chat-message {
-            padding: 10px 14px;
+            padding: 12px 16px;
             border-radius: 8px;
-            margin-bottom: 8px;
-            font-size: 13px;
+            margin-bottom: 10px;
+            font-size: 14px;
             line-height: 1.5;
         }
 
-        .chat-message.user {
-            background: rgba(212, 165, 116, 0.15);
-            margin-left: 20%;
-            color: var(--text-light);
+        .chat-message.assistant {
+            background: var(--bg-surface);
+            border: 1px solid var(--blue);
+            margin-right: 15%;
         }
 
-        .chat-message.assistant {
-            background: var(--bg-card);
-            margin-right: 20%;
-            color: var(--text-light);
+        .chat-message.user {
+            background: rgba(169, 180, 192, 0.1);
+            border: 1px solid var(--blue);
+            margin-left: 15%;
         }
 
         .chat-input-area {
             display: flex;
-            gap: 8px;
+            gap: 10px;
+            padding: 16px;
+            border-top: 1px solid var(--blue);
         }
 
         .chat-input {
             flex: 1;
-            padding: 10px 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 4px;
+            padding: 12px 14px;
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 6px;
             color: var(--text-light);
-            font-size: 13px;
-            resize: none;
+            font-size: 14px;
             font-family: inherit;
+            resize: none;
         }
 
         .chat-input:focus {
             outline: none;
-            border-color: var(--accent-gold);
+            border-color: var(--blue-light);
         }
 
         .chat-input::placeholder {
             color: var(--text-muted);
         }
 
-        /* ==================== BUTTONS ==================== */
-        .btn {
-            padding: 8px 16px;
-            border-radius: 4px;
-            font-size: 12px;
+        .chat-send-btn {
+            padding: 12px 24px;
+            background: var(--blue);
+            color: var(--bg-base);
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
-            border: none;
         }
 
-        .btn-primary {
-            background: var(--accent-gold);
-            color: var(--bg-base);
-            font-weight: 500;
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-gold-bright);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-light);
-            border: 1px solid var(--border-subtle);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--accent-gold);
-            color: var(--accent-gold);
+        .chat-send-btn:hover {
+            background: var(--blue-light);
         }
 
         /* ==================== TYPING INDICATOR ==================== */
         .typing-indicator {
             display: flex;
             gap: 4px;
-            padding: 12px 14px;
-            background: var(--bg-card);
+            padding: 12px 16px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
             border-radius: 8px;
-            margin-right: 20%;
+            margin-right: 15%;
             width: fit-content;
         }
 
         .typing-indicator span {
             width: 6px;
             height: 6px;
-            background: var(--accent-gold);
+            background: var(--accent-silver);
             border-radius: 50%;
             animation: typing 1.4s infinite ease-in-out;
         }
@@ -567,351 +775,1321 @@
             30% { transform: translateY(-4px); opacity: 1; }
         }
 
-        /* ==================== SYSTEM LOG ==================== */
-        .system-log {
-            background: var(--bg-base);
-            border-top: 1px solid var(--border-subtle);
-            height: 100px;
-            display: flex;
-            flex-direction: column;
-            flex-shrink: 0;
+        /* ==================== NOTIFICATION ==================== */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            z-index: 9999;
+            animation: slideIn 0.3s ease;
         }
 
-        .system-log-header {
+        .notification.info {
+            background: var(--bg-surface);
+            border: 1px solid var(--accent-silver);
+            color: var(--text-light);
+        }
+
+        .notification.warning {
+            background: #2d2a00;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .notification.success {
+            background: #1a3a1a;
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* ==================== TRAJANUS WINDOW SYSTEM ==================== */
+        .trajanus-window-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .trajanus-window {
+            background: #1a1a1a;
+            border: 2px solid #c0c0c0;
+            border-radius: 8px;
+            min-width: 500px;
+            max-width: 800px;
+            max-height: 80vh;
+            box-shadow: 0 0 30px rgba(192, 192, 192, 0.2), 0 0 60px rgba(0, 0, 0, 0.5);
+            animation: windowSlide 0.2s ease;
+        }
+
+        @keyframes windowSlide {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .trajanus-window-header {
+            background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
+            border-bottom: 1px solid #c0c0c0;
+            padding: 14px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 6px 16px;
-            background: var(--bg-surface);
-            border-bottom: 1px solid var(--border-subtle);
+            border-radius: 6px 6px 0 0;
         }
 
-        .system-log-title {
-            font-size: 10px;
+        .trajanus-window-title {
+            color: #c0c0c0;
+            font-size: 13px;
             font-weight: 600;
-            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .trajanus-window-close {
+            background: transparent;
+            border: 1px solid #4a4a4a;
+            color: #c0c0c0;
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .trajanus-window-close:hover {
+            border-color: #c0c0c0;
+            background: #2d2d2d;
+        }
+
+        .trajanus-window-body {
+            padding: 24px;
+            color: #ffffff;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        /* Terminal styling */
+        .terminal-output {
+            background: #0a0a0a;
+            border: 1px solid #4a4a4a;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+
+        .terminal-line {
+            padding: 2px 0;
+            line-height: 1.4;
+        }
+
+        .terminal-line.success { color: #4ade80; }
+        .terminal-line.error { color: #f87171; }
+        .terminal-line.info { color: #60a5fa; }
+        .terminal-line.warning { color: #fbbf24; }
+
+        /* ==================== TSE WORKFLOW ADDITIONS ==================== */
+
+        /* Project Bar */
+        .project-bar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 32px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--blue);
+        }
+
+        .project-bar-label {
+            font-size: 12px;
+            color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        .clear-log-btn {
+        .project-select {
+            flex: 1;
+            max-width: 400px;
+            padding: 8px 12px;
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 6px;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .project-select:focus {
+            outline: none;
+            border-color: var(--blue-light);
+        }
+
+        .new-project-btn {
+            padding: 8px 16px;
             background: transparent;
-            border: 1px solid var(--border-subtle);
+            border: 1px solid var(--blue);
+            color: var(--text-light);
+            font-size: 13px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .new-project-btn:hover {
+            background: var(--blue);
+            color: var(--bg-base);
+        }
+
+        /* Workflow Tracker */
+        .workflow-tracker {
+            background: var(--bg-surface);
+            border: 1px solid var(--blue);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .workflow-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .workflow-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .workflow-progress {
+            font-size: 12px;
             color: var(--text-muted);
-            padding: 3px 8px;
+        }
+
+        .workflow-steps {
+            display: flex;
+            gap: 8px;
+        }
+
+        .workflow-step {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 8px;
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .workflow-step:hover {
+            border-color: var(--blue-light);
+        }
+
+        .workflow-step.active {
+            border-color: var(--gold);
+            background: var(--bg-elevated);
+        }
+
+        .workflow-step.completed {
+            border-color: var(--success);
+        }
+
+        .workflow-step-number {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--bg-surface);
+            border: 1px solid var(--blue);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .workflow-step.active .workflow-step-number {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--bg-base);
+        }
+
+        .workflow-step.completed .workflow-step-number {
+            background: var(--success);
+            border-color: var(--success);
+            color: var(--bg-base);
+        }
+
+        .workflow-step-name {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .workflow-step.active .workflow-step-name {
+            color: var(--text-light);
+        }
+
+        /* Required Documents Panel */
+        .docs-panel {
+            background: var(--bg-surface);
+            border: 1px solid var(--blue);
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .docs-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--blue);
+        }
+
+        .docs-panel-header:hover {
+            background: var(--bg-elevated);
+        }
+
+        .docs-panel-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .docs-panel-toggle {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .docs-panel-body {
+            padding: 16px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .docs-panel-body.collapsed {
+            display: none;
+        }
+
+        .docs-category-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--blue);
+        }
+
+        .doc-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+        }
+
+        .doc-checkbox {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--success);
+        }
+
+        .doc-item-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .doc-item.checked .doc-item-label {
+            color: var(--success);
+            text-decoration: line-through;
+        }
+
+        /* Step Instructions Panel */
+        .step-instructions {
+            background: var(--bg-surface);
+            border: 1px solid var(--blue);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .step-instructions-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+
+        .step-instructions-content {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .step-instructions-content ol {
+            margin-left: 20px;
+            margin-top: 8px;
+        }
+
+        .step-instructions-content li {
+            margin-bottom: 8px;
+        }
+
+        .step-instructions-content strong {
+            color: var(--text-light);
+        }
+
+        /* Step Actions */
+        .step-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--blue);
+        }
+
+        .action-btn {
+            padding: 12px 24px;
+            background: transparent;
+            border: 2px solid var(--blue);
+            color: var(--accent-silver);
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            background: var(--blue);
+            color: var(--bg-base);
+        }
+
+        /* Step Tools */
+        .step-tools {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--blue);
+        }
+
+        .step-tools-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .step-tools-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .step-tool-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: transparent;
+            border: 1px solid var(--blue);
+            color: var(--accent-silver);
+            font-size: 13px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .step-tool-btn:hover {
+            background: var(--blue);
+            color: var(--bg-base);
+        }
+
+        .step-tool-icon {
+            font-size: 18px;
+        }
+
+        /* New Project Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.visible {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-surface);
+            border: 2px solid var(--blue);
+            border-radius: 8px;
+            width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--blue);
+        }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .modal-close {
+            background: transparent;
+            border: 1px solid var(--blue);
+            color: var(--text-muted);
+            width: 28px;
+            height: 28px;
             border-radius: 4px;
-            font-size: 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .modal-close:hover {
+            border-color: var(--blue-light);
+            color: var(--text-light);
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 10px 12px;
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 6px;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--blue-light);
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            padding: 16px 20px;
+            border-top: 1px solid var(--blue);
+        }
+
+        .btn-secondary {
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid var(--blue);
+            color: var(--text-secondary);
+            font-size: 14px;
+            border-radius: 6px;
             cursor: pointer;
         }
 
-        .clear-log-btn:hover {
-            border-color: var(--accent-gold);
-            color: var(--accent-gold);
+        .btn-secondary:hover {
+            border-color: var(--blue-light);
+            color: var(--text-light);
         }
 
-        .log-output {
-            flex: 1;
-            overflow-y: auto;
-            padding: 6px 16px;
-            font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 11px;
-            line-height: 1.5;
+        .btn-primary {
+            padding: 10px 20px;
+            background: var(--blue);
+            border: 1px solid var(--blue);
+            color: var(--bg-base);
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
         }
 
-        .log-entry {
-            margin-bottom: 2px;
+        .btn-primary:hover {
+            background: var(--blue-light);
         }
-
-        .log-entry .timestamp {
-            color: var(--text-muted);
-        }
-
-        .log-entry.success { color: var(--success); }
-        .log-entry.info { color: var(--text-muted); }
-        .log-entry.error { color: var(--error); }
     </style>
 </head>
 <body>
-    <div class="workspace-container">
-        <header class="workspace-header">
-            <div>
-                <h1>Traffic Studies</h1>
-                <p>Traffic impact analysis, Synchro, HCS, jurisdiction compliance</p>
+    <!-- Sticky Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-brand">
+                <div class="hero-company">Trajanus USA EI<span class="tm">™</span></div>
+                <div class="hero-toolkit">Traffic Studies Toolkit</div>
+                <div class="hero-description">
+                    Complete traffic impact analysis workspace. Generate trip counts,
+                    build Synchro models, analyze LOS, and produce professional TIA reports
+                    compliant with Arizona jurisdiction requirements.
+                </div>
             </div>
-            <a href="../index.html" class="home-btn">
-                <span>&#9670;</span> Hub
-            </a>
-        </header>
+            <div class="hero-nav">
+                <a href="../index.html" class="hero-home-btn" id="home-btn">
+                    <span>&#9670;</span> Hub
+                </a>
+            </div>
+        </div>
+    </section>
 
-        <div class="workspace-main">
-            <!-- Left Sidebar -->
-            <aside class="sidebar">
-                <!-- External Systems -->
-                <div class="section-divider">
-                    <span class="section-title">External Systems</span>
+    <!-- Introduction Section (Collapsible) -->
+    <section class="intro-section" id="intro-section">
+        <div class="intro-header" onclick="toggleIntro()">
+            <span class="intro-title">🚦 Platform Introduction</span>
+            <span class="intro-toggle" id="intro-toggle">▲</span>
+        </div>
+        <div class="intro-content" id="intro-content">
+            <!-- Decision Tree -->
+            <div class="intro-decision">
+                <div class="decision-card" data-action="new-study">
+                    <div class="decision-icon">📋</div>
+                    <div class="decision-title">New Study</div>
+                    <div class="decision-desc">Start fresh TIA from scratch</div>
                 </div>
-                <div class="systems-grid">
-                    <a href="#" class="system-btn" onclick="Traffic.launchApp('synchro'); return false;">
-                        <span class="system-icon">&#128736;</span>
-                        <span class="system-label">Synchro</span>
-                    </a>
-                    <a href="#" class="system-btn" onclick="Traffic.launchApp('hcs'); return false;">
-                        <span class="system-icon">&#128200;</span>
-                        <span class="system-label">HCS 7</span>
-                    </a>
-                    <a href="https://maps.google.com" target="_blank" class="system-btn">
-                        <span class="system-icon">&#128506;</span>
-                        <span class="system-label">Google Maps</span>
-                    </a>
-                    <a href="https://www.fdot.gov" target="_blank" class="system-btn">
-                        <span class="system-icon">&#9733;</span>
-                        <span class="system-label">FDOT</span>
-                    </a>
-                    <a href="#" class="system-btn" onclick="Traffic.launchApp('excel'); return false;">
-                        <span class="system-icon">&#9638;</span>
-                        <span class="system-label">Excel</span>
-                    </a>
-                    <a href="#" class="system-btn" onclick="Traffic.launchApp('autocad'); return false;">
-                        <span class="system-icon">&#9634;</span>
-                        <span class="system-label">AutoCAD</span>
-                    </a>
+                <div class="decision-card" data-action="continue-study">
+                    <div class="decision-icon">📂</div>
+                    <div class="decision-title">Continue Existing</div>
+                    <div class="decision-desc">Resume work on active project</div>
                 </div>
+                <div class="decision-card" data-action="research">
+                    <div class="decision-icon">🔍</div>
+                    <div class="decision-title">Research Only</div>
+                    <div class="decision-desc">Traffic data lookup, counts, LOS</div>
+                </div>
+                <div class="decision-card" data-action="templates">
+                    <div class="decision-icon">📑</div>
+                    <div class="decision-title">Review Templates</div>
+                    <div class="decision-desc">Access report templates & standards</div>
+                </div>
+            </div>
 
-                <!-- Reference Documents -->
-                <div class="section-divider">
-                    <span class="section-title">Reference Documents</span>
-                </div>
-
-                <div class="doc-category">
-                    <div class="doc-category-header">Standards</div>
-                    <div class="doc-list">
-                        <div class="doc-item" onclick="Traffic.selectDoc(this, 'ite')">ITE Trip Generation (11th)</div>
-                        <div class="doc-item" onclick="Traffic.selectDoc(this, 'hcm')">HCM 7th Edition</div>
-                        <div class="doc-item" onclick="Traffic.selectDoc(this, 'mutcd')">MUTCD</div>
+            <!-- Tools Grid -->
+            <div class="intro-tools-section">
+                <div class="intro-section-label">Core Tools</div>
+                <div class="intro-tools-grid">
+                    <div class="intro-tool-card" title="Traffic signal timing & simulation">
+                        <span class="intro-tool-icon">🚦</span>
+                        <span class="intro-tool-name">Synchro</span>
                     </div>
-                </div>
-
-                <div class="doc-category">
-                    <div class="doc-category-header">Florida Standards</div>
-                    <div class="doc-list">
-                        <div class="doc-item" onclick="Traffic.selectDoc(this, 'fdot-qual')">FDOT Quality/LOS</div>
-                        <div class="doc-item" onclick="Traffic.selectDoc(this, 'fdot-design')">FDOT Design Manual</div>
-                        <div class="doc-item" onclick="Traffic.selectDoc(this, 'alachua')">Alachua County Std</div>
+                    <div class="intro-tool-card" title="Highway Capacity Software">
+                        <span class="intro-tool-icon">📊</span>
+                        <span class="intro-tool-name">HCS</span>
                     </div>
-                </div>
-
-                <div class="doc-category">
-                    <div class="doc-category-header">Project Data</div>
-                    <div class="doc-list">
-                        <div class="doc-item" onclick="Traffic.selectDoc(this, 'counts')">Traffic Counts</div>
-                        <div class="doc-item" onclick="Traffic.selectDoc(this, 'site-plan')">Site Plan</div>
-                        <div class="doc-item" onclick="Traffic.selectDoc(this, 'existing')">Existing Conditions</div>
+                    <div class="intro-tool-card" title="ITE Trip Generation Manual">
+                        <span class="intro-tool-icon">🚗</span>
+                        <span class="intro-tool-name">Trip Gen</span>
+                    </div>
+                    <div class="intro-tool-card" title="AutoCAD for site plans">
+                        <span class="intro-tool-icon">📐</span>
+                        <span class="intro-tool-name">AutoCAD</span>
+                    </div>
+                    <div class="intro-tool-card" title="Google Maps for site location">
+                        <span class="intro-tool-icon">🗺️</span>
+                        <span class="intro-tool-name">Maps</span>
+                    </div>
+                    <div class="intro-tool-card" title="Microsoft Word for reports">
+                        <span class="intro-tool-icon">📝</span>
+                        <span class="intro-tool-name">Word</span>
                     </div>
                 </div>
+            </div>
 
-                <!-- Agents -->
-                <div class="section-divider">
-                    <span class="section-title">Agents</span>
+            <!-- 10-Step Workflow Overview -->
+            <div class="intro-workflow">
+                <div class="intro-section-label">10-Step TIA Workflow</div>
+                <div class="intro-workflow-steps">
+                    <div class="intro-workflow-step"><span class="step-num">1</span> Setup</div>
+                    <span class="intro-workflow-connector">→</span>
+                    <div class="intro-workflow-step"><span class="step-num">2</span> Data Collection</div>
+                    <span class="intro-workflow-connector">→</span>
+                    <div class="intro-workflow-step"><span class="step-num">3</span> Trip Generation</div>
+                    <span class="intro-workflow-connector">→</span>
+                    <div class="intro-workflow-step"><span class="step-num">4</span> Distribution</div>
+                    <span class="intro-workflow-connector">→</span>
+                    <div class="intro-workflow-step"><span class="step-num">5</span> Future Volumes</div>
+                    <span class="intro-workflow-connector">→</span>
+                    <div class="intro-workflow-step"><span class="step-num">6</span> Capacity Analysis</div>
+                    <span class="intro-workflow-connector">→</span>
+                    <div class="intro-workflow-step"><span class="step-num">7</span> Site Access</div>
+                    <span class="intro-workflow-connector">→</span>
+                    <div class="intro-workflow-step"><span class="step-num">8</span> Signal Warrants</div>
+                    <span class="intro-workflow-connector">→</span>
+                    <div class="intro-workflow-step"><span class="step-num">9</span> Report Assembly</div>
+                    <span class="intro-workflow-connector">→</span>
+                    <div class="intro-workflow-step"><span class="step-num">10</span> Final Delivery</div>
                 </div>
-                <div class="agents-list">
-                    <div class="agent-btn" onclick="Traffic.deployAgent('trip-generator')">
-                        <span class="agent-icon">&#128663;</span>
-                        <div class="agent-info">
-                            <div class="agent-name">Trip Generator</div>
-                            <div class="agent-desc">ITE trip calculations</div>
-                        </div>
+            </div>
+
+            <!-- Folder Structure -->
+            <div class="intro-folders">
+                <div class="intro-section-label">Project Folder Structure</div>
+                <div class="intro-folders-grid">
+                    <div class="intro-folder"><span class="intro-folder-icon">📁</span> 01-Input</div>
+                    <div class="intro-folder"><span class="intro-folder-icon">📁</span> 02-Working</div>
+                    <div class="intro-folder"><span class="intro-folder-icon">📁</span> 03-Output</div>
+                    <div class="intro-folder"><span class="intro-folder-icon">📁</span> 04-Correspondence</div>
+                    <div class="intro-folder"><span class="intro-folder-icon">📁</span> 05-Final</div>
+                </div>
+            </div>
+
+            <!-- Quick Tips -->
+            <div class="intro-tips">
+                <div class="intro-section-label">Quick Tips</div>
+                <div class="intro-tips-list">
+                    <div class="intro-tip">
+                        <span class="intro-tip-icon">💡</span>
+                        <span class="intro-tip-text">Select your project from the dropdown or create a new one to get started with the workflow tracker.</span>
                     </div>
-                    <div class="agent-btn" onclick="Traffic.deployAgent('los-analyzer')">
-                        <span class="agent-icon">&#128200;</span>
-                        <div class="agent-info">
-                            <div class="agent-name">LOS Analyzer</div>
-                            <div class="agent-desc">Level of service analysis</div>
-                        </div>
+                    <div class="intro-tip">
+                        <span class="intro-tip-icon">🎯</span>
+                        <span class="intro-tip-text">Use the AI Assistant (Trajanus) for guidance on methodology, calculations, and jurisdiction requirements.</span>
                     </div>
-                    <div class="agent-btn" onclick="Traffic.deployAgent('signal-timer')">
-                        <span class="agent-icon">&#128678;</span>
-                        <div class="agent-info">
-                            <div class="agent-name">Signal Timer</div>
-                            <div class="agent-desc">Signal timing optimization</div>
-                        </div>
-                    </div>
-                    <div class="agent-btn" onclick="Traffic.deployAgent('report-writer')">
-                        <span class="agent-icon">&#128221;</span>
-                        <div class="agent-info">
-                            <div class="agent-name">Report Writer</div>
-                            <div class="agent-desc">TIA report generation</div>
-                        </div>
+                    <div class="intro-tip">
+                        <span class="intro-tip-icon">📋</span>
+                        <span class="intro-tip-text">The workflow steps update as you progress. Each step provides relevant tools and documentation links.</span>
                     </div>
                 </div>
-            </aside>
+            </div>
+        </div>
+    </section>
 
-            <!-- Panels Area -->
-            <main class="panels-area">
-                <!-- Data Browser Panel -->
-                <section class="panel expanded" id="panel-browser" onclick="Traffic.Panels.handleClick(event, 'panel-browser')">
-                    <div class="panel-header">
-                        <span class="panel-title">Data Browser</span>
-                        <span class="panel-expand-icon">&#9660;</span>
-                    </div>
-                    <div class="panel-content">
-                        <div class="browser-toolbar">
-                            <input type="text" class="browser-path" id="browser-path" value="G:\My Drive\00 - Trajanus USA\Projects\Grace Fellowship\">
-                            <button class="btn btn-secondary" onclick="Traffic.browsePath()">Browse</button>
-                        </div>
-                        <div class="file-grid" id="file-grid">
-                            <div class="file-card" onclick="Traffic.selectFile(this, 'Grace-Fellowship-Counts.xlsx')">
-                                <span class="file-icon">&#128202;</span>
-                                <div class="file-info">
-                                    <div class="file-name">Grace-Fellowship-Counts.xlsx</div>
-                                    <div class="file-meta">TMC Counts - Dec 2025</div>
-                                    <span class="file-status data">Data</span>
-                                </div>
-                            </div>
-                            <div class="file-card" onclick="Traffic.selectFile(this, 'Grace-Fellowship.syn')">
-                                <span class="file-icon">&#128736;</span>
-                                <div class="file-info">
-                                    <div class="file-name">Grace-Fellowship.syn</div>
-                                    <div class="file-meta">Synchro Model v12</div>
-                                    <span class="file-status synchro">Synchro</span>
-                                </div>
-                            </div>
-                            <div class="file-card" onclick="Traffic.selectFile(this, 'SR26-Existing-LOS.hco')">
-                                <span class="file-icon">&#128200;</span>
-                                <div class="file-info">
-                                    <div class="file-name">SR26-Existing-LOS.hco</div>
-                                    <div class="file-meta">HCS Analysis Output</div>
-                                    <span class="file-status hcs">HCS</span>
-                                </div>
-                            </div>
-                            <div class="file-card" onclick="Traffic.selectFile(this, 'Trip-Generation.xlsx')">
-                                <span class="file-icon">&#128663;</span>
-                                <div class="file-info">
-                                    <div class="file-name">Trip-Generation.xlsx</div>
-                                    <div class="file-meta">ITE 11th Ed Calc</div>
-                                    <span class="file-status data">Data</span>
-                                </div>
-                            </div>
-                            <div class="file-card" onclick="Traffic.selectFile(this, 'Site-Plan-Rev3.pdf')">
-                                <span class="file-icon">&#128196;</span>
-                                <div class="file-info">
-                                    <div class="file-name">Site-Plan-Rev3.pdf</div>
-                                    <div class="file-meta">Civil Site Plan</div>
-                                    <span class="file-status data">PDF</span>
-                                </div>
-                            </div>
-                            <div class="file-card" onclick="Traffic.selectFile(this, 'TIA-Draft-v2.docx')">
-                                <span class="file-icon">&#128221;</span>
-                                <div class="file-info">
-                                    <div class="file-name">TIA-Draft-v2.docx</div>
-                                    <div class="file-meta">Traffic Impact Analysis</div>
-                                    <span class="file-status data">Draft</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+    <div class="workspace-container">
 
-                <!-- Analysis Configuration Panel -->
-                <section class="panel compact" id="panel-analysis" onclick="Traffic.Panels.handleClick(event, 'panel-analysis')">
-                    <div class="panel-header">
-                        <span class="panel-title">Analysis Configuration</span>
-                        <span class="panel-expand-icon">&#9660;</span>
-                    </div>
-                    <div class="panel-content">
-                        <div class="analysis-form">
-                            <div class="template-group">
-                                <label>Study Type</label>
-                                <select class="template-select" id="study-type" onclick="event.stopPropagation()">
-                                    <option value="">Select type...</option>
-                                    <option value="tia">Traffic Impact Analysis</option>
-                                    <option value="los">Level of Service Study</option>
-                                    <option value="trip-gen">Trip Generation</option>
-                                    <option value="signal">Signal Timing Analysis</option>
-                                    <option value="safety">Safety Assessment</option>
-                                    <option value="parking">Parking Study</option>
-                                </select>
-                            </div>
-                            <div class="template-group">
-                                <label>Jurisdiction</label>
-                                <select class="template-select" id="jurisdiction" onclick="event.stopPropagation()">
-                                    <option value="fdot">FDOT</option>
-                                    <option value="alachua">Alachua County</option>
-                                    <option value="gainesville">City of Gainesville</option>
-                                    <option value="high-springs">City of High Springs</option>
-                                    <option value="newberry">City of Newberry</option>
-                                </select>
-                            </div>
-                            <div class="template-group">
-                                <label>Analysis Year</label>
-                                <select class="template-select" id="analysis-year" onclick="event.stopPropagation()">
-                                    <option value="existing">Existing (2025)</option>
-                                    <option value="opening">Opening Year (2026)</option>
-                                    <option value="future">Future (2030)</option>
-                                    <option value="buildout">Buildout (2035)</option>
-                                </select>
-                            </div>
-                            <button class="btn btn-primary" onclick="event.stopPropagation(); Traffic.generateOutput();">Generate Analysis</button>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Output Panel -->
-                <section class="panel compact" id="panel-output" onclick="Traffic.Panels.handleClick(event, 'panel-output')">
-                    <div class="panel-header">
-                        <span class="panel-title">Analysis Output</span>
-                        <span class="panel-expand-icon">&#9660;</span>
-                    </div>
-                    <div class="panel-content">
-                        <div class="output-container">
-                            <div class="output-area empty" id="output-area">
-                                Select data files and analysis type to generate output...
-                            </div>
-                            <div class="output-actions">
-                                <button class="btn btn-secondary" onclick="event.stopPropagation(); Traffic.copyOutput();">Copy</button>
-                                <button class="btn btn-secondary" onclick="event.stopPropagation(); Traffic.exportOutput();">Export to Word</button>
-                                <button class="btn btn-primary" onclick="event.stopPropagation(); Traffic.sendToAssistant();">Send to Claude</button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Claude Assistant Panel -->
-                <section class="panel compact" id="panel-claude" onclick="Traffic.Panels.handleClick(event, 'panel-claude')">
-                    <div class="panel-header">
-                        <span class="panel-title">Claude Assistant (Traffic Specialist)</span>
-                        <span class="panel-expand-icon">&#9660;</span>
-                    </div>
-                    <div class="panel-content">
-                        <div class="chat-container">
-                            <div class="chat-messages" id="chat-messages">
-                                <div class="chat-message assistant">
-                                    I'm your Traffic Engineering specialist. I can help with trip generation, LOS analysis, signal timing, TIA reports, and jurisdiction compliance. What would you like to work on?
-                                </div>
-                            </div>
-                            <div class="chat-input-area">
-                                <textarea class="chat-input" id="chat-input" rows="2" placeholder="Ask about trip generation, LOS, signal timing, or FDOT compliance..." onclick="event.stopPropagation()"></textarea>
-                                <button class="btn btn-primary" onclick="event.stopPropagation(); Traffic.sendMessage();">Send</button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </main>
+        <!-- Project Bar -->
+        <div class="project-bar">
+            <span class="project-bar-label">Project:</span>
+            <select class="project-select" id="project-select">
+                <option value="">-- Select Project --</option>
+            </select>
+            <button class="new-project-btn" id="new-project-btn">+ New Project</button>
         </div>
 
-        <!-- System Log -->
-        <div class="system-log">
-            <div class="system-log-header">
-                <span class="system-log-title">System Log</span>
-                <button class="clear-log-btn" onclick="Traffic.clearLog()">Clear</button>
+        <!-- Main Scrollable Content -->
+        <main class="main-content">
+            <!-- ==================== WORKFLOW TRACKER ==================== -->
+            <div class="workflow-tracker" id="workflow-tracker">
+                <div class="workflow-header">
+                    <span class="workflow-title">TIA Workflow</span>
+                    <span class="workflow-progress" id="workflow-progress">Step 0 of 10</span>
+                </div>
+                <div class="workflow-steps">
+                    <div class="workflow-step active" data-step="1">
+                        <span class="workflow-step-number">1</span>
+                        <span class="workflow-step-name">Setup</span>
+                    </div>
+                    <div class="workflow-step" data-step="2">
+                        <span class="workflow-step-number">2</span>
+                        <span class="workflow-step-name">Data Collection</span>
+                    </div>
+                    <div class="workflow-step" data-step="3">
+                        <span class="workflow-step-number">3</span>
+                        <span class="workflow-step-name">Trip Gen</span>
+                    </div>
+                    <div class="workflow-step" data-step="4">
+                        <span class="workflow-step-number">4</span>
+                        <span class="workflow-step-name">Distribution</span>
+                    </div>
+                    <div class="workflow-step" data-step="5">
+                        <span class="workflow-step-number">5</span>
+                        <span class="workflow-step-name">Future Vol</span>
+                    </div>
+                    <div class="workflow-step" data-step="6">
+                        <span class="workflow-step-number">6</span>
+                        <span class="workflow-step-name">Capacity</span>
+                    </div>
+                    <div class="workflow-step" data-step="7">
+                        <span class="workflow-step-number">7</span>
+                        <span class="workflow-step-name">Site Access</span>
+                    </div>
+                    <div class="workflow-step" data-step="8">
+                        <span class="workflow-step-number">8</span>
+                        <span class="workflow-step-name">Warrants</span>
+                    </div>
+                    <div class="workflow-step" data-step="9">
+                        <span class="workflow-step-number">9</span>
+                        <span class="workflow-step-name">Report</span>
+                    </div>
+                    <div class="workflow-step" data-step="10">
+                        <span class="workflow-step-number">10</span>
+                        <span class="workflow-step-name">Final</span>
+                    </div>
+                </div>
             </div>
-            <div class="log-output" id="log-output">
-                <div class="log-entry info"><span class="timestamp">[--:--:--]</span> Traffic Studies workspace ready.</div>
+
+            <!-- ==================== STEP INSTRUCTIONS ==================== -->
+            <div class="step-instructions" id="step-instructions">
+                <div class="step-instructions-title" id="step-title">Step 1: Project Setup</div>
+                <div class="step-instructions-content" id="step-content">
+                    <strong>Create your TIA project folder structure:</strong>
+                    <ol>
+                        <li>Click <strong>+ New Project</strong> and enter project details</li>
+                        <li>The system will create your folder structure at:<br>
+                            <code>G:\My Drive\00 - Trajanus USA\Traffic\[Project Name]\</code></li>
+                        <li>Folder structure includes: Traffic Counts, SYNCHRO Outputs, Deliverable</li>
+                        <li>Once created, proceed to <strong>Step 2: Gather Input</strong></li>
+                    </ol>
+                </div>
+                <!-- Step Actions -->
+                <div class="step-actions" id="step-actions">
+                    <button class="action-btn" id="open-folder-btn">Open Project Folder</button>
+                    <button class="action-btn" id="next-step-btn">Next Step</button>
+                </div>
+                <!-- Tools for This Step -->
+                <div class="step-tools" id="step-tools">
+                    <div class="step-tools-title">Tools for This Step:</div>
+                    <div class="step-tools-grid" id="step-tools-grid">
+                        <!-- Populated by JavaScript based on current step -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== REQUIRED DOCUMENTS ==================== -->
+            <div class="docs-panel" id="docs-panel">
+                <div class="docs-panel-header" id="docs-panel-header">
+                    <span class="docs-panel-title">Required Documents Checklist</span>
+                    <span class="docs-panel-toggle" id="docs-toggle">&#9660; Collapse</span>
+                </div>
+                <div class="docs-panel-body" id="docs-panel-body">
+                    <!-- Input Documents -->
+                    <div class="docs-category">
+                        <div class="docs-category-title">Input Documents</div>
+                        <div class="doc-item">
+                            <input type="checkbox" class="doc-checkbox" id="doc-site-plan">
+                            <label class="doc-item-label" for="doc-site-plan">Site Plan (.pdf)</label>
+                        </div>
+                        <div class="doc-item">
+                            <input type="checkbox" class="doc-checkbox" id="doc-ite-calc">
+                            <label class="doc-item-label" for="doc-ite-calc">ITE Trip Generation Worksheet (.xlsx)</label>
+                        </div>
+                        <div class="doc-item">
+                            <input type="checkbox" class="doc-checkbox" id="doc-tmc">
+                            <label class="doc-item-label" for="doc-tmc">TMC Counts (AM/PM peaks)</label>
+                        </div>
+                        <div class="doc-item">
+                            <input type="checkbox" class="doc-checkbox" id="doc-adt">
+                            <label class="doc-item-label" for="doc-adt">ADT Counts (tube counts)</label>
+                        </div>
+                    </div>
+
+                    <!-- Synchro Models -->
+                    <div class="docs-category">
+                        <div class="docs-category-title">Synchro Models</div>
+                        <div class="doc-item">
+                            <input type="checkbox" class="doc-checkbox" id="doc-syn-bg">
+                            <label class="doc-item-label" for="doc-syn-bg">Background Conditions (.syn)</label>
+                        </div>
+                        <div class="doc-item">
+                            <input type="checkbox" class="doc-checkbox" id="doc-syn-grown">
+                            <label class="doc-item-label" for="doc-syn-grown">Background + Growth (.syn)</label>
+                        </div>
+                        <div class="doc-item">
+                            <input type="checkbox" class="doc-checkbox" id="doc-syn-site">
+                            <label class="doc-item-label" for="doc-syn-site">Background + Growth + Site (.syn)</label>
+                        </div>
+                    </div>
+
+                    <!-- Analysis Outputs -->
+                    <div class="docs-category">
+                        <div class="docs-category-title">Analysis Outputs</div>
+                        <div class="doc-item">
+                            <input type="checkbox" class="doc-checkbox" id="doc-los-table">
+                            <label class="doc-item-label" for="doc-los-table">LOS Summary Table</label>
+                        </div>
+                        <div class="doc-item">
+                            <input type="checkbox" class="doc-checkbox" id="doc-capacity">
+                            <label class="doc-item-label" for="doc-capacity">Capacity Analysis Reports (.pdf)</label>
+                        </div>
+                        <div class="doc-item">
+                            <input type="checkbox" class="doc-checkbox" id="doc-counts-output">
+                            <label class="doc-item-label" for="doc-counts-output">Traffic Counts Outputs (.pdf)</label>
+                        </div>
+                    </div>
+
+                    <!-- Final Deliverables -->
+                    <div class="docs-category">
+                        <div class="docs-category-title">Final Deliverables</div>
+                        <div class="doc-item">
+                            <input type="checkbox" class="doc-checkbox" id="doc-tia-report">
+                            <label class="doc-item-label" for="doc-tia-report">FINAL Traffic Impact Analysis (.docx/.pdf)</label>
+                        </div>
+                        <div class="doc-item">
+                            <input type="checkbox" class="doc-checkbox" id="doc-exhibits">
+                            <label class="doc-item-label" for="doc-exhibits">Exhibits (.pdf)</label>
+                        </div>
+                        <div class="doc-item">
+                            <input type="checkbox" class="doc-checkbox" id="doc-appendix">
+                            <label class="doc-item-label" for="doc-appendix">Appendix (counts, capacity reports)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== AI ASSISTANT ==================== -->
+            <div class="section-divider">
+                <span class="section-title">AI Assistant</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="chat-section">
+                <div class="chat-header">
+                    <div class="chat-header-title">TRAJANUS - Traffic Specialist</div>
+                    <div class="chat-header-subtitle">Trip generation, LOS analysis, signal timing, TIA reports</div>
+                </div>
+                <div class="chat-messages" id="chat-messages">
+                    <div class="chat-message assistant">
+                        I'm your Traffic Engineering specialist. I can help with trip generation using ITE methods, level of service analysis, signal timing optimization, TIA reports, and Arizona jurisdiction compliance. What would you like to work on?
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <textarea class="chat-input" id="chat-input" rows="2" placeholder="Ask about trip generation, LOS, signal timing, or ADOT compliance..."></textarea>
+                    <button class="chat-send-btn" id="chat-send-btn">Send</button>
+                </div>
+            </div>
+
+            <!-- ==================== APPLICATIONS ==================== -->
+            <div class="section-divider">
+                <span class="section-title">Applications</span>
+                <div class="section-line"></div>
+            </div>
+
+            <!-- Traffic Tools -->
+            <div class="app-category">
+                <div class="category-label">Traffic Tools</div>
+                <div class="app-grid">
+                    <div class="app-card" data-launch="synchro">
+                        <span class="app-icon">🚦</span>
+                        <span class="app-label">Synchro 12</span>
+                    </div>
+                    <div class="app-card" data-launch="hcs">
+                        <span class="app-icon">📊</span>
+                        <span class="app-label">HCS 7</span>
+                    </div>
+                    <div class="app-card" data-launch="autocad">
+                        <span class="app-icon">📐</span>
+                        <span class="app-label">AutoCAD</span>
+                    </div>
+                    <a class="app-card" href="https://maps.google.com" target="_blank">
+                        <span class="app-icon">🗺️</span>
+                        <span class="app-label">Google Maps</span>
+                    </a>
+                    <a class="app-card" href="https://azdot.gov" target="_blank">
+                        <span class="app-icon">🏜️</span>
+                        <span class="app-label">ADOT</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- MS Office -->
+            <div class="app-category">
+                <div class="category-label">MS Office Suite</div>
+                <div class="app-grid">
+                    <div class="app-card" data-launch="word">
+                        <span class="app-icon">📝</span>
+                        <span class="app-label">Word</span>
+                    </div>
+                    <div class="app-card" data-launch="excel">
+                        <span class="app-icon">📗</span>
+                        <span class="app-label">Excel</span>
+                    </div>
+                    <div class="app-card" data-launch="powerpoint">
+                        <span class="app-icon">📙</span>
+                        <span class="app-label">PowerPoint</span>
+                    </div>
+                    <div class="app-card" data-launch="outlook">
+                        <span class="app-icon">📧</span>
+                        <span class="app-label">Outlook</span>
+                    </div>
+                    <div class="app-card" data-launch="onenote">
+                        <span class="app-icon">📓</span>
+                        <span class="app-label">OneNote</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Browsers & Files -->
+            <div class="app-category">
+                <div class="category-label">Browsers & Files</div>
+                <div class="app-grid">
+                    <div class="app-card" data-launch="chrome">
+                        <span class="app-icon">🌐</span>
+                        <span class="app-label">Chrome</span>
+                    </div>
+                    <div class="app-card" data-launch="edge">
+                        <span class="app-icon">🔷</span>
+                        <span class="app-label">Edge</span>
+                    </div>
+                    <div class="app-card" data-launch="explorer">
+                        <span class="app-icon">📁</span>
+                        <span class="app-label">Explorer</span>
+                    </div>
+                    <div class="app-card" data-launch="terminal">
+                        <span class="app-icon">💻</span>
+                        <span class="app-label">Terminal</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== TRAJANUS SCRIPTS ==================== -->
+            <div class="section-divider">
+                <span class="section-title">Trajanus Scripts</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="script-grid">
+                <div class="script-card" data-script="trip-generation">
+                    <span class="script-icon">🚗</span>
+                    <div class="script-info">
+                        <div class="script-name">Trip Generation Calculator</div>
+                        <div class="script-desc">ITE 11th Edition trip calculations</div>
+                    </div>
+                </div>
+                <div class="script-card" data-script="los-worksheet">
+                    <span class="script-icon">📈</span>
+                    <div class="script-info">
+                        <div class="script-name">LOS Worksheet</div>
+                        <div class="script-desc">Level of service analysis template</div>
+                    </div>
+                </div>
+                <div class="script-card" data-script="signal-timing">
+                    <span class="script-icon">🚥</span>
+                    <div class="script-info">
+                        <div class="script-name">Signal Timing Optimizer</div>
+                        <div class="script-desc">Optimize intersection timing</div>
+                    </div>
+                </div>
+                <div class="script-card" data-script="tia-template">
+                    <span class="script-icon">📋</span>
+                    <div class="script-info">
+                        <div class="script-name">TIA Report Template</div>
+                        <div class="script-desc">Traffic impact analysis template</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== REFERENCE STANDARDS ==================== -->
+            <div class="section-divider">
+                <span class="section-title">Reference Standards</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="doc-category">
+                <div class="doc-category-header">National Standards</div>
+                <div class="doc-grid">
+                    <div class="doc-card" data-doc="ite-trip-gen">
+                        <span class="doc-icon">📕</span>
+                        <div class="doc-info">
+                            <div class="doc-name">ITE Trip Generation (11th Ed)</div>
+                            <div class="doc-meta">Trip rates and equations</div>
+                        </div>
+                    </div>
+                    <div class="doc-card" data-doc="hcm">
+                        <span class="doc-icon">📘</span>
+                        <div class="doc-info">
+                            <div class="doc-name">HCM 7th Edition</div>
+                            <div class="doc-meta">Highway Capacity Manual</div>
+                        </div>
+                    </div>
+                    <div class="doc-card" data-doc="mutcd">
+                        <span class="doc-icon">📒</span>
+                        <div class="doc-info">
+                            <div class="doc-name">MUTCD</div>
+                            <div class="doc-meta">Manual on Uniform Traffic Control</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="doc-category">
+                <div class="doc-category-header">Arizona Standards</div>
+                <div class="doc-grid">
+                    <div class="doc-card" data-doc="fdot-los">
+                        <span class="doc-icon">🌵</span>
+                        <div class="doc-info">
+                            <div class="doc-name">ADOT Traffic Engineering Guidelines</div>
+                            <div class="doc-meta">Arizona level of service standards</div>
+                        </div>
+                    </div>
+                    <div class="doc-card" data-doc="fdot-design">
+                        <span class="doc-icon">🛣️</span>
+                        <div class="doc-info">
+                            <div class="doc-name">ADOT Roadway Design Guidelines</div>
+                            <div class="doc-meta">Roadway design criteria</div>
+                        </div>
+                    </div>
+                    <div class="doc-card" data-doc="maricopa-std">
+                        <span class="doc-icon">🏛️</span>
+                        <div class="doc-info">
+                            <div class="doc-name">Maricopa County Standards</div>
+                            <div class="doc-meta">Local jurisdiction requirements</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== PROJECT DATA ==================== -->
+            <div class="section-divider">
+                <span class="section-title">Project Data</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="doc-category">
+                <div class="doc-category-header">Current Project Files</div>
+                <div class="doc-grid">
+                    <div class="doc-card" data-doc="traffic-counts">
+                        <span class="doc-icon">📊</span>
+                        <div class="doc-info">
+                            <div class="doc-name">Traffic Counts</div>
+                            <div class="doc-meta">TMC intersection counts</div>
+                        </div>
+                    </div>
+                    <div class="doc-card" data-doc="site-plan">
+                        <span class="doc-icon">🗂️</span>
+                        <div class="doc-info">
+                            <div class="doc-name">Site Plan</div>
+                            <div class="doc-meta">Civil engineering layout</div>
+                        </div>
+                    </div>
+                    <div class="doc-card" data-doc="existing-conditions">
+                        <span class="doc-icon">🗺️</span>
+                        <div class="doc-info">
+                            <div class="doc-name">Existing Conditions</div>
+                            <div class="doc-meta">Baseline traffic data</div>
+                        </div>
+                    </div>
+                    <div class="doc-card" data-doc="synchro-model">
+                        <span class="doc-icon">⚙️</span>
+                        <div class="doc-info">
+                            <div class="doc-name">Synchro Model</div>
+                            <div class="doc-meta">.syn analysis file</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== AGENTS ==================== -->
+            <div class="section-divider">
+                <span class="section-title">Agents</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="agent-grid">
+                <div class="agent-card" data-agent="trip-generator">
+                    <span class="agent-icon">🚙</span>
+                    <div class="agent-info">
+                        <div class="agent-name">Trip Generator</div>
+                        <div class="agent-desc">ITE trip generation calculations</div>
+                    </div>
+                    <span class="agent-status">Ready</span>
+                </div>
+                <div class="agent-card" data-agent="los-analyzer">
+                    <span class="agent-icon">📉</span>
+                    <div class="agent-info">
+                        <div class="agent-name">LOS Analyzer</div>
+                        <div class="agent-desc">Level of service analysis</div>
+                    </div>
+                    <span class="agent-status">Ready</span>
+                </div>
+                <div class="agent-card" data-agent="signal-timer">
+                    <span class="agent-icon">🚦</span>
+                    <div class="agent-info">
+                        <div class="agent-name">Signal Timer</div>
+                        <div class="agent-desc">Signal timing optimization</div>
+                    </div>
+                    <span class="agent-status">Ready</span>
+                </div>
+                <div class="agent-card" data-agent="report-writer">
+                    <span class="agent-icon">📝</span>
+                    <div class="agent-info">
+                        <div class="agent-name">TIA Report Writer</div>
+                        <div class="agent-desc">Generate traffic impact reports</div>
+                    </div>
+                    <span class="agent-status">Ready</span>
+                </div>
+            </div>
+
+            <!-- ==================== AGENT RUNNER ==================== -->
+            <div class="section-divider">
+                <span class="section-title">Agent Runner</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="agent-runner-panel" style="background: var(--bg-surface); border: 1px solid var(--blue); border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+                <!-- Skill Selection -->
+                <div style="margin-bottom: 16px;">
+                    <label style="display: block; color: var(--gold); font-size: 12px; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Select Skill</label>
+                    <select id="agent-skill" style="width: 100%; padding: 10px 12px; background: var(--bg-base); border: 1px solid var(--blue); border-radius: 4px; color: var(--text-light); font-size: 14px;">
+                        <option value="traffic-impact">Traffic Impact Analysis</option>
+                        <option value="signal-timing">Signal Timing Review</option>
+                        <option value="trip-generation">Trip Generation</option>
+                        <option value="los-analysis">Level of Service Analysis</option>
+                    </select>
+                </div>
+
+                <!-- Research Mode -->
+                <div style="margin-bottom: 16px;">
+                    <label style="display: block; color: var(--gold); font-size: 12px; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Research Mode</label>
+                    <div style="display: flex; gap: 12px;">
+                        <label style="display: flex; align-items: center; gap: 6px; color: var(--text-light); cursor: pointer;">
+                            <input type="checkbox" id="research-external" checked style="accent-color: var(--gold);">
+                            <span>External (Web)</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 6px; color: var(--text-light); cursor: pointer;">
+                            <input type="checkbox" id="research-internal" checked style="accent-color: var(--gold);">
+                            <span>Internal (GDrive)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Query Input -->
+                <div style="margin-bottom: 16px;">
+                    <label style="display: block; color: var(--gold); font-size: 12px; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Query</label>
+                    <textarea id="agent-query" rows="3" placeholder="Enter your query or analysis request..." style="width: 100%; padding: 10px 12px; background: var(--bg-base); border: 1px solid var(--blue); border-radius: 4px; color: var(--text-light); font-size: 14px; resize: vertical;"></textarea>
+                </div>
+
+                <!-- Run Button -->
+                <div style="display: flex; gap: 12px; margin-bottom: 16px;">
+                    <button id="run-agent-btn" style="flex: 1; padding: 12px 20px; background: var(--gold); color: var(--bg-base); border: none; border-radius: 4px; font-size: 14px; font-weight: 600; cursor: pointer;">Run Agent</button>
+                    <button id="clear-results-btn" style="padding: 12px 20px; background: transparent; border: 1px solid var(--blue); color: var(--text-light); border-radius: 4px; font-size: 14px; cursor: pointer;">Clear</button>
+                </div>
+
+                <!-- Results Display -->
+                <div id="agent-results" style="background: var(--bg-base); border: 1px solid var(--blue); border-radius: 4px; padding: 16px; min-height: 120px; max-height: 400px; overflow-y: auto; font-size: 14px; color: var(--text-muted);">
+                    Results will appear here after running the agent...
+                </div>
+            </div>
+
+            <!-- ==================== TERMINAL ==================== -->
+            <div class="section-divider">
+                <span class="section-title">Terminal</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div style="background: var(--bg-surface); border: 1px solid var(--blue); border-radius: 8px; margin-bottom: 20px;">
+                <div id="terminal-output" style="height: 200px; overflow-y: auto; padding: 16px; font-family: monospace; font-size: 12px; color: var(--text-muted);">
+                    Terminal ready. External program output will appear here.
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- New Project Modal -->
+    <div class="modal-overlay" id="new-project-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title">New TIA Project</span>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Project Name</label>
+                    <input type="text" class="form-input" id="project-name" placeholder="e.g., Grace Fellowship Church TIA">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Client Name</label>
+                    <input type="text" class="form-input" id="client-name" placeholder="e.g., Smith Engineering">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Jurisdiction</label>
+                    <select class="form-select" id="jurisdiction">
+                        <option value="">-- Select Jurisdiction --</option>
+                        <option value="maricopa">Maricopa County</option>
+                        <option value="phoenix">City of Phoenix</option>
+                        <option value="scottsdale">City of Scottsdale</option>
+                        <option value="mesa">City of Mesa</option>
+                        <option value="tempe">City of Tempe</option>
+                        <option value="chandler">City of Chandler</option>
+                        <option value="gilbert">Town of Gilbert</option>
+                        <option value="glendale">City of Glendale</option>
+                        <option value="pima">Pima County</option>
+                        <option value="tucson">City of Tucson</option>
+                        <option value="pinal">Pinal County</option>
+                        <option value="yavapai">Yavapai County</option>
+                        <option value="flagstaff">City of Flagstaff</option>
+                        <option value="coconino">Coconino County</option>
+                        <option value="yuma">Yuma County</option>
+                        <option value="adot">ADOT Statewide</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Study Type</label>
+                    <select class="form-select" id="study-type">
+                        <option value="tia">Traffic Impact Analysis (TIA)</option>
+                        <option value="tis">Traffic Impact Statement (TIS)</option>
+                        <option value="methodology">Traffic Methodology Letter</option>
+                        <option value="corridor">Corridor Study</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="modal-cancel">Cancel</button>
+                <button class="btn-primary" id="modal-create">Create Project</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Safe Tauri API wrapper - returns null in browser mode
+        // ==================== CONFIGURATION ====================
+        const SCRIPTS_PATH = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\';
+
+        // ==================== SAFE TAURI API WRAPPER ====================
         function getInvoke() {
             if (window.__TAURI__ && window.__TAURI__.core && window.__TAURI__.core.invoke) {
                 return window.__TAURI__.core.invoke;
@@ -919,214 +2097,260 @@
             return null;
         }
 
-        // Notification helper for browser feedback
+        // ==================== NOTIFICATION HELPER ====================
         function showNotification(message, type = 'info') {
             const notification = document.createElement('div');
             notification.className = `notification ${type}`;
-            notification.innerHTML = `<span>${message}</span>`;
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                padding: 12px 20px;
-                border-radius: 8px;
-                background: ${type === 'warning' ? '#2d2a00' : '#0a1929'};
-                border: 1px solid ${type === 'warning' ? '#d4af37' : '#4fc3f7'};
-                color: ${type === 'warning' ? '#d4af37' : '#e0e0e0'};
-                font-size: 14px;
-                z-index: 9999;
-                animation: slideIn 0.3s ease;
-            `;
+            notification.textContent = message;
             document.body.appendChild(notification);
             setTimeout(() => notification.remove(), 3000);
         }
 
-        const Traffic = {
-            selectedFile: null,
-            selectedDoc: null,
+        // ==================== INTRODUCTION TOGGLE ====================
+        function toggleIntro() {
+            const content = document.getElementById('intro-content');
+            const toggle = document.getElementById('intro-toggle');
+            if (content && toggle) {
+                content.classList.toggle('collapsed');
+                toggle.classList.toggle('collapsed');
+                toggle.textContent = content.classList.contains('collapsed') ? '▼' : '▲';
+            }
+        }
+
+        // Decision card click handlers
+        document.addEventListener('DOMContentLoaded', function() {
+            const decisionCards = document.querySelectorAll('.decision-card');
+            decisionCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const action = this.dataset.action;
+                    decisionCards.forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+
+                    switch(action) {
+                        case 'new-study':
+                            document.getElementById('new-project-btn')?.click();
+                            break;
+                        case 'continue-study':
+                            document.getElementById('project-select')?.focus();
+                            break;
+                        case 'research':
+                            document.getElementById('chat-input')?.focus();
+                            break;
+                        case 'templates':
+                            const docsSection = document.querySelector('[data-section="documents"]');
+                            if (docsSection) docsSection.scrollIntoView({ behavior: 'smooth' });
+                            break;
+                    }
+                });
+            });
+        });
+
+        // ==================== TRAJANUS WINDOW SYSTEM ====================
+        const TrajnausWindow = {
+            currentWindow: null,
+
+            open(title, content, options = {}) {
+                this.close();
+                const overlay = document.createElement('div');
+                overlay.className = 'trajanus-window-overlay';
+                overlay.onclick = (e) => {
+                    if (e.target === overlay) this.close();
+                };
+
+                const window = document.createElement('div');
+                window.className = 'trajanus-window';
+                window.innerHTML = `
+                    <div class="trajanus-window-header">
+                        <span class="trajanus-window-title">${title}</span>
+                        <button class="trajanus-window-close" onclick="TrajnausWindow.close()">×</button>
+                    </div>
+                    <div class="trajanus-window-body">${content}</div>
+                `;
+
+                overlay.appendChild(window);
+                document.body.appendChild(overlay);
+                this.currentWindow = overlay;
+                return overlay;
+            },
+
+            close() {
+                if (this.currentWindow) {
+                    this.currentWindow.remove();
+                    this.currentWindow = null;
+                }
+            }
+        };
+
+        // ==================== TERMINAL ====================
+        const Terminal = {
+            output(message, type = 'info') {
+                const terminal = document.getElementById('terminal-output');
+                const line = document.createElement('div');
+                line.className = `terminal-line ${type}`;
+                const timestamp = new Date().toLocaleTimeString();
+                line.innerHTML = `<span style="color: #606060;">[${timestamp}]</span> ${message}`;
+                terminal.appendChild(line);
+                terminal.scrollTop = terminal.scrollHeight;
+            },
+
+            clear() {
+                const terminal = document.getElementById('terminal-output');
+                terminal.innerHTML = '<div style="color: #808080;">Terminal cleared.</div>';
+            },
+
+            error(message) { this.output(message, 'error'); },
+            success(message) { this.output(message, 'success'); },
+            warning(message) { this.output(message, 'warning'); },
+            info(message) { this.output(message, 'info'); }
+        };
+
+        // ==================== APPS MODULE ====================
+        const Apps = {
+            commands: {
+                'synchro': 'C:\\Program Files\\Trafficware\\Synchro\\Synchro.exe',
+                'hcs': 'C:\\Program Files\\McTrans\\HCS 7\\HCS.exe',
+                'autocad': 'C:\\Program Files\\Autodesk\\AutoCAD 2024\\acad.exe',
+                'word': 'winword', 'excel': 'excel', 'powerpoint': 'powerpnt',
+                'outlook': 'outlook', 'onenote': 'onenote', 'chrome': 'chrome',
+                'edge': 'msedge', 'explorer': 'G:\\My Drive\\00 - Trajanus USA',
+                'terminal': 'wt'
+            },
+            webUrls: {
+                'word': 'https://office.live.com/start/word.aspx',
+                'excel': 'https://office.live.com/start/excel.aspx',
+                'powerpoint': 'https://office.live.com/start/powerpoint.aspx',
+                'onenote': 'https://www.onenote.com/notebooks',
+                'outlook': 'https://outlook.live.com',
+                'chrome': 'https://google.com', 'edge': 'https://bing.com'
+            },
+
+            async launch(appKey) {
+                Terminal.info(`Launching: ${appKey}`);
+                const invoke = getInvoke();
+
+                if (!invoke) {
+                    if (this.webUrls[appKey]) {
+                        window.open(this.webUrls[appKey], '_blank');
+                        Terminal.success(`Opened ${appKey} in browser`);
+                        showNotification(`Opening ${appKey} in browser...`, 'info');
+                    } else {
+                        Terminal.warning(`${appKey} requires the desktop app`);
+                        showNotification(`${appKey} requires the desktop app`, 'warning');
+                    }
+                    return;
+                }
+
+                try {
+                    await invoke('open_path', { path: this.commands[appKey] });
+                    Terminal.success(`Launched ${appKey}`);
+                    showNotification(`Launched ${appKey}`, 'success');
+                } catch (e) {
+                    Terminal.error(`Failed to launch ${appKey}: ${e}`);
+                    if (this.webUrls[appKey]) {
+                        window.open(this.webUrls[appKey], '_blank');
+                        Terminal.info(`Fallback: Opened ${appKey} in browser`);
+                    }
+                }
+            }
+        };
+
+        // ==================== SCRIPTS MODULE ====================
+        const Scripts = {
+            scripts: {
+                'trip-generation': { name: 'Trip Generation Calculator', file: 'trip_generation.py' },
+                'los-worksheet': { name: 'LOS Worksheet', file: 'los_worksheet.py' },
+                'signal-timing': { name: 'Signal Timing Optimizer', file: 'signal_timing.py' },
+                'tia-template': { name: 'TIA Report Template', file: 'tia_template.py' }
+            },
+
+            async run(scriptId) {
+                const script = this.scripts[scriptId] || { name: scriptId, file: scriptId };
+                Terminal.info(`Starting: ${script.name}`);
+                showNotification(`Running ${script.name}...`, 'info');
+
+                const invoke = getInvoke();
+                if (!invoke) {
+                    Terminal.warning(`[Browser Mode] Cannot execute ${script.name} - requires desktop app`);
+                    Chat.addMessage('assistant', `${script.name} requires the desktop app to run.`);
+                    return;
+                }
+
+                try {
+                    const result = await invoke('run_python_script', {
+                        scriptPath: SCRIPTS_PATH + script.file,
+                        targetPath: ''
+                    });
+                    Terminal.success(`Completed: ${script.name}`);
+                    if (result) Terminal.output(result);
+                } catch (e) {
+                    Terminal.error(`Error in ${script.name}: ${e}`);
+                }
+            }
+        };
+
+        // ==================== DOCUMENTS MODULE ====================
+        const Documents = {
+            docs: {
+                'ite-trip-gen': { title: 'ITE Trip Generation Manual', path: 'G:\\My Drive\\00 - Trajanus USA\\Reference\\ITE' },
+                'hcm': { title: 'Highway Capacity Manual', path: 'G:\\My Drive\\00 - Trajanus USA\\Reference\\HCM' },
+                'mutcd': { title: 'MUTCD', path: 'G:\\My Drive\\00 - Trajanus USA\\Reference\\MUTCD' },
+                'fdot-los': { title: 'FDOT Quality/LOS Manual', path: 'G:\\My Drive\\00 - Trajanus USA\\Reference\\FDOT' },
+                'fdot-design': { title: 'FDOT Design Manual', path: 'G:\\My Drive\\00 - Trajanus USA\\Reference\\FDOT' },
+                'alachua-std': { title: 'Alachua County Standards', path: 'G:\\My Drive\\00 - Trajanus USA\\Reference\\Local' },
+                'traffic-counts': { title: 'Traffic Counts', path: 'G:\\My Drive\\00 - Trajanus USA\\Traffic\\Counts' },
+                'site-plan': { title: 'Site Plan', path: 'G:\\My Drive\\00 - Trajanus USA\\Traffic\\Plans' },
+                'existing-conditions': { title: 'Existing Conditions', path: 'G:\\My Drive\\00 - Trajanus USA\\Traffic\\Existing' },
+                'synchro-model': { title: 'Synchro Model', path: 'G:\\My Drive\\00 - Trajanus USA\\Traffic\\Synchro' }
+            },
+
+            async open(docId) {
+                const doc = this.docs[docId] || { title: docId, path: '' };
+                Terminal.info(`Opening document: ${doc.title}`);
+                showNotification(`Opening ${doc.title}...`, 'info');
+
+                const invoke = getInvoke();
+                if (!invoke) {
+                    TrajnausWindow.open(doc.title, `
+                        <p style="color: #b0b0b0; margin-bottom: 20px;">Document location:</p>
+                        <code style="background: #2d2d2d; padding: 10px; display: block; border-radius: 4px; color: #c0c0c0;">${doc.path}</code>
+                        <p style="color: #808080; margin-top: 20px; font-size: 13px;">
+                            [Browser Mode] Opening folders requires the desktop app.
+                        </p>
+                    `);
+                    return;
+                }
+
+                try {
+                    await invoke('open_path', { path: doc.path });
+                    Terminal.success(`Opened: ${doc.title}`);
+                } catch (e) {
+                    Terminal.error(`Failed to open ${doc.title}: ${e}`);
+                }
+            }
+        };
+
+        // ==================== AGENTS MODULE ====================
+        const Agents = {
+            async activate(agent) {
+                Terminal.info(`Activating agent: ${agent}`);
+                showNotification(`Activating ${agent}...`, 'success');
+
+                const responses = {
+                    'trip-generator': 'Trip Generator agent activated. I can calculate trip generation using ITE 11th Edition rates. Provide your land use type and size, and I\'ll calculate AM/PM peak trips with appropriate adjustments.',
+                    'los-analyzer': 'LOS Analyzer agent activated. I can analyze intersection and segment level of service using HCM methodology. Share your traffic data and I\'ll calculate delay and LOS.',
+                    'signal-timer': 'Signal Timer agent activated. I can optimize signal timing and analyze coordination. Provide your intersection geometry and volumes.',
+                    'report-writer': 'TIA Report Writer agent activated. I can help generate traffic impact analysis reports in jurisdiction-compliant format. What project are we working on?'
+                };
+
+                Chat.addMessage('assistant', responses[agent] || `Agent ${agent} is now active.`);
+            }
+        };
+
+        // ==================== CHAT MODULE ====================
+        const Chat = {
             isProcessing: false,
 
-            // ==================== PANEL MANAGEMENT ====================
-            Panels: {
-                activePanel: 'panel-browser',
-
-                handleClick(event, panelId) {
-                    const panel = document.getElementById(panelId);
-                    if (panel.classList.contains('compact')) {
-                        event.stopPropagation();
-                        this.expand(panelId);
-                    }
-                },
-
-                expand(panelId) {
-                    const panel = document.getElementById(panelId);
-                    if (panel.classList.contains('expanded')) return;
-
-                    document.querySelectorAll('.panel').forEach(p => {
-                        p.classList.remove('expanded');
-                        p.classList.add('compact');
-                    });
-
-                    panel.classList.remove('compact');
-                    panel.classList.add('expanded');
-                    this.activePanel = panelId;
-
-                    setTimeout(() => {
-                        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }, 50);
-
-                    Traffic.log(`Panel expanded: ${panelId.replace('panel-', '')}`);
-                }
-            },
-
-            // ==================== LOGGING ====================
-            log(message, type = 'info') {
-                const logOutput = document.getElementById('log-output');
-                const timestamp = new Date().toLocaleTimeString('en-US', { hour12: false });
-                const entry = document.createElement('div');
-                entry.className = `log-entry ${type}`;
-                entry.innerHTML = `<span class="timestamp">[${timestamp}]</span> ${message}`;
-                logOutput.appendChild(entry);
-                logOutput.scrollTop = logOutput.scrollHeight;
-            },
-
-            clearLog() {
-                document.getElementById('log-output').innerHTML =
-                    '<div class="log-entry info"><span class="timestamp">[--:--:--]</span> Log cleared.</div>';
-            },
-
-            // ==================== APP LAUNCHERS ====================
-            webUrls: {
-                'excel': 'https://office.live.com/start/excel.aspx'
-            },
-
-            async launchApp(app) {
-                const invoke = getInvoke();
-
-                // Browser fallback mode
-                if (!invoke) {
-                    if (this.webUrls[app]) {
-                        window.open(this.webUrls[app], '_blank');
-                        this.log(`Opening ${app} online...`, 'success');
-                        showNotification(`Opening ${app} in browser...`, 'info');
-                    } else {
-                        this.log(`${app} requires the desktop app`, 'error');
-                        showNotification(`${app} requires the desktop app`, 'warning');
-                    }
-                    return;
-                }
-
-                const commands = {
-                    'synchro': 'start "" "C:\\Program Files\\Trafficware\\Synchro\\Synchro.exe"',
-                    'hcs': 'start "" "C:\\Program Files\\McTrans\\HCS 7\\HCS.exe"',
-                    'excel': 'start excel',
-                    'autocad': 'start "" "C:\\Program Files\\Autodesk\\AutoCAD 2024\\acad.exe"'
-                };
-
-                if (commands[app]) {
-                    this.log(`Launching ${app}...`);
-                    try {
-                        await invoke('open_terminal', { path: '.' });
-                    } catch (e) {
-                        this.log(`Failed to launch ${app}: ${e}`, 'error');
-                    }
-                }
-            },
-
-            // ==================== DOCUMENT SELECTION ====================
-            selectDoc(element, docId) {
-                document.querySelectorAll('.doc-item').forEach(el => el.classList.remove('selected'));
-                element.classList.add('selected');
-                this.selectedDoc = docId;
-                this.log(`Selected reference: ${docId}`);
-            },
-
-            selectFile(element, filename) {
-                document.querySelectorAll('.file-card').forEach(el => el.classList.remove('selected'));
-                element.classList.add('selected');
-                this.selectedFile = filename;
-                this.log(`Selected: ${filename}`);
-            },
-
-            async browsePath() {
-                const invoke = getInvoke();
-                const path = document.getElementById('browser-path').value;
-
-                // Browser fallback mode
-                if (!invoke) {
-                    this.log(`File browsing requires the desktop app`, 'error');
-                    showNotification('File browsing requires the desktop app', 'warning');
-                    return;
-                }
-
-                this.log(`Browsing: ${path}`);
-                try {
-                    const entries = await invoke('list_directory', { path });
-                    this.log(`Found ${entries.length} items`, 'success');
-                } catch (e) {
-                    this.log(`Browse failed: ${e}`, 'error');
-                }
-            },
-
-            // ==================== AGENT DEPLOYMENT ====================
-            deployAgent(agentId) {
-                const agents = {
-                    'trip-generator': 'Trip Generator agent activated. Ready to calculate trip generation using ITE 11th Edition rates and local data.',
-                    'los-analyzer': 'LOS Analyzer agent activated. Ready to perform level of service analysis for intersections and segments.',
-                    'signal-timer': 'Signal Timer agent activated. Ready to optimize signal timing and analyze coordination.',
-                    'report-writer': 'Report Writer agent activated. Ready to generate TIA reports in jurisdiction-compliant format.'
-                };
-
-                this.log(`Deploying agent: ${agentId}`, 'success');
-                this.addChatMessage('assistant', agents[agentId] || `Agent ${agentId} activated.`);
-                this.Panels.expand('panel-claude');
-            },
-
-            // ==================== OUTPUT GENERATION ====================
-            generateOutput() {
-                if (!this.selectedFile) {
-                    this.log('Please select a data file first', 'error');
-                    return;
-                }
-                const studyType = document.getElementById('study-type').value;
-                if (!studyType) {
-                    this.log('Please select a study type', 'error');
-                    return;
-                }
-
-                const jurisdiction = document.getElementById('jurisdiction').value;
-                const year = document.getElementById('analysis-year').value;
-                const outputArea = document.getElementById('output-area');
-                outputArea.classList.remove('empty');
-                outputArea.textContent = `${studyType.toUpperCase()} ANALYSIS\n\nData File: ${this.selectedFile}\nJurisdiction: ${jurisdiction.toUpperCase()}\nAnalysis Year: ${year}\n\nAnalysis results and findings will appear here.\n\nThis is a placeholder for AI-generated traffic analysis.`;
-                this.log(`Generated ${studyType} analysis for ${jurisdiction}`, 'success');
-                this.Panels.expand('panel-output');
-            },
-
-            copyOutput() {
-                const output = document.getElementById('output-area').textContent;
-                if (output && !output.includes('Select data files')) {
-                    navigator.clipboard.writeText(output);
-                    this.log('Output copied to clipboard', 'success');
-                }
-            },
-
-            exportOutput() {
-                this.log('Exporting to Word...', 'info');
-                // Would integrate with Word export
-            },
-
-            sendToAssistant() {
-                const output = document.getElementById('output-area').textContent;
-                if (output && !output.includes('Select data files')) {
-                    this.addChatMessage('user', 'Please review this analysis:\n' + output);
-                    this.sendToClaude('Please review and provide feedback on this traffic analysis:\n' + output);
-                    this.Panels.expand('panel-claude');
-                }
-            },
-
-            // ==================== CHAT FUNCTIONS ====================
-            addChatMessage(role, content) {
+            addMessage(role, content) {
                 const messages = document.getElementById('chat-messages');
                 const msg = document.createElement('div');
                 msg.className = `chat-message ${role}`;
@@ -1145,18 +2369,38 @@
                 messages.scrollTop = messages.scrollHeight;
             },
 
-            async sendToClaude(message) {
-                if (this.isProcessing) return;
+            hideTyping() {
+                document.getElementById('typing-indicator')?.remove();
+            },
+
+            async send() {
+                const input = document.getElementById('chat-input');
+                const message = input.value.trim();
+
+                if (!message || this.isProcessing) return;
+
+                this.addMessage('user', message);
+                input.value = '';
                 this.isProcessing = true;
-                this.log('Sending to Claude...', 'info');
+
+                const invoke = getInvoke();
+                if (!invoke) {
+                    this.showTyping();
+                    setTimeout(() => {
+                        this.hideTyping();
+                        this.addMessage('assistant', 'I\'m running in browser mode. Full AI capabilities require the desktop app. How can I help you with traffic engineering concepts?');
+                        this.isProcessing = false;
+                    }, 1500);
+                    return;
+                }
+
                 this.showTyping();
 
                 try {
-                    const context = `You are a Traffic Engineering specialist for traffic impact studies in Florida.
+                    const context = `You are a Traffic Engineering specialist for traffic impact studies in Arizona.
                     You help with traffic impact analyses, level of service calculations, trip generation using ITE methods,
                     signal timing optimization, and safety assessments.
-                    You are familiar with Synchro 12, HCS 7, FDOT Quality/LOS Manual, HCM 7th Edition, and local Florida jurisdiction standards.
-                    Current project: Grace Fellowship Church TIA - High Springs, FL
+                    You are familiar with Synchro 12, HCS 7, ADOT Traffic Engineering Guidelines, HCM 7th Edition, and local Arizona jurisdiction standards.
                     Keep responses concise and technically accurate.`;
 
                     const response = await invoke('chat_with_claude', {
@@ -1164,39 +2408,760 @@
                         context: context
                     });
 
-                    document.getElementById('typing-indicator')?.remove();
-                    this.addChatMessage('assistant', response);
-                    this.log('Response received', 'success');
+                    this.hideTyping();
+                    this.addMessage('assistant', response);
                 } catch (error) {
-                    document.getElementById('typing-indicator')?.remove();
-                    this.addChatMessage('assistant', 'Error: ' + error);
-                    this.log('API error: ' + error, 'error');
+                    this.hideTyping();
+                    this.addMessage('assistant', 'Error connecting to AI service: ' + error);
                 } finally {
                     this.isProcessing = false;
-                }
-            },
-
-            async sendMessage() {
-                const input = document.getElementById('chat-input');
-                const message = input.value.trim();
-                if (message && !this.isProcessing) {
-                    this.addChatMessage('user', message);
-                    input.value = '';
-                    await this.sendToClaude(message);
                 }
             }
         };
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            Traffic.log('Traffic workspace loaded', 'info');
+        // ==================== AGENT RUNNER MODULE ====================
+        const AgentRunner = {
+            isRunning: false,
 
+            async run() {
+                if (this.isRunning) return;
+
+                const skill = document.getElementById('agent-skill').value;
+                const query = document.getElementById('agent-query').value.trim();
+                const externalMode = document.getElementById('research-external').checked;
+                const internalMode = document.getElementById('research-internal').checked;
+                const resultsDiv = document.getElementById('agent-results');
+
+                if (!query) {
+                    showNotification('Please enter a query', 'warning');
+                    return;
+                }
+
+                this.isRunning = true;
+                resultsDiv.innerHTML = '<div style="color: var(--gold);">Running agent...</div>';
+
+                const invoke = getInvoke();
+                if (!invoke) {
+                    // Browser mode - simulate response
+                    setTimeout(() => {
+                        resultsDiv.innerHTML = `
+                            <div style="margin-bottom: 12px;">
+                                <strong style="color: var(--gold);">Skill:</strong> ${skill}<br>
+                                <strong style="color: var(--gold);">Mode:</strong> ${externalMode ? 'External' : ''} ${internalMode ? 'Internal' : ''}<br>
+                                <strong style="color: var(--gold);">Query:</strong> ${query}
+                            </div>
+                            <div style="color: var(--text-light);">
+                                [Browser Mode] Agent Runner requires the desktop app for full functionality.
+                                In the desktop app, this would execute the AGENT_RUNNER_TOOL.py script with your query.
+                            </div>
+                        `;
+                        this.isRunning = false;
+                        showNotification('Agent completed (browser mode)', 'info');
+                    }, 1500);
+                    return;
+                }
+
+                try {
+                    // Build mode string
+                    let mode = 'both';
+                    if (externalMode && !internalMode) mode = 'external';
+                    if (!externalMode && internalMode) mode = 'internal';
+
+                    const scriptPath = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\AGENT_RUNNER_TOOL.py';
+                    const args = JSON.stringify({ skill, query, mode });
+
+                    const result = await invoke('run_python_script', {
+                        scriptPath: scriptPath,
+                        targetPath: args
+                    });
+
+                    resultsDiv.innerHTML = `
+                        <div style="margin-bottom: 12px;">
+                            <strong style="color: var(--gold);">Skill:</strong> ${skill}<br>
+                            <strong style="color: var(--gold);">Mode:</strong> ${mode}<br>
+                        </div>
+                        <div style="color: var(--success);">${result}</div>
+                    `;
+                    showNotification('Agent completed', 'success');
+                } catch (error) {
+                    resultsDiv.innerHTML = `<div style="color: var(--error);">Error: ${error}</div>`;
+                    showNotification('Agent failed', 'warning');
+                } finally {
+                    this.isRunning = false;
+                }
+            },
+
+            clear() {
+                document.getElementById('agent-query').value = '';
+                document.getElementById('agent-results').innerHTML = 'Results will appear here after running the agent...';
+            }
+        };
+
+        // ==================== TSE WORKFLOW MODULE ====================
+        const TseWorkflow = {
+            currentStep: 1,
+            currentProject: null,
+            projects: [],
+
+            // Step instructions based on 10-step TIA workflow
+            stepInstructions: {
+                1: {
+                    title: 'Step 1: Project Setup',
+                    content: `<strong>Create your TIA project folder structure:</strong>
+                    <ol>
+                        <li>Click <strong>+ New Project</strong> and enter project details</li>
+                        <li>The system will create your folder structure at:<br>
+                            <code style="background:#2d2d2d;padding:4px 8px;border-radius:4px;display:inline-block;margin:4px 0;">G:\\My Drive\\00 - Trajanus USA\\Traffic\\[Project Name]\\</code></li>
+                        <li>Standard folders: 01-Input, 02-Working, 03-Output, 04-Correspondence, 05-Final</li>
+                        <li>Once created, proceed to <strong>Step 2: Data Collection</strong></li>
+                    </ol>`
+                },
+                2: {
+                    title: 'Step 2: Data Collection',
+                    content: `<strong>Gather all required traffic data:</strong>
+                    <ol>
+                        <li><strong>TMC Counts</strong> - Turning movement counts at study intersections
+                            <ul style="margin-left:20px;margin-top:4px;">
+                                <li>AM Peak (7:00-9:00 AM typical)</li>
+                                <li>PM Peak (4:00-6:00 PM typical)</li>
+                                <li>Save to: 01-Input/Traffic Counts/</li>
+                            </ul>
+                        </li>
+                        <li><strong>ADT Counts</strong> - Tube counts for roadway segments</li>
+                        <li><strong>Site Plan (.pdf)</strong> - From client/architect</li>
+                        <li><strong>Land Use Details</strong> - ITE code, building size, occupancy</li>
+                    </ol>
+                    <p style="margin-top:12px;color:var(--info);">Check off each item in the Required Documents checklist as you collect them.</p>`
+                },
+                3: {
+                    title: 'Step 3: Trip Generation',
+                    content: `<strong>Calculate site-generated traffic using ITE methodology:</strong>
+                    <ol>
+                        <li><strong>Identify Land Use Code</strong> - Reference ITE Trip Generation Manual (11th Ed)
+                            <ul style="margin-left:20px;margin-top:4px;">
+                                <li>Example: 560 (Church), 820 (Shopping Center)</li>
+                                <li>Select appropriate independent variable (GFA, units, etc.)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Calculate Peak Hour Trips</strong>
+                            <ul style="margin-left:20px;margin-top:4px;">
+                                <li>AM Peak trips (in/out)</li>
+                                <li>PM Peak trips (in/out)</li>
+                                <li>Apply pass-by and diverted trip reductions if applicable</li>
+                            </ul>
+                        </li>
+                        <li><strong>Document in Trip Gen Worksheet</strong> - Save to 02-Working/</li>
+                    </ol>`
+                },
+                4: {
+                    title: 'Step 4: Trip Distribution',
+                    content: `<strong>Distribute site trips to the roadway network:</strong>
+                    <ol>
+                        <li><strong>Determine Distribution Percentages</strong>
+                            <ul style="margin-left:20px;margin-top:4px;">
+                                <li>Based on existing traffic patterns</li>
+                                <li>Population/employment gravity model</li>
+                                <li>Professional judgment for local conditions</li>
+                            </ul>
+                        </li>
+                        <li><strong>Create Trip Distribution Diagram</strong>
+                            <ul style="margin-left:20px;margin-top:4px;">
+                                <li>Show percentages to each approach</li>
+                                <li>Include turning movements at site driveways</li>
+                            </ul>
+                        </li>
+                        <li><strong>Assign Trips</strong> - Apply percentages to trip generation totals</li>
+                    </ol>`
+                },
+                5: {
+                    title: 'Step 5: Future Volumes',
+                    content: `<strong>Project future year traffic volumes:</strong>
+                    <ol>
+                        <li><strong>Determine Horizon Year</strong> - Typically opening year + 5 years</li>
+                        <li><strong>Apply Growth Factor</strong>
+                            <ul style="margin-left:20px;margin-top:4px;">
+                                <li>Use jurisdiction-approved growth rate (typically 1-3% annual)</li>
+                                <li>Compound formula: Future = Existing × (1 + rate)^years</li>
+                            </ul>
+                        </li>
+                        <li><strong>Account for Background Development</strong>
+                            <ul style="margin-left:20px;margin-top:4px;">
+                                <li>Check with jurisdiction for approved projects</li>
+                                <li>Add trips from committed developments</li>
+                            </ul>
+                        </li>
+                        <li><strong>Create Volume Scenarios:</strong> Existing, Background, Background+Site</li>
+                    </ol>`
+                },
+                6: {
+                    title: 'Step 6: Capacity Analysis',
+                    content: `<strong>Analyze intersection operations using Synchro/HCS:</strong>
+                    <ol>
+                        <li><strong>Build Synchro Models</strong>
+                            <ul style="margin-left:20px;margin-top:4px;">
+                                <li>Import intersection geometry from field/plans</li>
+                                <li>Enter signal timing parameters</li>
+                                <li>Input volumes for each scenario</li>
+                            </ul>
+                        </li>
+                        <li><strong>Run HCM Analysis</strong>
+                            <ul style="margin-left:20px;margin-top:4px;">
+                                <li>Calculate delay and Level of Service</li>
+                                <li>Identify critical movements</li>
+                            </ul>
+                        </li>
+                        <li><strong>Compare Scenarios</strong> - Background vs Background+Site</li>
+                        <li><strong>Export Reports</strong> - Save to 03-Output/Capacity Analysis/</li>
+                    </ol>`
+                },
+                7: {
+                    title: 'Step 7: Site Access',
+                    content: `<strong>Design and analyze site access points:</strong>
+                    <ol>
+                        <li><strong>Driveway Location</strong>
+                            <ul style="margin-left:20px;margin-top:4px;">
+                                <li>Spacing from intersections per jurisdiction standards</li>
+                                <li>Sight distance requirements</li>
+                                <li>Access management compliance</li>
+                            </ul>
+                        </li>
+                        <li><strong>Driveway Operations</strong>
+                            <ul style="margin-left:20px;margin-top:4px;">
+                                <li>Analyze site driveway LOS</li>
+                                <li>Queue analysis for drive-thru if applicable</li>
+                            </ul>
+                        </li>
+                        <li><strong>Turn Lane Warrants</strong>
+                            <ul style="margin-left:20px;margin-top:4px;">
+                                <li>Left-turn deceleration lanes</li>
+                                <li>Right-turn deceleration lanes</li>
+                            </ul>
+                        </li>
+                    </ol>`
+                },
+                8: {
+                    title: 'Step 8: Signal Warrants',
+                    content: `<strong>Evaluate traffic signal warrants per MUTCD:</strong>
+                    <ol>
+                        <li><strong>Warrant Analysis</strong> (if required by jurisdiction)
+                            <ul style="margin-left:20px;margin-top:4px;">
+                                <li>Warrant 1: Eight-Hour Vehicular Volume</li>
+                                <li>Warrant 2: Four-Hour Vehicular Volume</li>
+                                <li>Warrant 3: Peak Hour</li>
+                                <li>Warrant 7: Crash Experience</li>
+                            </ul>
+                        </li>
+                        <li><strong>Document Findings</strong>
+                            <ul style="margin-left:20px;margin-top:4px;">
+                                <li>Warrant satisfied or not satisfied</li>
+                                <li>Supporting data and calculations</li>
+                            </ul>
+                        </li>
+                        <li><strong>Recommendations</strong> - Signal installation or alternatives</li>
+                    </ol>`
+                },
+                9: {
+                    title: 'Step 9: Report Assembly',
+                    content: `<strong>Assemble the Traffic Impact Analysis document:</strong>
+                    <ol>
+                        <li><strong>Use TIA Template</strong> - Launch Word with jurisdiction-specific template</li>
+                        <li><strong>Required Sections:</strong>
+                            <ul style="margin-left:20px;margin-top:4px;">
+                                <li>Executive Summary</li>
+                                <li>Project Description & Site Plan</li>
+                                <li>Study Area & Intersections</li>
+                                <li>Existing Conditions</li>
+                                <li>Trip Generation (ITE methodology)</li>
+                                <li>Trip Distribution & Assignment</li>
+                                <li>Future Traffic Analysis</li>
+                                <li>Site Access Analysis</li>
+                                <li>Level of Service Results</li>
+                                <li>Conclusions & Recommendations</li>
+                            </ul>
+                        </li>
+                        <li><strong>Insert Tables & Figures</strong></li>
+                    </ol>`
+                },
+                10: {
+                    title: 'Step 10: Final Delivery',
+                    content: `<strong>Complete the final deliverable package:</strong>
+                    <ol>
+                        <li><strong>Create Exhibits</strong>
+                            <ul style="margin-left:20px;margin-top:4px;">
+                                <li>Location Map</li>
+                                <li>Site Plan</li>
+                                <li>Study Area Map</li>
+                                <li>Trip Distribution Diagram</li>
+                                <li>Lane Configuration Diagrams</li>
+                            </ul>
+                        </li>
+                        <li><strong>Compile Appendix</strong>
+                            <ul style="margin-left:20px;margin-top:4px;">
+                                <li>Traffic Counts</li>
+                                <li>Capacity Analysis Reports</li>
+                                <li>Trip Generation Worksheet</li>
+                            </ul>
+                        </li>
+                        <li><strong>Export Final PDF</strong> - Convert to PDF, check formatting</li>
+                        <li><strong>Submit to Client/Jurisdiction</strong></li>
+                    </ol>
+                    <p style="margin-top:12px;color:var(--success);font-weight:600;">Project complete! Review checklist to ensure all items are checked.</p>`
+                }
+            },
+
+            // Tools for each step
+            stepTools: {
+                1: [], // No tools needed for setup
+                2: [
+                    { id: 'explorer', icon: '📁', label: 'File Explorer', action: 'openExplorer' },
+                    { id: 'maps', icon: '🗺️', label: 'Google Maps', action: 'launchMaps' }
+                ],
+                3: [
+                    { id: 'excel', icon: '📊', label: 'Excel', action: 'launchExcel' },
+                    { id: 'trip-gen', icon: '🚗', label: 'Trip Gen Calculator', action: 'runTripGen' },
+                    { id: 'ite', icon: '📕', label: 'ITE Manual', action: 'openITE' }
+                ],
+                4: [
+                    { id: 'excel', icon: '📊', label: 'Excel', action: 'launchExcel' },
+                    { id: 'autocad', icon: '📐', label: 'AutoCAD', action: 'launchAutoCAD' }
+                ],
+                5: [
+                    { id: 'excel', icon: '📊', label: 'Excel', action: 'launchExcel' },
+                    { id: 'explorer', icon: '📁', label: 'Working Folder', action: 'openWorkingFolder' }
+                ],
+                6: [
+                    { id: 'synchro', icon: '🚦', label: 'Synchro 12', action: 'launchSynchro' },
+                    { id: 'hcs', icon: '📊', label: 'HCS', action: 'launchHCS' },
+                    { id: 'explorer', icon: '📁', label: 'Output Folder', action: 'openOutputFolder' }
+                ],
+                7: [
+                    { id: 'autocad', icon: '📐', label: 'AutoCAD', action: 'launchAutoCAD' },
+                    { id: 'synchro', icon: '🚦', label: 'Synchro 12', action: 'launchSynchro' }
+                ],
+                8: [
+                    { id: 'excel', icon: '📊', label: 'Excel (Warrants)', action: 'launchExcel' },
+                    { id: 'mutcd', icon: '📒', label: 'MUTCD', action: 'openMUTCD' }
+                ],
+                9: [
+                    { id: 'word', icon: '📝', label: 'Word', action: 'launchWord' },
+                    { id: 'tia-template', icon: '📋', label: 'TIA Template', action: 'runTiaTemplate' },
+                    { id: 'explorer', icon: '📁', label: 'Project Folder', action: 'openProjectFolder' }
+                ],
+                10: [
+                    { id: 'word', icon: '📝', label: 'Word', action: 'launchWord' },
+                    { id: 'acrobat', icon: '📕', label: 'PDF Export', action: 'launchAcrobat' },
+                    { id: 'explorer', icon: '📁', label: 'Final Folder', action: 'openFinalFolder' }
+                ]
+            },
+
+            init() {
+                this.loadProjects();
+                this.updateStepDisplay();
+                this.bindEvents();
+            },
+
+            bindEvents() {
+                // Modal controls
+                document.getElementById('new-project-btn').addEventListener('click', () => this.openModal());
+                document.getElementById('modal-close').addEventListener('click', () => this.closeModal());
+                document.getElementById('modal-cancel').addEventListener('click', () => this.closeModal());
+                document.getElementById('modal-create').addEventListener('click', () => this.createProject());
+
+                // Project selection
+                document.getElementById('project-select').addEventListener('change', (e) => this.selectProject(e.target.value));
+
+                // Workflow step clicks
+                document.querySelectorAll('.workflow-step').forEach(step => {
+                    step.addEventListener('click', () => this.goToStep(parseInt(step.dataset.step)));
+                });
+
+                // Documents panel toggle
+                document.getElementById('docs-panel-header').addEventListener('click', () => this.toggleDocsPanel());
+
+                // Document checkbox changes (now disabled - system controlled)
+                document.querySelectorAll('.doc-checkbox').forEach(cb => {
+                    cb.disabled = true; // System controls this
+                });
+
+                // Action buttons
+                document.getElementById('open-folder-btn').addEventListener('click', () => this.openProjectFolder());
+                document.getElementById('next-step-btn').addEventListener('click', () => this.advanceStep());
+            },
+
+            loadProjects() {
+                // Load projects from localStorage
+                const saved = localStorage.getItem('tse_projects');
+                if (saved) {
+                    this.projects = JSON.parse(saved);
+                    this.populateProjectSelect();
+                }
+            },
+
+            saveProjects() {
+                localStorage.setItem('tse_projects', JSON.stringify(this.projects));
+            },
+
+            populateProjectSelect() {
+                const select = document.getElementById('project-select');
+                select.innerHTML = '<option value="">-- Select Project --</option>';
+                this.projects.forEach((proj, idx) => {
+                    const opt = document.createElement('option');
+                    opt.value = idx;
+                    opt.textContent = proj.name;
+                    select.appendChild(opt);
+                });
+            },
+
+            openModal() {
+                document.getElementById('new-project-modal').classList.add('visible');
+            },
+
+            closeModal() {
+                document.getElementById('new-project-modal').classList.remove('visible');
+                // Clear form
+                document.getElementById('project-name').value = '';
+                document.getElementById('client-name').value = '';
+                document.getElementById('jurisdiction').value = '';
+                document.getElementById('study-type').value = 'tia';
+            },
+
+            async createProject() {
+                const name = document.getElementById('project-name').value.trim();
+                const client = document.getElementById('client-name').value.trim();
+                const jurisdiction = document.getElementById('jurisdiction').value;
+                const studyType = document.getElementById('study-type').value;
+
+                if (!name) {
+                    showNotification('Please enter a project name', 'warning');
+                    return;
+                }
+
+                const project = {
+                    name,
+                    client,
+                    jurisdiction,
+                    studyType,
+                    step: 1,
+                    checklist: {},
+                    created: new Date().toISOString()
+                };
+
+                // Add to projects list
+                this.projects.push(project);
+                this.saveProjects();
+                this.populateProjectSelect();
+
+                // Select the new project
+                const select = document.getElementById('project-select');
+                select.value = this.projects.length - 1;
+                this.selectProject(this.projects.length - 1);
+
+                this.closeModal();
+                showNotification('Project created: ' + name, 'success');
+
+                // Try to create folder structure if Tauri is available
+                const invoke = getInvoke();
+                if (invoke) {
+                    const basePath = 'G:\\My Drive\\00 - Trajanus USA\\Traffic\\' + name;
+                    try {
+                        // Use write_file to create a placeholder - it auto-creates parent dirs
+                        await invoke('write_file', {
+                            path: basePath + '\\Traffic Counts\\.gitkeep',
+                            content: ''
+                        });
+                        await invoke('write_file', {
+                            path: basePath + '\\SYNCHRO Outputs\\Background\\.gitkeep',
+                            content: ''
+                        });
+                        await invoke('write_file', {
+                            path: basePath + '\\SYNCHRO Outputs\\Background Grown\\.gitkeep',
+                            content: ''
+                        });
+                        await invoke('write_file', {
+                            path: basePath + '\\SYNCHRO Outputs\\Background + Site\\.gitkeep',
+                            content: ''
+                        });
+                        await invoke('write_file', {
+                            path: basePath + '\\Deliverable\\.gitkeep',
+                            content: ''
+                        });
+                        Terminal.success('Created folder structure at: ' + basePath);
+                    } catch (e) {
+                        Terminal.warning('Could not create folders: ' + e);
+                    }
+                }
+
+                // Advance to step 2
+                this.advanceStep();
+            },
+
+            selectProject(index) {
+                if (index === '' || index === null) {
+                    this.currentProject = null;
+                    this.currentStep = 1;
+                } else {
+                    this.currentProject = this.projects[index];
+                    this.currentStep = this.currentProject.step || 1;
+                    this.restoreChecklist();
+                }
+                this.updateStepDisplay();
+            },
+
+            goToStep(step) {
+                if (step < 1 || step > 6) return;
+                this.currentStep = step;
+                if (this.currentProject) {
+                    this.currentProject.step = step;
+                    this.saveProjects();
+                }
+                this.updateStepDisplay();
+            },
+
+            advanceStep() {
+                if (this.currentStep < 10) {
+                    this.goToStep(this.currentStep + 1);
+                }
+            },
+
+            updateStepDisplay() {
+                // Update progress text
+                document.getElementById('workflow-progress').textContent = 'Step ' + this.currentStep + ' of 10';
+
+                // Update step indicators
+                document.querySelectorAll('.workflow-step').forEach(step => {
+                    const stepNum = parseInt(step.dataset.step);
+                    step.classList.remove('active', 'completed');
+                    if (stepNum === this.currentStep) {
+                        step.classList.add('active');
+                    } else if (stepNum < this.currentStep) {
+                        step.classList.add('completed');
+                    }
+                });
+
+                // Update instructions
+                const instructions = this.stepInstructions[this.currentStep];
+                document.getElementById('step-title').textContent = instructions.title;
+                document.getElementById('step-content').innerHTML = instructions.content;
+
+                // Update step tools
+                this.updateStepTools();
+
+                // Send assistant message about current step
+                if (this.currentProject) {
+                    this.assistantGuide();
+                }
+            },
+
+            updateStepTools() {
+                const toolsGrid = document.getElementById('step-tools-grid');
+                const tools = this.stepTools[this.currentStep] || [];
+
+                if (tools.length === 0) {
+                    toolsGrid.innerHTML = '<span style="color:var(--text-muted);">No tools needed for this step</span>';
+                    return;
+                }
+
+                toolsGrid.innerHTML = tools.map(tool => `
+                    <button class="step-tool-btn" data-action="${tool.action}">
+                        <span class="step-tool-icon">${tool.icon}</span>
+                        <span>${tool.label}</span>
+                    </button>
+                `).join('');
+
+                // Bind click events
+                toolsGrid.querySelectorAll('.step-tool-btn').forEach(btn => {
+                    btn.addEventListener('click', () => this.executeTool(btn.dataset.action));
+                });
+            },
+
+            async executeTool(action) {
+                const invoke = getInvoke();
+
+                switch(action) {
+                    case 'openExplorer':
+                    case 'openProjectFolder':
+                        await this.openProjectFolder();
+                        break;
+                    case 'openSynchroFolder':
+                        await this.openFolder('SYNCHRO Outputs');
+                        break;
+                    case 'openDeliverableFolder':
+                        await this.openFolder('Deliverable');
+                        break;
+                    case 'launchSynchro':
+                        Apps.launch('synchro');
+                        break;
+                    case 'launchExcel':
+                        Apps.launch('excel');
+                        break;
+                    case 'launchWord':
+                        Apps.launch('word');
+                        break;
+                    case 'launchAcrobat':
+                        Apps.launch('acrobat');
+                        break;
+                    case 'runTripGen':
+                        Scripts.run('trip-gen');
+                        break;
+                    case 'runTiaTemplate':
+                        Scripts.run('tia-template');
+                        break;
+                    default:
+                        showNotification('Tool action not found: ' + action, 'warning');
+                }
+            },
+
+            async openProjectFolder() {
+                if (!this.currentProject) {
+                    showNotification('Please select or create a project first', 'warning');
+                    return;
+                }
+
+                const basePath = 'G:\\My Drive\\00 - Trajanus USA\\Traffic\\' + this.currentProject.name;
+                const invoke = getInvoke();
+
+                if (invoke) {
+                    try {
+                        await invoke('open_path', { path: basePath });
+                        Terminal.success('Opened project folder: ' + basePath);
+                        showNotification('Opened project folder', 'success');
+                    } catch (e) {
+                        Terminal.error('Could not open folder: ' + e);
+                        showNotification('Could not open folder', 'warning');
+                    }
+                } else {
+                    showNotification('Folder: ' + basePath, 'info');
+                }
+            },
+
+            async openFolder(subfolder) {
+                if (!this.currentProject) {
+                    showNotification('Please select or create a project first', 'warning');
+                    return;
+                }
+
+                const basePath = 'G:\\My Drive\\00 - Trajanus USA\\Traffic\\' + this.currentProject.name + '\\' + subfolder;
+                const invoke = getInvoke();
+
+                if (invoke) {
+                    try {
+                        await invoke('open_path', { path: basePath });
+                        Terminal.success('Opened folder: ' + basePath);
+                        showNotification('Opened ' + subfolder, 'success');
+                    } catch (e) {
+                        Terminal.error('Could not open folder: ' + e);
+                    }
+                } else {
+                    showNotification('Folder: ' + basePath, 'info');
+                }
+            },
+
+            assistantGuide() {
+                const stepMessages = {
+                    1: 'Project setup complete. Click "+ New Project" to create your TIA project folder structure.',
+                    2: 'Time to gather input documents. Click "Open Project Folder" to add your Site Plan, ITE Trip Generation worksheet, and traffic counts to the project folder.',
+                    3: 'Now build your Synchro models. Click "Synchro 12" to start. Create Background, Background+Growth, and Background+Site scenarios.',
+                    4: 'Run your analysis. Generate LOS tables and export capacity reports from Synchro. Save outputs to the Deliverable folder.',
+                    5: 'Write your TIA report. Click "TIA Template" to start with the standard template. Reference your analysis outputs.',
+                    6: 'Finalize the deliverable. Create exhibits, compile appendix, and export final PDF. All files go in the Deliverable folder.'
+                };
+
+                const msg = stepMessages[this.currentStep];
+                if (msg) {
+                    Chat.addMessage('assistant', msg);
+                }
+            },
+
+            toggleDocsPanel() {
+                const body = document.getElementById('docs-panel-body');
+                const toggle = document.getElementById('docs-toggle');
+                if (body.classList.contains('collapsed')) {
+                    body.classList.remove('collapsed');
+                    toggle.innerHTML = '&#9660; Collapse';
+                } else {
+                    body.classList.add('collapsed');
+                    toggle.innerHTML = '&#9658; Expand';
+                }
+            },
+
+            toggleDocItem(checkbox) {
+                const item = checkbox.closest('.doc-item');
+                if (checkbox.checked) {
+                    item.classList.add('checked');
+                } else {
+                    item.classList.remove('checked');
+                }
+
+                // Save to project
+                if (this.currentProject) {
+                    this.currentProject.checklist[checkbox.id] = checkbox.checked;
+                    this.saveProjects();
+                }
+            },
+
+            restoreChecklist() {
+                if (!this.currentProject || !this.currentProject.checklist) return;
+
+                document.querySelectorAll('.doc-checkbox').forEach(cb => {
+                    cb.checked = this.currentProject.checklist[cb.id] || false;
+                    const item = cb.closest('.doc-item');
+                    if (cb.checked) {
+                        item.classList.add('checked');
+                    } else {
+                        item.classList.remove('checked');
+                    }
+                });
+            }
+        };
+
+        // ==================== EVENT LISTENERS (CSP COMPLIANT) ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            // App launchers
+            document.querySelectorAll('[data-launch]').forEach(el => {
+                el.addEventListener('click', () => Apps.launch(el.dataset.launch));
+            });
+
+            // Script cards
+            document.querySelectorAll('[data-script]').forEach(el => {
+                el.addEventListener('click', () => Scripts.run(el.dataset.script));
+            });
+
+            // Document cards
+            document.querySelectorAll('[data-doc]').forEach(el => {
+                el.addEventListener('click', () => Documents.open(el.dataset.doc));
+            });
+
+            // Agent buttons
+            document.querySelectorAll('[data-agent]').forEach(el => {
+                el.addEventListener('click', () => Agents.activate(el.dataset.agent));
+            });
+
+            // Agent Runner buttons
+            document.getElementById('run-agent-btn').addEventListener('click', () => {
+                AgentRunner.run();
+            });
+
+            document.getElementById('clear-results-btn').addEventListener('click', () => {
+                AgentRunner.clear();
+            });
+
+            // Chat send button
+            document.getElementById('chat-send-btn').addEventListener('click', () => {
+                Chat.send();
+            });
+
+            // Chat input enter key
             document.getElementById('chat-input').addEventListener('keypress', (e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
-                    Traffic.sendMessage();
+                    Chat.send();
                 }
             });
+
+            // Initialize TSE Workflow
+            TseWorkflow.init();
+
+            console.log('Traffic Studies workspace initialized with TSE workflow');
         });
     </script>
 </body>

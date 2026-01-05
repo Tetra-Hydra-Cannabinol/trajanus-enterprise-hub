@@ -4,926 +4,1271 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quality Control - Trajanus Enterprise Hub</title>
-    <link rel="stylesheet" href="../main.css">
     <style>
-        /* ==================== WORKSPACE LAYOUT ==================== */
-        .workspace-container {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            background: var(--bg-base);
-            overflow: hidden;
+        /* Reset & Base */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            /* TRAJANUS BLACK/SILVER PALETTE - ALL SILVER ON BLACK */
+            --bg-base: #0a0a0a;
+            --bg-surface: #0a0a0a;
+            --bg-card: #0a0a0a;
+            --bg-elevated: #1a1a1a;
+            --bg-hover: #2a2a2a;
+            --accent: #c0c0c0;
+            --accent-bright: #e0e0e0;
+            --accent-dim: #a0a0a0;
+            --accent-hover: #ffffff;
+            --silver: #c0c0c0;
+            --silver-light: #e0e0e0;
+            --silver-dark: #a0a0a0;
+            --gold: #d4af37;
+            --gold-light: #f4cf57;
+            --gold-dark: #b4942f;
+            --blue: #4a90d9;
+            --blue-light: #6ab0f9;
+            --blue-dark: #3a70b9;
+            --text-primary: #c0c0c0;
+            --text-secondary: #c0c0c0;
+            --text-muted: #c0c0c0;
+            --border-subtle: #c0c0c0;
+            --border-accent: #c0c0c0;
+            --success: #4ade80;
+            --info: #60a5fa;
+            --warning: #fbbf24;
+            --purple: #a78bfa;
+            --error: #f87171;
+            --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
         }
 
-        .workspace-header {
+        html, body { height: 100%; }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-base);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Sticky Hero Section */
+        .hero-section {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--bg-base);
+            border-bottom: 1px solid var(--gold);
+            padding: 16px 32px;
+        }
+
+        .hero-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 24px;
-            background: var(--bg-surface);
-            border-bottom: 1px solid var(--border-subtle);
-            flex-shrink: 0;
         }
 
-        .workspace-header h1 {
-            color: var(--accent-gold);
-            font-size: 18px;
-            font-weight: 600;
-            margin: 0;
-        }
-
-        .workspace-header p {
-            color: var(--text-muted);
-            font-size: 11px;
-            margin: 2px 0 0 0;
-        }
-
-        .home-btn {
+        .hero-brand {
             display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: transparent;
-            border: 1px solid var(--accent-gold);
-            color: var(--accent-gold);
-            font-size: 13px;
-            border-radius: 4px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-
-        .home-btn:hover {
-            background: var(--accent-gold);
-            color: var(--bg-base);
-        }
-
-        /* ==================== MAIN CONTENT ==================== */
-        .workspace-main {
-            flex: 1;
-            display: flex;
-            overflow: hidden;
-        }
-
-        /* ==================== LEFT SIDEBAR ==================== */
-        .sidebar {
-            width: 280px;
-            background: var(--bg-surface);
-            border-right: 1px solid var(--border-subtle);
-            display: none; /* Hidden by default - full-width QCM mode */
             flex-direction: column;
-            overflow-y: auto;
-            flex-shrink: 0;
+            gap: 4px;
+            align-items: center;
+            text-align: center;
+            flex: 1;
         }
 
-        .sidebar.visible {
-            display: flex; /* Show when toggled */
-        }
-
-        .section-divider {
-            padding: 12px 16px 8px 16px;
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .section-title {
-            font-size: 10px;
-            font-weight: 600;
-            color: var(--accent-gold);
+        .hero-company {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--gold);
             text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero-company .tm {
+            font-size: 8px;
+            vertical-align: super;
+        }
+
+        .hero-toolkit {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gold);
             letter-spacing: 1px;
         }
 
-        /* ==================== EXTERNAL SYSTEMS ==================== */
-        .systems-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            padding: 12px 16px;
+        .hero-description {
+            font-size: 13px;
+            color: var(--text-primary);
+            max-width: 500px;
+            line-height: 1.4;
+            margin-top: 4px;
         }
 
-        .system-btn {
+        .hero-home-btn {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 4px;
-            padding: 12px 8px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
+            gap: 8px;
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 14px;
             border-radius: 6px;
             cursor: pointer;
-            transition: all 0.2s;
             text-decoration: none;
+            transition: all 0.2s;
         }
 
-        .system-btn:hover {
-            background: var(--bg-hover);
-            border-color: var(--accent-gold);
+        .hero-home-btn:hover {
+            background: var(--gold);
+            color: var(--bg-base);
         }
 
-        .system-icon {
-            font-size: 20px;
-            color: var(--accent-gold);
+        /* Main Content */
+        .main-content {
+            padding: 0 24px 40px 24px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .system-label {
-            font-size: 10px;
-            color: var(--text-light);
+        /* Page Hero Section */
+        .page-hero {
             text-align: center;
-        }
-
-        /* ==================== REFERENCE DOCUMENTS ==================== */
-        .doc-category {
-            padding: 8px 16px;
-        }
-
-        .doc-category-header {
-            font-size: 11px;
-            font-weight: 500;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .doc-list {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .doc-item {
-            display: flex;
-            align-items: center;
-            padding: 8px 10px;
-            background: var(--bg-card);
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 12px;
-            color: var(--text-light);
-            border-left: 2px solid transparent;
-        }
-
-        .doc-item:hover {
-            background: var(--bg-hover);
-            border-left-color: var(--accent-gold);
-        }
-
-        .doc-item.selected {
-            background: rgba(212, 165, 116, 0.15);
-            border-left-color: var(--accent-gold);
-        }
-
-        /* ==================== AGENTS SECTION ==================== */
-        .agents-list {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            padding: 12px 16px;
-        }
-
-        .agent-btn {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .agent-btn:hover {
-            background: var(--bg-hover);
-            border-color: var(--accent-gold);
-        }
-
-        .agent-icon {
-            font-size: 16px;
-            color: var(--accent-gold);
-        }
-
-        .agent-info {
-            flex: 1;
-        }
-
-        .agent-name {
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--text-light);
-        }
-
-        .agent-desc {
-            font-size: 10px;
-            color: var(--text-muted);
-        }
-
-        /* ==================== PANELS AREA ==================== */
-        .panels-area {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-            padding: 16px;
-            gap: 12px;
-        }
-
-        .panel {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            overflow: hidden;
-        }
-
-        .panel-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 16px;
-            background: var(--bg-card);
+            padding: 48px 24px 32px 24px;
             border-bottom: 1px solid var(--border-subtle);
-            cursor: pointer;
+            margin-bottom: 32px;
         }
 
-        .panel-title {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--accent-gold);
+        .hero-title {
+            color: var(--silver);
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 6px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            margin-bottom: 8px;
         }
 
-        .panel-expand-icon {
-            color: var(--text-muted);
-            transition: transform 0.3s;
+        .hero-subtitle {
+            color: var(--text-primary);
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
         }
 
-        .panel.compact {
-            cursor: pointer;
-        }
-
-        .panel.compact .panel-content {
-            display: none;
-        }
-
-        .panel.compact .panel-expand-icon {
-            transform: rotate(0deg);
-        }
-
-        .panel.expanded {
-            min-height: 600px;
-        }
-
-        .panel.expanded .panel-content {
+        .hero-greeting-row {
             display: flex;
-            flex-direction: column;
-            height: 550px;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 20px;
         }
 
-        .panel.expanded .panel-expand-icon {
-            transform: rotate(180deg);
+        .hero-greeting {
+            color: var(--text-primary);
+            font-size: 16px;
         }
 
-        .panel-content {
-            padding: 16px;
-            overflow: hidden;
+        .hero-greeting .name {
+            color: var(--silver);
+            font-weight: 600;
         }
 
-        /* ==================== SUBMITTAL BROWSER ==================== */
-        .browser-toolbar {
-            display: flex;
-            gap: 8px;
+        .hero-date {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .hero-description {
+            color: var(--text-secondary);
+            font-size: 14px;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Section Dividers */
+        .section-divider {
+            margin: 40px 0 24px 0;
+        }
+
+        .section-border-top {
+            height: 2px;
+            background: linear-gradient(to right, var(--silver), var(--border-subtle), transparent);
             margin-bottom: 12px;
         }
 
-        .browser-path {
-            flex: 1;
-            padding: 8px 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 4px;
-            font-size: 12px;
-            color: var(--text-light);
-        }
-
-        .browser-path:focus {
-            outline: none;
-            border-color: var(--accent-gold);
-        }
-
-        .file-grid {
-            flex: 1;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 8px;
-            overflow-y: auto;
-        }
-
-        .file-card {
+        .section-title-row {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .file-card:hover {
-            background: var(--bg-hover);
-            border-color: var(--accent-gold);
-        }
-
-        .file-card.selected {
-            background: rgba(212, 165, 116, 0.15);
-            border-color: var(--accent-gold);
-        }
-
-        .file-icon {
-            font-size: 24px;
-            color: var(--accent-gold);
-        }
-
-        .file-info {
-            flex: 1;
-            overflow: hidden;
-        }
-
-        .file-name {
-            font-size: 12px;
-            color: var(--text-light);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .file-meta {
-            font-size: 10px;
-            color: var(--text-muted);
-        }
-
-        .file-status {
-            font-size: 9px;
-            padding: 2px 6px;
-            border-radius: 3px;
-            margin-top: 2px;
-            display: inline-block;
-        }
-
-        .file-status.pending { background: #3a3520; color: #d4a574; }
-        .file-status.approved { background: #1a3a1a; color: #4a9f4a; }
-        .file-status.revise { background: #3a2020; color: #e74c3c; }
-
-        /* ==================== REVIEW PANEL ==================== */
-        .review-form {
-            display: flex;
-            flex-direction: column;
             gap: 16px;
-            max-width: 500px;
         }
 
-        .template-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
+        .section-blocks {
+            color: var(--silver);
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 2px;
         }
 
-        .template-group label {
-            font-size: 11px;
-            color: var(--text-muted);
+        .section-title {
+            color: var(--gold);
+            font-size: 14px;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 4px;
         }
 
-        .template-select {
-            padding: 10px 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 4px;
-            color: var(--text-light);
-            font-size: 13px;
-        }
-
-        .template-select:focus {
-            outline: none;
-            border-color: var(--accent-gold);
-        }
-
-        .template-select option {
-            background: var(--bg-card);
-            color: var(--text-light);
-        }
-
-        /* ==================== OUTPUT PANEL ==================== */
-        .output-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .output-area {
-            flex: 1;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 4px;
-            padding: 12px;
-            font-size: 13px;
-            line-height: 1.6;
-            overflow-y: auto;
-            color: var(--text-light);
-            white-space: pre-wrap;
-        }
-
-        .output-area.empty {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            font-style: italic;
-        }
-
-        .output-actions {
-            display: flex;
-            gap: 8px;
+        .section-border-bottom {
+            height: 2px;
+            background: linear-gradient(to right, var(--gold), var(--gold-dark), transparent);
             margin-top: 12px;
         }
 
-        /* ==================== CHAT PANEL ==================== */
-        .chat-container {
+        .section-description {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-top: 12px;
+            max-width: 800px;
+        }
+
+        /* Subsection Headers */
+        .subsection {
+            margin-bottom: 28px;
+        }
+
+        .subsection-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .subsection-title {
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .subsection-line {
             flex: 1;
+            height: 1px;
+            background: var(--border-subtle);
+        }
+
+        .subsection-description {
+            color: var(--text-muted);
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        /* Application Cards */
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 12px;
+        }
+
+        .app-card {
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 8px;
+            padding: 16px 12px;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 90px;
+        }
+
+        .app-card:hover {
+            background: var(--bg-surface);
+            border-color: var(--blue-light);
+            transform: translateY(-2px);
+        }
+
+        .app-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--silver);
+            background: var(--bg-elevated);
+            border-radius: 6px;
+        }
+
+        .app-label {
+            font-size: 11px;
+            color: var(--text-primary);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Two-Column Script/Doc Cards */
+        .script-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 900px) {
+            .script-grid { grid-template-columns: 1fr; }
+        }
+
+        .script-card {
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-left: 4px solid var(--blue);
+            border-radius: 6px;
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .script-card:hover {
+            background: var(--bg-surface);
+            border-color: var(--blue-light);
+            transform: translateX(4px);
+        }
+
+        .script-card.quality { border-left-color: var(--success); }
+        .script-card.inspection { border-left-color: var(--warning); }
+        .script-card.submittal { border-left-color: var(--info); }
+        .script-card.conversion { border-left-color: var(--purple); }
+
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--silver);
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .script-card.quality .indicator { background: var(--success); }
+        .script-card.inspection .indicator { background: var(--warning); }
+        .script-card.submittal .indicator { background: var(--info); }
+        .script-card.conversion .indicator { background: var(--purple); }
+
+        .script-info { flex: 1; min-width: 0; }
+
+        .script-title {
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .script-description {
+            color: var(--text-muted);
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        /* Agent Cards */
+        .agent-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 1100px) { .agent-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 700px) { .agent-grid { grid-template-columns: 1fr; } }
+
+        .agent-card {
+            background: var(--bg-base);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .agent-card:hover { border-color: var(--silver); }
+
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .agent-icon { font-size: 20px; }
+
+        .agent-name {
+            color: var(--silver);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .agent-description {
+            color: var(--text-secondary);
+            font-size: 12px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            min-height: 36px;
+        }
+
+        .agent-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .agent-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .agent-btn.activate {
+            background: var(--silver);
+            border: none;
+            color: var(--bg-base);
+        }
+
+        .agent-btn.activate:hover { background: var(--gold-hover); }
+
+        .agent-btn.deploy {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+        }
+
+        .agent-btn.deploy:hover {
+            border-color: var(--silver);
+            color: var(--silver);
+        }
+
+        /* Chat Section */
+        .chat-section {
+            background: var(--bg-base);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
             overflow: hidden;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+        }
+
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
+            flex-shrink: 0;
+        }
+
+        .chat-header h3 {
+            color: var(--silver);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .chat-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .clear-chat-btn {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .clear-chat-btn:hover {
+            border-color: var(--error);
+            color: var(--error);
         }
 
         .chat-messages {
             flex: 1;
             overflow-y: auto;
-            margin-bottom: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background: var(--bg-base);
         }
 
         .chat-message {
-            padding: 10px 14px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            font-size: 13px;
-            line-height: 1.5;
+            display: flex;
+            gap: 12px;
+            max-width: 85%;
         }
 
         .chat-message.user {
-            background: rgba(212, 165, 116, 0.15);
-            margin-left: 20%;
-            color: var(--text-light);
+            align-self: flex-end;
+            flex-direction: row-reverse;
         }
 
-        .chat-message.assistant {
-            background: var(--bg-card);
-            margin-right: 20%;
-            color: var(--text-light);
-        }
+        .chat-message.assistant { align-self: flex-start; }
 
-        .chat-input-area {
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
             display: flex;
-            gap: 8px;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
         }
 
-        .chat-input {
-            flex: 1;
-            padding: 10px 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 4px;
-            color: var(--text-light);
-            font-size: 13px;
-            resize: none;
-            font-family: inherit;
-        }
-
-        .chat-input:focus {
-            outline: none;
-            border-color: var(--accent-gold);
-        }
-
-        .chat-input::placeholder {
-            color: var(--text-muted);
-        }
-
-        /* ==================== BUTTONS ==================== */
-        .btn {
-            padding: 8px 16px;
-            border-radius: 4px;
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: none;
-        }
-
-        .btn-primary {
-            background: var(--accent-gold);
+        .chat-message.user .message-avatar {
+            background: var(--silver);
             color: var(--bg-base);
-            font-weight: 500;
         }
 
-        .btn-primary:hover {
-            background: var(--accent-gold-bright);
+        .chat-message.assistant .message-avatar {
+            background: var(--bg-elevated);
+            color: var(--silver);
         }
 
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-light);
-            border: 1px solid var(--border-subtle);
+        .message-content {
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 8px;
+            padding: 12px 16px;
         }
 
-        .btn-secondary:hover {
-            border-color: var(--accent-gold);
-            color: var(--accent-gold);
+        .chat-message.user .message-content {
+            background: var(--blue);
+            border-color: var(--blue);
+            color: var(--bg-base);
         }
 
-        /* ==================== TYPING INDICATOR ==================== */
+        .message-text {
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
         .typing-indicator {
             display: flex;
             gap: 4px;
-            padding: 12px 14px;
-            background: var(--bg-card);
-            border-radius: 8px;
-            margin-right: 20%;
-            width: fit-content;
+            padding: 8px 0;
         }
 
         .typing-indicator span {
-            width: 6px;
-            height: 6px;
-            background: var(--accent-gold);
+            width: 8px;
+            height: 8px;
+            background: var(--silver);
             border-radius: 50%;
             animation: typing 1.4s infinite ease-in-out;
         }
 
+        .typing-indicator span:nth-child(1) { animation-delay: 0s; }
         .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
         .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
 
         @keyframes typing {
             0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-            30% { transform: translateY(-4px); opacity: 1; }
+            30% { transform: translateY(-6px); opacity: 1; }
         }
 
-        /* ==================== SYSTEM LOG ==================== */
-        .system-log {
-            background: var(--bg-base);
-            border-top: 1px solid var(--border-subtle);
-            height: 100px;
-            display: flex;
-            flex-direction: column;
+        .chat-input-area {
+            padding: 16px 20px;
+            background: var(--bg-surface);
+            border-top: 1px solid var(--blue);
             flex-shrink: 0;
         }
 
-        .system-log-header {
+        .chat-input-wrapper {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 6px 16px;
-            background: var(--bg-surface);
-            border-bottom: 1px solid var(--border-subtle);
+            gap: 12px;
+            align-items: flex-end;
         }
 
-        .system-log-title {
-            font-size: 10px;
-            font-weight: 600;
-            color: var(--accent-gold);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .clear-log-btn {
-            background: transparent;
-            border: 1px solid var(--border-subtle);
-            color: var(--text-muted);
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 10px;
-            cursor: pointer;
-        }
-
-        .clear-log-btn:hover {
-            border-color: var(--accent-gold);
-            color: var(--accent-gold);
-        }
-
-        .log-output {
+        .chat-input {
             flex: 1;
-            overflow-y: auto;
-            padding: 6px 16px;
-            font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 11px;
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: var(--font-main);
+            resize: none;
+            min-height: 48px;
+            max-height: 150px;
             line-height: 1.5;
         }
 
-        .log-entry {
-            margin-bottom: 2px;
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--blue-light);
         }
 
-        .log-entry .timestamp {
-            color: var(--text-muted);
+        .chat-input::placeholder { color: var(--text-muted); }
+
+        .send-btn {
+            background: var(--blue);
+            border: none;
+            color: var(--bg-base);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .log-entry.success { color: var(--success); }
-        .log-entry.info { color: var(--text-muted); }
-        .log-entry.error { color: var(--error); }
+        .send-btn:hover:not(:disabled) { background: var(--blue-light); }
+        .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* Sticky Navigation */
+        .sticky-nav {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 9999;
+        }
+
+        .nav-btn {
+            background: linear-gradient(180deg, #1a2d42 0%, #0d1b2a 100%);
+            border: 1px solid #c0c0c0;
+            color: #c0c0c0;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            min-width: 70px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(180deg, #2a4a6a 0%, #1a2d42 100%);
+            border-color: #e0e0e0;
+            color: #e0e0e0;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .hero-greeting-row { flex-direction: column; gap: 8px; }
+            .app-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
+        }
+
+        /* ==================== TRAJANUS WINDOW SYSTEM ==================== */
+        .trajanus-window-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .trajanus-window {
+            background: #1a1a1a;
+            border: 2px solid #c0c0c0;
+            border-radius: 8px;
+            min-width: 500px;
+            max-width: 800px;
+            max-height: 80vh;
+            box-shadow: 0 0 30px rgba(192, 192, 192, 0.2), 0 0 60px rgba(0, 0, 0, 0.5);
+            animation: slideIn 0.2s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .trajanus-window-header {
+            background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
+            border-bottom: 1px solid #c0c0c0;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .trajanus-window-title {
+            color: #c0c0c0;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .trajanus-window-close {
+            background: transparent;
+            border: 1px solid #4a4a4a;
+            color: #c0c0c0;
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .trajanus-window-close:hover {
+            border-color: #c0c0c0;
+            background: #2d2d2d;
+        }
+
+        .trajanus-window-body {
+            padding: 24px;
+            color: #ffffff;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .trajanus-window-footer {
+            padding: 16px 24px;
+            border-top: 1px solid #4a4a4a;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .trajanus-btn {
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .trajanus-btn-primary {
+            background: #c0c0c0;
+            border: none;
+            color: #1a1a1a;
+        }
+
+        .trajanus-btn-primary:hover {
+            background: #e0e0e0;
+        }
+
+        .trajanus-btn-secondary {
+            background: transparent;
+            border: 1px solid #4a4a4a;
+            color: #c0c0c0;
+        }
+
+        .trajanus-btn-secondary:hover {
+            border-color: #c0c0c0;
+        }
+
+        /* Terminal styling */
+        .terminal-output {
+            background: #0a0a0a;
+            border: 1px solid #4a4a4a;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+
+        .terminal-line {
+            padding: 2px 0;
+            line-height: 1.4;
+        }
+
+        .terminal-line.success { color: #4ade80; }
+        .terminal-line.error { color: #f87171; }
+        .terminal-line.info { color: #60a5fa; }
+        .terminal-line.warning { color: #fbbf24; }
     </style>
 </head>
 <body>
-    <div class="workspace-container">
-        <header class="workspace-header">
-            <div>
-                <h1>Quality Control <span style="color: var(--text-muted); font-weight: 400;">| Trajanus EI™</span></h1>
-                <p>Submittals, inspections, deficiency tracking, RMS compliance</p>
+    <!-- Sticky Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-brand">
+                <div class="hero-company">Trajanus USA EI<span class="tm">™</span></div>
+                <div class="hero-toolkit">Quality Control Toolkit</div>
+                <div class="hero-description">
+                    Complete QC workspace for RMS inspections, three-phase control, submittals,
+                    and USACE compliance documentation. Manage QC reports and coordinate with government QA.
+                </div>
             </div>
-            <div style="display: flex; gap: 8px;">
-                <button class="home-btn" onclick="QCM.toggleSidebar()" title="Toggle Sidebar">
-                    <span>☰</span> Tools
-                </button>
-                <a href="../index.html" class="home-btn">
-                    <span>&#9670;</span> Hub
+            <div class="hero-nav">
+                <a href="../index.html" class="hero-home-btn">
+                    <span>◆</span> Hub
                 </a>
             </div>
-        </header>
+        </div>
+    </section>
 
-        <div class="workspace-main">
-            <!-- Left Sidebar -->
-            <aside class="sidebar">
-                <!-- External Systems -->
-                <div class="section-divider">
-                    <span class="section-title">External Systems</span>
-                </div>
-                <div class="systems-grid">
-                    <a href="https://rms.usace.army.mil" target="_blank" class="system-btn">
-                        <span class="system-icon">&#9733;</span>
-                        <span class="system-label">RMS 3.0</span>
-                    </a>
-                    <a href="https://app.procore.com" target="_blank" class="system-btn">
-                        <span class="system-icon">&#9632;</span>
-                        <span class="system-label">Procore</span>
-                    </a>
-                    <a href="#" class="system-btn" onclick="QCM.launchApp('bluebeam'); return false;">
-                        <span class="system-icon">&#128196;</span>
-                        <span class="system-label">Bluebeam</span>
-                    </a>
-                    <a href="#" class="system-btn" onclick="QCM.launchApp('excel'); return false;">
-                        <span class="system-icon">&#9638;</span>
-                        <span class="system-label">Excel</span>
-                    </a>
-                    <a href="#" class="system-btn" onclick="QCM.launchApp('word'); return false;">
-                        <span class="system-icon">&#9638;</span>
-                        <span class="system-label">Word</span>
-                    </a>
-                    <a href="https://drive.google.com" target="_blank" class="system-btn">
-                        <span class="system-icon">&#9729;</span>
-                        <span class="system-label">Google Drive</span>
-                    </a>
-                </div>
+    <!-- Main Content -->
+    <main class="main-content">
 
-                <!-- Reference Documents -->
-                <div class="section-divider">
-                    <span class="section-title">Reference Documents</span>
-                </div>
-
-                <div class="doc-category">
-                    <div class="doc-category-header">Specifications</div>
-                    <div class="doc-list">
-                        <div class="doc-item" onclick="QCM.selectDoc(this, 'ufgs')">UFGS Index</div>
-                        <div class="doc-item" onclick="QCM.selectDoc(this, 'specs')">Project Specifications</div>
-                        <div class="doc-item" onclick="QCM.selectDoc(this, 'std')">Standard Details</div>
-                    </div>
-                </div>
-
-                <div class="doc-category">
-                    <div class="doc-category-header">QC Plan</div>
-                    <div class="doc-list">
-                        <div class="doc-item" onclick="QCM.selectDoc(this, 'qcplan')">QC Plan (Current)</div>
-                        <div class="doc-item" onclick="QCM.selectDoc(this, 'itp')">ITPs by Section</div>
-                        <div class="doc-item" onclick="QCM.selectDoc(this, 'checklist')">Inspection Checklists</div>
-                    </div>
-                </div>
-
-                <div class="doc-category">
-                    <div class="doc-category-header">Forms & Templates</div>
-                    <div class="doc-list">
-                        <div class="doc-item" onclick="QCM.selectDoc(this, 'qcr')">QC Daily Report</div>
-                        <div class="doc-item" onclick="QCM.selectDoc(this, 'prep')">Prep Meeting Form</div>
-                        <div class="doc-item" onclick="QCM.selectDoc(this, 'ncr')">NCR Template</div>
-                    </div>
-                </div>
-
-                <!-- Agents -->
-                <div class="section-divider">
-                    <span class="section-title">Agents</span>
-                </div>
-                <div class="agents-list">
-                    <div class="agent-btn" onclick="QCM.deployAgent('submittal-reviewer')">
-                        <span class="agent-icon">&#128196;</span>
-                        <div class="agent-info">
-                            <div class="agent-name">Submittal Reviewer</div>
-                            <div class="agent-desc">UFGS compliance check</div>
-                        </div>
-                    </div>
-                    <div class="agent-btn" onclick="QCM.deployAgent('inspection-reporter')">
-                        <span class="agent-icon">&#128221;</span>
-                        <div class="agent-info">
-                            <div class="agent-name">Inspection Reporter</div>
-                            <div class="agent-desc">Generate QC daily reports</div>
-                        </div>
-                    </div>
-                    <div class="agent-btn" onclick="QCM.deployAgent('ncr-handler')">
-                        <span class="agent-icon">&#9888;</span>
-                        <div class="agent-info">
-                            <div class="agent-name">NCR Handler</div>
-                            <div class="agent-desc">Track & respond to NCRs</div>
-                        </div>
-                    </div>
-                    <div class="agent-btn" onclick="QCM.deployAgent('rms-assistant')">
-                        <span class="agent-icon">&#9733;</span>
-                        <div class="agent-info">
-                            <div class="agent-name">RMS Assistant</div>
-                            <div class="agent-desc">RMS 3.0 data entry help</div>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-
-            <!-- Panels Area -->
-            <main class="panels-area">
-                <!-- Submittal Browser Panel -->
-                <section class="panel expanded" id="panel-browser" onclick="QCM.Panels.handleClick(event, 'panel-browser')">
-                    <div class="panel-header">
-                        <span class="panel-title">Submittal Browser</span>
-                        <span class="panel-expand-icon">&#9660;</span>
-                    </div>
-                    <div class="panel-content">
-                        <div class="browser-toolbar">
-                            <input type="text" class="browser-path" id="browser-path" value="G:\My Drive\00 - Trajanus USA\Projects\SOUTHCOM Guatemala\Submittals\">
-                            <button class="btn btn-secondary" onclick="QCM.browsePath()">Browse</button>
-                        </div>
-                        <div class="file-grid" id="file-grid">
-                            <div class="file-card" onclick="QCM.selectFile(this, 'SUB-001-Concrete-Mix.pdf')">
-                                <span class="file-icon">&#128196;</span>
-                                <div class="file-info">
-                                    <div class="file-name">SUB-001-Concrete-Mix.pdf</div>
-                                    <div class="file-meta">03 30 00 - Cast-in-Place</div>
-                                    <span class="file-status pending">Pending Review</span>
-                                </div>
-                            </div>
-                            <div class="file-card" onclick="QCM.selectFile(this, 'SUB-002-Rebar.pdf')">
-                                <span class="file-icon">&#128196;</span>
-                                <div class="file-info">
-                                    <div class="file-name">SUB-002-Rebar.pdf</div>
-                                    <div class="file-meta">03 20 00 - Reinforcing</div>
-                                    <span class="file-status approved">Approved</span>
-                                </div>
-                            </div>
-                            <div class="file-card" onclick="QCM.selectFile(this, 'SUB-003-Structural-Steel.pdf')">
-                                <span class="file-icon">&#128196;</span>
-                                <div class="file-info">
-                                    <div class="file-name">SUB-003-Structural-Steel.pdf</div>
-                                    <div class="file-meta">05 12 00 - Structural Steel</div>
-                                    <span class="file-status revise">Revise & Resubmit</span>
-                                </div>
-                            </div>
-                            <div class="file-card" onclick="QCM.selectFile(this, 'SUB-004-Roofing.pdf')">
-                                <span class="file-icon">&#128196;</span>
-                                <div class="file-info">
-                                    <div class="file-name">SUB-004-Roofing.pdf</div>
-                                    <div class="file-meta">07 50 00 - Membrane Roofing</div>
-                                    <span class="file-status pending">Under Review</span>
-                                </div>
-                            </div>
-                            <div class="file-card" onclick="QCM.selectFile(this, 'INS-001-Foundation.pdf')">
-                                <span class="file-icon">&#128221;</span>
-                                <div class="file-info">
-                                    <div class="file-name">INS-001-Foundation.pdf</div>
-                                    <div class="file-meta">Inspection Report</div>
-                                    <span class="file-status approved">Completed</span>
-                                </div>
-                            </div>
-                            <div class="file-card" onclick="QCM.selectFile(this, 'NCR-001-Concrete.pdf')">
-                                <span class="file-icon">&#9888;</span>
-                                <div class="file-info">
-                                    <div class="file-name">NCR-001-Concrete.pdf</div>
-                                    <div class="file-meta">Non-Conformance Report</div>
-                                    <span class="file-status revise">Open</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Review Configuration Panel -->
-                <section class="panel compact" id="panel-review" onclick="QCM.Panels.handleClick(event, 'panel-review')">
-                    <div class="panel-header">
-                        <span class="panel-title">Review Configuration</span>
-                        <span class="panel-expand-icon">&#9660;</span>
-                    </div>
-                    <div class="panel-content">
-                        <div class="review-form">
-                            <div class="template-group">
-                                <label>Review Type</label>
-                                <select class="template-select" id="review-type" onclick="event.stopPropagation()">
-                                    <option value="">Select type...</option>
-                                    <option value="submittal">Submittal Review</option>
-                                    <option value="inspection">Inspection Report</option>
-                                    <option value="deficiency">Deficiency Log</option>
-                                    <option value="ncr">NCR Response</option>
-                                    <option value="qc-daily">QC Daily Report</option>
-                                    <option value="prep">Preparatory Meeting</option>
-                                </select>
-                            </div>
-                            <div class="template-group">
-                                <label>Review Status</label>
-                                <select class="template-select" id="review-status" onclick="event.stopPropagation()">
-                                    <option value="approved">Approved</option>
-                                    <option value="approved-comments">Approved with Comments</option>
-                                    <option value="revise">Revise and Resubmit</option>
-                                    <option value="rejected">Rejected</option>
-                                </select>
-                            </div>
-                            <div class="template-group">
-                                <label>Spec Section</label>
-                                <select class="template-select" id="spec-section" onclick="event.stopPropagation()">
-                                    <option value="">Select section...</option>
-                                    <option value="03">03 - Concrete</option>
-                                    <option value="05">05 - Metals</option>
-                                    <option value="07">07 - Thermal & Moisture</option>
-                                    <option value="09">09 - Finishes</option>
-                                    <option value="22">22 - Plumbing</option>
-                                    <option value="23">23 - HVAC</option>
-                                    <option value="26">26 - Electrical</option>
-                                </select>
-                            </div>
-                            <button class="btn btn-primary" onclick="event.stopPropagation(); QCM.generateOutput();">Generate Review</button>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Output Panel -->
-                <section class="panel compact" id="panel-output" onclick="QCM.Panels.handleClick(event, 'panel-output')">
-                    <div class="panel-header">
-                        <span class="panel-title">Review Output</span>
-                        <span class="panel-expand-icon">&#9660;</span>
-                    </div>
-                    <div class="panel-content">
-                        <div class="output-container">
-                            <div class="output-area empty" id="output-area">
-                                Select a submittal and review type to generate output...
-                            </div>
-                            <div class="output-actions">
-                                <button class="btn btn-secondary" onclick="event.stopPropagation(); QCM.copyOutput();">Copy</button>
-                                <button class="btn btn-secondary" onclick="event.stopPropagation(); QCM.exportToRMS();">Export to RMS</button>
-                                <button class="btn btn-primary" onclick="event.stopPropagation(); QCM.sendToAssistant();">Send to Trajanus for Review</button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Claude Assistant Panel -->
-                <section class="panel compact" id="panel-claude" onclick="QCM.Panels.handleClick(event, 'panel-claude')">
-                    <div class="panel-header">
-                        <span class="panel-title">Claude Assistant (QC Specialist)</span>
-                        <span class="panel-expand-icon">&#9660;</span>
-                    </div>
-                    <div class="panel-content">
-                        <div class="chat-container">
-                            <div class="chat-messages" id="chat-messages">
-                                <div class="chat-message assistant">
-                                    I'm your Quality Control specialist. I can help with submittal reviews, inspection reports, UFGS compliance, NCRs, and RMS 3.0 documentation. What would you like to work on?
-                                </div>
-                            </div>
-                            <div class="chat-input-area">
-                                <textarea class="chat-input" id="chat-input" rows="2" placeholder="Ask about submittals, inspections, UFGS, or QC compliance..." onclick="event.stopPropagation()"></textarea>
-                                <button class="btn btn-primary" onclick="event.stopPropagation(); QCM.sendMessage();">Send</button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </main>
+        <!-- AI ASSISTANT SECTION -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">AI ASSISTANT</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Quality Control specialist for inspections, submittals, and USACE compliance.
+            </p>
         </div>
 
-        <!-- System Log -->
-        <div class="system-log">
-            <div class="system-log-header">
-                <span class="system-log-title">System Log</span>
-                <button class="clear-log-btn" onclick="QCM.clearLog()">Clear</button>
+        <!-- Chat Section -->
+        <div class="chat-section">
+            <div class="chat-header">
+                <h3>TRAJANUS QC ASSISTANT</h3>
+                <div class="chat-controls">
+                    <button class="clear-chat-btn" id="btn-clear-chat">Clear Chat</button>
+                </div>
             </div>
-            <div class="log-output" id="log-output">
-                <div class="log-entry info"><span class="timestamp">[--:--:--]</span> Quality Control workspace ready.</div>
+            <div class="chat-messages" id="chat-messages"></div>
+            <div class="chat-input-area">
+                <div class="chat-input-wrapper">
+                    <textarea class="chat-input" id="chat-input" placeholder="Ask about QC reports, submittals, inspections, or RMS..." rows="1"></textarea>
+                    <button class="send-btn" id="btn-send">Send</button>
+                </div>
             </div>
         </div>
+
+        <!-- APPLICATIONS SECTION -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">APPLICATIONS</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Quick-launch applications for quality control, communication, and productivity.
+            </p>
+        </div>
+
+        <!-- QC Tools -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">QC Tools</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="app-grid">
+                <div class="app-card" data-launch="rms">
+                    <div class="app-icon">RM</div>
+                    <div class="app-label">RMS 3.0</div>
+                </div>
+                <div class="app-card" data-launch="procore">
+                    <div class="app-icon">PC</div>
+                    <div class="app-label">Procore</div>
+                </div>
+                <div class="app-card" data-launch="bluebeam">
+                    <div class="app-icon">BB</div>
+                    <div class="app-label">Bluebeam</div>
+                </div>
+                <div class="app-card" data-launch="acrobat">
+                    <div class="app-icon">PDF</div>
+                    <div class="app-label">Acrobat</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MS Office -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">MS Office</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="app-grid">
+                <div class="app-card" data-launch="word">
+                    <div class="app-icon">W</div>
+                    <div class="app-label">Word</div>
+                </div>
+                <div class="app-card" data-launch="excel">
+                    <div class="app-icon">X</div>
+                    <div class="app-label">Excel</div>
+                </div>
+                <div class="app-card" data-launch="powerpoint">
+                    <div class="app-icon">P</div>
+                    <div class="app-label">PowerPoint</div>
+                </div>
+                <div class="app-card" data-launch="outlook">
+                    <div class="app-icon">O</div>
+                    <div class="app-label">Outlook</div>
+                </div>
+                <div class="app-card" data-launch="teams">
+                    <div class="app-icon">TM</div>
+                    <div class="app-label">Teams</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Browsers & Files -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Browsers & Files</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="app-grid">
+                <div class="app-card" data-launch="chrome">
+                    <div class="app-icon">C</div>
+                    <div class="app-label">Chrome</div>
+                </div>
+                <div class="app-card" data-launch="edge">
+                    <div class="app-icon">E</div>
+                    <div class="app-label">Edge</div>
+                </div>
+                <div class="app-card" data-launch="gdrive">
+                    <div class="app-icon">GD</div>
+                    <div class="app-label">G Drive</div>
+                </div>
+                <div class="app-card" data-launch="explorer">
+                    <div class="app-icon">FE</div>
+                    <div class="app-label">Explorer</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TRAJANUS SCRIPTS SECTION -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">TRAJANUS SCRIPTS</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Automation scripts for file conversion, session management, and knowledge base operations.
+            </p>
+        </div>
+
+        <!-- File Conversion -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">File Conversion</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="script-grid">
+                <div class="script-card conversion" data-script="CONVERT_MD_TO_GDOCS_PERMANENT.py">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">MD to Google Docs</div>
+                        <div class="script-description">Convert Markdown to Google Docs</div>
+                    </div>
+                </div>
+                <div class="script-card conversion" data-script="batch_convert_md_only.py">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Batch Convert</div>
+                        <div class="script-description">Process folders for bulk conversion</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QC DOCUMENTS SECTION -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">QC DOCUMENTS</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Quality control documentation, inspection reports, and three-phase control records.
+            </p>
+        </div>
+
+        <!-- Three-Phase Control -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Three-Phase Control</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="script-grid">
+                <div class="script-card quality" data-doc="preparatory">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Preparatory Meetings</div>
+                        <div class="script-description">Pre-activity meeting records</div>
+                    </div>
+                </div>
+                <div class="script-card quality" data-doc="initial">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Initial Inspections</div>
+                        <div class="script-description">Initial phase inspection reports</div>
+                    </div>
+                </div>
+                <div class="script-card quality" data-doc="followup">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Follow-up Inspections</div>
+                        <div class="script-description">Ongoing quality verification</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Daily Reports -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Daily Reports</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="script-grid">
+                <div class="script-card inspection" data-doc="daily-qc">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Daily QC Report</div>
+                        <div class="script-description">Contractor daily quality report</div>
+                    </div>
+                </div>
+                <div class="script-card inspection" data-doc="daily-qa">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Daily QA Report</div>
+                        <div class="script-description">Government QA inspection log</div>
+                    </div>
+                </div>
+                <div class="script-card inspection" data-doc="deficiency">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Deficiency Log</div>
+                        <div class="script-description">Open deficiencies tracker</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submittals -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Submittals</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="script-grid">
+                <div class="script-card submittal" data-doc="submittal-log">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Submittal Register</div>
+                        <div class="script-description">All submittals status tracker</div>
+                    </div>
+                </div>
+                <div class="script-card submittal" data-doc="pending">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Pending Reviews</div>
+                        <div class="script-description">Submittals awaiting action</div>
+                    </div>
+                </div>
+                <div class="script-card submittal" data-doc="approved">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Approved Submittals</div>
+                        <div class="script-description">Approved materials index</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AGENTS SECTION -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">AGENTS</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                AI-powered agents for QC reporting, submittal review, and inspection assistance.
+            </p>
+        </div>
+
+        <div class="agent-grid">
+            <div class="agent-card">
+                <div class="agent-header">
+                    <span class="agent-icon">&#9989;</span>
+                    <span class="agent-name">QC Report Writer</span>
+                </div>
+                <p class="agent-description">Generate daily QC reports from inspection notes and photos.</p>
+                <div class="agent-actions">
+                    <button class="agent-btn activate" data-agent="qc-report-writer">Activate</button>
+                    <button class="agent-btn deploy" data-agent-deploy="qc-report-writer">Deploy</button>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="agent-header">
+                    <span class="agent-icon">&#128196;</span>
+                    <span class="agent-name">Submittal Reviewer</span>
+                </div>
+                <p class="agent-description">Review submittals for specification compliance and completeness.</p>
+                <div class="agent-actions">
+                    <button class="agent-btn activate" data-agent="submittal-reviewer">Activate</button>
+                    <button class="agent-btn deploy" data-agent-deploy="submittal-reviewer">Deploy</button>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="agent-header">
+                    <span class="agent-icon">&#128269;</span>
+                    <span class="agent-name">Deficiency Tracker</span>
+                </div>
+                <p class="agent-description">Track and prioritize open deficiencies for resolution.</p>
+                <div class="agent-actions">
+                    <button class="agent-btn activate" data-agent="deficiency-tracker">Activate</button>
+                    <button class="agent-btn deploy" data-agent-deploy="deficiency-tracker">Deploy</button>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="agent-header">
+                    <span class="agent-icon">&#128203;</span>
+                    <span class="agent-name">RMS Assistant</span>
+                </div>
+                <p class="agent-description">Help with RMS 3.0 data entry and report generation.</p>
+                <div class="agent-actions">
+                    <button class="agent-btn activate" data-agent="rms-assistant">Activate</button>
+                    <button class="agent-btn deploy" data-agent-deploy="rms-assistant">Deploy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- AGENT RUNNER SECTION -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">AGENT RUNNER</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Run specialized QC skills with AI-powered research.
+            </p>
+        </div>
+
+        <div class="agent-runner-panel" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+            <!-- Skill Selection -->
+            <div style="margin-bottom: 16px;">
+                <label style="display: block; color: var(--silver); font-size: 12px; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Select Skill</label>
+                <select id="agent-skill" style="width: 100%; padding: 10px 12px; background: var(--bg-base); border: 1px solid var(--border-subtle); border-radius: 4px; color: var(--text-primary); font-size: 14px;">
+                    <option value="submittal-review">Submittal Review</option>
+                    <option value="spec-compliance">Spec Compliance Check</option>
+                    <option value="deficiency-doc">Deficiency Documentation</option>
+                    <option value="three-phase-qc">Three-Phase QC Checklist</option>
+                </select>
+            </div>
+
+            <!-- Research Mode -->
+            <div style="margin-bottom: 16px;">
+                <label style="display: block; color: var(--silver); font-size: 12px; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Research Mode</label>
+                <div style="display: flex; gap: 12px;">
+                    <label style="display: flex; align-items: center; gap: 6px; color: var(--text-primary); cursor: pointer;">
+                        <input type="checkbox" id="research-external" checked style="accent-color: var(--silver);">
+                        <span>External (Web)</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 6px; color: var(--text-primary); cursor: pointer;">
+                        <input type="checkbox" id="research-internal" checked style="accent-color: var(--silver);">
+                        <span>Internal (GDrive)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Query Input -->
+            <div style="margin-bottom: 16px;">
+                <label style="display: block; color: var(--silver); font-size: 12px; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Query</label>
+                <textarea id="agent-query" rows="3" placeholder="Enter your QC analysis request..." style="width: 100%; padding: 10px 12px; background: var(--bg-base); border: 1px solid var(--border-subtle); border-radius: 4px; color: var(--text-primary); font-size: 14px; resize: vertical;"></textarea>
+            </div>
+
+            <!-- Run Button -->
+            <div style="display: flex; gap: 12px; margin-bottom: 16px;">
+                <button id="run-agent-btn" style="flex: 1; padding: 12px 20px; background: var(--silver); color: var(--bg-base); border: none; border-radius: 4px; font-size: 14px; font-weight: 600; cursor: pointer;">Run Agent</button>
+                <button id="clear-results-btn" style="padding: 12px 20px; background: transparent; border: 1px solid var(--border-subtle); color: var(--text-primary); border-radius: 4px; font-size: 14px; cursor: pointer;">Clear</button>
+            </div>
+
+            <!-- Results Display -->
+            <div id="agent-results" style="background: var(--bg-base); border: 1px solid var(--border-subtle); border-radius: 4px; padding: 16px; min-height: 120px; max-height: 400px; overflow-y: auto; font-size: 14px; color: var(--text-secondary);">
+                Results will appear here after running the agent...
+            </div>
+        </div>
+
+        <!-- TERMINAL SECTION -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">TERMINAL</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                External program output and command execution.
+            </p>
+        </div>
+
+        <div class="terminal-section" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 8px; margin-bottom: 20px;">
+            <div class="terminal-output" id="terminal-output" style="height: 200px; overflow-y: auto; padding: 16px; font-family: monospace; font-size: 12px; color: var(--text-secondary);">
+                <div style="color: var(--text-muted);">Terminal ready. External program output will appear here.</div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Sticky Navigation -->
+    <div class="sticky-nav">
+        <button class="nav-btn" id="btn-top">Top</button>
+        <button class="nav-btn" id="btn-hub">Hub</button>
     </div>
 
     <script>
-        // Safe Tauri API wrapper - returns null in browser mode
+        // ==================== CONFIGURATION ====================
+        const SCRIPTS_PATH = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\';
+
+        // Get Tauri invoke
         function getInvoke() {
             if (window.__TAURI__ && window.__TAURI__.core && window.__TAURI__.core.invoke) {
                 return window.__TAURI__.core.invoke;
@@ -931,289 +1276,446 @@
             return null;
         }
 
-        // Notification helper for browser feedback
+        // Notification helper
         function showNotification(message, type = 'info') {
             const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.innerHTML = `<span>${message}</span>`;
             notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                padding: 12px 20px;
-                border-radius: 8px;
+                position: fixed; top: 20px; right: 20px; padding: 12px 20px;
+                border-radius: 8px; z-index: 9999; animation: slideIn 0.3s ease;
                 background: ${type === 'warning' ? '#2d2a00' : '#0a1929'};
                 border: 1px solid ${type === 'warning' ? '#d4af37' : '#4fc3f7'};
-                color: ${type === 'warning' ? '#d4af37' : '#e0e0e0'};
-                font-size: 14px;
-                z-index: 9999;
-                animation: slideIn 0.3s ease;
+                color: ${type === 'warning' ? '#d4af37' : '#e0e0e0'}; font-size: 14px;
             `;
+            notification.textContent = message;
             document.body.appendChild(notification);
             setTimeout(() => notification.remove(), 3000);
         }
 
-        const QCM = {
-            selectedFile: null,
-            selectedDoc: null,
-            isProcessing: false,
-
-            // ==================== SIDEBAR TOGGLE ====================
-            toggleSidebar() {
-                const sidebar = document.querySelector('.sidebar');
-                sidebar.classList.toggle('visible');
+        // ==================== APP LAUNCHER ====================
+        const Apps = {
+            commands: {
+                'word': 'winword', 'excel': 'excel', 'powerpoint': 'powerpnt',
+                'outlook': 'outlook', 'teams': 'msteams:', 'chrome': 'chrome',
+                'edge': 'msedge', 'gdrive': 'G:\\My Drive',
+                'explorer': 'G:\\My Drive\\00 - Trajanus USA',
+                'acrobat': 'Acrobat', 'bluebeam': 'Revu',
+                'procore': 'https://app.procore.com',
+                'rms': 'https://rms.usace.army.mil'
             },
-
-            // ==================== PANEL MANAGEMENT ====================
-            Panels: {
-                activePanel: 'panel-browser',
-
-                handleClick(event, panelId) {
-                    const panel = document.getElementById(panelId);
-                    if (panel.classList.contains('compact')) {
-                        event.stopPropagation();
-                        this.expand(panelId);
-                    }
-                },
-
-                expand(panelId) {
-                    const panel = document.getElementById(panelId);
-                    if (panel.classList.contains('expanded')) return;
-
-                    document.querySelectorAll('.panel').forEach(p => {
-                        p.classList.remove('expanded');
-                        p.classList.add('compact');
-                    });
-
-                    panel.classList.remove('compact');
-                    panel.classList.add('expanded');
-                    this.activePanel = panelId;
-
-                    setTimeout(() => {
-                        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }, 50);
-
-                    QCM.log(`Panel expanded: ${panelId.replace('panel-', '')}`);
-                }
-            },
-
-            // ==================== LOGGING ====================
-            log(message, type = 'info') {
-                const logOutput = document.getElementById('log-output');
-                const timestamp = new Date().toLocaleTimeString('en-US', { hour12: false });
-                const entry = document.createElement('div');
-                entry.className = `log-entry ${type}`;
-                entry.innerHTML = `<span class="timestamp">[${timestamp}]</span> ${message}`;
-                logOutput.appendChild(entry);
-                logOutput.scrollTop = logOutput.scrollHeight;
-            },
-
-            clearLog() {
-                document.getElementById('log-output').innerHTML =
-                    '<div class="log-entry info"><span class="timestamp">[--:--:--]</span> Log cleared.</div>';
-            },
-
-            // ==================== APP LAUNCHERS ====================
             webUrls: {
+                'procore': 'https://app.procore.com', 'rms': 'https://rms.usace.army.mil',
+                'word': 'https://office.live.com/start/word.aspx',
                 'excel': 'https://office.live.com/start/excel.aspx',
-                'word': 'https://office.live.com/start/word.aspx'
+                'outlook': 'https://outlook.office.com', 'teams': 'https://teams.microsoft.com',
+                'chrome': 'https://google.com', 'edge': 'https://bing.com', 'gdrive': 'https://drive.google.com'
             },
-
-            async launchApp(app) {
+            async launch(appKey) {
+                Terminal.info(`Launching: ${appKey}`);
                 const invoke = getInvoke();
 
-                // Browser fallback mode
                 if (!invoke) {
-                    if (this.webUrls[app]) {
-                        window.open(this.webUrls[app], '_blank');
-                        this.log(`Opening ${app} online...`, 'success');
-                        showNotification(`Opening ${app} in browser...`, 'info');
+                    if (this.webUrls[appKey]) {
+                        window.open(this.webUrls[appKey], '_blank');
+                        Terminal.success(`Opened ${appKey} in browser`);
+                        showNotification(`Opening ${appKey} in browser...`, 'info');
                     } else {
-                        this.log(`${app} requires the desktop app`, 'error');
-                        showNotification(`${app} requires the desktop app`, 'warning');
+                        Terminal.warning(`${appKey} requires the desktop app`);
+                        showNotification(`${appKey} requires the desktop app`, 'warning');
                     }
                     return;
                 }
 
-                const commands = {
-                    'bluebeam': 'start "" "C:\\Program Files\\Bluebeam Software\\Bluebeam Revu\\Revu\\Revu.exe"',
-                    'excel': 'start excel',
-                    'word': 'start winword'
-                };
-
-                if (commands[app]) {
-                    this.log(`Launching ${app}...`);
-                    try {
-                        await invoke('open_terminal', { path: '.' });
-                    } catch (e) {
-                        this.log(`Failed to launch ${app}: ${e}`, 'error');
-                    }
-                }
-            },
-
-            // ==================== DOCUMENT SELECTION ====================
-            selectDoc(element, docId) {
-                document.querySelectorAll('.doc-item').forEach(el => el.classList.remove('selected'));
-                element.classList.add('selected');
-                this.selectedDoc = docId;
-                this.log(`Selected reference: ${docId}`);
-            },
-
-            selectFile(element, filename) {
-                document.querySelectorAll('.file-card').forEach(el => el.classList.remove('selected'));
-                element.classList.add('selected');
-                this.selectedFile = filename;
-                this.log(`Selected: ${filename}`);
-            },
-
-            async browsePath() {
-                const invoke = getInvoke();
-                const path = document.getElementById('browser-path').value;
-
-                // Browser fallback mode
-                if (!invoke) {
-                    this.log(`File browsing requires the desktop app`, 'error');
-                    showNotification('File browsing requires the desktop app', 'warning');
-                    return;
-                }
-
-                this.log(`Browsing: ${path}`);
                 try {
-                    const entries = await invoke('list_directory', { path });
-                    this.log(`Found ${entries.length} items`, 'success');
+                    if (['procore', 'rms'].includes(appKey)) {
+                        window.open(this.commands[appKey], '_blank');
+                        Terminal.success(`Opened ${appKey} in browser`);
+                    } else if (['gdrive', 'explorer'].includes(appKey)) {
+                        await invoke('open_path', { path: this.commands[appKey] });
+                        Terminal.success(`Opened ${appKey}`);
+                    } else {
+                        await invoke('open_path', { path: this.commands[appKey] });
+                        Terminal.success(`Launched ${appKey}`);
+                    }
+                    showNotification(`Launched ${appKey}`, 'info');
                 } catch (e) {
-                    this.log(`Browse failed: ${e}`, 'error');
-                }
-            },
-
-            // ==================== AGENT DEPLOYMENT ====================
-            deployAgent(agentId) {
-                const agents = {
-                    'submittal-reviewer': 'Submittal Reviewer agent activated. Ready to check UFGS compliance and generate review comments.',
-                    'inspection-reporter': 'Inspection Reporter agent activated. Ready to generate QC daily reports and inspection documentation.',
-                    'ncr-handler': 'NCR Handler agent activated. Ready to track non-conformances and draft responses.',
-                    'rms-assistant': 'RMS Assistant agent activated. Ready to help with RMS 3.0 data entry and documentation.'
-                };
-
-                this.log(`Deploying agent: ${agentId}`, 'success');
-                this.addChatMessage('assistant', agents[agentId] || `Agent ${agentId} activated.`);
-                this.Panels.expand('panel-claude');
-            },
-
-            // ==================== OUTPUT GENERATION ====================
-            generateOutput() {
-                if (!this.selectedFile) {
-                    this.log('Please select a submittal first', 'error');
-                    return;
-                }
-                const reviewType = document.getElementById('review-type').value;
-                if (!reviewType) {
-                    this.log('Please select a review type', 'error');
-                    return;
-                }
-
-                const status = document.getElementById('review-status').value;
-                const section = document.getElementById('spec-section').value;
-                const outputArea = document.getElementById('output-area');
-                outputArea.classList.remove('empty');
-                outputArea.textContent = `${reviewType.toUpperCase()} REVIEW\n\nDocument: ${this.selectedFile}\nStatus: ${status.toUpperCase()}\nSpec Section: ${section || 'N/A'}\n\nReview comments and findings will appear here.\n\nThis is a placeholder for AI-generated QC documentation.`;
-                this.log(`Generated ${reviewType} review - ${status}`, 'success');
-                this.Panels.expand('panel-output');
-            },
-
-            copyOutput() {
-                const output = document.getElementById('output-area').textContent;
-                if (output && !output.includes('Select a submittal')) {
-                    navigator.clipboard.writeText(output);
-                    this.log('Output copied to clipboard', 'success');
-                }
-            },
-
-            exportToRMS() {
-                this.log('Exporting to RMS 3.0...', 'info');
-                // Would integrate with RMS API
-            },
-
-            sendToAssistant() {
-                const output = document.getElementById('output-area').textContent;
-                if (output && !output.includes('Select a submittal')) {
-                    this.addChatMessage('user', 'Please review this output:\n' + output);
-                    this.sendToClaude('Please review and provide feedback on this QC document:\n' + output);
-                    this.Panels.expand('panel-claude');
-                }
-            },
-
-            // ==================== CHAT FUNCTIONS ====================
-            addChatMessage(role, content) {
-                const messages = document.getElementById('chat-messages');
-                const msg = document.createElement('div');
-                msg.className = `chat-message ${role}`;
-                msg.textContent = content;
-                messages.appendChild(msg);
-                messages.scrollTop = messages.scrollHeight;
-            },
-
-            showTyping() {
-                const messages = document.getElementById('chat-messages');
-                const typing = document.createElement('div');
-                typing.className = 'typing-indicator';
-                typing.id = 'typing-indicator';
-                typing.innerHTML = '<span></span><span></span><span></span>';
-                messages.appendChild(typing);
-                messages.scrollTop = messages.scrollHeight;
-            },
-
-            async sendToClaude(message) {
-                if (this.isProcessing) return;
-                this.isProcessing = true;
-                this.log('Sending to Claude...', 'info');
-                this.showTyping();
-
-                try {
-                    const context = `You are a Quality Control specialist for federal construction contracts.
-                    You help review submittals, inspection reports, deficiency logs, NCRs, and QC daily reports.
-                    You are familiar with USACE/Corps of Engineers QC requirements, RMS 3.0, UFGS specifications, and three-phase inspection.
-                    Current project: SOUTHCOM Guatemala (W9127823R0034) - $47.2M federal construction.
-                    Focus on compliance, specifications, and actionable feedback. Keep responses concise.`;
-
-                    const response = await invoke('chat_with_claude', {
-                        message: message,
-                        context: context
-                    });
-
-                    document.getElementById('typing-indicator')?.remove();
-                    this.addChatMessage('assistant', response);
-                    this.log('Response received', 'success');
-                } catch (error) {
-                    document.getElementById('typing-indicator')?.remove();
-                    this.addChatMessage('assistant', 'Error: ' + error);
-                    this.log('API error: ' + error, 'error');
-                } finally {
-                    this.isProcessing = false;
-                }
-            },
-
-            async sendMessage() {
-                const input = document.getElementById('chat-input');
-                const message = input.value.trim();
-                if (message && !this.isProcessing) {
-                    this.addChatMessage('user', message);
-                    input.value = '';
-                    await this.sendToClaude(message);
+                    Terminal.error(`Failed to launch ${appKey}: ${e}`);
+                    console.error(`Failed to launch ${appKey}: ${e}`);
+                    if (this.webUrls[appKey]) {
+                        window.open(this.webUrls[appKey], '_blank');
+                        Terminal.info(`Fallback: Opened ${appKey} in browser`);
+                    }
                 }
             }
         };
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            QCM.log('QCM workspace loaded', 'info');
+        // ==================== TRAJANUS WINDOW SYSTEM ====================
+        const TrajnausWindow = {
+            currentWindow: null,
 
-            document.getElementById('chat-input').addEventListener('keypress', (e) => {
+            open(title, content, options = {}) {
+                this.close(); // Close any existing window
+
+                const overlay = document.createElement('div');
+                overlay.className = 'trajanus-window-overlay';
+                overlay.onclick = (e) => {
+                    if (e.target === overlay) this.close();
+                };
+
+                const window = document.createElement('div');
+                window.className = 'trajanus-window';
+                window.innerHTML = `
+                    <div class="trajanus-window-header">
+                        <span class="trajanus-window-title">${title}</span>
+                        <button class="trajanus-window-close" onclick="TrajnausWindow.close()">×</button>
+                    </div>
+                    <div class="trajanus-window-body">${content}</div>
+                    ${options.footer ? `<div class="trajanus-window-footer">${options.footer}</div>` : ''}
+                `;
+
+                overlay.appendChild(window);
+                document.body.appendChild(overlay);
+                this.currentWindow = overlay;
+
+                return overlay;
+            },
+
+            close() {
+                if (this.currentWindow) {
+                    this.currentWindow.remove();
+                    this.currentWindow = null;
+                }
+            }
+        };
+
+        // ==================== TERMINAL ====================
+        const Terminal = {
+            output(message, type = 'info') {
+                const terminal = document.getElementById('terminal-output');
+                const line = document.createElement('div');
+                line.className = `terminal-line ${type}`;
+                const timestamp = new Date().toLocaleTimeString();
+                line.innerHTML = `<span style="color: #606060;">[${timestamp}]</span> ${message}`;
+                terminal.appendChild(line);
+                terminal.scrollTop = terminal.scrollHeight;
+            },
+
+            clear() {
+                const terminal = document.getElementById('terminal-output');
+                terminal.innerHTML = '<div style="color: #808080;">Terminal cleared.</div>';
+            },
+
+            error(message) { this.output(message, 'error'); },
+            success(message) { this.output(message, 'success'); },
+            warning(message) { this.output(message, 'warning'); },
+            info(message) { this.output(message, 'info'); }
+        };
+
+        // ==================== SCRIPT RUNNER ====================
+        const Scripts = {
+            async run(scriptName) {
+                Terminal.info(`Starting: ${scriptName}`);
+                showNotification(`Running ${scriptName}...`, 'info');
+
+                const invoke = getInvoke();
+                if (!invoke) {
+                    Terminal.warning(`[Browser Mode] Cannot execute ${scriptName} - requires desktop app`);
+                    return;
+                }
+
+                try {
+                    const result = await invoke('run_python_script', {
+                        scriptPath: SCRIPTS_PATH + scriptName,
+                        targetPath: ''
+                    });
+                    Terminal.success(`Completed: ${scriptName}`);
+                    if (result) {
+                        Terminal.output(result);
+                    }
+                } catch (e) {
+                    Terminal.error(`Error in ${scriptName}: ${e}`);
+                    console.error(`Script error: ${e}`);
+                }
+            }
+        };
+
+        // ==================== DOCUMENT HANDLER ====================
+        const Documents = {
+            docs: {
+                'preparatory': { title: 'Preparatory Meetings', path: 'G:\\My Drive\\00 - Trajanus USA\\QC\\Preparatory' },
+                'initial': { title: 'Initial Inspections', path: 'G:\\My Drive\\00 - Trajanus USA\\QC\\Initial' },
+                'followup': { title: 'Follow-up Inspections', path: 'G:\\My Drive\\00 - Trajanus USA\\QC\\Followup' },
+                'daily-qc': { title: 'Daily QC Reports', path: 'G:\\My Drive\\00 - Trajanus USA\\QC\\Daily-QC' },
+                'daily-qa': { title: 'Daily QA Reports', path: 'G:\\My Drive\\00 - Trajanus USA\\QC\\Daily-QA' },
+                'deficiency': { title: 'Deficiency Log', path: 'G:\\My Drive\\00 - Trajanus USA\\QC\\Deficiencies' },
+                'submittal-log': { title: 'Submittal Register', path: 'G:\\My Drive\\00 - Trajanus USA\\QC\\Submittals' },
+                'pending': { title: 'Pending Reviews', path: 'G:\\My Drive\\00 - Trajanus USA\\QC\\Pending' },
+                'approved': { title: 'Approved Submittals', path: 'G:\\My Drive\\00 - Trajanus USA\\QC\\Approved' }
+            },
+
+            async open(docId) {
+                const doc = this.docs[docId] || { title: docId, path: '' };
+                Terminal.info(`Opening document: ${doc.title}`);
+                showNotification(`Opening ${doc.title}...`, 'info');
+
+                const invoke = getInvoke();
+                if (!invoke) {
+                    // Show in Trajnaus Window for browser mode
+                    TrajnausWindow.open(doc.title, `
+                        <p style="color: #b0b0b0; margin-bottom: 20px;">Document location:</p>
+                        <code style="background: #2d2d2d; padding: 10px; display: block; border-radius: 4px; color: #c0c0c0;">${doc.path}</code>
+                        <p style="color: #808080; margin-top: 20px; font-size: 13px;">
+                            [Browser Mode] Opening folders requires the desktop app.
+                        </p>
+                    `);
+                    return;
+                }
+
+                try {
+                    await invoke('open_path', { path: doc.path });
+                    Terminal.success(`Opened: ${doc.title}`);
+                } catch (e) {
+                    Terminal.error(`Failed to open ${doc.title}: ${e}`);
+                }
+            }
+        };
+
+        // ==================== AGENT CONTROLLER ====================
+        const Agents = {
+            activate(agentId) {
+                const messages = {
+                    'qc-report-writer': 'QC Report Writer activated. I can help generate daily QC reports.',
+                    'submittal-reviewer': 'Submittal Reviewer activated. Ready to check spec compliance.',
+                    'deficiency-tracker': 'Deficiency Tracker activated. Ready to manage open items.',
+                    'rms-assistant': 'RMS Assistant activated. Ready to help with RMS 3.0.'
+                };
+                ChatAssistant.addMessage('assistant', messages[agentId] || `${agentId} activated.`);
+                showNotification(`${agentId} activated`, 'info');
+            },
+            deploy(agentId) {
+                showNotification(`Deploying ${agentId}...`, 'info');
+                console.log(`Deploy agent: ${agentId}`);
+            }
+        };
+
+        // ==================== CHAT ASSISTANT ====================
+        const ChatAssistant = {
+            messages: [],
+            isLoading: false,
+
+            init() {
+                this.addMessage('assistant', 'I\'m your Quality Control specialist. I can help with QC reports, submittals, three-phase control, RMS 3.0, and USACE compliance. What would you like to work on?');
+            },
+
+            async send() {
+                const input = document.getElementById('chat-input');
+                const message = input.value.trim();
+                if (!message || this.isLoading) return;
+
+                this.addMessage('user', message);
+                input.value = '';
+                this.setLoading(true);
+
+                try {
+                    const invoke = getInvoke();
+                    let response;
+
+                    if (invoke) {
+                        response = await invoke('chat_with_claude', {
+                            message: message,
+                            context: 'You are a Quality Control specialist for federal construction contracts. Help with QC reports, submittals, three-phase control, inspections, and USACE/RMS compliance.'
+                        });
+                    } else {
+                        response = 'Chat requires the desktop app for full functionality.';
+                    }
+                    this.addMessage('assistant', response);
+                } catch (error) {
+                    this.addMessage('assistant', `Error: ${error}`);
+                }
+                this.setLoading(false);
+            },
+
+            addMessage(role, content) {
+                const container = document.getElementById('chat-messages');
+                const msgEl = document.createElement('div');
+                msgEl.className = `chat-message ${role}`;
+                msgEl.innerHTML = `
+                    <div class="message-avatar">${role === 'user' ? 'B' : 'T'}</div>
+                    <div class="message-content"><div class="message-text">${this.escapeHtml(content)}</div></div>
+                `;
+                container.appendChild(msgEl);
+                container.scrollTop = container.scrollHeight;
+                this.messages.push({ role, content });
+            },
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            },
+
+            setLoading(loading) {
+                this.isLoading = loading;
+                document.getElementById('btn-send').disabled = loading;
+                const container = document.getElementById('chat-messages');
+                const existing = document.getElementById('typing-indicator');
+
+                if (loading && !existing) {
+                    const indicator = document.createElement('div');
+                    indicator.id = 'typing-indicator';
+                    indicator.className = 'chat-message assistant';
+                    indicator.innerHTML = `
+                        <div class="message-avatar">T</div>
+                        <div class="message-content"><div class="typing-indicator"><span></span><span></span><span></span></div></div>
+                    `;
+                    container.appendChild(indicator);
+                    container.scrollTop = container.scrollHeight;
+                } else if (!loading && existing) {
+                    existing.remove();
+                }
+            },
+
+            clear() {
+                this.messages = [];
+                document.getElementById('chat-messages').innerHTML = '';
+                this.init();
+            }
+        };
+
+        // ==================== AGENT RUNNER ====================
+        const AgentRunner = {
+            isRunning: false,
+
+            async run() {
+                if (this.isRunning) return;
+
+                const skill = document.getElementById('agent-skill').value;
+                const query = document.getElementById('agent-query').value.trim();
+                const externalMode = document.getElementById('research-external').checked;
+                const internalMode = document.getElementById('research-internal').checked;
+                const resultsDiv = document.getElementById('agent-results');
+
+                if (!query) {
+                    showNotification('Please enter a query', 'warning');
+                    return;
+                }
+
+                this.isRunning = true;
+                resultsDiv.innerHTML = '<div style="color: var(--silver);">Running agent...</div>';
+
+                const invoke = getInvoke();
+                if (!invoke) {
+                    setTimeout(() => {
+                        resultsDiv.innerHTML = `
+                            <div style="margin-bottom: 12px;">
+                                <strong style="color: var(--silver);">Skill:</strong> ${skill}<br>
+                                <strong style="color: var(--silver);">Mode:</strong> ${externalMode ? 'External' : ''} ${internalMode ? 'Internal' : ''}<br>
+                                <strong style="color: var(--silver);">Query:</strong> ${query}
+                            </div>
+                            <div style="color: var(--text-primary);">
+                                [Browser Mode] Agent Runner requires the desktop app for full functionality.
+                            </div>
+                        `;
+                        this.isRunning = false;
+                        showNotification('Agent completed (browser mode)', 'info');
+                    }, 1500);
+                    return;
+                }
+
+                try {
+                    let mode = 'both';
+                    if (externalMode && !internalMode) mode = 'external';
+                    if (!externalMode && internalMode) mode = 'internal';
+
+                    const scriptPath = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\AGENT_RUNNER_TOOL.py';
+                    const result = await invoke('run_python_script', {
+                        scriptPath: scriptPath,
+                        targetPath: JSON.stringify({ skill, query, mode })
+                    });
+
+                    resultsDiv.innerHTML = `<div style="color: var(--success);">${result}</div>`;
+                    showNotification('Agent completed', 'info');
+                } catch (error) {
+                    resultsDiv.innerHTML = `<div style="color: var(--error);">Error: ${error}</div>`;
+                    showNotification('Agent failed', 'warning');
+                } finally {
+                    this.isRunning = false;
+                }
+            },
+
+            clear() {
+                document.getElementById('agent-query').value = '';
+                document.getElementById('agent-results').innerHTML = 'Results will appear here after running the agent...';
+            }
+        };
+
+        // ==================== INITIALIZATION ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Update greeting and date
+            const hour = new Date().getHours();
+            let greeting = 'Good evening';
+            if (hour < 12) greeting = 'Good morning';
+            else if (hour < 17) greeting = 'Good afternoon';
+            document.getElementById('greeting-text').textContent = greeting;
+
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', options);
+
+            // Initialize chat
+            ChatAssistant.init();
+
+            // ==================== EVENT LISTENERS ====================
+
+            // App launchers
+            document.querySelectorAll('[data-launch]').forEach(el => {
+                el.addEventListener('click', () => Apps.launch(el.dataset.launch));
+            });
+
+            // Script cards
+            document.querySelectorAll('[data-script]').forEach(el => {
+                el.addEventListener('click', () => Scripts.run(el.dataset.script));
+            });
+
+            // Document cards
+            document.querySelectorAll('[data-doc]').forEach(el => {
+                el.addEventListener('click', () => Documents.open(el.dataset.doc));
+            });
+
+            // Agent activate buttons
+            document.querySelectorAll('[data-agent]').forEach(el => {
+                el.addEventListener('click', () => Agents.activate(el.dataset.agent));
+            });
+
+            // Agent deploy buttons
+            document.querySelectorAll('[data-agent-deploy]').forEach(el => {
+                el.addEventListener('click', () => Agents.deploy(el.dataset.agentDeploy));
+            });
+
+            // Chat send
+            document.getElementById('btn-send').addEventListener('click', () => ChatAssistant.send());
+
+            // Chat clear
+            document.getElementById('btn-clear-chat').addEventListener('click', () => ChatAssistant.clear());
+
+            // Chat input enter key
+            document.getElementById('chat-input').addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
-                    QCM.sendMessage();
+                    ChatAssistant.send();
                 }
             });
+
+            // Navigation buttons
+            document.getElementById('btn-top').addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            document.getElementById('btn-hub').addEventListener('click', () => {
+                window.location.href = '../index.html';
+            });
+
+            // Agent Runner buttons
+            document.getElementById('run-agent-btn').addEventListener('click', () => AgentRunner.run());
+            document.getElementById('clear-results-btn').addEventListener('click', () => AgentRunner.clear());
         });
     </script>
 </body>
