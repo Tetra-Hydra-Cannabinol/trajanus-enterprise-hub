@@ -302,33 +302,51 @@
                 </div>
                 <div class="panel-content" id="content-tools">
                 <div class="quick-tools-grid">
-                    <div class="quick-tool" onclick="Hub.launchApp(&#39;word&#39;)">
+                    <!-- Office Apps -->
+                    <div class="quick-tool" data-tooltip="Launch Microsoft Word" onclick="Hub.launchApp('word')">
                         <div class="quick-tool-icon">W</div>
                         <div class="quick-tool-label">Word</div>
                     </div>
-                    <div class="quick-tool" onclick="Hub.launchApp(&#39;excel&#39;)">
+                    <div class="quick-tool" data-tooltip="Launch Microsoft Excel" onclick="Hub.launchApp('excel')">
                         <div class="quick-tool-icon">X</div>
                         <div class="quick-tool-label">Excel</div>
                     </div>
-                    <div class="quick-tool" onclick="Hub.launchApp(&#39;teams&#39;)">
+                    <div class="quick-tool" data-tooltip="Launch Microsoft Teams" onclick="Hub.launchApp('teams')">
                         <div class="quick-tool-icon">T</div>
                         <div class="quick-tool-label">Teams</div>
                     </div>
-                    <div class="quick-tool" onclick="Hub.launchApp(&#39;outlook&#39;)">
+                    <div class="quick-tool" data-tooltip="Launch Microsoft Outlook" onclick="Hub.launchApp('outlook')">
                         <div class="quick-tool-icon">O</div>
                         <div class="quick-tool-label">Outlook</div>
                     </div>
-                    <div class="quick-tool" onclick="Hub.launchApp(&#39;adobe&#39;)">
+                    <div class="quick-tool" data-tooltip="Launch Adobe Acrobat" onclick="Hub.launchApp('adobe')">
                         <div class="quick-tool-icon">A</div>
                         <div class="quick-tool-label">Adobe</div>
                     </div>
-                    <div class="quick-tool" onclick="Hub.launchApp(&#39;calc&#39;)">
+                    <div class="quick-tool" data-tooltip="Launch Calculator" onclick="Hub.launchApp('calc')">
                         <div class="quick-tool-icon">🔢</div>
                         <div class="quick-tool-label">Calc</div>
                     </div>
-                    <div class="quick-tool" onclick="Hub.openEmbedded('https://mail.google.com', 'Gmail')">
+                    <div class="quick-tool" data-tooltip="Open Gmail in browser" onclick="Hub.launchApp('gmail')">
                         <div class="quick-tool-icon">✉</div>
                         <div class="quick-tool-label">Gmail</div>
+                    </div>
+                    <!-- Trajanus Tools -->
+                    <div class="quick-tool" data-tooltip="Ingest documents into Knowledge Base" onclick="Hub.openTool('kb-ingestion')">
+                        <div class="quick-tool-icon">📥</div>
+                        <div class="quick-tool-label">KB Ingest</div>
+                    </div>
+                    <div class="quick-tool" data-tooltip="Convert Markdown to Google Docs" onclick="Hub.openTool('md-converter')">
+                        <div class="quick-tool-icon">📄</div>
+                        <div class="quick-tool-label">MD Convert</div>
+                    </div>
+                    <div class="quick-tool" data-tooltip="Query the Knowledge Base" onclick="Hub.openTool('query-kb')">
+                        <div class="quick-tool-icon">🔍</div>
+                        <div class="quick-tool-label">Query KB</div>
+                    </div>
+                    <div class="quick-tool" data-tooltip="Extract YouTube video transcripts" onclick="Hub.openTool('youtube-transcript')">
+                        <div class="quick-tool-icon">▶</div>
+                        <div class="quick-tool-label">YT Transcript</div>
                     </div>
                 </div>
                 </div>
@@ -804,31 +822,44 @@
             },
 
             async launchApp(app) {
-                try {
-                    const appPaths = {
-                        'word': 'winword',
-                        'excel': 'excel',
-                        'teams': 'ms-teams:',
-                        'outlook': 'outlook',
-                        'adobe': 'acrord32',
-                        'calc': 'calc',
-                        'gmail': 'https://mail.google.com'
-                    };
+                const appPaths = {
+                    'word': 'winword',
+                    'excel': 'excel',
+                    'teams': 'ms-teams:',
+                    'outlook': 'outlook',
+                    'adobe': 'acrord32',
+                    'calc': 'calc',
+                    'gmail': 'https://mail.google.com'
+                };
 
-                    const path = appPaths[app];
-                    if (!path) {
-                        log(`Unknown app: ${app}`, 'warning');
-                        return;
+                const path = appPaths[app];
+                if (!path) {
+                    log(`Unknown app: ${app}`, 'warning');
+                    return;
+                }
+
+                // Get fresh invoke reference
+                const tauriInvoke = getInvoke();
+                if (!tauriInvoke) {
+                    // Fallback for browser mode - open URLs in new tab
+                    if (path.startsWith('http')) {
+                        window.open(path, '_blank');
+                        log(`Opened ${app} in browser`, 'success');
+                    } else {
+                        log(`${app} requires desktop app (Tauri not available)`, 'warning');
                     }
+                    return;
+                }
 
-                    await invoke('open_path', { path: path });
+                try {
+                    await tauriInvoke('open_path', { path: path });
                     log(`Launching ${app}...`, 'success');
                 } catch(e) {
                     log(`Failed to launch ${app}: ${e}`, 'error');
                 }
             },
 
-            // Open external URL in embedded modal webview
+            // Open external URL in embedded modal webview (uses WindowManager)
             async openEmbedded(url, title) {
                 try {
                     if (!invoke) {
@@ -838,22 +869,20 @@
                     // Show loading toast
                     log(`Opening ${title}...`, 'info');
 
-                    // Create embedded modal
-                    const modal = document.createElement('div');
-                    modal.id = 'embedded-modal';
-                    modal.className = 'modal-overlay active';
-                    modal.innerHTML = `
-                        <div class="embedded-modal-content">
-                            <div class="embedded-modal-header">
-                                <h3>${title}</h3>
-                                <button class="modal-close" onclick="Hub.closeEmbedded()">×</button>
-                            </div>
-                            <div class="embedded-modal-body" id="embedded-container">
-                                <div class="embedded-loading">Loading ${title}...</div>
-                            </div>
+                    // Use WindowManager for consistent positioning
+                    const windowId = `embedded-${title.toLowerCase().replace(/\s+/g, '-')}`;
+                    const contentHTML = `
+                        <div class="embedded-modal-body" id="embedded-container">
+                            <div class="embedded-loading">Loading ${title}...</div>
                         </div>
                     `;
-                    document.body.appendChild(modal);
+                    WindowManager.open(windowId, title, contentHTML);
+
+                    // Store reference for closeEmbedded
+                    this._currentEmbeddedId = windowId;
+
+                    // Small delay to ensure window is rendered
+                    await new Promise(r => setTimeout(r, 50));
 
                     // Get container position for webview
                     const container = document.getElementById('embedded-container');
@@ -876,10 +905,265 @@
             },
 
             closeEmbedded() {
-                const modal = document.getElementById('embedded-modal');
-                if (modal) modal.remove();
+                if (this._currentEmbeddedId) {
+                    WindowManager.close(this._currentEmbeddedId);
+                    this._currentEmbeddedId = null;
+                }
                 if (invoke) {
                     invoke('close_embedded').catch(() => {});
+                }
+            },
+
+            // Open Trajanus tool windows
+            openTool(toolId) {
+                const tools = {
+                    'kb-ingestion': {
+                        title: 'KB Ingestion',
+                        content: `
+                            <div class="tool-panel">
+                                <div class="tool-section">
+                                    <h3>Knowledge Base Ingestion</h3>
+                                    <p>Ingest documents into the Trajanus Knowledge Base.</p>
+                                </div>
+                                <div class="tool-section">
+                                    <label>Source Folder</label>
+                                    <div class="input-row">
+                                        <input type="text" id="kb-source-path" placeholder="Select folder..." readonly>
+                                        <button class="tool-btn" onclick="Hub.browseFolder('kb-source-path')">Browse</button>
+                                    </div>
+                                </div>
+                                <div class="tool-section">
+                                    <label>Category</label>
+                                    <select id="kb-category">
+                                        <option value="session">Session Files</option>
+                                        <option value="protocol">Protocols</option>
+                                        <option value="reference">Reference Docs</option>
+                                        <option value="code">Code Examples</option>
+                                    </select>
+                                </div>
+                                <div class="tool-actions">
+                                    <button class="tool-btn primary" onclick="Hub.runKBIngestion()">Start Ingestion</button>
+                                </div>
+                                <div class="tool-output" id="kb-output"></div>
+                            </div>
+                        `
+                    },
+                    'md-converter': {
+                        title: 'MD Converter',
+                        content: `
+                            <div class="tool-panel">
+                                <div class="tool-section">
+                                    <h3>Markdown to Google Docs Converter</h3>
+                                    <p>Convert .md files to Google Docs format.</p>
+                                </div>
+                                <div class="tool-section">
+                                    <label>Source File or Folder</label>
+                                    <div class="input-row">
+                                        <input type="text" id="md-source-path" placeholder="Select file or folder..." readonly>
+                                        <button class="tool-btn" onclick="Hub.browseFolder('md-source-path')">Browse</button>
+                                    </div>
+                                </div>
+                                <div class="tool-actions">
+                                    <button class="tool-btn primary" onclick="Hub.runMDConverter()">Convert</button>
+                                </div>
+                                <div class="tool-output" id="md-output"></div>
+                            </div>
+                        `
+                    },
+                    'query-kb': {
+                        title: 'Query KB',
+                        content: `
+                            <div class="tool-panel">
+                                <div class="tool-section">
+                                    <h3>Query Knowledge Base</h3>
+                                    <p>Search the Trajanus Knowledge Base.</p>
+                                </div>
+                                <div class="tool-section">
+                                    <label>Search Query</label>
+                                    <input type="text" id="kb-query" placeholder="Enter search terms...">
+                                </div>
+                                <div class="tool-section">
+                                    <label>Max Results</label>
+                                    <select id="kb-max-results">
+                                        <option value="5">5</option>
+                                        <option value="10" selected>10</option>
+                                        <option value="20">20</option>
+                                    </select>
+                                </div>
+                                <div class="tool-actions">
+                                    <button class="tool-btn primary" onclick="Hub.runKBQuery()">Search</button>
+                                </div>
+                                <div class="tool-output" id="query-output"></div>
+                            </div>
+                        `
+                    },
+                    'youtube-transcript': {
+                        title: 'YouTube Transcript',
+                        content: `
+                            <div class="tool-panel">
+                                <div class="tool-section">
+                                    <h3>YouTube Transcript Extractor</h3>
+                                    <p>Extract transcripts from YouTube videos.</p>
+                                </div>
+                                <div class="tool-section">
+                                    <label>YouTube URL</label>
+                                    <input type="text" id="yt-url" placeholder="https://youtube.com/watch?v=...">
+                                </div>
+                                <div class="tool-actions">
+                                    <button class="tool-btn primary" onclick="Hub.runYTTranscript()">Extract Transcript</button>
+                                </div>
+                                <div class="tool-output" id="yt-output"></div>
+                            </div>
+                        `
+                    }
+                };
+
+                const tool = tools[toolId];
+                if (!tool) {
+                    log(`Unknown tool: ${toolId}`, 'warning');
+                    return;
+                }
+
+                WindowManager.open(toolId, tool.title, tool.content);
+                log(`Opened ${tool.title}`, 'success');
+            },
+
+            // Tool execution methods
+            async browseFolder(inputId) {
+                // For now, prompt user for path - full file picker requires Tauri dialog plugin
+                const path = prompt('Enter folder path:');
+                if (path) {
+                    document.getElementById(inputId).value = path;
+                }
+            },
+
+            async runKBIngestion() {
+                const sourcePath = document.getElementById('kb-source-path')?.value;
+                const category = document.getElementById('kb-category')?.value;
+                const output = document.getElementById('kb-output');
+
+                if (!sourcePath) {
+                    log('Please select a source folder', 'warning');
+                    return;
+                }
+
+                const tauriInvoke = getInvoke();
+                if (!tauriInvoke) {
+                    output.innerHTML = '<div class="error">Requires desktop app (Tauri not available)</div>';
+                    log('KB Ingestion requires desktop app', 'warning');
+                    return;
+                }
+
+                output.innerHTML = '<div class="loading">Processing...</div>';
+
+                try {
+                    const scriptPath = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\BATCH_INGEST_TOOL.py';
+                    const result = await tauriInvoke('run_python_script', {
+                        scriptPath: scriptPath,
+                        targetPath: sourcePath
+                    });
+                    output.innerHTML = `<div class="success">Ingestion complete: ${result}</div>`;
+                    log('KB Ingestion complete', 'success');
+                } catch (e) {
+                    output.innerHTML = `<div class="error">Error: ${e}</div>`;
+                    log('KB Ingestion failed: ' + e, 'error');
+                }
+            },
+
+            async runMDConverter() {
+                const sourcePath = document.getElementById('md-source-path')?.value;
+                const output = document.getElementById('md-output');
+
+                if (!sourcePath) {
+                    log('Please select a source file or folder', 'warning');
+                    return;
+                }
+
+                const tauriInvoke = getInvoke();
+                if (!tauriInvoke) {
+                    output.innerHTML = '<div class="error">Requires desktop app (Tauri not available)</div>';
+                    log('MD Converter requires desktop app', 'warning');
+                    return;
+                }
+
+                output.innerHTML = '<div class="loading">Converting...</div>';
+
+                try {
+                    const scriptPath = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\CONVERT_MD_TO_GDOCS_PERMANENT.py';
+                    const result = await tauriInvoke('run_python_script', {
+                        scriptPath: scriptPath,
+                        targetPath: sourcePath
+                    });
+                    output.innerHTML = `<div class="success">Conversion complete: ${result}</div>`;
+                    log('MD Converter complete', 'success');
+                } catch (e) {
+                    output.innerHTML = `<div class="error">Error: ${e}</div>`;
+                    log('MD Converter failed: ' + e, 'error');
+                }
+            },
+
+            async runKBQuery() {
+                const query = document.getElementById('kb-query')?.value;
+                const maxResults = document.getElementById('kb-max-results')?.value || 10;
+                const output = document.getElementById('query-output');
+
+                if (!query) {
+                    log('Please enter a search query', 'warning');
+                    return;
+                }
+
+                const tauriInvoke = getInvoke();
+                if (!tauriInvoke) {
+                    output.innerHTML = '<div class="error">Requires desktop app (Tauri not available)</div>';
+                    log('KB Query requires desktop app', 'warning');
+                    return;
+                }
+
+                output.innerHTML = '<div class="loading">Searching...</div>';
+
+                try {
+                    const scriptPath = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\QUERY_KB_TOOL.py';
+                    const result = await tauriInvoke('run_python_script', {
+                        scriptPath: scriptPath,
+                        targetPath: query
+                    });
+                    output.innerHTML = `<div class="success">${result}</div>`;
+                    log('KB Query complete', 'success');
+                } catch (e) {
+                    output.innerHTML = `<div class="error">Error: ${e}</div>`;
+                    log('KB Query failed: ' + e, 'error');
+                }
+            },
+
+            async runYTTranscript() {
+                const url = document.getElementById('yt-url')?.value;
+                const output = document.getElementById('yt-output');
+
+                if (!url) {
+                    log('Please enter a YouTube URL', 'warning');
+                    return;
+                }
+
+                const tauriInvoke = getInvoke();
+                if (!tauriInvoke) {
+                    output.innerHTML = '<div class="error">Requires desktop app (Tauri not available)</div>';
+                    log('YT Transcript requires desktop app', 'warning');
+                    return;
+                }
+
+                output.innerHTML = '<div class="loading">Extracting transcript...</div>';
+
+                try {
+                    const scriptPath = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\YOUTUBE_TRANSCRIPT_TOOL.py';
+                    const result = await tauriInvoke('run_python_script', {
+                        scriptPath: scriptPath,
+                        targetPath: url
+                    });
+                    output.innerHTML = `<div class="success">${result}</div>`;
+                    log('YT Transcript complete', 'success');
+                } catch (e) {
+                    output.innerHTML = `<div class="error">Error: ${e}</div>`;
+                    log('YT Transcript failed: ' + e, 'error');
                 }
             }
         };
@@ -1164,6 +1448,201 @@
         }
 
         // ============================================
+        // NAVIGATION - Close embedded webviews before leaving
+        // ============================================
+        window.addEventListener('beforeunload', async () => {
+            const tauriInvoke = getInvoke();
+            if (tauriInvoke && claudeEmbedActive) {
+                try {
+                    await tauriInvoke('close_embedded');
+                } catch (e) {
+                    console.log('Error closing embedded on unload:', e);
+                }
+            }
+        });
+
+        // Intercept all navigation links to close webviews first
+        document.addEventListener('click', async (e) => {
+            const link = e.target.closest('a[href]');
+            if (link && !link.href.includes('#') && claudeEmbedActive) {
+                e.preventDefault();
+                const tauriInvoke = getInvoke();
+                if (tauriInvoke) {
+                    try {
+                        await tauriInvoke('close_embedded');
+                        claudeEmbedActive = false;
+                    } catch (err) {
+                        console.log('Error closing embedded:', err);
+                    }
+                }
+                // Navigate after closing
+                window.location.href = link.href;
+            }
+        });
+
+        // ============================================
+        // TRAJANUS WINDOW MANAGER - Phase 1.2
+        // Ensures ALL windows open in SAME position, EVERY time
+        // ============================================
+
+        const WindowManager = {
+            // Standard dimensions for ALL windows
+            defaultSize: { width: '90%', height: '90%' },
+            defaultPosition: { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' },
+            zIndexBase: 1000,
+            activeWindows: [],
+
+            /**
+             * Opens a Trajanus-styled window with branded header
+             * @param {string} id - Unique identifier for the window
+             * @param {string} title - Title displayed in the hero bar
+             * @param {string} content - HTML content for the window body
+             * @param {object} options - Optional overrides (rarely used)
+             * @returns {HTMLElement} The window element
+             */
+            open(id, title, content, options = {}) {
+                // Remove existing window with same ID if present
+                this.close(id);
+
+                // Calculate z-index for this window
+                const zIndex = this.zIndexBase + (this.activeWindows.length * 2);
+
+                // Create overlay
+                const overlay = document.createElement('div');
+                overlay.className = 'trajanus-window-overlay';
+                overlay.id = `trajanus-overlay-${id}`;
+                overlay.style.zIndex = zIndex;
+                overlay.addEventListener('click', () => this.close(id));
+
+                // Create window with ENFORCED position and size
+                const win = document.createElement('div');
+                win.className = 'trajanus-window';
+                win.id = `window-${id}`;
+
+                // ENFORCE position - ALWAYS centered, ALWAYS 90%
+                win.style.cssText = `
+                    position: fixed;
+                    top: ${this.defaultPosition.top};
+                    left: ${this.defaultPosition.left};
+                    transform: ${this.defaultPosition.transform};
+                    width: ${this.defaultSize.width};
+                    height: ${this.defaultSize.height};
+                    z-index: ${zIndex + 1};
+                `;
+
+                win.innerHTML = `
+                    <div class="trajanus-window-hero">
+                        <div class="trajanus-window-brand">
+                            <span class="trajanus-mark">▪</span>
+                            <span class="trajanus-title">TRAJANUS</span>
+                            <span class="trajanus-separator">|</span>
+                            <span class="window-title">${title}</span>
+                        </div>
+                        <div class="trajanus-window-controls">
+                            <button class="win-ctrl minimize" title="Minimize">_</button>
+                            <button class="win-ctrl maximize" title="Maximize">□</button>
+                            <button class="win-ctrl close" title="Close">×</button>
+                        </div>
+                    </div>
+                    <div class="trajanus-window-content">
+                        ${content}
+                    </div>
+                `;
+
+                // Add to DOM
+                document.body.appendChild(overlay);
+                document.body.appendChild(win);
+
+                // Track this window
+                this.activeWindows.push({ id, title, overlay, win, zIndex });
+
+                // Attach event handlers
+                win.querySelector('.win-ctrl.close').addEventListener('click', () => this.close(id));
+                win.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.bringToFront(id);
+                });
+
+                // Activate with slight delay for animation
+                requestAnimationFrame(() => {
+                    overlay.classList.add('active');
+                    win.classList.add('active');
+                });
+
+                log(`Opened window: ${title}`, 'info');
+                return win;
+            },
+
+            /**
+             * Closes a window by ID
+             * @param {string} id - The window identifier
+             */
+            close(id) {
+                const overlay = document.getElementById(`trajanus-overlay-${id}`);
+                const win = document.getElementById(`window-${id}`);
+
+                if (overlay) {
+                    overlay.classList.remove('active');
+                    setTimeout(() => overlay.remove(), 200);
+                }
+
+                if (win) {
+                    win.classList.remove('active');
+                    setTimeout(() => win.remove(), 200);
+                    log(`Closed window: ${id}`, 'info');
+                }
+
+                // Remove from tracking array
+                this.activeWindows = this.activeWindows.filter(w => w.id !== id);
+            },
+
+            /**
+             * Brings a window to the front (highest z-index)
+             * @param {string} id - The window identifier
+             */
+            bringToFront(id) {
+                const windowData = this.activeWindows.find(w => w.id === id);
+                if (!windowData) return;
+
+                // Get max z-index from all windows
+                const maxZ = Math.max(...this.activeWindows.map(w => w.zIndex), this.zIndexBase);
+                const newZ = maxZ + 2;
+
+                // Update z-index
+                windowData.zIndex = newZ;
+                windowData.overlay.style.zIndex = newZ;
+                windowData.win.style.zIndex = newZ + 1;
+            },
+
+            /**
+             * Closes all open windows
+             */
+            closeAll() {
+                // Create copy of array since close() modifies it
+                const windowIds = this.activeWindows.map(w => w.id);
+                windowIds.forEach(id => this.close(id));
+                log('Closed all windows', 'info');
+            },
+
+            /**
+             * Gets list of active window IDs
+             * @returns {string[]} Array of window IDs
+             */
+            getActiveWindows() {
+                return this.activeWindows.map(w => w.id);
+            }
+        };
+
+        // Legacy function aliases for backward compatibility
+        function openTrajanusWindow(id, title, contentHTML) {
+            return WindowManager.open(id, title, contentHTML);
+        }
+
+        function closeTrajanusWindow(id) {
+            WindowManager.close(id);
+        }
+
+        // ============================================
         // INITIALIZATION
         // ============================================
         document.addEventListener('DOMContentLoaded', () => {
@@ -1259,6 +1738,300 @@
             border-color: #4CAF50 !important;
             color: #4CAF50 !important;
             box-shadow: 0 0 8px rgba(76, 175, 80, 0.4);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           TRAJANUS WINDOW FRAME COMPONENT - BLACK/SILVER
+           Colors: #c0c0c0 silver, #1a1a1a background
+           ═══════════════════════════════════════════════════════════════ */
+
+        .trajanus-window-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+
+        .trajanus-window-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .trajanus-window {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            height: 90%;
+            background: #1a1a1a;
+            border: 2px solid #c0c0c0;
+            border-radius: 8px;
+            box-shadow: 0 0 40px rgba(192, 192, 192, 0.3), 0 20px 60px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+
+        .trajanus-window.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .trajanus-window-hero {
+            height: 36px;
+            max-height: 36px;
+            min-height: 36px;
+            background: linear-gradient(180deg, #3d3d3d 0%, #2d2d2d 100%);
+            border-bottom: 1px solid #c0c0c0;
+            border-radius: 6px 6px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+            flex-shrink: 0;
+        }
+
+        .trajanus-window-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #c0c0c0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .trajanus-mark {
+            font-size: 10px;
+            color: #c0c0c0;
+        }
+
+        .trajanus-title {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #e0e0e0;
+        }
+
+        .trajanus-separator {
+            font-size: 11px;
+            color: #808080;
+            margin: 0 4px;
+        }
+
+        .window-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: #e0e0e0;
+        }
+
+        .trajanus-window-controls {
+            display: flex;
+            gap: 6px;
+        }
+
+        .trajanus-window-controls .win-ctrl {
+            width: 24px;
+            height: 24px;
+            border: none;
+            border-radius: 4px;
+            background: rgba(45, 45, 45, 0.2);
+            color: #2d2d2d;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s ease;
+        }
+
+        .trajanus-window-controls .win-ctrl:hover {
+            background: rgba(45, 45, 45, 0.35);
+        }
+
+        .trajanus-window-controls .win-ctrl.close:hover {
+            background: #c0392b;
+            color: #fff;
+        }
+
+        .trajanus-window-content {
+            flex: 1;
+            overflow: auto;
+            padding: 16px;
+            background: #2d2d2d;
+            border-radius: 0 0 6px 6px;
+            color: #e0e0e0;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           TOOL PANEL STYLES - BLACK/SILVER
+           Silver: #c0c0c0, Black: #1a1a1a, Panel: #2d2d2d
+           ═══════════════════════════════════════════════════════════════ */
+
+        .tool-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .tool-section {
+            background: #2d2d2d;
+            padding: 16px;
+            border-radius: 6px;
+            border: 1px solid #4a4a4a;
+        }
+
+        .tool-section h3 {
+            color: #c0c0c0;
+            margin: 0 0 8px 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .tool-section p {
+            color: #b0b0b0;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .tool-section label {
+            display: block;
+            color: #c0c0c0;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tool-section input,
+        .tool-section select {
+            width: 100%;
+            padding: 10px 12px;
+            background: #1a1a1a;
+            border: 1px solid #4a4a4a;
+            border-radius: 4px;
+            color: #ffffff;
+            font-size: 14px;
+        }
+
+        .tool-section input:focus,
+        .tool-section select:focus {
+            outline: none;
+            border-color: #c0c0c0;
+        }
+
+        .tool-section select option {
+            background: #1a1a1a;
+            color: #ffffff;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .input-row input {
+            flex: 1;
+        }
+
+        .tool-btn {
+            padding: 10px 20px;
+            border: 1px solid #4a4a4a;
+            border-radius: 4px;
+            background: #2d2d2d;
+            color: #ffffff;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.15s ease;
+        }
+
+        .tool-btn:hover {
+            background: #3d3d3d;
+            border-color: #c0c0c0;
+        }
+
+        .tool-btn.primary {
+            background: #c0c0c0;
+            color: #1a1a1a;
+            border-color: #c0c0c0;
+            font-weight: 600;
+        }
+
+        .tool-btn.primary:hover {
+            background: #e0e0e0;
+        }
+
+        .tool-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .tool-output {
+            background: #1a1a1a;
+            border: 1px solid #3d3d3d;
+            border-radius: 4px;
+            padding: 16px;
+            min-height: 100px;
+            max-height: 300px;
+            overflow: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 13px;
+        }
+
+        .tool-output .loading {
+            color: #c0c0c0;
+        }
+
+        .tool-output .success {
+            color: #4ade80;
+        }
+
+        .tool-output .error {
+            color: #f87171;
+        }
+
+        /* Tooltip styles for buttons */
+        [data-tooltip] {
+            position: relative;
+        }
+
+        [data-tooltip]:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 6px 10px;
+            background: #1d1d1d;
+            color: #ffffff;
+            font-size: 12px;
+            border-radius: 4px;
+            white-space: nowrap;
+            z-index: 9999;
+            margin-bottom: 6px;
+            border: 1px solid #c0c0c0;
+        }
+
+        [data-tooltip]:hover::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #c0c0c0;
+            z-index: 9999;
         }
     </style>
 

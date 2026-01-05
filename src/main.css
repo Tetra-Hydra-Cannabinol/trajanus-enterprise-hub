@@ -1,23 +1,28 @@
 /* Trajanus Enterprise Hub - Main Styles */
 /* Engineered Intelligence (EI) Design System */
 
-/* ==================== COLOR PALETTE - NAVY/SILVER ==================== */
+/* ==================== COLOR PALETTE - TRAJANUS BLACK/SILVER ==================== */
 :root {
-    /* Backgrounds - Navy */
-    --bg-base: #0a0f14;
-    --bg-surface: #0d1b2a;
-    --bg-card: #1a2d42;
-    --bg-elevated: #243447;
-    --bg-hover: #2d4a6a;
-    --bg-input: #0d1b2a;
+    /* Backgrounds - Pure Black */
+    --bg-base: #1a1a1a;
+    --bg-surface: #2d2d2d;
+    --bg-card: #3d3d3d;
+    --bg-elevated: #4d4d4d;
+    --bg-hover: #5d5d5d;
+    --bg-input: #2d2d2d;
 
     /* Accent - Silver */
     --accent: #c0c0c0;
     --accent-bright: #e0e0e0;
-    --accent-dim: #808080;
-    --accent-hover: #f0f0f0;
+    --accent-dim: #a0a0a0;
+    --accent-hover: #ffffff;
 
-    /* Legacy aliases (for compatibility) */
+    /* Silver aliases */
+    --silver: #c0c0c0;
+    --silver-light: #e0e0e0;
+    --silver-dark: #a0a0a0;
+
+    /* Legacy aliases (mapped to silver) */
     --accent-gold: #c0c0c0;
     --accent-gold-bright: #e0e0e0;
 
@@ -25,15 +30,15 @@
     --text-white: #ffffff;
     --text-light: #f5f5f5;
     --text-gold: #c0c0c0;
-    --text-muted: #8892a0;
+    --text-muted: #b0b0b0;
 
     /* Status */
-    --status-success: #4a9f4a;
-    --status-warning: #c4944a;
-    --status-error: #c44a4a;
+    --status-success: #4ade80;
+    --status-warning: #f59e0b;
+    --status-error: #f87171;
 
     /* Borders */
-    --border-subtle: #2d4a6a;
+    --border-subtle: #4a4a4a;
     --border-accent: #c0c0c0;
 
     /* Spacing */
@@ -247,7 +252,8 @@ a:hover {
 
 /* ==================== WELCOME SECTION ==================== */
 .welcome-section {
-    background: var(--bg-card);
+    background: var(--bg-base);
+    border: 1px solid var(--border-subtle);
     border-radius: 8px;
     padding: var(--space-xl);
     margin-bottom: var(--space-xl);
@@ -299,8 +305,8 @@ a:hover {
 
 .platform-card {
     display: block;
-    background: var(--bg-card);
-    border: 1px solid var(--bg-elevated);
+    background: var(--bg-base);
+    border: 1px solid var(--border-subtle);
     border-left: 3px solid var(--accent-gold);
     padding: var(--space-lg);
     text-decoration: none;
@@ -309,7 +315,8 @@ a:hover {
 }
 
 .platform-card:hover {
-    background: var(--bg-elevated);
+    background: var(--bg-surface);
+    border-color: var(--accent-gold);
     border-left-width: 5px;
     transform: translateX(4px);
 }
@@ -364,7 +371,8 @@ a:hover {
 }
 
 .project-card {
-    background: var(--bg-card);
+    background: var(--bg-base);
+    border: 1px solid var(--border-subtle);
     border-radius: 8px;
     padding: var(--space-lg);
     border-left: 3px solid var(--accent-gold);
@@ -418,7 +426,7 @@ a:hover {
 
 /* ==================== TOOL BUTTONS ==================== */
 .tool-button {
-    background: var(--bg-card);
+    background: var(--bg-base);
     color: var(--text-white);
     border: 1px solid var(--accent-gold);
     padding: 12px 24px;
@@ -467,7 +475,7 @@ a:hover {
 }
 
 .quick-tool {
-    background: var(--bg-card);
+    background: var(--bg-base);
     border: 1px solid var(--border-subtle);
     border-radius: 8px;
     padding: var(--space-lg) var(--space-xl);
@@ -478,7 +486,7 @@ a:hover {
 }
 
 .quick-tool:hover {
-    background: var(--bg-elevated);
+    background: var(--bg-surface);
     border-color: var(--accent-gold);
 }
 
@@ -496,9 +504,9 @@ a:hover {
 /* ==================== PANEL SYSTEM ==================== */
 .panel-section {
     margin-bottom: var(--space-lg);
-    border: 1px solid var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
     border-radius: 8px;
-    background: var(--bg-card);
+    background: var(--bg-base);
     overflow: hidden;
 }
 
@@ -620,8 +628,8 @@ a:hover {
     display: flex;
     flex-direction: column;
     height: 400px;
-    background: var(--bg-card);
-    border: 1px solid var(--bg-elevated);
+    background: var(--bg-base);
+    border: 1px solid var(--border-subtle);
     border-radius: 8px;
     overflow: hidden;
 }
@@ -895,7 +903,8 @@ a:hover {
 }
 
 .workspace-content {
-    background: var(--bg-card);
+    background: var(--bg-base);
+    border: 1px solid var(--border-subtle);
     border-radius: 8px;
     padding: var(--space-xl);
     min-height: 400px;
@@ -922,8 +931,8 @@ a:hover {
 }
 
 .panel {
-    background: var(--bg-card);
-    border: 1px solid var(--bg-elevated);
+    background: var(--bg-base);
+    border: 1px solid var(--border-subtle);
     border-radius: 8px;
     display: flex;
     flex-direction: column;
@@ -1316,8 +1325,8 @@ a:hover {
 }
 
 .modal-content {
-  background: var(--bg-card);
-  border: 1px solid var(--accent-dim);
+  background: var(--bg-base);
+  border: 1px solid var(--border-subtle);
   border-radius: 8px;
   padding: 24px;
   width: 400px;
@@ -1437,8 +1446,8 @@ a:hover {
 }
 
 .embedded-modal-content {
-  background: var(--bg-card);
-  border: 1px solid var(--accent-dim);
+  background: var(--bg-base);
+  border: 1px solid var(--border-subtle);
   border-radius: 8px;
   width: 90vw;
   height: 85vh;

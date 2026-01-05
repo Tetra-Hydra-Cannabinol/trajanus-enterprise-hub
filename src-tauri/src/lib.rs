@@ -1,10 +1,16 @@
 use std::fs;
 use std::path::Path;
 use std::process::Command;
+#[cfg(windows)]
+use std::os::windows::process::CommandExt;
 use tauri_plugin_shell::ShellExt;
 use tauri::{Manager, WebviewBuilder, WebviewUrl, LogicalPosition, LogicalSize};
 use serde::{Serialize, Deserialize};
 use reqwest::Client;
+
+// Windows flag to hide console window
+#[cfg(windows)]
+const CREATE_NO_WINDOW: u32 = 0x08000000;
 
 #[derive(Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -144,10 +150,14 @@ fn git_push(path: String) -> Result<String, String> {
 
 #[tauri::command]
 fn run_powershell_script(script_path: String) -> Result<String, String> {
-    let output = Command::new("powershell")
-        .args(["-ExecutionPolicy", "Bypass", "-File", &script_path])
-        .output()
-        .map_err(|e| e.to_string())?;
+    let mut cmd = Command::new("powershell");
+    cmd.args(["-WindowStyle", "Hidden", "-ExecutionPolicy", "Bypass", "-File", &script_path]);
+
+    // On Windows, hide the console window
+    #[cfg(windows)]
+    cmd.creation_flags(CREATE_NO_WINDOW);
+
+    let output = cmd.output().map_err(|e| e.to_string())?;
 
     if !output.status.success() {
         return Err(String::from_utf8_lossy(&output.stderr).to_string());
@@ -163,23 +173,43 @@ fn run_python_script(script_path: String, target_path: Option<String>) -> Result
         return Err(format!("Script not found: {}", script_path));
     }
 
-    // Build command
-    let mut cmd = Command::new("cmd");
-    cmd.arg("/k").arg("python").arg(&script_path);
+    // Use python.exe (not pythonw) to capture output
+    let mut cmd = Command::new("python");
+    cmd.arg(&script_path);
 
     // Add target path as argument if provided
     if let Some(target) = &target_path {
         cmd.arg(target);
     }
 
-    // Set working directory and spawn
-    cmd.current_dir(Path::new(&script_path).parent().unwrap_or(Path::new(".")))
-        .spawn()
+    // Set working directory
+    cmd.current_dir(Path::new(&script_path).parent().unwrap_or(Path::new(".")));
+
+    // On Windows, hide the console window but still capture output
+    #[cfg(windows)]
+    cmd.creation_flags(CREATE_NO_WINDOW);
+
+    // Execute and capture output (blocking)
+    let output = cmd.output()
         .map_err(|e| format!("Failed to execute: {}", e))?;
 
-    match target_path {
-        Some(target) => Ok(format!("Launched: {} with target: {}", script_path, target)),
-        None => Ok(format!("Launched: {}", script_path)),
+    let stdout = String::from_utf8_lossy(&output.stdout).to_string();
+    let stderr = String::from_utf8_lossy(&output.stderr).to_string();
+
+    if !output.status.success() {
+        if !stderr.is_empty() {
+            return Err(format!("Script error:\n{}", stderr));
+        }
+        return Err(format!("Script failed with exit code: {:?}", output.status.code()));
+    }
+
+    // Return stdout, or stderr if stdout is empty
+    if !stdout.is_empty() {
+        Ok(stdout)
+    } else if !stderr.is_empty() {
+        Ok(format!("[stderr]\n{}", stderr))
+    } else {
+        Ok("Script completed (no output)".to_string())
     }
 }
 
