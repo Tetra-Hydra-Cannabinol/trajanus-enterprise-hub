@@ -1,45 +1,54 @@
 /* Trajanus Enterprise Hub - Main Styles */
 /* Engineered Intelligence (EI) Design System */
 
-/* ==================== COLOR PALETTE - TRAJANUS BLACK/SILVER ==================== */
+/* ==================== COLOR PALETTE - TRAJANUS BLACK/GOLD/SILVER ==================== */
 :root {
     /* Backgrounds - Pure Black */
-    --bg-base: #1a1a1a;
-    --bg-surface: #2d2d2d;
-    --bg-card: #3d3d3d;
-    --bg-elevated: #4d4d4d;
-    --bg-hover: #5d5d5d;
-    --bg-input: #2d2d2d;
+    --bg-base: #0a0a0a;
+    --bg-surface: #0a0a0a;
+    --bg-card: #0a0a0a;
+    --bg-elevated: #1a1a1a;
+    --bg-hover: #2a2a2a;
+    --bg-input: #1a1a1a;
 
-    /* Accent - Silver */
+    /* Primary Accent - Gold */
+    --gold: #d4af37;
+    --gold-light: #f4cf57;
+    --gold-dark: #b4942f;
+    --accent-gold: #d4af37;
+    --accent-gold-bright: #f4cf57;
+
+    /* Secondary Accent - Silver */
     --accent: #c0c0c0;
     --accent-bright: #e0e0e0;
     --accent-dim: #a0a0a0;
     --accent-hover: #ffffff;
-
-    /* Silver aliases */
     --silver: #c0c0c0;
     --silver-light: #e0e0e0;
     --silver-dark: #a0a0a0;
 
-    /* Legacy aliases (mapped to silver) */
-    --accent-gold: #c0c0c0;
-    --accent-gold-bright: #e0e0e0;
+    /* Tertiary - Blue (for interactive elements) */
+    --blue: #4a90d9;
+    --blue-light: #6ab0f9;
+    --blue-dark: #3a70b9;
 
     /* Text */
     --text-white: #ffffff;
-    --text-light: #f5f5f5;
-    --text-gold: #c0c0c0;
-    --text-muted: #b0b0b0;
+    --text-light: #c0c0c0;
+    --text-primary: #c0c0c0;
+    --text-secondary: #c0c0c0;
+    --text-gold: #d4af37;
+    --text-muted: #808080;
 
     /* Status */
     --status-success: #4ade80;
-    --status-warning: #f59e0b;
+    --status-warning: #fbbf24;
     --status-error: #f87171;
+    --status-info: #60a5fa;
 
     /* Borders */
-    --border-subtle: #4a4a4a;
-    --border-accent: #c0c0c0;
+    --border-subtle: #c0c0c0;
+    --border-accent: #d4af37;
 
     /* Spacing */
     --space-xs: 4px;
@@ -127,7 +136,7 @@ a:hover {
     right: 0;
     height: 60px;
     background: var(--bg-base);
-    border-bottom: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--gold);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1180,7 +1189,7 @@ a:hover {
 }
 
 /* ============================================
-   PROJECT SIDEBAR - NAVY/SILVER
+   PROJECT SIDEBAR - BLACK/GOLD/SILVER
    ============================================ */
 .project-sidebar {
   position: fixed;
@@ -1190,7 +1199,7 @@ a:hover {
   width: 280px;
   flex-shrink: 0;
   background: var(--bg-surface);
-  border-right: 1px solid var(--border-subtle);
+  border-right: 1px solid var(--gold);
   overflow-y: auto;
   z-index: 100;
   display: flex;
@@ -1202,11 +1211,11 @@ a:hover {
   justify-content: space-between;
   align-items: center;
   padding: 16px;
-  border-bottom: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--gold);
 }
 
 .sidebar-header h2 {
-  color: var(--accent-bright);
+  color: var(--gold);
   font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 0.1em;
@@ -1214,8 +1223,8 @@ a:hover {
 
 .new-project-btn {
   background: transparent;
-  border: 1px solid var(--accent);
-  color: var(--accent);
+  border: 1px solid var(--gold);
+  color: var(--gold);
   padding: 6px 12px;
   border-radius: 4px;
   font-size: 0.8rem;
@@ -1224,7 +1233,7 @@ a:hover {
 }
 
 .new-project-btn:hover {
-  background: var(--accent);
+  background: var(--gold);
   color: var(--bg-base);
 }
 

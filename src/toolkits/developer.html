@@ -1314,6 +1314,48 @@
             border-color: var(--silver);
             color: var(--silver);
         }
+
+        /* ==================== PLATFORM GUIDANCE SECTION ==================== */
+        /* BLACK/SILVER/GOLD Color Scheme */
+        .guidance-section { padding: 24px 32px; background: #0a0a0a; border-bottom: 1px solid #d4af37; }
+        .guidance-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; cursor: pointer; }
+        .guidance-title { font-size: 16px; font-weight: 600; color: #d4af37; text-transform: uppercase; letter-spacing: 1.5px; }
+        .guidance-toggle { font-size: 14px; color: #c0c0c0; transition: transform 0.3s; }
+        .guidance-toggle.collapsed { transform: rotate(180deg); }
+        .guidance-content { display: grid; gap: 24px; transition: all 0.3s ease; }
+        .guidance-content.collapsed { display: none; }
+        .guidance-description { font-size: 14px; color: #c0c0c0; line-height: 1.6; margin-bottom: 8px; padding: 16px; background: #1a1a1a; border-left: 3px solid #d4af37; border-radius: 0 6px 6px 0; }
+        .guidance-tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        @media (max-width: 900px) { .guidance-tools-grid { grid-template-columns: 1fr; } }
+        .guidance-tool-card { background: #0a0a0a; border: 1px solid #c0c0c0; border-radius: 10px; padding: 20px; transition: all 0.2s; }
+        .guidance-tool-card:hover { border-color: #d4af37; transform: translateY(-2px); box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2); }
+        .guidance-tool-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .guidance-tool-icon { font-size: 28px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: #1a1a1a; border-radius: 8px; border: 1px solid #c0c0c0; }
+        .guidance-tool-name { font-size: 15px; font-weight: 600; color: #d4af37; }
+        .guidance-tool-status { font-size: 10px; padding: 3px 8px; border-radius: 4px; margin-left: auto; }
+        .guidance-tool-status.active { background: rgba(74, 222, 128, 0.2); color: #4ade80; border: 1px solid #4ade80; }
+        .guidance-tool-status.available { background: rgba(192, 192, 192, 0.1); color: #c0c0c0; border: 1px solid #c0c0c0; }
+        .guidance-tool-status.embed { background: rgba(212, 175, 55, 0.2); color: #d4af37; border: 1px solid #d4af37; }
+        .guidance-tool-desc { font-size: 13px; color: #c0c0c0; line-height: 1.5; margin-bottom: 16px; }
+        .guidance-tool-uses { font-size: 11px; color: #808080; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+        .guidance-use-list { list-style: none; padding: 0; margin: 0; }
+        .guidance-use-list li { font-size: 12px; color: #c0c0c0; padding: 6px 0; padding-left: 16px; position: relative; border-bottom: 1px solid rgba(192, 192, 192, 0.1); }
+        .guidance-use-list li:last-child { border-bottom: none; }
+        .guidance-use-list li::before { content: "→"; position: absolute; left: 0; color: #d4af37; }
+        .guidance-tool-action { margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(192, 192, 192, 0.2); }
+        .guidance-action-btn { width: 100%; padding: 10px 16px; background: transparent; border: 1px solid #c0c0c0; border-radius: 6px; color: #c0c0c0; font-size: 13px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .guidance-action-btn:hover { background: #c0c0c0; color: #0a0a0a; }
+        .guidance-action-btn.primary { background: #d4af37; color: #0a0a0a; border-color: #d4af37; }
+        .guidance-action-btn.primary:hover { background: #f4cf57; }
+        .claude-embed-container { margin-top: 24px; padding: 20px; background: #1a1a1a; border: 1px solid #d4af37; border-radius: 10px; display: none; }
+        .claude-embed-container.active { display: block; }
+        .claude-embed-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .claude-embed-title { font-size: 14px; font-weight: 600; color: #d4af37; }
+        .claude-embed-close { background: transparent; border: 1px solid #808080; color: #808080; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+        .claude-embed-close:hover { border-color: #c0c0c0; color: #c0c0c0; }
+        .claude-embed-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 200px; background: #0a0a0a; border: 1px dashed #d4af37; border-radius: 6px; color: #808080; text-align: center; }
+        .claude-embed-placeholder span { font-size: 32px; margin-bottom: 12px; }
+        .claude-embed-placeholder p { font-size: 13px; max-width: 300px; }
     </style>
 </head>
 <body>
@@ -1337,6 +1379,89 @@
         </div>
     </section>
 
+    <!-- Platform Guidance Section -->
+    <section class="guidance-section" id="guidance-section">
+        <div class="guidance-header" onclick="toggleGuidance()">
+            <span class="guidance-title">🤖 AI Tools & Platform Guidance</span>
+            <span class="guidance-toggle" id="guidance-toggle">▲</span>
+        </div>
+        <div class="guidance-content" id="guidance-content">
+            <div class="guidance-description">
+                <strong>Three AI Tools to Accelerate Development:</strong> This platform integrates AI assistance at multiple levels. Use the <em>Trajanus EI Assistant</em> below for quick coding help, launch the <em>Agent Runner</em> for complex multi-step automation tasks, or access <em>Claude Prime</em> for in-depth technical analysis and architecture discussions.
+            </div>
+            <div class="guidance-tools-grid">
+                <div class="guidance-tool-card">
+                    <div class="guidance-tool-header">
+                        <div class="guidance-tool-icon">💻</div>
+                        <div class="guidance-tool-name">Trajanus EI Assistant</div>
+                        <span class="guidance-tool-status active">ACTIVE</span>
+                    </div>
+                    <div class="guidance-tool-desc">Your embedded developer specialist. Quick answers for coding, scripting, and system automation directly within this platform.</div>
+                    <div class="guidance-tool-uses">Best for:</div>
+                    <ul class="guidance-use-list">
+                        <li>Python/JavaScript/Rust code help</li>
+                        <li>Script debugging and optimization</li>
+                        <li>API integration guidance</li>
+                        <li>Database query assistance</li>
+                        <li>Quick reference and syntax help</li>
+                    </ul>
+                    <div class="guidance-tool-action">
+                        <button class="guidance-action-btn primary" onclick="scrollToAssistant()"><span>↓</span> Jump to Assistant</button>
+                    </div>
+                </div>
+                <div class="guidance-tool-card">
+                    <div class="guidance-tool-header">
+                        <div class="guidance-tool-icon">⚡</div>
+                        <div class="guidance-tool-name">Agent Runner</div>
+                        <span class="guidance-tool-status available">AVAILABLE</span>
+                    </div>
+                    <div class="guidance-tool-desc">Autonomous AI agent for complex development workflows. Executes multi-step coding and automation tasks.</div>
+                    <div class="guidance-tool-uses">Best for:</div>
+                    <ul class="guidance-use-list">
+                        <li>Complete feature implementation</li>
+                        <li>Batch file processing scripts</li>
+                        <li>Code refactoring projects</li>
+                        <li>Documentation generation</li>
+                        <li>Test suite creation</li>
+                    </ul>
+                    <div class="guidance-tool-action">
+                        <button class="guidance-action-btn" onclick="launchAgentRunner()"><span>🚀</span> Launch Agent Runner</button>
+                    </div>
+                </div>
+                <div class="guidance-tool-card">
+                    <div class="guidance-tool-header">
+                        <div class="guidance-tool-icon">🧠</div>
+                        <div class="guidance-tool-name">Claude Prime</div>
+                        <span class="guidance-tool-status embed">EMBED</span>
+                    </div>
+                    <div class="guidance-tool-desc">Full Claude AI for in-depth technical analysis, architecture decisions, and extended development conversations.</div>
+                    <div class="guidance-tool-uses">Best for:</div>
+                    <ul class="guidance-use-list">
+                        <li>System architecture design</li>
+                        <li>Complex algorithm discussions</li>
+                        <li>Technical documentation review</li>
+                        <li>Security and performance analysis</li>
+                        <li>Extended problem-solving sessions</li>
+                    </ul>
+                    <div class="guidance-tool-action">
+                        <button class="guidance-action-btn" onclick="toggleClaudeEmbed()"><span>💬</span> Open Claude Prime</button>
+                    </div>
+                </div>
+            </div>
+            <div class="claude-embed-container" id="claude-embed-container">
+                <div class="claude-embed-header">
+                    <span class="claude-embed-title">Claude Prime - Extended AI Session</span>
+                    <button class="claude-embed-close" onclick="toggleClaudeEmbed()">Close</button>
+                </div>
+                <div class="claude-embed-placeholder">
+                    <span>🧠</span>
+                    <p>Claude Prime integration ready. Click to launch in new window.</p>
+                    <button class="guidance-action-btn" style="margin-top: 16px; width: auto;" onclick="openClaudePrime()">Open Claude.ai in New Tab</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Main Content -->
     <main class="main-content">
 
@@ -1352,7 +1477,7 @@
             </div>
             <div class="section-border-bottom"></div>
             <p class="section-description">
-                Integrated Claude assistant with specialized Skills. Select a skill to load context-specific system prompts for focused assistance.
+                <strong>Trajanus EI Assistant:</strong> Your embedded developer specialist with specialized Skills. Select a skill to load context-specific system prompts, or ask general coding questions. For complex multi-step tasks, use the Agent Runner from the Platform Guidance above.
             </p>
         </div>
 
@@ -2108,6 +2233,41 @@
             `;
             document.body.appendChild(notification);
             setTimeout(() => notification.remove(), 3000);
+        }
+
+        // ==================== PLATFORM GUIDANCE ====================
+        function toggleGuidance() {
+            const content = document.getElementById('guidance-content');
+            const toggle = document.getElementById('guidance-toggle');
+            if (content && toggle) {
+                content.classList.toggle('collapsed');
+                toggle.classList.toggle('collapsed');
+                toggle.textContent = content.classList.contains('collapsed') ? '▼' : '▲';
+            }
+        }
+
+        function scrollToAssistant() {
+            const chatSection = document.querySelector('.chat-section');
+            if (chatSection) {
+                chatSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(() => { document.getElementById('chat-input')?.focus(); }, 500);
+            }
+        }
+
+        function launchAgentRunner() {
+            if (window.__TAURI__) {
+                window.__TAURI__.core.invoke('open_path', { path: 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\AGENT_RUNNER_TOOL.py' }).catch(err => showNotification('Could not launch Agent Runner: ' + err, 'warning'));
+            } else {
+                showNotification('Agent Runner available in desktop app', 'info');
+            }
+        }
+
+        function toggleClaudeEmbed() {
+            document.getElementById('claude-embed-container')?.classList.toggle('active');
+        }
+
+        function openClaudePrime() {
+            window.open('https://claude.ai', '_blank');
         }
 
         // Script Runner
