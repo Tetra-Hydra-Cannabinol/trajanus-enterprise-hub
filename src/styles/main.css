@@ -214,9 +214,16 @@ a:hover {
 
 /* ==================== HERO TITLE ==================== */
 .hero-title {
-    text-align: center;
+    position: sticky;
+    top: 60px;  /* Below the fixed header bar */
+    z-index: 900;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-base);
+    border-bottom: 1px solid var(--border-subtle);
     margin-bottom: var(--space-xl);
-    padding: var(--space-lg) 0;
 }
 
 .hero-title h1 {
