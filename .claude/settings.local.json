@@ -7,7 +7,39 @@
       "Bash(timeout 10 npm start)",
       "Bash(tree:*)",
       "Bash(timeout 8 npm start)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Skill(eos)",
+      "Skill(reflect)",
+      "Bash(mkdir:*)",
+      "Bash(start \"\" \"src/pages/dev-workspace.html\")",
+      "Bash(git ls-tree:*)",
+      "Bash(git restore:*)",
+      "Bash(start \"\" \"index.html\")",
+      "Bash(git checkout:*)",
+      "Bash(cat:*)",
+      "Bash(powershell:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(start \"\" \"C:\\\\Dev\\\\trajanus-command-center\\\\src\\\\index.html\")",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(npm run tauri:*)",
+      "Bash(start \"\" \"C:\\\\Dev\\\\trajanus-command-center\\\\src-tauri\\\\target\\\\release\\\\trajanus-command-center.exe\")",
+      "Bash(git push:*)",
+      "Bash(python:*)",
+      "Bash(git reset:*)"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -ExecutionPolicy Bypass -File \".claude/hooks/reflect-stop-hook.ps1\""
+          }
+        ]
+      }
     ]
   }
 }
