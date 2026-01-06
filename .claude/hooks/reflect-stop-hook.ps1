@@ -25,18 +25,19 @@ if ($env:REFLECT_ENABLED -eq "false") {
 }
 
 # Read input from stdin (Claude Code passes JSON)
-$input = [Console]::In.ReadToEnd()
+$stdinContent = [Console]::In.ReadToEnd()
 $hookData = $null
 
 try {
-    $hookData = $input | ConvertFrom-Json
+    $hookData = $stdinContent | ConvertFrom-Json
 } catch {
     # If parsing fails, just exit
     exit 0
 }
 
 # Prevent infinite loops - don't trigger if already in a stop hook
-if ($hookData.stop_hook_active -eq $true) {
+# Handle both boolean true and string "true" from JSON
+if ($hookData.stop_hook_active -eq $true -or $hookData.stop_hook_active -eq "true" -or $hookData.stop_hook_active -eq "True") {
     # Output approve to let Claude stop
     Write-Output '{"decision": "approve"}'
     exit 0
