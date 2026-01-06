@@ -1,17 +1,15 @@
 [package]
-name = "app"
-version = "0.1.0"
-description = "A Tauri App"
-authors = ["you"]
+name = "trajanus-command-center"
+version = "1.0.0"
+description = "Trajanus Command Center - Construction Management Toolkit"
+authors = ["Trajanus USA"]
 license = ""
-repository = ""
+repository = "https://github.com/Tetra-Hydra-Cannabinol/trajanus-enterprise-hub"
 edition = "2021"
 rust-version = "1.77.2"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [lib]
-name = "app_lib"
+name = "trajanus_command_center_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]
@@ -20,6 +18,7 @@ tauri-build = { version = "2.5.3", features = [] }
 [dependencies]
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-log = "0.4"
-tauri = { version = "2.9.5", features = [] }
-tauri-plugin-log = "2"
+tauri = { version = "2.9.5", features = ["unstable"] }
+tauri-plugin-shell = "2"
+reqwest = { version = "0.12", features = ["json"] }
+tokio = { version = "1", features = ["full"] }

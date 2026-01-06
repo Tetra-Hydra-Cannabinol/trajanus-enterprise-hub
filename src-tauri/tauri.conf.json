@@ -1,39 +1,37 @@
 {
-  "$schema": "https://schema.tauri.app/config/2",
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "Trajanus Command Center",
-  "version": "1.0.0",
-  "identifier": "com.trajanus.commandcenter",
+  "version": "0.1.0",
+  "identifier": "com.trajanus.command-center",
   "build": {
-    "frontendDist": "../src",
-    "devUrl": "http://localhost:1420"
+    "frontendDist": "../src"
   },
   "app": {
+    "withGlobalTauri": true,
     "windows": [
       {
         "title": "Trajanus Command Center",
-        "width": 1920,
-        "height": 1080,
+        "width": 1400,
+        "height": 900,
         "resizable": true,
+        "maximizable": true,
         "fullscreen": false,
         "center": true
       }
     ],
     "security": {
-      "csp": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.anthropic.com https://*.supabase.co wss://*.supabase.co; img-src 'self' data: https:; font-src 'self' data:;"
+      "csp": "default-src 'self' https://claude.ai https://*.claude.ai; frame-src https://claude.ai https://*.claude.ai https://*.anthropic.com blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://claude.ai https://*.claude.ai; style-src 'self' 'unsafe-inline' https://claude.ai https://*.claude.ai; connect-src 'self' https://claude.ai https://*.claude.ai https://*.anthropic.com wss://*.claude.ai; img-src 'self' data: https: blob:; font-src 'self' data: https:; worker-src 'self' blob:;"
     }
   },
   "bundle": {
     "active": true,
-    "targets": ["nsis", "msi"],
+    "targets": "all",
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
       "icons/128x128@2x.png",
       "icons/icon.icns",
       "icons/icon.ico"
-    ],
-    "windows": {
-      "wix": null
-    }
+    ]
   }
 }

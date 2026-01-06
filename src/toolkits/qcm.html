@@ -817,47 +817,129 @@
         .terminal-line.info { color: #60a5fa; }
         .terminal-line.warning { color: #fbbf24; }
 
-        /* ==================== PLATFORM GUIDANCE SECTION ==================== */
-        /* BLACK/SILVER/GOLD Color Scheme */
-        .guidance-section { padding: 24px 32px; background: #0a0a0a; border-bottom: 1px solid #d4af37; }
-        .guidance-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; cursor: pointer; }
-        .guidance-title { font-size: 16px; font-weight: 600; color: #d4af37; text-transform: uppercase; letter-spacing: 1.5px; }
-        .guidance-toggle { font-size: 14px; color: #c0c0c0; transition: transform 0.3s; }
-        .guidance-toggle.collapsed { transform: rotate(180deg); }
-        .guidance-content { display: grid; gap: 24px; transition: all 0.3s ease; }
-        .guidance-content.collapsed { display: none; }
-        .guidance-description { font-size: 14px; color: #c0c0c0; line-height: 1.6; margin-bottom: 8px; padding: 16px; background: #1a1a1a; border-left: 3px solid #d4af37; border-radius: 0 6px 6px 0; }
-        .guidance-tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        @media (max-width: 900px) { .guidance-tools-grid { grid-template-columns: 1fr; } }
-        .guidance-tool-card { background: #0a0a0a; border: 1px solid #c0c0c0; border-radius: 10px; padding: 20px; transition: all 0.2s; }
-        .guidance-tool-card:hover { border-color: #d4af37; transform: translateY(-2px); box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2); }
-        .guidance-tool-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-        .guidance-tool-icon { font-size: 28px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: #1a1a1a; border-radius: 8px; border: 1px solid #c0c0c0; }
-        .guidance-tool-name { font-size: 15px; font-weight: 600; color: #d4af37; }
-        .guidance-tool-status { font-size: 10px; padding: 3px 8px; border-radius: 4px; margin-left: auto; }
-        .guidance-tool-status.active { background: rgba(74, 222, 128, 0.2); color: #4ade80; border: 1px solid #4ade80; }
-        .guidance-tool-status.available { background: rgba(192, 192, 192, 0.1); color: #c0c0c0; border: 1px solid #c0c0c0; }
-        .guidance-tool-status.embed { background: rgba(212, 175, 55, 0.2); color: #d4af37; border: 1px solid #d4af37; }
-        .guidance-tool-desc { font-size: 13px; color: #c0c0c0; line-height: 1.5; margin-bottom: 16px; }
-        .guidance-tool-uses { font-size: 11px; color: #808080; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
-        .guidance-use-list { list-style: none; padding: 0; margin: 0; }
-        .guidance-use-list li { font-size: 12px; color: #c0c0c0; padding: 6px 0; padding-left: 16px; position: relative; border-bottom: 1px solid rgba(192, 192, 192, 0.1); }
-        .guidance-use-list li:last-child { border-bottom: none; }
-        .guidance-use-list li::before { content: "→"; position: absolute; left: 0; color: #d4af37; }
-        .guidance-tool-action { margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(192, 192, 192, 0.2); }
-        .guidance-action-btn { width: 100%; padding: 10px 16px; background: transparent; border: 1px solid #c0c0c0; border-radius: 6px; color: #c0c0c0; font-size: 13px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .guidance-action-btn:hover { background: #c0c0c0; color: #0a0a0a; }
-        .guidance-action-btn.primary { background: #d4af37; color: #0a0a0a; border-color: #d4af37; }
-        .guidance-action-btn.primary:hover { background: #f4cf57; }
-        .claude-embed-container { margin-top: 24px; padding: 20px; background: #1a1a1a; border: 1px solid #d4af37; border-radius: 10px; display: none; }
-        .claude-embed-container.active { display: block; }
-        .claude-embed-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-        .claude-embed-title { font-size: 14px; font-weight: 600; color: #d4af37; }
-        .claude-embed-close { background: transparent; border: 1px solid #808080; color: #808080; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; }
-        .claude-embed-close:hover { border-color: #c0c0c0; color: #c0c0c0; }
-        .claude-embed-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 200px; background: #0a0a0a; border: 1px dashed #d4af37; border-radius: 6px; color: #808080; text-align: center; }
-        .claude-embed-placeholder span { font-size: 32px; margin-bottom: 12px; }
-        .claude-embed-placeholder p { font-size: 13px; max-width: 300px; }
+        /* ==================== WELCOME SECTION ==================== */
+        .welcome-section {
+            padding: 24px 32px;
+            background: #0a0a0a;
+            border-bottom: 1px solid #d4af37;
+        }
+        .welcome-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .welcome-text {
+            font-size: 15px;
+            color: #c0c0c0;
+            line-height: 1.7;
+            text-align: center;
+            padding: 16px;
+            background: #1a1a1a;
+            border-left: 3px solid #d4af37;
+            border-radius: 0 6px 6px 0;
+        }
+
+        /* ==================== CLAUDE.AI EMBED SECTION ==================== */
+        .claude-embed-section {
+            padding: 0 32px 32px;
+        }
+        .claude-embed-wrapper {
+            background: #1a1a1a;
+            border: 1px solid #d4af37;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .claude-embed-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: #0a0a0a;
+            border-bottom: 1px solid #d4af37;
+        }
+        .claude-embed-header h3 {
+            color: #d4af37;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0;
+        }
+        .claude-embed-controls {
+            display: flex;
+            gap: 8px;
+        }
+        .claude-embed-btn {
+            padding: 6px 12px;
+            background: transparent;
+            border: 1px solid #c0c0c0;
+            border-radius: 4px;
+            color: #c0c0c0;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .claude-embed-btn:hover {
+            background: #c0c0c0;
+            color: #0a0a0a;
+        }
+        .claude-embed-container {
+            height: 600px;
+            background: #0a0a0a;
+            position: relative;
+        }
+        .claude-embed-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            color: #808080;
+        }
+        .claude-embed-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        .claude-embed-placeholder h4 {
+            color: #d4af37;
+            font-size: 20px;
+            margin: 0 0 12px;
+        }
+        .claude-embed-placeholder p {
+            color: #c0c0c0;
+            font-size: 14px;
+            max-width: 400px;
+            margin-bottom: 24px;
+        }
+        .claude-launch-btn {
+            padding: 14px 32px;
+            background: #d4af37;
+            border: none;
+            border-radius: 8px;
+            color: #0a0a0a;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .claude-launch-btn:hover {
+            background: #f4cf57;
+            transform: translateY(-2px);
+        }
+        .claude-embed-active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #c0c0c0;
+            font-size: 14px;
+        }
+        .claude-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #d4af37;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -880,108 +962,13 @@
         </div>
     </section>
 
-    <!-- Platform Guidance Section -->
-    <section class="guidance-section" id="guidance-section">
-        <div class="guidance-header" onclick="toggleGuidance()">
-            <span class="guidance-title">🤖 AI Tools & Platform Guidance</span>
-            <span class="guidance-toggle" id="guidance-toggle">▲</span>
-        </div>
-        <div class="guidance-content" id="guidance-content">
-            <div class="guidance-description">
-                <strong>Three AI Tools to Accelerate Quality Control:</strong> This platform integrates AI assistance at multiple levels. Use the <em>Trajanus EI Assistant</em> below for quick QC guidance, launch the <em>Agent Runner</em> for complex multi-step inspection tasks, or access <em>Claude Prime</em> for in-depth analysis and report drafting.
-            </div>
-
-            <div class="guidance-tools-grid">
-                <!-- Tool 1: Trajanus EI Assistant -->
-                <div class="guidance-tool-card">
-                    <div class="guidance-tool-header">
-                        <div class="guidance-tool-icon">📋</div>
-                        <div class="guidance-tool-name">Trajanus EI Assistant</div>
-                        <span class="guidance-tool-status active">ACTIVE</span>
-                    </div>
-                    <div class="guidance-tool-desc">
-                        Your embedded QC specialist. Quick answers for inspections, submittals, RMS, and USACE compliance directly within this platform.
-                    </div>
-                    <div class="guidance-tool-uses">Best for:</div>
-                    <ul class="guidance-use-list">
-                        <li>Three-phase inspection procedures</li>
-                        <li>Submittal review and tracking</li>
-                        <li>RMS documentation requirements</li>
-                        <li>USACE compliance questions</li>
-                        <li>Deficiency resolution guidance</li>
-                    </ul>
-                    <div class="guidance-tool-action">
-                        <button class="guidance-action-btn primary" onclick="scrollToAssistant()">
-                            <span>↓</span> Jump to Assistant
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Tool 2: Agent Runner -->
-                <div class="guidance-tool-card">
-                    <div class="guidance-tool-header">
-                        <div class="guidance-tool-icon">⚡</div>
-                        <div class="guidance-tool-name">Agent Runner</div>
-                        <span class="guidance-tool-status available">AVAILABLE</span>
-                    </div>
-                    <div class="guidance-tool-desc">
-                        Autonomous AI agent for complex QC workflows. Executes multi-step inspection and documentation tasks.
-                    </div>
-                    <div class="guidance-tool-uses">Best for:</div>
-                    <ul class="guidance-use-list">
-                        <li>Generate complete QC inspection reports</li>
-                        <li>Batch process submittal reviews</li>
-                        <li>Create deficiency tracking logs</li>
-                        <li>Compile RMS documentation packages</li>
-                        <li>Draft corrective action responses</li>
-                    </ul>
-                    <div class="guidance-tool-action">
-                        <button class="guidance-action-btn" onclick="launchAgentRunner()">
-                            <span>🚀</span> Launch Agent Runner
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Tool 3: Claude Prime -->
-                <div class="guidance-tool-card">
-                    <div class="guidance-tool-header">
-                        <div class="guidance-tool-icon">🧠</div>
-                        <div class="guidance-tool-name">Claude Prime</div>
-                        <span class="guidance-tool-status embed">EMBED</span>
-                    </div>
-                    <div class="guidance-tool-desc">
-                        Full Claude AI for in-depth QC analysis, complex problem solving, and extended conversations about construction quality challenges.
-                    </div>
-                    <div class="guidance-tool-uses">Best for:</div>
-                    <ul class="guidance-use-list">
-                        <li>Complex deficiency root cause analysis</li>
-                        <li>Specification interpretation disputes</li>
-                        <li>QC program improvement planning</li>
-                        <li>Contract clause clarification</li>
-                        <li>Extended troubleshooting sessions</li>
-                    </ul>
-                    <div class="guidance-tool-action">
-                        <button class="guidance-action-btn" onclick="toggleClaudeEmbed()">
-                            <span>💬</span> Open Claude Prime
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Claude Prime Embed Container -->
-            <div class="claude-embed-container" id="claude-embed-container">
-                <div class="claude-embed-header">
-                    <span class="claude-embed-title">Claude Prime - Extended AI Session</span>
-                    <button class="claude-embed-close" onclick="toggleClaudeEmbed()">Close</button>
-                </div>
-                <div class="claude-embed-placeholder">
-                    <span>🧠</span>
-                    <p>Claude Prime integration ready. Click to launch in new window.</p>
-                    <button class="guidance-action-btn" style="margin-top: 16px; width: auto;" onclick="openClaudePrime()">
-                        Open Claude.ai in New Tab
-                    </button>
-                </div>
-            </div>
+    <!-- Welcome Section -->
+    <section class="welcome-section">
+        <div class="welcome-content">
+            <p class="welcome-text">
+                Quality Control command center for inspections, submittals, deficiency tracking, and USACE/NAVFAC compliance.
+                Access QC tools, review three-phase checklists, and interact with Trajanus directly from this unified workspace.
+            </p>
         </div>
     </section>
 

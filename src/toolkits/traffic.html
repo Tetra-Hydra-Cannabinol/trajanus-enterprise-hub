@@ -2420,7 +2420,47 @@
                     Terminal ready. External program output will appear here.
                 </div>
             </div>
-        </main>
+            <!-- ========================== -->
+        <!-- FULL CLAUDE CHAT SECTION   -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">CLAUDE CHAT</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Full Claude AI interface for extended conversations, traffic analysis, 
+                and complex engineering problem-solving sessions.
+            </p>
+        </div>
+
+        <div class="full-claude-section">
+            <div class="full-claude-container">
+                <div class="full-claude-header">
+                    <h3>Claude AI</h3>
+                    <div class="full-claude-controls">
+                        <button class="full-claude-btn" id="full-claude-clear">Clear</button>
+                        <button class="full-claude-btn" id="full-claude-external">Open External</button>
+                    </div>
+                </div>
+                <div class="full-claude-messages" id="full-claude-messages">
+                    <div class="claude-welcome">
+                        <span class="claude-welcome-icon">&#129302;</span>
+                        <h4>Claude AI Ready</h4>
+                        <p>Ask anything - trip generation, LOS analysis, signal warrants, or extended problem-solving.</p>
+                    </div>
+                </div>
+                <div class="full-claude-input-area">
+                    <textarea id="full-claude-input" placeholder="Message Claude..."></textarea>
+                    <button class="full-claude-send" id="full-claude-send">Send</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
     </div>
 
     <!-- New Project Modal -->
