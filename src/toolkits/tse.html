@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Studies Engineer - Trajanus Enterprise Hub</title>
+    <style>
+        /* ==================== CSS VARIABLES - BLACK/SILVER ==================== */
+        :root {
+            --primary-bg: #1a1a1a;
+            --secondary-bg: #2d2d2d;
+            --surface: #3d3d3d;
+            --border: #4a4a4a;
+            --silver: #c0c0c0;
+            --silver-light: #e0e0e0;
+            --silver-dark: #a0a0a0;
+            --text: #ffffff;
+            --text-muted: #808080;
+            --success: #4ade80;
+            --warning: #fbbf24;
+            --error: #f87171;
+            --info: #60a5fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text);
+            line-height: 1.5;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ==================== MAIN CONTAINER ==================== */
+        .tse-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* ==================== HEADER ==================== */
+        .tse-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+            background: var(--primary-bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header-logo {
+            color: var(--silver);
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .header-logo span {
+            margin-right: 8px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .close-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .close-btn:hover {
+            border-color: var(--silver);
+            color: var(--text);
+        }
+
+        /* ==================== PROJECT BAR ==================== */
+        .project-bar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 24px;
+            background: var(--secondary-bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .project-label {
+            color: var(--silver);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .project-select {
+            flex: 1;
+            max-width: 400px;
+            padding: 8px 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .project-select:focus {
+            outline: none;
+            border-color: var(--silver);
+        }
+
+        .project-btn {
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid var(--silver);
+            color: var(--silver);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .project-btn:hover {
+            background: var(--silver);
+            color: var(--primary-bg);
+        }
+
+        .project-btn.primary {
+            background: var(--silver);
+            color: var(--primary-bg);
+        }
+
+        .project-btn.primary:hover {
+            background: var(--silver-light);
+        }
+
+        /* ==================== REQUIRED DOCUMENTS PANEL ==================== */
+        .docs-panel {
+            padding: 16px 24px;
+            background: var(--secondary-bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .docs-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .docs-title {
+            color: var(--silver);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .docs-progress {
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .docs-category {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 12px;
+        }
+
+        .docs-category-title {
+            color: var(--silver);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .doc-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 0;
+            font-size: 13px;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .doc-item:hover {
+            color: var(--text);
+        }
+
+        .doc-item.completed {
+            color: var(--success);
+        }
+
+        .doc-checkbox {
+            width: 14px;
+            height: 14px;
+            accent-color: var(--success);
+        }
+
+        .upload-btn {
+            margin-top: 12px;
+            padding: 8px 16px;
+            background: var(--silver);
+            color: var(--primary-bg);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .upload-btn:hover {
+            background: var(--silver-light);
+        }
+
+        /* ==================== MAIN WORKSPACE ==================== */
+        .workspace-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* ==================== LEFT COLUMN ==================== */
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        /* Agent Chat Section */
+        .agent-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid var(--border);
+            min-height: 300px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 16px;
+            background: var(--secondary-bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-title {
+            color: var(--silver);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            background: var(--primary-bg);
+        }
+
+        .chat-message {
+            margin-bottom: 12px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .chat-message.assistant {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border);
+            margin-right: 20%;
+        }
+
+        .chat-message.user {
+            background: var(--surface);
+            border: 1px solid var(--silver-dark);
+            margin-left: 20%;
+            text-align: right;
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 10px;
+            padding: 12px 16px;
+            background: var(--secondary-bg);
+            border-top: 1px solid var(--border);
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 10px 14px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            font-size: 14px;
+            resize: none;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--silver);
+        }
+
+        .chat-send-btn {
+            padding: 10px 20px;
+            background: var(--silver);
+            color: var(--primary-bg);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .chat-send-btn:hover {
+            background: var(--silver-light);
+        }
+
+        /* File Browser Section */
+        .file-section {
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .file-tree {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px 16px;
+            background: var(--primary-bg);
+        }
+
+        .folder-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 8px;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .folder-item:hover {
+            background: var(--surface);
+            color: var(--text);
+        }
+
+        .folder-item.active {
+            background: var(--surface);
+            color: var(--silver);
+        }
+
+        .folder-icon {
+            font-size: 16px;
+        }
+
+        /* ==================== RIGHT COLUMN ==================== */
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Workflow Section */
+        .workflow-section {
+            padding: 16px;
+            background: var(--secondary-bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .workflow-title {
+            color: var(--silver);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .workflow-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .workflow-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .workflow-step.active {
+            border-color: var(--silver);
+            background: var(--primary-bg);
+        }
+
+        .workflow-step.completed {
+            border-color: var(--success);
+        }
+
+        .step-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        .workflow-step.active .step-indicator {
+            border-color: var(--silver);
+            background: var(--silver);
+            color: var(--primary-bg);
+        }
+
+        .workflow-step.completed .step-indicator {
+            border-color: var(--success);
+            background: var(--success);
+            color: var(--primary-bg);
+        }
+
+        .step-label {
+            flex: 1;
+            color: var(--text-muted);
+        }
+
+        .workflow-step.active .step-label {
+            color: var(--text);
+        }
+
+        .workflow-step.completed .step-label {
+            color: var(--success);
+        }
+
+        /* Output Preview Section */
+        .output-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .output-preview {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            background: var(--primary-bg);
+        }
+
+        .output-placeholder {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 40px 20px;
+        }
+
+        .output-content {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 16px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .output-actions {
+            display: flex;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--secondary-bg);
+            border-top: 1px solid var(--border);
+        }
+
+        .output-btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .output-btn.approve {
+            background: var(--success);
+            color: var(--primary-bg);
+            border: none;
+        }
+
+        .output-btn.approve:hover {
+            filter: brightness(1.1);
+        }
+
+        .output-btn.edit {
+            background: transparent;
+            border: 1px solid var(--warning);
+            color: var(--warning);
+        }
+
+        .output-btn.edit:hover {
+            background: var(--warning);
+            color: var(--primary-bg);
+        }
+
+        .output-btn.save {
+            background: var(--silver);
+            color: var(--primary-bg);
+            border: none;
+        }
+
+        .output-btn.save:hover {
+            background: var(--silver-light);
+        }
+
+        .output-btn.export {
+            background: transparent;
+            border: 1px solid var(--silver);
+            color: var(--silver);
+        }
+
+        .output-btn.export:hover {
+            background: var(--silver);
+            color: var(--primary-bg);
+        }
+
+        /* ==================== MODAL ==================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 500px;
+            padding: 24px;
+        }
+
+        .modal-title {
+            color: var(--silver);
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            color: var(--text-muted);
+            font-size: 12px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--silver);
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .modal-btn.cancel {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        .modal-btn.confirm {
+            background: var(--silver);
+            border: none;
+            color: var(--primary-bg);
+        }
+
+        /* ==================== SCROLLBAR ==================== */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--primary-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--surface);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--border);
+        }
+
+        /* ==================== NOTIFICATION ==================== */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            border-radius: 6px;
+            z-index: 9999;
+            animation: slideIn 0.3s ease;
+        }
+
+        .notification.success {
+            background: #1a3a1a;
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+
+        .notification.error {
+            background: #3a1a1a;
+            border: 1px solid var(--error);
+            color: var(--error);
+        }
+
+        .notification.info {
+            background: var(--surface);
+            border: 1px solid var(--silver);
+            color: var(--text);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="tse-container">
+        <!-- Header -->
+        <header class="tse-header">
+            <div class="header-left">
+                <div class="header-logo">
+                    <span>&#9670;</span> TRAJANUS | Traffic Studies Engineer
+                </div>
+            </div>
+            <div class="header-right">
+                <a href="../index.html" class="close-btn">&#9670; Hub</a>
+            </div>
+        </header>
+
+        <!-- Project Bar -->
+        <div class="project-bar">
+            <span class="project-label">PROJECT:</span>
+            <select class="project-select" id="project-select">
+                <option value="">Select a project...</option>
+            </select>
+            <button class="project-btn primary" id="new-project-btn">+ New Project</button>
+            <button class="project-btn" id="open-project-btn">Open Project</button>
+        </div>
+
+        <!-- Required Documents Panel -->
+        <div class="docs-panel">
+            <div class="docs-header">
+                <span class="docs-title">Required Documents</span>
+                <span class="docs-progress" id="docs-progress">Progress: 0/16 documents</span>
+            </div>
+            <div class="docs-grid">
+                <!-- Project Info -->
+                <div class="docs-category">
+                    <div class="docs-category-title">Project Info</div>
+                    <label class="doc-item">
+                        <input type="checkbox" class="doc-checkbox" data-doc="site-plan">
+                        Site Plan
+                    </label>
+                    <label class="doc-item">
+                        <input type="checkbox" class="doc-checkbox" data-doc="project-desc">
+                        Project Desc
+                    </label>
+                    <label class="doc-item">
+                        <input type="checkbox" class="doc-checkbox" data-doc="land-use">
+                        Land Use
+                    </label>
+                    <label class="doc-item">
+                        <input type="checkbox" class="doc-checkbox" data-doc="location-map">
+                        Location Map
+                    </label>
+                </div>
+                <!-- Traffic Data -->
+                <div class="docs-category">
+                    <div class="docs-category-title">Traffic Data</div>
+                    <label class="doc-item">
+                        <input type="checkbox" class="doc-checkbox" data-doc="traffic-counts">
+                        Traffic Counts
+                    </label>
+                    <label class="doc-item">
+                        <input type="checkbox" class="doc-checkbox" data-doc="adt-data">
+                        ADT Data
+                    </label>
+                    <label class="doc-item">
+                        <input type="checkbox" class="doc-checkbox" data-doc="peak-hour">
+                        Peak Hour
+                    </label>
+                    <label class="doc-item">
+                        <input type="checkbox" class="doc-checkbox" data-doc="signal-timing">
+                        Signal Timing
+                    </label>
+                </div>
+                <!-- Reference -->
+                <div class="docs-category">
+                    <div class="docs-category-title">Reference</div>
+                    <label class="doc-item">
+                        <input type="checkbox" class="doc-checkbox" data-doc="guidelines">
+                        Guidelines
+                    </label>
+                    <label class="doc-item">
+                        <input type="checkbox" class="doc-checkbox" data-doc="ite-rates">
+                        ITE Rates
+                    </label>
+                    <label class="doc-item">
+                        <input type="checkbox" class="doc-checkbox" data-doc="prior-studies">
+                        Prior Studies
+                    </label>
+                    <label class="doc-item">
+                        <input type="checkbox" class="doc-checkbox" data-doc="ref-placeholder">
+                        &nbsp;
+                    </label>
+                </div>
+                <!-- Analysis -->
+                <div class="docs-category">
+                    <div class="docs-category-title">Analysis</div>
+                    <label class="doc-item">
+                        <input type="checkbox" class="doc-checkbox" data-doc="synchro">
+                        Synchro
+                    </label>
+                    <label class="doc-item">
+                        <input type="checkbox" class="doc-checkbox" data-doc="trip-gen">
+                        Trip Gen
+                    </label>
+                    <label class="doc-item">
+                        <input type="checkbox" class="doc-checkbox" data-doc="distribution">
+                        Distrib
+                    </label>
+                    <label class="doc-item">
+                        <input type="checkbox" class="doc-checkbox" data-doc="analysis-placeholder">
+                        &nbsp;
+                    </label>
+                    <button class="upload-btn" id="upload-btn">Upload Files</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Workspace -->
+        <div class="workspace-main">
+            <!-- Left Column -->
+            <div class="left-column">
+                <!-- Agent Assistant -->
+                <div class="agent-section">
+                    <div class="section-header">
+                        <span class="section-title">Agent Assistant</span>
+                    </div>
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="chat-message assistant">
+                            Welcome to the Traffic Studies Engineer. I'll guide you through creating a complete traffic impact study. Let's start by creating a new project or selecting an existing one.
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <textarea class="chat-input" id="chat-input" rows="1" placeholder="Type message..."></textarea>
+                        <button class="chat-send-btn" id="chat-send-btn">Send</button>
+                    </div>
+                </div>
+                <!-- File Browser -->
+                <div class="file-section">
+                    <div class="section-header">
+                        <span class="section-title">File Browser</span>
+                    </div>
+                    <div class="file-tree" id="file-tree">
+                        <div class="folder-item active">
+                            <span class="folder-icon">&#128193;</span>
+                            Active Projects
+                        </div>
+                        <div class="folder-item">
+                            <span class="folder-icon">&#128193;</span>
+                            Reference Materials
+                        </div>
+                        <div class="folder-item">
+                            <span class="folder-icon">&#128193;</span>
+                            Client Deliverables
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="right-column">
+                <!-- Workflow Status -->
+                <div class="workflow-section">
+                    <div class="workflow-title">Workflow Status</div>
+                    <div class="workflow-steps" id="workflow-steps">
+                        <div class="workflow-step active" data-step="1">
+                            <div class="step-indicator">&#9654;</div>
+                            <span class="step-label">Step 1: Project Setup</span>
+                        </div>
+                        <div class="workflow-step" data-step="2">
+                            <div class="step-indicator">&#9675;</div>
+                            <span class="step-label">Step 2: Data Collection</span>
+                        </div>
+                        <div class="workflow-step" data-step="3">
+                            <div class="step-indicator">&#9675;</div>
+                            <span class="step-label">Step 3: Trip Generation</span>
+                        </div>
+                        <div class="workflow-step" data-step="4">
+                            <div class="step-indicator">&#9675;</div>
+                            <span class="step-label">Step 4: Distribution</span>
+                        </div>
+                        <div class="workflow-step" data-step="5">
+                            <div class="step-indicator">&#9675;</div>
+                            <span class="step-label">Step 5: Capacity Analysis</span>
+                        </div>
+                        <div class="workflow-step" data-step="6">
+                            <div class="step-indicator">&#9675;</div>
+                            <span class="step-label">Step 6: Report Assembly</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Output Preview -->
+                <div class="output-section">
+                    <div class="section-header">
+                        <span class="section-title">Output Preview</span>
+                    </div>
+                    <div class="output-preview" id="output-preview">
+                        <div class="output-placeholder">
+                            Select a project and complete workflow steps to generate report sections.
+                        </div>
+                    </div>
+                    <div class="output-actions">
+                        <button class="output-btn approve" id="approve-btn">Approve Section</button>
+                        <button class="output-btn edit" id="edit-btn">Request Edit</button>
+                        <button class="output-btn save" id="save-btn">Save to Client Folder</button>
+                        <button class="output-btn export" id="export-btn">Export All</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Project Modal -->
+    <div class="modal-overlay" id="new-project-modal">
+        <div class="modal">
+            <h3 class="modal-title">Create New Project</h3>
+            <div class="form-group">
+                <label class="form-label">Project Name</label>
+                <input type="text" class="form-input" id="project-name" placeholder="e.g., Grace Fellowship TIS">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Client Name</label>
+                <input type="text" class="form-input" id="client-name" placeholder="e.g., Grace Fellowship Church">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Jurisdiction</label>
+                <select class="form-input" id="jurisdiction-select">
+                    <option value="">Select jurisdiction...</option>
+                    <option value="mag">MAG (Maricopa Association of Governments)</option>
+                    <option value="adot">ADOT (Arizona DOT)</option>
+                    <option value="phoenix">Phoenix</option>
+                    <option value="scottsdale">Scottsdale</option>
+                    <option value="mesa">Mesa</option>
+                    <option value="tempe">Tempe</option>
+                    <option value="chandler">Chandler</option>
+                    <option value="gilbert">Gilbert</option>
+                    <option value="glendale">Glendale</option>
+                    <option value="peoria">Peoria</option>
+                    <option value="surprise">Surprise</option>
+                    <option value="goodyear">Goodyear</option>
+                    <option value="avondale">Avondale</option>
+                    <option value="buckeye">Buckeye</option>
+                    <option value="queen-creek">Queen Creek</option>
+                    <option value="maricopa-county">Maricopa County</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn cancel" id="modal-cancel">Cancel</button>
+                <button class="modal-btn confirm" id="modal-confirm">Create Project</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== TSE WORKSPACE JAVASCRIPT ====================
+
+        // State
+        const TSE = {
+            currentProject: null,
+            projects: [],
+            documents: {},
+            currentStep: 1,
+            chatHistory: []
+        };
+
+        // Jurisdictions with their requirements
+        const JURISDICTIONS = {
+            'mag': { name: 'MAG', template: 'MAG_TIS_Template.docx' },
+            'adot': { name: 'ADOT', template: 'ADOT_TIS_Template.docx' },
+            'phoenix': { name: 'Phoenix', template: 'Phoenix_TIS_Template.docx' },
+            'scottsdale': { name: 'Scottsdale', template: 'Scottsdale_TIS_Template.docx' },
+            'mesa': { name: 'Mesa', template: 'Mesa_TIS_Template.docx' },
+            'tempe': { name: 'Tempe', template: 'Tempe_TIS_Template.docx' },
+            'chandler': { name: 'Chandler', template: 'Chandler_TIS_Template.docx' },
+            'gilbert': { name: 'Gilbert', template: 'Gilbert_TIS_Template.docx' },
+            'glendale': { name: 'Glendale', template: 'Glendale_TIS_Template.docx' },
+            'peoria': { name: 'Peoria', template: 'Peoria_TIS_Template.docx' },
+            'surprise': { name: 'Surprise', template: 'Surprise_TIS_Template.docx' },
+            'goodyear': { name: 'Goodyear', template: 'Goodyear_TIS_Template.docx' },
+            'avondale': { name: 'Avondale', template: 'Avondale_TIS_Template.docx' },
+            'buckeye': { name: 'Buckeye', template: 'Buckeye_TIS_Template.docx' },
+            'queen-creek': { name: 'Queen Creek', template: 'QueenCreek_TIS_Template.docx' },
+            'maricopa-county': { name: 'Maricopa County', template: 'MaricopaCounty_TIS_Template.docx' }
+        };
+
+        // Paths
+        const PATHS = {
+            activeProjects: 'G:\\My Drive\\00 - Trajanus USA\\09-Active-Projects',
+            clientDeliverables: 'G:\\My Drive\\00 - Trajanus USA\\12-Client-Deliverables',
+            referenceTemplates: 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\Reference-Materials\\Templates'
+        };
+
+        // DOM Elements
+        const elements = {
+            projectSelect: document.getElementById('project-select'),
+            newProjectBtn: document.getElementById('new-project-btn'),
+            openProjectBtn: document.getElementById('open-project-btn'),
+            uploadBtn: document.getElementById('upload-btn'),
+            chatMessages: document.getElementById('chat-messages'),
+            chatInput: document.getElementById('chat-input'),
+            chatSendBtn: document.getElementById('chat-send-btn'),
+            workflowSteps: document.getElementById('workflow-steps'),
+            outputPreview: document.getElementById('output-preview'),
+            docsProgress: document.getElementById('docs-progress'),
+            newProjectModal: document.getElementById('new-project-modal'),
+            modalCancel: document.getElementById('modal-cancel'),
+            modalConfirm: document.getElementById('modal-confirm'),
+            projectName: document.getElementById('project-name'),
+            clientName: document.getElementById('client-name'),
+            jurisdictionSelect: document.getElementById('jurisdiction-select'),
+            approveBtn: document.getElementById('approve-btn'),
+            editBtn: document.getElementById('edit-btn'),
+            saveBtn: document.getElementById('save-btn'),
+            exportBtn: document.getElementById('export-btn')
+        };
+
+        // ==================== API BRIDGE ====================
+        function getInvoke() {
+            if (window.__TAURI__ && window.__TAURI__.core && window.__TAURI__.core.invoke) {
+                return window.__TAURI__.core.invoke;
+            }
+            return null;
+        }
+
+        // ==================== NOTIFICATIONS ====================
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        // ==================== CHAT ====================
+        function addChatMessage(text, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${isUser ? 'user' : 'assistant'}`;
+            messageDiv.textContent = text;
+            elements.chatMessages.appendChild(messageDiv);
+            elements.chatMessages.scrollTop = elements.chatMessages.scrollHeight;
+        }
+
+        function handleChatSend() {
+            const message = elements.chatInput.value.trim();
+            if (!message) return;
+
+            addChatMessage(message, true);
+            elements.chatInput.value = '';
+
+            // Simulate agent response based on current step
+            setTimeout(() => {
+                const response = getAgentResponse(message);
+                addChatMessage(response);
+            }, 500);
+        }
+
+        function getAgentResponse(message) {
+            const lowerMsg = message.toLowerCase();
+
+            if (!TSE.currentProject) {
+                return "Please create or select a project first using the dropdown above.";
+            }
+
+            switch (TSE.currentStep) {
+                case 1:
+                    return `Project "${TSE.currentProject.name}" is set up. Next, let's collect the required documents. Please upload your site plan, traffic counts, and other required files using the Upload Files button.`;
+                case 2:
+                    return "I see you're working on data collection. Make sure to upload all traffic counts, ADT data, and peak hour volumes. Check off each document as you upload it.";
+                case 3:
+                    return "For trip generation, I'll use ITE 11th Edition rates. What land use code should we use? (e.g., 710 for General Office, 820 for Shopping Center)";
+                case 4:
+                    return "For trip distribution, we'll analyze the surrounding road network. Should I base the distribution on existing traffic patterns or a gravity model?";
+                case 5:
+                    return "Running capacity analysis. I'll calculate LOS for each study intersection. Do you have Synchro files to import, or should I set up new analysis?";
+                case 6:
+                    return "Report assembly in progress. I'll compile all analysis sections into the jurisdiction-specific template. Each section will be shown for your approval.";
+                default:
+                    return "How can I help you with this traffic study?";
+            }
+        }
+
+        // ==================== DOCUMENT TRACKING ====================
+        function updateDocsProgress() {
+            const checkboxes = document.querySelectorAll('.doc-checkbox');
+            const checked = document.querySelectorAll('.doc-checkbox:checked').length;
+            const total = checkboxes.length - 2; // Exclude placeholder items
+            elements.docsProgress.textContent = `Progress: ${checked}/${total} documents`;
+
+            // Update visual state
+            checkboxes.forEach(cb => {
+                const item = cb.closest('.doc-item');
+                if (cb.checked) {
+                    item.classList.add('completed');
+                } else {
+                    item.classList.remove('completed');
+                }
+            });
+
+            // Auto-advance workflow if enough docs uploaded
+            if (checked >= 4 && TSE.currentStep === 2) {
+                advanceWorkflow(3);
+                addChatMessage("Great progress on document collection! You've uploaded enough to start trip generation. Let me help you calculate trip generation using ITE methods.");
+            }
+        }
+
+        // ==================== WORKFLOW ====================
+        function advanceWorkflow(step) {
+            TSE.currentStep = step;
+            const steps = document.querySelectorAll('.workflow-step');
+            steps.forEach((s, i) => {
+                s.classList.remove('active', 'completed');
+                const indicator = s.querySelector('.step-indicator');
+                if (i + 1 < step) {
+                    s.classList.add('completed');
+                    indicator.innerHTML = '&#10003;';
+                } else if (i + 1 === step) {
+                    s.classList.add('active');
+                    indicator.innerHTML = '&#9654;';
+                } else {
+                    indicator.innerHTML = '&#9675;';
+                }
+            });
+        }
+
+        // ==================== PROJECT MANAGEMENT ====================
+        function showNewProjectModal() {
+            elements.newProjectModal.classList.add('active');
+            elements.projectName.focus();
+        }
+
+        function hideNewProjectModal() {
+            elements.newProjectModal.classList.remove('active');
+            elements.projectName.value = '';
+            elements.clientName.value = '';
+            elements.jurisdictionSelect.value = '';
+        }
+
+        async function createProject() {
+            const name = elements.projectName.value.trim();
+            const client = elements.clientName.value.trim();
+            const jurisdiction = elements.jurisdictionSelect.value;
+
+            if (!name || !client || !jurisdiction) {
+                showNotification('Please fill in all fields', 'error');
+                return;
+            }
+
+            const project = {
+                id: Date.now(),
+                name,
+                client,
+                jurisdiction,
+                created: new Date().toISOString(),
+                documents: {},
+                currentStep: 1
+            };
+
+            // Try to create folder via Tauri
+            const invoke = getInvoke();
+            if (invoke) {
+                try {
+                    const projectPath = `${PATHS.activeProjects}\\${name.replace(/[^a-zA-Z0-9]/g, '_')}`;
+                    await invoke('create_directory', { path: projectPath });
+                    showNotification(`Project folder created: ${name}`, 'success');
+                } catch (err) {
+                    console.log('Folder creation deferred - running in browser mode');
+                }
+            }
+
+            TSE.projects.push(project);
+            TSE.currentProject = project;
+
+            // Add to dropdown
+            const option = document.createElement('option');
+            option.value = project.id;
+            option.textContent = project.name;
+            option.selected = true;
+            elements.projectSelect.appendChild(option);
+
+            hideNewProjectModal();
+            advanceWorkflow(2);
+
+            addChatMessage(`Project "${name}" created for ${client} in ${JURISDICTIONS[jurisdiction].name} jurisdiction. I've set up the project folder structure. Now let's collect the required documents.`);
+        }
+
+        // ==================== FILE UPLOAD ====================
+        async function handleFileUpload() {
+            const invoke = getInvoke();
+
+            if (invoke) {
+                try {
+                    const files = await invoke('open_file_dialog', {
+                        multiple: true,
+                        filters: [
+                            { name: 'Documents', extensions: ['pdf', 'docx', 'xlsx', 'csv', 'dwg', 'syn'] },
+                            { name: 'Images', extensions: ['png', 'jpg', 'jpeg'] }
+                        ]
+                    });
+
+                    if (files && files.length > 0) {
+                        showNotification(`${files.length} file(s) selected`, 'success');
+                        addChatMessage(`I've received ${files.length} file(s). Let me analyze them and update the document checklist.`);
+                    }
+                } catch (err) {
+                    showNotification('File dialog not available in browser mode', 'info');
+                }
+            } else {
+                showNotification('Upload available in desktop mode only', 'info');
+                addChatMessage('File upload requires the desktop app. In browser mode, you can manually check off documents as you prepare them.');
+            }
+        }
+
+        // ==================== OUTPUT ACTIONS ====================
+        function handleApprove() {
+            if (!TSE.currentProject) {
+                showNotification('No project selected', 'error');
+                return;
+            }
+            showNotification('Section approved', 'success');
+            addChatMessage('Section approved. Moving to the next part of the report...');
+        }
+
+        function handleEdit() {
+            if (!TSE.currentProject) {
+                showNotification('No project selected', 'error');
+                return;
+            }
+            addChatMessage('What changes would you like me to make to this section?');
+        }
+
+        async function handleSave() {
+            if (!TSE.currentProject) {
+                showNotification('No project selected', 'error');
+                return;
+            }
+
+            const invoke = getInvoke();
+            if (invoke) {
+                try {
+                    const clientPath = `${PATHS.clientDeliverables}\\${TSE.currentProject.client}\\${TSE.currentProject.name}`;
+                    await invoke('create_directory', { path: clientPath });
+                    showNotification('Saved to Client Deliverables', 'success');
+                } catch (err) {
+                    showNotification('Save deferred - desktop mode required', 'info');
+                }
+            } else {
+                showNotification('Save requires desktop mode', 'info');
+            }
+        }
+
+        function handleExport() {
+            if (!TSE.currentProject) {
+                showNotification('No project selected', 'error');
+                return;
+            }
+            showNotification('Export started...', 'info');
+            addChatMessage('Compiling all approved sections into final report. This will be saved to the Client Deliverables folder.');
+        }
+
+        // ==================== EVENT LISTENERS ====================
+        elements.newProjectBtn.addEventListener('click', showNewProjectModal);
+        elements.modalCancel.addEventListener('click', hideNewProjectModal);
+        elements.modalConfirm.addEventListener('click', createProject);
+        elements.chatSendBtn.addEventListener('click', handleChatSend);
+        elements.chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleChatSend();
+            }
+        });
+        elements.uploadBtn.addEventListener('click', handleFileUpload);
+        elements.approveBtn.addEventListener('click', handleApprove);
+        elements.editBtn.addEventListener('click', handleEdit);
+        elements.saveBtn.addEventListener('click', handleSave);
+        elements.exportBtn.addEventListener('click', handleExport);
+
+        // Document checkbox listeners
+        document.querySelectorAll('.doc-checkbox').forEach(cb => {
+            cb.addEventListener('change', updateDocsProgress);
+        });
+
+        // Close modal on overlay click
+        elements.newProjectModal.addEventListener('click', (e) => {
+            if (e.target === elements.newProjectModal) {
+                hideNewProjectModal();
+            }
+        });
+
+        // Home button navigation
+        document.querySelector('.close-btn').addEventListener('click', (e) => {
+            const invoke = getInvoke();
+            if (invoke) {
+                e.preventDefault();
+                invoke('navigate_to', { path: '../index.html' }).catch(() => {
+                    window.location.href = '../index.html';
+                });
+            }
+        });
+
+        // ==================== INITIALIZATION ====================
+        console.log('TSE Workspace initialized');
+        console.log('Tauri API:', getInvoke() ? 'AVAILABLE' : 'NOT FOUND (browser mode)');
+    </script>
+</body>
+</html>

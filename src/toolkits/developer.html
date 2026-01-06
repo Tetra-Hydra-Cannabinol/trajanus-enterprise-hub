@@ -1,0 +1,2574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Toolkit - Trajanus Enterprise Hub</title>
+    <style>
+        /* Reset & Base */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            /* TRAJANUS BLACK/SILVER PALETTE - ALL SILVER ON BLACK */
+            --bg-base: #0a0a0a;
+            --bg-surface: #0a0a0a;
+            --bg-card: #0a0a0a;
+            --bg-elevated: #1a1a1a;
+            --bg-hover: #2a2a2a;
+            --accent: #c0c0c0;
+            --accent-bright: #e0e0e0;
+            --accent-dim: #a0a0a0;
+            --accent-hover: #ffffff;
+            --silver: #c0c0c0;
+            --silver-light: #e0e0e0;
+            --silver-dark: #a0a0a0;
+            --gold: #d4af37;
+            --gold-light: #f4cf57;
+            --gold-dark: #b4942f;
+            --blue: #4a90d9;
+            --blue-light: #6ab0f9;
+            --blue-dark: #3a70b9;
+            --text-primary: #c0c0c0;
+            --text-secondary: #c0c0c0;
+            --text-muted: #c0c0c0;
+            --border-subtle: #c0c0c0;
+            --border-accent: #c0c0c0;
+            --success: #4ade80;
+            --info: #60a5fa;
+            --warning: #fbbf24;
+            --purple: #a78bfa;
+            --error: #f87171;
+            --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-base);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Sticky Hero Section */
+        .hero-section {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--bg-base);
+            border-bottom: 1px solid var(--gold);
+            padding: 16px 32px;
+        }
+
+        .hero-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hero-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+        }
+
+        .hero-company {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero-company .tm {
+            font-size: 8px;
+            vertical-align: super;
+        }
+
+        .hero-toolkit {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+
+        .hero-description {
+            font-size: 13px;
+            color: var(--text-primary);
+            max-width: 500px;
+            line-height: 1.4;
+            margin-top: 4px;
+        }
+
+        .hero-home-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .hero-home-btn:hover {
+            background: var(--gold);
+            color: var(--bg-base);
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .header-btn {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 8px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+
+        .header-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Main Content - Scrollable */
+        .main-content {
+            padding: 0 24px 40px 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* ========================== */
+        /* PAGE HERO SECTION          */
+        /* ========================== */
+        .page-hero {
+            text-align: center;
+            padding: 48px 24px 32px 24px;
+            border-bottom: 1px solid var(--border-subtle);
+            margin-bottom: 32px;
+        }
+
+        .hero-title {
+            color: var(--gold);
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .hero-trademark {
+            color: var(--text-secondary);
+            font-size: 20px;
+            font-weight: 400;
+        }
+
+        .hero-subtitle {
+            color: var(--text-primary);
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+        }
+
+        .hero-greeting-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 20px;
+        }
+
+        .hero-greeting {
+            color: var(--text-primary);
+            font-size: 16px;
+        }
+
+        .hero-greeting .name {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .hero-date {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .hero-description {
+            color: var(--text-secondary);
+            font-size: 14px;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ========================== */
+        /* BOLD SECTION HEADERS       */
+        /* ========================== */
+        .section-divider {
+            margin: 40px 0 24px 0;
+        }
+
+        .section-border-top {
+            height: 2px;
+            background: linear-gradient(to right, var(--gold), var(--border-subtle), transparent);
+            margin-bottom: 12px;
+        }
+
+        .section-title-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .section-blocks {
+            color: var(--gold);
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .section-title {
+            color: var(--gold);
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        .section-border-bottom {
+            height: 2px;
+            background: linear-gradient(to right, var(--gold), var(--gold-dark), transparent);
+            margin-top: 12px;
+        }
+
+        .section-description {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-top: 12px;
+            max-width: 800px;
+        }
+
+        /* ========================== */
+        /* SUBSECTION HEADERS         */
+        /* ========================== */
+        .subsection {
+            margin-bottom: 28px;
+        }
+
+        .subsection-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .subsection-title {
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .subsection-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border-subtle);
+        }
+
+        .subsection-description {
+            color: var(--text-muted);
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        /* ========================== */
+        /* APPLICATION CARDS          */
+        /* ========================== */
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 12px;
+        }
+
+        .app-card {
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 8px;
+            padding: 16px 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 90px;
+        }
+
+        .app-card:hover {
+            background: var(--bg-hover);
+            border-color: var(--blue-light);
+            transform: translateY(-2px);
+        }
+
+        .app-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--gold);
+            background: var(--bg-elevated);
+            border-radius: 6px;
+        }
+
+        .app-label {
+            font-size: 11px;
+            color: var(--text-primary);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* ========================== */
+        /* TWO-COLUMN SCRIPT CARDS    */
+        /* ========================== */
+        .script-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 900px) {
+            .script-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .script-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-left: 4px solid var(--gold);
+            border-radius: 6px;
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .script-card:hover {
+            background: var(--bg-elevated);
+            border-color: var(--gold);
+            border-left-color: var(--gold-hover);
+            transform: translateX(4px);
+        }
+
+        /* Color-coded script indicators */
+        .script-card.conversion { border-left-color: var(--success); }
+        .script-card.session { border-left-color: var(--info); }
+        .script-card.automation { border-left-color: var(--warning); }
+        .script-card.data { border-left-color: var(--purple); }
+        .script-card.agent { border-left-color: var(--gold); }
+
+        .script-card.conversion:hover { border-left-color: var(--success); }
+        .script-card.session:hover { border-left-color: var(--info); }
+        .script-card.automation:hover { border-left-color: var(--warning); }
+        .script-card.data:hover { border-left-color: var(--purple); }
+        .script-card.agent:hover { border-left-color: var(--gold); }
+
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--gold);
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .script-card.conversion .indicator { background: var(--success); }
+        .script-card.session .indicator { background: var(--info); }
+        .script-card.automation .indicator { background: var(--warning); }
+        .script-card.data .indicator { background: var(--purple); }
+        .script-card.agent .indicator { background: var(--gold); }
+
+        .script-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .script-title {
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .script-description {
+            color: var(--text-muted);
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        /* ========================== */
+        /* AGENT CARDS                */
+        /* ========================== */
+        .agent-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 1100px) {
+            .agent-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .agent-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .agent-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .agent-card:hover {
+            border-color: var(--gold);
+        }
+
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .agent-icon {
+            font-size: 20px;
+        }
+
+        .agent-name {
+            color: var(--gold);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .agent-description {
+            color: var(--text-secondary);
+            font-size: 12px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            min-height: 36px;
+        }
+
+        .agent-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .agent-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .agent-btn.activate {
+            background: var(--gold);
+            border: none;
+            color: var(--bg-base);
+        }
+
+        .agent-btn.activate:hover {
+            background: var(--gold-hover);
+        }
+
+        .agent-btn.deploy {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+        }
+
+        .agent-btn.deploy:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* ========================== */
+        /* CLAUDE.AI WEBVIEW          */
+        /* ========================== */
+        .claude-workspace {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .workspace-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .workspace-header-left h3 {
+            color: var(--gold);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .workspace-header-left p {
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .workspace-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .workspace-btn {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .workspace-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* ========================== */
+        /* CHAT ASSISTANT SECTION     */
+        /* ========================== */
+        .chat-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 700px;
+        }
+
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
+            flex-shrink: 0;
+        }
+
+        .chat-header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .chat-header-left h3 {
+            color: var(--gold);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .skill-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .skill-selector label {
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .skill-selector select {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-primary);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .skill-selector select:hover {
+            border-color: var(--gold);
+        }
+
+        .chat-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .voice-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            color: var(--text-secondary);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .voice-toggle:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .voice-toggle.active {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--bg-base);
+        }
+
+        .clear-chat-btn {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .clear-chat-btn:hover {
+            border-color: var(--error);
+            color: var(--error);
+        }
+
+        /* Chat Messages Area */
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background: var(--bg-base);
+        }
+
+        .chat-message {
+            display: flex;
+            gap: 12px;
+            max-width: 85%;
+        }
+
+        .chat-message.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .chat-message.assistant {
+            align-self: flex-start;
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .chat-message.user .message-avatar {
+            background: var(--gold);
+            color: var(--bg-base);
+        }
+
+        .chat-message.assistant .message-avatar {
+            background: var(--bg-elevated);
+            color: var(--gold);
+        }
+
+        .message-content {
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 8px;
+            padding: 12px 16px;
+        }
+
+        .chat-message.user .message-content {
+            background: var(--blue);
+            border-color: var(--blue);
+            color: var(--bg-base);
+        }
+
+        .chat-message.assistant .message-content {
+            background: var(--bg-base);
+        }
+
+        .message-text {
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .message-skill {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .chat-message.user .message-skill {
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Loading indicator */
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 8px 0;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-indicator span:nth-child(1) { animation-delay: 0s; }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-6px); opacity: 1; }
+        }
+
+        /* Chat Input Area */
+        .chat-input-area {
+            padding: 16px 20px;
+            background: var(--bg-surface);
+            border-top: 1px solid var(--blue);
+            flex-shrink: 0;
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: var(--font-main);
+            resize: none;
+            min-height: 48px;
+            max-height: 150px;
+            line-height: 1.5;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--blue-light);
+        }
+
+        .chat-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .send-btn {
+            background: var(--blue);
+            border: none;
+            color: var(--bg-base);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .send-btn:hover:not(:disabled) {
+            background: var(--gold-hover);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .mic-btn, .stop-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mic-btn:hover, .stop-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .mic-btn.listening {
+            background: var(--error);
+            border-color: var(--error);
+            color: white;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Sticky Navigation Buttons */
+        .sticky-nav {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 9999;
+        }
+
+        .nav-btn {
+            background: linear-gradient(180deg, #1a2d42 0%, #0d1b2a 100%);
+            border: 1px solid #c0c0c0;
+            color: #c0c0c0;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            min-width: 70px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(180deg, #2a4a6a 0%, #1a2d42 100%);
+            border-color: #e0e0e0;
+            color: #e0e0e0;
+        }
+
+        /* Welcome message */
+        .chat-welcome {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .chat-welcome-icon {
+            font-size: 48px;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .chat-welcome h4 {
+            color: var(--gold);
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .chat-welcome p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* Speaking indicator */
+        .speaking-indicator {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            color: var(--gold);
+            font-size: 12px;
+            padding: 4px 8px;
+            background: var(--bg-elevated);
+            border-radius: 4px;
+        }
+
+        .speaking-indicator.active {
+            display: flex;
+        }
+
+        .speaking-indicator .wave {
+            display: flex;
+            gap: 2px;
+        }
+
+        .speaking-indicator .wave span {
+            width: 3px;
+            height: 12px;
+            background: var(--gold);
+            animation: wave 0.8s infinite ease-in-out;
+        }
+
+        .speaking-indicator .wave span:nth-child(1) { animation-delay: 0s; }
+        .speaking-indicator .wave span:nth-child(2) { animation-delay: 0.1s; }
+        .speaking-indicator .wave span:nth-child(3) { animation-delay: 0.2s; }
+        .speaking-indicator .wave span:nth-child(4) { animation-delay: 0.3s; }
+
+        @keyframes wave {
+            0%, 100% { transform: scaleY(0.5); }
+            50% { transform: scaleY(1); }
+        }
+
+        /* ========================== */
+        /* OUTPUT TERMINAL            */
+        /* ========================== */
+        .terminal-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .terminal-header h3 {
+            color: var(--gold);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .terminal-btn {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .terminal-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .terminal-output {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--text-primary);
+            padding: 16px;
+            height: 200px;
+            overflow-y: auto;
+            background: var(--bg-base);
+        }
+
+        .output-line {
+            padding: 2px 0;
+        }
+
+        .terminal-section {
+            margin-top: 2rem;
+        }
+
+        .terminal-tabs {
+            display: flex;
+            gap: 0;
+        }
+
+        .terminal-tab {
+            background: var(--bg-surface);
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--text-secondary);
+            padding: 10px 20px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .terminal-tab:hover {
+            color: var(--text-primary);
+            background: var(--bg-card);
+        }
+
+        .terminal-tab.active {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+            background: var(--bg-card);
+        }
+
+        .terminal-content {
+            display: none;
+        }
+
+        .terminal-content.active {
+            display: block;
+        }
+
+        .terminal-line {
+            padding: 2px 0;
+            font-family: var(--font-mono);
+            font-size: 12px;
+        }
+
+        .output-line.info { color: var(--text-muted); }
+        .output-line.success { color: var(--success); }
+        .output-line.error { color: var(--error); }
+        .output-line.warning { color: var(--warning); }
+
+        /* Claude Chat in Terminal */
+        .claude-chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 250px;
+        }
+
+        .claude-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
+            background: var(--bg-base);
+        }
+
+        .claude-message {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            max-width: 85%;
+        }
+
+        .claude-message.user {
+            background: var(--gold);
+            color: var(--bg-base);
+            margin-left: auto;
+        }
+
+        .claude-message.assistant {
+            background: var(--bg-surface);
+            color: var(--text-primary);
+        }
+
+        .claude-input-area {
+            display: flex;
+            gap: 8px;
+            padding: 10px;
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .claude-input-area textarea {
+            flex: 1;
+            background: var(--bg-base);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-primary);
+            padding: 8px;
+            border-radius: 4px;
+            resize: none;
+            font-family: inherit;
+        }
+
+        .claude-input-area button {
+            background: var(--gold);
+            color: var(--bg-base);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .claude-input-area button:hover {
+            opacity: 0.9;
+        }
+
+        /* ========================== */
+        /* RESPONSIVE                 */
+        /* ========================== */
+        @media (max-width: 600px) {
+            .hero-greeting-row {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .app-grid {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            }
+        }
+
+        /* ========================== */
+        /* TRAJANUS WINDOW SYSTEM     */
+        /* ========================== */
+        .trajanus-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: overlayFadeIn 0.2s ease;
+        }
+
+        @keyframes overlayFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .trajanus-window {
+            background: var(--bg-base);
+            border: 2px solid var(--silver);
+            border-radius: 8px;
+            min-width: 500px;
+            max-width: 90vw;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 40px rgba(192, 192, 192, 0.3), 0 0 80px rgba(0, 0, 0, 0.5);
+            animation: windowSlideIn 0.3s ease;
+        }
+
+        @keyframes windowSlideIn {
+            from { transform: scale(0.9) translateY(-20px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        .trajanus-window-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-surface) 100%);
+            border-bottom: 1px solid var(--silver);
+            border-radius: 6px 6px 0 0;
+        }
+
+        .trajanus-window-title {
+            color: var(--silver-light);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .trajanus-window-title::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--silver);
+            transform: rotate(45deg);
+        }
+
+        .trajanus-window-close {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .trajanus-window-close:hover {
+            border-color: var(--error);
+            color: var(--error);
+            background: rgba(248, 113, 113, 0.1);
+        }
+
+        .trajanus-window-body {
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .trajanus-window-footer {
+            padding: 12px 16px;
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border-subtle);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            border-radius: 0 0 6px 6px;
+        }
+
+        .trajanus-btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .trajanus-btn-primary {
+            background: var(--silver);
+            border: none;
+            color: var(--bg-base);
+        }
+
+        .trajanus-btn-primary:hover {
+            background: var(--silver-light);
+        }
+
+        .trajanus-btn-secondary {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+        }
+
+        .trajanus-btn-secondary:hover {
+            border-color: var(--silver);
+            color: var(--silver);
+        }
+
+        /* ==================== PLATFORM GUIDANCE SECTION ==================== */
+        /* BLACK/SILVER/GOLD Color Scheme */
+        .guidance-section { padding: 24px 32px; background: #0a0a0a; border-bottom: 1px solid #d4af37; }
+        .guidance-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; cursor: pointer; }
+        .guidance-title { font-size: 16px; font-weight: 600; color: #d4af37; text-transform: uppercase; letter-spacing: 1.5px; }
+        .guidance-toggle { font-size: 14px; color: #c0c0c0; transition: transform 0.3s; }
+        .guidance-toggle.collapsed { transform: rotate(180deg); }
+        .guidance-content { display: grid; gap: 24px; transition: all 0.3s ease; }
+        .guidance-content.collapsed { display: none; }
+        .guidance-description { font-size: 14px; color: #c0c0c0; line-height: 1.6; margin-bottom: 8px; padding: 16px; background: #1a1a1a; border-left: 3px solid #d4af37; border-radius: 0 6px 6px 0; }
+        .guidance-tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        @media (max-width: 900px) { .guidance-tools-grid { grid-template-columns: 1fr; } }
+        .guidance-tool-card { background: #0a0a0a; border: 1px solid #c0c0c0; border-radius: 10px; padding: 20px; transition: all 0.2s; }
+        .guidance-tool-card:hover { border-color: #d4af37; transform: translateY(-2px); box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2); }
+        .guidance-tool-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .guidance-tool-icon { font-size: 28px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: #1a1a1a; border-radius: 8px; border: 1px solid #c0c0c0; }
+        .guidance-tool-name { font-size: 15px; font-weight: 600; color: #d4af37; }
+        .guidance-tool-status { font-size: 10px; padding: 3px 8px; border-radius: 4px; margin-left: auto; }
+        .guidance-tool-status.active { background: rgba(74, 222, 128, 0.2); color: #4ade80; border: 1px solid #4ade80; }
+        .guidance-tool-status.available { background: rgba(192, 192, 192, 0.1); color: #c0c0c0; border: 1px solid #c0c0c0; }
+        .guidance-tool-status.embed { background: rgba(212, 175, 55, 0.2); color: #d4af37; border: 1px solid #d4af37; }
+        .guidance-tool-desc { font-size: 13px; color: #c0c0c0; line-height: 1.5; margin-bottom: 16px; }
+        .guidance-tool-uses { font-size: 11px; color: #808080; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+        .guidance-use-list { list-style: none; padding: 0; margin: 0; }
+        .guidance-use-list li { font-size: 12px; color: #c0c0c0; padding: 6px 0; padding-left: 16px; position: relative; border-bottom: 1px solid rgba(192, 192, 192, 0.1); }
+        .guidance-use-list li:last-child { border-bottom: none; }
+        .guidance-use-list li::before { content: "→"; position: absolute; left: 0; color: #d4af37; }
+        .guidance-tool-action { margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(192, 192, 192, 0.2); }
+        .guidance-action-btn { width: 100%; padding: 10px 16px; background: transparent; border: 1px solid #c0c0c0; border-radius: 6px; color: #c0c0c0; font-size: 13px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .guidance-action-btn:hover { background: #c0c0c0; color: #0a0a0a; }
+        .guidance-action-btn.primary { background: #d4af37; color: #0a0a0a; border-color: #d4af37; }
+        .guidance-action-btn.primary:hover { background: #f4cf57; }
+        .claude-embed-container { margin-top: 24px; padding: 20px; background: #1a1a1a; border: 1px solid #d4af37; border-radius: 10px; display: none; }
+        .claude-embed-container.active { display: block; }
+        .claude-embed-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .claude-embed-title { font-size: 14px; font-weight: 600; color: #d4af37; }
+        .claude-embed-close { background: transparent; border: 1px solid #808080; color: #808080; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+        .claude-embed-close:hover { border-color: #c0c0c0; color: #c0c0c0; }
+        .claude-embed-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 200px; background: #0a0a0a; border: 1px dashed #d4af37; border-radius: 6px; color: #808080; text-align: center; }
+        .claude-embed-placeholder span { font-size: 32px; margin-bottom: 12px; }
+        .claude-embed-placeholder p { font-size: 13px; max-width: 300px; }
+    </style>
+</head>
+<body>
+    <!-- Sticky Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-brand">
+                <div class="hero-company">Trajanus USA EI<span class="tm">™</span></div>
+                <div class="hero-toolkit">Developer Toolkit</div>
+                <div class="hero-description">
+                    Central command interface for session management, script execution, file conversion,
+                    and AI-assisted development. Access automation tools, manage knowledge base ingestion,
+                    and interact with Claude directly from this unified workspace.
+                </div>
+            </div>
+            <div class="hero-nav">
+                <a href="../index.html" class="hero-home-btn">
+                    <span>◆</span> Hub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platform Guidance Section -->
+    <section class="guidance-section" id="guidance-section">
+        <div class="guidance-header" onclick="toggleGuidance()">
+            <span class="guidance-title">🤖 AI Tools & Platform Guidance</span>
+            <span class="guidance-toggle" id="guidance-toggle">▲</span>
+        </div>
+        <div class="guidance-content" id="guidance-content">
+            <div class="guidance-description">
+                <strong>Three AI Tools to Accelerate Development:</strong> This platform integrates AI assistance at multiple levels. Use the <em>Trajanus EI Assistant</em> below for quick coding help, launch the <em>Agent Runner</em> for complex multi-step automation tasks, or access <em>Claude Prime</em> for in-depth technical analysis and architecture discussions.
+            </div>
+            <div class="guidance-tools-grid">
+                <div class="guidance-tool-card">
+                    <div class="guidance-tool-header">
+                        <div class="guidance-tool-icon">💻</div>
+                        <div class="guidance-tool-name">Trajanus EI Assistant</div>
+                        <span class="guidance-tool-status active">ACTIVE</span>
+                    </div>
+                    <div class="guidance-tool-desc">Your embedded developer specialist. Quick answers for coding, scripting, and system automation directly within this platform.</div>
+                    <div class="guidance-tool-uses">Best for:</div>
+                    <ul class="guidance-use-list">
+                        <li>Python/JavaScript/Rust code help</li>
+                        <li>Script debugging and optimization</li>
+                        <li>API integration guidance</li>
+                        <li>Database query assistance</li>
+                        <li>Quick reference and syntax help</li>
+                    </ul>
+                    <div class="guidance-tool-action">
+                        <button class="guidance-action-btn primary" onclick="scrollToAssistant()"><span>↓</span> Jump to Assistant</button>
+                    </div>
+                </div>
+                <div class="guidance-tool-card">
+                    <div class="guidance-tool-header">
+                        <div class="guidance-tool-icon">⚡</div>
+                        <div class="guidance-tool-name">Agent Runner</div>
+                        <span class="guidance-tool-status available">AVAILABLE</span>
+                    </div>
+                    <div class="guidance-tool-desc">Autonomous AI agent for complex development workflows. Executes multi-step coding and automation tasks.</div>
+                    <div class="guidance-tool-uses">Best for:</div>
+                    <ul class="guidance-use-list">
+                        <li>Complete feature implementation</li>
+                        <li>Batch file processing scripts</li>
+                        <li>Code refactoring projects</li>
+                        <li>Documentation generation</li>
+                        <li>Test suite creation</li>
+                    </ul>
+                    <div class="guidance-tool-action">
+                        <button class="guidance-action-btn" onclick="launchAgentRunner()"><span>🚀</span> Launch Agent Runner</button>
+                    </div>
+                </div>
+                <div class="guidance-tool-card">
+                    <div class="guidance-tool-header">
+                        <div class="guidance-tool-icon">🧠</div>
+                        <div class="guidance-tool-name">Claude Prime</div>
+                        <span class="guidance-tool-status embed">EMBED</span>
+                    </div>
+                    <div class="guidance-tool-desc">Full Claude AI for in-depth technical analysis, architecture decisions, and extended development conversations.</div>
+                    <div class="guidance-tool-uses">Best for:</div>
+                    <ul class="guidance-use-list">
+                        <li>System architecture design</li>
+                        <li>Complex algorithm discussions</li>
+                        <li>Technical documentation review</li>
+                        <li>Security and performance analysis</li>
+                        <li>Extended problem-solving sessions</li>
+                    </ul>
+                    <div class="guidance-tool-action">
+                        <button class="guidance-action-btn" onclick="toggleClaudeEmbed()"><span>💬</span> Open Claude Prime</button>
+                    </div>
+                </div>
+            </div>
+            <div class="claude-embed-container" id="claude-embed-container">
+                <div class="claude-embed-header">
+                    <span class="claude-embed-title">Claude Prime - Extended AI Session</span>
+                    <button class="claude-embed-close" onclick="toggleClaudeEmbed()">Close</button>
+                </div>
+                <div class="claude-embed-placeholder">
+                    <span>🧠</span>
+                    <p>Claude Prime integration ready. Click to launch in new window.</p>
+                    <button class="guidance-action-btn" style="margin-top: 16px; width: auto;" onclick="openClaudePrime()">Open Claude.ai in New Tab</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- ========================== -->
+        <!-- AI ASSISTANT SECTION       -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">AI ASSISTANT</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                <strong>Trajanus EI Assistant:</strong> Your embedded developer specialist with specialized Skills. Select a skill to load context-specific system prompts, or ask general coding questions. For complex multi-step tasks, use the Agent Runner from the Platform Guidance above.
+            </p>
+        </div>
+
+        <!-- Chat Assistant Interface -->
+        <div class="chat-section">
+            <div class="chat-header">
+                <div class="chat-header-left">
+                    <h3>TRAJANUS ASSISTANT</h3>
+                </div>
+                <div class="chat-controls">
+                    <button class="clear-chat-btn" id="clear-chat-btn">Clear Chat</button>
+                </div>
+            </div>
+
+            <!-- Messages Area -->
+            <div class="chat-messages" id="chat-messages">
+                <!-- Welcome message added by JavaScript -->
+            </div>
+
+            <!-- Input Area -->
+            <div class="chat-input-area">
+                <div class="chat-input-wrapper">
+                    <textarea
+                        class="chat-input"
+                        id="chat-input"
+                        placeholder="Type your message..."
+                        rows="1"
+                    ></textarea>
+                    <button class="send-btn" id="send-btn">
+                        <span>Send</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================== -->
+        <!-- APPLICATIONS SECTION       -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">APPLICATIONS</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Quick-launch applications for development, communication, file management, and productivity.
+            </p>
+        </div>
+
+        <!-- Development -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Development</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="app-grid">
+                <div class="app-card" data-launch="vscode">
+                    <div class="app-icon">VS</div>
+                    <div class="app-label">VS Code</div>
+                </div>
+                <div class="app-card" data-launch="terminal">
+                    <div class="app-icon">T</div>
+                    <div class="app-label">Terminal</div>
+                </div>
+                <div class="app-card" data-launch="github">
+                    <div class="app-icon">GH</div>
+                    <div class="app-label">GitHub</div>
+                </div>
+                <div class="app-card" data-launch="claude-code">
+                    <div class="app-icon">CC</div>
+                    <div class="app-label">Claude Code</div>
+                </div>
+                <div class="app-card" data-launch="python">
+                    <div class="app-icon">PY</div>
+                    <div class="app-label">Python</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Browsers & Communication -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Browsers & Communication</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="app-grid">
+                <div class="app-card" data-launch="chrome">
+                    <div class="app-icon">C</div>
+                    <div class="app-label">Chrome</div>
+                </div>
+                <div class="app-card" data-launch="edge">
+                    <div class="app-icon">E</div>
+                    <div class="app-label">Edge</div>
+                </div>
+                <div class="app-card" data-launch="teams">
+                    <div class="app-icon">TM</div>
+                    <div class="app-label">Teams</div>
+                </div>
+                <div class="app-card" data-launch="zoom">
+                    <div class="app-icon">Z</div>
+                    <div class="app-label">Zoom</div>
+                </div>
+                <div class="app-card" data-launch="outlook">
+                    <div class="app-icon">O</div>
+                    <div class="app-label">Outlook</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- File & Cloud -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">File & Cloud</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="app-grid">
+                <div class="app-card" data-launch="gdrive">
+                    <div class="app-icon">GD</div>
+                    <div class="app-label">G Drive</div>
+                </div>
+                <div class="app-card" data-launch="explorer">
+                    <div class="app-icon">FE</div>
+                    <div class="app-label">Explorer</div>
+                </div>
+                <div class="app-card" data-launch="notepad">
+                    <div class="app-icon">N+</div>
+                    <div class="app-label">Notepad++</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MS Office -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">MS Office</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="app-grid">
+                <div class="app-card" data-launch="word">
+                    <div class="app-icon">W</div>
+                    <div class="app-label">Word</div>
+                </div>
+                <div class="app-card" data-launch="excel">
+                    <div class="app-icon">X</div>
+                    <div class="app-label">Excel</div>
+                </div>
+                <div class="app-card" data-launch="powerpoint">
+                    <div class="app-icon">P</div>
+                    <div class="app-label">PowerPoint</div>
+                </div>
+                <div class="app-card" data-launch="onenote">
+                    <div class="app-icon">ON</div>
+                    <div class="app-label">OneNote</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================== -->
+        <!-- TRAJANUS SCRIPTS SECTION   -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">TRAJANUS SCRIPTS</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Automation scripts for file conversion, session management, Google Drive operations,
+                and knowledge base management. Click any script to execute.
+            </p>
+        </div>
+
+        <!-- File Conversion -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">File Conversion</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <p class="subsection-description">Convert documents between formats and upload to Google Drive.</p>
+            <div class="script-grid">
+                <div class="script-card conversion" data-script="CONVERT_MD_TO_GDOCS_PERMANENT.py">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">MD to Google Docs</div>
+                        <div class="script-description">Convert Markdown files to Google Docs format in Drive</div>
+                    </div>
+                </div>
+                <div class="script-card conversion" data-script="CONVERT_TXT_TO_GDOCS.py">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">TXT to Google Docs</div>
+                        <div class="script-description">Convert plain text files to Google Docs format in Drive</div>
+                    </div>
+                </div>
+                <div class="script-card conversion" data-script="CONVERT_DOCX_TO_GDOCS.py">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">DOCX to Google Docs</div>
+                        <div class="script-description">Convert Word documents to Google Docs format in Drive</div>
+                    </div>
+                </div>
+                <div class="script-card conversion" data-script="batch_convert_md_only.py">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Batch Convert</div>
+                        <div class="script-description">Process entire folders of files for bulk conversion</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Automation & Utilities -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Automation & Utilities</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <p class="subsection-description">Google Drive folder management and organization utilities.</p>
+            <div class="script-grid">
+                <div class="script-card automation" data-script="gdrive_cleanup_agent.py">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Folder Cleanup</div>
+                        <div class="script-description">Clean and organize Google Drive folder structure</div>
+                    </div>
+                </div>
+                <div class="script-card automation" data-script="consolidate_folders.py">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Consolidate</div>
+                        <div class="script-description">Merge folder contents and remove duplicates</div>
+                    </div>
+                </div>
+                <div class="script-card automation" data-script="working_reorganization.py">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Reorganize</div>
+                        <div class="script-description">Restructure directories according to naming conventions</div>
+                    </div>
+                </div>
+                <div class="script-card automation" data-script="audit_folders.py">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Audit</div>
+                        <div class="script-description">Audit folder structure and report inconsistencies</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data & Knowledge Base -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Data & Knowledge Base</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <p class="subsection-description">Supabase knowledge base ingestion and query tools.</p>
+            <div class="script-grid">
+                <div class="script-card data" data-script="file_ingestion.py">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">File Ingestion</div>
+                        <div class="script-description">Ingest individual files to Supabase knowledge base</div>
+                    </div>
+                </div>
+                <div class="script-card data" data-script="batch_ingest_files.py">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Batch Ingest</div>
+                        <div class="script-description">Batch process files for knowledge base ingestion</div>
+                    </div>
+                </div>
+                <div class="script-card data" data-script="query_kb.py">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Query KB</div>
+                        <div class="script-description">Search the knowledge base for relevant content</div>
+                    </div>
+                </div>
+                <div class="script-card data" data-script="check_db.py">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Check DB</div>
+                        <div class="script-description">Verify database connection and status</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================== -->
+        <!-- PYTHON TOOLS SECTION       -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">PYTHON TOOLS</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Navy/Silver themed GUI tools for knowledge base operations, file conversion, and research automation.
+                Each tool opens in its own managed window.
+            </p>
+        </div>
+
+        <!-- Knowledge Base Tools -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Knowledge Base Tools</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <p class="subsection-description">GUI tools for querying and ingesting documents into the Trajanus Knowledge Base.</p>
+            <div class="script-grid">
+                <div class="script-card data" data-script="QUERY_KB_TOOL.py">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Query KB Tool</div>
+                        <div class="script-description">Semantic search, browse sources, view recent documents</div>
+                    </div>
+                </div>
+                <div class="script-card data" data-script="BATCH_INGEST_TOOL.py">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Batch Ingest Tool</div>
+                        <div class="script-description">Single file, batch folder, or multi-select ingestion</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Converter Tools -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Converter Tools</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <p class="subsection-description">Convert documents between formats with Google Drive integration.</p>
+            <div class="script-grid">
+                <div class="script-card conversion" data-script="CONVERT_MD_TO_GDOCS_PERMANENT.py">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">MD → GDocs Tool</div>
+                        <div class="script-description">Convert Markdown files to Google Docs format</div>
+                    </div>
+                </div>
+                <div class="script-card conversion" data-script="CONVERT_GDOCS_TO_DOCX.py">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">GDocs → DOCX Tool</div>
+                        <div class="script-description">Export Google Docs to Word document format</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Research & Agent Tools -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Research & Agent Tools</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <p class="subsection-description">YouTube transcript extraction and research agent management.</p>
+            <div class="script-grid">
+                <div class="script-card agent" data-script="YOUTUBE_TRANSCRIPT_TOOL.py">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">YouTube Transcripts</div>
+                        <div class="script-description">Scan, extract transcripts, ingest to KB, full pipeline</div>
+                    </div>
+                </div>
+                <div class="script-card agent" data-script="AGENT_RUNNER_TOOL.py">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Agent Runner</div>
+                        <div class="script-description">Launch research agents: YouTube, Document Hunter, KB Ingester</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================== -->
+        <!-- AGENTS SECTION             -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">AGENTS</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                AI-powered agents for research, compliance checking, and automated workflows.
+                Activate an agent to load its skill, or deploy to assign a specific task.
+            </p>
+        </div>
+
+        <div class="agent-grid">
+            <div class="agent-card">
+                <div class="agent-header">
+                    <span class="agent-icon">&#129302;</span>
+                    <span class="agent-name">Research Agent</span>
+                </div>
+                <p class="agent-description">AI agent for web and knowledge base research. Searches multiple sources and synthesizes findings.</p>
+                <div class="agent-actions">
+                    <button class="agent-btn activate" data-agent-activate="research">Activate</button>
+                    <button class="agent-btn deploy" data-agent-deploy="research">Deploy</button>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="agent-header">
+                    <span class="agent-icon">&#128203;</span>
+                    <span class="agent-name">Compliance Officer</span>
+                </div>
+                <p class="agent-description">Agent for checking compliance with UFGS, FAR/DFARS, and contract standards.</p>
+                <div class="agent-actions">
+                    <button class="agent-btn activate" data-agent-activate="compliance">Activate</button>
+                    <button class="agent-btn deploy" data-agent-deploy="compliance">Deploy</button>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="agent-header">
+                    <span class="agent-icon">&#9728;</span>
+                    <span class="agent-name">Morning Research</span>
+                </div>
+                <p class="agent-description">Daily research briefing agent. News summary, market updates, and priority items.</p>
+                <div class="agent-actions">
+                    <button class="agent-btn activate" data-agent-activate="morning">Activate</button>
+                    <button class="agent-btn deploy" data-agent-deploy="morning">Deploy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terminal Section with Tabs -->
+        <section class="terminal-section">
+            <div class="terminal-container">
+                <div class="terminal-header">
+                    <div class="terminal-tabs">
+                        <button class="terminal-tab active" data-terminal-tab="devtools">DevTools</button>
+                        <button class="terminal-tab" data-terminal-tab="codes">Codes</button>
+                        <button class="terminal-tab" data-terminal-tab="external">External</button>
+                        <button class="terminal-tab" data-terminal-tab="claude">Claude Chat</button>
+                    </div>
+                    <button class="terminal-btn" id="terminal-clear-btn">Clear</button>
+                </div>
+                <div class="terminal-body">
+                    <div id="terminal-devtools" class="terminal-content active">
+                        <div class="terminal-output"></div>
+                    </div>
+                    <div id="terminal-codes" class="terminal-content">
+                        <div class="terminal-output"></div>
+                    </div>
+                    <div id="terminal-external" class="terminal-content">
+                        <div class="terminal-output"></div>
+                    </div>
+                    <div id="terminal-claude" class="terminal-content">
+                        <div class="claude-chat-container">
+                            <div class="claude-messages" id="claude-chat-messages"></div>
+                            <div class="claude-input-area">
+                                <textarea id="claude-chat-input" placeholder="Message Claude..."></textarea>
+                                <button id="claude-send-btn">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Sticky Navigation Buttons -->
+    <div class="sticky-nav">
+        <button class="nav-btn" id="scroll-top-btn" title="Return to Top">
+            ↑ Top
+        </button>
+        <button class="nav-btn" id="nav-hub-btn" title="Back to Hub">
+            ⌂ Hub
+        </button>
+    </div>
+
+    <script>
+        const PROJECT_PATH = 'C:\\Dev\\trajanus-command-center';
+        const SCRIPTS_PATH = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\';
+
+        // Get invoke function - Tauri 2.0 with withGlobalTauri
+        function getInvoke() {
+            if (window.__TAURI__ && window.__TAURI__.core && window.__TAURI__.core.invoke) {
+                return window.__TAURI__.core.invoke;
+            }
+            return null;
+        }
+
+        // ==================== TRAJANUS WINDOW SYSTEM ====================
+        class TrajnausWindow {
+            constructor(options = {}) {
+                this.title = options.title || 'Trajanus Window';
+                this.content = options.content || '';
+                this.width = options.width || 'auto';
+                this.onClose = options.onClose || null;
+                this.overlay = null;
+                this.window = null;
+            }
+
+            show() {
+                this.overlay = document.createElement('div');
+                this.overlay.className = 'trajanus-overlay';
+                this.overlay.innerHTML = `
+                    <div class="trajanus-window" style="width: ${this.width}">
+                        <div class="trajanus-window-header">
+                            <div class="trajanus-window-title">${this.title}</div>
+                            <button class="trajanus-window-close" data-close>&times;</button>
+                        </div>
+                        <div class="trajanus-window-body">${this.content}</div>
+                        <div class="trajanus-window-footer">
+                            <button class="trajanus-btn trajanus-btn-secondary" data-close>Close</button>
+                        </div>
+                    </div>
+                `;
+
+                document.body.appendChild(this.overlay);
+                this.window = this.overlay.querySelector('.trajanus-window');
+
+                // Bind close events
+                this.overlay.querySelectorAll('[data-close]').forEach(btn => {
+                    btn.addEventListener('click', () => this.close());
+                });
+
+                // Close on overlay click
+                this.overlay.addEventListener('click', (e) => {
+                    if (e.target === this.overlay) this.close();
+                });
+
+                // Close on Escape
+                this.escHandler = (e) => {
+                    if (e.key === 'Escape') this.close();
+                };
+                document.addEventListener('keydown', this.escHandler);
+
+                return this;
+            }
+
+            close() {
+                if (this.overlay) {
+                    document.removeEventListener('keydown', this.escHandler);
+                    this.overlay.remove();
+                    if (this.onClose) this.onClose();
+                }
+            }
+
+            static alert(title, message) {
+                return new TrajnausWindow({
+                    title: title,
+                    content: `<p style="color: var(--text-primary); line-height: 1.6;">${message}</p>`
+                }).show();
+            }
+
+            static info(title, details) {
+                const content = typeof details === 'string'
+                    ? `<p style="color: var(--text-primary);">${details}</p>`
+                    : `<pre style="color: var(--text-primary); font-family: var(--font-mono); font-size: 12px; white-space: pre-wrap;">${JSON.stringify(details, null, 2)}</pre>`;
+                return new TrajnausWindow({ title, content, width: '600px' }).show();
+            }
+        }
+
+        // ==================== TERMINAL CONTROLLER ====================
+        const Terminal = {
+            currentTab: 'devtools',
+
+            switchTab(tabName) {
+                document.querySelectorAll('.terminal-tab').forEach(btn => btn.classList.remove('active'));
+                const tabBtn = document.querySelector(`[data-terminal-tab="${tabName}"]`);
+                if (tabBtn) tabBtn.classList.add('active');
+
+                document.querySelectorAll('.terminal-content').forEach(panel => panel.classList.remove('active'));
+                const panel = document.getElementById(`terminal-${tabName}`);
+                if (panel) panel.classList.add('active');
+
+                this.currentTab = tabName;
+            },
+
+            getOutput() {
+                return document.querySelector(`#terminal-${this.currentTab} .terminal-output`);
+            },
+
+            clear() {
+                const output = this.getOutput();
+                if (output) output.innerHTML = '';
+            },
+
+            output(message, className = '') {
+                const output = this.getOutput();
+                if (!output) {
+                    console.log(`[Terminal] ${message}`);
+                    return;
+                }
+                const timestamp = new Date().toLocaleTimeString();
+                const line = document.createElement('div');
+                line.className = `output-line ${className}`;
+                line.textContent = `[${timestamp}] ${message}`;
+                output.appendChild(line);
+                output.scrollTop = output.scrollHeight;
+            },
+
+            info(message) {
+                this.output(message, 'info');
+            },
+
+            success(message) {
+                this.output(`✓ ${message}`, 'success');
+            },
+
+            error(message) {
+                this.output(`✗ ${message}`, 'error');
+            },
+
+            warning(message) {
+                this.output(`⚠ ${message}`, 'warning');
+            },
+
+            log(message) {
+                this.output(message);
+            },
+
+            init() {
+                console.log('Terminal initialized');
+                // Add visible init message to prove terminal works
+                this.info('Terminal initialized - ready for output');
+                this.success('Tauri API: ' + (window.__TAURI__ ? 'AVAILABLE' : 'NOT FOUND'));
+            }
+        };
+
+        // Initialize greeting and date
+        document.addEventListener('DOMContentLoaded', () => {
+            updateGreeting();
+            updateDate();
+        });
+
+        function updateGreeting() {
+            const hour = new Date().getHours();
+            let greeting = 'Good evening';
+            if (hour < 12) greeting = 'Good morning';
+            else if (hour < 17) greeting = 'Good afternoon';
+            document.getElementById('greeting-text').textContent = greeting;
+        }
+
+        function updateDate() {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const date = new Date().toLocaleDateString('en-US', options);
+            document.getElementById('current-date').textContent = date;
+        }
+
+        // Application Launcher
+        const Apps = {
+            commands: {
+                'word': 'winword',
+                'excel': 'excel',
+                'powerpoint': 'powerpnt',
+                'outlook': 'outlook',
+                'onenote': 'onenote',
+                'vscode': 'code',
+                'terminal': 'wt',
+                'github': '%LOCALAPPDATA%\\GitHubDesktop\\GitHubDesktop.exe',
+                'claude-code': 'claude',
+                'python': 'python',
+                'chrome': 'chrome',
+                'edge': 'msedge',
+                'teams': 'msteams:',
+                'zoom': 'zoommtg:',
+                'gdrive': 'G:\\My Drive',
+                'explorer': 'G:\\My Drive\\00 - Trajanus USA',
+                'notepad': 'notepad++'
+            },
+
+            // Browser fallback URLs for web-accessible apps
+            webUrls: {
+                'github': 'https://github.com',
+                'chrome': 'https://google.com',
+                'edge': 'https://bing.com',
+                'teams': 'https://teams.microsoft.com',
+                'zoom': 'https://zoom.us/join',
+                'outlook': 'https://outlook.office.com',
+                'gdrive': 'https://drive.google.com',
+                'word': 'https://office.live.com/start/word.aspx',
+                'excel': 'https://office.live.com/start/excel.aspx',
+                'powerpoint': 'https://office.live.com/start/powerpoint.aspx',
+                'onenote': 'https://www.onenote.com',
+                'vscode': 'https://vscode.dev'
+            },
+
+            async launch(appKey) {
+                const invoke = getInvoke();
+                Terminal.info(`Launching application: ${appKey}`);
+
+                // Browser fallback mode
+                if (!invoke) {
+                    if (this.webUrls[appKey]) {
+                        window.open(this.webUrls[appKey], '_blank');
+                        Terminal.output(`[Browser Mode] Opening ${appKey} in new tab...`);
+                    } else {
+                        Terminal.warning(`${appKey} requires the desktop app`);
+                        TrajnausWindow.alert('Desktop Required', `${appKey} can only be launched from the Trajanus desktop application.`);
+                    }
+                    return;
+                }
+
+                try {
+                    if (appKey === 'vscode') {
+                        await invoke('launch_vscode', { path: PROJECT_PATH });
+                        Terminal.success(`VS Code launched with project: ${PROJECT_PATH}`);
+                    } else if (appKey === 'terminal') {
+                        await invoke('open_terminal', { path: PROJECT_PATH });
+                        Terminal.success(`Terminal opened at: ${PROJECT_PATH}`);
+                    } else if (appKey === 'claude-code') {
+                        await invoke('launch_claude_code', { path: PROJECT_PATH });
+                        Terminal.success(`Claude Code launched`);
+                    } else if (appKey === 'gdrive' || appKey === 'explorer') {
+                        await invoke('open_path', { path: this.commands[appKey] });
+                        Terminal.success(`Opened: ${this.commands[appKey]}`);
+                    } else {
+                        await invoke('open_path', { path: this.commands[appKey] });
+                        Terminal.success(`Launched: ${appKey}`);
+                    }
+                } catch (e) {
+                    Terminal.error(`Failed to launch ${appKey}: ${e}`);
+                }
+            }
+        };
+
+        // Notification helper for browser feedback
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `<span>${message}</span>`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                border-radius: 8px;
+                background: ${type === 'warning' ? '#2d2d2d' : '#1a1a1a'};
+                border: 1px solid ${type === 'warning' ? '#fbbf24' : '#c0c0c0'};
+                color: ${type === 'warning' ? '#fbbf24' : '#e0e0e0'};
+                font-size: 14px;
+                z-index: 9999;
+                animation: slideIn 0.3s ease;
+            `;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        // ==================== PLATFORM GUIDANCE ====================
+        function toggleGuidance() {
+            const content = document.getElementById('guidance-content');
+            const toggle = document.getElementById('guidance-toggle');
+            if (content && toggle) {
+                content.classList.toggle('collapsed');
+                toggle.classList.toggle('collapsed');
+                toggle.textContent = content.classList.contains('collapsed') ? '▼' : '▲';
+            }
+        }
+
+        function scrollToAssistant() {
+            const chatSection = document.querySelector('.chat-section');
+            if (chatSection) {
+                chatSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(() => { document.getElementById('chat-input')?.focus(); }, 500);
+            }
+        }
+
+        function launchAgentRunner() {
+            if (window.__TAURI__) {
+                window.__TAURI__.core.invoke('open_path', { path: 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\AGENT_RUNNER_TOOL.py' }).catch(err => showNotification('Could not launch Agent Runner: ' + err, 'warning'));
+            } else {
+                showNotification('Agent Runner available in desktop app', 'info');
+            }
+        }
+
+        function toggleClaudeEmbed() {
+            document.getElementById('claude-embed-container')?.classList.toggle('active');
+        }
+
+        function openClaudePrime() {
+            window.open('https://claude.ai', '_blank');
+        }
+
+        // Script Runner
+        const Scripts = {
+            async run(scriptName) {
+                const invoke = getInvoke();
+                Terminal.info(`Executing script: ${scriptName}`);
+                Terminal.output(`Path: ${SCRIPTS_PATH}${scriptName}`);
+
+                // Browser fallback - scripts require desktop app
+                if (!invoke) {
+                    Terminal.warning(`Scripts require the desktop app`);
+                    TrajnausWindow.alert('Desktop Required', `Script "${scriptName}" can only be executed from the Trajanus desktop application.`);
+                    return;
+                }
+
+                try {
+                    Terminal.output(`[Running] python "${SCRIPTS_PATH}${scriptName}"`);
+                    const result = await invoke('run_python_script', {
+                        scriptPath: SCRIPTS_PATH + scriptName
+                    });
+
+                    // Output script results to terminal
+                    if (result) {
+                        Terminal.output('--- Script Output ---');
+                        const lines = result.split('\n');
+                        lines.forEach(line => Terminal.output(line));
+                        Terminal.output('--- End Output ---');
+                    }
+                    Terminal.success(`Script completed: ${scriptName}`);
+                } catch (e) {
+                    Terminal.error(`Script failed: ${e}`);
+                }
+            }
+        };
+
+        // Agent Controller
+        const Agents = {
+            async activate(agentName) {
+                Terminal.info(`Activating ${agentName} agent...`);
+                try {
+                    // Load agent skill into chat assistant
+                    const skillMap = {
+                        'research': 'research',
+                        'compliance': 'compliance',
+                        'morning': 'research'
+                    };
+                    const skill = skillMap[agentName];
+                    if (skill) {
+                        const skillSelect = document.getElementById('skill-select');
+                        if (skillSelect) {
+                            skillSelect.value = skill;
+                            await ChatAssistant.loadSkill(skill);
+                        }
+                        Terminal.success(`${agentName} agent skill loaded`);
+                    }
+                } catch (e) {
+                    Terminal.error(`Failed to activate ${agentName}: ${e}`);
+                }
+            },
+            async deploy(agentName) {
+                Terminal.info(`Deploying ${agentName} agent...`);
+                const scriptMap = {
+                    'research': 'research_agent.py',
+                    'compliance': 'compliance_officer.py',
+                    'morning': 'morning_research_agent.py'
+                };
+                if (scriptMap[agentName]) {
+                    Terminal.output(`Agent script: ${scriptMap[agentName]}`);
+                    await Scripts.run(scriptMap[agentName]);
+                } else {
+                    Terminal.warning(`No deployment script for ${agentName}`);
+                }
+            }
+        };
+
+        // Simple Chat Assistant Controller
+        const ChatAssistant = {
+            messages: [],
+            isLoading: false,
+
+            init() {
+                console.log('Chat Assistant ready');
+                // Show welcome message from assistant
+                this.showWelcome();
+            },
+
+            showWelcome() {
+                const messagesContainer = document.getElementById('chat-messages');
+                const welcome = document.getElementById('chat-welcome');
+                if (welcome) welcome.style.display = 'none';
+
+                // Add assistant greeting
+                this.addMessage('assistant', 'Hello! I\'m your Trajanus Assistant. What can I help you with today?');
+            },
+
+            async send() {
+                const input = document.getElementById('chat-input');
+                const message = input.value.trim();
+
+                if (!message || this.isLoading) return;
+
+                // Add user message to UI
+                this.addMessage('user', message);
+                input.value = '';
+                this.autoResize(input);
+
+                // Show loading
+                this.setLoading(true);
+
+                try {
+                    let response;
+
+                    // Check if running in Tauri or browser
+                    if (window.__TAURI__) {
+                        // Tauri mode - use invoke
+                        const invoke = getInvoke();
+                        response = await invoke('chat_with_claude', {
+                            message: message,
+                            context: null
+                        });
+                    } else {
+                        // Browser mode - direct API call
+                        const apiResponse = await fetch('https://api.anthropic.com/v1/messages', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'x-api-key': window.ANTHROPIC_API_KEY || '',
+                                'anthropic-version': '2023-06-01',
+                                'anthropic-dangerous-direct-browser-access': 'true'
+                            },
+                            body: JSON.stringify({
+                                model: 'claude-sonnet-4-20250514',
+                                max_tokens: 4096,
+                                messages: [{ role: 'user', content: message }]
+                            })
+                        });
+
+                        if (!apiResponse.ok) {
+                            const errorData = await apiResponse.json();
+                            throw new Error(errorData.error?.message || 'API request failed');
+                        }
+
+                        const data = await apiResponse.json();
+                        response = data.content[0].text;
+                    }
+
+                    // Add assistant response
+                    this.addMessage('assistant', response);
+
+                } catch (error) {
+                    console.error('Chat error:', error);
+                    this.addMessage('assistant', `I encountered an error: ${error}`);
+                }
+
+                this.setLoading(false);
+            },
+
+            addMessage(role, content) {
+                const messagesContainer = document.getElementById('chat-messages');
+
+                const messageEl = document.createElement('div');
+                messageEl.className = `chat-message ${role}`;
+                messageEl.innerHTML = `
+                    <div class="message-avatar">${role === 'user' ? 'B' : 'T'}</div>
+                    <div class="message-content">
+                        <div class="message-text">${this.escapeHtml(content)}</div>
+                    </div>
+                `;
+
+                messagesContainer.appendChild(messageEl);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+                this.messages.push({ role, content });
+            },
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            },
+
+            setLoading(loading) {
+                this.isLoading = loading;
+                const sendBtn = document.getElementById('send-btn');
+                const messagesContainer = document.getElementById('chat-messages');
+
+                sendBtn.disabled = loading;
+
+                const existingIndicator = document.getElementById('typing-indicator');
+                if (loading && !existingIndicator) {
+                    const indicator = document.createElement('div');
+                    indicator.id = 'typing-indicator';
+                    indicator.className = 'chat-message assistant';
+                    indicator.innerHTML = `
+                        <div class="message-avatar">T</div>
+                        <div class="message-content">
+                            <div class="typing-indicator">
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+                    `;
+                    messagesContainer.appendChild(indicator);
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                } else if (!loading && existingIndicator) {
+                    existingIndicator.remove();
+                }
+            },
+
+            clear() {
+                this.messages = [];
+                const messagesContainer = document.getElementById('chat-messages');
+                messagesContainer.innerHTML = '';
+                this.showWelcome();
+            },
+
+            handleKeydown(event) {
+                if (event.key === 'Enter' && !event.shiftKey) {
+                    event.preventDefault();
+                    this.send();
+                }
+            },
+
+            autoResize(textarea) {
+                textarea.style.height = 'auto';
+                textarea.style.height = Math.min(textarea.scrollHeight, 150) + 'px';
+            }
+        };
+
+        // Initialize Chat Assistant and Terminal
+        document.addEventListener('DOMContentLoaded', () => {
+            ChatAssistant.init();
+            Terminal.init();
+
+            // ==================== CSP-COMPLIANT EVENT LISTENERS ====================
+
+            // App launchers
+            document.querySelectorAll('[data-launch]').forEach(el => {
+                el.addEventListener('click', () => Apps.launch(el.dataset.launch));
+            });
+
+            // Script cards
+            document.querySelectorAll('[data-script]').forEach(el => {
+                el.addEventListener('click', () => {
+                    alert('Script clicked: ' + el.dataset.script);
+                    Scripts.run(el.dataset.script);
+                });
+            });
+
+            // Agent activate buttons
+            document.querySelectorAll('[data-agent-activate]').forEach(el => {
+                el.addEventListener('click', () => Agents.activate(el.dataset.agentActivate));
+            });
+
+            // Agent deploy buttons
+            document.querySelectorAll('[data-agent-deploy]').forEach(el => {
+                el.addEventListener('click', () => Agents.deploy(el.dataset.agentDeploy));
+            });
+
+            // Chat controls
+            document.getElementById('clear-chat-btn').addEventListener('click', () => ChatAssistant.clear());
+            document.getElementById('send-btn').addEventListener('click', () => ChatAssistant.send());
+
+            // Chat input handlers
+            const chatInput = document.getElementById('chat-input');
+            chatInput.addEventListener('keydown', (e) => ChatAssistant.handleKeydown(e));
+            chatInput.addEventListener('input', () => ChatAssistant.autoResize(chatInput));
+
+            // Terminal tabs
+            document.querySelectorAll('[data-terminal-tab]').forEach(el => {
+                el.addEventListener('click', () => Terminal.switchTab(el.dataset.terminalTab));
+            });
+
+            // Terminal clear button
+            document.getElementById('terminal-clear-btn').addEventListener('click', () => Terminal.clear());
+
+            // Claude chat in terminal (uses main ChatAssistant)
+            const claudeInput = document.getElementById('claude-chat-input');
+            if (claudeInput) {
+                claudeInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        Terminal.info('Use the main chat above for Claude conversations');
+                    }
+                });
+            }
+            const claudeSendBtn = document.getElementById('claude-send-btn');
+            if (claudeSendBtn) {
+                claudeSendBtn.addEventListener('click', () => Terminal.info('Use the main chat above for Claude conversations'));
+            }
+
+            // Sticky navigation
+            document.getElementById('scroll-top-btn').addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            document.getElementById('nav-hub-btn').addEventListener('click', () => {
+                window.location.href = '../index.html';
+            });
+
+            console.log('Developer Toolkit initialized with CSP-compliant event handlers');
+        });
+    </script>
+</body>
+</html>

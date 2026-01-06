@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quality Control - Trajanus Enterprise Hub</title>
+    <style>
+        /* Reset & Base */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            /* TRAJANUS BLACK/SILVER PALETTE - ALL SILVER ON BLACK */
+            --bg-base: #0a0a0a;
+            --bg-surface: #0a0a0a;
+            --bg-card: #0a0a0a;
+            --bg-elevated: #1a1a1a;
+            --bg-hover: #2a2a2a;
+            --accent: #c0c0c0;
+            --accent-bright: #e0e0e0;
+            --accent-dim: #a0a0a0;
+            --accent-hover: #ffffff;
+            --silver: #c0c0c0;
+            --silver-light: #e0e0e0;
+            --silver-dark: #a0a0a0;
+            --gold: #d4af37;
+            --gold-light: #f4cf57;
+            --gold-dark: #b4942f;
+            --blue: #4a90d9;
+            --blue-light: #6ab0f9;
+            --blue-dark: #3a70b9;
+            --text-primary: #c0c0c0;
+            --text-secondary: #c0c0c0;
+            --text-muted: #c0c0c0;
+            --border-subtle: #c0c0c0;
+            --border-accent: #c0c0c0;
+            --success: #4ade80;
+            --info: #60a5fa;
+            --warning: #fbbf24;
+            --purple: #a78bfa;
+            --error: #f87171;
+            --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+        }
+
+        html, body { height: 100%; }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-base);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Sticky Hero Section */
+        .hero-section {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--bg-base);
+            border-bottom: 1px solid var(--gold);
+            padding: 16px 32px;
+        }
+
+        .hero-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hero-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+        }
+
+        .hero-company {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero-company .tm {
+            font-size: 8px;
+            vertical-align: super;
+        }
+
+        .hero-toolkit {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+
+        .hero-description {
+            font-size: 13px;
+            color: var(--text-primary);
+            max-width: 500px;
+            line-height: 1.4;
+            margin-top: 4px;
+        }
+
+        .hero-home-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .hero-home-btn:hover {
+            background: var(--gold);
+            color: var(--bg-base);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 0 24px 40px 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Page Hero Section */
+        .page-hero {
+            text-align: center;
+            padding: 48px 24px 32px 24px;
+            border-bottom: 1px solid var(--border-subtle);
+            margin-bottom: 32px;
+        }
+
+        .hero-title {
+            color: var(--silver);
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .hero-subtitle {
+            color: var(--text-primary);
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+        }
+
+        .hero-greeting-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 20px;
+        }
+
+        .hero-greeting {
+            color: var(--text-primary);
+            font-size: 16px;
+        }
+
+        .hero-greeting .name {
+            color: var(--silver);
+            font-weight: 600;
+        }
+
+        .hero-date {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .hero-description {
+            color: var(--text-secondary);
+            font-size: 14px;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Section Dividers */
+        .section-divider {
+            margin: 40px 0 24px 0;
+        }
+
+        .section-border-top {
+            height: 2px;
+            background: linear-gradient(to right, var(--silver), var(--border-subtle), transparent);
+            margin-bottom: 12px;
+        }
+
+        .section-title-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .section-blocks {
+            color: var(--silver);
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .section-title {
+            color: var(--gold);
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        .section-border-bottom {
+            height: 2px;
+            background: linear-gradient(to right, var(--gold), var(--gold-dark), transparent);
+            margin-top: 12px;
+        }
+
+        .section-description {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-top: 12px;
+            max-width: 800px;
+        }
+
+        /* Subsection Headers */
+        .subsection {
+            margin-bottom: 28px;
+        }
+
+        .subsection-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .subsection-title {
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .subsection-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border-subtle);
+        }
+
+        .subsection-description {
+            color: var(--text-muted);
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        /* Application Cards */
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 12px;
+        }
+
+        .app-card {
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 8px;
+            padding: 16px 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 90px;
+        }
+
+        .app-card:hover {
+            background: var(--bg-surface);
+            border-color: var(--blue-light);
+            transform: translateY(-2px);
+        }
+
+        .app-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--silver);
+            background: var(--bg-elevated);
+            border-radius: 6px;
+        }
+
+        .app-label {
+            font-size: 11px;
+            color: var(--text-primary);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Two-Column Script/Doc Cards */
+        .script-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 900px) {
+            .script-grid { grid-template-columns: 1fr; }
+        }
+
+        .script-card {
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-left: 4px solid var(--blue);
+            border-radius: 6px;
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .script-card:hover {
+            background: var(--bg-surface);
+            border-color: var(--blue-light);
+            transform: translateX(4px);
+        }
+
+        .script-card.quality { border-left-color: var(--success); }
+        .script-card.inspection { border-left-color: var(--warning); }
+        .script-card.submittal { border-left-color: var(--info); }
+        .script-card.conversion { border-left-color: var(--purple); }
+
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--silver);
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .script-card.quality .indicator { background: var(--success); }
+        .script-card.inspection .indicator { background: var(--warning); }
+        .script-card.submittal .indicator { background: var(--info); }
+        .script-card.conversion .indicator { background: var(--purple); }
+
+        .script-info { flex: 1; min-width: 0; }
+
+        .script-title {
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .script-description {
+            color: var(--text-muted);
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        /* Agent Cards */
+        .agent-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 1100px) { .agent-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 700px) { .agent-grid { grid-template-columns: 1fr; } }
+
+        .agent-card {
+            background: var(--bg-base);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .agent-card:hover { border-color: var(--silver); }
+
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .agent-icon { font-size: 20px; }
+
+        .agent-name {
+            color: var(--silver);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .agent-description {
+            color: var(--text-secondary);
+            font-size: 12px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            min-height: 36px;
+        }
+
+        .agent-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .agent-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .agent-btn.activate {
+            background: var(--silver);
+            border: none;
+            color: var(--bg-base);
+        }
+
+        .agent-btn.activate:hover { background: var(--gold-hover); }
+
+        .agent-btn.deploy {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+        }
+
+        .agent-btn.deploy:hover {
+            border-color: var(--silver);
+            color: var(--silver);
+        }
+
+        /* Chat Section */
+        .chat-section {
+            background: var(--bg-base);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+        }
+
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
+            flex-shrink: 0;
+        }
+
+        .chat-header h3 {
+            color: var(--silver);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .chat-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .clear-chat-btn {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .clear-chat-btn:hover {
+            border-color: var(--error);
+            color: var(--error);
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background: var(--bg-base);
+        }
+
+        .chat-message {
+            display: flex;
+            gap: 12px;
+            max-width: 85%;
+        }
+
+        .chat-message.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .chat-message.assistant { align-self: flex-start; }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .chat-message.user .message-avatar {
+            background: var(--silver);
+            color: var(--bg-base);
+        }
+
+        .chat-message.assistant .message-avatar {
+            background: var(--bg-elevated);
+            color: var(--silver);
+        }
+
+        .message-content {
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 8px;
+            padding: 12px 16px;
+        }
+
+        .chat-message.user .message-content {
+            background: var(--blue);
+            border-color: var(--blue);
+            color: var(--bg-base);
+        }
+
+        .message-text {
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 8px 0;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: var(--silver);
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-indicator span:nth-child(1) { animation-delay: 0s; }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-6px); opacity: 1; }
+        }
+
+        .chat-input-area {
+            padding: 16px 20px;
+            background: var(--bg-surface);
+            border-top: 1px solid var(--blue);
+            flex-shrink: 0;
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: var(--font-main);
+            resize: none;
+            min-height: 48px;
+            max-height: 150px;
+            line-height: 1.5;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--blue-light);
+        }
+
+        .chat-input::placeholder { color: var(--text-muted); }
+
+        .send-btn {
+            background: var(--blue);
+            border: none;
+            color: var(--bg-base);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .send-btn:hover:not(:disabled) { background: var(--blue-light); }
+        .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* Sticky Navigation */
+        .sticky-nav {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 9999;
+        }
+
+        .nav-btn {
+            background: linear-gradient(180deg, #1a2d42 0%, #0d1b2a 100%);
+            border: 1px solid #c0c0c0;
+            color: #c0c0c0;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            min-width: 70px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(180deg, #2a4a6a 0%, #1a2d42 100%);
+            border-color: #e0e0e0;
+            color: #e0e0e0;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .hero-greeting-row { flex-direction: column; gap: 8px; }
+            .app-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
+        }
+
+        /* ==================== TRAJANUS WINDOW SYSTEM ==================== */
+        .trajanus-window-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .trajanus-window {
+            background: #1a1a1a;
+            border: 2px solid #c0c0c0;
+            border-radius: 8px;
+            min-width: 500px;
+            max-width: 800px;
+            max-height: 80vh;
+            box-shadow: 0 0 30px rgba(192, 192, 192, 0.2), 0 0 60px rgba(0, 0, 0, 0.5);
+            animation: slideIn 0.2s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .trajanus-window-header {
+            background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
+            border-bottom: 1px solid #c0c0c0;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .trajanus-window-title {
+            color: #c0c0c0;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .trajanus-window-close {
+            background: transparent;
+            border: 1px solid #4a4a4a;
+            color: #c0c0c0;
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .trajanus-window-close:hover {
+            border-color: #c0c0c0;
+            background: #2d2d2d;
+        }
+
+        .trajanus-window-body {
+            padding: 24px;
+            color: #ffffff;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .trajanus-window-footer {
+            padding: 16px 24px;
+            border-top: 1px solid #4a4a4a;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .trajanus-btn {
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .trajanus-btn-primary {
+            background: #c0c0c0;
+            border: none;
+            color: #1a1a1a;
+        }
+
+        .trajanus-btn-primary:hover {
+            background: #e0e0e0;
+        }
+
+        .trajanus-btn-secondary {
+            background: transparent;
+            border: 1px solid #4a4a4a;
+            color: #c0c0c0;
+        }
+
+        .trajanus-btn-secondary:hover {
+            border-color: #c0c0c0;
+        }
+
+        /* Terminal styling */
+        .terminal-output {
+            background: #0a0a0a;
+            border: 1px solid #4a4a4a;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+
+        .terminal-line {
+            padding: 2px 0;
+            line-height: 1.4;
+        }
+
+        .terminal-line.success { color: #4ade80; }
+        .terminal-line.error { color: #f87171; }
+        .terminal-line.info { color: #60a5fa; }
+        .terminal-line.warning { color: #fbbf24; }
+
+        /* ==================== PLATFORM GUIDANCE SECTION ==================== */
+        /* BLACK/SILVER/GOLD Color Scheme */
+        .guidance-section { padding: 24px 32px; background: #0a0a0a; border-bottom: 1px solid #d4af37; }
+        .guidance-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; cursor: pointer; }
+        .guidance-title { font-size: 16px; font-weight: 600; color: #d4af37; text-transform: uppercase; letter-spacing: 1.5px; }
+        .guidance-toggle { font-size: 14px; color: #c0c0c0; transition: transform 0.3s; }
+        .guidance-toggle.collapsed { transform: rotate(180deg); }
+        .guidance-content { display: grid; gap: 24px; transition: all 0.3s ease; }
+        .guidance-content.collapsed { display: none; }
+        .guidance-description { font-size: 14px; color: #c0c0c0; line-height: 1.6; margin-bottom: 8px; padding: 16px; background: #1a1a1a; border-left: 3px solid #d4af37; border-radius: 0 6px 6px 0; }
+        .guidance-tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        @media (max-width: 900px) { .guidance-tools-grid { grid-template-columns: 1fr; } }
+        .guidance-tool-card { background: #0a0a0a; border: 1px solid #c0c0c0; border-radius: 10px; padding: 20px; transition: all 0.2s; }
+        .guidance-tool-card:hover { border-color: #d4af37; transform: translateY(-2px); box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2); }
+        .guidance-tool-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .guidance-tool-icon { font-size: 28px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: #1a1a1a; border-radius: 8px; border: 1px solid #c0c0c0; }
+        .guidance-tool-name { font-size: 15px; font-weight: 600; color: #d4af37; }
+        .guidance-tool-status { font-size: 10px; padding: 3px 8px; border-radius: 4px; margin-left: auto; }
+        .guidance-tool-status.active { background: rgba(74, 222, 128, 0.2); color: #4ade80; border: 1px solid #4ade80; }
+        .guidance-tool-status.available { background: rgba(192, 192, 192, 0.1); color: #c0c0c0; border: 1px solid #c0c0c0; }
+        .guidance-tool-status.embed { background: rgba(212, 175, 55, 0.2); color: #d4af37; border: 1px solid #d4af37; }
+        .guidance-tool-desc { font-size: 13px; color: #c0c0c0; line-height: 1.5; margin-bottom: 16px; }
+        .guidance-tool-uses { font-size: 11px; color: #808080; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+        .guidance-use-list { list-style: none; padding: 0; margin: 0; }
+        .guidance-use-list li { font-size: 12px; color: #c0c0c0; padding: 6px 0; padding-left: 16px; position: relative; border-bottom: 1px solid rgba(192, 192, 192, 0.1); }
+        .guidance-use-list li:last-child { border-bottom: none; }
+        .guidance-use-list li::before { content: "→"; position: absolute; left: 0; color: #d4af37; }
+        .guidance-tool-action { margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(192, 192, 192, 0.2); }
+        .guidance-action-btn { width: 100%; padding: 10px 16px; background: transparent; border: 1px solid #c0c0c0; border-radius: 6px; color: #c0c0c0; font-size: 13px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .guidance-action-btn:hover { background: #c0c0c0; color: #0a0a0a; }
+        .guidance-action-btn.primary { background: #d4af37; color: #0a0a0a; border-color: #d4af37; }
+        .guidance-action-btn.primary:hover { background: #f4cf57; }
+        .claude-embed-container { margin-top: 24px; padding: 20px; background: #1a1a1a; border: 1px solid #d4af37; border-radius: 10px; display: none; }
+        .claude-embed-container.active { display: block; }
+        .claude-embed-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .claude-embed-title { font-size: 14px; font-weight: 600; color: #d4af37; }
+        .claude-embed-close { background: transparent; border: 1px solid #808080; color: #808080; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+        .claude-embed-close:hover { border-color: #c0c0c0; color: #c0c0c0; }
+        .claude-embed-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 200px; background: #0a0a0a; border: 1px dashed #d4af37; border-radius: 6px; color: #808080; text-align: center; }
+        .claude-embed-placeholder span { font-size: 32px; margin-bottom: 12px; }
+        .claude-embed-placeholder p { font-size: 13px; max-width: 300px; }
+    </style>
+</head>
+<body>
+    <!-- Sticky Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-brand">
+                <div class="hero-company">Trajanus USA EI<span class="tm">™</span></div>
+                <div class="hero-toolkit">Quality Control Toolkit</div>
+                <div class="hero-description">
+                    Complete QC workspace for RMS inspections, three-phase control, submittals,
+                    and USACE compliance documentation. Manage QC reports and coordinate with government QA.
+                </div>
+            </div>
+            <div class="hero-nav">
+                <a href="../index.html" class="hero-home-btn">
+                    <span>◆</span> Hub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platform Guidance Section -->
+    <section class="guidance-section" id="guidance-section">
+        <div class="guidance-header" onclick="toggleGuidance()">
+            <span class="guidance-title">🤖 AI Tools & Platform Guidance</span>
+            <span class="guidance-toggle" id="guidance-toggle">▲</span>
+        </div>
+        <div class="guidance-content" id="guidance-content">
+            <div class="guidance-description">
+                <strong>Three AI Tools to Accelerate Quality Control:</strong> This platform integrates AI assistance at multiple levels. Use the <em>Trajanus EI Assistant</em> below for quick QC guidance, launch the <em>Agent Runner</em> for complex multi-step inspection tasks, or access <em>Claude Prime</em> for in-depth analysis and report drafting.
+            </div>
+
+            <div class="guidance-tools-grid">
+                <!-- Tool 1: Trajanus EI Assistant -->
+                <div class="guidance-tool-card">
+                    <div class="guidance-tool-header">
+                        <div class="guidance-tool-icon">📋</div>
+                        <div class="guidance-tool-name">Trajanus EI Assistant</div>
+                        <span class="guidance-tool-status active">ACTIVE</span>
+                    </div>
+                    <div class="guidance-tool-desc">
+                        Your embedded QC specialist. Quick answers for inspections, submittals, RMS, and USACE compliance directly within this platform.
+                    </div>
+                    <div class="guidance-tool-uses">Best for:</div>
+                    <ul class="guidance-use-list">
+                        <li>Three-phase inspection procedures</li>
+                        <li>Submittal review and tracking</li>
+                        <li>RMS documentation requirements</li>
+                        <li>USACE compliance questions</li>
+                        <li>Deficiency resolution guidance</li>
+                    </ul>
+                    <div class="guidance-tool-action">
+                        <button class="guidance-action-btn primary" onclick="scrollToAssistant()">
+                            <span>↓</span> Jump to Assistant
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tool 2: Agent Runner -->
+                <div class="guidance-tool-card">
+                    <div class="guidance-tool-header">
+                        <div class="guidance-tool-icon">⚡</div>
+                        <div class="guidance-tool-name">Agent Runner</div>
+                        <span class="guidance-tool-status available">AVAILABLE</span>
+                    </div>
+                    <div class="guidance-tool-desc">
+                        Autonomous AI agent for complex QC workflows. Executes multi-step inspection and documentation tasks.
+                    </div>
+                    <div class="guidance-tool-uses">Best for:</div>
+                    <ul class="guidance-use-list">
+                        <li>Generate complete QC inspection reports</li>
+                        <li>Batch process submittal reviews</li>
+                        <li>Create deficiency tracking logs</li>
+                        <li>Compile RMS documentation packages</li>
+                        <li>Draft corrective action responses</li>
+                    </ul>
+                    <div class="guidance-tool-action">
+                        <button class="guidance-action-btn" onclick="launchAgentRunner()">
+                            <span>🚀</span> Launch Agent Runner
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tool 3: Claude Prime -->
+                <div class="guidance-tool-card">
+                    <div class="guidance-tool-header">
+                        <div class="guidance-tool-icon">🧠</div>
+                        <div class="guidance-tool-name">Claude Prime</div>
+                        <span class="guidance-tool-status embed">EMBED</span>
+                    </div>
+                    <div class="guidance-tool-desc">
+                        Full Claude AI for in-depth QC analysis, complex problem solving, and extended conversations about construction quality challenges.
+                    </div>
+                    <div class="guidance-tool-uses">Best for:</div>
+                    <ul class="guidance-use-list">
+                        <li>Complex deficiency root cause analysis</li>
+                        <li>Specification interpretation disputes</li>
+                        <li>QC program improvement planning</li>
+                        <li>Contract clause clarification</li>
+                        <li>Extended troubleshooting sessions</li>
+                    </ul>
+                    <div class="guidance-tool-action">
+                        <button class="guidance-action-btn" onclick="toggleClaudeEmbed()">
+                            <span>💬</span> Open Claude Prime
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Claude Prime Embed Container -->
+            <div class="claude-embed-container" id="claude-embed-container">
+                <div class="claude-embed-header">
+                    <span class="claude-embed-title">Claude Prime - Extended AI Session</span>
+                    <button class="claude-embed-close" onclick="toggleClaudeEmbed()">Close</button>
+                </div>
+                <div class="claude-embed-placeholder">
+                    <span>🧠</span>
+                    <p>Claude Prime integration ready. Click to launch in new window.</p>
+                    <button class="guidance-action-btn" style="margin-top: 16px; width: auto;" onclick="openClaudePrime()">
+                        Open Claude.ai in New Tab
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- AI ASSISTANT SECTION -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">AI ASSISTANT</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                <strong>Trajanus EI Assistant:</strong> Your embedded QC specialist for quick answers and real-time support. Ask about inspection procedures, submittal requirements, or USACE compliance. For complex multi-step tasks, use the Agent Runner from the Platform Guidance above.
+            </p>
+        </div>
+
+        <!-- Chat Section -->
+        <div class="chat-section">
+            <div class="chat-header">
+                <h3>TRAJANUS QC ASSISTANT</h3>
+                <div class="chat-controls">
+                    <button class="clear-chat-btn" id="btn-clear-chat">Clear Chat</button>
+                </div>
+            </div>
+            <div class="chat-messages" id="chat-messages"></div>
+            <div class="chat-input-area">
+                <div class="chat-input-wrapper">
+                    <textarea class="chat-input" id="chat-input" placeholder="Ask about QC reports, submittals, inspections, or RMS..." rows="1"></textarea>
+                    <button class="send-btn" id="btn-send">Send</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- APPLICATIONS SECTION -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">APPLICATIONS</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Quick-launch applications for quality control, communication, and productivity.
+            </p>
+        </div>
+
+        <!-- QC Tools -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">QC Tools</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="app-grid">
+                <div class="app-card" data-launch="rms">
+                    <div class="app-icon">RM</div>
+                    <div class="app-label">RMS 3.0</div>
+                </div>
+                <div class="app-card" data-launch="procore">
+                    <div class="app-icon">PC</div>
+                    <div class="app-label">Procore</div>
+                </div>
+                <div class="app-card" data-launch="bluebeam">
+                    <div class="app-icon">BB</div>
+                    <div class="app-label">Bluebeam</div>
+                </div>
+                <div class="app-card" data-launch="acrobat">
+                    <div class="app-icon">PDF</div>
+                    <div class="app-label">Acrobat</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MS Office -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">MS Office</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="app-grid">
+                <div class="app-card" data-launch="word">
+                    <div class="app-icon">W</div>
+                    <div class="app-label">Word</div>
+                </div>
+                <div class="app-card" data-launch="excel">
+                    <div class="app-icon">X</div>
+                    <div class="app-label">Excel</div>
+                </div>
+                <div class="app-card" data-launch="powerpoint">
+                    <div class="app-icon">P</div>
+                    <div class="app-label">PowerPoint</div>
+                </div>
+                <div class="app-card" data-launch="outlook">
+                    <div class="app-icon">O</div>
+                    <div class="app-label">Outlook</div>
+                </div>
+                <div class="app-card" data-launch="teams">
+                    <div class="app-icon">TM</div>
+                    <div class="app-label">Teams</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Browsers & Files -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Browsers & Files</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="app-grid">
+                <div class="app-card" data-launch="chrome">
+                    <div class="app-icon">C</div>
+                    <div class="app-label">Chrome</div>
+                </div>
+                <div class="app-card" data-launch="edge">
+                    <div class="app-icon">E</div>
+                    <div class="app-label">Edge</div>
+                </div>
+                <div class="app-card" data-launch="gdrive">
+                    <div class="app-icon">GD</div>
+                    <div class="app-label">G Drive</div>
+                </div>
+                <div class="app-card" data-launch="explorer">
+                    <div class="app-icon">FE</div>
+                    <div class="app-label">Explorer</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TRAJANUS SCRIPTS SECTION -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">TRAJANUS SCRIPTS</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Automation scripts for file conversion, session management, and knowledge base operations.
+            </p>
+        </div>
+
+        <!-- File Conversion -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">File Conversion</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="script-grid">
+                <div class="script-card conversion" data-script="CONVERT_MD_TO_GDOCS_PERMANENT.py">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">MD to Google Docs</div>
+                        <div class="script-description">Convert Markdown to Google Docs</div>
+                    </div>
+                </div>
+                <div class="script-card conversion" data-script="batch_convert_md_only.py">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Batch Convert</div>
+                        <div class="script-description">Process folders for bulk conversion</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QC DOCUMENTS SECTION -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">QC DOCUMENTS</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Quality control documentation, inspection reports, and three-phase control records.
+            </p>
+        </div>
+
+        <!-- Three-Phase Control -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Three-Phase Control</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="script-grid">
+                <div class="script-card quality" data-doc="preparatory">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Preparatory Meetings</div>
+                        <div class="script-description">Pre-activity meeting records</div>
+                    </div>
+                </div>
+                <div class="script-card quality" data-doc="initial">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Initial Inspections</div>
+                        <div class="script-description">Initial phase inspection reports</div>
+                    </div>
+                </div>
+                <div class="script-card quality" data-doc="followup">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Follow-up Inspections</div>
+                        <div class="script-description">Ongoing quality verification</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Daily Reports -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Daily Reports</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="script-grid">
+                <div class="script-card inspection" data-doc="daily-qc">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Daily QC Report</div>
+                        <div class="script-description">Contractor daily quality report</div>
+                    </div>
+                </div>
+                <div class="script-card inspection" data-doc="daily-qa">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Daily QA Report</div>
+                        <div class="script-description">Government QA inspection log</div>
+                    </div>
+                </div>
+                <div class="script-card inspection" data-doc="deficiency">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Deficiency Log</div>
+                        <div class="script-description">Open deficiencies tracker</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submittals -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Submittals</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="script-grid">
+                <div class="script-card submittal" data-doc="submittal-log">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Submittal Register</div>
+                        <div class="script-description">All submittals status tracker</div>
+                    </div>
+                </div>
+                <div class="script-card submittal" data-doc="pending">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Pending Reviews</div>
+                        <div class="script-description">Submittals awaiting action</div>
+                    </div>
+                </div>
+                <div class="script-card submittal" data-doc="approved">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Approved Submittals</div>
+                        <div class="script-description">Approved materials index</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AGENTS SECTION -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">AGENTS</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                AI-powered agents for QC reporting, submittal review, and inspection assistance.
+            </p>
+        </div>
+
+        <div class="agent-grid">
+            <div class="agent-card">
+                <div class="agent-header">
+                    <span class="agent-icon">&#9989;</span>
+                    <span class="agent-name">QC Report Writer</span>
+                </div>
+                <p class="agent-description">Generate daily QC reports from inspection notes and photos.</p>
+                <div class="agent-actions">
+                    <button class="agent-btn activate" data-agent="qc-report-writer">Activate</button>
+                    <button class="agent-btn deploy" data-agent-deploy="qc-report-writer">Deploy</button>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="agent-header">
+                    <span class="agent-icon">&#128196;</span>
+                    <span class="agent-name">Submittal Reviewer</span>
+                </div>
+                <p class="agent-description">Review submittals for specification compliance and completeness.</p>
+                <div class="agent-actions">
+                    <button class="agent-btn activate" data-agent="submittal-reviewer">Activate</button>
+                    <button class="agent-btn deploy" data-agent-deploy="submittal-reviewer">Deploy</button>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="agent-header">
+                    <span class="agent-icon">&#128269;</span>
+                    <span class="agent-name">Deficiency Tracker</span>
+                </div>
+                <p class="agent-description">Track and prioritize open deficiencies for resolution.</p>
+                <div class="agent-actions">
+                    <button class="agent-btn activate" data-agent="deficiency-tracker">Activate</button>
+                    <button class="agent-btn deploy" data-agent-deploy="deficiency-tracker">Deploy</button>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="agent-header">
+                    <span class="agent-icon">&#128203;</span>
+                    <span class="agent-name">RMS Assistant</span>
+                </div>
+                <p class="agent-description">Help with RMS 3.0 data entry and report generation.</p>
+                <div class="agent-actions">
+                    <button class="agent-btn activate" data-agent="rms-assistant">Activate</button>
+                    <button class="agent-btn deploy" data-agent-deploy="rms-assistant">Deploy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- AGENT RUNNER SECTION -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">AGENT RUNNER</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Run specialized QC skills with AI-powered research.
+            </p>
+        </div>
+
+        <div class="agent-runner-panel" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+            <!-- Skill Selection -->
+            <div style="margin-bottom: 16px;">
+                <label style="display: block; color: var(--silver); font-size: 12px; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Select Skill</label>
+                <select id="agent-skill" style="width: 100%; padding: 10px 12px; background: var(--bg-base); border: 1px solid var(--border-subtle); border-radius: 4px; color: var(--text-primary); font-size: 14px;">
+                    <option value="submittal-review">Submittal Review</option>
+                    <option value="spec-compliance">Spec Compliance Check</option>
+                    <option value="deficiency-doc">Deficiency Documentation</option>
+                    <option value="three-phase-qc">Three-Phase QC Checklist</option>
+                </select>
+            </div>
+
+            <!-- Research Mode -->
+            <div style="margin-bottom: 16px;">
+                <label style="display: block; color: var(--silver); font-size: 12px; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Research Mode</label>
+                <div style="display: flex; gap: 12px;">
+                    <label style="display: flex; align-items: center; gap: 6px; color: var(--text-primary); cursor: pointer;">
+                        <input type="checkbox" id="research-external" checked style="accent-color: var(--silver);">
+                        <span>External (Web)</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 6px; color: var(--text-primary); cursor: pointer;">
+                        <input type="checkbox" id="research-internal" checked style="accent-color: var(--silver);">
+                        <span>Internal (GDrive)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Query Input -->
+            <div style="margin-bottom: 16px;">
+                <label style="display: block; color: var(--silver); font-size: 12px; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Query</label>
+                <textarea id="agent-query" rows="3" placeholder="Enter your QC analysis request..." style="width: 100%; padding: 10px 12px; background: var(--bg-base); border: 1px solid var(--border-subtle); border-radius: 4px; color: var(--text-primary); font-size: 14px; resize: vertical;"></textarea>
+            </div>
+
+            <!-- Run Button -->
+            <div style="display: flex; gap: 12px; margin-bottom: 16px;">
+                <button id="run-agent-btn" style="flex: 1; padding: 12px 20px; background: var(--silver); color: var(--bg-base); border: none; border-radius: 4px; font-size: 14px; font-weight: 600; cursor: pointer;">Run Agent</button>
+                <button id="clear-results-btn" style="padding: 12px 20px; background: transparent; border: 1px solid var(--border-subtle); color: var(--text-primary); border-radius: 4px; font-size: 14px; cursor: pointer;">Clear</button>
+            </div>
+
+            <!-- Results Display -->
+            <div id="agent-results" style="background: var(--bg-base); border: 1px solid var(--border-subtle); border-radius: 4px; padding: 16px; min-height: 120px; max-height: 400px; overflow-y: auto; font-size: 14px; color: var(--text-secondary);">
+                Results will appear here after running the agent...
+            </div>
+        </div>
+
+        <!-- TERMINAL SECTION -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">TERMINAL</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                External program output and command execution.
+            </p>
+        </div>
+
+        <div class="terminal-section" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 8px; margin-bottom: 20px;">
+            <div class="terminal-output" id="terminal-output" style="height: 200px; overflow-y: auto; padding: 16px; font-family: monospace; font-size: 12px; color: var(--text-secondary);">
+                <div style="color: var(--text-muted);">Terminal ready. External program output will appear here.</div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Sticky Navigation -->
+    <div class="sticky-nav">
+        <button class="nav-btn" id="btn-top">Top</button>
+        <button class="nav-btn" id="btn-hub">Hub</button>
+    </div>
+
+    <script>
+        // ==================== CONFIGURATION ====================
+        const SCRIPTS_PATH = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\';
+
+        // Get Tauri invoke
+        function getInvoke() {
+            if (window.__TAURI__ && window.__TAURI__.core && window.__TAURI__.core.invoke) {
+                return window.__TAURI__.core.invoke;
+            }
+            return null;
+        }
+
+        // Notification helper
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed; top: 20px; right: 20px; padding: 12px 20px;
+                border-radius: 8px; z-index: 9999; animation: slideIn 0.3s ease;
+                background: ${type === 'warning' ? '#2d2a00' : '#0a1929'};
+                border: 1px solid ${type === 'warning' ? '#d4af37' : '#4fc3f7'};
+                color: ${type === 'warning' ? '#d4af37' : '#e0e0e0'}; font-size: 14px;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        // ==================== PLATFORM GUIDANCE ====================
+        function toggleGuidance() {
+            const content = document.getElementById('guidance-content');
+            const toggle = document.getElementById('guidance-toggle');
+            if (content && toggle) {
+                content.classList.toggle('collapsed');
+                toggle.classList.toggle('collapsed');
+                toggle.textContent = content.classList.contains('collapsed') ? '▼' : '▲';
+            }
+        }
+
+        function scrollToAssistant() {
+            const chatSection = document.querySelector('.chat-section');
+            if (chatSection) {
+                chatSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(() => {
+                    const chatInput = document.getElementById('chat-input');
+                    if (chatInput) chatInput.focus();
+                }, 500);
+            }
+        }
+
+        function launchAgentRunner() {
+            if (window.__TAURI__) {
+                window.__TAURI__.core.invoke('open_path', {
+                    path: 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\AGENT_RUNNER_TOOL.py'
+                }).catch(err => {
+                    showNotification('Could not launch Agent Runner: ' + err, 'warning');
+                });
+            } else {
+                showNotification('Agent Runner available in desktop app', 'info');
+            }
+        }
+
+        function toggleClaudeEmbed() {
+            const container = document.getElementById('claude-embed-container');
+            if (container) container.classList.toggle('active');
+        }
+
+        function openClaudePrime() {
+            window.open('https://claude.ai', '_blank');
+        }
+
+        // ==================== APP LAUNCHER ====================
+        const Apps = {
+            commands: {
+                'word': 'winword', 'excel': 'excel', 'powerpoint': 'powerpnt',
+                'outlook': 'outlook', 'teams': 'msteams:', 'chrome': 'chrome',
+                'edge': 'msedge', 'gdrive': 'G:\\My Drive',
+                'explorer': 'G:\\My Drive\\00 - Trajanus USA',
+                'acrobat': 'Acrobat', 'bluebeam': 'Revu',
+                'procore': 'https://app.procore.com',
+                'rms': 'https://rms.usace.army.mil'
+            },
+            webUrls: {
+                'procore': 'https://app.procore.com', 'rms': 'https://rms.usace.army.mil',
+                'word': 'https://office.live.com/start/word.aspx',
+                'excel': 'https://office.live.com/start/excel.aspx',
+                'outlook': 'https://outlook.office.com', 'teams': 'https://teams.microsoft.com',
+                'chrome': 'https://google.com', 'edge': 'https://bing.com', 'gdrive': 'https://drive.google.com'
+            },
+            async launch(appKey) {
+                Terminal.info(`Launching: ${appKey}`);
+                const invoke = getInvoke();
+
+                if (!invoke) {
+                    if (this.webUrls[appKey]) {
+                        window.open(this.webUrls[appKey], '_blank');
+                        Terminal.success(`Opened ${appKey} in browser`);
+                        showNotification(`Opening ${appKey} in browser...`, 'info');
+                    } else {
+                        Terminal.warning(`${appKey} requires the desktop app`);
+                        showNotification(`${appKey} requires the desktop app`, 'warning');
+                    }
+                    return;
+                }
+
+                try {
+                    if (['procore', 'rms'].includes(appKey)) {
+                        window.open(this.commands[appKey], '_blank');
+                        Terminal.success(`Opened ${appKey} in browser`);
+                    } else if (['gdrive', 'explorer'].includes(appKey)) {
+                        await invoke('open_path', { path: this.commands[appKey] });
+                        Terminal.success(`Opened ${appKey}`);
+                    } else {
+                        await invoke('open_path', { path: this.commands[appKey] });
+                        Terminal.success(`Launched ${appKey}`);
+                    }
+                    showNotification(`Launched ${appKey}`, 'info');
+                } catch (e) {
+                    Terminal.error(`Failed to launch ${appKey}: ${e}`);
+                    console.error(`Failed to launch ${appKey}: ${e}`);
+                    if (this.webUrls[appKey]) {
+                        window.open(this.webUrls[appKey], '_blank');
+                        Terminal.info(`Fallback: Opened ${appKey} in browser`);
+                    }
+                }
+            }
+        };
+
+        // ==================== TRAJANUS WINDOW SYSTEM ====================
+        const TrajnausWindow = {
+            currentWindow: null,
+
+            open(title, content, options = {}) {
+                this.close(); // Close any existing window
+
+                const overlay = document.createElement('div');
+                overlay.className = 'trajanus-window-overlay';
+                overlay.onclick = (e) => {
+                    if (e.target === overlay) this.close();
+                };
+
+                const window = document.createElement('div');
+                window.className = 'trajanus-window';
+                window.innerHTML = `
+                    <div class="trajanus-window-header">
+                        <span class="trajanus-window-title">${title}</span>
+                        <button class="trajanus-window-close" onclick="TrajnausWindow.close()">×</button>
+                    </div>
+                    <div class="trajanus-window-body">${content}</div>
+                    ${options.footer ? `<div class="trajanus-window-footer">${options.footer}</div>` : ''}
+                `;
+
+                overlay.appendChild(window);
+                document.body.appendChild(overlay);
+                this.currentWindow = overlay;
+
+                return overlay;
+            },
+
+            close() {
+                if (this.currentWindow) {
+                    this.currentWindow.remove();
+                    this.currentWindow = null;
+                }
+            }
+        };
+
+        // ==================== TERMINAL ====================
+        const Terminal = {
+            output(message, type = 'info') {
+                const terminal = document.getElementById('terminal-output');
+                const line = document.createElement('div');
+                line.className = `terminal-line ${type}`;
+                const timestamp = new Date().toLocaleTimeString();
+                line.innerHTML = `<span style="color: #606060;">[${timestamp}]</span> ${message}`;
+                terminal.appendChild(line);
+                terminal.scrollTop = terminal.scrollHeight;
+            },
+
+            clear() {
+                const terminal = document.getElementById('terminal-output');
+                terminal.innerHTML = '<div style="color: #808080;">Terminal cleared.</div>';
+            },
+
+            error(message) { this.output(message, 'error'); },
+            success(message) { this.output(message, 'success'); },
+            warning(message) { this.output(message, 'warning'); },
+            info(message) { this.output(message, 'info'); }
+        };
+
+        // ==================== SCRIPT RUNNER ====================
+        const Scripts = {
+            async run(scriptName) {
+                Terminal.info(`Starting: ${scriptName}`);
+                showNotification(`Running ${scriptName}...`, 'info');
+
+                const invoke = getInvoke();
+                if (!invoke) {
+                    Terminal.warning(`[Browser Mode] Cannot execute ${scriptName} - requires desktop app`);
+                    return;
+                }
+
+                try {
+                    const result = await invoke('run_python_script', {
+                        scriptPath: SCRIPTS_PATH + scriptName,
+                        targetPath: ''
+                    });
+                    Terminal.success(`Completed: ${scriptName}`);
+                    if (result) {
+                        Terminal.output(result);
+                    }
+                } catch (e) {
+                    Terminal.error(`Error in ${scriptName}: ${e}`);
+                    console.error(`Script error: ${e}`);
+                }
+            }
+        };
+
+        // ==================== DOCUMENT HANDLER ====================
+        const Documents = {
+            docs: {
+                'preparatory': { title: 'Preparatory Meetings', path: 'G:\\My Drive\\00 - Trajanus USA\\QC\\Preparatory' },
+                'initial': { title: 'Initial Inspections', path: 'G:\\My Drive\\00 - Trajanus USA\\QC\\Initial' },
+                'followup': { title: 'Follow-up Inspections', path: 'G:\\My Drive\\00 - Trajanus USA\\QC\\Followup' },
+                'daily-qc': { title: 'Daily QC Reports', path: 'G:\\My Drive\\00 - Trajanus USA\\QC\\Daily-QC' },
+                'daily-qa': { title: 'Daily QA Reports', path: 'G:\\My Drive\\00 - Trajanus USA\\QC\\Daily-QA' },
+                'deficiency': { title: 'Deficiency Log', path: 'G:\\My Drive\\00 - Trajanus USA\\QC\\Deficiencies' },
+                'submittal-log': { title: 'Submittal Register', path: 'G:\\My Drive\\00 - Trajanus USA\\QC\\Submittals' },
+                'pending': { title: 'Pending Reviews', path: 'G:\\My Drive\\00 - Trajanus USA\\QC\\Pending' },
+                'approved': { title: 'Approved Submittals', path: 'G:\\My Drive\\00 - Trajanus USA\\QC\\Approved' }
+            },
+
+            async open(docId) {
+                const doc = this.docs[docId] || { title: docId, path: '' };
+                Terminal.info(`Opening document: ${doc.title}`);
+                showNotification(`Opening ${doc.title}...`, 'info');
+
+                const invoke = getInvoke();
+                if (!invoke) {
+                    // Show in Trajnaus Window for browser mode
+                    TrajnausWindow.open(doc.title, `
+                        <p style="color: #b0b0b0; margin-bottom: 20px;">Document location:</p>
+                        <code style="background: #2d2d2d; padding: 10px; display: block; border-radius: 4px; color: #c0c0c0;">${doc.path}</code>
+                        <p style="color: #808080; margin-top: 20px; font-size: 13px;">
+                            [Browser Mode] Opening folders requires the desktop app.
+                        </p>
+                    `);
+                    return;
+                }
+
+                try {
+                    await invoke('open_path', { path: doc.path });
+                    Terminal.success(`Opened: ${doc.title}`);
+                } catch (e) {
+                    Terminal.error(`Failed to open ${doc.title}: ${e}`);
+                }
+            }
+        };
+
+        // ==================== AGENT CONTROLLER ====================
+        const Agents = {
+            activate(agentId) {
+                const messages = {
+                    'qc-report-writer': 'QC Report Writer activated. I can help generate daily QC reports.',
+                    'submittal-reviewer': 'Submittal Reviewer activated. Ready to check spec compliance.',
+                    'deficiency-tracker': 'Deficiency Tracker activated. Ready to manage open items.',
+                    'rms-assistant': 'RMS Assistant activated. Ready to help with RMS 3.0.'
+                };
+                ChatAssistant.addMessage('assistant', messages[agentId] || `${agentId} activated.`);
+                showNotification(`${agentId} activated`, 'info');
+            },
+            deploy(agentId) {
+                showNotification(`Deploying ${agentId}...`, 'info');
+                console.log(`Deploy agent: ${agentId}`);
+            }
+        };
+
+        // ==================== CHAT ASSISTANT ====================
+        const ChatAssistant = {
+            messages: [],
+            isLoading: false,
+
+            init() {
+                this.addMessage('assistant', 'I\'m your Quality Control specialist. I can help with QC reports, submittals, three-phase control, RMS 3.0, and USACE compliance. What would you like to work on?');
+            },
+
+            async send() {
+                const input = document.getElementById('chat-input');
+                const message = input.value.trim();
+                if (!message || this.isLoading) return;
+
+                this.addMessage('user', message);
+                input.value = '';
+                this.setLoading(true);
+
+                try {
+                    const invoke = getInvoke();
+                    let response;
+
+                    if (invoke) {
+                        response = await invoke('chat_with_claude', {
+                            message: message,
+                            context: 'You are a Quality Control specialist for federal construction contracts. Help with QC reports, submittals, three-phase control, inspections, and USACE/RMS compliance.'
+                        });
+                    } else {
+                        response = 'Chat requires the desktop app for full functionality.';
+                    }
+                    this.addMessage('assistant', response);
+                } catch (error) {
+                    this.addMessage('assistant', `Error: ${error}`);
+                }
+                this.setLoading(false);
+            },
+
+            addMessage(role, content) {
+                const container = document.getElementById('chat-messages');
+                const msgEl = document.createElement('div');
+                msgEl.className = `chat-message ${role}`;
+                msgEl.innerHTML = `
+                    <div class="message-avatar">${role === 'user' ? 'B' : 'T'}</div>
+                    <div class="message-content"><div class="message-text">${this.escapeHtml(content)}</div></div>
+                `;
+                container.appendChild(msgEl);
+                container.scrollTop = container.scrollHeight;
+                this.messages.push({ role, content });
+            },
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            },
+
+            setLoading(loading) {
+                this.isLoading = loading;
+                document.getElementById('btn-send').disabled = loading;
+                const container = document.getElementById('chat-messages');
+                const existing = document.getElementById('typing-indicator');
+
+                if (loading && !existing) {
+                    const indicator = document.createElement('div');
+                    indicator.id = 'typing-indicator';
+                    indicator.className = 'chat-message assistant';
+                    indicator.innerHTML = `
+                        <div class="message-avatar">T</div>
+                        <div class="message-content"><div class="typing-indicator"><span></span><span></span><span></span></div></div>
+                    `;
+                    container.appendChild(indicator);
+                    container.scrollTop = container.scrollHeight;
+                } else if (!loading && existing) {
+                    existing.remove();
+                }
+            },
+
+            clear() {
+                this.messages = [];
+                document.getElementById('chat-messages').innerHTML = '';
+                this.init();
+            }
+        };
+
+        // ==================== AGENT RUNNER ====================
+        const AgentRunner = {
+            isRunning: false,
+
+            async run() {
+                if (this.isRunning) return;
+
+                const skill = document.getElementById('agent-skill').value;
+                const query = document.getElementById('agent-query').value.trim();
+                const externalMode = document.getElementById('research-external').checked;
+                const internalMode = document.getElementById('research-internal').checked;
+                const resultsDiv = document.getElementById('agent-results');
+
+                if (!query) {
+                    showNotification('Please enter a query', 'warning');
+                    return;
+                }
+
+                this.isRunning = true;
+                resultsDiv.innerHTML = '<div style="color: var(--silver);">Running agent...</div>';
+
+                const invoke = getInvoke();
+                if (!invoke) {
+                    setTimeout(() => {
+                        resultsDiv.innerHTML = `
+                            <div style="margin-bottom: 12px;">
+                                <strong style="color: var(--silver);">Skill:</strong> ${skill}<br>
+                                <strong style="color: var(--silver);">Mode:</strong> ${externalMode ? 'External' : ''} ${internalMode ? 'Internal' : ''}<br>
+                                <strong style="color: var(--silver);">Query:</strong> ${query}
+                            </div>
+                            <div style="color: var(--text-primary);">
+                                [Browser Mode] Agent Runner requires the desktop app for full functionality.
+                            </div>
+                        `;
+                        this.isRunning = false;
+                        showNotification('Agent completed (browser mode)', 'info');
+                    }, 1500);
+                    return;
+                }
+
+                try {
+                    let mode = 'both';
+                    if (externalMode && !internalMode) mode = 'external';
+                    if (!externalMode && internalMode) mode = 'internal';
+
+                    const scriptPath = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\AGENT_RUNNER_TOOL.py';
+                    const result = await invoke('run_python_script', {
+                        scriptPath: scriptPath,
+                        targetPath: JSON.stringify({ skill, query, mode })
+                    });
+
+                    resultsDiv.innerHTML = `<div style="color: var(--success);">${result}</div>`;
+                    showNotification('Agent completed', 'info');
+                } catch (error) {
+                    resultsDiv.innerHTML = `<div style="color: var(--error);">Error: ${error}</div>`;
+                    showNotification('Agent failed', 'warning');
+                } finally {
+                    this.isRunning = false;
+                }
+            },
+
+            clear() {
+                document.getElementById('agent-query').value = '';
+                document.getElementById('agent-results').innerHTML = 'Results will appear here after running the agent...';
+            }
+        };
+
+        // ==================== INITIALIZATION ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Update greeting and date
+            const hour = new Date().getHours();
+            let greeting = 'Good evening';
+            if (hour < 12) greeting = 'Good morning';
+            else if (hour < 17) greeting = 'Good afternoon';
+            document.getElementById('greeting-text').textContent = greeting;
+
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', options);
+
+            // Initialize chat
+            ChatAssistant.init();
+
+            // ==================== EVENT LISTENERS ====================
+
+            // App launchers
+            document.querySelectorAll('[data-launch]').forEach(el => {
+                el.addEventListener('click', () => Apps.launch(el.dataset.launch));
+            });
+
+            // Script cards
+            document.querySelectorAll('[data-script]').forEach(el => {
+                el.addEventListener('click', () => Scripts.run(el.dataset.script));
+            });
+
+            // Document cards
+            document.querySelectorAll('[data-doc]').forEach(el => {
+                el.addEventListener('click', () => Documents.open(el.dataset.doc));
+            });
+
+            // Agent activate buttons
+            document.querySelectorAll('[data-agent]').forEach(el => {
+                el.addEventListener('click', () => Agents.activate(el.dataset.agent));
+            });
+
+            // Agent deploy buttons
+            document.querySelectorAll('[data-agent-deploy]').forEach(el => {
+                el.addEventListener('click', () => Agents.deploy(el.dataset.agentDeploy));
+            });
+
+            // Chat send
+            document.getElementById('btn-send').addEventListener('click', () => ChatAssistant.send());
+
+            // Chat clear
+            document.getElementById('btn-clear-chat').addEventListener('click', () => ChatAssistant.clear());
+
+            // Chat input enter key
+            document.getElementById('chat-input').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    ChatAssistant.send();
+                }
+            });
+
+            // Navigation buttons
+            document.getElementById('btn-top').addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            document.getElementById('btn-hub').addEventListener('click', () => {
+                window.location.href = '../index.html';
+            });
+
+            // Agent Runner buttons
+            document.getElementById('run-agent-btn').addEventListener('click', () => AgentRunner.run());
+            document.getElementById('clear-results-btn').addEventListener('click', () => AgentRunner.clear());
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Toolkit - Trajanus Enterprise Hub</title>
+    <style>
+        /* Reset & Base */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            /* Navy/Silver Palette */
+            --bg-base: #0a0f14;
+            --bg-surface: #0d1b2a;
+            --bg-card: #1a2d42;
+            --bg-elevated: #243447;
+            --bg-hover: #2d4a6a;
+            --accent: #c0c0c0;
+            --accent-bright: #e0e0e0;
+            --accent-dim: #808080;
+            --accent-hover: #f0f0f0;
+            /* Legacy aliases */
+            --gold: #c0c0c0;
+            --gold-hover: #e0e0e0;
+            --text-primary: #ffffff;
+            --text-secondary: #8892a0;
+            --text-muted: #606878;
+            --border-subtle: #2d4a6a;
+            --border-accent: #c0c0c0;
+            --success: #4a9f4a;
+            --info: #60a5fa;
+            --warning: #c4944a;
+            --purple: #a78bfa;
+            --error: #c44a4a;
+            --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-base);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Page Header */
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-subtle);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .page-header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .home-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .home-link:hover {
+            color: var(--gold);
+        }
+
+        .diamond {
+            width: 10px;
+            height: 10px;
+            background: var(--gold);
+            transform: rotate(45deg);
+        }
+
+        .page-title {
+            color: var(--text-primary);
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .header-btn {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 8px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+
+        .header-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Main Content - Scrollable */
+        .main-content {
+            padding: 0 24px 40px 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* ========================== */
+        /* PAGE HERO SECTION          */
+        /* ========================== */
+        .page-hero {
+            text-align: center;
+            padding: 48px 24px 32px 24px;
+            border-bottom: 1px solid var(--border-subtle);
+            margin-bottom: 32px;
+        }
+
+        .hero-title {
+            color: var(--gold);
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .hero-trademark {
+            color: var(--text-secondary);
+            font-size: 20px;
+            font-weight: 400;
+        }
+
+        .hero-subtitle {
+            color: var(--text-primary);
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+        }
+
+        .hero-greeting-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 20px;
+        }
+
+        .hero-greeting {
+            color: var(--text-primary);
+            font-size: 16px;
+        }
+
+        .hero-greeting .name {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .hero-date {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .hero-description {
+            color: var(--text-secondary);
+            font-size: 14px;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ========================== */
+        /* BOLD SECTION HEADERS       */
+        /* ========================== */
+        .section-divider {
+            margin: 40px 0 24px 0;
+        }
+
+        .section-border-top {
+            height: 2px;
+            background: linear-gradient(to right, var(--gold), var(--border-subtle), transparent);
+            margin-bottom: 12px;
+        }
+
+        .section-title-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .section-blocks {
+            color: var(--gold);
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .section-title {
+            color: var(--gold);
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        .section-border-bottom {
+            height: 2px;
+            background: linear-gradient(to right, var(--gold), var(--border-subtle), transparent);
+            margin-top: 12px;
+        }
+
+        .section-description {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-top: 12px;
+            max-width: 800px;
+        }
+
+        /* ========================== */
+        /* SUBSECTION HEADERS         */
+        /* ========================== */
+        .subsection {
+            margin-bottom: 28px;
+        }
+
+        .subsection-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .subsection-title {
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .subsection-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border-subtle);
+        }
+
+        .subsection-description {
+            color: var(--text-muted);
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        /* ========================== */
+        /* APPLICATION CARDS          */
+        /* ========================== */
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 12px;
+        }
+
+        .app-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 16px 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 90px;
+        }
+
+        .app-card:hover {
+            background: var(--bg-elevated);
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        .app-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--gold);
+            background: var(--bg-elevated);
+            border-radius: 6px;
+        }
+
+        .app-label {
+            font-size: 11px;
+            color: var(--text-primary);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* ========================== */
+        /* TWO-COLUMN SCRIPT CARDS    */
+        /* ========================== */
+        .script-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 900px) {
+            .script-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .script-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-left: 4px solid var(--gold);
+            border-radius: 6px;
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .script-card:hover {
+            background: var(--bg-elevated);
+            border-color: var(--gold);
+            border-left-color: var(--gold-hover);
+            transform: translateX(4px);
+        }
+
+        /* Color-coded script indicators */
+        .script-card.conversion { border-left-color: var(--success); }
+        .script-card.session { border-left-color: var(--info); }
+        .script-card.automation { border-left-color: var(--warning); }
+        .script-card.data { border-left-color: var(--purple); }
+        .script-card.agent { border-left-color: var(--gold); }
+
+        .script-card.conversion:hover { border-left-color: var(--success); }
+        .script-card.session:hover { border-left-color: var(--info); }
+        .script-card.automation:hover { border-left-color: var(--warning); }
+        .script-card.data:hover { border-left-color: var(--purple); }
+        .script-card.agent:hover { border-left-color: var(--gold); }
+
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--gold);
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .script-card.conversion .indicator { background: var(--success); }
+        .script-card.session .indicator { background: var(--info); }
+        .script-card.automation .indicator { background: var(--warning); }
+        .script-card.data .indicator { background: var(--purple); }
+        .script-card.agent .indicator { background: var(--gold); }
+
+        .script-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .script-title {
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .script-description {
+            color: var(--text-muted);
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        /* ========================== */
+        /* AGENT CARDS                */
+        /* ========================== */
+        .agent-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 1100px) {
+            .agent-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .agent-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .agent-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .agent-card:hover {
+            border-color: var(--gold);
+        }
+
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .agent-icon {
+            font-size: 20px;
+        }
+
+        .agent-name {
+            color: var(--gold);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .agent-description {
+            color: var(--text-secondary);
+            font-size: 12px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            min-height: 36px;
+        }
+
+        .agent-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .agent-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .agent-btn.activate {
+            background: var(--gold);
+            border: none;
+            color: var(--bg-base);
+        }
+
+        .agent-btn.activate:hover {
+            background: var(--gold-hover);
+        }
+
+        .agent-btn.deploy {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+        }
+
+        .agent-btn.deploy:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* ========================== */
+        /* CLAUDE.AI WEBVIEW          */
+        /* ========================== */
+        .claude-workspace {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .workspace-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .workspace-header-left h3 {
+            color: var(--gold);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .workspace-header-left p {
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .workspace-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .workspace-btn {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .workspace-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* ========================== */
+        /* CHAT ASSISTANT SECTION     */
+        /* ========================== */
+        .chat-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 700px;
+        }
+
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
+            flex-shrink: 0;
+        }
+
+        .chat-header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .chat-header-left h3 {
+            color: var(--gold);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .skill-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .skill-selector label {
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .skill-selector select {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-primary);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .skill-selector select:hover {
+            border-color: var(--gold);
+        }
+
+        .chat-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .voice-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            color: var(--text-secondary);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .voice-toggle:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .voice-toggle.active {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--bg-base);
+        }
+
+        .clear-chat-btn {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .clear-chat-btn:hover {
+            border-color: var(--error);
+            color: var(--error);
+        }
+
+        /* Chat Messages Area */
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background: var(--bg-base);
+        }
+
+        .chat-message {
+            display: flex;
+            gap: 12px;
+            max-width: 85%;
+        }
+
+        .chat-message.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .chat-message.assistant {
+            align-self: flex-start;
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .chat-message.user .message-avatar {
+            background: var(--gold);
+            color: var(--bg-base);
+        }
+
+        .chat-message.assistant .message-avatar {
+            background: var(--bg-elevated);
+            color: var(--gold);
+        }
+
+        .message-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 12px 16px;
+        }
+
+        .chat-message.user .message-content {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--bg-base);
+        }
+
+        .chat-message.assistant .message-content {
+            background: var(--bg-card);
+        }
+
+        .message-text {
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .message-skill {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .chat-message.user .message-skill {
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Loading indicator */
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 8px 0;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-indicator span:nth-child(1) { animation-delay: 0s; }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-6px); opacity: 1; }
+        }
+
+        /* Chat Input Area */
+        .chat-input-area {
+            padding: 16px 20px;
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border-subtle);
+            flex-shrink: 0;
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: var(--font-main);
+            resize: none;
+            min-height: 48px;
+            max-height: 150px;
+            line-height: 1.5;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .chat-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .send-btn {
+            background: var(--gold);
+            border: none;
+            color: var(--bg-base);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .send-btn:hover:not(:disabled) {
+            background: var(--gold-hover);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .mic-btn, .stop-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mic-btn:hover, .stop-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .mic-btn.listening {
+            background: var(--error);
+            border-color: var(--error);
+            color: white;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Sticky Navigation Buttons */
+        .sticky-nav {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 9999;
+        }
+
+        .nav-btn {
+            background: linear-gradient(180deg, #1a2d42 0%, #0d1b2a 100%);
+            border: 1px solid #c0c0c0;
+            color: #c0c0c0;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            min-width: 70px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(180deg, #2a4a6a 0%, #1a2d42 100%);
+            border-color: #e0e0e0;
+            color: #e0e0e0;
+        }
+
+        /* Welcome message */
+        .chat-welcome {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .chat-welcome-icon {
+            font-size: 48px;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .chat-welcome h4 {
+            color: var(--gold);
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .chat-welcome p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* Speaking indicator */
+        .speaking-indicator {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            color: var(--gold);
+            font-size: 12px;
+            padding: 4px 8px;
+            background: var(--bg-elevated);
+            border-radius: 4px;
+        }
+
+        .speaking-indicator.active {
+            display: flex;
+        }
+
+        .speaking-indicator .wave {
+            display: flex;
+            gap: 2px;
+        }
+
+        .speaking-indicator .wave span {
+            width: 3px;
+            height: 12px;
+            background: var(--gold);
+            animation: wave 0.8s infinite ease-in-out;
+        }
+
+        .speaking-indicator .wave span:nth-child(1) { animation-delay: 0s; }
+        .speaking-indicator .wave span:nth-child(2) { animation-delay: 0.1s; }
+        .speaking-indicator .wave span:nth-child(3) { animation-delay: 0.2s; }
+        .speaking-indicator .wave span:nth-child(4) { animation-delay: 0.3s; }
+
+        @keyframes wave {
+            0%, 100% { transform: scaleY(0.5); }
+            50% { transform: scaleY(1); }
+        }
+
+        /* ========================== */
+        /* OUTPUT TERMINAL            */
+        /* ========================== */
+        .terminal-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .terminal-header h3 {
+            color: var(--gold);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .terminal-btn {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .terminal-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .terminal-output {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--text-primary);
+            padding: 16px;
+            height: 200px;
+            overflow-y: auto;
+            background: var(--bg-base);
+        }
+
+        .output-line {
+            padding: 2px 0;
+        }
+
+        .output-line.info { color: var(--text-muted); }
+        .output-line.success { color: var(--success); }
+        .output-line.error { color: var(--error); }
+        .output-line.warning { color: var(--warning); }
+
+        /* ========================== */
+        /* RESPONSIVE                 */
+        /* ========================== */
+        @media (max-width: 600px) {
+            .hero-greeting-row {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .app-grid {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="page-header-left">
+            <a href="../index.html" class="home-link">
+                <div class="diamond"></div>
+                <span>Hub</span>
+            </a>
+            <h1 class="page-title">Developer Toolkit</h1>
+        </div>
+        <div class="header-controls">
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- ========================== -->
+        <!-- PAGE HERO SECTION          -->
+        <!-- ========================== -->
+        <section class="page-hero">
+            <h1 class="hero-title">TRAJANUS ENTERPRISE HUB <span class="hero-trademark">| EI&trade;</span></h1>
+            <h2 class="hero-subtitle">Developer Toolkit</h2>
+            <div class="hero-greeting-row">
+                <span class="hero-greeting"><span id="greeting-text">Good evening</span>, <span class="name">Bill</span>.</span>
+                <span class="hero-date" id="current-date">December 29, 2025</span>
+            </div>
+            <p class="hero-description">
+                The Developer Toolkit is your central command interface for session management, script execution,
+                file conversion, and AI-assisted development. Access automation tools, manage knowledge base
+                ingestion, and interact with Claude directly from this unified workspace.
+            </p>
+        </section>
+
+        <!-- ========================== -->
+        <!-- APPLICATIONS SECTION       -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">APPLICATIONS</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Quick-launch applications for development, communication, file management, and productivity.
+            </p>
+        </div>
+
+        <!-- Development -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Development</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="app-grid">
+                <div class="app-card" onclick="Apps.launch('vscode')">
+                    <div class="app-icon">VS</div>
+                    <div class="app-label">VS Code</div>
+                </div>
+                <div class="app-card" onclick="Apps.launch('terminal')">
+                    <div class="app-icon">T</div>
+                    <div class="app-label">Terminal</div>
+                </div>
+                <div class="app-card" onclick="Apps.launch('github')">
+                    <div class="app-icon">GH</div>
+                    <div class="app-label">GitHub</div>
+                </div>
+                <div class="app-card" onclick="Apps.launch('claude-code')">
+                    <div class="app-icon">CC</div>
+                    <div class="app-label">Claude Code</div>
+                </div>
+                <div class="app-card" onclick="Apps.launch('python')">
+                    <div class="app-icon">PY</div>
+                    <div class="app-label">Python</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Browsers & Communication -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Browsers & Communication</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="app-grid">
+                <div class="app-card" onclick="Apps.launch('chrome')">
+                    <div class="app-icon">C</div>
+                    <div class="app-label">Chrome</div>
+                </div>
+                <div class="app-card" onclick="Apps.launch('edge')">
+                    <div class="app-icon">E</div>
+                    <div class="app-label">Edge</div>
+                </div>
+                <div class="app-card" onclick="Apps.launch('teams')">
+                    <div class="app-icon">TM</div>
+                    <div class="app-label">Teams</div>
+                </div>
+                <div class="app-card" onclick="Apps.launch('zoom')">
+                    <div class="app-icon">Z</div>
+                    <div class="app-label">Zoom</div>
+                </div>
+                <div class="app-card" onclick="Apps.launch('outlook')">
+                    <div class="app-icon">O</div>
+                    <div class="app-label">Outlook</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- File & Cloud -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">File & Cloud</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="app-grid">
+                <div class="app-card" onclick="Apps.launch('gdrive')">
+                    <div class="app-icon">GD</div>
+                    <div class="app-label">G Drive</div>
+                </div>
+                <div class="app-card" onclick="Apps.launch('explorer')">
+                    <div class="app-icon">FE</div>
+                    <div class="app-label">Explorer</div>
+                </div>
+                <div class="app-card" onclick="Apps.launch('notepad')">
+                    <div class="app-icon">N+</div>
+                    <div class="app-label">Notepad++</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MS Office -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">MS Office</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <div class="app-grid">
+                <div class="app-card" onclick="Apps.launch('word')">
+                    <div class="app-icon">W</div>
+                    <div class="app-label">Word</div>
+                </div>
+                <div class="app-card" onclick="Apps.launch('excel')">
+                    <div class="app-icon">X</div>
+                    <div class="app-label">Excel</div>
+                </div>
+                <div class="app-card" onclick="Apps.launch('powerpoint')">
+                    <div class="app-icon">P</div>
+                    <div class="app-label">PowerPoint</div>
+                </div>
+                <div class="app-card" onclick="Apps.launch('onenote')">
+                    <div class="app-icon">ON</div>
+                    <div class="app-label">OneNote</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================== -->
+        <!-- TRAJANUS SCRIPTS SECTION   -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">TRAJANUS SCRIPTS</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Automation scripts for file conversion, session management, Google Drive operations,
+                and knowledge base management. Click any script to execute.
+            </p>
+        </div>
+
+        <!-- File Conversion -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">File Conversion</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <p class="subsection-description">Convert documents between formats and upload to Google Drive.</p>
+            <div class="script-grid">
+                <div class="script-card conversion" onclick="Scripts.run('CONVERT_MD_TO_GDOCS_PERMANENT.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">MD to Google Docs</div>
+                        <div class="script-description">Convert Markdown files to Google Docs format in Drive</div>
+                    </div>
+                </div>
+                <div class="script-card conversion" onclick="Scripts.run('CONVERT_TXT_TO_GDOCS.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">TXT to Google Docs</div>
+                        <div class="script-description">Convert plain text files to Google Docs format in Drive</div>
+                    </div>
+                </div>
+                <div class="script-card conversion" onclick="Scripts.run('CONVERT_DOCX_TO_GDOCS.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">DOCX to Google Docs</div>
+                        <div class="script-description">Convert Word documents to Google Docs format in Drive</div>
+                    </div>
+                </div>
+                <div class="script-card conversion" onclick="Scripts.run('batch_convert_md_only.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Batch Convert</div>
+                        <div class="script-description">Process entire folders of files for bulk conversion</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Automation & Utilities -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Automation & Utilities</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <p class="subsection-description">Google Drive folder management and organization utilities.</p>
+            <div class="script-grid">
+                <div class="script-card automation" onclick="Scripts.run('gdrive_cleanup_agent.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Folder Cleanup</div>
+                        <div class="script-description">Clean and organize Google Drive folder structure</div>
+                    </div>
+                </div>
+                <div class="script-card automation" onclick="Scripts.run('consolidate_folders.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Consolidate</div>
+                        <div class="script-description">Merge folder contents and remove duplicates</div>
+                    </div>
+                </div>
+                <div class="script-card automation" onclick="Scripts.run('working_reorganization.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Reorganize</div>
+                        <div class="script-description">Restructure directories according to naming conventions</div>
+                    </div>
+                </div>
+                <div class="script-card automation" onclick="Scripts.run('audit_folders.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Audit</div>
+                        <div class="script-description">Audit folder structure and report inconsistencies</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data & Knowledge Base -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Data & Knowledge Base</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <p class="subsection-description">Supabase knowledge base ingestion and query tools.</p>
+            <div class="script-grid">
+                <div class="script-card data" onclick="Scripts.run('file_ingestion.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">File Ingestion</div>
+                        <div class="script-description">Ingest individual files to Supabase knowledge base</div>
+                    </div>
+                </div>
+                <div class="script-card data" onclick="Scripts.run('batch_ingest_files.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Batch Ingest</div>
+                        <div class="script-description">Batch process files for knowledge base ingestion</div>
+                    </div>
+                </div>
+                <div class="script-card data" onclick="Scripts.run('query_kb.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Query KB</div>
+                        <div class="script-description">Search the knowledge base for relevant content</div>
+                    </div>
+                </div>
+                <div class="script-card data" onclick="Scripts.run('check_db.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Check DB</div>
+                        <div class="script-description">Verify database connection and status</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================== -->
+        <!-- PYTHON TOOLS SECTION       -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">PYTHON TOOLS</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Navy/Silver themed GUI tools for knowledge base operations, file conversion, and research automation.
+                Each tool opens in its own managed window.
+            </p>
+        </div>
+
+        <!-- Knowledge Base Tools -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Knowledge Base Tools</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <p class="subsection-description">GUI tools for querying and ingesting documents into the Trajanus Knowledge Base.</p>
+            <div class="script-grid">
+                <div class="script-card data" onclick="Scripts.run('QUERY_KB_TOOL.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Query KB Tool</div>
+                        <div class="script-description">Semantic search, browse sources, view recent documents</div>
+                    </div>
+                </div>
+                <div class="script-card data" onclick="Scripts.run('BATCH_INGEST_TOOL.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Batch Ingest Tool</div>
+                        <div class="script-description">Single file, batch folder, or multi-select ingestion</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Converter Tools -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Converter Tools</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <p class="subsection-description">Convert documents between formats with Google Drive integration.</p>
+            <div class="script-grid">
+                <div class="script-card conversion" onclick="Scripts.run('CONVERT_MD_TO_GDOCS_PERMANENT.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">MD → GDocs Tool</div>
+                        <div class="script-description">Convert Markdown files to Google Docs format</div>
+                    </div>
+                </div>
+                <div class="script-card conversion" onclick="Scripts.run('CONVERT_GDOCS_TO_DOCX.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">GDocs → DOCX Tool</div>
+                        <div class="script-description">Export Google Docs to Word document format</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Research & Agent Tools -->
+        <div class="subsection">
+            <div class="subsection-header">
+                <h3 class="subsection-title">Research & Agent Tools</h3>
+                <div class="subsection-line"></div>
+            </div>
+            <p class="subsection-description">YouTube transcript extraction and research agent management.</p>
+            <div class="script-grid">
+                <div class="script-card agent" onclick="Scripts.run('YOUTUBE_TRANSCRIPT_TOOL.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">YouTube Transcripts</div>
+                        <div class="script-description">Scan, extract transcripts, ingest to KB, full pipeline</div>
+                    </div>
+                </div>
+                <div class="script-card agent" onclick="Scripts.run('AGENT_RUNNER_TOOL.py')">
+                    <div class="indicator"></div>
+                    <div class="script-info">
+                        <div class="script-title">Agent Runner</div>
+                        <div class="script-description">Launch research agents: YouTube, Document Hunter, KB Ingester</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================== -->
+        <!-- AGENTS SECTION             -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">AGENTS</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                AI-powered agents for research, compliance checking, and automated workflows.
+                Activate an agent to load its skill, or deploy to assign a specific task.
+            </p>
+        </div>
+
+        <div class="agent-grid">
+            <div class="agent-card">
+                <div class="agent-header">
+                    <span class="agent-icon">&#129302;</span>
+                    <span class="agent-name">Research Agent</span>
+                </div>
+                <p class="agent-description">AI agent for web and knowledge base research. Searches multiple sources and synthesizes findings.</p>
+                <div class="agent-actions">
+                    <button class="agent-btn activate" onclick="Agents.activate('research')">Activate</button>
+                    <button class="agent-btn deploy" onclick="Agents.deploy('research')">Deploy</button>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="agent-header">
+                    <span class="agent-icon">&#128203;</span>
+                    <span class="agent-name">Compliance Officer</span>
+                </div>
+                <p class="agent-description">Agent for checking compliance with UFGS, FAR/DFARS, and contract standards.</p>
+                <div class="agent-actions">
+                    <button class="agent-btn activate" onclick="Agents.activate('compliance')">Activate</button>
+                    <button class="agent-btn deploy" onclick="Agents.deploy('compliance')">Deploy</button>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="agent-header">
+                    <span class="agent-icon">&#9728;</span>
+                    <span class="agent-name">Morning Research</span>
+                </div>
+                <p class="agent-description">Daily research briefing agent. News summary, market updates, and priority items.</p>
+                <div class="agent-actions">
+                    <button class="agent-btn activate" onclick="Agents.activate('morning')">Activate</button>
+                    <button class="agent-btn deploy" onclick="Agents.deploy('morning')">Deploy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================== -->
+        <!-- AI ASSISTANT SECTION       -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <span class="section-blocks">|||</span>
+                <h2 class="section-title">AI ASSISTANT</h2>
+                <span class="section-blocks">|||</span>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Integrated Claude assistant with specialized Skills. Select a skill to load context-specific system prompts for focused assistance.
+            </p>
+        </div>
+
+        <!-- Chat Assistant Interface -->
+        <div class="chat-section">
+            <div class="chat-header">
+                <div class="chat-header-left">
+                    <h3>TRAJANUS ASSISTANT</h3>
+                </div>
+                <div class="chat-controls">
+                    <button class="clear-chat-btn" onclick="ChatAssistant.clear()">Clear Chat</button>
+                </div>
+            </div>
+
+            <!-- Messages Area -->
+            <div class="chat-messages" id="chat-messages">
+                <!-- Welcome message added by JavaScript -->
+            </div>
+
+            <!-- Input Area -->
+            <div class="chat-input-area">
+                <div class="chat-input-wrapper">
+                    <textarea
+                        class="chat-input"
+                        id="chat-input"
+                        placeholder="Type your message..."
+                        rows="1"
+                        onkeydown="ChatAssistant.handleKeydown(event)"
+                        oninput="ChatAssistant.autoResize(this)"
+                    ></textarea>
+                    <button class="send-btn" id="send-btn" onclick="ChatAssistant.send()">
+                        <span>Send</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Sticky Navigation Buttons -->
+    <div class="sticky-nav">
+        <button class="nav-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Return to Top">
+            ↑ Top
+        </button>
+        <button class="nav-btn" onclick="window.location.href='../index.html'" title="Back to Hub">
+            ⌂ Hub
+        </button>
+    </div>
+
+    <script>
+        const PROJECT_PATH = 'C:\\Dev\\trajanus-command-center';
+        const SCRIPTS_PATH = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\';
+
+        // Get invoke function - Tauri 2.0 with withGlobalTauri
+        function getInvoke() {
+            if (window.__TAURI__ && window.__TAURI__.core && window.__TAURI__.core.invoke) {
+                return window.__TAURI__.core.invoke;
+            }
+            return null;
+        }
+
+        // Initialize greeting and date
+        document.addEventListener('DOMContentLoaded', () => {
+            updateGreeting();
+            updateDate();
+        });
+
+        function updateGreeting() {
+            const hour = new Date().getHours();
+            let greeting = 'Good evening';
+            if (hour < 12) greeting = 'Good morning';
+            else if (hour < 17) greeting = 'Good afternoon';
+            document.getElementById('greeting-text').textContent = greeting;
+        }
+
+        function updateDate() {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const date = new Date().toLocaleDateString('en-US', options);
+            document.getElementById('current-date').textContent = date;
+        }
+
+        // Application Launcher
+        const Apps = {
+            commands: {
+                'word': 'winword',
+                'excel': 'excel',
+                'powerpoint': 'powerpnt',
+                'outlook': 'outlook',
+                'onenote': 'onenote',
+                'vscode': 'code',
+                'terminal': 'wt',
+                'github': '%LOCALAPPDATA%\\GitHubDesktop\\GitHubDesktop.exe',
+                'claude-code': 'claude',
+                'python': 'python',
+                'chrome': 'chrome',
+                'edge': 'msedge',
+                'teams': 'msteams:',
+                'zoom': 'zoommtg:',
+                'gdrive': 'G:\\My Drive',
+                'explorer': 'G:\\My Drive\\00 - Trajanus USA',
+                'notepad': 'notepad++'
+            },
+
+            async launch(appKey) {
+                const invoke = getInvoke();
+                if (!invoke) return;
+
+                try {
+                    if (appKey === 'vscode') {
+                        await invoke('launch_vscode', { path: PROJECT_PATH });
+                    } else if (appKey === 'terminal') {
+                        await invoke('open_terminal', { path: PROJECT_PATH });
+                    } else if (appKey === 'claude-code') {
+                        await invoke('launch_claude_code', { path: PROJECT_PATH });
+                    } else if (appKey === 'gdrive' || appKey === 'explorer') {
+                        await invoke('open_path', { path: this.commands[appKey] });
+                    } else {
+                        await invoke('open_path', { path: this.commands[appKey] });
+                    }
+                } catch (e) {
+                    console.error(`Failed to launch ${appKey}: ${e}`);
+                }
+            }
+        };
+
+        // Script Runner
+        const Scripts = {
+            async run(scriptName) {
+                const invoke = getInvoke();
+                if (!invoke) return;
+
+                try {
+                    await invoke('run_python_script', {
+                        scriptPath: SCRIPTS_PATH + scriptName
+                    });
+                } catch (e) {
+                    console.error(`Failed to run ${scriptName}: ${e}`);
+                }
+            }
+        };
+
+        // Agent Controller
+        const Agents = {
+            async activate(agentName) {
+                console.log(`Activating ${agentName} agent...`);
+                try {
+                    // Load agent skill into chat assistant
+                    const skillMap = {
+                        'research': 'research',
+                        'compliance': 'compliance',
+                        'morning': 'research'
+                    };
+                    const skill = skillMap[agentName];
+                    if (skill) {
+                        document.getElementById('skill-select').value = skill;
+                        await ChatAssistant.loadSkill(skill);
+                    }
+                    console.log(`${agentName} agent activated`);
+                } catch (e) {
+                    console.error(`Failed to activate ${agentName}: ${e}`);
+                }
+            },
+            async deploy(agentName) {
+                console.log(`Deploying ${agentName} agent...`);
+                const scriptMap = {
+                    'research': 'research_agent.py',
+                    'compliance': 'compliance_officer.py',
+                    'morning': 'morning_research_agent.py'
+                };
+                if (scriptMap[agentName]) {
+                    await Scripts.run(scriptMap[agentName]);
+                }
+            }
+        };
+
+        // Simple Chat Assistant Controller
+        const ChatAssistant = {
+            messages: [],
+            isLoading: false,
+
+            init() {
+                console.log('Chat Assistant ready');
+                // Show welcome message from assistant
+                this.showWelcome();
+            },
+
+            showWelcome() {
+                const messagesContainer = document.getElementById('chat-messages');
+                const welcome = document.getElementById('chat-welcome');
+                if (welcome) welcome.style.display = 'none';
+
+                // Add assistant greeting
+                this.addMessage('assistant', 'Hello! I\'m your Trajanus Assistant. What can I help you with today?');
+            },
+
+            async send() {
+                const input = document.getElementById('chat-input');
+                const message = input.value.trim();
+
+                if (!message || this.isLoading) return;
+
+                // Add user message to UI
+                this.addMessage('user', message);
+                input.value = '';
+                this.autoResize(input);
+
+                // Show loading
+                this.setLoading(true);
+
+                try {
+                    // Get invoke function
+                    const invoke = getInvoke();
+                    if (!invoke) {
+                        throw new Error('Tauri not available');
+                    }
+
+                    // Call Claude API via Tauri
+                    const response = await invoke('chat_with_claude', {
+                        message: message,
+                        context: null
+                    });
+
+                    // Add assistant response
+                    this.addMessage('assistant', response);
+
+                } catch (error) {
+                    console.error('Chat error:', error);
+                    this.addMessage('assistant', `I encountered an error: ${error}`);
+                }
+
+                this.setLoading(false);
+            },
+
+            addMessage(role, content) {
+                const messagesContainer = document.getElementById('chat-messages');
+
+                const messageEl = document.createElement('div');
+                messageEl.className = `chat-message ${role}`;
+                messageEl.innerHTML = `
+                    <div class="message-avatar">${role === 'user' ? 'B' : 'T'}</div>
+                    <div class="message-content">
+                        <div class="message-text">${this.escapeHtml(content)}</div>
+                    </div>
+                `;
+
+                messagesContainer.appendChild(messageEl);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+                this.messages.push({ role, content });
+            },
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            },
+
+            setLoading(loading) {
+                this.isLoading = loading;
+                const sendBtn = document.getElementById('send-btn');
+                const messagesContainer = document.getElementById('chat-messages');
+
+                sendBtn.disabled = loading;
+
+                const existingIndicator = document.getElementById('typing-indicator');
+                if (loading && !existingIndicator) {
+                    const indicator = document.createElement('div');
+                    indicator.id = 'typing-indicator';
+                    indicator.className = 'chat-message assistant';
+                    indicator.innerHTML = `
+                        <div class="message-avatar">T</div>
+                        <div class="message-content">
+                            <div class="typing-indicator">
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+                    `;
+                    messagesContainer.appendChild(indicator);
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                } else if (!loading && existingIndicator) {
+                    existingIndicator.remove();
+                }
+            },
+
+            clear() {
+                this.messages = [];
+                const messagesContainer = document.getElementById('chat-messages');
+                messagesContainer.innerHTML = '';
+                this.showWelcome();
+            },
+
+            handleKeydown(event) {
+                if (event.key === 'Enter' && !event.shiftKey) {
+                    event.preventDefault();
+                    this.send();
+                }
+            },
+
+            autoResize(textarea) {
+                textarea.style.height = 'auto';
+                textarea.style.height = Math.min(textarea.scrollHeight, 150) + 'px';
+            }
+        };
+
+        // Initialize Chat Assistant
+        document.addEventListener('DOMContentLoaded', () => {
+            ChatAssistant.init();
+        });
+    </script>
+</body>
+</html>
