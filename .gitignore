@@ -46,6 +46,9 @@ Thumbs.db
 *.exe
 !talon-windows.exe
 
+# Claude Code (local settings are user-specific)
+.claude/settings.local.json
+
 # IDE
 .idea/
 .vscode/
