@@ -247,8 +247,12 @@ def update_index(video_id, title, category, transcript_path, video_path):
         json.dump(index, f, indent=2)
 
 
-def process_video(video_id, category, transcript_content=None, metadata=None, download=True):
-    """Process a single video: archive and ingest."""
+def process_video(video_id, category, transcript_content=None, metadata=None, download=True, supabase_only=False):
+    """Process a single video: archive and ingest.
+
+    Args:
+        supabase_only: If True, skip file archive and only ingest to Supabase
+    """
     print(f"\n{'='*60}")
     print(f"Processing: {video_id}")
     print(f"{'='*60}")
@@ -305,11 +309,16 @@ def process_video(video_id, category, transcript_content=None, metadata=None, do
 
     # If transcript content provided, use it; otherwise return for Playwright extraction
     if transcript_content:
-        # Save transcript to archive
-        print("  Saving transcript to archive...")
-        transcript_path = save_transcript_to_archive(video_id, category, title, transcript_content, metadata)
-        print(f"  Transcript saved: {os.path.basename(transcript_path)}")
-        result['transcript_path'] = transcript_path
+        transcript_path = None
+
+        # Save transcript to archive (unless supabase_only)
+        if not supabase_only:
+            print("  Saving transcript to archive...")
+            transcript_path = save_transcript_to_archive(video_id, category, title, transcript_content, metadata)
+            print(f"  Transcript saved: {os.path.basename(transcript_path)}")
+            result['transcript_path'] = transcript_path
+        else:
+            print("  Skipping file archive (supabase-only mode)")
 
         # Ingest to Supabase
         print("  Ingesting to Supabase...")
@@ -317,9 +326,10 @@ def process_video(video_id, category, transcript_content=None, metadata=None, do
         print(f"  Inserted {chunks} chunks")
         result['chunks'] = chunks
 
-        # Update index
-        update_index(video_id, title, category, transcript_path, video_path)
-        print("  Index updated")
+        # Update index (unless supabase_only)
+        if not supabase_only:
+            update_index(video_id, title, category, transcript_path, video_path)
+            print("  Index updated")
     else:
         print("  NEEDS TRANSCRIPT: Use Playwright to extract, then call with content")
         result['needs_transcript'] = True
@@ -333,6 +343,7 @@ if __name__ == "__main__":
     parser.add_argument('--playlist', help='Playlist URL')
     parser.add_argument('--category', default='General', help='Category for filing')
     parser.add_argument('--no-download', action='store_true', help='Skip video download')
+    parser.add_argument('--supabase-only', action='store_true', help='Ingest to Supabase only, skip file archive')
 
     args = parser.parse_args()
 
@@ -342,11 +353,11 @@ if __name__ == "__main__":
         print(f"Found {len(videos)} videos")
 
         for v in videos:
-            result = process_video(v['id'], args.category, download=not args.no_download)
+            result = process_video(v['id'], args.category, download=not args.no_download, supabase_only=args.supabase_only)
             print(f"  -> {result['status']}")
 
     elif args.video:
-        result = process_video(args.video, args.category, download=not args.no_download)
+        result = process_video(args.video, args.category, download=not args.no_download, supabase_only=args.supabase_only)
         print(f"\nResult: {result}")
 
     else:

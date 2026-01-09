@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TKB Reference Cards - Claude Code Tutorials</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a1a;
+            color: #C0C0C0;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0 30px;
+            border-bottom: 2px solid #0066CC;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #C0C0C0;
+            font-size: 24px;
+            letter-spacing: 2px;
+        }
+        .header .subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .card {
+            background: #252525;
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+        .card:hover {
+            border-color: #0066CC;
+        }
+        .card-thumbnail {
+            width: 100%;
+            height: 180px;
+            background: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .card-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .card-thumbnail .placeholder {
+            color: #666;
+            font-size: 48px;
+        }
+        .card-duration {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.8);
+            color: #fff;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        .card-body {
+            padding: 16px;
+        }
+        .card-title {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        .card-creator {
+            color: #0066CC;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+        .card-description {
+            color: #999;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .tag {
+            background: #333;
+            color: #C0C0C0;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            border: 1px solid #444;
+        }
+        .tag:hover {
+            background: #0066CC;
+            border-color: #0066CC;
+            color: #fff;
+        }
+        .card-footer {
+            padding: 12px 16px;
+            border-top: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-level {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .level-beginner { color: #4CAF50; }
+        .level-intermediate { color: #FF9800; }
+        .level-advanced { color: #f44336; }
+        .level-expert { color: #9C27B0; }
+        .watch-btn {
+            background: #0066CC;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .watch-btn:hover {
+            background: #0052a3;
+        }
+        .section-header {
+            color: #C0C0C0;
+            font-size: 18px;
+            padding: 20px 0 15px;
+            border-bottom: 1px solid #333;
+            margin-bottom: 20px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>TRAJANUS KNOWLEDGE BASE</h1>
+        <div class="subtitle">Claude Code Tutorial Series - January 2026 | 10 Videos</div>
+    </div>
+
+    <h2 class="section-header">DEV / Claude Code</h2>
+    <div class="cards-grid">
+
+        <!-- Card 1: Peter Yang -->
+        <div class="card" data-video-id="SEARCH_REQUIRED" data-tags="slash-commands,yt-dlp,permissions,automation,research-agent">
+            <div class="card-thumbnail">
+                <img src="https://img.youtube.com/vi/iW0lMW-Ff5I/maxresdefault.jpg" alt="Thumbnail" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                <span class="placeholder" style="display:none">▶</span>
+                <span class="card-duration">15:00</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">Claude Code: Build YouTube Research Agent in 15 Min</div>
+                <div class="card-creator">Peter Yang • Behind the Craft</div>
+                <div class="card-description">Build a YouTube AI research agent using slash commands and yt-dlp. Covers spec-to-code workflow, plan mode exploration, and batch processing for analyzing multiple YouTube channels without API keys.</div>
+                <div class="card-tags">
+                    <span class="tag">slash-commands</span>
+                    <span class="tag">yt-dlp</span>
+                    <span class="tag">permissions</span>
+                    <span class="tag">automation</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-level level-intermediate">Intermediate</span>
+                <a class="watch-btn" href="https://www.youtube.com/results?search_query=Peter+Yang+Claude+Code+YouTube+research+agent" target="_blank">Watch</a>
+            </div>
+        </div>
+
+        <!-- Card 2: Edmund Yong -->
+        <div class="card" data-video-id="SEARCH_REQUIRED" data-tags="memory,sub-agents,MCP,custom-commands,plugins">
+            <div class="card-thumbnail">
+                <span class="placeholder">▶</span>
+                <span class="card-duration">~20:00</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">Claude Code Sub-agents & MCP Tutorial</div>
+                <div class="card-creator">Edmund Yong</div>
+                <div class="card-description">Deep dive into memory management, sub-agents for task delegation, and MCP server integration. Covers Context7, Supabase MCP, Playwright MCP, and building custom command libraries.</div>
+                <div class="card-tags">
+                    <span class="tag">memory</span>
+                    <span class="tag">sub-agents</span>
+                    <span class="tag">MCP</span>
+                    <span class="tag">plugins</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-level level-advanced">Advanced</span>
+                <a class="watch-btn" href="https://www.youtube.com/results?search_query=Edmund+Yong+Claude+Code+subagents+MCP" target="_blank">Watch</a>
+            </div>
+        </div>
+
+        <!-- Card 3: Teresa Torres -->
+        <div class="card" data-video-id="BEHIND_THE_CRAFT" data-tags="context-system,today-command,Obsidian,pair-writing,life-automation">
+            <div class="card-thumbnail">
+                <span class="placeholder">▶</span>
+                <span class="card-duration">50:00</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">Automate Your Life with Claude Code in 50 Min</div>
+                <div class="card-creator">Teresa Torres • Behind the Craft</div>
+                <div class="card-description">Product coach Teresa Torres reveals her complete setup: 3-layer context system (global, project, reference), /today command for daily tasks, and pair-writing workflows. Runs entire life with two Claude terminals.</div>
+                <div class="card-tags">
+                    <span class="tag">context-system</span>
+                    <span class="tag">/today-command</span>
+                    <span class="tag">Obsidian</span>
+                    <span class="tag">pair-writing</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-level level-advanced">Comprehensive</span>
+                <a class="watch-btn" href="https://www.youtube.com/@peteryangyt" target="_blank">Watch</a>
+            </div>
+        </div>
+
+        <!-- Card 4: Boris Cherny -->
+        <div class="card" data-video-id="6eBSHbLKuN0" data-tags="parallel-claudes,commit-push-pr,Opus-4.5,CLAUDE.md,Plan-Mode">
+            <div class="card-thumbnail">
+                <img src="https://img.youtube.com/vi/6eBSHbLKuN0/maxresdefault.jpg" alt="Thumbnail" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                <span class="placeholder" style="display:none">▶</span>
+                <span class="card-duration">~15:00</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">Claude Code Creator 8-Step Workflow</div>
+                <div class="card-creator">Boris Cherny • Head of Claude Code, Anthropic</div>
+                <div class="card-description">The creator reveals his exact workflow: 10-15 parallel sessions, Opus 4.5 for everything, /commit-push-pr command, and verification loops for 2-3x quality. Plan mode then auto-accept execution.</div>
+                <div class="card-tags">
+                    <span class="tag">parallel-claudes</span>
+                    <span class="tag">commit-push-pr</span>
+                    <span class="tag">Opus-4.5</span>
+                    <span class="tag">CLAUDE.md</span>
+                    <span class="tag">Plan-Mode</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-level level-expert">Expert</span>
+                <a class="watch-btn" href="https://www.youtube.com/watch?v=6eBSHbLKuN0" target="_blank">Watch</a>
+            </div>
+        </div>
+
+        <!-- Card 5: 3 Technical Founders -->
+        <div class="card" data-video-id="SEARCH_REQUIRED" data-tags="explore-plan-execute,planner-developer,context-management,agent-swarms">
+            <div class="card-thumbnail">
+                <span class="placeholder">▶</span>
+                <span class="card-duration">~30:00</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">Master Claude Code: 3 Technical Founders</div>
+                <div class="card-creator">Patrick Ellis • AI Tinkerers Seattle</div>
+                <div class="card-description">Proven daily workflows from three technical founders. Covers explore-plan-execute methodology, agent swarms, background agents for CI/CD, and custom commands for team workflows.</div>
+                <div class="card-tags">
+                    <span class="tag">explore-plan-execute</span>
+                    <span class="tag">planner-developer</span>
+                    <span class="tag">context-management</span>
+                    <span class="tag">agent-swarms</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-level level-advanced">Advanced</span>
+                <a class="watch-btn" href="https://www.youtube.com/results?search_query=Master+Claude+Code+Technical+Founders" target="_blank">Watch</a>
+            </div>
+        </div>
+
+        <!-- Card 6: Playwright MCP -->
+        <div class="card" data-video-id="xOO8Wt_i72s" data-tags="Playwright,browser-automation,visual-validation,subagent-chains,MCP">
+            <div class="card-thumbnail">
+                <img src="https://img.youtube.com/vi/xOO8Wt_i72s/maxresdefault.jpg" alt="Thumbnail" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                <span class="placeholder" style="display:none">▶</span>
+                <span class="card-duration">~30:00</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">Turn Claude Code into UI Designer using Playwright MCP</div>
+                <div class="card-creator">Patrick Ellis • OneRedOak</div>
+                <div class="card-description">Give Claude Code visual capabilities using Playwright MCP. Covers orchestration layers, iterative agentic loops, custom design reviewer subagents, and git worktrees for parallel development.</div>
+                <div class="card-tags">
+                    <span class="tag">Playwright</span>
+                    <span class="tag">browser-automation</span>
+                    <span class="tag">visual-validation</span>
+                    <span class="tag">subagent-chains</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-level level-advanced">Advanced</span>
+                <a class="watch-btn" href="https://www.youtube.com/watch?v=xOO8Wt_i72s" target="_blank">Watch</a>
+            </div>
+        </div>
+
+        <!-- Card 7: Skills vs MCP vs Subagents -->
+        <div class="card" data-video-id="SEARCH_REQUIRED" data-tags="decision-framework,when-to-use,comparison,skills,MCP,subagents">
+            <div class="card-thumbnail">
+                <span class="placeholder">▶</span>
+                <span class="card-duration">9:00</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">Skills vs MCP vs Subagents</div>
+                <div class="card-creator">Solo Swift Crafter</div>
+                <div class="card-description">Quick decision framework for choosing the right extension mechanism. Skills = always-on context behaviors, MCP = external tool integration, Subagents = parallel/isolated work delegation.</div>
+                <div class="card-tags">
+                    <span class="tag">decision-framework</span>
+                    <span class="tag">when-to-use</span>
+                    <span class="tag">comparison</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-level level-intermediate">Intermediate</span>
+                <a class="watch-btn" href="https://www.youtube.com/results?search_query=Skills+vs+MCP+vs+Subagents+Claude+Code" target="_blank">Watch</a>
+            </div>
+        </div>
+
+        <!-- Card 8: CS Dojo -->
+        <div class="card" data-video-id="CLASS_CENTRAL" data-tags="beginner,best-practices,essential-features,masterclass">
+            <div class="card-thumbnail">
+                <span class="placeholder">▶</span>
+                <span class="card-duration">20:00</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">Claude Code Masterclass</div>
+                <div class="card-creator">CS Dojo</div>
+                <div class="card-description">Comprehensive beginner-friendly masterclass covering Claude Code fundamentals, essential features, best practices, and a practical Super Voice Assistant demo project with GitHub resources.</div>
+                <div class="card-tags">
+                    <span class="tag">beginner</span>
+                    <span class="tag">best-practices</span>
+                    <span class="tag">essential-features</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-level level-beginner">Beginner</span>
+                <a class="watch-btn" href="https://www.youtube.com/results?search_query=CS+Dojo+Claude+Code+masterclass" target="_blank">Watch</a>
+            </div>
+        </div>
+
+        <!-- Card 9: Alex Finn -->
+        <div class="card" data-video-id="wfiv67NixCY" data-tags="life-automation,brain-dumps,research-agent,daily-brief,slash-commands">
+            <div class="card-thumbnail">
+                <img src="https://img.youtube.com/vi/wfiv67NixCY/maxresdefault.jpg" alt="Thumbnail" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                <span class="placeholder" style="display:none">▶</span>
+                <span class="card-duration">25:00</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">Build AI Life Copilot</div>
+                <div class="card-creator">Alex Finn • Behind the Craft</div>
+                <div class="card-description">Build a "Claude Life" operating system with /researcher for competitor analysis, /daily_brief for AI news, and /brain_dump for pattern analysis. Creator of $300K platform shares 5 automation techniques.</div>
+                <div class="card-tags">
+                    <span class="tag">life-automation</span>
+                    <span class="tag">brain-dumps</span>
+                    <span class="tag">research-agent</span>
+                    <span class="tag">daily-brief</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-level level-intermediate">Intermediate</span>
+                <a class="watch-btn" href="https://www.youtube.com/watch?v=wfiv67NixCY" target="_blank">Watch</a>
+            </div>
+        </div>
+
+        <!-- Card 10: Cat Wu -->
+        <div class="card" data-video-id="BEHIND_THE_CRAFT" data-tags="design-to-code,AI-evaluations,insider-tips,prototyping,anthropic">
+            <div class="card-thumbnail">
+                <span class="placeholder">▶</span>
+                <span class="card-duration">~35:00</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">Inside Claude Code</div>
+                <div class="card-creator">Cat Wu • Product Lead, Claude Code @ Anthropic</div>
+                <div class="card-description">How the AI-native team actually works: user feedback every 10 minutes, prototypes instead of docs, designers shipping production code. Includes 3 best tips and CLAUDE.md importance.</div>
+                <div class="card-tags">
+                    <span class="tag">design-to-code</span>
+                    <span class="tag">AI-evaluations</span>
+                    <span class="tag">insider-tips</span>
+                    <span class="tag">prototyping</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-level level-advanced">Advanced</span>
+                <a class="watch-btn" href="https://www.youtube.com/@peteryangyt" target="_blank">Watch</a>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Search functionality for TKB browser integration
+        function searchByTag(tag) {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                const tags = card.dataset.tags || '';
+                card.style.display = tags.includes(tag) ? 'block' : 'none';
+            });
+        }
+
+        function showAll() {
+            document.querySelectorAll('.card').forEach(c => c.style.display = 'block');
+        }
+
+        // Make tags clickable for filtering
+        document.querySelectorAll('.tag').forEach(tag => {
+            tag.style.cursor = 'pointer';
+            tag.addEventListener('click', (e) => {
+                e.stopPropagation();
+                searchByTag(tag.textContent);
+            });
+        });
+    </script>
+</body>
+</html>

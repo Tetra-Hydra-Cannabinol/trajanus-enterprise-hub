@@ -1,230 +1,121 @@
 {
-  "batch_name": "Claude Code Tutorial Series - January 2026",
+  "batch_name": "Claude Code Tutorial Series",
   "created": "2026-01-09",
-  "total_videos": 10,
-  "routing": {
-    "dev": "TKB/DEV/Claude-Code/",
-    "tutorials_excel": "TKB/Tutorials/Excel/",
-    "tutorials_general": "TKB/Tutorials/General/"
-  },
+  "destination": "Supabase knowledge_base (AI memory only)",
+  "tkb_route": "TKB/DEV/Claude-Code/",
   "videos": [
     {
       "id": 1,
-      "video_id": "iW0lMW-Ff5I",
-      "url": "https://www.youtube.com/watch?v=iW0lMW-Ff5I",
-      "title": "Claude Code: Build YouTube Research Agent in 15 Min",
-      "creator": "Peter Yang",
-      "channel": "Behind the Craft",
-      "duration": "15:00",
-      "tags": ["slash-commands", "yt-dlp", "permissions", "automation", "research-agent"],
-      "category": "Claude Code",
-      "route": "TKB/DEV/Claude-Code/",
-      "level": "INTERMEDIATE",
-      "description": "Peter Yang demonstrates how to build a YouTube AI research agent using Claude Code. Covers the spec-to-code workflow, creating /youtube slash commands, and batch processing for analyzing multiple YouTube channels.",
-      "key_topics": [
-        "Plan mode exploration",
-        "Creating slash commands",
-        "yt-dlp integration without API keys",
-        "Batch channel analysis"
-      ]
+      "video_id": "6eBSHbLKuN0",
+      "status": "VERIFIED",
+      "title": "Claude Code Creator 8-Step Workflow",
+      "creator": "Boris Cherny",
+      "tags": ["parallel-claudes", "commit-push-pr", "Opus-4.5", "CLAUDE.md", "Plan-Mode"],
+      "level": "EXPERT",
+      "description": "The creator reveals his exact workflow: 10-15 parallel sessions, Opus 4.5, /commit-push-pr command, and verification loops for 2-3x quality."
     },
     {
       "id": 2,
-      "video_id": "SEARCH_REQUIRED",
-      "url": "https://www.youtube.com/results?search_query=Edmund+Yong+Claude+Code+subagents+MCP",
-      "title": "Claude Code Sub-agents & MCP Tutorial",
-      "creator": "Edmund Yong",
-      "channel": "Edmund Yong",
-      "duration": "~20:00",
-      "tags": ["memory", "sub-agents", "MCP", "custom-commands", "plugins"],
-      "category": "Claude Code",
-      "route": "TKB/DEV/Claude-Code/",
+      "video_id": "xOO8Wt_i72s",
+      "status": "VERIFIED",
+      "title": "Turn Claude Code into UI Designer using Playwright MCP",
+      "creator": "Patrick Ellis",
+      "tags": ["Playwright", "browser-automation", "visual-validation", "subagent-chains", "MCP"],
       "level": "ADVANCED",
-      "description": "Deep dive into Claude Code's memory systems, sub-agents for task delegation, and MCP (Model Context Protocol) for connecting external tools and databases.",
-      "key_topics": [
-        "Memory persistence with CLAUDE.md",
-        "Custom sub-agents creation",
-        "MCP server configuration",
-        "Plugin architecture"
-      ],
-      "status": "NEEDS_URL_VERIFICATION"
+      "description": "Give Claude Code visual capabilities using Playwright MCP. Covers orchestration layers, iterative agentic loops, and custom design reviewer subagents."
     },
     {
       "id": 3,
-      "video_id": "SEARCH_BEHIND_THE_CRAFT",
-      "url": "https://www.youtube.com/@peteryangyt",
-      "title": "Automate Your Life with Claude Code in 50 Min",
-      "creator": "Teresa Torres",
-      "channel": "Behind the Craft (Peter Yang)",
-      "duration": "50:00",
-      "tags": ["context-system", "today-command", "Obsidian", "pair-writing", "life-automation"],
-      "category": "Claude Code",
-      "route": "TKB/DEV/Claude-Code/",
-      "level": "COMPREHENSIVE",
-      "description": "Product coach Teresa Torres reveals her complete Claude Code setup for running her life and business. Features her 3-layer context system, /today command for daily task generation, and Obsidian integration.",
-      "key_topics": [
-        "3-layer context: global, project, reference",
-        "/today command workflow",
-        "Research automation for academic papers",
-        "Writing and editing automation"
-      ]
+      "video_id": "wfiv67NixCY",
+      "status": "VERIFIED",
+      "title": "Build AI Life Copilot",
+      "creator": "Alex Finn",
+      "tags": ["life-automation", "brain-dumps", "research-agent", "daily-brief", "slash-commands"],
+      "level": "INTERMEDIATE",
+      "description": "Build a 'Claude Life' operating system with /researcher, /daily_brief, and /brain_dump commands. 5 automation techniques from $300K platform creator."
     },
     {
       "id": 4,
-      "video_id": "TWITTER_THREAD_SOURCE",
-      "url": "https://x.com/bcherny/status/2007179832300581177",
-      "title": "Claude Code Creator 8-Step Workflow",
-      "creator": "Boris Cherny",
-      "channel": "Anthropic / X Thread",
-      "duration": "Thread + Video",
-      "tags": ["parallel-claudes", "commit-push-pr", "Opus-4.5", "CLAUDE.md", "Plan-Mode"],
-      "category": "Claude Code",
-      "route": "TKB/DEV/Claude-Code/",
-      "level": "EXPERT",
-      "description": "Boris Cherny, creator of Claude Code at Anthropic, reveals his exact workflow: 10-15 parallel sessions, Opus 4.5 for everything, /commit-push-pr command, and verification loops for 2-3x quality improvement.",
-      "key_topics": [
-        "8-step development process",
-        "Running 10-15 parallel Claude sessions",
-        "Verification loops for quality",
-        "Code-simplifier and verify-app subagents",
-        "Plan mode -> auto-accept workflow"
-      ]
+      "video_id": "SEARCH_REQUIRED",
+      "status": "NEEDS_URL",
+      "search_query": "Peter Yang Claude Code YouTube research agent",
+      "title": "Claude Code: Build YouTube Research Agent in 15 Min",
+      "creator": "Peter Yang",
+      "tags": ["slash-commands", "yt-dlp", "permissions", "automation"],
+      "level": "INTERMEDIATE",
+      "description": "Build a YouTube AI research agent using slash commands and yt-dlp without API keys. Spec-to-code workflow and batch processing."
     },
     {
       "id": 5,
       "video_id": "SEARCH_REQUIRED",
-      "url": "https://www.youtube.com/results?search_query=Master+Claude+Code+Technical+Founders+Seattle",
-      "title": "Master Claude Code: 3 Technical Founders",
-      "creator": "Seattle Tech Group",
-      "channel": "Unknown",
-      "duration": "~30:00",
-      "tags": ["explore-plan-execute", "planner-developer", "context-management"],
-      "category": "Claude Code",
-      "route": "TKB/DEV/Claude-Code/",
+      "status": "NEEDS_URL",
+      "search_query": "Edmund Yong Claude Code subagents MCP memory",
+      "title": "Claude Code Sub-agents & MCP Tutorial",
+      "creator": "Edmund Yong",
+      "tags": ["memory", "sub-agents", "MCP", "custom-commands", "plugins"],
       "level": "ADVANCED",
-      "description": "Three technical founders from Seattle share their Claude Code mastery techniques including the explore-plan-execute workflow and planner-developer separation patterns.",
-      "key_topics": [
-        "Explore-plan-execute methodology",
-        "Planner vs developer roles",
-        "Context window management",
-        "Multi-founder perspectives"
-      ],
-      "status": "NEEDS_URL_VERIFICATION"
+      "description": "Deep dive into memory management, sub-agents for task delegation, and MCP server integration including Context7, Supabase, Playwright."
     },
     {
       "id": 6,
-      "video_id": "xOO8Wt_i72s",
-      "url": "https://www.youtube.com/watch?v=xOO8Wt_i72s",
-      "title": "Turn Claude Code into UI Designer using Playwright MCP",
-      "creator": "Patrick Ellis",
-      "channel": "OneRedOak",
-      "duration": "~30:00",
-      "tags": ["Playwright", "browser-automation", "visual-validation", "subagent-chains", "MCP"],
-      "category": "Claude Code",
-      "route": "TKB/DEV/Claude-Code/",
-      "level": "ADVANCED",
-      "description": "Patrick Ellis demonstrates how to give Claude Code visual capabilities using Playwright MCP. Covers orchestration layers, iterative agentic loops, and creating custom design reviewer subagents.",
-      "key_topics": [
-        "Playwright MCP installation",
-        "Visual feedback loops for UI",
-        "Design reviewer subagent",
-        "CLAUDE.md for agentic design",
-        "Git worktrees for parallel dev"
-      ]
+      "video_id": "BEHIND_THE_CRAFT",
+      "status": "NEEDS_URL",
+      "search_query": "youtube.com/@peteryangyt Teresa Torres Claude Code",
+      "title": "Automate Your Life with Claude Code in 50 Min",
+      "creator": "Teresa Torres",
+      "tags": ["context-system", "today-command", "Obsidian", "pair-writing"],
+      "level": "COMPREHENSIVE",
+      "description": "3-layer context system (global, project, reference), /today command for daily tasks, and pair-writing workflows. Runs entire life with two Claude terminals."
     },
     {
       "id": 7,
       "video_id": "SEARCH_REQUIRED",
-      "url": "https://www.youtube.com/results?search_query=Solo+Swift+Crafter+Skills+MCP+Subagents",
-      "title": "Skills vs MCP vs Subagents",
-      "creator": "Solo Swift Crafter",
-      "channel": "Solo Swift Crafter",
-      "duration": "9:00",
-      "tags": ["decision-framework", "when-to-use", "comparison", "skills", "MCP", "subagents"],
-      "category": "Claude Code",
-      "route": "TKB/DEV/Claude-Code/",
-      "level": "INTERMEDIATE",
-      "description": "Quick decision framework for choosing between Claude Code Skills, MCP servers, and Subagents. Covers when to use each extension mechanism based on use case and complexity.",
-      "key_topics": [
-        "Skills: always-on, context-driven",
-        "MCP: external tool integration",
-        "Subagents: parallel/isolated work",
-        "Decision criteria flowchart"
-      ],
-      "status": "NEEDS_URL_VERIFICATION"
+      "status": "NEEDS_URL",
+      "search_query": "Master Claude Code Technical Founders Patrick Ellis",
+      "title": "Master Claude Code: 3 Technical Founders",
+      "creator": "Patrick Ellis / Seattle Tech",
+      "tags": ["explore-plan-execute", "planner-developer", "context-management", "agent-swarms"],
+      "level": "ADVANCED",
+      "description": "Proven daily workflows from three technical founders. Agent swarms, background agents for CI/CD, and custom team commands."
     },
     {
       "id": 8,
-      "video_id": "SEARCH_CS_DOJO",
-      "url": "https://www.classcentral.com/course/youtube-claude-code-masterclass-503745",
-      "title": "Claude Code Masterclass",
-      "creator": "CS Dojo",
-      "channel": "CS Dojo",
-      "duration": "20:00",
-      "tags": ["beginner", "best-practices", "essential-features", "masterclass"],
-      "category": "Claude Code",
-      "route": "TKB/Tutorials/General/",
-      "level": "BEGINNER",
-      "description": "Comprehensive beginner-friendly masterclass covering Claude Code fundamentals. Includes essential features, best practices, and practical applications with a Super Voice Assistant demo.",
-      "key_topics": [
-        "Getting started with Claude Code",
-        "Essential features overview",
-        "Best practices for beginners",
-        "Super Voice Assistant project"
-      ]
+      "video_id": "SEARCH_REQUIRED",
+      "status": "NEEDS_URL",
+      "search_query": "Skills vs MCP vs Subagents Claude Code decision",
+      "title": "Skills vs MCP vs Subagents",
+      "creator": "Solo Swift Crafter",
+      "tags": ["decision-framework", "when-to-use", "comparison"],
+      "level": "INTERMEDIATE",
+      "description": "Quick 9-min decision framework. Skills = always-on context, MCP = external tools, Subagents = parallel/isolated work."
     },
     {
       "id": 9,
-      "video_id": "wfiv67NixCY",
-      "url": "https://www.youtube.com/watch?v=wfiv67NixCY",
-      "title": "Build AI Life Copilot",
-      "creator": "Alex Finn",
-      "channel": "Behind the Craft (Peter Yang)",
-      "duration": "25:00",
-      "tags": ["life-automation", "brain-dumps", "research-agent", "daily-brief", "slash-commands"],
-      "category": "Claude Code",
-      "route": "TKB/DEV/Claude-Code/",
-      "level": "INTERMEDIATE",
-      "description": "Alex Finn reveals his 'Claude Life' operating system for automating research, news curation, and brain dump analysis. Shows how to set up /researcher, /daily_brief, and /brain_dump commands.",
-      "key_topics": [
-        "Claude Life folder structure",
-        "/researcher for competitor analysis",
-        "/daily_brief for AI news",
-        "/brain_dump pattern analysis",
-        "Saves 2+ hours daily"
-      ]
+      "video_id": "SEARCH_REQUIRED",
+      "status": "NEEDS_URL",
+      "search_query": "CS Dojo Claude Code masterclass",
+      "title": "Claude Code Masterclass",
+      "creator": "CS Dojo",
+      "tags": ["beginner", "best-practices", "essential-features"],
+      "level": "BEGINNER",
+      "description": "Comprehensive 20-min beginner masterclass. Fundamentals, essential features, best practices, and Super Voice Assistant demo."
     },
     {
       "id": 10,
-      "video_id": "SEARCH_BEHIND_THE_CRAFT",
-      "url": "https://www.youtube.com/@peteryangyt",
+      "video_id": "BEHIND_THE_CRAFT",
+      "status": "NEEDS_URL",
+      "search_query": "youtube.com/@peteryangyt Cat Wu Inside Claude Code",
       "title": "Inside Claude Code",
       "creator": "Cat Wu",
-      "channel": "Behind the Craft (Peter Yang)",
-      "duration": "~30:00",
-      "tags": ["design-to-code", "AI-evaluations", "insider-tips", "prototyping", "anthropic"],
-      "category": "Claude Code",
-      "route": "TKB/DEV/Claude-Code/",
+      "tags": ["design-to-code", "AI-evaluations", "insider-tips", "prototyping"],
       "level": "ADVANCED",
-      "description": "Cat Wu, founding product manager of Claude Code at Anthropic, reveals how the most AI-native team works: design-to-code workflows, rapid prototyping instead of docs, and designers shipping production code.",
-      "key_topics": [
-        "Prototype over documentation",
-        "10-minute feedback loops",
-        "Designers checking in code",
-        "Claude Code origin story",
-        "AI evaluations process"
-      ]
+      "description": "How the AI-native team works: feedback every 10 minutes, prototypes over docs, designers shipping production code. 3 best tips for CLAUDE.md."
     }
   ],
-  "ingestion_commands": {
-    "single_video": "python youtube_archive_ingest.py --video <VIDEO_ID> --category Claude-Code",
-    "with_transcript": "python extract_youtube_transcript.py <URL>",
-    "batch_process": "For each video in this JSON, extract transcript first, then run ingest"
-  },
-  "notes": [
-    "Videos marked NEEDS_URL_VERIFICATION require manual YouTube search",
-    "SEARCH_BEHIND_THE_CRAFT videos are on Peter Yang's YouTube channel",
-    "All transcripts go to Supabase knowledge_base table",
-    "Reference cards should be created after transcript ingestion"
-  ]
+  "ingest_command": "python youtube_archive_ingest.py --video <VIDEO_ID> --category Claude-Code --no-download --supabase-only",
+  "stats": {
+    "verified_urls": 3,
+    "needs_search": 7,
+    "total": 10
+  }
 }
