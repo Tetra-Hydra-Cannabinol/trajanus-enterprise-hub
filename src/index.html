@@ -1381,6 +1381,9 @@
             try {
                 await tauriInvoke('close_embedded');
                 claudeEmbedActive = false;
+                // Remove event listeners before re-adding in launchClaudeEmbed
+                window.removeEventListener('scroll', updateClaudePosition);
+                window.removeEventListener('resize', updateClaudePosition);
                 setTimeout(() => launchClaudeEmbed(), 100);
             } catch (e) {
                 log('Failed to reload: ' + e, 'error');
@@ -1394,6 +1397,9 @@
             try {
                 await tauriInvoke('close_embedded');
                 claudeEmbedActive = false;
+                // Remove event listeners to prevent memory leak
+                window.removeEventListener('scroll', updateClaudePosition);
+                window.removeEventListener('resize', updateClaudePosition);
                 const container = document.getElementById('claude-embed-container');
                 if (container) {
                     container.innerHTML = `
