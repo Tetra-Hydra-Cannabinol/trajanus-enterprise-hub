@@ -8,7 +8,10 @@
     "build": "electron-builder",
     "tauri": "tauri",
     "tauri:dev": "tauri dev",
-    "tauri:build": "tauri build"
+    "tauri:build": "tauri build",
+    "test": "npx playwright test",
+    "test:verify": "npx playwright test tests/verification.spec.js",
+    "test:report": "npx playwright show-report"
   },
   "author": "Bill King - Trajanus USA",
   "license": "proprietary",
