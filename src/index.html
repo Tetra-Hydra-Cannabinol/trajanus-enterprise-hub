@@ -3350,6 +3350,11 @@
         }
 
         async function submitComposer() {
+            if (!currentFeedbackUser) {
+                alert('Please select your name before posting.');
+                return;
+            }
+
             const input = document.getElementById('composerInput');
             const content = input.value.trim();
 
