@@ -41,28 +41,8 @@
         <!-- Header Bar -->
         <header class="header-bar">
             <div class="header-brand">
-                <div class="trajanus-logo-container">
-                  <style>
-                    .trajanus-logo-container { display: inline-block; padding: 1.5rem; background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%); }
-                    .trajanus-logo-lockup { display: flex; align-items: center; gap: 1.5rem; }
-                    .trajanus-brand-text { display: flex; flex-direction: column; align-items: center; text-align: center; }
-                    .trajanus-brand-title { font-family: Impact, 'Arial Black', sans-serif; font-size: 2.5rem; font-weight: 900; color: #FFFFFF; letter-spacing: 0.15em; margin: 0; line-height: 1; }
-                    .trajanus-brand-tagline { font-family: Arial Narrow, 'Arial', sans-serif; font-size: 0.75rem; font-weight: bold; color: #0066FF; letter-spacing: 0.08em; margin: 0.4rem 0 0 0; text-transform: uppercase; }
-                    .trajanus-brand-tagline .tm { font-family: Arial, sans-serif; font-size: 0.7em; vertical-align: super; }
-                    .trajanus-logo-svg { filter: drop-shadow(3px 3px 4px rgba(0, 0, 0, 0.7)); }
-                  </style>
-                  <div class="trajanus-logo-lockup">
-                    <svg class="trajanus-logo-svg" width="88" height="73" viewBox="0 0 120 120">
-                      <defs><linearGradient id="trajanus-silver" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#E8E8E8"/><stop offset="50%" stop-color="#C0C0C0"/><stop offset="100%" stop-color="#888888"/></linearGradient></defs>
-                      <g transform="translate(3, 3)"><g transform="rotate(90, 60, 60)" opacity="0.4"><rect x="30" y="20" width="8" height="80" fill="#404040"/><rect x="55" y="20" width="8" height="80" fill="#404040"/><rect x="74" y="20" width="8" height="80" fill="#003366"/><rect x="30" y="20" width="36" height="8" fill="#404040"/><rect x="30" y="56" width="20" height="8" fill="#404040"/><rect x="30" y="92" width="36" height="8" fill="#404040"/></g></g>
-                      <g transform="rotate(90, 60, 60)"><rect x="30" y="20" width="8" height="80" fill="url(#trajanus-silver)"/><rect x="55" y="20" width="8" height="80" fill="url(#trajanus-silver)"/><rect x="74" y="20" width="8" height="80" fill="#0066FF"/><rect x="30" y="20" width="36" height="8" fill="url(#trajanus-silver)"/><rect x="30" y="56" width="20" height="8" fill="url(#trajanus-silver)"/><rect x="30" y="92" width="36" height="8" fill="url(#trajanus-silver)"/></g>
-                    </svg>
-                    <div class="trajanus-brand-text">
-                      <h1 class="trajanus-brand-title">TRAJANUS</h1>
-                      <p class="trajanus-brand-tagline">Engineered Intelligence<span class="tm">™</span></p>
-                    </div>
-                  </div>
-                </div>
+                <span class="header-logo">◆</span>
+                <span class="header-title">TRAJANUS</span>
             </div>
             <div class="header-controls">
                 <button class="header-icon-btn quad-chat-btn" id="quad-chat-toggle" title="Quad Chat Mode" onclick="toggleQuadChat()">⊞</button>
@@ -145,7 +125,29 @@
         <main class="main-content">
             <!-- Hero Title -->
             <section class="hero-title">
-                <h1>TRAJANUS ENTERPRISE HUB <span class="trademark">| EI™</span></h1>
+                <style>
+                    .trajanus-logo-container { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; background: transparent; }
+                    .trajanus-logo-lockup { display: flex; align-items: center; gap: 1rem; }
+                    .trajanus-brand-text { display: flex; flex-direction: column; justify-content: center; }
+                    .trajanus-brand-title { font-family: Impact, 'Arial Black', sans-serif; font-size: 2.6rem; font-weight: 900; color: #C0C0C0; letter-spacing: 0.15em; margin: 0; line-height: 1; }
+                    .trajanus-brand-tagline { font-family: Arial Narrow, 'Arial', sans-serif; font-size: 0.85rem; font-weight: bold; color: #C0C0C0; letter-spacing: 0.08em; margin: 0; text-transform: uppercase; }
+                    .trajanus-logo-svg { filter: drop-shadow(3px 3px 4px rgba(0, 0, 0, 0.7)); height: 120px; width: auto; }
+                    .hero-subtitle { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 1.85rem; font-weight: 600; color: #FFFFFF; letter-spacing: 0.25em; margin-top: 0.25rem; text-transform: uppercase; }
+                </style>
+                <div class="trajanus-logo-container">
+                    <div class="trajanus-logo-lockup">
+                        <svg class="trajanus-logo-svg" viewBox="0 0 120 120">
+                            <defs><linearGradient id="trajanus-silver" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#E8E8E8"/><stop offset="50%" stop-color="#C0C0C0"/><stop offset="100%" stop-color="#888888"/></linearGradient></defs>
+                            <g transform="translate(3, 3)"><g transform="rotate(90, 60, 60)" opacity="0.4"><rect x="30" y="20" width="8" height="80" fill="#404040"/><rect x="55" y="20" width="8" height="80" fill="#404040"/><rect x="74" y="20" width="8" height="80" fill="#003366"/><rect x="30" y="20" width="36" height="8" fill="#404040"/><rect x="30" y="56" width="20" height="8" fill="#404040"/><rect x="30" y="92" width="36" height="8" fill="#404040"/></g></g>
+                            <g transform="rotate(90, 60, 60)"><rect x="30" y="20" width="8" height="80" fill="url(#trajanus-silver)"/><rect x="55" y="20" width="8" height="80" fill="url(#trajanus-silver)"/><rect x="74" y="20" width="8" height="80" fill="#0066FF"/><rect x="30" y="20" width="36" height="8" fill="url(#trajanus-silver)"/><rect x="30" y="56" width="20" height="8" fill="url(#trajanus-silver)"/><rect x="30" y="92" width="36" height="8" fill="url(#trajanus-silver)"/></g>
+                        </svg>
+                        <div class="trajanus-brand-text">
+                            <h1 class="trajanus-brand-title">TRAJANUS</h1>
+                            <p class="trajanus-brand-tagline">Engineered Intelligence<span class="tm">™</span></p>
+                        </div>
+                    </div>
+                    <h2 class="hero-subtitle">ENTERPRISE HUB</h2>
+                </div>
             </section>
 
             <!-- Greeting Row -->
@@ -161,9 +163,8 @@
                 <h2 class="welcome-title">Welcome to the Trajanus Enterprise Hub</h2>
                 <p class="welcome-intro">
                     The Enterprise Hub is your central command interface for construction project management,
-                    quality control, traffic engineering, and development operations. Built on Trajanus
-                    Engineered Intelligence (EI™), this platform integrates federal contract management
-                    workflows with AI-assisted tools and automation.
+                    quality control, traffic engineering, and development operations. This platform integrates
+                    federal contract management workflows with AI-assisted tools and automation.
                 </p>
             </section>
 
