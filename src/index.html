@@ -1226,6 +1226,8 @@
 
         function addMessage(content, role) {
             const messagesDiv = document.getElementById('chat-messages');
+            if (!messagesDiv) return;
+
             const welcome = messagesDiv.querySelector('.chat-welcome');
             if (welcome) welcome.remove();
 
@@ -1238,6 +1240,8 @@
 
         function showTypingIndicator() {
             const messagesDiv = document.getElementById('chat-messages');
+            if (!messagesDiv) return;
+
             const typing = document.createElement('div');
             typing.className = 'typing-indicator';
             typing.id = 'typing-indicator';
@@ -1281,6 +1285,8 @@
         function clearChat() {
             ChatAssistant.clear();
             const messagesDiv = document.getElementById('chat-messages');
+            if (!messagesDiv) return;
+
             messagesDiv.innerHTML = '<div class="chat-welcome">Ask Trajanus anything...</div>';
             log('Chat cleared', 'info');
         }
