@@ -60,6 +60,41 @@ Every feature must have:
 3. Visual verification by user
 4. Git commit after approval
 
+## Supabase Knowledge Base
+
+**Project Ref:** `iaxtwrswinygwwwdkvok`
+**MCP Config:** `.mcp.json`
+
+### Table: `knowledge_base`
+| Column | Type | Description |
+|--------|------|-------------|
+| `id` | bigint | Auto-generated PK |
+| `url` | text | Document URL identifier |
+| `chunk_number` | integer | Chunk index |
+| `title` | text | Document title |
+| `summary` | text | Brief summary |
+| `content` | text | Full text content |
+| `metadata` | jsonb | Source, filename, etc. |
+| `embedding` | vector(1536) | OpenAI embedding |
+| `created_at` | timestamp | Auto-generated |
+
+### RPC Functions
+- `match_knowledge_base(query_embedding, match_threshold, match_count)` - Semantic search
+
+### Query Patterns
+```python
+# Direct query
+supabase.table('knowledge_base').select('*').eq('url', url).execute()
+
+# Filter by source
+supabase.table('knowledge_base').select('*').eq('metadata->>source', 'Core Protocols').execute()
+
+# Semantic search (requires embedding)
+supabase.rpc('match_knowledge_base', {'query_embedding': emb, 'match_threshold': 0.3, 'match_count': 10}).execute()
+```
+
+**Full schema docs:** `TASK-005_SUPABASE_SCHEMA_VERIFICATION.md`
+
 ## What NOT To Do
 - Don't add features not explicitly requested
 - Don't "improve" working code
