@@ -174,7 +174,6 @@ function populateSourceDropdown() {
  * Get icon for source type
  */
 function getSourceIcon(sourceName) {
-    if (!sourceName) return '📁';
     const name = sourceName.toLowerCase();
     if (name.includes('youtube')) return '🎬';
     if (name.includes('traffic')) return '🚧';
@@ -191,7 +190,6 @@ function getSourceIcon(sourceName) {
  * Get category for source
  */
 function getSourceCategory(sourceName) {
-    if (!sourceName) return 'Uncategorized';
     const name = sourceName.toLowerCase();
     if (name.includes('youtube') || name.includes('video')) return 'Videos';
     if (name.includes('traffic') || name.includes('construction')) return 'Project Documents';
