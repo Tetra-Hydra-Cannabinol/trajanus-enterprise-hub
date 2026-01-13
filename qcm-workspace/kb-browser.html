@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Base Browser - Trajanus Enterprise Hub</title>
+    <link rel="stylesheet" href="kb-browser.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-brand">
+            <span class="brand-company">TRAJANUS<span class="tm">™</span></span>
+            <span class="brand-title">KNOWLEDGE BASE BROWSER</span>
+        </div>
+        <a href="../src/toolkits/qcm.html" class="back-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Back to QCM
+        </a>
+    </header>
+
+    <!-- Main Layout -->
+    <main class="main-layout">
+        <!-- Search Panel -->
+        <aside class="search-panel">
+            <div class="panel-section">
+                <h3 class="panel-title">Search</h3>
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Enter search terms..." autocomplete="off">
+                    <button id="search-btn" class="btn-primary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                        </svg>
+                        Search
+                    </button>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h3 class="panel-title">Source Filter</h3>
+                <select id="source-filter" class="source-select">
+                    <option value="">All Sources</option>
+                    <!-- Populated dynamically -->
+                </select>
+                <div class="source-stats" id="source-stats">
+                    <span class="stat-item">Loading sources...</span>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h3 class="panel-title">Search Type</h3>
+                <div class="search-type-toggle">
+                    <label class="toggle-option">
+                        <input type="radio" name="search-type" value="text" checked>
+                        <span class="toggle-label">Text Search</span>
+                        <span class="toggle-desc">Fast keyword matching</span>
+                    </label>
+                    <label class="toggle-option">
+                        <input type="radio" name="search-type" value="semantic">
+                        <span class="toggle-label">Semantic Search</span>
+                        <span class="toggle-desc">AI-powered similarity</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h3 class="panel-title">Statistics</h3>
+                <div class="stats-grid" id="kb-stats">
+                    <div class="stat-card">
+                        <span class="stat-value" id="stat-sources">--</span>
+                        <span class="stat-label">Sources</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value" id="stat-chunks">--</span>
+                        <span class="stat-label">Chunks</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Results Panel -->
+        <section class="results-panel">
+            <div class="results-header">
+                <h2 class="results-title">Results</h2>
+                <span class="results-count" id="results-count">0 results</span>
+            </div>
+            <div class="results-list" id="results-list">
+                <div class="empty-state">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    <p>Enter a search term to find documents</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Document Detail Panel -->
+        <section class="detail-panel" id="detail-panel">
+            <div class="detail-header">
+                <h2 class="detail-title" id="detail-title">Select a Document</h2>
+                <button class="close-btn" id="close-detail" title="Close">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="detail-meta" id="detail-meta">
+                <span class="meta-item">No document selected</span>
+            </div>
+            <div class="detail-content" id="detail-content">
+                <p class="placeholder-text">Click on a search result to view its full content here.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner"></div>
+        <span class="loading-text">Searching...</span>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../src/supabase-client.js"></script>
+    <script src="../src/main.js"></script>
+    <script src="kb-browser.js"></script>
+</body>
+</html>
