@@ -571,6 +571,140 @@ html, body {
     background: var(--silver-dark);
 }
 
+/* Source Tree View */
+.source-tree {
+    padding: var(--spacing-sm);
+}
+
+.tree-category {
+    margin-bottom: var(--spacing-md);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.category-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    background: var(--bg-elevated);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.category-header:hover {
+    background: var(--bg-hover);
+}
+
+.category-toggle {
+    font-size: 10px;
+    color: var(--text-secondary);
+    width: 16px;
+}
+
+.category-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--silver-light);
+    flex: 1;
+}
+
+.category-count {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.category-items {
+    border-top: 1px solid var(--border-subtle);
+}
+
+.tree-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    padding-left: calc(var(--spacing-md) + 16px);
+    cursor: pointer;
+    transition: all 0.2s;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.tree-item:last-child {
+    border-bottom: none;
+}
+
+.tree-item:hover {
+    background: var(--bg-hover);
+}
+
+.tree-item.selected {
+    background: var(--bg-elevated);
+    border-left: 3px solid var(--blue);
+}
+
+.item-icon {
+    font-size: 18px;
+    width: 24px;
+    text-align: center;
+}
+
+.item-name {
+    flex: 1;
+    font-size: 13px;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.item-stats {
+    display: flex;
+    gap: var(--spacing-md);
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.item-chunks {
+    color: var(--blue);
+}
+
+.item-urls {
+    color: var(--silver-dark);
+}
+
+/* Results Actions */
+.results-actions {
+    padding: var(--spacing-sm) 0;
+    margin-bottom: var(--spacing-sm);
+}
+
+.btn-secondary {
+    padding: var(--spacing-xs) var(--spacing-md);
+    background: transparent;
+    border: 1px solid var(--border-subtle);
+    border-radius: 4px;
+    color: var(--text-primary);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+    border-color: var(--silver);
+    color: var(--silver-light);
+}
+
+/* Source Detail Content */
+.source-detail-content {
+    padding: var(--spacing-md);
+}
+
+.source-detail-content p {
+    margin-bottom: var(--spacing-md);
+    line-height: 1.7;
+}
+
 /* Responsive */
 @media (max-width: 1200px) {
     .main-layout {

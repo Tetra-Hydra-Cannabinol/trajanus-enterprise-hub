@@ -2559,8 +2559,13 @@
             // Script cards
             document.querySelectorAll('[data-script]').forEach(el => {
                 el.addEventListener('click', () => {
-                    alert('Script clicked: ' + el.dataset.script);
-                    Scripts.run(el.dataset.script);
+                    const script = el.dataset.script;
+                    // KB tools redirect to KB Browser
+                    if (script === 'QUERY_KB_TOOL.py' || script === 'query_kb.py') {
+                        window.location.href = '../../qcm-workspace/kb-browser.html';
+                        return;
+                    }
+                    Scripts.run(script);
                 });
             });
 

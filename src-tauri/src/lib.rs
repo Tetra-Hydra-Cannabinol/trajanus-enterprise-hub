@@ -85,8 +85,10 @@ fn launch_vscode(path: String) -> Result<(), String> {
 
 #[tauri::command]
 fn launch_git_bash(path: String) -> Result<(), String> {
-    Command::new("C:\\Program Files\\Git\\git-bash.exe")
-        .arg(format!("--cd={}", path))
+    // DISABLED: GitBash causes cursor hijacking issues
+    // Using PowerShell instead for terminal functionality
+    Command::new("powershell")
+        .args(["-NoExit", "-Command", &format!("cd \"{}\"", path)])
         .spawn()
         .map_err(|e| e.to_string())?;
     Ok(())
