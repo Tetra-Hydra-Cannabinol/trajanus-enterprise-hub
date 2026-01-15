@@ -48,7 +48,7 @@
 
     /* Borders */
     --border-subtle: #c0c0c0;
-    --border-accent: #d4af37;
+    --border-accent: #00AAFF;
 
     /* Spacing */
     --space-xs: 4px;
@@ -1613,12 +1613,12 @@ a:hover {
 
 .dev-notice-modal {
     background: #1a1a1a;
-    border: 2px solid #d4af37;
+    border: 2px solid #00AAFF;
     border-radius: 12px;
     padding: 32px 48px;
     text-align: center;
     max-width: 450px;
-    box-shadow: 0 20px 60px rgba(212, 175, 55, 0.2);
+    box-shadow: 0 20px 60px rgba(0, 170, 255, 0.2);
     transform: scale(0.9);
     transition: transform 0.3s ease;
 }
@@ -1633,7 +1633,7 @@ a:hover {
 }
 
 .dev-notice-title {
-    color: #d4af37;
+    color: #00AAFF;
     font-size: 24px;
     font-weight: 600;
     margin-bottom: 12px;
@@ -1653,13 +1653,13 @@ a:hover {
     color: #e0e0e0;
     font-size: 13px;
     margin-bottom: 20px;
-    border-left: 3px solid #d4af37;
+    border-left: 3px solid #00AAFF;
 }
 
 .dev-notice-close {
     background: transparent;
-    border: 1px solid #d4af37;
-    color: #d4af37;
+    border: 1px solid #00AAFF;
+    color: #00AAFF;
     padding: 10px 28px;
     border-radius: 6px;
     cursor: pointer;
@@ -1669,14 +1669,14 @@ a:hover {
 }
 
 .dev-notice-close:hover {
-    background: #d4af37;
+    background: #00AAFF;
     color: #0a0a0a;
 }
 
 /* Beta badge for features under development */
 .beta-badge {
     display: inline-block;
-    background: linear-gradient(135deg, #d4af37, #b4942f);
+    background: linear-gradient(135deg, #00AAFF, #0088CC);
     color: #0a0a0a;
     font-size: 9px;
     font-weight: 700;
