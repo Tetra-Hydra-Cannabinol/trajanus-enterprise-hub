@@ -11,12 +11,12 @@
     --bg-hover: #2a2a2a;
     --bg-input: #1a1a1a;
 
-    /* Primary Accent - Gold */
-    --gold: #d4af37;
-    --gold-light: #f4cf57;
-    --gold-dark: #b4942f;
-    --accent-gold: #d4af37;
-    --accent-gold-bright: #f4cf57;
+    /* Primary Accent - Bright Blue */
+    --gold: #00AAFF;
+    --gold-light: #33BBFF;
+    --gold-dark: #0088CC;
+    --accent-gold: #00AAFF;
+    --accent-gold-bright: #33BBFF;
 
     /* Secondary Accent - Silver */
     --accent: #c0c0c0;
@@ -37,7 +37,7 @@
     --text-light: #c0c0c0;
     --text-primary: #c0c0c0;
     --text-secondary: #c0c0c0;
-    --text-gold: #d4af37;
+    --text-gold: #00AAFF;
     --text-muted: #808080;
 
     /* Status */
