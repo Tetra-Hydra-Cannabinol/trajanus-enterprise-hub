@@ -31,7 +31,10 @@
       "Bash(npx http-server -p 8080 --cors)",
       "mcp__plugin_playwright_playwright__browser_wait_for",
       "Bash(del nul)",
-      "Bash(cmd /c \"del \\\\?\\\\C:\\\\Dev\\\\trajanus-command-center\\\\nul\")"
+      "Bash(cmd /c \"del \\\\?\\\\C:\\\\Dev\\\\trajanus-command-center\\\\nul\")",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\n2026-01-16 SACRED BASELINE v3: New branding - neuron logo, brain icons, glowing buttons, chat backgrounds\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(cargo build:*)",
+      "Bash(cargo tauri dev:*)"
     ]
   }
 }

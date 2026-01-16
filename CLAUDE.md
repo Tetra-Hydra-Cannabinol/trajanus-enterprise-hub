@@ -105,3 +105,43 @@ Tauri desktop application serving as a command center with multiple toolkit plat
 - PATTERN: Verify backups with three commands: `git tag -l`, `git branch -a`, `git log --oneline -5`
 
 - PREFERENCE: Backup naming convention uses date format: `SACRED_BASELINE_YYYY-MM-DD_v#` for tags, `backup-YYYY-MM-DD-v#` for branches
+
+## Session Learnings - 2026-01-16 (Afternoon)
+
+### Office Apps Integration
+
+- CORRECTION: Changed Office apps to desktop launch (winword, excel) → User wanted Office ONLINE (web version) to work, not desktop apps
+
+- CORRECTION: Tried embedding Office.com in workspace panel → Office.com blocks embedding via CSP/X-Frame-Options, must open in new window
+
+- PATTERN: Office Online apps should open in new Tauri WebviewWindow popup (1200x800, centered) since they refuse to embed
+
+### Landing Page Styling
+
+- CORRECTION: Used neuron grid image for assistant panel → User specified brainwaves image (brain-8825819_1280.jpg) for landing page assistant
+
+- CORRECTION: Assistant text color was blue (#00AAFF) → User wanted WHITE (#FFFFFF) for assistant responses on landing page
+
+- CORRECTION: Silver/grey text (#C0C0C0) throughout landing page → User wants ALL text WHITE for better contrast, except section titles (blue) and user name (blue)
+
+- PREFERENCE: Chat input placeholder text should be WHITE, user typed text should be BLUE (#00AAFF)
+
+- PREFERENCE: Chat bubbles should have TRANSPARENT background with BLUE border (#00AAFF)
+
+- PREFERENCE: Enterprise Hub title font should be Copperplate Gothic Bold (same as TRAJANUS branding)
+
+### Desktop App Launch Strategy
+
+- PATTERN: For Office desktop apps, use explicit path resolution checking multiple common install locations:
+  - `C:\Program Files\Microsoft Office\root\Office16\`
+  - `C:\Program Files (x86)\Microsoft Office\root\Office16\`
+
+- PATTERN: Teams desktop is typically in `%LOCALAPPDATA%\Microsoft\Teams\current\Teams.exe`
+
+### Text Color Standards (Landing Page)
+
+- PREFERENCE: All body text, descriptions, tips, intros → WHITE (#FFFFFF)
+- PREFERENCE: Section titles (ENTERPRISE HUB ASSISTANT, WORKSPACE) → BLUE (#00AAFF)
+- PREFERENCE: User name in greeting → BLUE (#00AAFF)
+- PREFERENCE: Tagline "ENGINEERED INTELLIGENCE™" → WHITE (#FFFFFF)
+- PREFERENCE: Greeting text and date → WHITE (#FFFFFF)

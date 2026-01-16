@@ -526,9 +526,9 @@
             flex-direction: column;
             gap: 16px;
             position: relative;
-            min-height: 350px;
-            background-image: url('../assets/brain-8825819_1280.jpg');
-            background-size: cover;
+            min-height: 500px;
+            background-image: url('../assets/ai-generated-8909412_1280.jpg');
+            background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
         }
@@ -592,9 +592,17 @@
         }
 
         .chat-message.user .message-content {
-            background: var(--blue);
-            border-color: var(--blue);
-            color: var(--bg-base);
+            background: rgba(46, 204, 113, 0.15);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            color: #2ECC71;
+            font-family: Arial, sans-serif;
+        }
+
+        .chat-message.assistant .message-content {
+            background: rgba(0, 170, 255, 0.1);
+            border-left: 3px solid #00AAFF;
+            color: #00AAFF;
+            font-family: Tahoma, sans-serif;
         }
 
         .message-text {
@@ -1215,7 +1223,7 @@
         <!-- Chat Section -->
         <div class="chat-section">
             <div class="chat-header">
-                <h3>TRAJANUS PM ASSISTANT</h3>
+                <h3>PROJECT MANAGEMENT ASSISTANT</h3>
                 <div class="chat-controls">
                     <button class="clear-chat-btn" id="btn-clear-chat">Clear Chat</button>
                 </div>

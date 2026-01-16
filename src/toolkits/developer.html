@@ -705,9 +705,9 @@
             flex-direction: column;
             gap: 16px;
             position: relative;
-            min-height: 350px;
-            background-image: url('../assets/brain-8825819_1280.jpg');
-            background-size: cover;
+            min-height: 500px;
+            background-image: url('../assets/ai-generated-8909412_1280.jpg');
+            background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
         }
@@ -773,13 +773,17 @@
         }
 
         .chat-message.user .message-content {
-            background: var(--blue);
-            border-color: var(--blue);
-            color: var(--bg-base);
+            background: rgba(46, 204, 113, 0.15);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            color: #2ECC71;
+            font-family: Arial, sans-serif;
         }
 
         .chat-message.assistant .message-content {
-            background: var(--bg-base);
+            background: rgba(0, 170, 255, 0.1);
+            border-left: 3px solid #00AAFF;
+            color: #00AAFF;
+            font-family: Tahoma, sans-serif;
         }
 
         .message-text {
@@ -1136,14 +1140,34 @@
         .claude-chat-container {
             display: flex;
             flex-direction: column;
-            height: 250px;
+            height: 400px;
         }
 
         .claude-messages {
             flex: 1;
             overflow-y: auto;
             padding: 12px;
-            background: var(--bg-base);
+            position: relative;
+            background-image: url('../assets/brain-8825819_1280.jpg');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .claude-messages::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 10, 10, 0.88);
+            pointer-events: none;
+        }
+
+        .claude-messages > * {
+            position: relative;
+            z-index: 1;
         }
 
         .claude-message {
@@ -1154,14 +1178,18 @@
         }
 
         .claude-message.user {
-            background: var(--gold);
-            color: var(--bg-base);
+            background: rgba(46, 204, 113, 0.15);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            color: #2ECC71;
+            font-family: Arial, sans-serif;
             margin-left: auto;
         }
 
         .claude-message.assistant {
-            background: var(--bg-surface);
-            color: var(--text-primary);
+            background: rgba(0, 170, 255, 0.1);
+            border-left: 3px solid #00AAFF;
+            color: #00AAFF;
+            font-family: Tahoma, sans-serif;
         }
 
         .claude-input-area {
@@ -1752,7 +1780,7 @@
         <div class="chat-section">
             <div class="chat-header">
                 <div class="chat-header-left">
-                    <h3>TRAJANUS ASSISTANT</h3>
+                    <h3>DEVELOPER ASSISTANT</h3>
                 </div>
                 <div class="chat-controls">
                     <button class="clear-chat-btn" id="clear-chat-btn">Clear Chat</button>

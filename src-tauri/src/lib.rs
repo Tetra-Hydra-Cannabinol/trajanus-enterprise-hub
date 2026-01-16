@@ -103,6 +103,70 @@ fn launch_claude_code(path: String) -> Result<(), String> {
 }
 
 #[tauri::command]
+async fn open_program(program: String, path: String) -> Result<String, String> {
+    // Map common program names to their executable paths
+    let exe_path = match path.as_str() {
+        "winword" => {
+            // Try common Office paths
+            let paths = [
+                r"C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE",
+                r"C:\Program Files (x86)\Microsoft Office\root\Office16\WINWORD.EXE",
+                r"C:\Program Files\Microsoft Office\Office16\WINWORD.EXE",
+            ];
+            paths.iter().find(|p| Path::new(p).exists()).map(|s| s.to_string())
+        },
+        "excel" => {
+            let paths = [
+                r"C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE",
+                r"C:\Program Files (x86)\Microsoft Office\root\Office16\EXCEL.EXE",
+            ];
+            paths.iter().find(|p| Path::new(p).exists()).map(|s| s.to_string())
+        },
+        "powerpnt" => {
+            let paths = [
+                r"C:\Program Files\Microsoft Office\root\Office16\POWERPNT.EXE",
+                r"C:\Program Files (x86)\Microsoft Office\root\Office16\POWERPNT.EXE",
+            ];
+            paths.iter().find(|p| Path::new(p).exists()).map(|s| s.to_string())
+        },
+        "outlook" => {
+            let paths = [
+                r"C:\Program Files\Microsoft Office\root\Office16\OUTLOOK.EXE",
+                r"C:\Program Files (x86)\Microsoft Office\root\Office16\OUTLOOK.EXE",
+            ];
+            paths.iter().find(|p| Path::new(p).exists()).map(|s| s.to_string())
+        },
+        "ms-teams" => {
+            // Teams is typically in LocalAppData
+            if let Ok(local_app_data) = std::env::var("LOCALAPPDATA") {
+                let teams_path = format!(r"{}\Microsoft\Teams\current\Teams.exe", local_app_data);
+                if Path::new(&teams_path).exists() {
+                    Some(teams_path)
+                } else {
+                    None
+                }
+            } else {
+                None
+            }
+        },
+        _ => None, // Fall back to using the path directly
+    };
+
+    // Use the resolved path or fall back to original
+    let final_path = exe_path.unwrap_or_else(|| path.clone());
+
+    // Launch the program
+    let result = Command::new("cmd")
+        .args(["/C", "start", "", &final_path])
+        .spawn();
+
+    match result {
+        Ok(_) => Ok(format!("Launched {}", program)),
+        Err(e) => Err(format!("Failed to launch {}: {}", program, e))
+    }
+}
+
+#[tauri::command]
 fn write_file(path: String, content: String) -> Result<(), String> {
     if let Some(parent) = Path::new(&path).parent() {
         fs::create_dir_all(parent).map_err(|e| e.to_string())?;
@@ -553,6 +617,7 @@ pub fn run() {
             write_file,
             file_exists,
             open_path,
+            open_program,
             open_terminal,
             launch_vscode,
             launch_git_bash,

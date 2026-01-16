@@ -105,7 +105,29 @@
             margin-top: 4px;
         }
 
-        /* hero-home-btn removed - using nav-btn */
+        .hero-home-btn {
+            width: 130px;
+            height: 36px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            border: 1px solid #00AAFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            color: #00AAFF;
+            background: transparent;
+            text-decoration: none;
+        }
+
+        .hero-home-btn:hover {
+            background: rgba(0, 170, 255, 0.15);
+            color: #33BBFF;
+            border-color: #33BBFF;
+        }
 
         /* Main Content */
         .main-content {
@@ -123,7 +145,7 @@
         }
 
         .hero-title {
-            color: var(--silver);
+            color: var(--gold);
             font-size: 28px;
             font-weight: 700;
             letter-spacing: 6px;
@@ -153,7 +175,7 @@
         }
 
         .hero-greeting .name {
-            color: var(--silver);
+            color: var(--gold);
             font-weight: 600;
         }
 
@@ -177,7 +199,7 @@
 
         .section-border-top {
             height: 2px;
-            background: linear-gradient(to right, var(--silver), var(--border-subtle), transparent);
+            background: linear-gradient(to right, var(--gold), var(--border-subtle), transparent);
             margin-bottom: 12px;
         }
 
@@ -188,7 +210,7 @@
         }
 
         .section-blocks {
-            color: var(--silver);
+            color: var(--gold);
             font-size: 14px;
             font-weight: 900;
             letter-spacing: 2px;
@@ -284,7 +306,7 @@
             justify-content: center;
             font-size: 14px;
             font-weight: 700;
-            color: var(--silver);
+            color: var(--gold);
             background: var(--bg-elevated);
             border-radius: 6px;
         }
@@ -326,7 +348,7 @@
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background: var(--silver);
+            background: var(--gold);
             flex-shrink: 0;
             margin-top: 4px;
         }
@@ -369,7 +391,7 @@
             transition: all 0.2s ease;
         }
 
-        .agent-card:hover { border-color: var(--silver); }
+        .agent-card:hover { border-color: var(--gold); }
 
         .agent-header {
             display: flex;
@@ -381,7 +403,7 @@
         .agent-icon { font-size: 20px; }
 
         .agent-name {
-            color: var(--silver);
+            color: var(--gold);
             font-size: 14px;
             font-weight: 600;
         }
@@ -412,7 +434,7 @@
         }
 
         .agent-btn.activate {
-            background: var(--silver);
+            background: var(--gold);
             border: none;
             color: var(--bg-base);
         }
@@ -426,20 +448,20 @@
         }
 
         .agent-btn.deploy:hover {
-            border-color: var(--silver);
-            color: var(--silver);
+            border-color: var(--gold);
+            color: var(--gold);
         }
 
         /* Chat Section */
         .chat-section {
-            background: var(--bg-base);
+            background: var(--bg-card);
             border: 1px solid var(--border-subtle);
             border-radius: 8px;
             overflow: hidden;
             margin-top: 20px;
             display: flex;
             flex-direction: column;
-            height: 500px;
+            height: 700px;
         }
 
         .chat-header {
@@ -453,7 +475,7 @@
         }
 
         .chat-header h3 {
-            color: var(--silver);
+            color: var(--gold);
             font-size: 14px;
             font-weight: 600;
             letter-spacing: 2px;
@@ -491,9 +513,9 @@
             flex-direction: column;
             gap: 16px;
             position: relative;
-            min-height: 350px;
-            background-image: url('../assets/brain-8825819_1280.jpg');
-            background-size: cover;
+            min-height: 500px;
+            background-image: url('../assets/ai-generated-8909412_1280.jpg');
+            background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
         }
@@ -540,13 +562,13 @@
         }
 
         .chat-message.user .message-avatar {
-            background: var(--silver);
+            background: var(--gold);
             color: var(--bg-base);
         }
 
         .chat-message.assistant .message-avatar {
             background: var(--bg-elevated);
-            color: var(--silver);
+            color: var(--gold);
         }
 
         .message-content {
@@ -557,9 +579,17 @@
         }
 
         .chat-message.user .message-content {
-            background: var(--blue);
-            border-color: var(--blue);
-            color: var(--bg-base);
+            background: rgba(46, 204, 113, 0.15);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            color: #2ECC71;
+            font-family: Arial, sans-serif;
+        }
+
+        .chat-message.assistant .message-content {
+            background: rgba(0, 170, 255, 0.1);
+            border-left: 3px solid #00AAFF;
+            color: #00AAFF;
+            font-family: Tahoma, sans-serif;
         }
 
         .message-text {
@@ -577,7 +607,7 @@
         .typing-indicator span {
             width: 8px;
             height: 8px;
-            background: var(--silver);
+            background: var(--gold);
             border-radius: 50%;
             animation: typing 1.4s infinite ease-in-out;
         }
@@ -1183,7 +1213,7 @@
                 <div class="hero-toolkit">QUALITY CONTROL TOOLKIT</div>
             </div>
             <div class="hero-nav">
-                <a href="../index.html" class="nav-btn">← Return to Hub</a>
+                <a href="../index.html" class="hero-home-btn">← Return to Hub</a>
             </div>
         </div>
     </section>
@@ -1214,7 +1244,7 @@
         <!-- Chat Section -->
         <div class="chat-section">
             <div class="chat-header">
-                <h3>TRAJANUS QC ASSISTANT</h3>
+                <h3>QUALITY CONTROL ASSISTANT</h3>
                 <div class="chat-controls">
                     <button class="clear-chat-btn" id="btn-clear-chat">Clear Chat</button>
                 </div>

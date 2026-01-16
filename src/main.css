@@ -678,9 +678,9 @@ a:hover {
 .chat-container {
     display: flex;
     flex-direction: column;
-    height: 400px;
+    height: 600px;
     background: var(--bg-base);
-    border: 1px solid var(--border-subtle);
+    border: 1px solid rgba(0, 170, 255, 0.3);
     border-radius: 8px;
     overflow: hidden;
 }
@@ -691,11 +691,11 @@ a:hover {
     align-items: center;
     padding: 12px 16px;
     background: var(--bg-surface);
-    border-bottom: 1px solid var(--bg-elevated);
+    border-bottom: 1px solid rgba(0, 170, 255, 0.3);
 }
 
 .chat-header h3 {
-    color: var(--accent-gold);
+    color: #00AAFF;
     margin: 0;
     font-size: 0.875rem;
     font-weight: 600;
@@ -742,9 +742,9 @@ a:hover {
     flex-direction: column;
     gap: var(--space-md);
     position: relative;
-    min-height: 350px;
-    background-image: url('assets/brain-8825819_1280.jpg');
-    background-size: cover;
+    min-height: 500px;
+    background-image: url('assets/ai-generated-8909412_1280.jpg');
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -782,15 +782,18 @@ a:hover {
 
 .message.user {
     align-self: flex-end;
-    background: var(--accent-gold);
-    color: var(--bg-base);
+    background: rgba(46, 204, 113, 0.15);
+    color: #2ECC71;
+    font-family: Arial, sans-serif;
+    border: 1px solid rgba(46, 204, 113, 0.3);
 }
 
 .message.assistant {
     align-self: flex-start;
-    background: var(--bg-elevated);
-    color: var(--text-white);
-    border-left: 3px solid var(--accent-gold);
+    background: rgba(0, 170, 255, 0.1);
+    color: #00AAFF;
+    font-family: Tahoma, sans-serif;
+    border-left: 3px solid #00AAFF;
 }
 
 .message.assistant pre {
@@ -1946,14 +1949,14 @@ a:hover {
 }
 
 .hub-agent-messages {
-    min-height: 280px;
-    max-height: 400px;
+    min-height: 400px;
+    max-height: 600px;
     overflow-y: auto;
     margin-bottom: 12px;
     padding: 16px;
     position: relative;
-    background-image: url('assets/brain-8825819_1280.jpg');
-    background-size: cover;
+    background-image: url('assets/ai-generated-8909412_1280.jpg');
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 4px;
