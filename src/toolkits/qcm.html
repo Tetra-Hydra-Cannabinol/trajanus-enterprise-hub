@@ -91,6 +91,7 @@
         }
 
         .hero-toolkit {
+            font-family: Tahoma, sans-serif;
             font-size: 24px;
             font-weight: 700;
             color: var(--gold);
@@ -514,7 +515,7 @@
             gap: 16px;
             position: relative;
             min-height: 500px;
-            background-image: url('../assets/ai-generated-8909412_1280.jpg');
+            background-image: url('../assets/brain-8825819_1280.jpg');
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
@@ -1121,41 +1122,7 @@
             border-color: #33BBFF;
         }
 
-        /* Brand colors removed - ext-btn uses V2 Synapse glow style from main.css */
-
-        /* ============================================
-           SCRIPT BUTTON COLOR VARIANTS
-           ============================================ */
-
-        .script-btn.file-ops {
-            background: linear-gradient(145deg, #2ECC71, #27AE60);
-            box-shadow: 0 3px 0 #1E8449, 0 4px 8px rgba(0,0,0,0.3);
-        }
-
-        .script-btn.docs {
-            background: linear-gradient(145deg, #3498DB, #2980B9);
-            box-shadow: 0 3px 0 #1F5F8B, 0 4px 8px rgba(0,0,0,0.3);
-        }
-
-        .script-btn.quality {
-            background: linear-gradient(145deg, #4ade80, #22c55e);
-            box-shadow: 0 3px 0 #16a34a, 0 4px 8px rgba(0,0,0,0.3);
-        }
-
-        .script-btn.inspection {
-            background: linear-gradient(145deg, #fbbf24, #f59e0b);
-            box-shadow: 0 3px 0 #d97706, 0 4px 8px rgba(0,0,0,0.3);
-        }
-
-        .script-btn.submittal {
-            background: linear-gradient(145deg, #60a5fa, #3b82f6);
-            box-shadow: 0 3px 0 #2563eb, 0 4px 8px rgba(0,0,0,0.3);
-        }
-
-        .script-btn.conversion {
-            background: linear-gradient(145deg, #a78bfa, #8b5cf6);
-            box-shadow: 0 3px 0 #7c3aed, 0 4px 8px rgba(0,0,0,0.3);
-        }
+        /* Script buttons use base V2 Synapse glow style - no color variants */
     </style>
 </head>
 <body>
@@ -1185,6 +1152,7 @@
                     }
                     .toolkit-brand-title {
                         color: #00AAFF;
+                        font-family: Tahoma, sans-serif;
                         font-size: 28px;
                         font-weight: 300;
                         letter-spacing: 6px;
@@ -1411,18 +1379,6 @@
         <div class="agent-grid">
             <div class="agent-card">
                 <div class="agent-header">
-                    <span class="agent-icon">&#9989;</span>
-                    <span class="agent-name">QC Report Writer</span>
-                </div>
-                <p class="agent-description">Generate daily QC reports from inspection notes and photos.</p>
-                <div class="agent-actions">
-                    <button class="agent-btn activate" data-agent="qc-report-writer">Activate</button>
-                    <button class="agent-btn deploy" data-agent-deploy="qc-report-writer">Deploy</button>
-                </div>
-            </div>
-
-            <div class="agent-card">
-                <div class="agent-header">
                     <span class="agent-icon">&#128196;</span>
                     <span class="agent-name">Submittal Reviewer</span>
                 </div>
@@ -1430,30 +1386,6 @@
                 <div class="agent-actions">
                     <button class="agent-btn activate" data-agent="submittal-reviewer">Activate</button>
                     <button class="agent-btn deploy" data-agent-deploy="submittal-reviewer">Deploy</button>
-                </div>
-            </div>
-
-            <div class="agent-card">
-                <div class="agent-header">
-                    <span class="agent-icon">&#128269;</span>
-                    <span class="agent-name">Deficiency Tracker</span>
-                </div>
-                <p class="agent-description">Track and prioritize open deficiencies for resolution.</p>
-                <div class="agent-actions">
-                    <button class="agent-btn activate" data-agent="deficiency-tracker">Activate</button>
-                    <button class="agent-btn deploy" data-agent-deploy="deficiency-tracker">Deploy</button>
-                </div>
-            </div>
-
-            <div class="agent-card">
-                <div class="agent-header">
-                    <span class="agent-icon">&#128203;</span>
-                    <span class="agent-name">RMS Assistant</span>
-                </div>
-                <p class="agent-description">Help with RMS 3.0 data entry and report generation.</p>
-                <div class="agent-actions">
-                    <button class="agent-btn activate" data-agent="rms-assistant">Activate</button>
-                    <button class="agent-btn deploy" data-agent-deploy="rms-assistant">Deploy</button>
                 </div>
             </div>
         </div>
@@ -1801,10 +1733,7 @@
         const Agents = {
             activate(agentId) {
                 const messages = {
-                    'qc-report-writer': 'QC Report Writer activated. I can help generate daily QC reports.',
-                    'submittal-reviewer': 'Submittal Reviewer activated. Ready to check spec compliance.',
-                    'deficiency-tracker': 'Deficiency Tracker activated. Ready to manage open items.',
-                    'rms-assistant': 'RMS Assistant activated. Ready to help with RMS 3.0.'
+                    'submittal-reviewer': 'Submittal Reviewer activated. Ready to check spec compliance.'
                 };
                 ChatAssistant.addMessage('assistant', messages[agentId] || `${agentId} activated.`);
                 showNotification(`${agentId} activated`, 'info');
