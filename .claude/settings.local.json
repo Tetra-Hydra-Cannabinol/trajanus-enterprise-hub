@@ -7,7 +7,31 @@
       "Bash(timeout 10 npm start)",
       "Bash(tree:*)",
       "Bash(timeout 8 npm start)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(start /b python -m http.server 9999)",
+      "Bash(start \"\" \"http://localhost:1430/UI_PREVIEW_buttons.html\")",
+      "mcp__plugin_playwright_playwright__browser_press_key",
+      "Bash(curl:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(python -m http.server:*)",
+      "mcp__plugin_playwright_playwright__browser_close",
+      "Skill(eos)",
+      "Bash(powershell -Command:*)",
+      "mcp__plugin_playwright_playwright__browser_navigate",
+      "mcp__plugin_playwright_playwright__browser_take_screenshot",
+      "mcp__plugin_playwright_playwright__browser_click",
+      "mcp__plugin_playwright_playwright__browser_snapshot",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\n2026-01-16 0300 SACRED BASELINE: Full UI standardization - buttons, layout, borders, colors, all platforms\n\n- Hero/Welcome section: padding reduced, content expanded\n- Platform tags removed from all cards\n- Blue border \\(#0066CC\\) added to entire app on all 5 pages\n- Sidebar offset \\(2px\\) for border visibility\n- Developer page button colors: Terminal, GitHub, Python, Explorer, Notepad++, Zoom\n- Logo padding reduced by 50%\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Skill(reflect)",
+      "Bash(git branch:*)",
+      "Bash(python:*)",
+      "mcp__plugin_playwright_playwright__browser_run_code",
+      "Bash(npx http-server -p 8080 --cors)",
+      "mcp__plugin_playwright_playwright__browser_wait_for",
+      "Bash(del nul)",
+      "Bash(cmd /c \"del \\\\?\\\\C:\\\\Dev\\\\trajanus-command-center\\\\nul\")"
     ]
   }
 }

@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trajanus Script Buttons - Neural Interface Design</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #C0C0C0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 40px;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #00AAFF;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 6px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #555;
+            margin-bottom: 50px;
+            font-size: 13px;
+            letter-spacing: 2px;
+        }
+
+        .design-section {
+            background: linear-gradient(180deg, #111 0%, #0a0a0a 100%);
+            border: 1px solid #1a1a1a;
+            border-radius: 8px;
+            padding: 35px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .design-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50px;
+            right: 50px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0, 170, 255, 0.3), transparent);
+        }
+
+        .design-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .variant-label {
+            background: linear-gradient(135deg, #00AAFF 0%, #0077AA 100%);
+            color: #000;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 4px;
+            margin-right: 15px;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .design-title {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .design-desc {
+            color: #666;
+            font-size: 12px;
+            margin-left: auto;
+            max-width: 350px;
+            text-align: right;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px 0;
+        }
+
+        /* ============================================
+           VARIANT 1: CORE GLOW - Clean Neural
+           ============================================ */
+        .neural-btn-v1 {
+            width: 160px;
+            height: 50px;
+            border: 1px solid #00AAFF;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.8px;
+            color: #00AAFF;
+            background: linear-gradient(180deg, #0d0d0d 0%, #080808 100%);
+            box-shadow:
+                0 0 8px rgba(0, 170, 255, 0.3),
+                0 0 20px rgba(0, 170, 255, 0.1),
+                inset 0 1px 0 rgba(0, 170, 255, 0.1),
+                inset 0 0 20px rgba(0, 170, 255, 0.03);
+            text-shadow: 0 0 8px rgba(0, 170, 255, 0.5);
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .neural-btn-v1::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 10%, #00AAFF 50%, transparent 90%);
+            opacity: 0.8;
+        }
+
+        .neural-btn-v1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20%;
+            right: 20%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0, 170, 255, 0.4), transparent);
+        }
+
+        .neural-btn-v1:hover {
+            transform: translateY(-2px);
+            color: #fff;
+            border-color: #33BBFF;
+            box-shadow:
+                0 0 15px rgba(0, 170, 255, 0.5),
+                0 0 30px rgba(0, 170, 255, 0.2),
+                0 0 45px rgba(0, 170, 255, 0.1),
+                inset 0 1px 0 rgba(0, 170, 255, 0.2),
+                inset 0 0 30px rgba(0, 170, 255, 0.05);
+            text-shadow: 0 0 12px rgba(0, 170, 255, 0.8);
+        }
+
+        .neural-btn-v1:active {
+            transform: translateY(1px);
+            border-color: #FF9500;
+            color: #FF9500;
+            box-shadow:
+                0 0 20px rgba(255, 149, 0, 0.4),
+                0 0 40px rgba(255, 149, 0, 0.2),
+                inset 0 0 20px rgba(255, 149, 0, 0.05);
+            text-shadow: 0 0 10px rgba(255, 149, 0, 0.6);
+        }
+
+        /* ============================================
+           VARIANT 2: SYNAPSE - Double Border Glow
+           ============================================ */
+        .neural-btn-v2 {
+            width: 160px;
+            height: 50px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.8px;
+            color: #00AAFF;
+            background: #0a0a0a;
+            box-shadow:
+                0 0 0 1px rgba(0, 170, 255, 0.5),
+                0 0 0 3px #0a0a0a,
+                0 0 0 4px rgba(0, 170, 255, 0.3),
+                0 0 15px rgba(0, 170, 255, 0.2),
+                inset 0 0 30px rgba(0, 170, 255, 0.03);
+            text-shadow: 0 0 8px rgba(0, 170, 255, 0.5);
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .neural-btn-v2::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00AAFF, transparent);
+            border-radius: 2px;
+        }
+
+        .neural-btn-v2:hover {
+            transform: translateY(-2px);
+            color: #fff;
+            box-shadow:
+                0 0 0 1px rgba(0, 170, 255, 0.8),
+                0 0 0 3px #0a0a0a,
+                0 0 0 4px rgba(0, 170, 255, 0.5),
+                0 0 25px rgba(0, 170, 255, 0.4),
+                0 0 50px rgba(0, 170, 255, 0.15),
+                inset 0 0 40px rgba(0, 170, 255, 0.05);
+            text-shadow: 0 0 15px rgba(0, 170, 255, 0.9);
+        }
+
+        .neural-btn-v2:active {
+            transform: translateY(1px);
+            color: #FFB347;
+            box-shadow:
+                0 0 0 1px rgba(255, 149, 0, 0.8),
+                0 0 0 3px #0a0a0a,
+                0 0 0 4px rgba(255, 149, 0, 0.4),
+                0 0 20px rgba(255, 149, 0, 0.3),
+                inset 0 0 30px rgba(255, 149, 0, 0.05);
+            text-shadow: 0 0 10px rgba(255, 149, 0, 0.7);
+        }
+
+        .neural-btn-v2::before {
+            transition: all 0.25s ease;
+        }
+
+        .neural-btn-v2:hover::before {
+            background: linear-gradient(90deg, transparent, #33CCFF, transparent);
+            box-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
+        }
+
+        /* ============================================
+           VARIANT 3: CORTEX - Corner Accents
+           ============================================ */
+        .neural-btn-v3 {
+            width: 160px;
+            height: 50px;
+            border: 1px solid rgba(0, 170, 255, 0.4);
+            border-radius: 2px;
+            cursor: pointer;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.8px;
+            color: #00AAFF;
+            background: linear-gradient(180deg, #0f0f0f 0%, #080808 100%);
+            box-shadow:
+                0 0 10px rgba(0, 170, 255, 0.15),
+                inset 0 0 30px rgba(0, 170, 255, 0.02);
+            text-shadow: 0 0 6px rgba(0, 170, 255, 0.4);
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        /* Corner accents */
+        .neural-btn-v3::before,
+        .neural-btn-v3::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            transition: all 0.25s ease;
+        }
+
+        .neural-btn-v3::before {
+            top: -1px;
+            left: -1px;
+            border-top: 2px solid #00AAFF;
+            border-left: 2px solid #00AAFF;
+            box-shadow: -2px -2px 8px rgba(0, 170, 255, 0.3);
+        }
+
+        .neural-btn-v3::after {
+            bottom: -1px;
+            right: -1px;
+            border-bottom: 2px solid #00AAFF;
+            border-right: 2px solid #00AAFF;
+            box-shadow: 2px 2px 8px rgba(0, 170, 255, 0.3);
+        }
+
+        .neural-btn-v3:hover {
+            transform: translateY(-2px);
+            color: #fff;
+            border-color: rgba(0, 170, 255, 0.6);
+            box-shadow:
+                0 0 20px rgba(0, 170, 255, 0.3),
+                0 0 40px rgba(0, 170, 255, 0.1),
+                inset 0 0 40px rgba(0, 170, 255, 0.04);
+            text-shadow: 0 0 10px rgba(0, 170, 255, 0.7);
+        }
+
+        .neural-btn-v3:hover::before {
+            width: 16px;
+            height: 16px;
+            box-shadow: -3px -3px 12px rgba(0, 170, 255, 0.5);
+        }
+
+        .neural-btn-v3:hover::after {
+            width: 16px;
+            height: 16px;
+            box-shadow: 3px 3px 12px rgba(0, 170, 255, 0.5);
+        }
+
+        .neural-btn-v3:active {
+            transform: translateY(1px);
+            color: #FF9500;
+            border-color: rgba(255, 149, 0, 0.5);
+        }
+
+        .neural-btn-v3:active::before {
+            border-color: #FF9500;
+            box-shadow: -3px -3px 12px rgba(255, 149, 0, 0.5);
+        }
+
+        .neural-btn-v3:active::after {
+            border-color: #FF9500;
+            box-shadow: 3px 3px 12px rgba(255, 149, 0, 0.5);
+        }
+
+        /* ============================================
+           VARIANT 4: PULSE - Animated Breathing
+           ============================================ */
+        @keyframes neural-pulse {
+            0%, 100% {
+                box-shadow:
+                    0 0 0 1px rgba(0, 170, 255, 0.5),
+                    0 0 10px rgba(0, 170, 255, 0.2),
+                    0 0 20px rgba(0, 170, 255, 0.1),
+                    inset 0 0 20px rgba(0, 170, 255, 0.02);
+            }
+            50% {
+                box-shadow:
+                    0 0 0 1px rgba(0, 170, 255, 0.7),
+                    0 0 15px rgba(0, 170, 255, 0.35),
+                    0 0 30px rgba(0, 170, 255, 0.15),
+                    inset 0 0 25px rgba(0, 170, 255, 0.04);
+            }
+        }
+
+        @keyframes active-flash {
+            0% {
+                box-shadow:
+                    0 0 0 1px rgba(255, 149, 0, 0.9),
+                    0 0 20px rgba(255, 149, 0, 0.6),
+                    0 0 40px rgba(255, 149, 0, 0.3);
+            }
+            100% {
+                box-shadow:
+                    0 0 0 1px rgba(255, 149, 0, 0.5),
+                    0 0 10px rgba(255, 149, 0, 0.3),
+                    0 0 20px rgba(255, 149, 0, 0.1);
+            }
+        }
+
+        .neural-btn-v4 {
+            width: 160px;
+            height: 50px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.8px;
+            color: #00AAFF;
+            background: linear-gradient(180deg, #0d0d0d 0%, #050505 100%);
+            animation: neural-pulse 3s ease-in-out infinite;
+            text-shadow: 0 0 8px rgba(0, 170, 255, 0.5);
+            transition: transform 0.2s ease, color 0.2s ease;
+            position: relative;
+        }
+
+        .neural-btn-v4::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 4px;
+            border: 1px solid transparent;
+            background: linear-gradient(180deg, rgba(0, 170, 255, 0.1), transparent) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .neural-btn-v4:hover {
+            transform: translateY(-2px);
+            color: #fff;
+            animation: none;
+            box-shadow:
+                0 0 0 1px rgba(0, 170, 255, 0.8),
+                0 0 20px rgba(0, 170, 255, 0.5),
+                0 0 40px rgba(0, 170, 255, 0.2),
+                0 0 60px rgba(0, 170, 255, 0.1),
+                inset 0 0 30px rgba(0, 170, 255, 0.05);
+            text-shadow: 0 0 15px rgba(0, 170, 255, 0.9);
+        }
+
+        .neural-btn-v4:active {
+            transform: translateY(1px);
+            color: #FF9500;
+            animation: active-flash 0.3s ease-out;
+            text-shadow: 0 0 12px rgba(255, 149, 0, 0.8);
+        }
+
+        /* ============================================
+           RECOMMENDATION SECTION
+           ============================================ */
+        .recommendation {
+            background: linear-gradient(180deg, #0d1a0d 0%, #0a0a0a 100%);
+            border: 2px solid #00AA44;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .recommendation::before {
+            content: 'RECOMMENDED';
+            position: absolute;
+            top: -10px;
+            left: 30px;
+            background: #00AA44;
+            color: #000;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            padding: 3px 12px;
+            border-radius: 3px;
+        }
+
+        .recommendation h2 {
+            color: #00AA44;
+            font-size: 16px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .rec-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .rec-note {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        /* ============================================
+           STATE DEMO SECTION
+           ============================================ */
+        .states-demo {
+            background: #111;
+            border: 1px solid #1a1a1a;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .states-demo h2 {
+            color: #00AAFF;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .state-row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .state-item {
+            text-align: center;
+        }
+
+        .state-label {
+            color: #555;
+            font-size: 10px;
+            letter-spacing: 2px;
+            margin-top: 12px;
+        }
+
+        /* Static state demos */
+        .demo-hover {
+            color: #fff !important;
+            box-shadow:
+                0 0 0 1px rgba(0, 170, 255, 0.8),
+                0 0 20px rgba(0, 170, 255, 0.5),
+                0 0 40px rgba(0, 170, 255, 0.2),
+                0 0 60px rgba(0, 170, 255, 0.1),
+                inset 0 0 30px rgba(0, 170, 255, 0.05) !important;
+            text-shadow: 0 0 15px rgba(0, 170, 255, 0.9) !important;
+            animation: none !important;
+        }
+
+        .demo-active {
+            color: #FF9500 !important;
+            box-shadow:
+                0 0 0 1px rgba(255, 149, 0, 0.8),
+                0 0 20px rgba(255, 149, 0, 0.5),
+                0 0 40px rgba(255, 149, 0, 0.2),
+                inset 0 0 20px rgba(255, 149, 0, 0.05) !important;
+            text-shadow: 0 0 12px rgba(255, 149, 0, 0.8) !important;
+            animation: none !important;
+        }
+
+        /* Footer */
+        .footer-note {
+            text-align: center;
+            margin-top: 40px;
+            color: #444;
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <h1>NEURAL INTERFACE CONTROLS</h1>
+    <p class="subtitle">TRAJANUS SCRIPT BUTTONS - SCI-FI GLOW VARIANTS</p>
+
+    <!-- VARIANT 1: Core Glow -->
+    <div class="design-section">
+        <div class="design-header">
+            <span class="variant-label">V1</span>
+            <span class="design-title">Core Glow</span>
+            <span class="design-desc">Clean single border with layered glow. Top highlight line. Amber flash on click.</span>
+        </div>
+        <div class="button-row">
+            <button class="neural-btn-v1">📤 KB Ingest</button>
+            <button class="neural-btn-v1">📄 MD Convert</button>
+            <button class="neural-btn-v1">🔍 Query KB</button>
+            <button class="neural-btn-v1">▶️ YT Transcript</button>
+        </div>
+    </div>
+
+    <!-- VARIANT 2: Synapse -->
+    <div class="design-section">
+        <div class="design-header">
+            <span class="variant-label">V2</span>
+            <span class="design-title">Synapse</span>
+            <span class="design-desc">Double-ring border effect. Concentrated top glow bar. Neural connection aesthetic.</span>
+        </div>
+        <div class="button-row">
+            <button class="neural-btn-v2">📤 KB Ingest</button>
+            <button class="neural-btn-v2">📄 MD Convert</button>
+            <button class="neural-btn-v2">🔍 Query KB</button>
+            <button class="neural-btn-v2">▶️ YT Transcript</button>
+        </div>
+    </div>
+
+    <!-- VARIANT 3: Cortex -->
+    <div class="design-section">
+        <div class="design-header">
+            <span class="variant-label">V3</span>
+            <span class="design-title">Cortex</span>
+            <span class="design-desc">Corner accent brackets that expand on hover. Technical HUD aesthetic.</span>
+        </div>
+        <div class="button-row">
+            <button class="neural-btn-v3">📤 KB Ingest</button>
+            <button class="neural-btn-v3">📄 MD Convert</button>
+            <button class="neural-btn-v3">🔍 Query KB</button>
+            <button class="neural-btn-v3">▶️ YT Transcript</button>
+        </div>
+    </div>
+
+    <!-- VARIANT 4: Pulse -->
+    <div class="design-section">
+        <div class="design-header">
+            <span class="variant-label">V4</span>
+            <span class="design-title">Pulse</span>
+            <span class="design-desc">Subtle breathing animation. Buttons feel alive. Amber flash on activation.</span>
+        </div>
+        <div class="button-row">
+            <button class="neural-btn-v4">📤 KB Ingest</button>
+            <button class="neural-btn-v4">📄 MD Convert</button>
+            <button class="neural-btn-v4">🔍 Query KB</button>
+            <button class="neural-btn-v4">▶️ YT Transcript</button>
+        </div>
+    </div>
+
+    <!-- Recommendation -->
+    <div class="recommendation">
+        <h2>BEST FOR TRAJANUS - V1 OR V4</h2>
+        <div class="rec-grid">
+            <button class="neural-btn-v1">📤 KB Ingest</button>
+            <button class="neural-btn-v1">📄 MD Convert</button>
+            <button class="neural-btn-v1">🔍 Query KB</button>
+            <button class="neural-btn-v1">▶️ YT Transcript</button>
+        </div>
+        <p class="rec-note">V1 (Core Glow) is clean and professional. V4 (Pulse) adds life but may be distracting. V3 (Cortex) is most technical. Your call.</p>
+    </div>
+
+    <!-- State Demo -->
+    <div class="states-demo">
+        <h2>INTERACTION STATES - V1 CORE GLOW</h2>
+        <div class="state-row">
+            <div class="state-item">
+                <button class="neural-btn-v4" style="animation: none;">📤 KB Ingest</button>
+                <div class="state-label">DEFAULT</div>
+            </div>
+            <div class="state-item">
+                <button class="neural-btn-v4 demo-hover">📤 KB Ingest</button>
+                <div class="state-label">HOVER</div>
+            </div>
+            <div class="state-item">
+                <button class="neural-btn-v4 demo-active">📤 KB Ingest</button>
+                <div class="state-label">ACTIVE / CLICK</div>
+            </div>
+        </div>
+    </div>
+
+    <p class="footer-note">TRAJANUS COMMAND CENTER | NEURAL INTERFACE DESIGN | #00AAFF CYAN | #FF9500 AMBER</p>
+</body>
+</html>

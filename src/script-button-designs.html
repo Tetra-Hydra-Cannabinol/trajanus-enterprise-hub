@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trajanus Script Button Design Options</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #C0C0C0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 40px;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #00AAFF;
+            text-align: center;
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 50px;
+            font-size: 14px;
+        }
+
+        .design-section {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .design-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+
+        .option-label {
+            background: #00AAFF;
+            color: #000;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 4px;
+            margin-right: 15px;
+            font-size: 14px;
+        }
+
+        .design-title {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 400;
+        }
+
+        .design-desc {
+            color: #888;
+            font-size: 13px;
+            margin-left: auto;
+            max-width: 400px;
+            text-align: right;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* ============================================
+           OPTION A: METALLIC BRUSHED STEEL
+           ============================================ */
+        .script-btn-metallic {
+            width: 160px;
+            height: 50px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #1a1a1a;
+            background: linear-gradient(
+                180deg,
+                #e8e8e8 0%,
+                #c0c0c0 15%,
+                #a8a8a8 50%,
+                #b8b8b8 51%,
+                #d0d0d0 100%
+            );
+            box-shadow:
+                0 1px 0 #fff inset,
+                0 -1px 0 #888 inset,
+                0 4px 8px rgba(0, 0, 0, 0.4),
+                0 2px 0 #666;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+            transition: all 0.15s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .script-btn-metallic::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(
+                180deg,
+                rgba(255, 255, 255, 0.3) 0%,
+                rgba(255, 255, 255, 0.1) 100%
+            );
+            pointer-events: none;
+        }
+
+        .script-btn-metallic:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 1px 0 #fff inset,
+                0 -1px 0 #888 inset,
+                0 6px 12px rgba(0, 0, 0, 0.5),
+                0 2px 0 #666;
+            background: linear-gradient(
+                180deg,
+                #f0f0f0 0%,
+                #d0d0d0 15%,
+                #b8b8b8 50%,
+                #c8c8c8 51%,
+                #e0e0e0 100%
+            );
+        }
+
+        .script-btn-metallic:active {
+            transform: translateY(1px);
+            box-shadow:
+                0 1px 0 #888 inset,
+                0 -1px 0 #fff inset,
+                0 2px 4px rgba(0, 0, 0, 0.3),
+                0 1px 0 #666;
+        }
+
+        /* ============================================
+           OPTION B: SCI-FI GLOW BORDER
+           ============================================ */
+        .script-btn-glow {
+            width: 160px;
+            height: 50px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #00AAFF;
+            background: linear-gradient(
+                180deg,
+                #1a1a1a 0%,
+                #0d0d0d 100%
+            );
+            box-shadow:
+                0 0 0 1px #00AAFF,
+                0 0 10px rgba(0, 170, 255, 0.3),
+                0 0 20px rgba(0, 170, 255, 0.1),
+                inset 0 1px 0 rgba(0, 170, 255, 0.2);
+            text-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .script-btn-glow::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                #00AAFF 50%,
+                transparent 100%
+            );
+        }
+
+        .script-btn-glow::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20%;
+            right: 20%;
+            height: 1px;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(0, 170, 255, 0.5) 50%,
+                transparent 100%
+            );
+        }
+
+        .script-btn-glow:hover {
+            transform: translateY(-2px);
+            color: #fff;
+            box-shadow:
+                0 0 0 1px #00AAFF,
+                0 0 15px rgba(0, 170, 255, 0.5),
+                0 0 30px rgba(0, 170, 255, 0.2),
+                inset 0 1px 0 rgba(0, 170, 255, 0.3);
+            text-shadow: 0 0 15px rgba(0, 170, 255, 0.8);
+        }
+
+        .script-btn-glow:active {
+            transform: translateY(1px);
+            box-shadow:
+                0 0 0 1px #00AAFF,
+                0 0 5px rgba(0, 170, 255, 0.4),
+                inset 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ============================================
+           OPTION C: EMBOSSED 3D
+           ============================================ */
+        .script-btn-embossed {
+            width: 160px;
+            height: 50px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #C0C0C0;
+            background: linear-gradient(
+                145deg,
+                #2a2a2a 0%,
+                #1a1a1a 50%,
+                #151515 100%
+            );
+            box-shadow:
+                inset 2px 2px 4px rgba(0, 0, 0, 0.5),
+                inset -2px -2px 4px rgba(60, 60, 60, 0.2),
+                0 4px 8px rgba(0, 0, 0, 0.4),
+                0 1px 0 rgba(255, 255, 255, 0.05);
+            text-shadow: 0 -1px 0 #000;
+            transition: all 0.15s ease;
+            position: relative;
+        }
+
+        .script-btn-embossed::before {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            right: 3px;
+            bottom: 3px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            pointer-events: none;
+        }
+
+        .script-btn-embossed:hover {
+            transform: translateY(-2px);
+            color: #00AAFF;
+            box-shadow:
+                inset 2px 2px 4px rgba(0, 0, 0, 0.5),
+                inset -2px -2px 4px rgba(60, 60, 60, 0.2),
+                0 6px 12px rgba(0, 0, 0, 0.5),
+                0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .script-btn-embossed::before {
+            border-color: rgba(0, 170, 255, 0.3);
+        }
+
+        .script-btn-embossed:hover::before {
+            border-color: rgba(0, 170, 255, 0.5);
+        }
+
+        .script-btn-embossed:active {
+            transform: translateY(1px);
+            box-shadow:
+                inset 3px 3px 6px rgba(0, 0, 0, 0.6),
+                inset -1px -1px 2px rgba(60, 60, 60, 0.1),
+                0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ============================================
+           OPTION D: MINIMAL ACCENT LINE
+           ============================================ */
+        .script-btn-minimal {
+            width: 160px;
+            height: 50px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            color: #C0C0C0;
+            background: linear-gradient(
+                180deg,
+                #1e1e1e 0%,
+                #151515 100%
+            );
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .script-btn-minimal::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(
+                180deg,
+                #00AAFF 0%,
+                #0077AA 100%
+            );
+        }
+
+        .script-btn-minimal::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(
+                90deg,
+                #00AAFF 0%,
+                transparent 30%
+            );
+        }
+
+        .script-btn-minimal:hover {
+            transform: translateY(-2px);
+            border-color: #00AAFF;
+            color: #fff;
+            box-shadow:
+                0 4px 8px rgba(0, 0, 0, 0.4),
+                0 0 10px rgba(0, 170, 255, 0.1);
+        }
+
+        .script-btn-minimal:hover::before {
+            box-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
+        }
+
+        .script-btn-minimal:active {
+            transform: translateY(1px);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ============================================
+           COMPARISON SECTION
+           ============================================ */
+        .comparison {
+            background: #0d0d0d;
+            border: 2px solid #00AAFF;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 50px;
+        }
+
+        .comparison h2 {
+            color: #00AAFF;
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+
+        .comparison-col h3 {
+            color: #888;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .comparison-col button {
+            margin-bottom: 10px;
+        }
+
+        /* Footer note */
+        .footer-note {
+            text-align: center;
+            margin-top: 40px;
+            color: #555;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>TRAJANUS SCRIPT BUTTON DESIGNS</h1>
+    <p class="subtitle">Select your preferred design direction - Premium custom buttons for Trajanus tools</p>
+
+    <!-- OPTION A: Metallic -->
+    <div class="design-section">
+        <div class="design-header">
+            <span class="option-label">OPTION A</span>
+            <span class="design-title">Metallic Brushed Steel</span>
+            <span class="design-desc">Premium hardware aesthetic. Silver metallic with realistic light reflection. Feels like high-end equipment controls.</span>
+        </div>
+        <div class="button-row">
+            <button class="script-btn-metallic">📤 KB Ingest</button>
+            <button class="script-btn-metallic">📄 MD Convert</button>
+            <button class="script-btn-metallic">🔎 Query KB</button>
+            <button class="script-btn-metallic">▶️ YT Transcript</button>
+        </div>
+    </div>
+
+    <!-- OPTION B: Sci-Fi Glow -->
+    <div class="design-section">
+        <div class="design-header">
+            <span class="option-label">OPTION B</span>
+            <span class="design-title">Sci-Fi Glow Interface</span>
+            <span class="design-desc">Futuristic command interface. Glowing cyan borders with subtle pulse effect. Feels like starship controls.</span>
+        </div>
+        <div class="button-row">
+            <button class="script-btn-glow">📤 KB Ingest</button>
+            <button class="script-btn-glow">📄 MD Convert</button>
+            <button class="script-btn-glow">🔎 Query KB</button>
+            <button class="script-btn-glow">▶️ YT Transcript</button>
+        </div>
+    </div>
+
+    <!-- OPTION C: Embossed -->
+    <div class="design-section">
+        <div class="design-header">
+            <span class="option-label">OPTION C</span>
+            <span class="design-title">Embossed Industrial</span>
+            <span class="design-desc">Deep-set industrial controls. Inner shadows create recessed look. Cyan accent border on hover. Rugged and tactical.</span>
+        </div>
+        <div class="button-row">
+            <button class="script-btn-embossed">📤 KB Ingest</button>
+            <button class="script-btn-embossed">📄 MD Convert</button>
+            <button class="script-btn-embossed">🔎 Query KB</button>
+            <button class="script-btn-embossed">▶️ YT Transcript</button>
+        </div>
+    </div>
+
+    <!-- OPTION D: Minimal -->
+    <div class="design-section">
+        <div class="design-header">
+            <span class="option-label">OPTION D</span>
+            <span class="design-title">Minimal Accent Line</span>
+            <span class="design-desc">Clean and understated. Left accent bar provides brand identity. Professional enterprise feel.</span>
+        </div>
+        <div class="button-row">
+            <button class="script-btn-minimal">📤 KB Ingest</button>
+            <button class="script-btn-minimal">📄 MD Convert</button>
+            <button class="script-btn-minimal">🔎 Query KB</button>
+            <button class="script-btn-minimal">▶️ YT Transcript</button>
+        </div>
+    </div>
+
+    <!-- Side-by-side comparison -->
+    <div class="comparison">
+        <h2>SIDE-BY-SIDE COMPARISON</h2>
+        <div class="comparison-grid">
+            <div class="comparison-col">
+                <h3>A: METALLIC</h3>
+                <button class="script-btn-metallic">📤 KB Ingest</button>
+            </div>
+            <div class="comparison-col">
+                <h3>B: SCI-FI GLOW</h3>
+                <button class="script-btn-glow">📤 KB Ingest</button>
+            </div>
+            <div class="comparison-col">
+                <h3>C: EMBOSSED</h3>
+                <button class="script-btn-embossed">📤 KB Ingest</button>
+            </div>
+            <div class="comparison-col">
+                <h3>D: MINIMAL</h3>
+                <button class="script-btn-minimal">📤 KB Ingest</button>
+            </div>
+        </div>
+    </div>
+
+    <p class="footer-note">Hover over buttons to see interaction states | All designs use Trajanus brand colors: #00AAFF, #C0C0C0, #1a1a1a</p>
+</body>
+</html>

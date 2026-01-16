@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trajanus UI Preview - Tool Window Designs</title>
+    <style>
+        :root {
+            --bg-base: #1a1a1a;
+            --bg-surface: #2d2d2d;
+            --bg-elevated: #3d3d3d;
+            --silver: #C0C0C0;
+            --silver-dark: #808080;
+            --silver-light: #E0E0E0;
+            --blue: #0066CC;
+            --blue-light: #3399FF;
+            --blue-dark: #004C99;
+            --text-primary: #FFFFFF;
+            --text-secondary: #C0C0C0;
+            --status-success: #28a745;
+            --status-error: #dc3545;
+            --status-warning: #ffc107;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-base);
+            color: var(--text-primary);
+            padding: 40px;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: var(--silver);
+            font-size: 28px;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-size: 14px;
+        }
+
+        .option-section {
+            margin-bottom: 60px;
+        }
+
+        .option-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .option-badge {
+            background: var(--blue);
+            color: white;
+            padding: 8px 20px;
+            font-weight: bold;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .option-title {
+            color: var(--silver);
+            font-size: 20px;
+        }
+
+        .option-desc {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-bottom: 20px;
+            max-width: 900px;
+        }
+
+        .recommended-badge {
+            background: #28a745;
+            color: white;
+            padding: 4px 12px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .preview-frame {
+            border: 3px solid var(--blue);
+            background: var(--bg-base);
+            overflow: hidden;
+            height: 450px;
+        }
+
+        /* 3D Beveled Button Base */
+        .btn-3d {
+            background: linear-gradient(180deg, #4d4d4d 0%, #3d3d3d 50%, #2d2d2d 100%);
+            color: var(--silver);
+            border: none;
+            border-top: 2px solid #6d6d6d;
+            border-left: 2px solid #5d5d5d;
+            border-right: 2px solid #1d1d1d;
+            border-bottom: 2px solid #0d0d0d;
+            padding: 8px 16px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .btn-3d.primary {
+            background: linear-gradient(180deg, #0077dd 0%, #0066cc 50%, #0055aa 100%);
+            border-top-color: #3399ff;
+            border-left-color: #2288ee;
+            border-right-color: #004488;
+            border-bottom-color: #003366;
+            color: white;
+        }
+
+        /* ========================================
+           OPTION A: 3-COLUMN STANDARD LAYOUT
+           (CU's Specification - Recommended)
+           ======================================== */
+        .layout-a {
+            display: grid;
+            grid-template-columns: 240px 1fr 280px;
+            height: 100%;
+        }
+
+        .layout-a .sidebar {
+            background: var(--bg-surface);
+            border-right: 1px solid var(--bg-elevated);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .layout-a .sidebar-header {
+            padding: 15px;
+            border-bottom: 1px solid var(--bg-elevated);
+            font-weight: 600;
+            color: var(--silver);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .layout-a .sidebar-content {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        .layout-a .sidebar-item {
+            display: block;
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 10px 12px;
+            text-align: left;
+            font-size: 13px;
+            cursor: pointer;
+            margin-bottom: 2px;
+        }
+
+        .layout-a .sidebar-item:hover {
+            background: var(--bg-elevated);
+            color: white;
+        }
+
+        .layout-a .sidebar-item.active {
+            background: var(--blue);
+            color: white;
+        }
+
+        .layout-a .main-panel {
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-base);
+        }
+
+        .layout-a .main-header {
+            padding: 15px 20px;
+            border-bottom: 2px solid var(--blue);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .layout-a .main-title {
+            font-size: 18px;
+            color: var(--silver);
+            font-weight: 600;
+        }
+
+        .layout-a .main-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .layout-a .log-panel {
+            background: #0d1117;
+            border-left: 1px solid var(--bg-elevated);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .layout-a .log-header {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--bg-elevated);
+            font-size: 13px;
+            color: var(--silver);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .layout-a .log-content {
+            flex: 1;
+            padding: 10px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 11px;
+            overflow-y: auto;
+        }
+
+        .layout-a .log-entry {
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .layout-a .log-time {
+            color: var(--silver-dark);
+        }
+
+        .layout-a .log-msg {
+            color: var(--text-secondary);
+        }
+
+        .layout-a .log-success { color: var(--status-success); }
+        .layout-a .log-error { color: var(--status-error); }
+
+        /* ========================================
+           OPTION B: 2-COLUMN WITH TABS
+           ======================================== */
+        .layout-b {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            height: 100%;
+        }
+
+        .layout-b .main-area {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .layout-b .tab-bar {
+            display: flex;
+            background: var(--bg-surface);
+            border-bottom: 2px solid var(--blue);
+        }
+
+        .layout-b .tab {
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 13px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+        }
+
+        .layout-b .tab:hover {
+            color: white;
+            background: var(--bg-elevated);
+        }
+
+        .layout-b .tab.active {
+            color: white;
+            border-bottom-color: var(--blue);
+            background: var(--bg-base);
+        }
+
+        .layout-b .content-area {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .layout-b .right-panel {
+            background: var(--bg-surface);
+            border-left: 2px solid var(--blue);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .layout-b .panel-section {
+            border-bottom: 1px solid var(--bg-elevated);
+        }
+
+        .layout-b .panel-header {
+            padding: 12px 15px;
+            font-size: 12px;
+            color: var(--silver);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: var(--bg-elevated);
+        }
+
+        .layout-b .panel-content {
+            padding: 15px;
+        }
+
+        .layout-b .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 12px;
+        }
+
+        .layout-b .stat-label { color: var(--text-secondary); }
+        .layout-b .stat-value { color: white; font-weight: 600; }
+
+        /* ========================================
+           OPTION C: MINIMAL SINGLE-COLUMN
+           ======================================== */
+        .layout-c {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .layout-c .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: var(--bg-surface);
+            border-bottom: 2px solid var(--blue);
+        }
+
+        .layout-c .toolbar-title {
+            font-size: 18px;
+            color: var(--silver);
+            font-weight: 600;
+        }
+
+        .layout-c .toolbar-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .layout-c .content {
+            flex: 1;
+            padding: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .layout-c .content-header {
+            margin-bottom: 25px;
+        }
+
+        .layout-c .content-title {
+            font-size: 20px;
+            color: var(--silver);
+            margin-bottom: 8px;
+        }
+
+        .layout-c .content-desc {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .layout-c .card {
+            background: var(--bg-surface);
+            border: 1px solid var(--bg-elevated);
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .layout-c .card-title {
+            color: var(--silver);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .layout-c .card-text {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        /* Sample Content */
+        .sample-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-row {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-label {
+            color: var(--silver);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .form-input {
+            background: var(--bg-base);
+            border: 1px solid var(--bg-elevated);
+            color: white;
+            padding: 10px 12px;
+            font-size: 13px;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--blue);
+        }
+
+        /* Footer */
+        .footer-notes {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--bg-elevated);
+            color: var(--silver-dark);
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>TRAJANUS UI PREVIEW</h1>
+    <p class="subtitle">Tool Window Layout Options — Select your preferred design for Bill's review</p>
+
+    <!-- OPTION A: 3-Column -->
+    <div class="option-section">
+        <div class="option-header">
+            <span class="option-badge">OPTION A</span>
+            <span class="option-title">3-Column Standard Layout</span>
+            <span class="recommended-badge">★ CU SPEC RECOMMENDED</span>
+        </div>
+        <p class="option-desc">
+            Classic 3-column layout: Left sidebar (240px) for navigation, Main content area (flexible),
+            Right log panel (280px) for activity feed. Matches CU's component library specification and
+            provides maximum information density.
+        </p>
+        <div class="preview-frame">
+            <div class="layout-a">
+                <div class="sidebar">
+                    <div class="sidebar-header">Navigation</div>
+                    <div class="sidebar-content">
+                        <button class="sidebar-item active">Dashboard</button>
+                        <button class="sidebar-item">File Manager</button>
+                        <button class="sidebar-item">Scripts</button>
+                        <button class="sidebar-item">Analytics</button>
+                        <button class="sidebar-item">Settings</button>
+                        <button class="sidebar-item">Logs</button>
+                    </div>
+                </div>
+                <div class="main-panel">
+                    <div class="main-header">
+                        <span class="main-title">Dashboard</span>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn-3d">Refresh</button>
+                            <button class="btn-3d primary">New Task</button>
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <div class="sample-form">
+                            <div class="form-row">
+                                <label class="form-label">Task Name</label>
+                                <input class="form-input" type="text" placeholder="Enter task name...">
+                            </div>
+                            <div class="form-row">
+                                <label class="form-label">Description</label>
+                                <input class="form-input" type="text" placeholder="Enter description...">
+                            </div>
+                            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                <button class="btn-3d primary">Save</button>
+                                <button class="btn-3d">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="log-panel">
+                    <div class="log-header">Activity Log</div>
+                    <div class="log-content">
+                        <div class="log-entry">
+                            <span class="log-time">08:45:22</span>
+                            <span class="log-msg log-success"> ✓ Session started</span>
+                        </div>
+                        <div class="log-entry">
+                            <span class="log-time">08:45:23</span>
+                            <span class="log-msg"> Loading config...</span>
+                        </div>
+                        <div class="log-entry">
+                            <span class="log-time">08:45:24</span>
+                            <span class="log-msg log-success"> ✓ Config loaded</span>
+                        </div>
+                        <div class="log-entry">
+                            <span class="log-time">08:45:25</span>
+                            <span class="log-msg"> Connecting to API...</span>
+                        </div>
+                        <div class="log-entry">
+                            <span class="log-time">08:45:26</span>
+                            <span class="log-msg log-success"> ✓ API connected</span>
+                        </div>
+                        <div class="log-entry">
+                            <span class="log-time">08:46:01</span>
+                            <span class="log-msg log-error"> ⚠ Warning: High memory</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OPTION B: 2-Column with Tabs -->
+    <div class="option-section">
+        <div class="option-header">
+            <span class="option-badge">OPTION B</span>
+            <span class="option-title">2-Column with Tabs</span>
+        </div>
+        <p class="option-desc">
+            Tab-based navigation with side panel for contextual information. Uses horizontal tabs instead
+            of sidebar navigation. Good for workflows with fewer top-level sections but needing quick access
+            to stats/info.
+        </p>
+        <div class="preview-frame">
+            <div class="layout-b">
+                <div class="main-area">
+                    <div class="tab-bar">
+                        <button class="tab active">Dashboard</button>
+                        <button class="tab">Files</button>
+                        <button class="tab">Scripts</button>
+                        <button class="tab">Analytics</button>
+                        <button class="tab">Settings</button>
+                    </div>
+                    <div class="content-area">
+                        <div class="sample-form">
+                            <div class="form-row">
+                                <label class="form-label">Task Name</label>
+                                <input class="form-input" type="text" placeholder="Enter task name...">
+                            </div>
+                            <div class="form-row">
+                                <label class="form-label">Description</label>
+                                <input class="form-input" type="text" placeholder="Enter description...">
+                            </div>
+                            <div class="form-row">
+                                <label class="form-label">Category</label>
+                                <input class="form-input" type="text" placeholder="Select category...">
+                            </div>
+                            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                <button class="btn-3d primary">Save Task</button>
+                                <button class="btn-3d">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-panel">
+                    <div class="panel-section">
+                        <div class="panel-header">Quick Stats</div>
+                        <div class="panel-content">
+                            <div class="stat-row">
+                                <span class="stat-label">Tasks Today</span>
+                                <span class="stat-value">12</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Completed</span>
+                                <span class="stat-value" style="color: var(--status-success);">8</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Pending</span>
+                                <span class="stat-value" style="color: var(--status-warning);">4</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-section">
+                        <div class="panel-header">Recent Activity</div>
+                        <div class="panel-content" style="font-size: 11px; color: var(--text-secondary);">
+                            <div style="padding: 5px 0; border-bottom: 1px solid var(--bg-elevated);">
+                                <span style="color: var(--silver-dark);">08:45</span> Session started
+                            </div>
+                            <div style="padding: 5px 0; border-bottom: 1px solid var(--bg-elevated);">
+                                <span style="color: var(--silver-dark);">08:46</span> Config loaded
+                            </div>
+                            <div style="padding: 5px 0;">
+                                <span style="color: var(--silver-dark);">08:47</span> API connected
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OPTION C: Minimal Single-Column -->
+    <div class="option-section">
+        <div class="option-header">
+            <span class="option-badge">OPTION C</span>
+            <span class="option-title">Minimal Single-Column</span>
+        </div>
+        <p class="option-desc">
+            Clean, focused single-column layout. Best for tools that need maximum content width and
+            minimal distraction. Navigation via top toolbar. Suitable for document-centric workflows.
+        </p>
+        <div class="preview-frame">
+            <div class="layout-c">
+                <div class="toolbar">
+                    <span class="toolbar-title">Knowledge Base Editor</span>
+                    <div class="toolbar-actions">
+                        <button class="btn-3d">← Back</button>
+                        <button class="btn-3d">Export</button>
+                        <button class="btn-3d primary">Save</button>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="content-header">
+                        <div class="content-title">Document Title</div>
+                        <div class="content-desc">Last modified: January 14, 2026 at 8:45 AM</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">Section 1: Overview</div>
+                        <div class="card-text">
+                            This is a sample document section. The minimal layout focuses attention
+                            on content and reduces visual clutter from sidebars and panels.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">Section 2: Details</div>
+                        <div class="card-text">
+                            Additional content sections can be added as cards. This layout works well
+                            for reading and editing documents, forms, or long-form content.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-notes">
+        <p><strong>Instructions:</strong> Review all three layout options. Option A (3-Column) is recommended per CU's specification for maximum information density. Consider the type of work each tool window will support when selecting.</p>
+        <p style="margin-top: 10px;">File: UI_PREVIEW_toolwindow.html | Created: January 14, 2026 | Trajanus Enterprise Hub</p>
+    </div>
+</body>
+</html>

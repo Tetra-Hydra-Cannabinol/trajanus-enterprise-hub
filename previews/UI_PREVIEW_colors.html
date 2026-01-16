@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trajanus UI Preview - Color Palette</title>
+    <style>
+        :root {
+            --bg-base: #1a1a1a;
+            --bg-surface: #2d2d2d;
+            --bg-elevated: #3d3d3d;
+            --silver: #C0C0C0;
+            --silver-dark: #808080;
+            --silver-light: #E0E0E0;
+            --blue: #0066CC;
+            --blue-light: #3399FF;
+            --blue-dark: #004C99;
+            --text-primary: #FFFFFF;
+            --text-secondary: #C0C0C0;
+            --status-success: #28a745;
+            --status-error: #dc3545;
+            --status-warning: #ffc107;
+            --status-info: #17a2b8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-base);
+            color: var(--text-primary);
+            padding: 40px;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: var(--silver);
+            font-size: 28px;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-size: 14px;
+        }
+
+        h2 {
+            color: var(--silver);
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--blue);
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        /* Color Swatch Grid */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .color-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--bg-elevated);
+            overflow: hidden;
+        }
+
+        .color-swatch {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .color-info {
+            padding: 15px;
+        }
+
+        .color-name {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .color-hex {
+            font-family: 'Consolas', monospace;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .color-usage {
+            font-size: 11px;
+            color: var(--silver-dark);
+        }
+
+        /* FORBIDDEN Section */
+        .forbidden-section {
+            background: rgba(220, 53, 69, 0.1);
+            border: 2px solid var(--status-error);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .forbidden-title {
+            color: var(--status-error);
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .forbidden-colors {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .forbidden-swatch {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .forbidden-color {
+            width: 50px;
+            height: 50px;
+            position: relative;
+        }
+
+        .forbidden-color::after {
+            content: '✕';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 30px;
+            color: var(--status-error);
+            font-weight: bold;
+        }
+
+        .forbidden-name {
+            font-size: 13px;
+            color: var(--status-error);
+        }
+
+        /* Gradient Examples */
+        .gradient-examples {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .gradient-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--bg-elevated);
+            overflow: hidden;
+        }
+
+        .gradient-swatch {
+            height: 80px;
+        }
+
+        .gradient-info {
+            padding: 12px 15px;
+        }
+
+        .gradient-name {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .gradient-code {
+            font-family: 'Consolas', monospace;
+            font-size: 10px;
+            color: var(--silver-dark);
+        }
+
+        /* Text Samples */
+        .text-samples {
+            background: var(--bg-surface);
+            padding: 25px;
+            border: 1px solid var(--bg-elevated);
+        }
+
+        .text-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--bg-elevated);
+        }
+
+        .text-row:last-child {
+            border-bottom: none;
+        }
+
+        .text-label {
+            width: 150px;
+            font-size: 12px;
+            color: var(--silver-dark);
+        }
+
+        .text-sample {
+            flex: 1;
+            font-size: 16px;
+        }
+
+        .text-info {
+            font-family: 'Consolas', monospace;
+            font-size: 11px;
+            color: var(--silver-dark);
+            width: 100px;
+            text-align: right;
+        }
+
+        /* Contrast Check */
+        .contrast-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .contrast-card {
+            padding: 20px;
+            border: 1px solid var(--bg-elevated);
+        }
+
+        .contrast-title {
+            font-size: 12px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contrast-sample {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .contrast-ratio {
+            font-size: 11px;
+            color: var(--status-success);
+        }
+
+        /* Component Preview */
+        .component-preview {
+            background: var(--bg-surface);
+            border: 3px solid var(--blue);
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .preview-title {
+            font-size: 14px;
+            color: var(--silver);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .preview-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        .btn-3d {
+            background: linear-gradient(180deg, #4d4d4d 0%, #3d3d3d 50%, #2d2d2d 100%);
+            color: var(--silver);
+            border: none;
+            border-top: 2px solid #6d6d6d;
+            border-left: 2px solid #5d5d5d;
+            border-right: 2px solid #1d1d1d;
+            border-bottom: 2px solid #0d0d0d;
+            padding: 10px 20px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .btn-3d.primary {
+            background: linear-gradient(180deg, #0077dd 0%, #0066cc 50%, #0055aa 100%);
+            border-top-color: #3399ff;
+            border-left-color: #2288ee;
+            border-right-color: #004488;
+            border-bottom-color: #003366;
+            color: white;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 2px;
+        }
+
+        .badge-success { background: var(--status-success); color: white; }
+        .badge-error { background: var(--status-error); color: white; }
+        .badge-warning { background: var(--status-warning); color: black; }
+        .badge-info { background: var(--status-info); color: white; }
+
+        .input-sample {
+            background: var(--bg-base);
+            border: 1px solid var(--bg-elevated);
+            color: white;
+            padding: 10px 15px;
+            font-size: 13px;
+            width: 250px;
+        }
+
+        .input-sample:focus {
+            outline: none;
+            border-color: var(--blue);
+        }
+
+        /* Footer */
+        .footer-notes {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--bg-elevated);
+            color: var(--silver-dark);
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>TRAJANUS UI PREVIEW</h1>
+    <p class="subtitle">Official Color Palette — Trajanus Enterprise Hub Branding Standards</p>
+
+    <!-- FORBIDDEN COLORS -->
+    <div class="forbidden-section">
+        <div class="forbidden-title">
+            ⛔ FORBIDDEN COLORS — NEVER USE
+        </div>
+        <div class="forbidden-colors">
+            <div class="forbidden-swatch">
+                <div class="forbidden-color" style="background: #d4af37;"></div>
+                <span class="forbidden-name">Gold #d4af37</span>
+            </div>
+            <div class="forbidden-swatch">
+                <div class="forbidden-color" style="background: #FFD700;"></div>
+                <span class="forbidden-name">Yellow Gold #FFD700</span>
+            </div>
+            <div class="forbidden-swatch">
+                <div class="forbidden-color" style="background: #B8860B;"></div>
+                <span class="forbidden-name">Dark Gold #B8860B</span>
+            </div>
+            <div class="forbidden-swatch">
+                <div class="forbidden-color" style="background: #9b59b6;"></div>
+                <span class="forbidden-name">Purple #9b59b6</span>
+            </div>
+            <div class="forbidden-swatch">
+                <div class="forbidden-color" style="background: #e74c3c;"></div>
+                <span class="forbidden-name">Bright Red #e74c3c</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRIMARY COLORS -->
+    <div class="section">
+        <h2>Primary Colors</h2>
+        <div class="color-grid">
+            <div class="color-card">
+                <div class="color-swatch" style="background: #C0C0C0; color: #1a1a1a;">Silver</div>
+                <div class="color-info">
+                    <div class="color-name">Silver</div>
+                    <div class="color-hex">#C0C0C0</div>
+                    <div class="color-usage">Headers, titles, primary accents, logo text</div>
+                </div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch" style="background: #1a1a1a; color: #C0C0C0;">Black</div>
+                <div class="color-info">
+                    <div class="color-name">Trajanus Black</div>
+                    <div class="color-hex">#1a1a1a</div>
+                    <div class="color-usage">Base background, primary surfaces</div>
+                </div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch" style="background: #0066CC; color: white;">Blue</div>
+                <div class="color-info">
+                    <div class="color-name">Trajanus Blue</div>
+                    <div class="color-hex">#0066CC</div>
+                    <div class="color-usage">Borders, links, primary actions, focus states</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BACKGROUND COLORS -->
+    <div class="section">
+        <h2>Background Scale</h2>
+        <div class="color-grid">
+            <div class="color-card">
+                <div class="color-swatch" style="background: #1a1a1a; color: #C0C0C0;">Base</div>
+                <div class="color-info">
+                    <div class="color-name">bg-base</div>
+                    <div class="color-hex">#1a1a1a</div>
+                    <div class="color-usage">Main app background</div>
+                </div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch" style="background: #2d2d2d; color: #C0C0C0;">Surface</div>
+                <div class="color-info">
+                    <div class="color-name">bg-surface</div>
+                    <div class="color-hex">#2d2d2d</div>
+                    <div class="color-usage">Cards, panels, sidebars</div>
+                </div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch" style="background: #3d3d3d; color: #C0C0C0;">Elevated</div>
+                <div class="color-info">
+                    <div class="color-name">bg-elevated</div>
+                    <div class="color-hex">#3d3d3d</div>
+                    <div class="color-usage">Headers, hover states, borders</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BLUE SCALE -->
+    <div class="section">
+        <h2>Blue Scale</h2>
+        <div class="color-grid">
+            <div class="color-card">
+                <div class="color-swatch" style="background: #003366; color: white;">Dark</div>
+                <div class="color-info">
+                    <div class="color-name">blue-dark</div>
+                    <div class="color-hex">#003366</div>
+                    <div class="color-usage">Active states, pressed buttons</div>
+                </div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch" style="background: #004C99; color: white;">Medium Dark</div>
+                <div class="color-info">
+                    <div class="color-name">blue-medium</div>
+                    <div class="color-hex">#004C99</div>
+                    <div class="color-usage">Gradient endpoints</div>
+                </div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch" style="background: #0066CC; color: white;">Primary</div>
+                <div class="color-info">
+                    <div class="color-name">blue</div>
+                    <div class="color-hex">#0066CC</div>
+                    <div class="color-usage">Primary actions, borders</div>
+                </div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch" style="background: #3399FF; color: white;">Light</div>
+                <div class="color-info">
+                    <div class="color-name">blue-light</div>
+                    <div class="color-hex">#3399FF</div>
+                    <div class="color-usage">Hover states, highlights</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SILVER SCALE -->
+    <div class="section">
+        <h2>Silver Scale</h2>
+        <div class="color-grid">
+            <div class="color-card">
+                <div class="color-swatch" style="background: #808080; color: white;">Dark</div>
+                <div class="color-info">
+                    <div class="color-name">silver-dark</div>
+                    <div class="color-hex">#808080</div>
+                    <div class="color-usage">Secondary text, labels</div>
+                </div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch" style="background: #C0C0C0; color: #1a1a1a;">Primary</div>
+                <div class="color-info">
+                    <div class="color-name">silver</div>
+                    <div class="color-hex">#C0C0C0</div>
+                    <div class="color-usage">Headers, primary text</div>
+                </div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch" style="background: #E0E0E0; color: #1a1a1a;">Light</div>
+                <div class="color-info">
+                    <div class="color-name">silver-light</div>
+                    <div class="color-hex">#E0E0E0</div>
+                    <div class="color-usage">Highlights, emphasis</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STATUS COLORS -->
+    <div class="section">
+        <h2>Status Colors</h2>
+        <div class="color-grid">
+            <div class="color-card">
+                <div class="color-swatch" style="background: #28a745; color: white;">Success</div>
+                <div class="color-info">
+                    <div class="color-name">status-success</div>
+                    <div class="color-hex">#28a745</div>
+                    <div class="color-usage">Success messages, completed states</div>
+                </div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch" style="background: #dc3545; color: white;">Error</div>
+                <div class="color-info">
+                    <div class="color-name">status-error</div>
+                    <div class="color-hex">#dc3545</div>
+                    <div class="color-usage">Errors, destructive actions</div>
+                </div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch" style="background: #ffc107; color: #1a1a1a;">Warning</div>
+                <div class="color-info">
+                    <div class="color-name">status-warning</div>
+                    <div class="color-hex">#ffc107</div>
+                    <div class="color-usage">Warnings, attention needed</div>
+                </div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch" style="background: #17a2b8; color: white;">Info</div>
+                <div class="color-info">
+                    <div class="color-name">status-info</div>
+                    <div class="color-hex">#17a2b8</div>
+                    <div class="color-usage">Information, neutral notices</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GRADIENTS -->
+    <div class="section">
+        <h2>Gradients</h2>
+        <div class="gradient-examples">
+            <div class="gradient-card">
+                <div class="gradient-swatch" style="background: linear-gradient(180deg, #4d4d4d 0%, #3d3d3d 50%, #2d2d2d 100%);"></div>
+                <div class="gradient-info">
+                    <div class="gradient-name">Button Default</div>
+                    <div class="gradient-code">#4d4d4d → #3d3d3d → #2d2d2d</div>
+                </div>
+            </div>
+            <div class="gradient-card">
+                <div class="gradient-swatch" style="background: linear-gradient(180deg, #0077dd 0%, #0066cc 50%, #0055aa 100%);"></div>
+                <div class="gradient-info">
+                    <div class="gradient-name">Button Primary</div>
+                    <div class="gradient-code">#0077dd → #0066cc → #0055aa</div>
+                </div>
+            </div>
+            <div class="gradient-card">
+                <div class="gradient-swatch" style="background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);"></div>
+                <div class="gradient-info">
+                    <div class="gradient-name">Header Background</div>
+                    <div class="gradient-code">#2d2d2d → #1a1a1a</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TEXT SAMPLES -->
+    <div class="section">
+        <h2>Text Hierarchy</h2>
+        <div class="text-samples">
+            <div class="text-row">
+                <span class="text-label">Primary Text</span>
+                <span class="text-sample" style="color: #FFFFFF;">The quick brown fox jumps over the lazy dog</span>
+                <span class="text-info">#FFFFFF</span>
+            </div>
+            <div class="text-row">
+                <span class="text-label">Secondary Text</span>
+                <span class="text-sample" style="color: #C0C0C0;">The quick brown fox jumps over the lazy dog</span>
+                <span class="text-info">#C0C0C0</span>
+            </div>
+            <div class="text-row">
+                <span class="text-label">Muted Text</span>
+                <span class="text-sample" style="color: #808080;">The quick brown fox jumps over the lazy dog</span>
+                <span class="text-info">#808080</span>
+            </div>
+            <div class="text-row">
+                <span class="text-label">Link Text</span>
+                <span class="text-sample" style="color: #3399FF;">The quick brown fox jumps over the lazy dog</span>
+                <span class="text-info">#3399FF</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- COMPONENT PREVIEW -->
+    <div class="component-preview">
+        <div class="preview-title">Component Color Application</div>
+        <div class="preview-row">
+            <span style="width: 100px; color: var(--silver-dark); font-size: 12px;">Buttons:</span>
+            <button class="btn-3d primary">Primary Action</button>
+            <button class="btn-3d">Secondary</button>
+        </div>
+        <div class="preview-row">
+            <span style="width: 100px; color: var(--silver-dark); font-size: 12px;">Status:</span>
+            <span class="status-badge badge-success">Success</span>
+            <span class="status-badge badge-error">Error</span>
+            <span class="status-badge badge-warning">Warning</span>
+            <span class="status-badge badge-info">Info</span>
+        </div>
+        <div class="preview-row">
+            <span style="width: 100px; color: var(--silver-dark); font-size: 12px;">Input:</span>
+            <input class="input-sample" type="text" placeholder="Focus to see blue border...">
+        </div>
+    </div>
+
+    <div class="footer-notes">
+        <p><strong>Instructions:</strong> This palette is FINAL and approved. Silver, Black, and Blue are the ONLY primary colors. Gold/yellow colors are FORBIDDEN. Use status colors only for their designated purposes.</p>
+        <p style="margin-top: 10px;">File: UI_PREVIEW_colors.html | Created: January 14, 2026 | Trajanus Enterprise Hub</p>
+    </div>
+</body>
+</html>

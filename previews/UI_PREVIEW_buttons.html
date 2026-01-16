@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trajanus UI Preview - Button Styles</title>
+    <style>
+        /* Base Styles */
+        :root {
+            --bg-base: #1a1a1a;
+            --bg-surface: #2d2d2d;
+            --bg-elevated: #3d3d3d;
+            --silver: #C0C0C0;
+            --silver-dark: #808080;
+            --silver-light: #E0E0E0;
+            --blue: #0066CC;
+            --blue-light: #3399FF;
+            --blue-dark: #004C99;
+            --text-primary: #FFFFFF;
+            --text-secondary: #C0C0C0;
+            --status-success: #28a745;
+            --status-error: #dc3545;
+            --status-warning: #ffc107;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-base);
+            color: var(--text-primary);
+            padding: 40px;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: var(--silver);
+            font-size: 28px;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-size: 14px;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 1400px;
+        }
+
+        .option-card {
+            background: var(--bg-surface);
+            border: 3px solid var(--blue);
+            padding: 30px;
+            position: relative;
+        }
+
+        .option-label {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: var(--blue);
+            color: white;
+            padding: 5px 20px;
+            font-weight: bold;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .option-title {
+            color: var(--silver);
+            font-size: 20px;
+            margin-bottom: 8px;
+            margin-top: 10px;
+        }
+
+        .option-desc {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        .state-label {
+            width: 80px;
+            color: var(--silver-dark);
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        /* ========================================
+           OPTION A: FLAT MODERN BUTTONS
+           ======================================== */
+        .btn-flat {
+            background: var(--blue);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .btn-flat:hover {
+            background: var(--blue-light);
+        }
+
+        .btn-flat:active {
+            background: var(--blue-dark);
+            transform: translateY(1px);
+        }
+
+        .btn-flat:disabled {
+            background: var(--silver-dark);
+            color: var(--bg-surface);
+            cursor: not-allowed;
+        }
+
+        .btn-flat.secondary {
+            background: var(--bg-elevated);
+            border: 1px solid var(--silver-dark);
+        }
+
+        .btn-flat.secondary:hover {
+            background: var(--silver-dark);
+        }
+
+        /* ========================================
+           OPTION B: 3D BEVELED (MS ACCESS STYLE)
+           Bill's Preferred Style
+           ======================================== */
+        .btn-3d {
+            background: linear-gradient(180deg, #4d4d4d 0%, #3d3d3d 50%, #2d2d2d 100%);
+            color: var(--silver);
+            border: none;
+            border-top: 2px solid #6d6d6d;
+            border-left: 2px solid #5d5d5d;
+            border-right: 2px solid #1d1d1d;
+            border-bottom: 2px solid #0d0d0d;
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            box-shadow:
+                inset 1px 1px 0 rgba(255,255,255,0.1),
+                inset -1px -1px 0 rgba(0,0,0,0.2),
+                2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .btn-3d:hover {
+            background: linear-gradient(180deg, #5d5d5d 0%, #4d4d4d 50%, #3d3d3d 100%);
+            color: white;
+        }
+
+        .btn-3d:active {
+            background: linear-gradient(180deg, #2d2d2d 0%, #3d3d3d 50%, #4d4d4d 100%);
+            border-top: 2px solid #0d0d0d;
+            border-left: 2px solid #1d1d1d;
+            border-right: 2px solid #5d5d5d;
+            border-bottom: 2px solid #6d6d6d;
+            box-shadow:
+                inset -1px -1px 0 rgba(255,255,255,0.1),
+                inset 1px 1px 0 rgba(0,0,0,0.2);
+            transform: translateY(1px);
+        }
+
+        .btn-3d:disabled {
+            background: #2a2a2a;
+            color: #555;
+            border-color: #333;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        .btn-3d.primary {
+            background: linear-gradient(180deg, #0077dd 0%, #0066cc 50%, #0055aa 100%);
+            border-top-color: #3399ff;
+            border-left-color: #2288ee;
+            border-right-color: #004488;
+            border-bottom-color: #003366;
+            color: white;
+        }
+
+        .btn-3d.primary:hover {
+            background: linear-gradient(180deg, #0088ee 0%, #0077dd 50%, #0066cc 100%);
+        }
+
+        .btn-3d.primary:active {
+            background: linear-gradient(180deg, #0055aa 0%, #0066cc 50%, #0077dd 100%);
+            border-top-color: #003366;
+            border-left-color: #004488;
+            border-right-color: #2288ee;
+            border-bottom-color: #3399ff;
+        }
+
+        /* ========================================
+           OPTION C: GRADIENT BUTTONS
+           ======================================== */
+        .btn-gradient {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+            color: white;
+            border: 1px solid var(--blue-dark);
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: 4px;
+        }
+
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, var(--blue-light) 0%, var(--blue) 100%);
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+        }
+
+        .btn-gradient:active {
+            background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%);
+            transform: translateY(1px);
+            box-shadow: none;
+        }
+
+        .btn-gradient:disabled {
+            background: linear-gradient(135deg, #444 0%, #333 100%);
+            border-color: #333;
+            color: #666;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .btn-gradient.secondary {
+            background: linear-gradient(135deg, #4a4a4a 0%, #333 100%);
+            border-color: #555;
+        }
+
+        .btn-gradient.secondary:hover {
+            background: linear-gradient(135deg, #5a5a5a 0%, #444 100%);
+        }
+
+        /* ========================================
+           OPTION D: OUTLINED BUTTONS
+           ======================================== */
+        .btn-outlined {
+            background: transparent;
+            color: var(--blue);
+            border: 2px solid var(--blue);
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .btn-outlined:hover {
+            background: var(--blue);
+            color: white;
+        }
+
+        .btn-outlined:active {
+            background: var(--blue-dark);
+            border-color: var(--blue-dark);
+            transform: translateY(1px);
+        }
+
+        .btn-outlined:disabled {
+            border-color: var(--silver-dark);
+            color: var(--silver-dark);
+            cursor: not-allowed;
+        }
+
+        .btn-outlined:disabled:hover {
+            background: transparent;
+            color: var(--silver-dark);
+        }
+
+        .btn-outlined.secondary {
+            border-color: var(--silver);
+            color: var(--silver);
+        }
+
+        .btn-outlined.secondary:hover {
+            background: var(--silver);
+            color: var(--bg-base);
+        }
+
+        /* Size Variants Demo */
+        .size-demo {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--bg-elevated);
+        }
+
+        .size-label {
+            color: var(--silver-dark);
+            font-size: 11px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .btn-sm { padding: 6px 16px; font-size: 12px; }
+        .btn-lg { padding: 14px 32px; font-size: 16px; }
+
+        /* Recommendation Badge */
+        .recommended {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: var(--status-success);
+            color: white;
+            padding: 5px 15px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--bg-elevated);
+            color: var(--silver-dark);
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>TRAJANUS UI PREVIEW</h1>
+    <p class="subtitle">Button Style Options — Select your preferred style for Bill's review</p>
+
+    <div class="preview-grid">
+        <!-- OPTION A: Flat Modern -->
+        <div class="option-card">
+            <div class="option-label">OPTION A</div>
+            <h2 class="option-title">Flat Modern</h2>
+            <p class="option-desc">Clean, minimal buttons with solid colors. Modern web aesthetic.</p>
+
+            <div class="button-row">
+                <span class="state-label">Normal:</span>
+                <button class="btn-flat">Primary</button>
+                <button class="btn-flat secondary">Secondary</button>
+            </div>
+            <div class="button-row">
+                <span class="state-label">Hover:</span>
+                <button class="btn-flat" style="background: var(--blue-light);">Primary</button>
+                <button class="btn-flat secondary" style="background: var(--silver-dark);">Secondary</button>
+            </div>
+            <div class="button-row">
+                <span class="state-label">Active:</span>
+                <button class="btn-flat" style="background: var(--blue-dark);">Primary</button>
+                <button class="btn-flat secondary" style="background: #555;">Secondary</button>
+            </div>
+            <div class="button-row">
+                <span class="state-label">Disabled:</span>
+                <button class="btn-flat" disabled>Primary</button>
+                <button class="btn-flat secondary" disabled>Secondary</button>
+            </div>
+
+            <div class="size-demo">
+                <div class="size-label">Size Variants</div>
+                <div class="button-row">
+                    <button class="btn-flat btn-sm">Small</button>
+                    <button class="btn-flat">Default</button>
+                    <button class="btn-flat btn-lg">Large</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- OPTION B: 3D Beveled (Recommended) -->
+        <div class="option-card">
+            <div class="option-label">OPTION B</div>
+            <div class="recommended">★ RECOMMENDED</div>
+            <h2 class="option-title">3D Beveled (MS Access Style)</h2>
+            <p class="option-desc">Classic 3D raised appearance. Command center aesthetic. Bill's preferred style.</p>
+
+            <div class="button-row">
+                <span class="state-label">Normal:</span>
+                <button class="btn-3d primary">Primary</button>
+                <button class="btn-3d">Secondary</button>
+            </div>
+            <div class="button-row">
+                <span class="state-label">Hover:</span>
+                <button class="btn-3d primary" style="background: linear-gradient(180deg, #0088ee 0%, #0077dd 50%, #0066cc 100%);">Primary</button>
+                <button class="btn-3d" style="background: linear-gradient(180deg, #5d5d5d 0%, #4d4d4d 50%, #3d3d3d 100%); color: white;">Secondary</button>
+            </div>
+            <div class="button-row">
+                <span class="state-label">Active:</span>
+                <button class="btn-3d primary" style="border-top-color: #003366; border-left-color: #004488; border-right-color: #2288ee; border-bottom-color: #3399ff;">Primary</button>
+                <button class="btn-3d" style="border-top-color: #0d0d0d; border-left-color: #1d1d1d; border-right-color: #5d5d5d; border-bottom-color: #6d6d6d;">Secondary</button>
+            </div>
+            <div class="button-row">
+                <span class="state-label">Disabled:</span>
+                <button class="btn-3d" disabled>Primary</button>
+                <button class="btn-3d" disabled>Secondary</button>
+            </div>
+
+            <div class="size-demo">
+                <div class="size-label">Size Variants</div>
+                <div class="button-row">
+                    <button class="btn-3d primary btn-sm">Small</button>
+                    <button class="btn-3d primary">Default</button>
+                    <button class="btn-3d primary btn-lg">Large</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- OPTION C: Gradient -->
+        <div class="option-card">
+            <div class="option-label">OPTION C</div>
+            <h2 class="option-title">Gradient</h2>
+            <p class="option-desc">Subtle gradient with glow effects. More polished appearance.</p>
+
+            <div class="button-row">
+                <span class="state-label">Normal:</span>
+                <button class="btn-gradient">Primary</button>
+                <button class="btn-gradient secondary">Secondary</button>
+            </div>
+            <div class="button-row">
+                <span class="state-label">Hover:</span>
+                <button class="btn-gradient" style="background: linear-gradient(135deg, var(--blue-light) 0%, var(--blue) 100%); box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);">Primary</button>
+                <button class="btn-gradient secondary" style="background: linear-gradient(135deg, #5a5a5a 0%, #444 100%);">Secondary</button>
+            </div>
+            <div class="button-row">
+                <span class="state-label">Active:</span>
+                <button class="btn-gradient" style="background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%);">Primary</button>
+                <button class="btn-gradient secondary" style="background: linear-gradient(135deg, #333 0%, #2a2a2a 100%);">Secondary</button>
+            </div>
+            <div class="button-row">
+                <span class="state-label">Disabled:</span>
+                <button class="btn-gradient" disabled>Primary</button>
+                <button class="btn-gradient secondary" disabled>Secondary</button>
+            </div>
+
+            <div class="size-demo">
+                <div class="size-label">Size Variants</div>
+                <div class="button-row">
+                    <button class="btn-gradient btn-sm">Small</button>
+                    <button class="btn-gradient">Default</button>
+                    <button class="btn-gradient btn-lg">Large</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- OPTION D: Outlined -->
+        <div class="option-card">
+            <div class="option-label">OPTION D</div>
+            <h2 class="option-title">Outlined</h2>
+            <p class="option-desc">Transparent with border. Lightweight, minimal visual weight.</p>
+
+            <div class="button-row">
+                <span class="state-label">Normal:</span>
+                <button class="btn-outlined">Primary</button>
+                <button class="btn-outlined secondary">Secondary</button>
+            </div>
+            <div class="button-row">
+                <span class="state-label">Hover:</span>
+                <button class="btn-outlined" style="background: var(--blue); color: white;">Primary</button>
+                <button class="btn-outlined secondary" style="background: var(--silver); color: var(--bg-base);">Secondary</button>
+            </div>
+            <div class="button-row">
+                <span class="state-label">Active:</span>
+                <button class="btn-outlined" style="background: var(--blue-dark); border-color: var(--blue-dark); color: white;">Primary</button>
+                <button class="btn-outlined secondary" style="background: #999; color: var(--bg-base);">Secondary</button>
+            </div>
+            <div class="button-row">
+                <span class="state-label">Disabled:</span>
+                <button class="btn-outlined" disabled>Primary</button>
+                <button class="btn-outlined secondary" disabled>Secondary</button>
+            </div>
+
+            <div class="size-demo">
+                <div class="size-label">Size Variants</div>
+                <div class="button-row">
+                    <button class="btn-outlined btn-sm">Small</button>
+                    <button class="btn-outlined">Default</button>
+                    <button class="btn-outlined btn-lg">Large</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><strong>Instructions:</strong> Review all four options. Option B (3D Beveled) is recommended per CU's specifications as it matches the command center aesthetic. Hover over buttons to see interactive states.</p>
+        <p style="margin-top: 10px;">File: UI_PREVIEW_buttons.html | Created: January 14, 2026 | Trajanus Enterprise Hub</p>
+    </div>
+</body>
+</html>

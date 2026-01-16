@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trajanus UI Preview - Landing Page Layouts</title>
+    <style>
+        :root {
+            --bg-base: #1a1a1a;
+            --bg-surface: #2d2d2d;
+            --bg-elevated: #3d3d3d;
+            --silver: #C0C0C0;
+            --silver-dark: #808080;
+            --silver-light: #E0E0E0;
+            --blue: #0066CC;
+            --blue-light: #3399FF;
+            --blue-dark: #004C99;
+            --text-primary: #FFFFFF;
+            --text-secondary: #C0C0C0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-base);
+            color: var(--text-primary);
+            padding: 40px;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: var(--silver);
+            font-size: 28px;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-size: 14px;
+        }
+
+        .option-section {
+            margin-bottom: 60px;
+        }
+
+        .option-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .option-badge {
+            background: var(--blue);
+            color: white;
+            padding: 8px 20px;
+            font-weight: bold;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .option-title {
+            color: var(--silver);
+            font-size: 20px;
+        }
+
+        .option-desc {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-bottom: 20px;
+            max-width: 800px;
+        }
+
+        .recommended-badge {
+            background: #28a745;
+            color: white;
+            padding: 4px 12px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        /* Preview Frame */
+        .preview-frame {
+            border: 3px solid var(--blue);
+            background: var(--bg-base);
+            overflow: hidden;
+            height: 500px;
+        }
+
+        /* ========================================
+           OPTION A: CENTERED HERO LAYOUT
+           ======================================== */
+        .layout-a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .layout-a .logo-placeholder {
+            width: 120px;
+            height: 120px;
+            border: 2px solid var(--silver);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--silver);
+            font-size: 12px;
+            margin-bottom: 30px;
+        }
+
+        .layout-a .brand-title {
+            font-family: Impact, 'Arial Black', sans-serif;
+            font-size: 48px;
+            color: var(--silver);
+            letter-spacing: 8px;
+            margin-bottom: 10px;
+        }
+
+        .layout-a .brand-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            letter-spacing: 4px;
+            margin-bottom: 40px;
+        }
+
+        .layout-a .toolkit-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            max-width: 700px;
+        }
+
+        .layout-a .toolkit-btn {
+            background: linear-gradient(180deg, #4d4d4d 0%, #3d3d3d 50%, #2d2d2d 100%);
+            color: var(--silver);
+            border: none;
+            border-top: 2px solid #6d6d6d;
+            border-left: 2px solid #5d5d5d;
+            border-right: 2px solid #1d1d1d;
+            border-bottom: 2px solid #0d0d0d;
+            padding: 15px 20px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        /* ========================================
+           OPTION B: COMMAND CENTER LAYOUT
+           (Current app style - Bill's Preferred)
+           ======================================== */
+        .layout-b {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .layout-b .header {
+            background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
+            border-bottom: 3px solid var(--blue);
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .layout-b .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .layout-b .header-logo {
+            width: 50px;
+            height: 50px;
+            border: 1px solid var(--silver);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: var(--silver);
+        }
+
+        .layout-b .header-title {
+            font-family: Impact, 'Arial Black', sans-serif;
+            font-size: 28px;
+            color: var(--silver);
+            letter-spacing: 4px;
+        }
+
+        .layout-b .header-subtitle {
+            font-size: 12px;
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+        }
+
+        .layout-b .header-nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        .layout-b .nav-btn {
+            background: var(--bg-surface);
+            border: 1px solid var(--silver-dark);
+            color: var(--silver);
+            padding: 8px 16px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .layout-b .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .layout-b .hero-section {
+            text-align: center;
+        }
+
+        .layout-b .hero-title {
+            font-size: 24px;
+            color: var(--silver);
+            margin-bottom: 10px;
+        }
+
+        .layout-b .hero-text {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .layout-b .toolkit-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .layout-b .toolkit-btn {
+            background: linear-gradient(180deg, #4d4d4d 0%, #3d3d3d 50%, #2d2d2d 100%);
+            color: var(--silver);
+            border: none;
+            border-top: 2px solid #6d6d6d;
+            border-left: 2px solid #5d5d5d;
+            border-right: 2px solid #1d1d1d;
+            border-bottom: 2px solid #0d0d0d;
+            padding: 12px 18px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .layout-b .footer {
+            background: var(--bg-surface);
+            border-top: 1px solid var(--bg-elevated);
+            padding: 10px 30px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--silver-dark);
+        }
+
+        /* ========================================
+           OPTION C: SIDEBAR NAVIGATION LAYOUT
+           ======================================== */
+        .layout-c {
+            display: flex;
+            height: 100%;
+        }
+
+        .layout-c .sidebar {
+            width: 220px;
+            background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+            border-right: 2px solid var(--blue);
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .layout-c .sidebar-brand {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid var(--bg-elevated);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .layout-c .sidebar-logo {
+            width: 60px;
+            height: 60px;
+            border: 1px solid var(--silver);
+            border-radius: 8px;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--silver);
+            font-size: 10px;
+        }
+
+        .layout-c .sidebar-title {
+            font-family: Impact, 'Arial Black', sans-serif;
+            font-size: 20px;
+            color: var(--silver);
+            letter-spacing: 3px;
+        }
+
+        .layout-c .sidebar-nav {
+            flex: 1;
+            padding: 0 10px;
+        }
+
+        .layout-c .nav-item {
+            display: block;
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: var(--silver);
+            padding: 12px 15px;
+            text-align: left;
+            font-size: 13px;
+            cursor: pointer;
+            margin-bottom: 4px;
+        }
+
+        .layout-c .nav-item:hover {
+            background: var(--bg-surface);
+        }
+
+        .layout-c .nav-item.active {
+            background: var(--blue);
+            color: white;
+        }
+
+        .layout-c .main-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .layout-c .topbar {
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--bg-elevated);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .layout-c .topbar-title {
+            font-size: 16px;
+            color: var(--silver);
+        }
+
+        .layout-c .content-area {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .layout-c .welcome-box {
+            text-align: center;
+            max-width: 500px;
+        }
+
+        .layout-c .welcome-title {
+            font-size: 24px;
+            color: var(--silver);
+            margin-bottom: 15px;
+        }
+
+        .layout-c .welcome-text {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Footer */
+        .footer-notes {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--bg-elevated);
+            color: var(--silver-dark);
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>TRAJANUS UI PREVIEW</h1>
+    <p class="subtitle">Landing Page Layout Options — Select your preferred layout for Bill's review</p>
+
+    <!-- OPTION A -->
+    <div class="option-section">
+        <div class="option-header">
+            <span class="option-badge">OPTION A</span>
+            <span class="option-title">Centered Hero Layout</span>
+        </div>
+        <p class="option-desc">
+            Minimal, focused design with centered logo and toolkit buttons. Clean and modern approach
+            that draws attention to the brand and core actions.
+        </p>
+        <div class="preview-frame">
+            <div class="layout-a">
+                <div class="logo-placeholder">LOGO</div>
+                <div class="brand-title">TRAJANUS</div>
+                <div class="brand-subtitle">ENTERPRISE HUB</div>
+                <div class="toolkit-grid">
+                    <button class="toolkit-btn">Daily Op</button>
+                    <button class="toolkit-btn">Knowledge</button>
+                    <button class="toolkit-btn">Scripts</button>
+                    <button class="toolkit-btn">Analytics</button>
+                    <button class="toolkit-btn">Documents</button>
+                    <button class="toolkit-btn">Settings</button>
+                    <button class="toolkit-btn">Admin</button>
+                    <button class="toolkit-btn">Reports</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OPTION B -->
+    <div class="option-section">
+        <div class="option-header">
+            <span class="option-badge">OPTION B</span>
+            <span class="option-title">Command Center Layout</span>
+            <span class="recommended-badge">★ CURRENT APP STYLE</span>
+        </div>
+        <p class="option-desc">
+            Professional header with navigation, centered hero area, and footer. This matches the current
+            application structure and maintains the command center aesthetic Bill prefers.
+        </p>
+        <div class="preview-frame">
+            <div class="layout-b">
+                <div class="header">
+                    <div class="header-brand">
+                        <div class="header-logo">LOGO</div>
+                        <div>
+                            <div class="header-title">TRAJANUS</div>
+                            <div class="header-subtitle">ENTERPRISE HUB</div>
+                        </div>
+                    </div>
+                    <div class="header-nav">
+                        <button class="nav-btn">Settings</button>
+                        <button class="nav-btn">Help</button>
+                        <button class="nav-btn">Profile</button>
+                    </div>
+                </div>
+                <div class="main-content">
+                    <div class="hero-section">
+                        <div class="hero-title">Welcome to Trajanus</div>
+                        <div class="hero-text">Select a toolkit to begin your session</div>
+                        <div class="toolkit-grid">
+                            <button class="toolkit-btn">Daily Op</button>
+                            <button class="toolkit-btn">Knowledge</button>
+                            <button class="toolkit-btn">Scripts</button>
+                            <button class="toolkit-btn">Analytics</button>
+                            <button class="toolkit-btn">Documents</button>
+                            <button class="toolkit-btn">Settings</button>
+                            <button class="toolkit-btn">Admin</button>
+                            <button class="toolkit-btn">Reports</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer">
+                    <span>Trajanus Enterprise Hub v1.0</span>
+                    <span>© 2026 Trajanus USA</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OPTION C -->
+    <div class="option-section">
+        <div class="option-header">
+            <span class="option-badge">OPTION C</span>
+            <span class="option-title">Sidebar Navigation Layout</span>
+        </div>
+        <p class="option-desc">
+            Persistent left sidebar with navigation. Good for applications with many tools or when
+            users frequently switch between sections. More traditional desktop application feel.
+        </p>
+        <div class="preview-frame">
+            <div class="layout-c">
+                <div class="sidebar">
+                    <div class="sidebar-brand">
+                        <div class="sidebar-logo">LOGO</div>
+                        <div class="sidebar-title">TRAJANUS</div>
+                    </div>
+                    <div class="sidebar-nav">
+                        <button class="nav-item active">Dashboard</button>
+                        <button class="nav-item">Daily Operations</button>
+                        <button class="nav-item">Knowledge Base</button>
+                        <button class="nav-item">Scripts</button>
+                        <button class="nav-item">Analytics</button>
+                        <button class="nav-item">Documents</button>
+                        <button class="nav-item">Settings</button>
+                        <button class="nav-item">Admin</button>
+                    </div>
+                </div>
+                <div class="main-area">
+                    <div class="topbar">
+                        <span class="topbar-title">Dashboard</span>
+                        <span style="color: var(--silver-dark); font-size: 12px;">Bill King | Admin</span>
+                    </div>
+                    <div class="content-area">
+                        <div class="welcome-box">
+                            <div class="welcome-title">Welcome Back</div>
+                            <div class="welcome-text">Select a tool from the sidebar to begin your session. Your last session was 2 hours ago.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-notes">
+        <p><strong>Instructions:</strong> Review all three layout options. Option B represents the current application structure. Consider workflow, navigation patterns, and command center aesthetic when making your selection.</p>
+        <p style="margin-top: 10px;">File: UI_PREVIEW_landing.html | Created: January 14, 2026 | Trajanus Enterprise Hub</p>
+    </div>
+</body>
+</html>

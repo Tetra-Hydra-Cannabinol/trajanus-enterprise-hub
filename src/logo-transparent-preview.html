@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transparent Logo Preview - Grid Color Options</title>
+    <style>
+        body {
+            background: #0a0a0a;
+            color: #C0C0C0;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 40px;
+            margin: 0;
+        }
+        h1 {
+            color: #00AAFF;
+            text-align: center;
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #555;
+            font-size: 12px;
+            margin-bottom: 40px;
+        }
+        .grid-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+        .option {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+        .option.recommended {
+            border-color: #00AA44;
+            box-shadow: 0 0 15px rgba(0, 170, 68, 0.2);
+        }
+        .option h3 {
+            color: #888;
+            font-size: 11px;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+        .option.recommended h3 {
+            color: #00AA44;
+        }
+        .option img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+        }
+
+        /* Hero demos */
+        .hero-demos {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .hero-demo {
+            background: linear-gradient(180deg, #0d0d0d 0%, #080808 100%);
+            border: 2px solid #0066CC;
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+        }
+        .hero-label {
+            color: #555;
+            font-size: 10px;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+        .hero-logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        .hero-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(0, 170, 255, 0.3));
+        }
+        .hero-text h2 {
+            color: #00AAFF;
+            font-size: 22px;
+            font-weight: 300;
+            letter-spacing: 6px;
+            margin: 0 0 2px 0;
+        }
+        .hero-text p {
+            color: #C0C0C0;
+            font-size: 8px;
+            letter-spacing: 3px;
+            margin: 0;
+        }
+        .note {
+            text-align: center;
+            color: #444;
+            font-size: 11px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1>LOGO GRID COLOR OPTIONS</h1>
+    <p class="subtitle">White background removed - choose grid line color</p>
+
+    <div class="grid-options">
+        <div class="option">
+            <h3>ORIGINAL</h3>
+            <img src="assets/ai-generated-8909412_1280.jpg" alt="Original">
+        </div>
+        <div class="option recommended">
+            <h3>BLUE GRID (RECOMMENDED)</h3>
+            <img src="assets/trajanus-logo-blue-grid.png" alt="Blue Grid">
+        </div>
+        <div class="option">
+            <h3>SILVER GRID</h3>
+            <img src="assets/trajanus-logo-silver-grid.png" alt="Silver Grid">
+        </div>
+        <div class="option">
+            <h3>WHITE GRID</h3>
+            <img src="assets/trajanus-logo-white-grid.png" alt="White Grid">
+        </div>
+    </div>
+
+    <div class="hero-demos">
+        <div class="hero-demo">
+            <div class="hero-label">BLUE GRID</div>
+            <div class="hero-logo-container">
+                <img src="assets/trajanus-logo-blue-grid.png" alt="Logo" class="hero-logo">
+                <div class="hero-text">
+                    <h2>TRAJANUS</h2>
+                    <p>ENGINEERED INTELLIGENCE</p>
+                </div>
+            </div>
+        </div>
+        <div class="hero-demo">
+            <div class="hero-label">SILVER GRID</div>
+            <div class="hero-logo-container">
+                <img src="assets/trajanus-logo-silver-grid.png" alt="Logo" class="hero-logo">
+                <div class="hero-text">
+                    <h2>TRAJANUS</h2>
+                    <p>ENGINEERED INTELLIGENCE</p>
+                </div>
+            </div>
+        </div>
+        <div class="hero-demo">
+            <div class="hero-label">WHITE GRID</div>
+            <div class="hero-logo-container">
+                <img src="assets/trajanus-logo-white-grid.png" alt="Logo" class="hero-logo">
+                <div class="hero-text">
+                    <h2>TRAJANUS</h2>
+                    <p>ENGINEERED INTELLIGENCE</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p class="note">All versions: transparent background | Grid lines preserved and recolored</p>
+</body>
+</html>

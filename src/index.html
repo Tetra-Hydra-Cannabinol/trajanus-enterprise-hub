@@ -110,83 +110,63 @@
 
         <!-- Main Content -->
         <main class="main-content">
-            <!-- Hero Title - 3D Trajanus Logo (from TRAJANUS_LOGO_FINAL.html commit 3661311) -->
+            <!-- Hero Title - Neural Grid Logo (2026-01-16) -->
             <section class="hero-title">
                 <style>
-                    .trajanus-logo-container {
+                    .hero-centered {
                         display: flex;
+                        align-items: center;
                         justify-content: center;
                         padding: 0.375rem;
                     }
-                    .trajanus-logo-lockup {
+                    .logo-text-group {
                         display: flex;
                         align-items: center;
-                        gap: 1.5rem;
+                        position: relative;
                     }
-                    .trajanus-brand-text {
+                    .hero-logo {
+                        width: 85px;
+                        height: 85px;
+                        object-fit: contain;
+                        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.15));
+                    }
+                    .hero-text {
+                        position: relative;
                         display: flex;
                         flex-direction: column;
-                        align-items: center;
-                        text-align: center;
+                        justify-content: center;
+                        margin-left: -22px;
+                        height: 85px;
                     }
-                    .trajanus-brand-title {
-                        font-family: 'Copperplate Gothic Bold', 'Copperplate', serif;
-                        font-size: 28pt;
-                        font-weight: 900;
+                    .hero-text h1 {
                         color: #00AAFF;
-                        letter-spacing: 0.15em;
+                        font-size: 34px;
+                        font-weight: 300;
+                        letter-spacing: 8px;
                         margin: 0;
-                        line-height: 1;
+                        display: flex;
+                        align-items: baseline;
                     }
-                    .trajanus-brand-tagline {
-                        font-family: Arial Narrow, 'Arial', sans-serif;
-                        font-size: 0.75rem;
-                        font-weight: bold;
-                        color: #00AAFF;
-                        letter-spacing: 0.08em;
-                        margin: 0.4rem 0 0 0;
-                        text-transform: uppercase;
+                    .hero-text p {
+                        color: #C0C0C0;
+                        font-size: 9px;
+                        letter-spacing: 3px;
+                        margin: 2px 0 0 0;
                     }
-                    .trajanus-logo-svg {
-                        filter: drop-shadow(3px 3px 4px rgba(0, 0, 0, 0.7));
+                    .hero-text .tm {
+                        font-size: 7px;
+                        vertical-align: super;
+                        margin-left: 2px;
+                        color: #C0C0C0;
+                        opacity: 0.7;
                     }
                 </style>
-                <div class="trajanus-logo-container">
-                    <div class="trajanus-logo-lockup">
-                        <!-- 3D METALLIC COLUMN SVG -->
-                        <svg class="trajanus-logo-svg" width="80" height="80" viewBox="0 0 120 120">
-                            <defs>
-                                <linearGradient id="trajanus-silver" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#E8E8E8"/>
-                                    <stop offset="50%" stop-color="#C0C0C0"/>
-                                    <stop offset="100%" stop-color="#888888"/>
-                                </linearGradient>
-                            </defs>
-                            <!-- DEPTH/SHADOW LAYER -->
-                            <g transform="translate(3, 3)">
-                                <g transform="rotate(90, 60, 60)" opacity="0.4">
-                                    <rect x="20" y="20" width="8" height="80" fill="#404040"/>
-                                    <rect x="50" y="20" width="8" height="80" fill="#404040"/>
-                                    <rect x="90" y="20" width="8" height="80" fill="#003366"/>
-                                    <rect x="20" y="20" width="54" height="8" fill="#404040"/>
-                                    <rect x="20" y="56" width="25" height="8" fill="#404040"/>
-                                    <rect x="20" y="92" width="54" height="8" fill="#404040"/>
-                                </g>
-                            </g>
-                            <!-- MAIN LOGO LAYER -->
-                            <g transform="rotate(90, 60, 60)">
-                                <rect x="20" y="20" width="8" height="80" fill="url(#trajanus-silver)"/>
-                                <rect x="50" y="20" width="8" height="80" fill="url(#trajanus-silver)"/>
-                                <rect x="90" y="20" width="8" height="80" fill="#0066CC"/>
-                                <rect x="20" y="20" width="54" height="8" fill="url(#trajanus-silver)"/>
-                                <rect x="20" y="56" width="25" height="8" fill="url(#trajanus-silver)"/>
-                                <rect x="20" y="92" width="54" height="8" fill="url(#trajanus-silver)"/>
-                            </g>
-                        </svg>
-                        <!-- BRAND TEXT -->
-                        <div class="trajanus-brand-text">
-                            <h1 class="trajanus-brand-title">TRAJANUS</h1>
-                            <p class="trajanus-brand-tagline">ENGINEERED INTELLIGENCE™</p>
+                <div class="hero-centered">
+                    <div class="logo-text-group">
+                        <img src="assets/trajanus-logo-white-grid.png" alt="Trajanus Logo" class="hero-logo">
+                        <div class="hero-text">
+                            <h1>TRAJANUS</h1>
+                            <p>ENGINEERED INTELLIGENCE<span class="tm">™</span></p>
                         </div>
                     </div>
                 </div>
@@ -282,17 +262,17 @@
             </div>
             <div class="quick-tools-grid">
                     <!-- External Program Buttons (120x44px) -->
-                    <button class="ext-btn btn-word" onclick="Hub.launchApp('word')">📘 Word</button>
-                    <button class="ext-btn btn-excel" onclick="Hub.launchApp('excel')">📗 Excel</button>
-                    <button class="ext-btn btn-teams" onclick="Hub.launchApp('teams')">💬 Teams</button>
-                    <button class="ext-btn btn-outlook" onclick="Hub.launchApp('outlook')">📧 Outlook</button>
-                    <button class="ext-btn btn-calc" onclick="Hub.launchApp('calc')">🔢 Calc</button>
-                    <button class="ext-btn btn-gmail" onclick="Hub.launchApp('gmail')">✉️ Gmail</button>
-                    <!-- Trajanus Script Buttons (160x50px) -->
-                    <button class="script-btn" onclick="Hub.openTool('kb-ingestion')">📥 KB Ingest</button>
-                    <button class="script-btn" onclick="Hub.openTool('md-converter')">📄 MD Convert</button>
-                    <button class="script-btn" onclick="Hub.openTool('query-kb')">🔍 Query KB</button>
-                <button class="script-btn" onclick="Hub.openTool('youtube-transcript')">▶️ YT Transcript</button>
+                    <button class="ext-btn btn-word" onclick="Hub.launchApp('word')"><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M6 2h8l6 6v12c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2zm7 1.5V9h5.5L13 3.5zM7 11v2h2v6h2v-6h2v-2H7z"/></svg>Word</button>
+                    <button class="ext-btn btn-excel" onclick="Hub.launchApp('excel')"><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M6 2h8l6 6v12c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2zm7 1.5V9h5.5L13 3.5zM7 11l2.5 4L7 19h2l1.5-2.5L12 19h2l-2.5-4L14 11h-2l-1.5 2.5L9 11H7z"/></svg>Excel</button>
+                    <button class="ext-btn btn-teams" onclick="Hub.launchApp('teams')"><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M19.2 6c.9 0 1.6.7 1.6 1.6v6.8c0 .9-.7 1.6-1.6 1.6h-3.2v2.8c0 .9-.7 1.6-1.6 1.6H5.6c-.9 0-1.6-.7-1.6-1.6V9.6C4 8.7 4.7 8 5.6 8h2.8V5.2c0-.9.7-1.6 1.6-1.6h9.2zm-4 10V9.6c0-.9-.7-1.6-1.6-1.6H10v2h3.6c.2 0 .4.2.4.4v5.2h1.2zm4-8.4H10v2h5.2v4.8h4V7.6z"/></svg>Teams</button>
+                    <button class="ext-btn btn-outlook" onclick="Hub.launchApp('outlook')"><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M12 13L2 8v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8l-10 5zm10-7c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2l10 5 10-5z"/></svg>Outlook</button>
+                    <button class="ext-btn btn-calc" onclick="Hub.launchApp('calc')"><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM7 7h4v2H7V7zm0 4h4v2H7v-2zm0 4h4v2H7v-2zm6-8h4v6h-4V7zm0 8h4v2h-4v-2z"/></svg>Calc</button>
+                    <button class="ext-btn btn-gmail" onclick="Hub.launchApp('gmail')"><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>Gmail</button>
+                    <!-- Trajanus Script Buttons (160x50px) - Brain Icon -->
+                    <button class="script-btn" onclick="Hub.openTool('kb-ingestion')"><img src="assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">KB Ingest</button>
+                    <button class="script-btn" onclick="Hub.openTool('md-converter')"><img src="assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">MD Convert</button>
+                    <button class="script-btn" onclick="Hub.openTool('query-kb')"><img src="assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">Query KB</button>
+                    <button class="script-btn" onclick="Hub.openTool('youtube-transcript')"><img src="assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">YT Transcript</button>
             </div>
 
             <!-- APPLICATIONS -->
@@ -304,20 +284,20 @@
                     <div class="app-category">
                         <h4 style="color: #00AAFF; margin-bottom: 12px;">Federal & DoD</h4>
                         <div class="button-grid" style="display: flex; flex-wrap: wrap; gap: 10px;">
-                            <button class="ext-btn btn-rms" onclick="Hub.openEmbedded('https://rms.usace.army.mil/', 'RMS 3.0')">📋 RMS 3.0</button>
-                            <button class="ext-btn btn-cefms" onclick="Hub.openEmbedded('https://cefms.usace.army.mil/', 'CEFMS')">💰 CEFMS</button>
-                            <button class="ext-btn" onclick="showDevNotice('eng_form_4025')" disabled>📝 ENG 4025</button>
-                            <button class="ext-btn" onclick="showDevNotice('ecms_integration')" disabled>📦 eCMS</button>
+                            <button class="ext-btn btn-rms" onclick="Hub.openEmbedded('https://rms.usace.army.mil/', 'RMS 3.0')"><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm-1 14.5v-3H9v-3h2v-3h2v3h2v3h-2v3h-2z"/></svg>RMS 3.0</button>
+                            <button class="ext-btn btn-cefms" onclick="Hub.openEmbedded('https://cefms.usace.army.mil/', 'CEFMS')"><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm0-4h-2V7h2v8z"/></svg>CEFMS</button>
+                            <button class="ext-btn" onclick="showDevNotice('eng_form_4025')" disabled><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/></svg>ENG 4025</button>
+                            <button class="ext-btn" onclick="showDevNotice('ecms_integration')" disabled><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>eCMS</button>
                         </div>
                     </div>
 
                     <div class="app-category">
                         <h4 style="color: #00AAFF; margin-bottom: 12px;">Project Controls</h4>
                         <div class="button-grid" style="display: flex; flex-wrap: wrap; gap: 10px;">
-                            <button class="ext-btn btn-p6" onclick="showDevNotice('primavera_p6')" disabled>📅 P6</button>
-                            <button class="ext-btn btn-procore" onclick="Hub.openEmbedded('https://app.procore.com/', 'Procore')">🏗️ Procore</button>
-                            <button class="ext-btn" onclick="showDevNotice('oracle_unifier')" disabled>🔧 Unifier</button>
-                            <button class="ext-btn btn-msproject" onclick="showDevNotice('ms_project')" disabled>📊 MS Project</button>
+                            <button class="ext-btn btn-p6" onclick="showDevNotice('primavera_p6')" disabled><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/></svg>P6</button>
+                            <button class="ext-btn btn-procore" onclick="Hub.openEmbedded('https://app.procore.com/', 'Procore')"><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg>Procore</button>
+                            <button class="ext-btn" onclick="showDevNotice('oracle_unifier')" disabled><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>Unifier</button>
+                            <button class="ext-btn btn-msproject" onclick="showDevNotice('ms_project')" disabled><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M3 3v18h18V3H3zm16 16H5V5h14v14zM7 12h2v5H7zm4-3h2v8h-2zm4-3h2v11h-2z"/></svg>MS Project</button>
                         </div>
                     </div>
             </div>
@@ -2107,12 +2087,32 @@
             border-color: #4a90d9;
         }
 
-        /* Messages Area */
+        /* Messages Area - Brain Waves Background */
         .feedback-messages {
             flex: 1;
             overflow-y: auto;
             padding: 16px;
-            background: #1a1a1a;
+            position: relative;
+            background-image: url('assets/brain-8825819_1280.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .feedback-messages::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 26, 26, 0.9);
+            pointer-events: none;
+        }
+
+        .feedback-messages > * {
+            position: relative;
+            z-index: 1;
         }
 
         .feedback-item {

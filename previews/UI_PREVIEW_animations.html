@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trajanus UI Preview - Animations</title>
+    <style>
+        :root {
+            --bg-base: #1a1a1a;
+            --bg-surface: #2d2d2d;
+            --bg-elevated: #3d3d3d;
+            --silver: #C0C0C0;
+            --silver-dark: #808080;
+            --silver-light: #E0E0E0;
+            --blue: #0066CC;
+            --blue-light: #3399FF;
+            --blue-dark: #004C99;
+            --text-primary: #FFFFFF;
+            --text-secondary: #C0C0C0;
+            --status-success: #28a745;
+            --status-error: #dc3545;
+            --status-warning: #ffc107;
+
+            /* Animation Timings */
+            --ease-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+            --ease-decelerate: cubic-bezier(0.0, 0.0, 0.2, 1);
+            --ease-accelerate: cubic-bezier(0.4, 0.0, 1, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-base);
+            color: var(--text-primary);
+            padding: 40px;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: var(--silver);
+            font-size: 28px;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-size: 14px;
+        }
+
+        h2 {
+            color: var(--silver);
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--blue);
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .demo-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--bg-elevated);
+            padding: 25px;
+        }
+
+        .demo-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--silver);
+            margin-bottom: 8px;
+        }
+
+        .demo-timing {
+            font-size: 11px;
+            color: var(--silver-dark);
+            margin-bottom: 15px;
+            font-family: 'Consolas', monospace;
+        }
+
+        .demo-area {
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .demo-hint {
+            font-size: 11px;
+            color: var(--silver-dark);
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        /* ========================================
+           BUTTON ANIMATIONS
+           ======================================== */
+        .btn-3d {
+            background: linear-gradient(180deg, #4d4d4d 0%, #3d3d3d 50%, #2d2d2d 100%);
+            color: var(--silver);
+            border: none;
+            border-top: 2px solid #6d6d6d;
+            border-left: 2px solid #5d5d5d;
+            border-right: 2px solid #1d1d1d;
+            border-bottom: 2px solid #0d0d0d;
+            padding: 10px 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .btn-3d:hover {
+            background: linear-gradient(180deg, #5d5d5d 0%, #4d4d4d 50%, #3d3d3d 100%);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .btn-3d:active {
+            background: linear-gradient(180deg, #2d2d2d 0%, #3d3d3d 50%, #4d4d4d 100%);
+            border-top: 2px solid #0d0d0d;
+            border-left: 2px solid #1d1d1d;
+            border-right: 2px solid #5d5d5d;
+            border-bottom: 2px solid #6d6d6d;
+            transform: translateY(1px);
+            transition-duration: 0.05s;
+        }
+
+        .btn-3d.primary {
+            background: linear-gradient(180deg, #0077dd 0%, #0066cc 50%, #0055aa 100%);
+            border-top-color: #3399ff;
+            border-left-color: #2288ee;
+            border-right-color: #004488;
+            border-bottom-color: #003366;
+            color: white;
+        }
+
+        .btn-3d.primary:hover {
+            background: linear-gradient(180deg, #0088ee 0%, #0077dd 50%, #0066cc 100%);
+        }
+
+        /* ========================================
+           LOADING SPINNERS
+           ======================================== */
+        @keyframes traj-spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid var(--bg-elevated);
+            border-top-color: var(--blue);
+            border-radius: 50%;
+            animation: traj-spin 1s linear infinite;
+        }
+
+        .spinner.fast {
+            animation-duration: 0.6s;
+        }
+
+        .spinner.slow {
+            animation-duration: 1.5s;
+        }
+
+        /* ========================================
+           PROGRESS BARS
+           ======================================== */
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-elevated);
+            border-radius: 4px;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--blue);
+            border-radius: 4px;
+            transition: width 0.3s var(--ease-standard);
+        }
+
+        @keyframes progress-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .progress-fill.animated {
+            animation: progress-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes progress-stripes {
+            from { background-position: 40px 0; }
+            to { background-position: 0 0; }
+        }
+
+        .progress-fill.striped {
+            background-image: linear-gradient(
+                45deg,
+                rgba(255,255,255,0.15) 25%,
+                transparent 25%,
+                transparent 50%,
+                rgba(255,255,255,0.15) 50%,
+                rgba(255,255,255,0.15) 75%,
+                transparent 75%,
+                transparent
+            );
+            background-size: 40px 40px;
+            animation: progress-stripes 1s linear infinite;
+        }
+
+        /* ========================================
+           PANEL EXPAND/COLLAPSE
+           ======================================== */
+        .panel {
+            background: var(--bg-surface);
+            border: 1px solid var(--bg-elevated);
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .panel-header:hover {
+            background: var(--bg-elevated);
+        }
+
+        .panel-title {
+            font-size: 13px;
+            color: var(--silver);
+        }
+
+        .panel-icon {
+            transition: transform 0.3s var(--ease-standard);
+            color: var(--silver-dark);
+        }
+
+        .panel.expanded .panel-icon {
+            transform: rotate(180deg);
+        }
+
+        .panel-content {
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.3s var(--ease-standard),
+                        opacity 0.2s var(--ease-standard);
+            padding: 0 15px;
+        }
+
+        .panel.expanded .panel-content {
+            max-height: 200px;
+            opacity: 1;
+            padding: 15px;
+        }
+
+        /* ========================================
+           TOAST NOTIFICATIONS
+           ======================================== */
+        @keyframes toast-enter {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes toast-exit {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        .toast {
+            background: var(--bg-surface);
+            border-left: 4px solid var(--status-success);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            animation: toast-enter 0.3s var(--ease-decelerate);
+        }
+
+        .toast.exiting {
+            animation: toast-exit 0.2s var(--ease-accelerate) forwards;
+        }
+
+        .toast-icon {
+            font-size: 18px;
+        }
+
+        /* ========================================
+           SUCCESS CHECKMARK
+           ======================================== */
+        @keyframes check-draw {
+            0% { stroke-dashoffset: 30; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        @keyframes check-circle {
+            0% { stroke-dashoffset: 100; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        .success-check {
+            width: 50px;
+            height: 50px;
+        }
+
+        .success-check .circle {
+            fill: none;
+            stroke: var(--status-success);
+            stroke-width: 2;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: check-circle 0.4s var(--ease-decelerate) forwards;
+        }
+
+        .success-check .check {
+            fill: none;
+            stroke: var(--status-success);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 30;
+            stroke-dashoffset: 30;
+            animation: check-draw 0.3s var(--ease-decelerate) 0.2s forwards;
+        }
+
+        /* ========================================
+           MODAL ANIMATION
+           ======================================== */
+        .modal-demo {
+            position: relative;
+            height: 150px;
+            background: var(--bg-base);
+            overflow: hidden;
+        }
+
+        .modal-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .modal-overlay.visible {
+            opacity: 1;
+        }
+
+        .modal-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.95);
+            background: var(--bg-surface);
+            border: 2px solid var(--blue);
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.25s ease,
+                        transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal-box.visible {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .modal-box .modal-title {
+            color: var(--silver);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .modal-box .modal-text {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        /* ========================================
+           TAB SWITCH
+           ======================================== */
+        .tabs-demo {
+            background: var(--bg-surface);
+        }
+
+        .tab-bar {
+            display: flex;
+            border-bottom: 2px solid var(--blue);
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 12px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .tab::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--blue-light);
+            transform: scaleX(0);
+            transition: transform 0.2s var(--ease-standard);
+        }
+
+        .tab:hover {
+            color: white;
+        }
+
+        .tab.active {
+            color: white;
+        }
+
+        .tab.active::after {
+            transform: scaleX(1);
+        }
+
+        .tab-content {
+            padding: 15px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* ========================================
+           TIMING TABLE
+           ======================================== */
+        .timing-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        .timing-table th,
+        .timing-table td {
+            padding: 10px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--bg-elevated);
+        }
+
+        .timing-table th {
+            background: var(--bg-surface);
+            color: var(--silver);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 11px;
+        }
+
+        .timing-table td {
+            color: var(--text-secondary);
+        }
+
+        .timing-table code {
+            background: var(--bg-elevated);
+            padding: 2px 6px;
+            font-family: 'Consolas', monospace;
+            font-size: 11px;
+        }
+
+        /* Footer */
+        .footer-notes {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--bg-elevated);
+            color: var(--silver-dark);
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>TRAJANUS UI PREVIEW</h1>
+    <p class="subtitle">Animation Demonstrations — Interactive examples of approved animation patterns</p>
+
+    <!-- BUTTONS -->
+    <div class="section">
+        <h2>Button Interactions</h2>
+        <div class="demo-grid">
+            <div class="demo-card">
+                <div class="demo-title">3D Beveled Button</div>
+                <div class="demo-timing">150ms ease | Active: 50ms</div>
+                <div class="demo-area">
+                    <button class="btn-3d">Secondary</button>
+                    <button class="btn-3d primary">Primary Action</button>
+                </div>
+                <div class="demo-hint">Hover and click to see states</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOADING STATES -->
+    <div class="section">
+        <h2>Loading Indicators</h2>
+        <div class="demo-grid">
+            <div class="demo-card">
+                <div class="demo-title">Spinners</div>
+                <div class="demo-timing">1000ms linear infinite</div>
+                <div class="demo-area">
+                    <div class="spinner fast"></div>
+                    <div class="spinner"></div>
+                    <div class="spinner slow"></div>
+                </div>
+                <div class="demo-hint">Fast (600ms) | Normal (1s) | Slow (1.5s)</div>
+            </div>
+            <div class="demo-card">
+                <div class="demo-title">Progress Bar - Static</div>
+                <div class="demo-timing">width: 300ms ease</div>
+                <div class="demo-area" style="flex-direction: column; gap: 10px;">
+                    <div class="progress-bar"><div class="progress-fill" style="width: 25%;"></div></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 50%;"></div></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 75%;"></div></div>
+                </div>
+            </div>
+            <div class="demo-card">
+                <div class="demo-title">Progress Bar - Animated</div>
+                <div class="demo-timing">Striped: 1s linear infinite</div>
+                <div class="demo-area" style="flex-direction: column; gap: 10px;">
+                    <div class="progress-bar"><div class="progress-fill animated" style="width: 60%;"></div></div>
+                    <div class="progress-bar"><div class="progress-fill striped" style="width: 80%;"></div></div>
+                </div>
+                <div class="demo-hint">Pulse | Striped (indeterminate)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANELS -->
+    <div class="section">
+        <h2>Panel Expand/Collapse</h2>
+        <div class="demo-grid">
+            <div class="demo-card">
+                <div class="demo-title">Collapsible Panel</div>
+                <div class="demo-timing">300ms ease-in-out</div>
+                <div class="demo-area" style="display: block;">
+                    <div class="panel" id="panel1">
+                        <div class="panel-header" onclick="togglePanel('panel1')">
+                            <span class="panel-title">Click to Expand</span>
+                            <span class="panel-icon">▼</span>
+                        </div>
+                        <div class="panel-content">
+                            <p style="color: var(--text-secondary); font-size: 12px;">
+                                This content smoothly expands and collapses with a 300ms animation.
+                                The icon rotates 180° to indicate state.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOASTS -->
+    <div class="section">
+        <h2>Toast Notifications</h2>
+        <div class="demo-grid">
+            <div class="demo-card">
+                <div class="demo-title">Toast Enter/Exit</div>
+                <div class="demo-timing">Enter: 300ms ease-out | Exit: 200ms ease-in</div>
+                <div class="demo-area" style="flex-direction: column; gap: 10px;">
+                    <div class="toast" id="toast1">
+                        <span class="toast-icon">✓</span>
+                        <span>Operation completed successfully</span>
+                    </div>
+                    <button class="btn-3d" onclick="replayToast()">Replay Animation</button>
+                </div>
+            </div>
+            <div class="demo-card">
+                <div class="demo-title">Success Checkmark</div>
+                <div class="demo-timing">Circle: 400ms | Check: 300ms (delay 200ms)</div>
+                <div class="demo-area" style="flex-direction: column; gap: 10px;">
+                    <svg class="success-check" id="checkmark" viewBox="0 0 50 50">
+                        <circle class="circle" cx="25" cy="25" r="20"/>
+                        <polyline class="check" points="15,25 22,32 35,19"/>
+                    </svg>
+                    <button class="btn-3d" onclick="replayCheckmark()">Replay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div class="section">
+        <h2>Modal Animation</h2>
+        <div class="demo-grid">
+            <div class="demo-card">
+                <div class="demo-title">Modal Open/Close</div>
+                <div class="demo-timing">Overlay: 200ms | Modal: 250ms spring</div>
+                <div class="demo-area" style="display: block;">
+                    <div class="modal-demo" id="modalDemo">
+                        <div class="modal-overlay" id="modalOverlay"></div>
+                        <div class="modal-box" id="modalBox">
+                            <div class="modal-title">Modal Title</div>
+                            <div class="modal-text">Content appears with spring easing</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 10px;">
+                        <button class="btn-3d" onclick="toggleModal()">Toggle Modal</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="section">
+        <h2>Tab Switching</h2>
+        <div class="demo-grid">
+            <div class="demo-card">
+                <div class="demo-title">Tab Indicator</div>
+                <div class="demo-timing">200ms ease-in-out</div>
+                <div class="demo-area" style="display: block;">
+                    <div class="tabs-demo">
+                        <div class="tab-bar">
+                            <button class="tab active" onclick="switchTab(this)">Tab One</button>
+                            <button class="tab" onclick="switchTab(this)">Tab Two</button>
+                            <button class="tab" onclick="switchTab(this)">Tab Three</button>
+                        </div>
+                        <div class="tab-content">
+                            Click tabs to see the animated underline indicator
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TIMING REFERENCE -->
+    <div class="section">
+        <h2>Timing Reference</h2>
+        <table class="timing-table">
+            <thead>
+                <tr>
+                    <th>Component</th>
+                    <th>Duration</th>
+                    <th>Easing</th>
+                    <th>Delay</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Button hover</td>
+                    <td><code>150ms</code></td>
+                    <td><code>ease</code></td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>Button active</td>
+                    <td><code>50ms</code></td>
+                    <td><code>ease-out</code></td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>Panel expand</td>
+                    <td><code>300ms</code></td>
+                    <td><code>ease-in-out</code></td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>Panel collapse</td>
+                    <td><code>250ms</code></td>
+                    <td><code>ease-in</code></td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>Modal overlay</td>
+                    <td><code>200ms</code></td>
+                    <td><code>ease</code></td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>Modal scale</td>
+                    <td><code>250ms</code></td>
+                    <td><code>cubic-bezier(0.34, 1.56, 0.64, 1)</code></td>
+                    <td>50ms</td>
+                </tr>
+                <tr>
+                    <td>Toast enter</td>
+                    <td><code>300ms</code></td>
+                    <td><code>ease-out</code></td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>Toast exit</td>
+                    <td><code>200ms</code></td>
+                    <td><code>ease-in</code></td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>Spinner</td>
+                    <td><code>1000ms</code></td>
+                    <td><code>linear</code></td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>Progress update</td>
+                    <td><code>200ms</code></td>
+                    <td><code>ease</code></td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>Tab switch</td>
+                    <td><code>200ms</code></td>
+                    <td><code>ease-in-out</code></td>
+                    <td>0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer-notes">
+        <p><strong>Guidelines:</strong> All animations follow the command center aesthetic — functional, not decorative. Animations should feel immediate and deliberate. No bounce, elastic, or playful effects.</p>
+        <p style="margin-top: 10px;">File: UI_PREVIEW_animations.html | Created: January 14, 2026 | Trajanus Enterprise Hub</p>
+    </div>
+
+    <script>
+        // Panel toggle
+        function togglePanel(id) {
+            document.getElementById(id).classList.toggle('expanded');
+        }
+
+        // Toast replay
+        function replayToast() {
+            const toast = document.getElementById('toast1');
+            toast.classList.add('exiting');
+            setTimeout(() => {
+                toast.style.display = 'none';
+                toast.classList.remove('exiting');
+                setTimeout(() => {
+                    toast.style.display = 'flex';
+                }, 50);
+            }, 200);
+        }
+
+        // Checkmark replay
+        function replayCheckmark() {
+            const svg = document.getElementById('checkmark');
+            const clone = svg.cloneNode(true);
+            clone.id = 'checkmark';
+            svg.parentNode.replaceChild(clone, svg);
+        }
+
+        // Modal toggle
+        let modalOpen = false;
+        function toggleModal() {
+            modalOpen = !modalOpen;
+            document.getElementById('modalOverlay').classList.toggle('visible', modalOpen);
+            document.getElementById('modalBox').classList.toggle('visible', modalOpen);
+        }
+
+        // Tab switching
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+        }
+    </script>
+</body>
+</html>

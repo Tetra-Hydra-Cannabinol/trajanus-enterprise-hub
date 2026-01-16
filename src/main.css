@@ -741,6 +741,28 @@ a:hover {
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
+    position: relative;
+    min-height: 350px;
+    background-image: url('assets/brain-8825819_1280.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.chat-messages::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(10, 10, 10, 0.88);
+    pointer-events: none;
+}
+
+.chat-messages > * {
+    position: relative;
+    z-index: 1;
 }
 
 .chat-welcome {
@@ -1745,97 +1767,146 @@ a:hover {
 }
 
 /* ============================================
-   EXTERNAL PROGRAM BUTTONS - 120x44px
+   EXTERNAL PROGRAM BUTTONS - V2 SYNAPSE STYLE
+   Same neural glow as script buttons, narrower size
    ============================================ */
 .ext-btn {
     width: 120px;
     height: 44px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: 600;
-    transition: all 0.15s ease;
     border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #C0C0C0;
+    background: #0d0d0d;
+    position: relative;
+    transition: all 0.2s ease;
+    box-shadow:
+        0 0 0 1px rgba(0, 170, 255, 0.5),
+        0 0 0 3px #0a0a0a,
+        0 0 15px rgba(0, 170, 255, 0.15),
+        inset 0 0 20px rgba(0, 170, 255, 0.03);
+    text-shadow: 0 0 8px rgba(0, 170, 255, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
-    color: #ffffff;
+}
+
+.ext-btn::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 15%;
+    right: 15%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00AAFF, transparent);
+    border-radius: 2px;
 }
 
 .ext-btn:hover {
     transform: translateY(-2px);
-    filter: brightness(1.15);
+    color: #fff;
+    box-shadow:
+        0 0 0 1px rgba(0, 170, 255, 0.8),
+        0 0 0 3px #0a0a0a,
+        0 0 0 5px rgba(0, 170, 255, 0.4),
+        0 0 30px rgba(0, 170, 255, 0.3),
+        0 0 50px rgba(0, 170, 255, 0.15),
+        inset 0 0 40px rgba(0, 170, 255, 0.05);
+    text-shadow: 0 0 15px rgba(0, 170, 255, 0.9);
 }
 
 .ext-btn:active {
-    transform: translateY(2px);
+    transform: translateY(1px);
+    color: #FFB347;
+    box-shadow:
+        0 0 0 1px rgba(255, 149, 0, 0.8),
+        0 0 0 3px #0a0a0a,
+        0 0 0 5px rgba(255, 149, 0, 0.3),
+        0 0 20px rgba(255, 149, 0, 0.2),
+        inset 0 0 30px rgba(255, 149, 0, 0.05);
+    text-shadow: 0 0 10px rgba(255, 149, 0, 0.7);
 }
 
 /* ============================================
-   TRAJANUS SCRIPT BUTTONS - 160x50px
+   TRAJANUS SCRIPT BUTTONS - V2 SYNAPSE STYLE
+   Neural glow with double-ring border effect
    ============================================ */
 .script-btn {
     width: 160px;
     height: 50px;
-    border-radius: 8px;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 13px;
     font-weight: 600;
-    transition: all 0.15s ease;
-    border: 1px solid #00CCFF;
+    letter-spacing: 0.8px;
+    color: #00AAFF;
+    background: #0a0a0a;
+    box-shadow:
+        0 0 0 1px rgba(0, 170, 255, 0.5),
+        0 0 0 3px #0a0a0a,
+        0 0 0 4px rgba(0, 170, 255, 0.3),
+        0 0 15px rgba(0, 170, 255, 0.2),
+        inset 0 0 30px rgba(0, 170, 255, 0.03);
+    text-shadow: 0 0 8px rgba(0, 170, 255, 0.5);
+    transition: all 0.25s ease;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    color: #ffffff;
-    background: linear-gradient(145deg, #00AAFF, #0077CC);
-    box-shadow: 0 3px 0 #005599, 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.script-btn::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00AAFF, transparent);
+    border-radius: 2px;
 }
 
 .script-btn:hover {
     transform: translateY(-2px);
-    filter: brightness(1.15);
+    color: #fff;
+    box-shadow:
+        0 0 0 1px rgba(0, 170, 255, 0.8),
+        0 0 0 3px #0a0a0a,
+        0 0 0 4px rgba(0, 170, 255, 0.5),
+        0 0 25px rgba(0, 170, 255, 0.4),
+        0 0 50px rgba(0, 170, 255, 0.15),
+        inset 0 0 40px rgba(0, 170, 255, 0.05);
+    text-shadow: 0 0 15px rgba(0, 170, 255, 0.9);
 }
 
 .script-btn:active {
-    transform: translateY(2px);
+    transform: translateY(1px);
+    color: #FFB347;
+    box-shadow:
+        0 0 0 1px rgba(255, 149, 0, 0.8),
+        0 0 0 3px #0a0a0a,
+        0 0 0 4px rgba(255, 149, 0, 0.4),
+        0 0 20px rgba(255, 149, 0, 0.3),
+        inset 0 0 30px rgba(255, 149, 0, 0.05);
+    text-shadow: 0 0 10px rgba(255, 149, 0, 0.7);
 }
 
-/* ============================================
-   BRAND COLORS FOR EXTERNAL PROGRAMS
-   ============================================ */
+/* Script Button Brain Icon */
+.script-btn-icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    object-fit: cover;
+    filter: drop-shadow(0 0 4px rgba(0, 170, 255, 0.5));
+}
 
-/* Microsoft Office */
-.btn-word { background: linear-gradient(145deg, #2B579A, #1E3F6F); box-shadow: 0 3px 0 #152D4F, 0 4px 8px rgba(0,0,0,0.3); }
-.btn-excel { background: linear-gradient(145deg, #217346, #185C37); box-shadow: 0 3px 0 #0F3D22, 0 4px 8px rgba(0,0,0,0.3); }
-.btn-powerpoint { background: linear-gradient(145deg, #D24726, #B7361A); box-shadow: 0 3px 0 #8B2810, 0 4px 8px rgba(0,0,0,0.3); }
-.btn-outlook { background: linear-gradient(145deg, #0078D4, #005A9E); box-shadow: 0 3px 0 #003D6B, 0 4px 8px rgba(0,0,0,0.3); }
-.btn-teams { background: linear-gradient(145deg, #6264A7, #4B4D8A); box-shadow: 0 3px 0 #353666, 0 4px 8px rgba(0,0,0,0.3); }
-.btn-onenote { background: linear-gradient(145deg, #7719AA, #5C1384); box-shadow: 0 3px 0 #3D0C58, 0 4px 8px rgba(0,0,0,0.3); }
-
-/* Developer Tools */
-.btn-vscode { background: linear-gradient(145deg, #007ACC, #005A9E); box-shadow: 0 3px 0 #003D6B, 0 4px 8px rgba(0,0,0,0.3); }
-.btn-powershell { background: linear-gradient(145deg, #012456, #001733); box-shadow: 0 3px 0 #000B1A, 0 4px 8px rgba(0,0,0,0.3); }
-.btn-github { background: linear-gradient(145deg, #333333, #1a1a1a); box-shadow: 0 3px 0 #000000, 0 4px 8px rgba(0,0,0,0.3); }
-.btn-python { background: linear-gradient(145deg, #3776AB, #2B5B84); box-shadow: 0 3px 0 #1E3F5C, 0 4px 8px rgba(0,0,0,0.3); }
-.btn-terminal { background: linear-gradient(145deg, #2D2D2D, #1a1a1a); box-shadow: 0 3px 0 #000000, 0 4px 8px rgba(0,0,0,0.3); color: #00FF00; }
-
-/* Browsers & Utilities */
-.btn-chrome { background: linear-gradient(145deg, #4285F4, #2D6BD4); box-shadow: 0 3px 0 #1E4A9A, 0 4px 8px rgba(0,0,0,0.3); }
-.btn-edge { background: linear-gradient(145deg, #0078D7, #005A9E); box-shadow: 0 3px 0 #003D6B, 0 4px 8px rgba(0,0,0,0.3); }
-.btn-explorer { background: linear-gradient(145deg, #FFC83D, #E5A800); box-shadow: 0 3px 0 #B38600, 0 4px 8px rgba(0,0,0,0.3); color: #1a1a1a; }
-.btn-gdrive { background: linear-gradient(145deg, #34A853, #2D8A45); box-shadow: 0 3px 0 #1E6B30, 0 4px 8px rgba(0,0,0,0.3); }
-.btn-notepad { background: linear-gradient(145deg, #90E59A, #6BC275); box-shadow: 0 3px 0 #4A9A54, 0 4px 8px rgba(0,0,0,0.3); color: #1a1a1a; }
-.btn-calc { background: linear-gradient(145deg, #4a4a4a, #2a2a2a); box-shadow: 0 3px 0 #1a1a1a, 0 4px 8px rgba(0,0,0,0.3); }
-.btn-gmail { background: linear-gradient(145deg, #EA4335, #C5221F); box-shadow: 0 3px 0 #8B1810, 0 4px 8px rgba(0,0,0,0.3); }
-
-/* Federal & Project Controls */
-.btn-rms { background: linear-gradient(145deg, #3498DB, #2980B9); box-shadow: 0 3px 0 #1F5F8B, 0 4px 8px rgba(0,0,0,0.3); }
-.btn-cefms { background: linear-gradient(145deg, #9B59B6, #8E44AD); box-shadow: 0 3px 0 #6C3483, 0 4px 8px rgba(0,0,0,0.3); }
-.btn-p6 { background: linear-gradient(145deg, #E74C3C, #C0392B); box-shadow: 0 3px 0 #922B21, 0 4px 8px rgba(0,0,0,0.3); }
-.btn-procore { background: linear-gradient(145deg, #F47920, #D96A1A); box-shadow: 0 3px 0 #B85510, 0 4px 8px rgba(0,0,0,0.3); }
-.btn-msproject { background: linear-gradient(145deg, #217346, #185C37); box-shadow: 0 3px 0 #0F3D22, 0 4px 8px rgba(0,0,0,0.3); }
+/* Brand color classes removed - ext-btn now uses V2 Synapse glow style */
 
 /* ============================================
    HUB PAGE SECTION DIVIDERS
@@ -1875,11 +1946,34 @@ a:hover {
 }
 
 .hub-agent-messages {
-    min-height: 120px;
-    max-height: 300px;
+    min-height: 280px;
+    max-height: 400px;
     overflow-y: auto;
     margin-bottom: 12px;
-    padding: 8px;
+    padding: 16px;
+    position: relative;
+    background-image: url('assets/brain-8825819_1280.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 4px;
+}
+
+.hub-agent-messages::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(10, 10, 10, 0.88);
+    pointer-events: none;
+    border-radius: 4px;
+}
+
+.hub-agent-messages > * {
+    position: relative;
+    z-index: 1;
 }
 
 .hub-agent-input {
@@ -1937,45 +2031,26 @@ a:hover {
 
 /* STANDARDIZED BUTTON CLASSES - Added 2026-01-15 */
 
-.ext-btn {
-    width: 120px;
-    height: 44px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: 600;
-    transition: all 0.15s ease;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    color: #ffffff;
+/* ext-btn V2 Synapse style defined above in EXTERNAL PROGRAM BUTTONS section */
+
+/* External Button Icons - 85% fill */
+.ext-btn-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 4px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 4px rgba(0, 170, 255, 0.5));
 }
 
-.ext-btn:hover { transform: translateY(-2px); filter: brightness(1.15); }
-.ext-btn:active { transform: translateY(2px); }
-
-.script-btn {
-    width: 160px;
-    height: 50px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 600;
-    transition: all 0.15s ease;
-    border: 1px solid #00CCFF;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    color: #ffffff;
-    background: linear-gradient(145deg, #00AAFF, #0077CC);
-    box-shadow: 0 3px 0 #005599, 0 4px 8px rgba(0,0,0,0.3);
+.ext-btn:hover .ext-btn-icon {
+    filter: drop-shadow(0 0 8px rgba(0, 170, 255, 0.8));
 }
 
-.script-btn:hover { transform: translateY(-2px); filter: brightness(1.15); }
-.script-btn:active { transform: translateY(2px); }
+.ext-btn:active .ext-btn-icon {
+    filter: drop-shadow(0 0 6px rgba(255, 149, 0, 0.7));
+}
+
+/* script-btn V2 Synapse style defined above in TRAJANUS SCRIPT BUTTONS section */
 
 .nav-btn {
     width: 140px;
@@ -1993,12 +2068,4 @@ a:hover {
     box-shadow: 0 3px 0 #2a2a2a, 0 4px 8px rgba(0,0,0,0.3);
 }
 
-.btn-word { background: linear-gradient(145deg, #2B579A, #1E3F6F); box-shadow: 0 3px 0 #152D4F; }
-.btn-excel { background: linear-gradient(145deg, #217346, #185C37); box-shadow: 0 3px 0 #0F3D22; }
-.btn-powerpoint { background: linear-gradient(145deg, #D24726, #B7361A); box-shadow: 0 3px 0 #8B2810; }
-.btn-outlook { background: linear-gradient(145deg, #0078D4, #005A9E); box-shadow: 0 3px 0 #003D6B; }
-.btn-teams { background: linear-gradient(145deg, #6264A7, #4B4D8A); box-shadow: 0 3px 0 #353666; }
-.btn-vscode { background: linear-gradient(145deg, #007ACC, #005A9E); box-shadow: 0 3px 0 #003D6B; }
-.btn-chrome { background: linear-gradient(145deg, #4285F4, #2D6BD4); box-shadow: 0 3px 0 #1E4A9A; }
-.btn-edge { background: linear-gradient(145deg, #0078D7, #005A9E); box-shadow: 0 3px 0 #003D6B; }
-.btn-gdrive { background: linear-gradient(145deg, #34A853, #2D8A45); box-shadow: 0 3px 0 #1E6B30; }
+/* Brand color classes removed - ext-btn now uses V2 Synapse glow style */

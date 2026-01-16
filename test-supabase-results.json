@@ -1,0 +1,125 @@
+{
+  "timestamp": "2026-01-13T14:30:24.005Z",
+  "tests": [
+    {
+      "name": "list_knowledge_sources",
+      "passed": true,
+      "recordCount": 34,
+      "error": null,
+      "sampleData": [
+        {
+          "source": "Traffic-Studeis Package I",
+          "url_count": 149,
+          "chunk_count": 13067,
+          "latest_update": "2026-01-04T19:33:39.330027+00:00"
+        },
+        {
+          "source": "YouTube Tutorials",
+          "url_count": 120,
+          "chunk_count": 8320,
+          "latest_update": "2025-12-23T17:43:37.575295+00:00"
+        }
+      ]
+    },
+    {
+      "name": "search_by_text",
+      "passed": true,
+      "recordCount": 5,
+      "error": null,
+      "sampleData": [
+        {
+          "id": 4,
+          "url": "https://trajanus.local/sessions/2025-12-09-rag-setup",
+          "chunk_number": 1,
+          "title": "RAG System Setup Session - December 9, 2025 (Part 1)",
+          "summary": "TRAJANUS RAG SYSTEM SETUP SESSION - December 9, 2025 EXECUTIVE SUMMARY: Tonight we completed the setup of a permanent AI...",
+          "content": "TRAJANUS RAG SYSTEM SETUP SESSION - December 9, 2025\n\nEXECUTIVE SUMMARY:\nTonight we completed the setup of a permanent AI memory system using RAG (Retrieval-Augmented Generation). \nAfter an 8-hour marathon session, we successfully deployed a Supabase PostgreSQL database with pgvector \nextension, integrated OpenAI embeddings API, and created a complete pipeline for storing and retrieving \nknowledge across Claude sessions.\n\nKEY ACCOMPLISHMENTS:\n- Supabase database created with vector search capabilities\n- Complete schema with 4 agentic RAG functions deployed\n- Folder structure established (13-Knowledge-Base with 9 categories)\n- OpenAI embeddings API integrated and tested\n- Python dependencies resolved and verified\n- End-to-end pipeline tested and operational\n\nTECHNICAL DETAILS:\nThe system uses text-embedding-3-small model from OpenAI to generate 1536-dimension vectors for semantic \nsearch. Content is chunked into 1000-character segments with 200-character overlap to preserve context.",
+          "metadata": {
+            "source": "Session History",
+            "processed_at": "2025-12-09T18:32:33.668117",
+            "total_chunks": 4
+          },
+          "rank": 0.0889769
+        },
+        {
+          "id": 1150,
+          "url": "file:///08-EOS-Files\\EOS Files 12-10\\2025-12-10_Technical_Journal_RAG_Complete.md",
+          "chunk_number": 1,
+          "title": "2025-12-10_Technical_Journal_RAG_Complete (Part 1)",
+          "summary": "# Technical Journal - December 10, 2025 ## RAG Knowledge Base System - Final Implementation **Session Date:** December 9-10, 2025...",
+          "content": "# Technical Journal - December 10, 2025\n## RAG Knowledge Base System - Final Implementation\n\n**Session Date:** December 9-10, 2025 (17:00 - 02:45)  \n**Duration:** 9 hours 45 minutes  \n**Session Type:** Marathon Development - System Completion\n\n---\n\n## SYSTEM ARCHITECTURE FINALIZED\n\n### Database Layer - Supabase PostgreSQL\n```\nDatabase: Supabase PostgreSQL 15\nExtension: pgvector (vector similarity search)\nTable: knowledge_base\n- Primary key: id (BIGSERIAL)\n- Content fields: url, chunk_number, title, summary, content\n- Search field: embedding vector(1536)\n- Metadata: JSONB with source, category, filters\n- Timestamps: created_at, updated_at with auto-update trigger\n```\n\n**Critical Configuration:**\n- RLS (Row Level Security): DISABLED after blocking inserts\n- Vector Index: IVFFlat with 100 lists for cosine similarity\n- Functions: 4 specialized RAG query functions\n\n### Embedding Layer - OpenAI\n```\nModel: text-embedding-3-small\nDimensions: 1536\nCost: $0.02 per 1M tokens\nPerformance: ~3 secon",
+          "metadata": {
+            "source": "Session History",
+            "filename": "2025-12-10_Technical_Journal_RAG_Complete.md",
+            "file_type": ".md",
+            "processed_at": "2025-12-10T11:39:12.857222",
+            "total_chunks": 22
+          },
+          "rank": 0.0865452
+        }
+      ]
+    },
+    {
+      "name": "get_url_content",
+      "passed": true,
+      "recordCount": 1,
+      "error": null,
+      "sampleData": [
+        {
+          "chunk_number": 1,
+          "title": "Manual Test Insert",
+          "summary": "Testing direct SQL insert",
+          "content": "This is a manual test to verify the database accepts inserts.",
+          "metadata": {
+            "test": true,
+            "source": "SQL"
+          }
+        }
+      ]
+    },
+    {
+      "name": "match_knowledge_base",
+      "passed": true,
+      "recordCount": 5,
+      "error": null,
+      "sampleData": [
+        {
+          "id": 1123,
+          "url": "file:///08-EOS-Files\\EOS Files 12-10\\2025-12-10_Next_Session_Handoff.md",
+          "chunk_number": 5,
+          "title": "2025-12-10_Next_Session_Handoff (Part 5)",
+          "summary": "025-12-10_Next_Session_Handoff.md Other docs from session: - RAG_Setup_Guide_Complete.md - RAG_Troubleshooting_Log_Complete.md - RAG_Test_Protocol_Complete.md - CLAUDE_KB_INSTRUCTIONS.md ``` ### Environment Configuration ``` .env file...",
+          "content": "025-12-10_Next_Session_Handoff.md\n\nOther docs from session:\n- RAG_Setup_Guide_Complete.md\n- RAG_Troubleshooting_Log_Complete.md  \n- RAG_Test_Protocol_Complete.md\n- CLAUDE_KB_INSTRUCTIONS.md\n```\n\n### Environment Configuration\n```\n.env file contains:\nSUPABASE_URL=[Bill's project URL]\nSUPABASE_SERVICE_KEY=[service_role key]\nOPENAI_API_KEY=[with $10 billing enabled]\n\nVerify these exist before running any scripts!\n```\n\n---\n\n## CRITICAL BUGS RESOLVED (Don't Re-Encounter)\n\n### 1. RLS Blocking Writes\n**What happened:** Row Level Security silently blocked inserts  \n**Solution:** `ALTER TABLE knowledge_base DISABLE ROW LEVEL SECURITY;`  \n**Don't:** Re-enable RLS without proper service_role policy\n\n### 2. Function Overloading Conflict  \n**What happened:** Two match_knowledge_base() versions caused PGRST203  \n**Solution:** Drop all versions, create single canonical function  \n**Don't:** Add parameters to existing functions - create new functions instead\n\n### 3.",
+          "metadata": {
+            "source": "Session History",
+            "filename": "2025-12-10_Next_Session_Handoff.md",
+            "file_type": ".md",
+            "processed_at": "2025-12-10T11:38:53.941976",
+            "total_chunks": 15
+          },
+          "similarity": 0.444359772747799
+        },
+        {
+          "id": 2441,
+          "url": "file:///00-Command-Center\\agents\\Research\\Research_Index_20251217.md",
+          "chunk_number": 46,
+          "title": "Research_Index_20251217 (Part 46)",
+          "summary": "File: `20251217_Finding_143_Real-Time Monitoring for RAG Agents- Key Metrics - Newline.co.md` - URL: https://www.newline.co/@zaoyang/real-time-monitoring-for-rag-agents-key-metrics--1595b033 144. **Mastering RAG: How To Observe Your...",
+          "content": "File: `20251217_Finding_143_Real-Time Monitoring for RAG Agents- Key Metrics - Newline.co.md`\n   - URL: https://www.newline.co/@zaoyang/real-time-monitoring-for-rag-agents-key-metrics--1595b033\n\n144. **Mastering RAG: How To Observe Your RAG Post-Deployment**\n   - File: `20251217_Finding_144_Mastering RAG- How To Observe Your RAG Post-Deployment.md`\n   - URL: https://galileo.ai/blog/mastering-rag-how-to-observe-your-rag-post-deployment\n\n145. **Introduction to evaluation & monitoring RAG applications**\n   - File: `20251217_Finding_145_Introduction to evaluation & monitoring RAG applications.md`\n   - URL: https://docs.databricks.com/aws/en/generative-ai/tutorials/ai-cookbook/fundamentals-evaluation-monitoring-rag\n\n\n### Electron desktop app production architecture\n\n146. **Getting Started with Electron: A Guide To Building Desktop A**\n   - File: `20251217_Finding_146_Getting Started with Electron- A Guide To Building Desktop Apps.md`\n   - URL: https://dev.to/moseeh_52/getting-started-with-",
+          "metadata": {
+            "source": "Research",
+            "filename": "Research_Index_20251217.md",
+            "file_type": ".md",
+            "processed_at": "2025-12-17T15:37:04.554202",
+            "total_chunks": 53
+          },
+          "similarity": 0.406704001020434
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0
+  }
+}
