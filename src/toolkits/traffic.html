@@ -47,6 +47,7 @@
             background: var(--bg-base);
             color: var(--text-light);
             line-height: 1.5;
+            border: 2px solid #0066CC;
         }
 
         /* ==================== STICKY HERO SECTION ==================== */
@@ -109,23 +110,27 @@
         }
 
         .hero-home-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background: transparent;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            font-size: 14px;
+            width: 130px;
+            height: 36px;
             border-radius: 6px;
             cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            border: 1px solid #00AAFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            color: #00AAFF;
+            background: transparent;
             text-decoration: none;
-            transition: all 0.2s;
         }
 
         .hero-home-btn:hover {
-            background: var(--gold);
-            color: var(--bg-base);
+            background: rgba(0, 170, 255, 0.15);
+            color: #33BBFF;
+            border-color: #33BBFF;
         }
 
         /* ==================== INTRODUCTION SECTION ==================== */
@@ -1181,19 +1186,27 @@
 
         .action-btn {
             padding: 12px 24px;
-            background: transparent;
-            border: 2px solid var(--blue);
-            color: var(--accent-silver);
+            background: linear-gradient(145deg, #00BBFF, #0088CC);
+            border: 1px solid #00CCFF;
+            color: #ffffff;
             font-size: 14px;
             font-weight: 600;
             border-radius: 6px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.15s ease;
+            box-shadow: 0 3px 0 #005588, 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .action-btn:hover {
-            background: var(--blue);
-            color: var(--bg-base);
+            background: linear-gradient(145deg, #33CCFF, #00AAFF);
+            color: #ffffff;
+            box-shadow: 0 2px 0 #005588, 0 3px 6px rgba(0, 0, 0, 0.3);
+            transform: translateY(1px);
+        }
+
+        .action-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 0 0 #005588, 0 1px 3px rgba(0, 0, 0, 0.3);
         }
 
         /* Step Tools */
@@ -1549,32 +1562,43 @@
         .guidance-action-btn {
             width: 100%;
             padding: 10px 16px;
-            background: transparent;
-            border: 1px solid #c0c0c0;
+            background: linear-gradient(145deg, #5a5a5a, #3a3a3a);
+            border: 1px solid #6a6a6a;
             border-radius: 6px;
-            color: #c0c0c0;
+            color: #C0C0C0;
             font-size: 13px;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.15s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            box-shadow: 0 2px 0 #2a2a2a, 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .guidance-action-btn:hover {
-            background: #c0c0c0;
-            color: #0a0a0a;
+            background: linear-gradient(145deg, #6a6a6a, #4a4a4a);
+            color: #ffffff;
+            box-shadow: 0 1px 0 #2a2a2a, 0 1px 3px rgba(0, 0, 0, 0.3);
+            transform: translateY(1px);
+        }
+
+        .guidance-action-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 0 0 #2a2a2a, 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         .guidance-action-btn.primary {
-            background: #00AAFF;
-            color: #0a0a0a;
-            border-color: #00AAFF;
+            background: linear-gradient(145deg, #00BBFF, #0088CC);
+            color: #ffffff;
+            border: 1px solid #00CCFF;
+            box-shadow: 0 2px 0 #005588, 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .guidance-action-btn.primary:hover {
-            background: #f4cf57;
+            background: linear-gradient(145deg, #33CCFF, #00AAFF);
+            box-shadow: 0 1px 0 #005588, 0 1px 3px rgba(0, 0, 0, 0.3);
         }
 
         /* Claude Prime Embed Container */
@@ -1649,25 +1673,226 @@
             font-size: 13px;
             max-width: 300px;
         }
+
+        /* ============================================
+           EXTERNAL PROGRAM BUTTONS - FIXED 120x44px
+           ============================================ */
+
+        .ext-btn {
+            width: 120px;
+            height: 44px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            color: #ffffff;
+        }
+
+        .ext-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.15);
+        }
+
+        .ext-btn:active {
+            transform: translateY(2px);
+        }
+
+        /* ============================================
+           TRAJANUS SCRIPT BUTTONS - FIXED 160x50px
+           ============================================ */
+
+        .script-btn {
+            width: 160px;
+            height: 50px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            border: 1px solid #00CCFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #ffffff;
+            background: linear-gradient(145deg, #00AAFF, #0077CC);
+            box-shadow: 0 3px 0 #005599, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .script-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.15);
+        }
+
+        .script-btn:active {
+            transform: translateY(2px);
+        }
+
+        /* ============================================
+           NAV BUTTON - Return to Hub - 140x44px
+           ============================================ */
+
+        .nav-btn {
+            width: 140px;
+            height: 44px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            border: 1px solid #6a6a6a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            color: #C0C0C0;
+            background: linear-gradient(145deg, #5a5a5a, #3a3a3a);
+            box-shadow: 0 3px 0 #2a2a2a, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            color: #ffffff;
+            filter: brightness(1.15);
+        }
+
+        /* ============================================
+           BRAND COLORS FOR EXTERNAL PROGRAMS
+           ============================================ */
+
+        .btn-word {
+            background: linear-gradient(145deg, #2B579A, #1E3F6F);
+            box-shadow: 0 3px 0 #152D4F, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-excel {
+            background: linear-gradient(145deg, #217346, #185C37);
+            box-shadow: 0 3px 0 #0F3D22, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-powerpoint {
+            background: linear-gradient(145deg, #D24726, #B7361A);
+            box-shadow: 0 3px 0 #8B2810, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-outlook {
+            background: linear-gradient(145deg, #0078D4, #005A9E);
+            box-shadow: 0 3px 0 #003D6B, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-teams {
+            background: linear-gradient(145deg, #6264A7, #4B4D8A);
+            box-shadow: 0 3px 0 #353666, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-onenote {
+            background: linear-gradient(145deg, #7719AA, #5C1384);
+            box-shadow: 0 3px 0 #3D0C58, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-vscode {
+            background: linear-gradient(145deg, #007ACC, #005A9E);
+            box-shadow: 0 3px 0 #003D6B, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-chrome {
+            background: linear-gradient(145deg, #4285F4, #2D6BD4);
+            box-shadow: 0 3px 0 #1E4A9A, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-edge {
+            background: linear-gradient(145deg, #0078D7, #005A9E);
+            box-shadow: 0 3px 0 #003D6B, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-gdrive {
+            background: linear-gradient(145deg, #34A853, #2D8A45);
+            box-shadow: 0 3px 0 #1E6B30, 0 4px 8px rgba(0,0,0,0.3);
+        }
     </style>
 </head>
 <body>
-    <!-- Sticky Hero Section -->
+    <!-- Sticky Hero Section with Logo -->
     <section class="hero-section">
         <div class="hero-content">
             <div class="hero-brand">
-                <div class="hero-company">Trajanus USA EI<span class="tm">™</span></div>
-                <div class="hero-toolkit">Traffic Studies Toolkit</div>
-                <div class="hero-description">
-                    Complete traffic impact analysis workspace. Generate trip counts,
-                    build Synchro models, analyze LOS, and produce professional TIA reports
-                    compliant with Arizona jurisdiction requirements.
+                <!-- 3D Trajanus Logo -->
+                <style>
+                    .toolkit-logo-lockup {
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                    }
+                    .toolkit-brand-text {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                    }
+                    .toolkit-brand-title {
+                        font-family: 'Copperplate Gothic Bold', 'Copperplate', serif;
+                        font-size: 28pt;
+                        font-weight: 900;
+                        color: #00AAFF;
+                        letter-spacing: 0.15em;
+                        margin: 0;
+                        line-height: 1;
+                    }
+                    .toolkit-brand-tagline {
+                        font-family: Arial Narrow, 'Arial', sans-serif;
+                        font-size: 0.65rem;
+                        font-weight: bold;
+                        color: #00AAFF;
+                        letter-spacing: 0.08em;
+                        margin: 0.3rem 0 0 0;
+                        text-transform: uppercase;
+                    }
+                    .toolkit-logo-svg {
+                        filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.7));
+                    }
+                </style>
+                <div class="toolkit-logo-lockup">
+                    <svg class="toolkit-logo-svg" width="50" height="50" viewBox="0 0 120 120">
+                        <defs>
+                            <linearGradient id="toolkit-silver" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#E8E8E8"/>
+                                <stop offset="50%" stop-color="#C0C0C0"/>
+                                <stop offset="100%" stop-color="#888888"/>
+                            </linearGradient>
+                        </defs>
+                        <g transform="translate(3, 3)">
+                            <g transform="rotate(90, 60, 60)" opacity="0.4">
+                                <rect x="20" y="20" width="8" height="80" fill="#404040"/>
+                                <rect x="50" y="20" width="8" height="80" fill="#404040"/>
+                                <rect x="90" y="20" width="8" height="80" fill="#003366"/>
+                                <rect x="20" y="20" width="54" height="8" fill="#404040"/>
+                                <rect x="20" y="56" width="25" height="8" fill="#404040"/>
+                                <rect x="20" y="92" width="54" height="8" fill="#404040"/>
+                            </g>
+                        </g>
+                        <g transform="rotate(90, 60, 60)">
+                            <rect x="20" y="20" width="8" height="80" fill="url(#toolkit-silver)"/>
+                            <rect x="50" y="20" width="8" height="80" fill="url(#toolkit-silver)"/>
+                            <rect x="90" y="20" width="8" height="80" fill="#0066CC"/>
+                            <rect x="20" y="20" width="54" height="8" fill="url(#toolkit-silver)"/>
+                            <rect x="20" y="56" width="25" height="8" fill="url(#toolkit-silver)"/>
+                            <rect x="20" y="92" width="54" height="8" fill="url(#toolkit-silver)"/>
+                        </g>
+                    </svg>
+                    <div class="toolkit-brand-text">
+                        <h1 class="toolkit-brand-title">TRAJANUS</h1>
+                        <p class="toolkit-brand-tagline">ENGINEERED INTELLIGENCE™</p>
+                    </div>
                 </div>
+                <div class="hero-toolkit">TRAFFIC STUDIES TOOLKIT</div>
             </div>
             <div class="hero-nav">
-                <a href="../index.html" class="hero-home-btn" id="home-btn">
-                    <span>&#9670;</span> Hub
-                </a>
+                <a href="../index.html" class="hero-home-btn" id="home-btn">← Return to Hub</a>
             </div>
         </div>
     </section>
@@ -2420,46 +2645,6 @@
                     Terminal ready. External program output will appear here.
                 </div>
             </div>
-            <!-- ========================== -->
-        <!-- FULL CLAUDE CHAT SECTION   -->
-        <!-- ========================== -->
-        <div class="section-divider">
-            <div class="section-border-top"></div>
-            <div class="section-title-row">
-                <span class="section-blocks">|||</span>
-                <h2 class="section-title">CLAUDE CHAT</h2>
-                <span class="section-blocks">|||</span>
-            </div>
-            <div class="section-border-bottom"></div>
-            <p class="section-description">
-                Full Claude AI interface for extended conversations, traffic analysis, 
-                and complex engineering problem-solving sessions.
-            </p>
-        </div>
-
-        <div class="full-claude-section">
-            <div class="full-claude-container">
-                <div class="full-claude-header">
-                    <h3>Claude AI</h3>
-                    <div class="full-claude-controls">
-                        <button class="full-claude-btn" id="full-claude-clear">Clear</button>
-                        <button class="full-claude-btn" id="full-claude-external">Open External</button>
-                    </div>
-                </div>
-                <div class="full-claude-messages" id="full-claude-messages">
-                    <div class="claude-welcome">
-                        <span class="claude-welcome-icon">&#129302;</span>
-                        <h4>Claude AI Ready</h4>
-                        <p>Ask anything - trip generation, LOS analysis, signal warrants, or extended problem-solving.</p>
-                    </div>
-                </div>
-                <div class="full-claude-input-area">
-                    <textarea id="full-claude-input" placeholder="Message Claude..."></textarea>
-                    <button class="full-claude-send" id="full-claude-send">Send</button>
-                </div>
-            </div>
-        </div>
-
     </main>
     </div>
 

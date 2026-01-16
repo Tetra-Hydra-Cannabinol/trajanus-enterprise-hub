@@ -38,19 +38,6 @@
 </head>
 <body>
     <div class="app-wrapper has-sidebar">
-        <!-- Header Bar -->
-        <header class="header-bar">
-            <div class="header-brand">
-                <span class="header-logo">◆</span>
-                <span class="header-title" style="color: #00AAFF;">TRAJANUS</span>
-            </div>
-            <div class="header-controls">
-                <button class="header-icon-btn quad-chat-btn" id="quad-chat-toggle" title="Quad Chat Mode" onclick="toggleQuadChat()">⊞</button>
-                <button class="header-icon-btn" title="Settings" onclick="showDevNotice('user_settings')">⚙</button>
-                <button class="header-icon-btn" title="User" onclick="showDevNotice('user_settings')">👤</button>
-            </div>
-        </header>
-
         <!-- Project Sidebar -->
         <nav class="project-sidebar">
             <div class="sidebar-header">
@@ -129,7 +116,7 @@
                     .trajanus-logo-container {
                         display: flex;
                         justify-content: center;
-                        padding: 1.5rem;
+                        padding: 0.375rem;
                     }
                     .trajanus-logo-lockup {
                         display: flex;
@@ -143,8 +130,8 @@
                         text-align: center;
                     }
                     .trajanus-brand-title {
-                        font-family: Impact, 'Arial Black', sans-serif;
-                        font-size: 2.5rem;
+                        font-family: 'Copperplate Gothic Bold', 'Copperplate', serif;
+                        font-size: 28pt;
                         font-weight: 900;
                         color: #00AAFF;
                         letter-spacing: 0.15em;
@@ -217,69 +204,36 @@
             <section class="welcome-section">
                 <h2 class="welcome-title">Welcome to the Trajanus Enterprise Hub</h2>
                 <p class="welcome-intro">
-                    The Enterprise Hub is your central command interface for construction project management,
-                    quality control, traffic engineering, and development operations. Built on Trajanus
-                    Engineered Intelligence (EI™), this platform integrates federal contract management
-                    workflows with AI-assisted tools and automation.
+                    Welcome to the Trajanus Enterprise Hub, your AI-augmented command center for federal construction management. This platform integrates four specialized workspaces: Quality Control Management for inspections, submittals, and RFI tracking; Project Management for scheduling, earned value, and SOUTHCOM contract oversight; Traffic Studies Engineering for ITE calculations and Arizona jurisdiction compliance; and Developer Tools for code, automation, and system maintenance.
+                </p>
+                <p class="welcome-intro" style="margin-top: 8px;">
+                    Each workspace provides direct access to external applications, Microsoft Office integration, custom Trajanus scripts, and AI assistants trained on your specific workflows. Use the sidebar to navigate between platforms and projects. The Enterprise Hub Agent below can answer questions about any tool or feature across all workspaces.
                 </p>
             </section>
 
-<!-- AI Chat Section - Dual Pane (Moved under hero) -->
-            <section class="ai-chat-section panel-section" id="panel-ai">
-                <div class="section-header panel-header">
-                    <h2 class="section-title">AI Assistants</h2>
-                    <button class="panel-toggle" id="toggle-ai" aria-label="Toggle panel">▼</button>
+<!-- TRAJANUS HUB AGENT -->
+            <div class="hub-section-divider">
+                <div class="hub-divider-line"></div>
+                <h2 class="hub-section-title">TRAJANUS HUB AGENT</h2>
+                <p class="hub-section-desc">Enterprise assistant with skills for all platforms</p>
+            </div>
+            <div class="hub-agent-container" id="claude-chat">
+                <div class="hub-agent-messages" id="chat-messages">
+                    <div class="chat-welcome">Ask the Hub Agent anything about projects, platforms, or workflows...</div>
                 </div>
-                <div class="panel-content" id="content-ai">
-                <div class="chat-dual-pane">
-                    <!-- Left: Trajanus Assistant -->
-                    <div class="chat-pane trajanus-pane">
-                        <div class="chat-container" id="claude-chat">
-                            <div class="chat-header">
-                                <h3>TRAJANUS</h3>
-                                <div class="chat-actions">
-                                    <button class="chat-action" id="clear-chat-btn">Clear</button>
-                                </div>
-                            </div>
-                            <div class="chat-messages" id="chat-messages">
-                                <div class="chat-welcome">Ask Trajanus anything about the app...</div>
-                            </div>
-                            <div class="chat-input-area">
-                                <textarea id="chat-input" placeholder="How can I help you navigate?" rows="1"></textarea>
-                                <button class="tool-button primary" id="send-chat-btn">Send</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Right: Claude.ai Embed -->
-                    <div class="chat-pane claude-pane">
-                        <div class="chat-container">
-                            <div class="chat-header">
-                                <h3>CLAUDE.AI</h3>
-                                <div class="chat-actions">
-                                    <button class="chat-action" id="reload-claude-btn">Reload</button>
-                                    <button class="chat-action" id="open-claude-external-btn">Open External</button>
-                                </div>
-                            </div>
-                            <div class="claude-embed-container" id="claude-embed-container">
-                                <div class="claude-embed-placeholder">
-                                    <p>Claude.ai Chat</p>
-                                    <button class="tool-button primary" id="launch-claude-btn">Launch Claude.ai</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="hub-agent-input">
+                    <textarea id="chat-input" placeholder="How can I help you today?" rows="1"></textarea>
+                    <button class="hub-agent-send" id="send-chat-btn">Send</button>
+                    <button class="hub-agent-clear" id="clear-chat-btn">Clear</button>
                 </div>
-                </div>
-            </section>
+            </div>
 
-            <!-- Platforms Section -->
-            <section class="platforms-section panel-section" id="panel-platforms">
-                <div class="section-header panel-header">
-                    <h2 class="section-title">Platforms</h2>
-                    <button class="panel-toggle" id="toggle-platforms" aria-label="Toggle panel">▼</button>
-                </div>
-                <div class="panel-content" id="content-platforms">
-                <div class="platforms-grid">
+            <!-- PLATFORMS -->
+            <div class="hub-section-divider">
+                <div class="hub-divider-line"></div>
+                <h2 class="hub-section-title">PLATFORMS</h2>
+            </div>
+            <div class="platforms-grid">
                     <!-- Developer Workspace -->
                     <a href="./toolkits/developer.html" class="platform-card">
                         <h3 class="platform-title">Developer Workspace</h3>
@@ -288,10 +242,6 @@
                             Session management, script execution, and AI-assisted development.
                             Central control for file conversion, automation, and Claude integration.
                         </p>
-                        <div class="platform-tags">
-                            <span class="platform-tag">Claude</span>
-                            <span class="platform-tag">Scripts</span>
-                        </div>
                     </a>
 
                     <!-- Project Management -->
@@ -302,11 +252,6 @@
                             Integrated scheduling, cost tracking, and document control for federal construction contracts.
                             Connects to Primavera P6, Procore, and Corps of Engineers systems.
                         </p>
-                        <div class="platform-tags">
-                            <span class="platform-tag">Procore</span>
-                            <span class="platform-tag">P6</span>
-                            <span class="platform-tag">RMS</span>
-                        </div>
                     </a>
 
                     <!-- Quality Control -->
@@ -317,10 +262,6 @@
                             Submittal processing, inspection documentation, and deficiency tracking.
                             Interfaces with RMS 3.0 and generates QC reports for USACE compliance.
                         </p>
-                        <div class="platform-tags">
-                            <span class="platform-tag">RMS 3.0</span>
-                            <span class="platform-tag">QC Logs</span>
-                        </div>
                     </a>
 
                     <!-- Traffic Studies Engineer -->
@@ -331,151 +272,56 @@
                             Guided workflow for traffic impact studies. Document management, trip generation,
                             capacity analysis, and jurisdiction-compliant report assembly.
                         </p>
-                        <div class="platform-tags">
-                            <span class="platform-tag">Synchro</span>
-                            <span class="platform-tag">HCS</span>
-                        </div>
                     </a>
-                </div>
-                </div>
-            </section>
+            </div>
 
-            <!-- Projects Section -->
-            <section class="projects-section panel-section" id="panel-projects">
-                <div class="section-header panel-header">
-                    <h2 class="section-title">Projects</h2>
-                    <button class="panel-toggle" id="toggle-projects" aria-label="Toggle panel">▼</button>
-                </div>
-                <div class="panel-content" id="content-projects">
-                <div class="projects-grid compact" id="active-projects-grid">
-                    <div class="project-card compact project-status-active" onclick="selectProject(&#39;PRJ-2025-001&#39;)" style="cursor: pointer;">
-                        <div class="project-name">SOUTHCOM Guatemala</div>
-                        <div class="project-subtitle">Project Management</div>
-                        <div class="project-details">
-                            <span class="project-client">USACE</span>
-                            <span class="project-status-label">Active</span>
-                        </div>
-                    </div>
-                
-                    <div class="project-card compact project-status-active" onclick="selectProject(&#39;PRJ-2025-002&#39;)" style="cursor: pointer;">
-                        <div class="project-name">Grace Fellowship TIS</div>
-                        <div class="project-subtitle">Traffic Study</div>
-                        <div class="project-details">
-                            <span class="project-client">Grace Fellowship Church</span>
-                            <span class="project-status-label">Active</span>
-                        </div>
-                    </div>
-                
-                    <div class="project-card compact project-status-active" onclick="selectProject(&#39;PRJ-2025-003&#39;)" style="cursor: pointer;">
-                        <div class="project-name">Base Housing - Kwajalein</div>
-                        <div class="project-subtitle">Project Management</div>
-                        <div class="project-details">
-                            <span class="project-client">US Army</span>
-                            <span class="project-status-label">Active</span>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </section>
+            <!-- QUICK TOOLS -->
+            <div class="hub-section-divider">
+                <div class="hub-divider-line"></div>
+                <h2 class="hub-section-title">QUICK TOOLS</h2>
+            </div>
+            <div class="quick-tools-grid">
+                    <!-- External Program Buttons (120x44px) -->
+                    <button class="ext-btn btn-word" onclick="Hub.launchApp('word')">📘 Word</button>
+                    <button class="ext-btn btn-excel" onclick="Hub.launchApp('excel')">📗 Excel</button>
+                    <button class="ext-btn btn-teams" onclick="Hub.launchApp('teams')">💬 Teams</button>
+                    <button class="ext-btn btn-outlook" onclick="Hub.launchApp('outlook')">📧 Outlook</button>
+                    <button class="ext-btn btn-calc" onclick="Hub.launchApp('calc')">🔢 Calc</button>
+                    <button class="ext-btn btn-gmail" onclick="Hub.launchApp('gmail')">✉️ Gmail</button>
+                    <!-- Trajanus Script Buttons (160x50px) -->
+                    <button class="script-btn" onclick="Hub.openTool('kb-ingestion')">📥 KB Ingest</button>
+                    <button class="script-btn" onclick="Hub.openTool('md-converter')">📄 MD Convert</button>
+                    <button class="script-btn" onclick="Hub.openTool('query-kb')">🔍 Query KB</button>
+                <button class="script-btn" onclick="Hub.openTool('youtube-transcript')">▶️ YT Transcript</button>
+            </div>
 
-            <!-- Quick Tools Section -->
-            <section class="quick-tools-section panel-section" id="panel-tools">
-                <div class="section-header panel-header">
-                    <h2 class="section-title">Quick Tools</h2>
-                    <button class="panel-toggle" id="toggle-tools" aria-label="Toggle panel">▼</button>
-                </div>
-                <div class="panel-content" id="content-tools">
-                <div class="quick-tools-grid">
-                    <!-- Office Apps -->
-                    <div class="quick-tool" data-tooltip="Launch Microsoft Word" onclick="Hub.launchApp('word')">
-                        <div class="quick-tool-icon">W</div>
-                        <div class="quick-tool-label">Word</div>
-                    </div>
-                    <div class="quick-tool" data-tooltip="Launch Microsoft Excel" onclick="Hub.launchApp('excel')">
-                        <div class="quick-tool-icon">X</div>
-                        <div class="quick-tool-label">Excel</div>
-                    </div>
-                    <div class="quick-tool" data-tooltip="Launch Microsoft Teams" onclick="Hub.launchApp('teams')">
-                        <div class="quick-tool-icon">T</div>
-                        <div class="quick-tool-label">Teams</div>
-                    </div>
-                    <div class="quick-tool" data-tooltip="Launch Microsoft Outlook" onclick="Hub.launchApp('outlook')">
-                        <div class="quick-tool-icon">O</div>
-                        <div class="quick-tool-label">Outlook</div>
-                    </div>
-                    <div class="quick-tool" data-tooltip="Launch Adobe Acrobat" onclick="Hub.launchApp('adobe')">
-                        <div class="quick-tool-icon">A</div>
-                        <div class="quick-tool-label">Adobe</div>
-                    </div>
-                    <div class="quick-tool" data-tooltip="Launch Calculator" onclick="Hub.launchApp('calc')">
-                        <div class="quick-tool-icon">🔢</div>
-                        <div class="quick-tool-label">Calc</div>
-                    </div>
-                    <div class="quick-tool" data-tooltip="Open Gmail in browser" onclick="Hub.launchApp('gmail')">
-                        <div class="quick-tool-icon">✉</div>
-                        <div class="quick-tool-label">Gmail</div>
-                    </div>
-                    <!-- Trajanus Tools -->
-                    <div class="quick-tool" data-tooltip="Ingest documents into Knowledge Base" onclick="Hub.openTool('kb-ingestion')">
-                        <div class="quick-tool-icon">📥</div>
-                        <div class="quick-tool-label">KB Ingest</div>
-                    </div>
-                    <div class="quick-tool" data-tooltip="Convert Markdown to Google Docs" onclick="Hub.openTool('md-converter')">
-                        <div class="quick-tool-icon">📄</div>
-                        <div class="quick-tool-label">MD Convert</div>
-                    </div>
-                    <div class="quick-tool" data-tooltip="Query the Knowledge Base" onclick="Hub.openTool('query-kb')">
-                        <div class="quick-tool-icon">🔍</div>
-                        <div class="quick-tool-label">Query KB</div>
-                    </div>
-                    <div class="quick-tool" data-tooltip="Extract YouTube video transcripts" onclick="Hub.openTool('youtube-transcript')">
-                        <div class="quick-tool-icon">▶</div>
-                        <div class="quick-tool-label">YT Transcript</div>
-                    </div>
-                </div>
-                </div>
-            </section>
-
-            <!-- Applications -->
-            <section class="applications-section">
-                <div class="section-header">
-                    <h2 class="section-title">Applications</h2>
-                </div>
-
-                <div class="applications-grid">
+            <!-- APPLICATIONS -->
+            <div class="hub-section-divider">
+                <div class="hub-divider-line"></div>
+                <h2 class="hub-section-title">APPLICATIONS</h2>
+            </div>
+            <div class="applications-grid">
                     <div class="app-category">
-                        <h4>Federal &amp; DoD</h4>
-                        <ul class="app-list">
-                            <li><a href="#" onclick="Hub.openEmbedded('https://rms.usace.army.mil/', 'RMS 3.0'); return false;" class="app-link"><span class="app-link-icon">◆</span> RMS 3.0</a></li>
-                            <li><a href="#" onclick="Hub.openEmbedded('https://cefms.usace.army.mil/', 'CEFMS'); return false;" class="app-link"><span class="app-link-icon">◆</span> CEFMS</a></li>
-                            <li><a href="#" onclick="showDevNotice('eng_form_4025'); return false;" class="app-link"><span class="app-link-icon">◆</span> ENG Form 4025 <span class="coming-soon-badge">Soon</span></a></li>
-                            <li><a href="#" onclick="showDevNotice('ecms_integration'); return false;" class="app-link"><span class="app-link-icon">◆</span> eCMS <span class="coming-soon-badge">Soon</span></a></li>
-                        </ul>
+                        <h4 style="color: #00AAFF; margin-bottom: 12px;">Federal & DoD</h4>
+                        <div class="button-grid" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                            <button class="ext-btn btn-rms" onclick="Hub.openEmbedded('https://rms.usace.army.mil/', 'RMS 3.0')">📋 RMS 3.0</button>
+                            <button class="ext-btn btn-cefms" onclick="Hub.openEmbedded('https://cefms.usace.army.mil/', 'CEFMS')">💰 CEFMS</button>
+                            <button class="ext-btn" onclick="showDevNotice('eng_form_4025')" disabled>📝 ENG 4025</button>
+                            <button class="ext-btn" onclick="showDevNotice('ecms_integration')" disabled>📦 eCMS</button>
+                        </div>
                     </div>
 
                     <div class="app-category">
-                        <h4>Project Controls</h4>
-                        <ul class="app-list">
-                            <li><a href="#" onclick="showDevNotice('primavera_p6'); return false;" class="app-link"><span class="app-link-icon">◆</span> Primavera P6 <span class="coming-soon-badge">Soon</span></a></li>
-                            <li><a href="#" onclick="Hub.openEmbedded('https://app.procore.com/', 'Procore'); return false;" class="app-link"><span class="app-link-icon">◆</span> Procore</a></li>
-                            <li><a href="#" onclick="showDevNotice('oracle_unifier'); return false;" class="app-link"><span class="app-link-icon">◆</span> Oracle Unifier <span class="coming-soon-badge">Soon</span></a></li>
-                            <li><a href="#" onclick="showDevNotice('ms_project'); return false;" class="app-link"><span class="app-link-icon">◆</span> Microsoft Project <span class="coming-soon-badge">Soon</span></a></li>
-                        </ul>
+                        <h4 style="color: #00AAFF; margin-bottom: 12px;">Project Controls</h4>
+                        <div class="button-grid" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                            <button class="ext-btn btn-p6" onclick="showDevNotice('primavera_p6')" disabled>📅 P6</button>
+                            <button class="ext-btn btn-procore" onclick="Hub.openEmbedded('https://app.procore.com/', 'Procore')">🏗️ Procore</button>
+                            <button class="ext-btn" onclick="showDevNotice('oracle_unifier')" disabled>🔧 Unifier</button>
+                            <button class="ext-btn btn-msproject" onclick="showDevNotice('ms_project')" disabled>📊 MS Project</button>
+                        </div>
                     </div>
-
-                </div>
-            </section>
+            </div>
         </main>
-
-        <!-- Sticky Navigation Buttons -->
-        <div class="sticky-nav">
-            <button class="nav-btn" onclick="window.scrollTo({top: 0, behavior: &#39;smooth&#39;})" title="Return to Top">
-                ↑ Top
-            </button>
-            <button class="nav-btn" onclick="returnToHub()" title="Back to Hub">
-                ⌂ Hub
-            </button>
-        </div>
 
         <!-- Footer -->
         <footer class="footer">

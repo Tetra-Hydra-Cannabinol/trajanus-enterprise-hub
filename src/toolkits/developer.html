@@ -51,6 +51,7 @@
             background: var(--bg-base);
             color: var(--text-primary);
             line-height: 1.6;
+            border: 2px solid #0066CC;
         }
 
         /* Sticky Hero Section */
@@ -107,23 +108,27 @@
         }
 
         .hero-home-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background: transparent;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            font-size: 14px;
+            width: 130px;
+            height: 36px;
             border-radius: 6px;
             cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            border: 1px solid #00AAFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            color: #00AAFF;
+            background: transparent;
             text-decoration: none;
-            transition: all 0.2s;
         }
 
         .hero-home-btn:hover {
-            background: var(--gold);
-            color: var(--bg-base);
+            background: rgba(0, 170, 255, 0.15);
+            color: #33BBFF;
+            border-color: #33BBFF;
         }
 
         .header-controls {
@@ -132,19 +137,29 @@
         }
 
         .header-btn {
-            background: transparent;
-            border: 1px solid var(--border-subtle);
-            color: var(--text-secondary);
+            background: linear-gradient(145deg, #5a5a5a, #3a3a3a);
+            border: 1px solid #6a6a6a;
+            color: #C0C0C0;
             padding: 8px 14px;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
             font-size: 13px;
-            transition: all 0.2s ease;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            box-shadow: 0 2px 0 #2a2a2a, 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .header-btn:hover {
-            border-color: var(--gold);
-            color: var(--gold);
+            background: linear-gradient(145deg, #6a6a6a, #4a4a4a);
+            border-color: #7a7a7a;
+            color: #ffffff;
+            box-shadow: 0 1px 0 #2a2a2a, 0 1px 3px rgba(0, 0, 0, 0.3);
+            transform: translateY(1px);
+        }
+
+        .header-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 0 0 #2a2a2a, 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         /* Main Content - Scrollable */
@@ -300,12 +315,13 @@
         }
 
         /* ========================== */
-        /* APPLICATION CARDS          */
+        /* BUTTON CONTAINERS - FLEXBOX */
         /* ========================== */
-        .app-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        .app-grid, .script-grid {
+            display: flex;
+            flex-wrap: wrap;
             gap: 12px;
+            margin-bottom: 20px;
         }
 
         .app-card {
@@ -350,20 +366,8 @@
         }
 
         /* ========================== */
-        /* TWO-COLUMN SCRIPT CARDS    */
+        /* SCRIPT CARDS (legacy)      */
         /* ========================== */
-        .script-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-        }
-
-        @media (max-width: 900px) {
-            .script-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
         .script-card {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
@@ -904,24 +908,31 @@
         }
 
         .nav-btn {
-            background: linear-gradient(180deg, #1a2d42 0%, #0d1b2a 100%);
-            border: 1px solid #c0c0c0;
-            color: #c0c0c0;
-            padding: 10px 15px;
-            border-radius: 4px;
+            width: 140px;
+            height: 44px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 0.85rem;
-            font-weight: 500;
-            min-width: 70px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            transition: all 0.2s;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            border: 1px solid #6a6a6a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            color: #C0C0C0;
+            background: linear-gradient(145deg, #5a5a5a, #3a3a3a);
+            box-shadow: 0 3px 0 #2a2a2a, 0 4px 8px rgba(0,0,0,0.3);
         }
 
         .nav-btn:hover {
-            background: linear-gradient(180deg, #2a4a6a 0%, #1a2d42 100%);
-            border-color: #e0e0e0;
-            color: #e0e0e0;
+            transform: translateY(-2px);
+            color: #ffffff;
+            filter: brightness(1.15);
+        }
+
+        .nav-btn:active {
+            transform: translateY(2px);
         }
 
         /* Welcome message */
@@ -1152,17 +1163,26 @@
         }
 
         .claude-input-area button {
-            background: var(--gold);
-            color: var(--bg-base);
-            border: none;
+            background: linear-gradient(145deg, #00BBFF, #0088CC);
+            color: #ffffff;
+            border: 1px solid #00CCFF;
             padding: 8px 16px;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
-            font-weight: 500;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            box-shadow: 0 2px 0 #005588, 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .claude-input-area button:hover {
-            opacity: 0.9;
+            background: linear-gradient(145deg, #33CCFF, #00AAFF);
+            box-shadow: 0 1px 0 #005588, 0 1px 3px rgba(0, 0, 0, 0.3);
+            transform: translateY(1px);
+        }
+
+        .claude-input-area button:active {
+            transform: translateY(2px);
+            box-shadow: 0 0 0 #005588, 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         /* ========================== */
@@ -1172,10 +1192,6 @@
             .hero-greeting-row {
                 flex-direction: column;
                 gap: 8px;
-            }
-
-            .app-grid {
-                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
             }
         }
 
@@ -1319,7 +1335,6 @@
         .welcome-section {
             padding: 24px 32px;
             background: #0a0a0a;
-            border-bottom: 1px solid #00AAFF;
         }
         .welcome-content {
             max-width: 900px;
@@ -1331,9 +1346,6 @@
             line-height: 1.7;
             text-align: center;
             padding: 16px;
-            background: #1a1a1a;
-            border-left: 3px solid #00AAFF;
-            border-radius: 0 6px 6px 0;
         }
 
         /* ==================== CLAUDE.AI EMBED SECTION ==================== */
@@ -1438,39 +1450,284 @@
             color: #00AAFF;
             font-size: 16px;
         }
+
+        /* ============================================
+           EXTERNAL PROGRAM BUTTONS - FIXED 120x44px
+           ============================================ */
+
+        .ext-btn {
+            width: 120px;
+            height: 44px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            color: #ffffff;
+        }
+
+        .ext-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.15);
+        }
+
+        .ext-btn:active {
+            transform: translateY(2px);
+        }
+
+        /* ============================================
+           TRAJANUS SCRIPT BUTTONS - 120x44px (matches ext-btn)
+           ============================================ */
+
+        .script-btn {
+            width: 120px;
+            height: 44px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            color: #ffffff;
+            background: linear-gradient(145deg, #00AAFF, #0077CC);
+            box-shadow: 0 3px 0 #005599, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .script-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.15);
+        }
+
+        .script-btn:active {
+            transform: translateY(2px);
+        }
+
+        /* Script Button Color Variants - BRIGHT HIGH-CONTRAST */
+        .script-btn.file-ops {
+            background: linear-gradient(145deg, #2ECC71, #27AE60);
+            box-shadow: 0 3px 0 #1E8449, 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .script-btn.search {
+            background: linear-gradient(145deg, #1ABC9C, #16A085);
+            box-shadow: 0 3px 0 #117A65, 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .script-btn.media {
+            background: linear-gradient(145deg, #9B59B6, #8E44AD);
+            box-shadow: 0 3px 0 #6C3483, 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .script-btn.utility {
+            background: linear-gradient(145deg, #00CED1, #00B5B8);
+            box-shadow: 0 3px 0 #008B8B, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        /* ============================================
+           NAV BUTTON - Return to Hub - 100x36px
+           Blue outline, transparent background
+           ============================================ */
+
+        .nav-btn {
+            width: 100px;
+            height: 36px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            border: 1px solid #00AAFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            color: #00AAFF;
+            background: transparent;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: rgba(0, 170, 255, 0.15);
+            color: #33BBFF;
+            border-color: #33BBFF;
+        }
+
+        /* ============================================
+           BRAND COLORS FOR EXTERNAL PROGRAMS
+           ============================================ */
+
+        .btn-word {
+            background: linear-gradient(145deg, #2B579A, #1E3F6F);
+            box-shadow: 0 3px 0 #152D4F, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-excel {
+            background: linear-gradient(145deg, #217346, #185C37);
+            box-shadow: 0 3px 0 #0F3D22, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-powerpoint {
+            background: linear-gradient(145deg, #D24726, #B7361A);
+            box-shadow: 0 3px 0 #8B2810, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-outlook {
+            background: linear-gradient(145deg, #0078D4, #005A9E);
+            box-shadow: 0 3px 0 #003D6B, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-teams {
+            background: linear-gradient(145deg, #6264A7, #4B4D8A);
+            box-shadow: 0 3px 0 #353666, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-onenote {
+            background: linear-gradient(145deg, #7719AA, #5C1384);
+            box-shadow: 0 3px 0 #3D0C58, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-vscode {
+            background: linear-gradient(145deg, #007ACC, #005A9E);
+            box-shadow: 0 3px 0 #003D6B, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-terminal {
+            background: linear-gradient(145deg, #3C3C3C, #2D2D2D);
+            box-shadow: 0 3px 0 #1A1A1A, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-github {
+            background: linear-gradient(145deg, #6e5494, #553C7B);
+            box-shadow: 0 3px 0 #3D2A5A, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-python {
+            background: linear-gradient(145deg, #3776AB, #2B5F8A);
+            box-shadow: 0 3px 0 #1E4266, 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .btn-zoom {
+            background: linear-gradient(145deg, #2D8CFF, #2478D9);
+            box-shadow: 0 3px 0 #1A5CAA, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-chrome {
+            background: linear-gradient(145deg, #4285F4, #2D6BD4);
+            box-shadow: 0 3px 0 #1E4A9A, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-edge {
+            background: linear-gradient(145deg, #0078D7, #005A9E);
+            box-shadow: 0 3px 0 #003D6B, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-gdrive {
+            background: linear-gradient(145deg, #34A853, #2D8A45);
+            box-shadow: 0 3px 0 #1E6B30, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-explorer {
+            background: linear-gradient(145deg, #DAA520, #B8860B);
+            box-shadow: 0 3px 0 #8B6914, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-notepad {
+            background: linear-gradient(145deg, #E67E22, #D35400);
+            box-shadow: 0 3px 0 #A04000, 0 4px 8px rgba(0,0,0,0.3);
+        }
     </style>
 </head>
 <body>
-    <!-- Sticky Hero Section -->
+    <!-- Hero Section with Logo -->
     <section class="hero-section">
         <div class="hero-content">
             <div class="hero-brand">
-                <div class="hero-company">Trajanus USA EI<span class="tm">™</span></div>
-                <div class="hero-toolkit">Developer Toolkit</div>
-                <div class="hero-description">
-                    Central command interface for session management, script execution, file conversion,
-                    and AI-assisted development. Access automation tools, manage knowledge base ingestion,
-                    and interact with Claude directly from this unified workspace.
+                <!-- 3D Trajanus Logo -->
+                <style>
+                    .toolkit-logo-lockup {
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                    }
+                    .toolkit-brand-text {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                    }
+                    .toolkit-brand-title {
+                        font-family: 'Copperplate Gothic Bold', 'Copperplate', serif;
+                        font-size: 28pt;
+                        font-weight: 900;
+                        color: #00AAFF;
+                        letter-spacing: 0.15em;
+                        margin: 0;
+                        line-height: 1;
+                    }
+                    .toolkit-brand-tagline {
+                        font-family: Arial Narrow, 'Arial', sans-serif;
+                        font-size: 0.65rem;
+                        font-weight: bold;
+                        color: #00AAFF;
+                        letter-spacing: 0.08em;
+                        margin: 0.3rem 0 0 0;
+                        text-transform: uppercase;
+                    }
+                    .toolkit-logo-svg {
+                        filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.7));
+                    }
+                </style>
+                <div class="toolkit-logo-lockup">
+                    <svg class="toolkit-logo-svg" width="50" height="50" viewBox="0 0 120 120">
+                        <defs>
+                            <linearGradient id="toolkit-silver" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#E8E8E8"/>
+                                <stop offset="50%" stop-color="#C0C0C0"/>
+                                <stop offset="100%" stop-color="#888888"/>
+                            </linearGradient>
+                        </defs>
+                        <g transform="translate(3, 3)">
+                            <g transform="rotate(90, 60, 60)" opacity="0.4">
+                                <rect x="20" y="20" width="8" height="80" fill="#404040"/>
+                                <rect x="50" y="20" width="8" height="80" fill="#404040"/>
+                                <rect x="90" y="20" width="8" height="80" fill="#003366"/>
+                                <rect x="20" y="20" width="54" height="8" fill="#404040"/>
+                                <rect x="20" y="56" width="25" height="8" fill="#404040"/>
+                                <rect x="20" y="92" width="54" height="8" fill="#404040"/>
+                            </g>
+                        </g>
+                        <g transform="rotate(90, 60, 60)">
+                            <rect x="20" y="20" width="8" height="80" fill="url(#toolkit-silver)"/>
+                            <rect x="50" y="20" width="8" height="80" fill="url(#toolkit-silver)"/>
+                            <rect x="90" y="20" width="8" height="80" fill="#0066CC"/>
+                            <rect x="20" y="20" width="54" height="8" fill="url(#toolkit-silver)"/>
+                            <rect x="20" y="56" width="25" height="8" fill="url(#toolkit-silver)"/>
+                            <rect x="20" y="92" width="54" height="8" fill="url(#toolkit-silver)"/>
+                        </g>
+                    </svg>
+                    <div class="toolkit-brand-text">
+                        <h1 class="toolkit-brand-title">TRAJANUS</h1>
+                        <p class="toolkit-brand-tagline">ENGINEERED INTELLIGENCE™</p>
+                    </div>
                 </div>
+                <div class="hero-toolkit">DEVELOPER TOOLKIT</div>
             </div>
             <div class="hero-nav">
-                <a href="../index.html" class="hero-home-btn">
-                    <span>◆</span> Hub
-                </a>
+                <a href="../index.html" class="hero-home-btn">← Return to Hub</a>
             </div>
         </div>
     </section>
 
-    <!-- Welcome Section -->
-    <section class="welcome-section">
-        <div class="welcome-content">
-            <p class="welcome-text">
-                Central command interface for session management, script execution, file conversion,
-                and AI-assisted development. Access automation tools, manage knowledge base ingestion,
-                and interact with Trajanus directly from this unified workspace.
-            </p>
-        </div>
-    </section>
+    <!-- Welcome Text (no border) -->
+    <div style="text-align: center; padding: 16px 32px; color: #c0c0c0; font-size: 14px; max-width: 800px; margin: 0 auto;">
+        Central command interface for session management, script execution, file conversion,
+        and AI-assisted development. Access automation tools, manage knowledge base ingestion,
+        and interact with Claude directly from this unified workspace.
+    </div>
 
     <!-- Main Content -->
     <main class="main-content">
@@ -1546,26 +1803,11 @@
                 <div class="subsection-line"></div>
             </div>
             <div class="app-grid">
-                <div class="app-card" data-launch="vscode">
-                    <div class="app-icon">VS</div>
-                    <div class="app-label">VS Code</div>
-                </div>
-                <div class="app-card" data-launch="terminal">
-                    <div class="app-icon">T</div>
-                    <div class="app-label">Terminal</div>
-                </div>
-                <div class="app-card" data-launch="github">
-                    <div class="app-icon">GH</div>
-                    <div class="app-label">GitHub</div>
-                </div>
-                <div class="app-card" data-launch="claude-code">
-                    <div class="app-icon">CC</div>
-                    <div class="app-label">Claude Code</div>
-                </div>
-                <div class="app-card" data-launch="python">
-                    <div class="app-icon">PY</div>
-                    <div class="app-label">Python</div>
-                </div>
+                <button class="ext-btn btn-vscode" data-launch="vscode">💻 VS Code</button>
+                <button class="ext-btn btn-terminal" data-launch="terminal">⬛ Terminal</button>
+                <button class="ext-btn btn-github" data-launch="github">🐙 GitHub</button>
+                <button class="ext-btn btn-vscode" data-launch="claude-code">🤖 Claude Code</button>
+                <button class="ext-btn btn-python" data-launch="python">🐍 Python</button>
             </div>
         </div>
 
@@ -1576,26 +1818,11 @@
                 <div class="subsection-line"></div>
             </div>
             <div class="app-grid">
-                <div class="app-card" data-launch="chrome">
-                    <div class="app-icon">C</div>
-                    <div class="app-label">Chrome</div>
-                </div>
-                <div class="app-card" data-launch="edge">
-                    <div class="app-icon">E</div>
-                    <div class="app-label">Edge</div>
-                </div>
-                <div class="app-card" data-launch="teams">
-                    <div class="app-icon">TM</div>
-                    <div class="app-label">Teams</div>
-                </div>
-                <div class="app-card" data-launch="zoom">
-                    <div class="app-icon">Z</div>
-                    <div class="app-label">Zoom</div>
-                </div>
-                <div class="app-card" data-launch="outlook">
-                    <div class="app-icon">O</div>
-                    <div class="app-label">Outlook</div>
-                </div>
+                <button class="ext-btn btn-chrome" data-launch="chrome">🌐 Chrome</button>
+                <button class="ext-btn btn-edge" data-launch="edge">🌐 Edge</button>
+                <button class="ext-btn btn-teams" data-launch="teams">👥 Teams</button>
+                <button class="ext-btn btn-zoom" data-launch="zoom">📹 Zoom</button>
+                <button class="ext-btn btn-outlook" data-launch="outlook">📧 Outlook</button>
             </div>
         </div>
 
@@ -1606,18 +1833,9 @@
                 <div class="subsection-line"></div>
             </div>
             <div class="app-grid">
-                <div class="app-card" data-launch="gdrive">
-                    <div class="app-icon">GD</div>
-                    <div class="app-label">G Drive</div>
-                </div>
-                <div class="app-card" data-launch="explorer">
-                    <div class="app-icon">FE</div>
-                    <div class="app-label">Explorer</div>
-                </div>
-                <div class="app-card" data-launch="notepad">
-                    <div class="app-icon">N+</div>
-                    <div class="app-label">Notepad++</div>
-                </div>
+                <button class="ext-btn btn-gdrive" data-launch="gdrive">📁 G Drive</button>
+                <button class="ext-btn btn-explorer" data-launch="explorer">📂 Explorer</button>
+                <button class="ext-btn btn-notepad" data-launch="notepad">📝 Notepad++</button>
             </div>
         </div>
 
@@ -1628,22 +1846,10 @@
                 <div class="subsection-line"></div>
             </div>
             <div class="app-grid">
-                <div class="app-card" data-launch="word">
-                    <div class="app-icon">W</div>
-                    <div class="app-label">Word</div>
-                </div>
-                <div class="app-card" data-launch="excel">
-                    <div class="app-icon">X</div>
-                    <div class="app-label">Excel</div>
-                </div>
-                <div class="app-card" data-launch="powerpoint">
-                    <div class="app-icon">P</div>
-                    <div class="app-label">PowerPoint</div>
-                </div>
-                <div class="app-card" data-launch="onenote">
-                    <div class="app-icon">ON</div>
-                    <div class="app-label">OneNote</div>
-                </div>
+                <button class="ext-btn btn-word" data-launch="word">📘 Word</button>
+                <button class="ext-btn btn-excel" data-launch="excel">📗 Excel</button>
+                <button class="ext-btn btn-powerpoint" data-launch="powerpoint">📙 PowerPoint</button>
+                <button class="ext-btn btn-onenote" data-launch="onenote">📓 OneNote</button>
             </div>
         </div>
 
@@ -1672,34 +1878,10 @@
             </div>
             <p class="subsection-description">Convert documents between formats and upload to Google Drive.</p>
             <div class="script-grid">
-                <div class="script-card conversion" data-script="CONVERT_MD_TO_GDOCS_PERMANENT.py">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">MD to Google Docs</div>
-                        <div class="script-description">Convert Markdown files to Google Docs format in Drive</div>
-                    </div>
-                </div>
-                <div class="script-card conversion" data-script="CONVERT_TXT_TO_GDOCS.py">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">TXT to Google Docs</div>
-                        <div class="script-description">Convert plain text files to Google Docs format in Drive</div>
-                    </div>
-                </div>
-                <div class="script-card conversion" data-script="CONVERT_DOCX_TO_GDOCS.py">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">DOCX to Google Docs</div>
-                        <div class="script-description">Convert Word documents to Google Docs format in Drive</div>
-                    </div>
-                </div>
-                <div class="script-card conversion" data-script="batch_convert_md_only.py">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">Batch Convert</div>
-                        <div class="script-description">Process entire folders of files for bulk conversion</div>
-                    </div>
-                </div>
+                <button class="script-btn file-ops" data-script="CONVERT_MD_TO_GDOCS_PERMANENT.py">📄 MD Convert</button>
+                <button class="script-btn file-ops" data-script="CONVERT_TXT_TO_GDOCS.py">📄 TXT Convert</button>
+                <button class="script-btn file-ops" data-script="CONVERT_DOCX_TO_GDOCS.py">📄 DOCX Convert</button>
+                <button class="script-btn file-ops" data-script="batch_convert_md_only.py">📁 Batch Convert</button>
             </div>
         </div>
 
@@ -1711,34 +1893,10 @@
             </div>
             <p class="subsection-description">Google Drive folder management and organization utilities.</p>
             <div class="script-grid">
-                <div class="script-card automation" data-script="gdrive_cleanup_agent.py">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">Folder Cleanup</div>
-                        <div class="script-description">Clean and organize Google Drive folder structure</div>
-                    </div>
-                </div>
-                <div class="script-card automation" data-script="consolidate_folders.py">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">Consolidate</div>
-                        <div class="script-description">Merge folder contents and remove duplicates</div>
-                    </div>
-                </div>
-                <div class="script-card automation" data-script="working_reorganization.py">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">Reorganize</div>
-                        <div class="script-description">Restructure directories according to naming conventions</div>
-                    </div>
-                </div>
-                <div class="script-card automation" data-script="audit_folders.py">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">Audit</div>
-                        <div class="script-description">Audit folder structure and report inconsistencies</div>
-                    </div>
-                </div>
+                <button class="script-btn utility" data-script="gdrive_cleanup_agent.py">⚙️ Cleanup</button>
+                <button class="script-btn utility" data-script="consolidate_folders.py">📁 Consolidate</button>
+                <button class="script-btn utility" data-script="working_reorganization.py">⚙️ Reorganize</button>
+                <button class="script-btn utility" data-script="audit_folders.py">🔍 Audit</button>
             </div>
         </div>
 
@@ -1750,34 +1908,10 @@
             </div>
             <p class="subsection-description">Supabase knowledge base ingestion and query tools.</p>
             <div class="script-grid">
-                <div class="script-card data" data-script="file_ingestion.py">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">File Ingestion</div>
-                        <div class="script-description">Ingest individual files to Supabase knowledge base</div>
-                    </div>
-                </div>
-                <div class="script-card data" data-script="batch_ingest_files.py">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">Batch Ingest</div>
-                        <div class="script-description">Batch process files for knowledge base ingestion</div>
-                    </div>
-                </div>
-                <div class="script-card data" data-script="query_kb.py">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">Query KB</div>
-                        <div class="script-description">Search the knowledge base for relevant content</div>
-                    </div>
-                </div>
-                <div class="script-card data" data-script="check_db.py">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">Check DB</div>
-                        <div class="script-description">Verify database connection and status</div>
-                    </div>
-                </div>
+                <button class="script-btn file-ops" data-script="file_ingestion.py">📤 KB Ingest</button>
+                <button class="script-btn file-ops" data-script="batch_ingest_files.py">📁 Batch Ingest</button>
+                <button class="script-btn search" data-script="query_kb.py">🔎 Query KB</button>
+                <button class="script-btn utility" data-script="check_db.py">🧮 Check DB</button>
             </div>
         </div>
 
@@ -1806,20 +1940,8 @@
             </div>
             <p class="subsection-description">GUI tools for querying and ingesting documents into the Trajanus Knowledge Base.</p>
             <div class="script-grid">
-                <div class="script-card data" data-script="QUERY_KB_TOOL.py">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">Query KB Tool</div>
-                        <div class="script-description">Semantic search, browse sources, view recent documents</div>
-                    </div>
-                </div>
-                <div class="script-card data" data-script="BATCH_INGEST_TOOL.py">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">Batch Ingest Tool</div>
-                        <div class="script-description">Single file, batch folder, or multi-select ingestion</div>
-                    </div>
-                </div>
+                <button class="script-btn search" data-script="QUERY_KB_TOOL.py">🔎 Query Tool</button>
+                <button class="script-btn file-ops" data-script="BATCH_INGEST_TOOL.py">📤 Ingest Tool</button>
             </div>
         </div>
 
@@ -1831,20 +1953,8 @@
             </div>
             <p class="subsection-description">Convert documents between formats with Google Drive integration.</p>
             <div class="script-grid">
-                <div class="script-card conversion" data-script="CONVERT_MD_TO_GDOCS_PERMANENT.py">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">MD → GDocs Tool</div>
-                        <div class="script-description">Convert Markdown files to Google Docs format</div>
-                    </div>
-                </div>
-                <div class="script-card conversion" data-script="CONVERT_GDOCS_TO_DOCX.py">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">GDocs → DOCX Tool</div>
-                        <div class="script-description">Export Google Docs to Word document format</div>
-                    </div>
-                </div>
+                <button class="script-btn file-ops" data-script="CONVERT_MD_TO_GDOCS_PERMANENT.py">📄 MD → GDocs</button>
+                <button class="script-btn file-ops" data-script="CONVERT_GDOCS_TO_DOCX.py">📄 GDocs → DOCX</button>
             </div>
         </div>
 
@@ -1856,20 +1966,8 @@
             </div>
             <p class="subsection-description">YouTube transcript extraction and research agent management.</p>
             <div class="script-grid">
-                <div class="script-card agent" data-script="YOUTUBE_TRANSCRIPT_TOOL.py">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">YouTube Transcripts</div>
-                        <div class="script-description">Scan, extract transcripts, ingest to KB, full pipeline</div>
-                    </div>
-                </div>
-                <div class="script-card agent" data-script="AGENT_RUNNER_TOOL.py">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">Agent Runner</div>
-                        <div class="script-description">Launch research agents: YouTube, Document Hunter, KB Ingester</div>
-                    </div>
-                </div>
+                <button class="script-btn media" data-script="YOUTUBE_TRANSCRIPT_TOOL.py">▶️ YT Transcripts</button>
+                <button class="script-btn media" data-script="AGENT_RUNNER_TOOL.py">🎬 Agent Runner</button>
             </div>
         </div>
 
@@ -2001,16 +2099,6 @@
         </div>
 
     </main>
-
-    <!-- Sticky Navigation Buttons -->
-    <div class="sticky-nav">
-        <button class="nav-btn" id="scroll-top-btn" title="Return to Top">
-            ↑ Top
-        </button>
-        <button class="nav-btn" id="nav-hub-btn" title="Back to Hub">
-            ⌂ Hub
-        </button>
-    </div>
 
     <script>
         const PROJECT_PATH = 'C:\\Dev\\trajanus-command-center';

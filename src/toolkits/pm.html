@@ -49,6 +49,7 @@
             background: var(--bg-base);
             color: var(--text-primary);
             line-height: 1.6;
+            border: 2px solid #0066CC;
         }
 
         /* Sticky Hero Section */
@@ -105,23 +106,27 @@
         }
 
         .hero-home-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background: transparent;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            font-size: 14px;
+            width: 130px;
+            height: 36px;
             border-radius: 6px;
             cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            border: 1px solid #00AAFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            color: #00AAFF;
+            background: transparent;
             text-decoration: none;
-            transition: all 0.2s;
         }
 
         .hero-home-btn:hover {
-            background: var(--gold);
-            color: var(--bg-base);
+            background: rgba(0, 170, 255, 0.15);
+            color: #33BBFF;
+            border-color: #33BBFF;
         }
 
         .diamond {
@@ -278,11 +283,12 @@
             margin-bottom: 12px;
         }
 
-        /* Application Cards */
-        .app-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        /* Button Containers - Flexbox */
+        .app-grid, .script-grid, .button-grid {
+            display: flex;
+            flex-wrap: wrap;
             gap: 12px;
+            margin-bottom: 20px;
         }
 
         .app-card {
@@ -326,17 +332,7 @@
             font-weight: 500;
         }
 
-        /* Two-Column Script/Doc Cards */
-        .script-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-        }
-
-        @media (max-width: 900px) {
-            .script-grid { grid-template-columns: 1fr; }
-        }
-
+        /* Script Cards (legacy) */
         .script-card {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
@@ -670,24 +666,31 @@
         }
 
         .nav-btn {
-            background: linear-gradient(180deg, #1a2d42 0%, #0d1b2a 100%);
-            border: 1px solid #c0c0c0;
-            color: #c0c0c0;
-            padding: 10px 15px;
-            border-radius: 4px;
+            width: 140px;
+            height: 44px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 0.85rem;
-            font-weight: 500;
-            min-width: 70px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            transition: all 0.2s;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            border: 1px solid #6a6a6a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            color: #C0C0C0;
+            background: linear-gradient(145deg, #5a5a5a, #3a3a3a);
+            box-shadow: 0 3px 0 #2a2a2a, 0 4px 8px rgba(0,0,0,0.3);
         }
 
         .nav-btn:hover {
-            background: linear-gradient(180deg, #2a4a6a 0%, #1a2d42 100%);
-            border-color: #e0e0e0;
-            color: #e0e0e0;
+            transform: translateY(-2px);
+            color: #ffffff;
+            filter: brightness(1.15);
+        }
+
+        .nav-btn:active {
+            transform: translateY(2px);
         }
 
         /* Responsive */
@@ -798,7 +801,6 @@
         .welcome-section {
             padding: 24px 32px;
             background: #0a0a0a;
-            border-bottom: 1px solid #00AAFF;
         }
         .welcome-content {
             max-width: 900px;
@@ -810,9 +812,6 @@
             line-height: 1.7;
             text-align: center;
             padding: 16px;
-            background: #1a1a1a;
-            border-left: 3px solid #00AAFF;
-            border-radius: 0 6px 6px 0;
         }
 
         /* ==================== CLAUDE.AI EMBED SECTION ==================== */
@@ -917,37 +916,289 @@
             color: #00AAFF;
             font-size: 16px;
         }
+
+        /* ============================================
+           EXTERNAL PROGRAM BUTTONS - FIXED 120x44px
+           ============================================ */
+
+        .ext-btn {
+            width: 120px;
+            height: 44px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            color: #ffffff;
+        }
+
+        .ext-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.15);
+        }
+
+        .ext-btn:active {
+            transform: translateY(2px);
+        }
+
+        /* ============================================
+           TRAJANUS SCRIPT BUTTONS - 120x44px
+           ============================================ */
+
+        .script-btn {
+            width: 120px;
+            height: 44px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            color: #ffffff;
+            background: linear-gradient(145deg, #00AAFF, #0077CC);
+            box-shadow: 0 3px 0 #005599, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .script-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.15);
+        }
+
+        .script-btn:active {
+            transform: translateY(2px);
+        }
+
+        /* Script Button Color Variants - BRIGHT HIGH-CONTRAST */
+        .script-btn.file-ops {
+            background: linear-gradient(145deg, #2ECC71, #27AE60);
+            box-shadow: 0 3px 0 #1E8449, 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .script-btn.search {
+            background: linear-gradient(145deg, #1ABC9C, #16A085);
+            box-shadow: 0 3px 0 #117A65, 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .script-btn.media {
+            background: linear-gradient(145deg, #9B59B6, #8E44AD);
+            box-shadow: 0 3px 0 #6C3483, 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .script-btn.utility {
+            background: linear-gradient(145deg, #00CED1, #00B5B8);
+            box-shadow: 0 3px 0 #008B8B, 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .script-btn.schedule {
+            background: linear-gradient(145deg, #E67E22, #D35400);
+            box-shadow: 0 3px 0 #A04000, 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .script-btn.docs {
+            background: linear-gradient(145deg, #3498DB, #2980B9);
+            box-shadow: 0 3px 0 #1F618D, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        /* ============================================
+           NAV BUTTON - Return to Hub - 100x36px
+           Blue outline, transparent background
+           ============================================ */
+
+        .nav-btn {
+            width: 100px;
+            height: 36px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            border: 1px solid #00AAFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            color: #00AAFF;
+            background: transparent;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: rgba(0, 170, 255, 0.15);
+            color: #33BBFF;
+            border-color: #33BBFF;
+        }
+
+        /* ============================================
+           BRAND COLORS FOR EXTERNAL PROGRAMS
+           ============================================ */
+
+        .btn-word {
+            background: linear-gradient(145deg, #2B579A, #1E3F6F);
+            box-shadow: 0 3px 0 #152D4F, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-excel {
+            background: linear-gradient(145deg, #217346, #185C37);
+            box-shadow: 0 3px 0 #0F3D22, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-powerpoint {
+            background: linear-gradient(145deg, #D24726, #B7361A);
+            box-shadow: 0 3px 0 #8B2810, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-outlook {
+            background: linear-gradient(145deg, #0078D4, #005A9E);
+            box-shadow: 0 3px 0 #003D6B, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-teams {
+            background: linear-gradient(145deg, #6264A7, #4B4D8A);
+            box-shadow: 0 3px 0 #353666, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-onenote {
+            background: linear-gradient(145deg, #7719AA, #5C1384);
+            box-shadow: 0 3px 0 #3D0C58, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-vscode {
+            background: linear-gradient(145deg, #007ACC, #005A9E);
+            box-shadow: 0 3px 0 #003D6B, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-chrome {
+            background: linear-gradient(145deg, #4285F4, #2D6BD4);
+            box-shadow: 0 3px 0 #1E4A9A, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-edge {
+            background: linear-gradient(145deg, #0078D7, #005A9E);
+            box-shadow: 0 3px 0 #003D6B, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-gdrive {
+            background: linear-gradient(145deg, #34A853, #2D8A45);
+            box-shadow: 0 3px 0 #1E6B30, 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        /* PM-Specific Tool Colors */
+        .btn-procore {
+            background: linear-gradient(145deg, #F47920, #D96A1A);
+            box-shadow: 0 3px 0 #A54F12, 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .btn-p6 {
+            background: linear-gradient(145deg, #E74C3C, #C0392B);
+            box-shadow: 0 3px 0 #922B21, 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .btn-msproject {
+            background: linear-gradient(145deg, #217346, #185C37);
+            box-shadow: 0 3px 0 #0F3D22, 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .btn-rms {
+            background: linear-gradient(145deg, #3498DB, #2980B9);
+            box-shadow: 0 3px 0 #1F618D, 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .btn-cefms {
+            background: linear-gradient(145deg, #9B59B6, #8E44AD);
+            box-shadow: 0 3px 0 #6C3483, 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .btn-explorer {
+            background: linear-gradient(145deg, #FFC83D, #E5A800);
+            box-shadow: 0 3px 0 #B38600, 0 4px 8px rgba(0,0,0,0.3);
+            color: #1a1a1a;
+        }
     </style>
 </head>
 <body>
-    <!-- Sticky Hero Section -->
+    <!-- Sticky Hero Section with Logo -->
     <section class="hero-section">
         <div class="hero-content">
             <div class="hero-brand">
-                <div class="hero-company">Trajanus USA EI<span class="tm">™</span></div>
-                <div class="hero-toolkit">Project Management Toolkit</div>
-                <div class="hero-description">
-                    Complete PM workspace for RFIs, submittals, schedules, cost tracking, and federal contract compliance.
-                    Access Procore, Primavera P6, RMS 3.0, and other PM tools from this unified interface.
+                <!-- 3D Trajanus Logo -->
+                <style>
+                    .toolkit-logo-lockup {
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                    }
+                    .toolkit-brand-text {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                    }
+                    .toolkit-brand-title {
+                        font-family: 'Copperplate Gothic Bold', 'Copperplate', serif;
+                        font-size: 28pt;
+                        font-weight: 900;
+                        color: #00AAFF;
+                        letter-spacing: 0.15em;
+                        margin: 0;
+                        line-height: 1;
+                    }
+                    .toolkit-brand-tagline {
+                        font-family: Arial Narrow, 'Arial', sans-serif;
+                        font-size: 0.65rem;
+                        font-weight: bold;
+                        color: #00AAFF;
+                        letter-spacing: 0.08em;
+                        margin: 0.3rem 0 0 0;
+                        text-transform: uppercase;
+                    }
+                    .toolkit-logo-svg {
+                        filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.7));
+                    }
+                </style>
+                <div class="toolkit-logo-lockup">
+                    <svg class="toolkit-logo-svg" width="50" height="50" viewBox="0 0 120 120">
+                        <defs>
+                            <linearGradient id="toolkit-silver" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#E8E8E8"/>
+                                <stop offset="50%" stop-color="#C0C0C0"/>
+                                <stop offset="100%" stop-color="#888888"/>
+                            </linearGradient>
+                        </defs>
+                        <g transform="translate(3, 3)">
+                            <g transform="rotate(90, 60, 60)" opacity="0.4">
+                                <rect x="20" y="20" width="8" height="80" fill="#404040"/>
+                                <rect x="50" y="20" width="8" height="80" fill="#404040"/>
+                                <rect x="90" y="20" width="8" height="80" fill="#003366"/>
+                                <rect x="20" y="20" width="54" height="8" fill="#404040"/>
+                                <rect x="20" y="56" width="25" height="8" fill="#404040"/>
+                                <rect x="20" y="92" width="54" height="8" fill="#404040"/>
+                            </g>
+                        </g>
+                        <g transform="rotate(90, 60, 60)">
+                            <rect x="20" y="20" width="8" height="80" fill="url(#toolkit-silver)"/>
+                            <rect x="50" y="20" width="8" height="80" fill="url(#toolkit-silver)"/>
+                            <rect x="90" y="20" width="8" height="80" fill="#0066CC"/>
+                            <rect x="20" y="20" width="54" height="8" fill="url(#toolkit-silver)"/>
+                            <rect x="20" y="56" width="25" height="8" fill="url(#toolkit-silver)"/>
+                            <rect x="20" y="92" width="54" height="8" fill="url(#toolkit-silver)"/>
+                        </g>
+                    </svg>
+                    <div class="toolkit-brand-text">
+                        <h1 class="toolkit-brand-title">TRAJANUS</h1>
+                        <p class="toolkit-brand-tagline">ENGINEERED INTELLIGENCE™</p>
+                    </div>
                 </div>
+                <div class="hero-toolkit">PROJECT MANAGEMENT TOOLKIT</div>
             </div>
             <div class="hero-nav">
-                <a href="../index.html" class="hero-home-btn">
-                    <span>◆</span> Hub
-                </a>
+                <a href="../index.html" class="hero-home-btn">← Return to Hub</a>
             </div>
         </div>
     </section>
 
-    <!-- Welcome Section -->
-    <section class="welcome-section">
-        <div class="welcome-content">
-            <p class="welcome-text">
-                Project management command center for RFIs, schedules, cost tracking, and federal contract compliance.
-                Access PM tools, track submittals, and interact with Trajanus directly from this unified workspace.
-            </p>
-        </div>
-    </section>
+    <!-- Welcome Text (no border) -->
+    <div style="text-align: center; padding: 16px 32px; color: #c0c0c0; font-size: 14px; max-width: 800px; margin: 0 auto;">
+        Project management command center for RFIs, schedules, cost tracking, and federal contract compliance.
+        Access PM tools, track submittals, and interact with Trajanus directly from this unified workspace.
+    </div>
 
     <!-- Main Content -->
     <main class="main-content">
@@ -1004,26 +1255,11 @@
                 <div class="subsection-line"></div>
             </div>
             <div class="app-grid">
-                <div class="app-card" data-launch="procore">
-                    <div class="app-icon">PC</div>
-                    <div class="app-label">Procore</div>
-                </div>
-                <div class="app-card" data-launch="p6">
-                    <div class="app-icon">P6</div>
-                    <div class="app-label">Primavera P6</div>
-                </div>
-                <div class="app-card" data-launch="msproject">
-                    <div class="app-icon">MP</div>
-                    <div class="app-label">MS Project</div>
-                </div>
-                <div class="app-card" data-launch="rms">
-                    <div class="app-icon">RM</div>
-                    <div class="app-label">RMS 3.0</div>
-                </div>
-                <div class="app-card" data-launch="cefms">
-                    <div class="app-icon">CE</div>
-                    <div class="app-label">CEFMS</div>
-                </div>
+                <button class="ext-btn btn-procore" data-launch="procore">📋 Procore</button>
+                <button class="ext-btn btn-p6" data-launch="p6">📊 P6</button>
+                <button class="ext-btn btn-msproject" data-launch="msproject">📅 MS Project</button>
+                <button class="ext-btn btn-rms" data-launch="rms">🏛️ RMS 3.0</button>
+                <button class="ext-btn btn-cefms" data-launch="cefms">💰 CEFMS</button>
             </div>
         </div>
 
@@ -1034,26 +1270,11 @@
                 <div class="subsection-line"></div>
             </div>
             <div class="app-grid">
-                <div class="app-card" data-launch="word">
-                    <div class="app-icon">W</div>
-                    <div class="app-label">Word</div>
-                </div>
-                <div class="app-card" data-launch="excel">
-                    <div class="app-icon">X</div>
-                    <div class="app-label">Excel</div>
-                </div>
-                <div class="app-card" data-launch="powerpoint">
-                    <div class="app-icon">P</div>
-                    <div class="app-label">PowerPoint</div>
-                </div>
-                <div class="app-card" data-launch="outlook">
-                    <div class="app-icon">O</div>
-                    <div class="app-label">Outlook</div>
-                </div>
-                <div class="app-card" data-launch="teams">
-                    <div class="app-icon">TM</div>
-                    <div class="app-label">Teams</div>
-                </div>
+                <button class="ext-btn btn-word" data-launch="word">📘 Word</button>
+                <button class="ext-btn btn-excel" data-launch="excel">📗 Excel</button>
+                <button class="ext-btn btn-powerpoint" data-launch="powerpoint">📙 PowerPoint</button>
+                <button class="ext-btn btn-outlook" data-launch="outlook">📧 Outlook</button>
+                <button class="ext-btn btn-teams" data-launch="teams">👥 Teams</button>
             </div>
         </div>
 
@@ -1064,26 +1285,10 @@
                 <div class="subsection-line"></div>
             </div>
             <div class="app-grid">
-                <div class="app-card" data-launch="chrome">
-                    <div class="app-icon">C</div>
-                    <div class="app-label">Chrome</div>
-                </div>
-                <div class="app-card" data-launch="edge">
-                    <div class="app-icon">E</div>
-                    <div class="app-label">Edge</div>
-                </div>
-                <div class="app-card" data-launch="gdrive">
-                    <div class="app-icon">GD</div>
-                    <div class="app-label">G Drive</div>
-                </div>
-                <div class="app-card" data-launch="explorer">
-                    <div class="app-icon">FE</div>
-                    <div class="app-label">Explorer</div>
-                </div>
-                <div class="app-card" data-launch="adobe">
-                    <div class="app-icon">PDF</div>
-                    <div class="app-label">Adobe</div>
-                </div>
+                <button class="ext-btn btn-chrome" data-launch="chrome">🌐 Chrome</button>
+                <button class="ext-btn btn-edge" data-launch="edge">🌐 Edge</button>
+                <button class="ext-btn btn-gdrive" data-launch="gdrive">📁 G Drive</button>
+                <button class="ext-btn btn-explorer" data-launch="explorer">📂 Explorer</button>
             </div>
         </div>
 
@@ -1108,27 +1313,9 @@
                 <div class="subsection-line"></div>
             </div>
             <div class="script-grid">
-                <div class="script-card contract" data-doc="contract">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">Contract W9127823R0034</div>
-                        <div class="script-description">Prime contract and terms</div>
-                    </div>
-                </div>
-                <div class="script-card contract" data-doc="mods">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">Modifications Log</div>
-                        <div class="script-description">Contract modifications tracker</div>
-                    </div>
-                </div>
-                <div class="script-card contract" data-doc="specs">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">Specifications Index</div>
-                        <div class="script-description">UFGS and project specifications</div>
-                    </div>
-                </div>
+                <button class="script-btn docs" data-doc="contract">📜 Contract</button>
+                <button class="script-btn docs" data-doc="mods">📝 Mods Log</button>
+                <button class="script-btn docs" data-doc="specs">📋 Specs Index</button>
             </div>
         </div>
 
@@ -1139,27 +1326,9 @@
                 <div class="subsection-line"></div>
             </div>
             <div class="script-grid">
-                <div class="script-card schedule" data-doc="baseline">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">Baseline Schedule</div>
-                        <div class="script-description">Approved CPM baseline</div>
-                    </div>
-                </div>
-                <div class="script-card schedule" data-doc="current">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">Current Update</div>
-                        <div class="script-description">Latest schedule update</div>
-                    </div>
-                </div>
-                <div class="script-card schedule" data-doc="lookahead">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">3-Week Lookahead</div>
-                        <div class="script-description">Short-term planning</div>
-                    </div>
-                </div>
+                <button class="script-btn schedule" data-doc="baseline">📅 Baseline</button>
+                <button class="script-btn schedule" data-doc="current">📆 Current</button>
+                <button class="script-btn schedule" data-doc="lookahead">🔮 Lookahead</button>
             </div>
         </div>
 
@@ -1170,27 +1339,9 @@
                 <div class="subsection-line"></div>
             </div>
             <div class="script-grid">
-                <div class="script-card cost" data-doc="sov">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">Schedule of Values</div>
-                        <div class="script-description">SOV breakdown</div>
-                    </div>
-                </div>
-                <div class="script-card cost" data-doc="payapps">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">Payment Applications</div>
-                        <div class="script-description">Pay app tracker</div>
-                    </div>
-                </div>
-                <div class="script-card cost" data-doc="changes">
-                    <div class="indicator"></div>
-                    <div class="script-info">
-                        <div class="script-title">Change Orders</div>
-                        <div class="script-description">CO log and status</div>
-                    </div>
-                </div>
+                <button class="script-btn file-ops" data-doc="sov">💵 SOV</button>
+                <button class="script-btn file-ops" data-doc="payapps">💰 Pay Apps</button>
+                <button class="script-btn file-ops" data-doc="changes">📊 Change Orders</button>
             </div>
         </div>
 
@@ -1338,12 +1489,6 @@
         </div>
 
     </main>
-
-    <!-- Sticky Navigation -->
-    <div class="sticky-nav">
-        <button class="nav-btn" id="btn-top">↑ Top</button>
-        <button class="nav-btn" id="btn-hub">⌂ Hub</button>
-    </div>
 
     <script>
         // ==================== CONFIGURATION ====================

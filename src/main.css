@@ -116,6 +116,7 @@ a:hover {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    border: 2px solid #0066CC;
 }
 
 .main-content {
@@ -175,19 +176,21 @@ a:hover {
 }
 
 .header-icon-btn {
-    background: transparent;
-    border: none;
-    color: var(--text-muted);
+    background: linear-gradient(145deg, #00BBFF, #0088CC);
+    border: 1px solid #00CCFF;
+    color: #ffffff;
     cursor: pointer;
-    padding: var(--space-sm);
-    border-radius: 4px;
-    transition: all 0.2s ease;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.15s ease;
     font-size: 1.125rem;
+    box-shadow: 0 2px 0 #005588, 0 3px 6px rgba(0, 0, 0, 0.3);
 }
 
 .header-icon-btn:hover {
-    background: var(--bg-hover);
-    color: var(--accent-gold);
+    background: linear-gradient(145deg, #33CCFF, #00AAFF);
+    box-shadow: 0 1px 0 #005588, 0 2px 4px rgba(0, 0, 0, 0.3);
+    transform: translateY(1px);
 }
 
 /* ==================== HOME BUTTON ==================== */
@@ -262,11 +265,8 @@ a:hover {
 /* ==================== WELCOME SECTION ==================== */
 .welcome-section {
     background: var(--bg-base);
-    border: 1px solid var(--border-subtle);
-    border-radius: 8px;
-    padding: var(--space-xl);
-    margin-bottom: var(--space-xl);
-    border-left: 4px solid var(--accent-gold);
+    padding: 12px 16px;
+    margin-bottom: 16px;
 }
 
 .welcome-title {
@@ -274,14 +274,14 @@ a:hover {
     font-weight: 600;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--accent-gold);
-    margin-bottom: var(--space-lg);
+    color: #00AAFF;
+    margin-bottom: 8px;
 }
 
 .welcome-intro {
     color: var(--text-white);
-    line-height: 1.7;
-    margin-bottom: var(--space-lg);
+    line-height: 1.6;
+    margin-bottom: 0;
 }
 
 /* ==================== SECTION HEADERS ==================== */
@@ -307,17 +307,20 @@ a:hover {
 }
 
 .platforms-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-lg);
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    gap: 12px;
 }
 
 .platform-card {
     display: block;
+    flex: 1;
+    min-width: 0;
     background: var(--bg-base);
     border: 1px solid var(--border-subtle);
     border-left: 3px solid var(--accent-gold);
-    padding: var(--space-lg);
+    padding: 10px 12px;
     text-decoration: none;
     transition: all 0.2s ease;
     border-radius: 4px;
@@ -332,30 +335,30 @@ a:hover {
 
 .platform-title {
     color: var(--accent-gold);
-    font-size: 1.7rem;
+    font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    margin-bottom: var(--space-sm);
+    margin-bottom: 4px;
 }
 
 .platform-subtitle {
     color: var(--text-muted);
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-style: italic;
-    margin-bottom: var(--space-md);
+    margin-bottom: 6px;
 }
 
 .platform-description {
     color: var(--text-white);
-    font-size: 1.35rem;
-    line-height: 1.6;
-    margin-bottom: var(--space-md);
+    font-size: 0.75rem;
+    line-height: 1.4;
+    margin-bottom: 6px;
 }
 
 .platform-tags {
     display: flex;
-    gap: var(--space-sm);
+    gap: 4px;
     flex-wrap: wrap;
 }
 
@@ -433,43 +436,72 @@ a:hover {
     background: var(--status-warning);
 }
 
-/* ==================== TOOL BUTTONS ==================== */
-.tool-button {
-    background: var(--bg-base);
-    color: var(--text-white);
-    border: 1px solid var(--accent-gold);
-    padding: 12px 24px;
-    font-size: 0.9rem;
-    font-weight: 500;
+/* ==================== OPTION B - 3D BUTTONS ==================== */
+/* Primary Button (Blue) - Action buttons */
+.btn, button, .tool-button {
+    padding: 14px 28px;
+    background: linear-gradient(145deg, #00BBFF, #0088CC);
+    color: #ffffff;
+    border: 1px solid #00CCFF;
+    border-radius: 8px;
     cursor: pointer;
-    transition: all 0.2s ease;
-    border-radius: 4px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.15s ease;
+    box-shadow: 0 3px 0 #005588, 0 4px 8px rgba(0, 0, 0, 0.3);
     font-family: inherit;
 }
 
-.tool-button:hover {
-    background: var(--accent-gold);
-    color: var(--bg-base);
+.btn:hover, button:hover, .tool-button:hover {
+    background: linear-gradient(145deg, #33CCFF, #00AAFF);
+    box-shadow: 0 2px 0 #005588, 0 3px 6px rgba(0, 0, 0, 0.3);
+    transform: translateY(1px);
 }
 
-.tool-button:active {
-    transform: scale(0.98);
+.btn:active, button:active, .tool-button:active {
+    transform: translateY(3px);
+    box-shadow: 0 0 0 #005588, 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-.tool-button.primary {
-    background: var(--accent-gold);
-    color: var(--bg-base);
-    border-color: var(--accent-gold);
+/* Secondary Button (Silver/Gray) - Cancel/Close/Settings */
+.btn-secondary, button.secondary, .tool-button.secondary {
+    background: linear-gradient(145deg, #5a5a5a, #3a3a3a);
+    color: #C0C0C0;
+    border: 1px solid #6a6a6a;
+    box-shadow: 0 3px 0 #2a2a2a, 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.tool-button.primary:hover {
-    background: var(--accent-hover);
-    border-color: var(--accent-hover);
+.btn-secondary:hover, button.secondary:hover, .tool-button.secondary:hover {
+    background: linear-gradient(145deg, #6a6a6a, #4a4a4a);
+    color: #ffffff;
+    box-shadow: 0 2px 0 #2a2a2a, 0 3px 6px rgba(0, 0, 0, 0.3);
 }
 
-.tool-button:disabled {
+/* Small Button - Space-constrained areas */
+.btn-small, button.small, .tool-button.small {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+}
+
+/* Primary variant class */
+.tool-button.primary, .btn-primary {
+    background: linear-gradient(145deg, #00BBFF, #0088CC);
+    color: #ffffff;
+    border: 1px solid #00CCFF;
+    box-shadow: 0 3px 0 #005588, 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.tool-button.primary:hover, .btn-primary:hover {
+    background: linear-gradient(145deg, #33CCFF, #00AAFF);
+    box-shadow: 0 2px 0 #005588, 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Disabled state */
+.btn:disabled, button:disabled, .tool-button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 2px 0 #333, 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
 /* ==================== QUICK TOOLS ==================== */
@@ -484,19 +516,27 @@ a:hover {
 }
 
 .quick-tool {
-    background: var(--bg-base);
-    border: 1px solid var(--border-subtle);
+    background: linear-gradient(145deg, #00BBFF, #0088CC);
+    border: 1px solid #00CCFF;
     border-radius: 8px;
-    padding: var(--space-lg) var(--space-xl);
+    padding: var(--space-md) var(--space-lg);
     text-align: center;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.15s ease;
     min-width: 100px;
+    box-shadow: 0 3px 0 #005588, 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .quick-tool:hover {
-    background: var(--bg-surface);
-    border-color: var(--accent-gold);
+    background: linear-gradient(145deg, #33CCFF, #00AAFF);
+    border-color: #44DDFF;
+    box-shadow: 0 2px 0 #005588, 0 3px 6px rgba(0, 0, 0, 0.3);
+    transform: translateY(1px);
+}
+
+.quick-tool:active {
+    transform: translateY(3px);
+    box-shadow: 0 0 0 #005588, 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .quick-tool-icon {
@@ -505,9 +545,11 @@ a:hover {
 }
 
 .quick-tool-label {
-    font-size: 0.75rem;
-    color: var(--text-white);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #ffffff;
     white-space: nowrap;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 /* ==================== PANEL SYSTEM ==================== */
@@ -667,19 +709,29 @@ a:hover {
 }
 
 .chat-action {
-    background: transparent;
-    border: 1px solid var(--border-subtle);
-    color: var(--text-muted);
-    padding: 4px 12px;
+    background: linear-gradient(145deg, #5a5a5a, #3a3a3a);
+    border: 1px solid #6a6a6a;
+    color: #C0C0C0;
+    padding: 6px 14px;
     font-size: 0.75rem;
-    border-radius: 4px;
+    font-weight: 600;
+    border-radius: 5px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.15s ease;
+    box-shadow: 0 2px 0 #2a2a2a, 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .chat-action:hover {
-    border-color: var(--accent-gold);
-    color: var(--accent-gold);
+    background: linear-gradient(145deg, #6a6a6a, #4a4a4a);
+    border-color: #7a7a7a;
+    color: #ffffff;
+    box-shadow: 0 1px 0 #2a2a2a, 0 1px 3px rgba(0, 0, 0, 0.3);
+    transform: translateY(1px);
+}
+
+.chat-action:active {
+    transform: translateY(2px);
+    box-shadow: 0 0 0 #2a2a2a, 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .chat-messages {
@@ -999,7 +1051,7 @@ a:hover {
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 1199px) {
     .platforms-grid {
-        grid-template-columns: 1fr;
+        flex-wrap: wrap;
     }
 
     .projects-grid {
@@ -1193,9 +1245,9 @@ a:hover {
    ============================================ */
 .project-sidebar {
   position: fixed;
-  left: 0;
-  top: 60px;
-  bottom: 0;
+  left: 2px;
+  top: 2px;
+  bottom: 2px;
   width: 280px;
   flex-shrink: 0;
   background: var(--bg-surface);
@@ -1222,19 +1274,28 @@ a:hover {
 }
 
 .new-project-btn {
-  background: transparent;
-  border: 1px solid var(--gold);
-  color: var(--gold);
-  padding: 6px 12px;
-  border-radius: 4px;
+  background: linear-gradient(145deg, #00BBFF, #0088CC);
+  border: 1px solid #00CCFF;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 6px;
   font-size: 0.8rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 0 #005588, 0 3px 6px rgba(0, 0, 0, 0.3);
 }
 
 .new-project-btn:hover {
-  background: var(--gold);
-  color: var(--bg-base);
+  background: linear-gradient(145deg, #33CCFF, #00AAFF);
+  color: #ffffff;
+  box-shadow: 0 1px 0 #005588, 0 2px 4px rgba(0, 0, 0, 0.3);
+  transform: translateY(1px);
+}
+
+.new-project-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 #005588, 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .project-section {
@@ -1248,9 +1309,9 @@ a:hover {
   padding: 12px 16px;
   cursor: pointer;
   transition: background 0.2s ease;
-  color: var(--accent);
+  color: #00AAFF;
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .section-header-sidebar:hover {
@@ -1415,37 +1476,7 @@ a:hover {
   margin-top: 20px;
 }
 
-.btn-secondary {
-  background: transparent;
-  border: 1px solid var(--border-subtle);
-  color: var(--text-muted);
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
-}
-
-.btn-secondary:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.btn-primary {
-  background: linear-gradient(180deg, var(--bg-elevated) 0%, var(--bg-card) 100%);
-  border: 1px solid var(--accent);
-  color: var(--accent-bright);
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-.btn-primary:hover {
-  background: linear-gradient(180deg, var(--bg-hover) 0%, var(--bg-elevated) 100%);
-}
+/* btn-secondary and btn-primary defined in OPTION B section above */
 
 /* ============================================
    EMBEDDED WEBVIEW MODAL
@@ -1511,25 +1542,35 @@ a:hover {
     z-index: 9999;
 }
 
+/* ============================================
+   NAVIGATION BUTTON - 140x44px
+   ============================================ */
 .nav-btn {
-    background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
-    border: 1px solid #c0c0c0;
-    color: #c0c0c0;
-    padding: 10px 15px;
-    border-radius: 4px;
+    width: 140px;
+    height: 44px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 0.85rem;
-    font-weight: 500;
-    min-width: 70px;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    transition: all 0.2s;
+    font-weight: 600;
+    transition: all 0.15s ease;
+    border: 1px solid #6a6a6a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: #C0C0C0;
+    background: linear-gradient(145deg, #5a5a5a, #3a3a3a);
+    box-shadow: 0 3px 0 #2a2a2a, 0 4px 8px rgba(0,0,0,0.3);
 }
 
 .nav-btn:hover {
-    background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
-    border-color: #e0e0e0;
-    color: #e0e0e0;
+    transform: translateY(-2px);
+    color: #ffffff;
+    filter: brightness(1.15);
+}
+
+.nav-btn:active {
+    transform: translateY(2px);
 }
 
 /* ============================================
@@ -1702,3 +1743,262 @@ a:hover {
     vertical-align: middle;
     border: 1px solid #404040;
 }
+
+/* ============================================
+   EXTERNAL PROGRAM BUTTONS - 120x44px
+   ============================================ */
+.ext-btn {
+    width: 120px;
+    height: 44px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.15s ease;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: #ffffff;
+}
+
+.ext-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.15);
+}
+
+.ext-btn:active {
+    transform: translateY(2px);
+}
+
+/* ============================================
+   TRAJANUS SCRIPT BUTTONS - 160x50px
+   ============================================ */
+.script-btn {
+    width: 160px;
+    height: 50px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.15s ease;
+    border: 1px solid #00CCFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #ffffff;
+    background: linear-gradient(145deg, #00AAFF, #0077CC);
+    box-shadow: 0 3px 0 #005599, 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.script-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.15);
+}
+
+.script-btn:active {
+    transform: translateY(2px);
+}
+
+/* ============================================
+   BRAND COLORS FOR EXTERNAL PROGRAMS
+   ============================================ */
+
+/* Microsoft Office */
+.btn-word { background: linear-gradient(145deg, #2B579A, #1E3F6F); box-shadow: 0 3px 0 #152D4F, 0 4px 8px rgba(0,0,0,0.3); }
+.btn-excel { background: linear-gradient(145deg, #217346, #185C37); box-shadow: 0 3px 0 #0F3D22, 0 4px 8px rgba(0,0,0,0.3); }
+.btn-powerpoint { background: linear-gradient(145deg, #D24726, #B7361A); box-shadow: 0 3px 0 #8B2810, 0 4px 8px rgba(0,0,0,0.3); }
+.btn-outlook { background: linear-gradient(145deg, #0078D4, #005A9E); box-shadow: 0 3px 0 #003D6B, 0 4px 8px rgba(0,0,0,0.3); }
+.btn-teams { background: linear-gradient(145deg, #6264A7, #4B4D8A); box-shadow: 0 3px 0 #353666, 0 4px 8px rgba(0,0,0,0.3); }
+.btn-onenote { background: linear-gradient(145deg, #7719AA, #5C1384); box-shadow: 0 3px 0 #3D0C58, 0 4px 8px rgba(0,0,0,0.3); }
+
+/* Developer Tools */
+.btn-vscode { background: linear-gradient(145deg, #007ACC, #005A9E); box-shadow: 0 3px 0 #003D6B, 0 4px 8px rgba(0,0,0,0.3); }
+.btn-powershell { background: linear-gradient(145deg, #012456, #001733); box-shadow: 0 3px 0 #000B1A, 0 4px 8px rgba(0,0,0,0.3); }
+.btn-github { background: linear-gradient(145deg, #333333, #1a1a1a); box-shadow: 0 3px 0 #000000, 0 4px 8px rgba(0,0,0,0.3); }
+.btn-python { background: linear-gradient(145deg, #3776AB, #2B5B84); box-shadow: 0 3px 0 #1E3F5C, 0 4px 8px rgba(0,0,0,0.3); }
+.btn-terminal { background: linear-gradient(145deg, #2D2D2D, #1a1a1a); box-shadow: 0 3px 0 #000000, 0 4px 8px rgba(0,0,0,0.3); color: #00FF00; }
+
+/* Browsers & Utilities */
+.btn-chrome { background: linear-gradient(145deg, #4285F4, #2D6BD4); box-shadow: 0 3px 0 #1E4A9A, 0 4px 8px rgba(0,0,0,0.3); }
+.btn-edge { background: linear-gradient(145deg, #0078D7, #005A9E); box-shadow: 0 3px 0 #003D6B, 0 4px 8px rgba(0,0,0,0.3); }
+.btn-explorer { background: linear-gradient(145deg, #FFC83D, #E5A800); box-shadow: 0 3px 0 #B38600, 0 4px 8px rgba(0,0,0,0.3); color: #1a1a1a; }
+.btn-gdrive { background: linear-gradient(145deg, #34A853, #2D8A45); box-shadow: 0 3px 0 #1E6B30, 0 4px 8px rgba(0,0,0,0.3); }
+.btn-notepad { background: linear-gradient(145deg, #90E59A, #6BC275); box-shadow: 0 3px 0 #4A9A54, 0 4px 8px rgba(0,0,0,0.3); color: #1a1a1a; }
+.btn-calc { background: linear-gradient(145deg, #4a4a4a, #2a2a2a); box-shadow: 0 3px 0 #1a1a1a, 0 4px 8px rgba(0,0,0,0.3); }
+.btn-gmail { background: linear-gradient(145deg, #EA4335, #C5221F); box-shadow: 0 3px 0 #8B1810, 0 4px 8px rgba(0,0,0,0.3); }
+
+/* Federal & Project Controls */
+.btn-rms { background: linear-gradient(145deg, #3498DB, #2980B9); box-shadow: 0 3px 0 #1F5F8B, 0 4px 8px rgba(0,0,0,0.3); }
+.btn-cefms { background: linear-gradient(145deg, #9B59B6, #8E44AD); box-shadow: 0 3px 0 #6C3483, 0 4px 8px rgba(0,0,0,0.3); }
+.btn-p6 { background: linear-gradient(145deg, #E74C3C, #C0392B); box-shadow: 0 3px 0 #922B21, 0 4px 8px rgba(0,0,0,0.3); }
+.btn-procore { background: linear-gradient(145deg, #F47920, #D96A1A); box-shadow: 0 3px 0 #B85510, 0 4px 8px rgba(0,0,0,0.3); }
+.btn-msproject { background: linear-gradient(145deg, #217346, #185C37); box-shadow: 0 3px 0 #0F3D22, 0 4px 8px rgba(0,0,0,0.3); }
+
+/* ============================================
+   HUB PAGE SECTION DIVIDERS
+   ============================================ */
+
+.hub-section-divider {
+    margin: 32px 0 20px 0;
+}
+
+.hub-divider-line {
+    height: 2px;
+    background: linear-gradient(to right, #00AAFF, #005580, transparent);
+    margin-bottom: 12px;
+}
+
+.hub-section-title {
+    color: #00AAFF;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin: 0;
+}
+
+.hub-section-desc {
+    color: #888;
+    font-size: 12px;
+    margin: 4px 0 0 0;
+}
+
+/* Hub Agent Chat Styles */
+.hub-agent-container {
+    background: #1a1a1a;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.hub-agent-messages {
+    min-height: 120px;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 12px;
+    padding: 8px;
+}
+
+.hub-agent-input {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.hub-agent-input textarea {
+    flex: 1;
+    background: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 6px;
+    color: #fff;
+    padding: 10px 12px;
+    font-size: 14px;
+    resize: none;
+}
+
+.hub-agent-input textarea:focus {
+    outline: none;
+    border-color: #00AAFF;
+}
+
+.hub-agent-send {
+    background: linear-gradient(145deg, #00AAFF, #0088CC);
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    padding: 10px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.hub-agent-send:hover {
+    background: linear-gradient(145deg, #33BBFF, #00AAFF);
+}
+
+.hub-agent-clear {
+    background: transparent;
+    border: 1px solid #666;
+    border-radius: 6px;
+    color: #888;
+    padding: 10px 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.hub-agent-clear:hover {
+    border-color: #00AAFF;
+    color: #00AAFF;
+}
+
+/* STANDARDIZED BUTTON CLASSES - Added 2026-01-15 */
+
+.ext-btn {
+    width: 120px;
+    height: 44px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.15s ease;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: #ffffff;
+}
+
+.ext-btn:hover { transform: translateY(-2px); filter: brightness(1.15); }
+.ext-btn:active { transform: translateY(2px); }
+
+.script-btn {
+    width: 160px;
+    height: 50px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.15s ease;
+    border: 1px solid #00CCFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #ffffff;
+    background: linear-gradient(145deg, #00AAFF, #0077CC);
+    box-shadow: 0 3px 0 #005599, 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.script-btn:hover { transform: translateY(-2px); filter: brightness(1.15); }
+.script-btn:active { transform: translateY(2px); }
+
+.nav-btn {
+    width: 140px;
+    height: 44px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1px solid #6a6a6a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #C0C0C0;
+    background: linear-gradient(145deg, #5a5a5a, #3a3a3a);
+    box-shadow: 0 3px 0 #2a2a2a, 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.btn-word { background: linear-gradient(145deg, #2B579A, #1E3F6F); box-shadow: 0 3px 0 #152D4F; }
+.btn-excel { background: linear-gradient(145deg, #217346, #185C37); box-shadow: 0 3px 0 #0F3D22; }
+.btn-powerpoint { background: linear-gradient(145deg, #D24726, #B7361A); box-shadow: 0 3px 0 #8B2810; }
+.btn-outlook { background: linear-gradient(145deg, #0078D4, #005A9E); box-shadow: 0 3px 0 #003D6B; }
+.btn-teams { background: linear-gradient(145deg, #6264A7, #4B4D8A); box-shadow: 0 3px 0 #353666; }
+.btn-vscode { background: linear-gradient(145deg, #007ACC, #005A9E); box-shadow: 0 3px 0 #003D6B; }
+.btn-chrome { background: linear-gradient(145deg, #4285F4, #2D6BD4); box-shadow: 0 3px 0 #1E4A9A; }
+.btn-edge { background: linear-gradient(145deg, #0078D7, #005A9E); box-shadow: 0 3px 0 #003D6B; }
+.btn-gdrive { background: linear-gradient(145deg, #34A853, #2D8A45); box-shadow: 0 3px 0 #1E6B30; }
