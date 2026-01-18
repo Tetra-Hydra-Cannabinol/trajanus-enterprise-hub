@@ -145,3 +145,159 @@ Tauri desktop application serving as a command center with multiple toolkit plat
 - PREFERENCE: User name in greeting → BLUE (#00AAFF)
 - PREFERENCE: Tagline "ENGINEERED INTELLIGENCE™" → WHITE (#FFFFFF)
 - PREFERENCE: Greeting text and date → WHITE (#FFFFFF)
+
+## Session Learnings - 2026-01-16 (Healthcare Platform)
+
+### Platform Identity Transformation
+
+- PATTERN: When transforming platform purpose, update ALL related elements systematically: sidebar structure, tool names, assistant purpose, file sections, output areas
+
+- PATTERN: Platform identity should match user's actual workflow - healthcare platform is for BUILDING apps (code factory), not processing patient reports
+
+- PREFERENCE: Break large development goals into specific component checklists (10 components for healthcare app: PDF Upload, Text Extraction, Data Parser, Report Template, Database, Auth, Audit Logging, Azure Config, AI Agent, Admin Dashboard)
+
+### Healthcare App Context
+
+- PATTERN: Healthcare platform targets specific real-world project: building app for Dr. Jako Bezuidenhout (pediatrician, Johannesburg, South Africa)
+
+- PATTERN: HIPAA compliance considerations built into development checklist (Audit Logging, HIPAA Validator tools)
+
+### Persistent UI State
+
+- PATTERN: Use localStorage for simple state persistence (checklist progress) when no backend needed
+
+- PATTERN: Collapsible sections with saved state improve organization for long development roadmaps
+
+### File Upload Strategy
+
+- PATTERN: Support both PDF and DOCX for project documentation uploads - requirements/specs may come in either format
+
+- PATTERN: File upload can serve different purposes based on platform identity (patient reports vs. project documentation)
+
+## Advanced Patterns Training - 2026-01-17
+
+### Skills Architecture
+
+**Directory Structure:**
+```
+.claude/skills/
+├── eos-protocol/skill.md
+├── surgical-edit/skill.md
+├── playwright-verify/skill.md
+└── toolkit-builder/skill.md
+```
+
+**Skill File Format:**
+```yaml
+---
+name: skill-name
+description: Trigger conditions for auto-invocation
+---
+# Instructions
+```
+
+- PATTERN: Description field determines when skill auto-triggers
+- PATTERN: Create skills from examples: provide 2-3 before/after, let Claude notice patterns
+- PATTERN: Vibe check skills 2-3 times after creation, then iterate
+
+### Context Management
+
+- CRITICAL: Context rot - LLM performance degrades as context fills; tokens at beginning more effective than end
+- PATTERN: Spawn fresh sub-agents for discrete tasks (fresh 200K context each)
+- PATTERN: Progressive disclosure - load tools/context only when needed
+- PATTERN: Don't reuse contexts for unrelated work
+
+### MCP Optimization
+
+- CRITICAL: MCPs consume 50%+ of context from tool definitions alone
+- PATTERN: Enable only MCPs you're actively using
+- PATTERN: Disable MCPs when not needed
+- PATTERN: Use CLI tools for simple operations (better context efficiency)
+- PATTERN: Add MCP discovery hints to CLAUDE.md
+
+### Session Naming Convention
+
+- FORMAT: `{project}-{date}-{focus}`
+- EXAMPLES: `trajanus-2026-01-17-skills-setup`, `healthcare-2026-01-19-auth`
+- COMMANDS: `/rename [name]` to name, `claude --resume` to continue
+
+### Hooks Configuration
+
+- AVAILABLE: session_start, session_end, pre_tool_use, post_tool_use, pre_compact
+- USE CASE: Notification on task completion
+- USE CASE: Auto-export before compaction
+- USE CASE: Pull tickets on session start
+- USE CASE: Run tests after code write
+
+### GitHub Integration
+
+- SETUP: Add Claude app at `github.com/apps/claude`, add API key to repo settings
+- PATTERN: Create issues → @claude → async execution (works from phone)
+- QUOTE: "Claude is fiercely competent with Git"
+
+### Key Quotes
+
+> "Context rot: tokens at the front are more effective than tokens at the end"
+> "MCPs take up 50%+ of context window"
+> "Skills are reusable SOPs for agents"
+> "Just see: can I do it in Claude Code? That's my best advice."
+
+### Trajanus Skills Reference
+
+| Skill | Trigger | Purpose |
+|-------|---------|---------|
+| eos-protocol | "run eos", "end of session" | Generate session documentation |
+| surgical-edit | "precise edit", "surgical change" | Minimal targeted modifications |
+| playwright-verify | "verify UI", "screenshot" | UI verification with Playwright |
+| toolkit-builder | "build toolkit", "new platform" | Create Trajanus toolkit pages |
+
+### Quick Reference - Advanced Patterns
+
+- **Skills**: `.claude/skills/[name]/skill.md` auto-triggers on description match
+- **Context rot**: Performance degrades as context fills. Flag when deep, recommend fresh context.
+- **Session naming**: `/rename trajanus-{date}-{focus}`
+- **MCP bloat**: Disable unused MCPs - they consume 50%+ context from definitions alone
+- **GSD framework**: `npx get-stuff-done-cc` for complex multi-step projects
+- **Fresh contexts**: Spawn new for unrelated tasks, don't reuse bloated contexts
+
+## Session Learnings - 2026-01-17 (UI Standardization)
+
+### Progress Section Implementation
+
+- PATTERN: Two-panel grid layout (1.5fr / 1fr) works well for checklist + progress tracker combination
+
+- PATTERN: Each platform gets unique checklist items matching its domain (QCM, PM, TSE, Healthcare, Developer)
+
+- PATTERN: localStorage persistence pattern is consistent across all platforms - copy/adapt with platform-specific key name
+
+### Color Standardization
+
+- CORRECTION: Progress section components still had gold (var(--gold)) colors → All converted to #00AAFF for consistency
+
+- REFERENCE: Components needing gold→blue: `.progress-checklist`, `.progress-tracker`, `.checklist-title`, `.checklist-checkbox`, `.progress-title`, `.progress-percent`
+
+- PREFERENCE: 2px borders are the standard - 1px borders look inconsistent (found on Claude embed wrapper)
+
+### Checklist Persistence Pattern
+
+```javascript
+// Standard localStorage persistence pattern
+const savedChecklist = localStorage.getItem('{platform}-checklist-state');
+// Load, parse JSON, restore .completed classes
+// On click: toggle class, update count, save to localStorage
+```
+
+- PATTERN: Use `data-task` attribute as unique identifier for each checklist item
+
+- PATTERN: Unique localStorage keys per platform prevent state collision:
+  - `developer-checklist-state`
+  - `qcm-checklist-state`
+  - `pm-checklist-state`
+  - `traffic-checklist-state`
+  - `healthcare-checklist-state`
+
+### Session Context
+
+- PATTERN: "the checklist keeps dissapearing" = state persistence problem, not visibility
+
+- PREFERENCE: User expects UI state to persist across browser sessions - localStorage is appropriate for simple boolean checklist state

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Developer Toolkit - Trajanus Enterprise Hub</title>
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
         /* Reset & Base */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -254,30 +256,34 @@
         }
 
         .section-blocks {
-            color: var(--gold);
+            color: #00AAFF;
             font-size: 14px;
             font-weight: 900;
             letter-spacing: 2px;
         }
 
         .section-title {
-            color: var(--gold);
+            color: #00AAFF;
             font-size: 14px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 4px;
         }
 
+        .section-border-top,
         .section-border-bottom {
             height: 2px;
-            background: linear-gradient(to right, var(--gold), var(--gold-dark), transparent);
-            margin-top: 12px;
+            background: linear-gradient(to right, #00AAFF, #0066CC, transparent);
+        }
+
+        .section-border-bottom {
+            margin-top: 6px;
         }
 
         .section-description {
             color: var(--text-secondary);
-            font-size: 13px;
-            margin-top: 12px;
+            font-size: 14px;
+            margin-top: 4px;
             max-width: 800px;
         }
 
@@ -290,14 +296,20 @@
 
         .subsection-header {
             display: flex;
-            align-items: center;
-            gap: 12px;
+            flex-direction: column;
+            gap: 8px;
             margin-bottom: 16px;
         }
 
+        .subsection-title-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
         .subsection-title {
-            color: var(--text-primary);
-            font-size: 13px;
+            color: #00AAFF;
+            font-size: 14px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1.5px;
@@ -305,14 +317,22 @@
 
         .subsection-line {
             flex: 1;
-            height: 1px;
-            background: var(--border-subtle);
+            height: 2px;
+            background: linear-gradient(to right, #00AAFF, #0066CC, transparent);
         }
 
         .subsection-description {
-            color: var(--text-muted);
-            font-size: 12px;
-            margin-bottom: 12px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .subsection-workflow {
+            color: var(--text-muted, #888);
+            font-size: 13px;
+            margin-top: 8px;
+            line-height: 1.5;
+            font-style: italic;
         }
 
         /* ========================== */
@@ -1404,7 +1424,7 @@
         }
         .claude-embed-wrapper {
             background: #1a1a1a;
-            border: 1px solid #00AAFF;
+            border: 2px solid #00AAFF;
             border-radius: 10px;
             overflow: hidden;
         }
@@ -1689,6 +1709,317 @@
         }
 
         /* Brand colors removed - ext-btn uses V2 Synapse glow style from main.css */
+
+        /* ============================================ */
+        /* PROJECT PROGRESS - TWO PANEL LAYOUT         */
+        /* ============================================ */
+        .progress-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+            align-items: stretch;
+        }
+
+        .progress-section > * {
+            min-height: 100%;
+        }
+
+        .progress-checklist {
+            background: var(--bg-base);
+            border: 2px solid #00AAFF;
+            border-radius: 12px;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .checklist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .checklist-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #00AAFF;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checklist-count {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .checklist-items {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            background: var(--bg-elevated);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .checklist-item:hover {
+            background: var(--bg-hover);
+        }
+
+        .checklist-item.completed {
+            opacity: 0.6;
+        }
+
+        .checklist-checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #00AAFF;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .checklist-item.completed .checklist-checkbox {
+            background: #4ade80;
+            border-color: #4ade80;
+        }
+
+        .checklist-checkbox::after {
+            content: '';
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg) scale(0);
+            transition: transform 0.2s ease;
+        }
+
+        .checklist-item.completed .checklist-checkbox::after {
+            transform: rotate(45deg) scale(1);
+        }
+
+        .checklist-text {
+            font-size: 13px;
+            color: var(--text-primary);
+            flex: 1;
+        }
+
+        .checklist-item.completed .checklist-text {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .checklist-badge {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .checklist-badge.critical { background: rgba(248, 113, 113, 0.2); color: #f87171; }
+        .checklist-badge.high { background: rgba(251, 191, 36, 0.2); color: #fbbf24; }
+        .checklist-badge.medium { background: rgba(0, 170, 255, 0.2); color: #00AAFF; }
+        .checklist-badge.low { background: rgba(192, 192, 192, 0.2); color: #c0c0c0; }
+
+        .progress-tracker {
+            background: var(--bg-base);
+            border: 2px solid #00AAFF;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .progress-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #00AAFF;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .progress-title-icon {
+            font-size: 20px;
+        }
+
+        .progress-overall {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .progress-percent {
+            font-size: 28px;
+            font-weight: 700;
+            color: #00AAFF;
+            font-family: var(--font-mono);
+        }
+
+        .progress-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .progress-phases {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .progress-phase {
+            display: grid;
+            grid-template-columns: 120px 1fr 60px;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .phase-name {
+            font-size: 13px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .phase-bar-container {
+            height: 24px;
+            background: var(--bg-elevated);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .phase-bar {
+            height: 100%;
+            border-radius: 12px;
+            position: relative;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Phase status colors */
+        .phase-bar.complete {
+            background: linear-gradient(90deg, #22c55e 0%, #4ade80 50%, #22c55e 100%);
+            box-shadow: 0 0 12px rgba(74, 222, 128, 0.4);
+        }
+
+        .phase-bar.in-progress {
+            background: linear-gradient(90deg, #0088CC 0%, #00AAFF 50%, #0088CC 100%);
+            box-shadow: 0 0 12px rgba(0, 170, 255, 0.4);
+            animation: progressPulse 2s ease-in-out infinite;
+        }
+
+        .phase-bar.pending {
+            background: linear-gradient(90deg, #4a4a4a 0%, #6a6a6a 50%, #4a4a4a 100%);
+        }
+
+        .phase-bar.blocked {
+            background: linear-gradient(90deg, #dc2626 0%, #f87171 50%, #dc2626 100%);
+            box-shadow: 0 0 12px rgba(248, 113, 113, 0.4);
+        }
+
+        /* Animated shimmer effect for in-progress bars */
+        .phase-bar.in-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes progressPulse {
+            0%, 100% { box-shadow: 0 0 12px rgba(0, 170, 255, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(0, 170, 255, 0.7); }
+        }
+
+        .phase-percent {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            text-align: right;
+        }
+
+        .phase-percent.complete { color: #4ade80; }
+        .phase-percent.in-progress { color: #00AAFF; }
+        .phase-percent.blocked { color: #f87171; }
+
+        /* Task count badges */
+        .phase-tasks {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 11px;
+            color: rgba(255,255,255,0.9);
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* Progress footer stats */
+        .progress-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .progress-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+        }
+
+        .stat-value.green { color: #4ade80; }
+        .stat-value.blue { color: #00AAFF; }
+        .stat-value.gray { color: #6a6a6a; }
+        .stat-value.red { color: #f87171; }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
     </style>
 </head>
 <body>
@@ -1768,9 +2099,7 @@
         <div class="section-divider">
             <div class="section-border-top"></div>
             <div class="section-title-row">
-                <span class="section-blocks">|||</span>
                 <h2 class="section-title">AI ASSISTANT</h2>
-                <span class="section-blocks">|||</span>
             </div>
             <div class="section-border-bottom"></div>
             <p class="section-description">
@@ -1816,9 +2145,7 @@
         <div class="section-divider">
             <div class="section-border-top"></div>
             <div class="section-title-row">
-                <span class="section-blocks">|||</span>
                 <h2 class="section-title">APPLICATIONS</h2>
-                <span class="section-blocks">|||</span>
             </div>
             <div class="section-border-bottom"></div>
             <p class="section-description">
@@ -1829,8 +2156,12 @@
         <!-- Development -->
         <div class="subsection">
             <div class="subsection-header">
-                <h3 class="subsection-title">Development</h3>
-                <div class="subsection-line"></div>
+                <div class="subsection-title-row">
+                    <h3 class="subsection-title">Development</h3>
+                    <div class="subsection-line"></div>
+                </div>
+                <p class="subsection-description">Launch development tools, IDEs, and coding environments.</p>
+                <p class="subsection-workflow">Use VS Code for Tauri app development and editing HTML/CSS/JS. Terminal for git operations and npm commands. Claude Code for AI-assisted development with code generation and debugging.</p>
             </div>
             <div class="app-grid">
                 <button class="ext-btn btn-vscode" data-launch="vscode"><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M17.5 0L8.5 8l-4-3.5L0 6.5v11l4.5 2L8.5 16l9 8 6.5-3V3L17.5 0zM4.5 14.5v-5l3 2.5-3 2.5zm13 4l-7-6 7-6v12z"/></svg>VS Code</button>
@@ -1844,8 +2175,12 @@
         <!-- Browsers & Communication -->
         <div class="subsection">
             <div class="subsection-header">
-                <h3 class="subsection-title">Browsers & Communication</h3>
-                <div class="subsection-line"></div>
+                <div class="subsection-title-row">
+                    <h3 class="subsection-title">Browsers & Communication</h3>
+                    <div class="subsection-line"></div>
+                </div>
+                <p class="subsection-description">Web browsers, email, and team collaboration tools.</p>
+                <p class="subsection-workflow">Chrome for web-based tools and testing. Edge for Microsoft 365 integration. Teams for project communication and file sharing with remote team members.</p>
             </div>
             <div class="app-grid">
                 <button class="ext-btn btn-chrome" data-launch="chrome"><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8 0-1.85.63-3.55 1.69-4.9L12 12l6.31-4.9A7.96 7.96 0 0120 12c0 4.42-3.58 8-8 8zm0-6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>Chrome</button>
@@ -1859,8 +2194,12 @@
         <!-- File & Cloud -->
         <div class="subsection">
             <div class="subsection-header">
-                <h3 class="subsection-title">File & Cloud</h3>
-                <div class="subsection-line"></div>
+                <div class="subsection-title-row">
+                    <h3 class="subsection-title">File & Cloud</h3>
+                    <div class="subsection-line"></div>
+                </div>
+                <p class="subsection-description">File management, cloud storage, and document editing.</p>
+                <p class="subsection-workflow">Google Drive for cloud file sync and document access. Explorer for local file operations. Notepad++ for quick text editing and log file analysis.</p>
             </div>
             <div class="app-grid">
                 <button class="ext-btn btn-gdrive" data-launch="gdrive"><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M7.71 3.5L1.15 15l3.43 6h12.84l3.43-6L14.29 3.5H7.71zm.86 1.5h4.86l5.14 9H3.43l5.14-9zM12 8l-4 7h8l-4-7z"/></svg>G Drive</button>
@@ -1872,8 +2211,12 @@
         <!-- MS Office -->
         <div class="subsection">
             <div class="subsection-header">
-                <h3 class="subsection-title">MS Office</h3>
-                <div class="subsection-line"></div>
+                <div class="subsection-title-row">
+                    <h3 class="subsection-title">MS Office</h3>
+                    <div class="subsection-line"></div>
+                </div>
+                <p class="subsection-description">Microsoft Office productivity suite applications.</p>
+                <p class="subsection-workflow">Word for contract documents and formal correspondence. Excel for cost tracking and schedule analysis. PowerPoint for client presentations. OneNote for meeting notes and project tracking.</p>
             </div>
             <div class="app-grid">
                 <button class="ext-btn btn-word" data-launch="word"><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M6 2h8l6 6v12c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2zm7 1.5V9h5.5L13 3.5zM7 11v2h2v6h2v-6h2v-2H7z"/></svg>Word</button>
@@ -1889,9 +2232,7 @@
         <div class="section-divider">
             <div class="section-border-top"></div>
             <div class="section-title-row">
-                <span class="section-blocks">|||</span>
                 <h2 class="section-title">TRAJANUS SCRIPTS</h2>
-                <span class="section-blocks">|||</span>
             </div>
             <div class="section-border-bottom"></div>
             <p class="section-description">
@@ -1903,10 +2244,13 @@
         <!-- File Conversion -->
         <div class="subsection">
             <div class="subsection-header">
-                <h3 class="subsection-title">File Conversion</h3>
-                <div class="subsection-line"></div>
+                <div class="subsection-title-row">
+                    <h3 class="subsection-title">File Conversion</h3>
+                    <div class="subsection-line"></div>
+                </div>
+                <p class="subsection-description">Convert documents between formats and upload to Google Drive.</p>
+                <p class="subsection-workflow">Run after creating markdown EOS documents to convert and upload to Google Drive. Batch Convert processes entire folders. Use for session documentation workflow completion.</p>
             </div>
-            <p class="subsection-description">Convert documents between formats and upload to Google Drive.</p>
             <div class="script-grid">
                 <button class="script-btn file-ops" data-script="CONVERT_MD_TO_GDOCS_PERMANENT.py"><img src="../assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">MD Convert</button>
                 <button class="script-btn file-ops" data-script="CONVERT_TXT_TO_GDOCS.py"><img src="../assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">TXT Convert</button>
@@ -1918,10 +2262,13 @@
         <!-- Automation & Utilities -->
         <div class="subsection">
             <div class="subsection-header">
-                <h3 class="subsection-title">Automation & Utilities</h3>
-                <div class="subsection-line"></div>
+                <div class="subsection-title-row">
+                    <h3 class="subsection-title">Automation & Utilities</h3>
+                    <div class="subsection-line"></div>
+                </div>
+                <p class="subsection-description">Google Drive folder management and organization utilities.</p>
+                <p class="subsection-workflow">Cleanup removes duplicate and orphaned files. Consolidate merges scattered folders. Reorganize restructures folder hierarchy. Audit generates folder health reports.</p>
             </div>
-            <p class="subsection-description">Google Drive folder management and organization utilities.</p>
             <div class="script-grid">
                 <button class="script-btn utility" data-script="gdrive_cleanup_agent.py"><img src="../assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">Cleanup</button>
                 <button class="script-btn utility" data-script="consolidate_folders.py"><img src="../assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">Consolidate</button>
@@ -1933,10 +2280,13 @@
         <!-- Data & Knowledge Base -->
         <div class="subsection">
             <div class="subsection-header">
-                <h3 class="subsection-title">Data & Knowledge Base</h3>
-                <div class="subsection-line"></div>
+                <div class="subsection-title-row">
+                    <h3 class="subsection-title">Data & Knowledge Base</h3>
+                    <div class="subsection-line"></div>
+                </div>
+                <p class="subsection-description">Supabase knowledge base ingestion and query tools.</p>
+                <p class="subsection-workflow">KB Ingest adds new documents to knowledge base with automatic chunking. Query KB searches existing content. Check DB verifies database connection and returns stats.</p>
             </div>
-            <p class="subsection-description">Supabase knowledge base ingestion and query tools.</p>
             <div class="script-grid">
                 <button class="script-btn file-ops" data-script="file_ingestion.py"><img src="../assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">KB Ingest</button>
                 <button class="script-btn file-ops" data-script="batch_ingest_files.py"><img src="../assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">Batch Ingest</button>
@@ -1951,24 +2301,24 @@
         <div class="section-divider">
             <div class="section-border-top"></div>
             <div class="section-title-row">
-                <span class="section-blocks">|||</span>
                 <h2 class="section-title">PYTHON TOOLS</h2>
-                <span class="section-blocks">|||</span>
             </div>
             <div class="section-border-bottom"></div>
             <p class="section-description">
-                Navy/Silver themed GUI tools for knowledge base operations, file conversion, and research automation.
-                Each tool opens in its own managed window.
+                Interactive GUI tools for knowledge base operations, file conversion, and research automation.
             </p>
         </div>
 
         <!-- Knowledge Base Tools -->
         <div class="subsection">
             <div class="subsection-header">
-                <h3 class="subsection-title">Knowledge Base Tools</h3>
-                <div class="subsection-line"></div>
+                <div class="subsection-title-row">
+                    <h3 class="subsection-title">Knowledge Base Tools</h3>
+                    <div class="subsection-line"></div>
+                </div>
+                <p class="subsection-description">GUI tools for querying and ingesting documents into the Trajanus Knowledge Base.</p>
+                <p class="subsection-workflow">Query Tool provides a visual interface for semantic search across all ingested documents. Ingest Tool offers drag-and-drop document upload with real-time progress feedback.</p>
             </div>
-            <p class="subsection-description">GUI tools for querying and ingesting documents into the Trajanus Knowledge Base.</p>
             <div class="script-grid">
                 <button class="script-btn search" data-script="QUERY_KB_TOOL.py"><img src="../assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">Query Tool</button>
                 <button class="script-btn file-ops" data-script="BATCH_INGEST_TOOL.py"><img src="../assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">Ingest Tool</button>
@@ -1978,10 +2328,13 @@
         <!-- Converter Tools -->
         <div class="subsection">
             <div class="subsection-header">
-                <h3 class="subsection-title">Converter Tools</h3>
-                <div class="subsection-line"></div>
+                <div class="subsection-title-row">
+                    <h3 class="subsection-title">Converter Tools</h3>
+                    <div class="subsection-line"></div>
+                </div>
+                <p class="subsection-description">Convert documents between formats with Google Drive integration.</p>
+                <p class="subsection-workflow">MD to GDocs converts markdown files to Google Docs format for Claude accessibility. GDocs to DOCX exports for local editing and archival.</p>
             </div>
-            <p class="subsection-description">Convert documents between formats with Google Drive integration.</p>
             <div class="script-grid">
                 <button class="script-btn file-ops" data-script="CONVERT_MD_TO_GDOCS_PERMANENT.py"><img src="../assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">MD → GDocs</button>
                 <button class="script-btn file-ops" data-script="CONVERT_GDOCS_TO_DOCX.py"><img src="../assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">GDocs → DOCX</button>
@@ -1991,12 +2344,16 @@
         <!-- Research & Agent Tools -->
         <div class="subsection">
             <div class="subsection-header">
-                <h3 class="subsection-title">Research & Agent Tools</h3>
-                <div class="subsection-line"></div>
+                <div class="subsection-title-row">
+                    <h3 class="subsection-title">Research & Agent Tools</h3>
+                    <div class="subsection-line"></div>
+                </div>
+                <p class="subsection-description">YouTube transcript extraction and research agent management.</p>
+                <p class="subsection-workflow">YT Transcripts extracts and saves video transcripts for KB ingestion. Agent Runner manages and monitors automated research agents with task queuing.</p>
             </div>
-            <p class="subsection-description">YouTube transcript extraction and research agent management.</p>
             <div class="script-grid">
                 <button class="script-btn media" data-script="YOUTUBE_TRANSCRIPT_TOOL.py"><img src="../assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">YT Transcripts</button>
+                <button class="script-btn media" data-script="KB_Video_Browser_WORKING_2025-12-23.pyw"><img src="../assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">YouTube Library</button>
                 <button class="script-btn media" data-script="AGENT_RUNNER_TOOL.py"><img src="../assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">Agent Runner</button>
             </div>
         </div>
@@ -2007,9 +2364,7 @@
         <div class="section-divider">
             <div class="section-border-top"></div>
             <div class="section-title-row">
-                <span class="section-blocks">|||</span>
                 <h2 class="section-title">AGENTS</h2>
-                <span class="section-blocks">|||</span>
             </div>
             <div class="section-border-bottom"></div>
             <p class="section-description">
@@ -2056,6 +2411,269 @@
             </div>
         </div>
 
+        <!-- ========================== -->
+        <!-- PROJECT PROGRESS SECTION   -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <h2 class="section-title">PROJECT PROGRESS</h2>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Real-time task tracking with animated progress visualization.
+                Monitor foundation phases, feature work, and deployment status.
+            </p>
+        </div>
+
+        <div class="progress-section">
+            <!-- LEFT PANEL: Living Checklist -->
+            <div class="progress-checklist" id="progress-checklist">
+                <div class="checklist-header">
+                    <div class="checklist-title">
+                        <span>&#9745;</span>
+                        Verification Checklist
+                    </div>
+                    <span class="checklist-count" id="checklist-count">17/17</span>
+                </div>
+                <div class="checklist-items" id="checklist-items">
+                    <div class="checklist-item completed" data-task="docs">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">Three Documents created</span>
+                        <span class="checklist-badge low">P0</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="claude-md">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">.claude.md context system</span>
+                        <span class="checklist-badge high">P1</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="agents">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">12 sub-agents operational</span>
+                        <span class="checklist-badge high">P1</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="commands">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">6 custom commands</span>
+                        <span class="checklist-badge high">P1</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="playwright">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">Playwright MCP configured</span>
+                        <span class="checklist-badge critical">P2</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="styleguide">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">Style guide documented</span>
+                        <span class="checklist-badge medium">P2</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="templates">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">4 acceptance templates</span>
+                        <span class="checklist-badge medium">P2</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="workflows">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">4 workflow guides</span>
+                        <span class="checklist-badge high">P3</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="gsd">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">GSD Framework documented</span>
+                        <span class="checklist-badge high">P3</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="eos">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">EOS automation ready</span>
+                        <span class="checklist-badge high">P4</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="kb">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">KB retriever configured</span>
+                        <span class="checklist-badge medium">P4</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="readme">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">README comprehensive</span>
+                        <span class="checklist-badge medium">P5</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="guides">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">4 quick start guides</span>
+                        <span class="checklist-badge low">P5</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="testing">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">Foundation tested</span>
+                        <span class="checklist-badge critical">P6</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="validation">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">Final validation passed</span>
+                        <span class="checklist-badge critical">P6</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="progress-ui">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">Progress tracker UI</span>
+                        <span class="checklist-badge medium">NEW</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="two-panel">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">Two-panel layout</span>
+                        <span class="checklist-badge medium">NEW</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT PANEL: Progress Tracker -->
+            <div class="progress-tracker" id="progress-tracker">
+                <div class="progress-header">
+                    <div class="progress-title">
+                        <span class="progress-title-icon">&#128202;</span>
+                        Foundation Build
+                    </div>
+                    <div class="progress-overall">
+                        <span class="progress-percent" id="overall-percent">100%</span>
+                        <span class="progress-label">Complete</span>
+                    </div>
+                </div>
+
+                <div class="progress-phases" id="progress-phases">
+                    <div class="progress-phase" data-phase="0">
+                        <span class="phase-name">P0: Docs</span>
+                        <div class="phase-bar-container">
+                            <div class="phase-bar complete" style="width: 100%">
+                                <span class="phase-tasks">1/1</span>
+                            </div>
+                        </div>
+                        <span class="phase-percent complete">100%</span>
+                    </div>
+                    <div class="progress-phase" data-phase="1">
+                        <span class="phase-name">P1: Context</span>
+                        <div class="phase-bar-container">
+                            <div class="phase-bar complete" style="width: 100%">
+                                <span class="phase-tasks">3/3</span>
+                            </div>
+                        </div>
+                        <span class="phase-percent complete">100%</span>
+                    </div>
+                    <div class="progress-phase" data-phase="2">
+                        <span class="phase-name">P2: Validation</span>
+                        <div class="phase-bar-container">
+                            <div class="phase-bar complete" style="width: 100%">
+                                <span class="phase-tasks">3/3</span>
+                            </div>
+                        </div>
+                        <span class="phase-percent complete">100%</span>
+                    </div>
+                    <div class="progress-phase" data-phase="3">
+                        <span class="phase-name">P3: Workflows</span>
+                        <div class="phase-bar-container">
+                            <div class="phase-bar complete" style="width: 100%">
+                                <span class="phase-tasks">4/4</span>
+                            </div>
+                        </div>
+                        <span class="phase-percent complete">100%</span>
+                    </div>
+                    <div class="progress-phase" data-phase="4">
+                        <span class="phase-name">P4: Integration</span>
+                        <div class="phase-bar-container">
+                            <div class="phase-bar complete" style="width: 100%">
+                                <span class="phase-tasks">3/3</span>
+                            </div>
+                        </div>
+                        <span class="phase-percent complete">100%</span>
+                    </div>
+                    <div class="progress-phase" data-phase="5">
+                        <span class="phase-name">P5: Docs</span>
+                        <div class="phase-bar-container">
+                            <div class="phase-bar complete" style="width: 100%">
+                                <span class="phase-tasks">2/2</span>
+                            </div>
+                        </div>
+                        <span class="phase-percent complete">100%</span>
+                    </div>
+                    <div class="progress-phase" data-phase="6">
+                        <span class="phase-name">P6: Testing</span>
+                        <div class="phase-bar-container">
+                            <div class="phase-bar complete" style="width: 100%">
+                                <span class="phase-tasks">2/2</span>
+                            </div>
+                        </div>
+                        <span class="phase-percent complete">100%</span>
+                    </div>
+                </div>
+
+                <div class="progress-footer">
+                    <div class="progress-stat">
+                        <span class="stat-value green" id="stat-complete">17</span>
+                        <span class="stat-label">Complete</span>
+                    </div>
+                    <div class="progress-stat">
+                        <span class="stat-value blue" id="stat-progress">0</span>
+                        <span class="stat-label">In Progress</span>
+                    </div>
+                    <div class="progress-stat">
+                        <span class="stat-value gray" id="stat-pending">0</span>
+                        <span class="stat-label">Pending</span>
+                    </div>
+                    <div class="progress-stat">
+                        <span class="stat-value red" id="stat-blocked">0</span>
+                        <span class="stat-label">Blocked</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================== -->
+        <!-- CLAUDE.AI EMBED SECTION    -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <h2 class="section-title">CLAUDE.AI</h2>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Full Claude.ai interface with your account, projects, and conversation history.
+                Click Launch to embed the real Claude.ai directly in this workspace.
+            </p>
+        </div>
+
+        <div class="claude-embed-section">
+            <div class="claude-embed-wrapper">
+                <div class="claude-embed-header">
+                    <h3>Claude.ai</h3>
+                    <div class="claude-embed-controls">
+                        <button class="claude-embed-btn" id="reload-claude-embed">Reload</button>
+                        <button class="claude-embed-btn" id="external-claude-embed">Open External</button>
+                    </div>
+                </div>
+                <div class="claude-embed-container" id="claude-embed-container">
+                    <div class="claude-embed-placeholder">
+                        <h4>Claude.ai Ready</h4>
+                        <p>Your full Claude.ai workspace with account, projects, and history.</p>
+                        <button class="claude-launch-btn" id="launch-claude-embed">Launch Claude.ai</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================== -->
+        <!-- OPERATIONS LOG SECTION     -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <h2 class="section-title">OPERATIONS LOG</h2>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Terminal output, developer tools logging, and Claude chat interface.
+                Track script execution, external launches, and system messages.
+            </p>
+        </div>
+
         <!-- Terminal Section with Tabs -->
         <section class="terminal-section">
             <div class="terminal-container">
@@ -2090,43 +2708,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- ========================== -->
-        <!-- CLAUDE.AI EMBED SECTION    -->
-        <!-- ========================== -->
-        <div class="section-divider">
-            <div class="section-border-top"></div>
-            <div class="section-title-row">
-                <span class="section-blocks">|||</span>
-                <h2 class="section-title">CLAUDE.AI</h2>
-                <span class="section-blocks">|||</span>
-            </div>
-            <div class="section-border-bottom"></div>
-            <p class="section-description">
-                Full Claude.ai interface with your account, projects, and conversation history.
-                Click Launch to embed the real Claude.ai directly in this workspace.
-            </p>
-        </div>
-
-        <div class="claude-embed-section">
-            <div class="claude-embed-wrapper">
-                <div class="claude-embed-header">
-                    <h3>Claude.ai</h3>
-                    <div class="claude-embed-controls">
-                        <button class="claude-embed-btn" id="reload-claude-embed">Reload</button>
-                        <button class="claude-embed-btn" id="external-claude-embed">Open External</button>
-                    </div>
-                </div>
-                <div class="claude-embed-container" id="claude-embed-container">
-                    <div class="claude-embed-placeholder">
-                        <span class="claude-embed-icon">&#129302;</span>
-                        <h4>Claude.ai Ready</h4>
-                        <p>Your full Claude.ai workspace with account, projects, and history.</p>
-                        <button class="claude-launch-btn" id="launch-claude-embed">Launch Claude.ai</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
     </main>
 
@@ -2662,10 +3243,224 @@
             }
         };
 
+        // ==================== PROGRESS TRACKER ====================
+        const ProgressTracker = {
+            phases: [
+                { id: 0, name: 'Docs', total: 1, complete: 1 },
+                { id: 1, name: 'Context', total: 3, complete: 3 },
+                { id: 2, name: 'Validation', total: 3, complete: 3 },
+                { id: 3, name: 'Workflows', total: 4, complete: 4 },
+                { id: 4, name: 'Integration', total: 3, complete: 3 },
+                { id: 5, name: 'Docs', total: 2, complete: 2 },
+                { id: 6, name: 'Testing', total: 2, complete: 2 }
+            ],
+
+            init() {
+                this.loadChecklistState();
+                this.animateOnLoad();
+                this.initChecklist();
+            },
+
+            // Save checklist state to localStorage
+            saveChecklistState() {
+                const state = {};
+                document.querySelectorAll('.checklist-item').forEach(item => {
+                    const task = item.dataset.task;
+                    if (task) {
+                        state[task] = item.classList.contains('completed');
+                    }
+                });
+                localStorage.setItem('developer-checklist-state', JSON.stringify(state));
+            },
+
+            // Load checklist state from localStorage
+            loadChecklistState() {
+                const saved = localStorage.getItem('developer-checklist-state');
+                if (saved) {
+                    try {
+                        const state = JSON.parse(saved);
+                        document.querySelectorAll('.checklist-item').forEach(item => {
+                            const task = item.dataset.task;
+                            if (task && state.hasOwnProperty(task)) {
+                                if (state[task]) {
+                                    item.classList.add('completed');
+                                } else {
+                                    item.classList.remove('completed');
+                                }
+                            }
+                        });
+                    } catch (e) {
+                        console.error('Error loading checklist state:', e);
+                    }
+                }
+                this.updateChecklistCount();
+            },
+
+            initChecklist() {
+                // Make checklist items interactive
+                document.querySelectorAll('.checklist-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        item.classList.toggle('completed');
+                        this.updateChecklistCount();
+                        this.saveChecklistState();
+
+                        // Animate checkbox
+                        const checkbox = item.querySelector('.checklist-checkbox');
+                        if (item.classList.contains('completed')) {
+                            gsap.fromTo(checkbox,
+                                { scale: 0.8 },
+                                { scale: 1, duration: 0.3, ease: 'back.out(2)' }
+                            );
+                        }
+                    });
+                });
+            },
+
+            updateChecklistCount() {
+                const items = document.querySelectorAll('.checklist-item');
+                const completed = document.querySelectorAll('.checklist-item.completed').length;
+                const countEl = document.getElementById('checklist-count');
+                if (countEl) {
+                    countEl.textContent = `${completed}/${items.length}`;
+                }
+            },
+
+            animateOnLoad() {
+                // Stagger animate each phase bar on page load
+                const bars = document.querySelectorAll('.phase-bar');
+                bars.forEach((bar, index) => {
+                    const targetWidth = bar.style.width;
+                    bar.style.width = '0%';
+
+                    gsap.to(bar, {
+                        width: targetWidth,
+                        duration: 1,
+                        delay: index * 0.15,
+                        ease: 'power2.out'
+                    });
+                });
+
+                // Stagger animate checklist items
+                gsap.from('.checklist-item', {
+                    opacity: 0,
+                    x: -20,
+                    duration: 0.4,
+                    stagger: 0.05,
+                    ease: 'power2.out',
+                    delay: 0.3
+                });
+
+                // Animate overall percentage counter
+                const percentEl = document.getElementById('overall-percent');
+                gsap.from(percentEl, {
+                    textContent: 0,
+                    duration: 2,
+                    ease: 'power2.out',
+                    snap: { textContent: 1 },
+                    onUpdate: function() {
+                        percentEl.textContent = Math.round(this.targets()[0].textContent) + '%';
+                    }
+                });
+                percentEl.textContent = '100%';
+
+                // Animate stat counters
+                const statEls = ['stat-complete', 'stat-progress', 'stat-pending', 'stat-blocked'];
+                statEls.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        const target = parseInt(el.textContent);
+                        gsap.from(el, {
+                            textContent: 0,
+                            duration: 1.5,
+                            delay: 0.5,
+                            ease: 'power2.out',
+                            snap: { textContent: 1 }
+                        });
+                    }
+                });
+            },
+
+            updatePhase(phaseId, complete, status = null) {
+                const phase = this.phases.find(p => p.id === phaseId);
+                if (!phase) return;
+
+                phase.complete = complete;
+                const percent = Math.round((complete / phase.total) * 100);
+
+                const phaseEl = document.querySelector(`[data-phase="${phaseId}"]`);
+                if (!phaseEl) return;
+
+                const bar = phaseEl.querySelector('.phase-bar');
+                const percentEl = phaseEl.querySelector('.phase-percent');
+                const tasksEl = phaseEl.querySelector('.phase-tasks');
+
+                // Determine status
+                if (!status) {
+                    if (percent === 100) status = 'complete';
+                    else if (percent > 0) status = 'in-progress';
+                    else status = 'pending';
+                }
+
+                // Update bar
+                bar.className = 'phase-bar ' + status;
+                gsap.to(bar, {
+                    width: percent + '%',
+                    duration: 0.8,
+                    ease: 'power2.out'
+                });
+
+                // Update text
+                percentEl.textContent = percent + '%';
+                percentEl.className = 'phase-percent ' + status;
+                tasksEl.textContent = `${complete}/${phase.total}`;
+
+                // Update overall stats
+                this.updateOverall();
+            },
+
+            updateOverall() {
+                const totalTasks = this.phases.reduce((sum, p) => sum + p.total, 0);
+                const completeTasks = this.phases.reduce((sum, p) => sum + p.complete, 0);
+                const overallPercent = Math.round((completeTasks / totalTasks) * 100);
+
+                const percentEl = document.getElementById('overall-percent');
+                gsap.to(percentEl, {
+                    textContent: overallPercent,
+                    duration: 0.5,
+                    snap: { textContent: 1 },
+                    onUpdate: function() {
+                        percentEl.textContent = Math.round(this.targets()[0].textContent) + '%';
+                    }
+                });
+
+                // Update stats
+                const inProgress = this.phases.filter(p => p.complete > 0 && p.complete < p.total).length;
+                const pending = this.phases.filter(p => p.complete === 0).length;
+
+                document.getElementById('stat-complete').textContent = completeTasks;
+                document.getElementById('stat-progress').textContent = inProgress;
+                document.getElementById('stat-pending').textContent =
+                    totalTasks - completeTasks - (inProgress > 0 ? this.phases.filter(p => p.complete > 0 && p.complete < p.total).reduce((sum, p) => sum + (p.total - p.complete), 0) : 0);
+            },
+
+            // Expose method for external updates (e.g., from terminal commands)
+            setProgress(data) {
+                if (data.phases) {
+                    data.phases.forEach(p => {
+                        this.updatePhase(p.id, p.complete, p.status);
+                    });
+                }
+            }
+        };
+
+        // Make ProgressTracker globally accessible
+        window.ProgressTracker = ProgressTracker;
+
         // Initialize Chat Assistant and Terminal
         document.addEventListener('DOMContentLoaded', () => {
             ChatAssistant.init();
             Terminal.init();
+            ProgressTracker.init();
 
             // ==================== CSP-COMPLIANT EVENT LISTENERS ====================
 
@@ -2843,6 +3638,174 @@
                 console.error('Failed to close embed:', e);
             }
         }
+
+        // ============================================
+        // GSAP ANIMATIONS - SCRIPT BUTTON ENHANCEMENT
+        // Brain-in-jar icon animations and glow effects
+        // ============================================
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const scriptBtns = document.querySelectorAll('.script-btn');
+
+            // Initialize each script button with GSAP enhancements
+            scriptBtns.forEach((btn, index) => {
+                const icon = btn.querySelector('.script-btn-icon');
+                if (!icon) return;
+
+                // Create ambient glow timeline for each button
+                const glowTimeline = gsap.timeline({ repeat: -1, yoyo: true });
+                glowTimeline.to(btn, {
+                    boxShadow: `
+                        0 0 0 1px rgba(0, 170, 255, 0.6),
+                        0 0 0 3px #0a0a0a,
+                        0 0 0 4px rgba(0, 170, 255, 0.4),
+                        0 0 16px rgba(0, 170, 255, 0.3),
+                        inset 0 0 25px rgba(0, 170, 255, 0.04)
+                    `,
+                    duration: 2 + (index % 3) * 0.5,
+                    ease: 'sine.inOut'
+                });
+
+                // Hover animation - enhanced glow and icon pulse
+                btn.addEventListener('mouseenter', () => {
+                    glowTimeline.pause();
+
+                    // Button glow intensify
+                    gsap.to(btn, {
+                        boxShadow: `
+                            0 0 0 1px rgba(0, 170, 255, 0.9),
+                            0 0 0 3px #0a0a0a,
+                            0 0 0 4px rgba(0, 170, 255, 0.6),
+                            0 0 25px rgba(0, 170, 255, 0.5),
+                            0 0 50px rgba(0, 170, 255, 0.2),
+                            inset 0 0 35px rgba(0, 170, 255, 0.06)
+                        `,
+                        duration: 0.3,
+                        ease: 'power2.out'
+                    });
+
+                    // Icon pulse animation
+                    gsap.to(icon, {
+                        scale: 1.15,
+                        filter: 'drop-shadow(0 0 8px rgba(0, 170, 255, 0.8))',
+                        duration: 0.3,
+                        ease: 'back.out(1.7)'
+                    });
+                });
+
+                btn.addEventListener('mouseleave', () => {
+                    // Restore ambient animation
+                    gsap.to(btn, {
+                        boxShadow: `
+                            0 0 0 1px rgba(0, 170, 255, 0.5),
+                            0 0 0 3px #0a0a0a,
+                            0 0 0 4px rgba(0, 170, 255, 0.3),
+                            0 0 12px rgba(0, 170, 255, 0.2),
+                            inset 0 0 20px rgba(0, 170, 255, 0.03)
+                        `,
+                        duration: 0.3,
+                        ease: 'power2.out',
+                        onComplete: () => glowTimeline.resume()
+                    });
+
+                    // Reset icon
+                    gsap.to(icon, {
+                        scale: 1,
+                        filter: 'drop-shadow(0 0 3px rgba(0, 170, 255, 0.5))',
+                        duration: 0.3,
+                        ease: 'power2.out'
+                    });
+                });
+
+                // Click animation - burst effect
+                btn.addEventListener('click', (e) => {
+                    // Flash to orange/activation color
+                    gsap.timeline()
+                        .to(btn, {
+                            boxShadow: `
+                                0 0 0 1px rgba(255, 149, 0, 1),
+                                0 0 0 3px #0a0a0a,
+                                0 0 0 4px rgba(255, 149, 0, 0.6),
+                                0 0 30px rgba(255, 149, 0, 0.6),
+                                0 0 60px rgba(255, 149, 0, 0.3),
+                                inset 0 0 40px rgba(255, 149, 0, 0.08)
+                            `,
+                            duration: 0.15,
+                            ease: 'power2.out'
+                        })
+                        .to(btn, {
+                            boxShadow: `
+                                0 0 0 1px rgba(0, 170, 255, 0.5),
+                                0 0 0 3px #0a0a0a,
+                                0 0 0 4px rgba(0, 170, 255, 0.3),
+                                0 0 12px rgba(0, 170, 255, 0.2),
+                                inset 0 0 20px rgba(0, 170, 255, 0.03)
+                            `,
+                            duration: 0.5,
+                            ease: 'power2.out'
+                        });
+
+                    // Icon flash
+                    gsap.timeline()
+                        .to(icon, {
+                            scale: 1.3,
+                            filter: 'drop-shadow(0 0 12px rgba(255, 149, 0, 1)) brightness(1.3)',
+                            duration: 0.1,
+                            ease: 'power2.out'
+                        })
+                        .to(icon, {
+                            scale: 1,
+                            filter: 'drop-shadow(0 0 3px rgba(0, 170, 255, 0.5))',
+                            duration: 0.4,
+                            ease: 'elastic.out(1, 0.5)'
+                        });
+
+                    // Create particle burst effect
+                    createParticleBurst(btn, e);
+                });
+            });
+
+            // Particle burst effect function
+            function createParticleBurst(btn, event) {
+                const rect = btn.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+
+                for (let i = 0; i < 8; i++) {
+                    const particle = document.createElement('div');
+                    particle.style.cssText = `
+                        position: fixed;
+                        left: ${centerX}px;
+                        top: ${centerY}px;
+                        width: 4px;
+                        height: 4px;
+                        background: #00AAFF;
+                        border-radius: 50%;
+                        pointer-events: none;
+                        z-index: 9999;
+                        box-shadow: 0 0 6px #00AAFF, 0 0 12px rgba(0, 170, 255, 0.5);
+                    `;
+                    document.body.appendChild(particle);
+
+                    const angle = (i / 8) * Math.PI * 2;
+                    const distance = 40 + Math.random() * 30;
+                    const destX = centerX + Math.cos(angle) * distance;
+                    const destY = centerY + Math.sin(angle) * distance;
+
+                    gsap.to(particle, {
+                        left: destX,
+                        top: destY,
+                        opacity: 0,
+                        scale: 0,
+                        duration: 0.6,
+                        ease: 'power2.out',
+                        onComplete: () => particle.remove()
+                    });
+                }
+            }
+
+            console.log('GSAP animations initialized for', scriptBtns.length, 'script buttons');
+        });
 
     </script>
 </body>
