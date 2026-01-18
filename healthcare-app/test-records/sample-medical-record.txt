@@ -1,0 +1,35 @@
+PATIENT MEDICAL RECORD
+=====================
+
+Patient ID: TEST-001
+Date of Visit: 2026-01-15
+
+CHIEF COMPLAINT:
+Patient presents for routine wellness examination. Reports no acute concerns.
+
+VITAL SIGNS:
+- Temperature: 98.6°F
+- Blood Pressure: 118/76 mmHg
+- Heart Rate: 72 bpm
+- Respiratory Rate: 16/min
+- Weight: 45 kg
+- Height: 152 cm
+
+PHYSICAL EXAMINATION:
+General: Well-appearing, alert and oriented
+HEENT: Normal
+Cardiovascular: Regular rate and rhythm, no murmurs
+Respiratory: Clear to auscultation bilaterally
+Abdomen: Soft, non-tender, normal bowel sounds
+
+ASSESSMENT:
+1. Healthy child, growth and development within normal limits
+2. Up to date on immunizations
+
+PLAN:
+1. Continue current wellness routine
+2. Schedule follow-up in 6 months
+3. Recommend seasonal flu vaccine when available
+
+Provider: Dr. Jane Smith, MD
+Date: 2026-01-15

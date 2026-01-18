@@ -1,12 +1,18 @@
-function SummaryReport({ data, onReset }) {
+function SummaryReport({ data, onReset, onExport }) {
     const handleExport = (format) => {
-        // In a real app, this would generate and download the file
-        alert(`Exporting report as ${format.toUpperCase()}...`)
+        if (onExport) {
+            onExport(format)
+        } else {
+            alert(`Exporting report as ${format.toUpperCase()}...`)
+        }
     }
 
     const handlePrint = () => {
         window.print()
     }
+
+    // Determine if this is an AI-generated summary
+    const isAISummary = data.isAI || data.aiSummary
 
     return (
         <div className="card summary-card">
@@ -45,36 +51,57 @@ function SummaryReport({ data, onReset }) {
                     <p>{data.chiefComplaint}</p>
                 </section>
 
-                {/* Vitals */}
-                <section className="summary-section">
-                    <h3>Vital Signs</h3>
-                    <div className="vitals-grid">
-                        {Object.entries(data.vitals).map(([key, value]) => (
-                            <div key={key} className="vital-item">
-                                <span className="vital-label">
-                                    {key.replace(/([A-Z])/g, ' $1').trim()}
-                                </span>
-                                <span className="vital-value">{value}</span>
-                            </div>
-                        ))}
-                    </div>
-                </section>
+                {/* AI Summary - shown for real AI processing */}
+                {isAISummary && data.aiSummary && (
+                    <section className="summary-section ai-summary">
+                        <h3>
+                            <span className="ai-badge">🤖 AI</span>
+                            Clinical Summary
+                        </h3>
+                        <div className="ai-summary-content">
+                            {data.aiSummary.split('\n').map((paragraph, idx) => (
+                                <p key={idx}>{paragraph}</p>
+                            ))}
+                        </div>
+                    </section>
+                )}
 
-                {/* Assessment */}
-                <section className="summary-section">
-                    <h3>Assessment</h3>
-                    <p>{data.assessment}</p>
-                </section>
+                {/* Vitals - shown for demo mode */}
+                {!isAISummary && data.vitals && (
+                    <section className="summary-section">
+                        <h3>Vital Signs</h3>
+                        <div className="vitals-grid">
+                            {Object.entries(data.vitals).map(([key, value]) => (
+                                <div key={key} className="vital-item">
+                                    <span className="vital-label">
+                                        {key.replace(/([A-Z])/g, ' $1').trim()}
+                                    </span>
+                                    <span className="vital-value">{value}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                )}
 
-                {/* Plan */}
-                <section className="summary-section">
-                    <h3>Plan</h3>
-                    <ul className="plan-list">
-                        {data.plan.map((item, index) => (
-                            <li key={index}>{item}</li>
-                        ))}
-                    </ul>
-                </section>
+                {/* Assessment - shown for demo mode */}
+                {!isAISummary && data.assessment && (
+                    <section className="summary-section">
+                        <h3>Assessment</h3>
+                        <p>{data.assessment}</p>
+                    </section>
+                )}
+
+                {/* Plan - shown for demo mode */}
+                {!isAISummary && data.plan && (
+                    <section className="summary-section">
+                        <h3>Plan</h3>
+                        <ul className="plan-list">
+                            {data.plan.map((item, index) => (
+                                <li key={index}>{item}</li>
+                            ))}
+                        </ul>
+                    </section>
+                )}
 
                 {/* Documents Processed */}
                 <section className="summary-section summary-meta">
@@ -84,12 +111,18 @@ function SummaryReport({ data, onReset }) {
                     </div>
                     <div className="meta-item">
                         <span className="meta-icon">🤖</span>
-                        <span>AI-generated summary</span>
+                        <span>{isAISummary ? 'AI-generated summary (Claude)' : 'Demo summary'}</span>
                     </div>
                     <div className="meta-item">
                         <span className="meta-icon">✓</span>
                         <span>HIPAA compliant processing</span>
                     </div>
+                    {data.generatedAt && (
+                        <div className="meta-item">
+                            <span className="meta-icon">🕐</span>
+                            <span>Generated: {new Date(data.generatedAt).toLocaleString()}</span>
+                        </div>
+                    )}
                 </section>
             </div>
 
@@ -98,15 +131,15 @@ function SummaryReport({ data, onReset }) {
                 <div className="export-buttons">
                     <button
                         className="action-btn secondary"
-                        onClick={() => handleExport('pdf')}
+                        onClick={() => handleExport('txt')}
                     >
-                        📥 Export PDF
+                        📥 Export TXT
                     </button>
                     <button
                         className="action-btn secondary"
-                        onClick={() => handleExport('docx')}
+                        onClick={() => handleExport('html')}
                     >
-                        📄 Export DOCX
+                        📄 Export HTML
                     </button>
                     <button
                         className="action-btn secondary"
