@@ -1,0 +1,3698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare App Development - Trajanus Enterprise Hub</title>
+    <style>
+        /* Reset & Base */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            /* TRAJANUS BLACK/SILVER PALETTE - GREEN ACCENT FOR HEALTHCARE */
+            --bg-base: #0a0a0a;
+            --bg-surface: #0a0a0a;
+            --bg-card: #0a0a0a;
+            --bg-elevated: #1a1a1a;
+            --bg-hover: #2a2a2a;
+            --accent: #c0c0c0;
+            --accent-bright: #e0e0e0;
+            --accent-dim: #a0a0a0;
+            --accent-hover: #ffffff;
+            --silver: #c0c0c0;
+            --silver-light: #e0e0e0;
+            --silver-dark: #a0a0a0;
+            /* BLUE PALETTE - Healthcare Dev Platform */
+            --blue: #00AAFF;
+            --blue-light: #33BBFF;
+            --blue-dark: #0088CC;
+            --blue-hover: #0066AA;
+            --text-primary: #c0c0c0;
+            --text-secondary: #c0c0c0;
+            --text-muted: #c0c0c0;
+            --border-subtle: #c0c0c0;
+            --border-accent: #c0c0c0;
+            --success: #4ade80;
+            --info: #60a5fa;
+            --warning: #fbbf24;
+            --purple: #a78bfa;
+            --error: #f87171;
+            --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-base);
+            color: var(--text-primary);
+            line-height: 1.6;
+            border: 2px solid #00AAFF;
+        }
+
+        /* ========================== */
+        /* STICKY HERO SECTION        */
+        /* ========================== */
+        .hero-section {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--bg-base);
+            border-bottom: 1px solid var(--blue);
+            padding: 16px 32px;
+        }
+
+        .hero-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hero-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+        }
+
+        .toolkit-logo-lockup {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .toolkit-hero-logo {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.15));
+        }
+
+        .toolkit-brand-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: -18px;
+            height: 70px;
+        }
+
+        .toolkit-brand-title {
+            color: #00AAFF;
+            font-family: Tahoma, sans-serif;
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 6px;
+            margin: 0;
+        }
+
+        .toolkit-brand-tagline {
+            color: #C0C0C0;
+            font-size: 8px;
+            letter-spacing: 2.5px;
+            margin: 2px 0 0 0;
+        }
+
+        .toolkit-brand-tagline .tm {
+            font-size: 6px;
+            vertical-align: super;
+            margin-left: 1px;
+            opacity: 0.7;
+        }
+
+        .hero-toolkit {
+            font-family: Tahoma, sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--blue);
+            letter-spacing: 1px;
+        }
+
+        .hero-subtitle {
+            font-size: 12px;
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+        }
+
+        .hero-home-btn {
+            width: 130px;
+            height: 36px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            border: 1px solid #00AAFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            color: #00AAFF;
+            background: transparent;
+            text-decoration: none;
+        }
+
+        .hero-home-btn:hover {
+            background: rgba(0, 170, 255, 0.15);
+            color: #33BBFF;
+            border-color: #33BBFF;
+        }
+
+        .hero-launch-btn {
+            width: 140px;
+            height: 36px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 700;
+            transition: all 0.15s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            color: white;
+            background: linear-gradient(135deg, #00AAFF 0%, #0088CC 100%);
+            box-shadow: 0 2px 8px rgba(0, 170, 255, 0.3);
+        }
+
+        .hero-launch-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 170, 255, 0.4);
+            background: linear-gradient(135deg, #33BBFF 0%, #00AAFF 100%);
+        }
+
+        .hero-nav {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        /* ========================== */
+        /* MAIN CONTAINER LAYOUT      */
+        /* ========================== */
+        .main-container {
+            min-height: calc(100vh - 120px);
+        }
+
+        /* File List */
+        .file-list {
+            margin-top: 12px;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+
+        .file-item:hover {
+            border-color: var(--blue);
+        }
+
+        .file-icon {
+            color: var(--blue);
+            font-size: 16px;
+        }
+
+        .file-name {
+            flex: 1;
+            color: var(--text-primary);
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .file-status {
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: rgba(0, 170, 255, 0.2);
+            color: var(--blue);
+        }
+
+        .file-status.processing {
+            background: rgba(251, 191, 36, 0.2);
+            color: var(--warning);
+        }
+
+        /* Download Button */
+        .download-btn {
+            width: 100%;
+            padding: 12px 16px;
+            background: transparent;
+            border: 1px solid var(--blue);
+            border-radius: 6px;
+            color: var(--blue);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .download-btn:hover {
+            background: rgba(0, 170, 255, 0.15);
+            box-shadow: 0 0 15px rgba(0, 170, 255, 0.3);
+        }
+
+        /* RIGHT MAIN AREA - 75% */
+        .main-area {
+            flex: 1;
+            padding: 24px 32px 40px 32px;
+            overflow-y: auto;
+        }
+
+        /* ========================== */
+        /* SECTION HEADERS            */
+        /* ========================== */
+        .section-divider {
+            margin: 32px 0 20px 0;
+        }
+
+        .section-divider:first-child {
+            margin-top: 0;
+        }
+
+        .section-border-top {
+            height: 2px;
+            background: linear-gradient(to right, #00AAFF, #0066CC, transparent);
+            margin-bottom: 12px;
+        }
+
+        .section-title-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .section-blocks {
+            color: #00AAFF;
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .section-title {
+            color: #00AAFF;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        .section-border-bottom {
+            height: 2px;
+            background: linear-gradient(to right, #00AAFF, #0066CC, transparent);
+            margin-top: 6px;
+        }
+
+        .section-description {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-top: 4px;
+            max-width: 800px;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        /* ========================== */
+        /* WELCOME/OVERVIEW SECTION   */
+        /* ========================== */
+        .welcome-content {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            border-radius: 8px;
+            padding: 24px;
+            margin-top: 16px;
+        }
+
+        .welcome-content h4 {
+            color: var(--blue);
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .welcome-content p {
+            color: var(--text-primary);
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .welcome-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .client-info {
+            background: rgba(0, 170, 255, 0.1);
+            border-left: 3px solid var(--blue);
+            padding: 12px 16px;
+            margin-top: 16px;
+            font-size: 13px;
+        }
+
+        .client-info strong {
+            color: var(--blue);
+        }
+
+        /* ========================== */
+        /* CHECKLIST SECTIONS         */
+        /* ========================== */
+        .checklist-container {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 16px;
+        }
+
+        .checklist-group {
+            margin-bottom: 16px;
+            border: 1px solid rgba(0, 170, 255, 0.2);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .checklist-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .checklist-group-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: rgba(0, 170, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .checklist-group-header:hover {
+            background: rgba(0, 170, 255, 0.15);
+        }
+
+        .checklist-group-title {
+            color: var(--blue);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .checklist-toggle {
+            color: var(--blue);
+            font-size: 16px;
+            transition: transform 0.2s ease;
+        }
+
+        .checklist-group.collapsed .checklist-toggle {
+            transform: rotate(-90deg);
+        }
+
+        .checklist-group.collapsed .checklist-items {
+            display: none;
+        }
+
+        .checklist-items {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            padding: 16px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 12px;
+            background: var(--bg-elevated);
+            border-radius: 6px;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .checklist-item:hover {
+            border-color: rgba(0, 170, 255, 0.3);
+        }
+
+        .checklist-item.completed {
+            opacity: 0.6;
+            background: rgba(0, 170, 255, 0.05);
+        }
+
+        .checklist-checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--blue);
+            border-radius: 4px;
+            cursor: pointer;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            margin-top: 2px;
+        }
+
+        .checklist-checkbox:hover {
+            background: rgba(0, 170, 255, 0.2);
+        }
+
+        .checklist-checkbox.checked {
+            background: var(--blue);
+        }
+
+        .checklist-checkbox.checked::after {
+            content: '\2713';
+            color: var(--bg-base);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .checklist-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .checklist-question {
+            color: var(--text-primary);
+            font-size: 12px;
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+
+        .checklist-answer {
+            width: 100%;
+            background: var(--bg-base);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            padding: 6px 10px;
+            color: var(--text-primary);
+            font-size: 11px;
+            font-family: var(--font-main);
+        }
+
+        .checklist-answer:focus {
+            outline: none;
+            border-color: var(--blue);
+        }
+
+        .checklist-answer::placeholder {
+            color: var(--text-muted);
+            opacity: 0.6;
+        }
+
+        /* Progress indicator */
+        .checklist-progress {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-left: auto;
+            padding-left: 12px;
+        }
+
+        /* ========================== */
+        /* APP CONFIGURATION SECTION  */
+        /* ========================== */
+        .config-container {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 16px;
+        }
+
+        .config-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .config-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .config-field.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .config-label {
+            color: var(--blue);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .config-input {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            padding: 10px 12px;
+            color: var(--text-primary);
+            font-size: 13px;
+            font-family: var(--font-main);
+        }
+
+        .config-input:focus {
+            outline: none;
+            border-color: var(--blue);
+        }
+
+        .config-input::placeholder {
+            color: var(--text-muted);
+            opacity: 0.6;
+        }
+
+        textarea.config-input {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        /* DOCX Upload Zone */
+        .docx-upload-zone {
+            border: 2px dashed rgba(0, 170, 255, 0.5);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: rgba(0, 170, 255, 0.03);
+            grid-column: 1 / -1;
+        }
+
+        .docx-upload-zone:hover {
+            background: rgba(0, 170, 255, 0.08);
+            border-color: var(--blue);
+        }
+
+        .docx-upload-text {
+            color: var(--blue);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .docx-upload-hint {
+            color: var(--text-muted);
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .docx-file-list {
+            margin-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .docx-file-tag {
+            background: var(--bg-elevated);
+            border: 1px solid var(--blue);
+            border-radius: 4px;
+            padding: 4px 10px;
+            font-size: 11px;
+            color: var(--blue);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .docx-file-item {
+            background: var(--bg-elevated);
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            border-radius: 4px;
+            padding: 6px 10px;
+            font-size: 12px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .docx-remove {
+            color: #ff6b6b;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 2px 4px;
+            border-radius: 3px;
+            transition: background 0.2s;
+        }
+
+        .docx-remove:hover {
+            background: rgba(255, 107, 107, 0.2);
+        }
+
+        .docx-file-remove {
+            cursor: pointer;
+            opacity: 0.7;
+        }
+
+        .docx-file-remove:hover {
+            opacity: 1;
+        }
+
+        /* ========================== */
+        /* QUICK TOOLS CARDS          */
+        /* ========================== */
+        .tools-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .tool-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            border-radius: 8px;
+            padding: 16px 20px;
+            min-width: 160px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tool-card:hover {
+            border-color: var(--blue);
+            background: rgba(0, 170, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .tool-card-icon {
+            font-size: 20px;
+        }
+
+        .tool-card-label {
+            color: var(--blue);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* ========================== */
+        /* SCRIPT BUTTONS - GREEN     */
+        /* ========================== */
+        .script-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .script-btn {
+            width: 140px;
+            height: 50px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.6px;
+            color: #00AAFF;
+            background: #0a0a0a;
+            box-shadow:
+                0 0 0 1px rgba(0, 170, 255, 0.5),
+                0 0 0 3px #0a0a0a,
+                0 0 0 4px rgba(0, 170, 255, 0.3),
+                0 0 12px rgba(0, 170, 255, 0.2),
+                inset 0 0 20px rgba(0, 170, 255, 0.03);
+            text-shadow: 0 0 6px rgba(0, 170, 255, 0.5);
+            transition: all 0.25s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .script-btn::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00AAFF, transparent);
+            border-radius: 2px;
+        }
+
+        .script-btn:hover {
+            transform: translateY(-2px);
+            color: #fff;
+            box-shadow:
+                0 0 0 1px rgba(0, 170, 255, 0.8),
+                0 0 0 3px #0a0a0a,
+                0 0 0 4px rgba(0, 170, 255, 0.5),
+                0 0 20px rgba(0, 170, 255, 0.4),
+                0 0 40px rgba(0, 170, 255, 0.15),
+                inset 0 0 30px rgba(0, 170, 255, 0.05);
+            text-shadow: 0 0 12px rgba(0, 170, 255, 0.9);
+        }
+
+        .script-btn:active {
+            transform: translateY(1px);
+            color: #FFB347;
+            box-shadow:
+                0 0 0 1px rgba(255, 149, 0, 0.8),
+                0 0 0 3px #0a0a0a,
+                0 0 0 4px rgba(255, 149, 0, 0.4),
+                0 0 15px rgba(255, 149, 0, 0.3),
+                inset 0 0 20px rgba(255, 149, 0, 0.05);
+            text-shadow: 0 0 8px rgba(255, 149, 0, 0.7);
+        }
+
+        .script-btn-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            object-fit: cover;
+            filter: drop-shadow(0 0 3px rgba(0, 170, 255, 0.5));
+        }
+
+        /* ========================== */
+        /* DEV ASSISTANT PANEL        */
+        /* ========================== */
+        .assistant-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--blue);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 16px;
+        }
+
+        .assistant-header {
+            background: rgba(0, 170, 255, 0.1);
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--blue);
+        }
+
+        .assistant-header h3 {
+            color: var(--blue);
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .assistant-body {
+            padding: 20px;
+            position: relative;
+            min-height: 200px;
+            background-image: url('../assets/brain-8825819_1280.jpg');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .assistant-body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 10, 10, 0.92);
+            pointer-events: none;
+        }
+
+        .assistant-body > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .assistant-greeting {
+            color: var(--blue);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .assistant-greeting strong {
+            color: var(--blue-light);
+        }
+
+        .assistant-list {
+            margin: 12px 0 0 20px;
+            color: var(--text-primary);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .assistant-input-area {
+            padding: 12px 16px;
+            background: var(--bg-surface);
+            border-top: 1px solid var(--blue);
+            display: flex;
+            gap: 10px;
+        }
+
+        .assistant-input {
+            flex: 1;
+            background: var(--bg-base);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: 10px 14px;
+            color: var(--text-primary);
+            font-size: 13px;
+            font-family: var(--font-main);
+        }
+
+        .assistant-input:focus {
+            outline: none;
+            border-color: var(--blue);
+        }
+
+        .assistant-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .assistant-send-btn {
+            background: var(--blue);
+            border: none;
+            color: var(--bg-base);
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .assistant-send-btn:hover {
+            background: var(--blue-light);
+        }
+
+        /* ========================== */
+        /* SAMPLE REPORT OUTPUT       */
+        /* ========================== */
+        .sample-report {
+            background: #0d0d0d;
+            border: 2px solid var(--blue);
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin-top: 16px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+
+        .sample-report .report-header {
+            color: var(--blue);
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .sample-report .report-meta {
+            color: var(--text-muted);
+            font-size: 11px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(0, 170, 255, 0.3);
+        }
+
+        .sample-report .report-section {
+            margin-bottom: 12px;
+        }
+
+        .sample-report .report-section-title {
+            color: var(--blue);
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .sample-report .report-placeholder {
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .sample-report .report-footer {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(0, 170, 255, 0.3);
+            color: var(--warning);
+            font-size: 11px;
+        }
+
+        /* ========================== */
+        /* FOOTER                     */
+        /* ========================== */
+        .page-footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-muted);
+            font-size: 12px;
+            letter-spacing: 1px;
+            border-top: 1px solid rgba(0, 170, 255, 0.2);
+            margin-top: 40px;
+        }
+
+        .page-footer span {
+            color: var(--blue);
+        }
+
+        /* ========================== */
+        /* NAV BUTTON                 */
+        /* ========================== */
+        .nav-btn {
+            width: 100px;
+            height: 36px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            border: 1px solid #00AAFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            color: #00AAFF;
+            background: transparent;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: rgba(0, 170, 255, 0.15);
+            color: #33BBFF;
+            border-color: #33BBFF;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .main-container {
+                padding: 10px;
+            }
+        }
+
+        /* ============================================ */
+        /* PROJECT PROGRESS - TWO PANEL LAYOUT         */
+        /* ============================================ */
+        .progress-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+            align-items: stretch;
+        }
+
+        .progress-section > * {
+            min-height: 100%;
+        }
+
+        .progress-checklist {
+            background: var(--bg-base);
+            border: 2px solid #00AAFF;
+            border-radius: 12px;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .checklist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .checklist-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #00AAFF;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checklist-count {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .checklist-items {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            background: var(--bg-elevated);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .checklist-item:hover {
+            background: var(--bg-hover);
+        }
+
+        .checklist-item.completed {
+            opacity: 0.6;
+        }
+
+        .checklist-checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #00AAFF;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .checklist-item.completed .checklist-checkbox {
+            background: #4ade80;
+            border-color: #4ade80;
+        }
+
+        .checklist-checkbox::after {
+            content: '';
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg) scale(0);
+            transition: transform 0.2s ease;
+        }
+
+        .checklist-item.completed .checklist-checkbox::after {
+            transform: rotate(45deg) scale(1);
+        }
+
+        .checklist-text {
+            font-size: 13px;
+            color: var(--text-primary);
+            flex: 1;
+        }
+
+        .checklist-item.completed .checklist-text {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .checklist-badge {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .checklist-badge.critical { background: rgba(248, 113, 113, 0.2); color: #f87171; }
+        .checklist-badge.high { background: rgba(251, 191, 36, 0.2); color: #fbbf24; }
+        .checklist-badge.medium { background: rgba(0, 170, 255, 0.2); color: #00AAFF; }
+        .checklist-badge.low { background: rgba(192, 192, 192, 0.2); color: #c0c0c0; }
+
+        .progress-tracker {
+            background: var(--bg-base);
+            border: 2px solid #00AAFF;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .progress-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #00AAFF;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .progress-title-icon {
+            font-size: 20px;
+        }
+
+        .progress-overall {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .progress-percent {
+            font-size: 28px;
+            font-weight: 700;
+            color: #00AAFF;
+            font-family: var(--font-mono);
+        }
+
+        .progress-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .progress-phases {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .progress-phase {
+            display: grid;
+            grid-template-columns: 120px 1fr 60px;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .phase-name {
+            font-size: 13px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .phase-bar-container {
+            height: 24px;
+            background: var(--bg-elevated);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .phase-bar {
+            height: 100%;
+            border-radius: 12px;
+            position: relative;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .phase-bar.complete {
+            background: linear-gradient(90deg, #22c55e 0%, #4ade80 50%, #22c55e 100%);
+            box-shadow: 0 0 12px rgba(74, 222, 128, 0.4);
+        }
+
+        .phase-bar.in-progress {
+            background: linear-gradient(90deg, #0088CC 0%, #00AAFF 50%, #0088CC 100%);
+            box-shadow: 0 0 12px rgba(0, 170, 255, 0.4);
+            animation: progressPulse 2s ease-in-out infinite;
+        }
+
+        .phase-bar.pending {
+            background: linear-gradient(90deg, #4a4a4a 0%, #6a6a6a 50%, #4a4a4a 100%);
+        }
+
+        .phase-bar.blocked {
+            background: linear-gradient(90deg, #dc2626 0%, #f87171 50%, #dc2626 100%);
+            box-shadow: 0 0 12px rgba(248, 113, 113, 0.4);
+        }
+
+        .phase-bar.in-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes progressPulse {
+            0%, 100% { box-shadow: 0 0 12px rgba(0, 170, 255, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(0, 170, 255, 0.7); }
+        }
+
+        .phase-percent {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            text-align: right;
+        }
+
+        .phase-percent.complete { color: #4ade80; }
+        .phase-percent.in-progress { color: #00AAFF; }
+        .phase-percent.blocked { color: #f87171; }
+
+        .phase-tasks {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 11px;
+            color: rgba(255,255,255,0.9);
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .progress-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .progress-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+        }
+
+        .stat-value.green { color: #4ade80; }
+        .stat-value.blue { color: #00AAFF; }
+        .stat-value.gray { color: #6a6a6a; }
+        .stat-value.red { color: #f87171; }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Terminal/Operations Log styling */
+        .terminal-output {
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .terminal-line { margin: 4px 0; }
+        .terminal-line.success { color: #4ade80; }
+        .terminal-line.error { color: #f87171; }
+        .terminal-line.info { color: #60a5fa; }
+        .terminal-line.warning { color: #fbbf24; }
+
+        /* ============================================ */
+        /* HIPAA COMPLIANCE BANNER                      */
+        /* ============================================ */
+        .hipaa-banner {
+            background: linear-gradient(135deg, rgba(0, 170, 255, 0.15) 0%, rgba(39, 174, 96, 0.1) 100%);
+            border: 2px solid var(--blue);
+            border-radius: 8px;
+            padding: 16px 24px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .hipaa-icon {
+            font-size: 32px;
+            color: var(--blue);
+        }
+
+        .hipaa-content {
+            flex: 1;
+        }
+
+        .hipaa-title {
+            color: var(--blue);
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0 0 4px 0;
+        }
+
+        .hipaa-text {
+            color: var(--text-primary);
+            font-size: 12px;
+            margin: 0;
+        }
+
+        .hipaa-badge {
+            background: var(--blue);
+            color: var(--bg-base);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* ============================================ */
+        /* PATIENT INTAKE FORM                          */
+        /* ============================================ */
+        .patient-form {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            border-radius: 8px;
+            padding: 24px;
+            margin-top: 16px;
+        }
+
+        .patient-form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .patient-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .patient-field.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .patient-field.half-width {
+            grid-column: span 2;
+        }
+
+        .patient-label {
+            color: var(--blue);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .patient-input {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            padding: 10px 12px;
+            color: var(--text-primary);
+            font-size: 13px;
+            font-family: var(--font-main);
+            transition: border-color 0.2s ease;
+        }
+
+        .patient-input:focus {
+            outline: none;
+            border-color: var(--blue);
+        }
+
+        .patient-input::placeholder {
+            color: var(--text-muted);
+            opacity: 0.6;
+        }
+
+        /* ============================================ */
+        /* AI PROCESSING STATUS                         */
+        /* ============================================ */
+        .ai-processing-panel {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            border-radius: 8px;
+            margin-top: 16px;
+            overflow: hidden;
+        }
+
+        .ai-processing-header {
+            background: rgba(0, 170, 255, 0.1);
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(0, 170, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .ai-processing-title {
+            color: var(--blue);
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ai-status-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .ai-status-badge.ready {
+            background: rgba(0, 170, 255, 0.2);
+            color: var(--blue);
+        }
+
+        .ai-status-badge.processing {
+            background: rgba(251, 191, 36, 0.2);
+            color: var(--warning);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .ai-status-badge.complete {
+            background: rgba(74, 222, 128, 0.2);
+            color: #4ade80;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .ai-processing-body {
+            padding: 20px;
+        }
+
+        .ai-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .ai-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--bg-elevated);
+            border-radius: 6px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .ai-step.active {
+            border-color: var(--blue);
+            background: rgba(0, 170, 255, 0.05);
+        }
+
+        .ai-step.complete {
+            border-color: rgba(74, 222, 128, 0.3);
+        }
+
+        .ai-step-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            background: var(--bg-base);
+            border: 2px solid var(--border-subtle);
+            transition: all 0.3s ease;
+        }
+
+        .ai-step.active .ai-step-icon {
+            border-color: var(--blue);
+            background: rgba(0, 170, 255, 0.1);
+            animation: spin 2s linear infinite;
+        }
+
+        .ai-step.complete .ai-step-icon {
+            border-color: #4ade80;
+            background: #4ade80;
+            color: var(--bg-base);
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .ai-step-content {
+            flex: 1;
+        }
+
+        .ai-step-name {
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .ai-step-desc {
+            color: var(--text-muted);
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
+        .ai-step-time {
+            color: var(--text-muted);
+            font-size: 11px;
+            font-family: var(--font-mono);
+        }
+
+        /* ============================================ */
+        /* SUMMARY REPORT DISPLAY                       */
+        /* ============================================ */
+        .summary-report {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            border-radius: 8px;
+            margin-top: 16px;
+            overflow: hidden;
+        }
+
+        .summary-header {
+            background: rgba(0, 170, 255, 0.1);
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(0, 170, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .summary-title {
+            color: var(--blue);
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .summary-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .summary-btn {
+            background: transparent;
+            border: 1px solid var(--blue);
+            color: var(--blue);
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .summary-btn:hover {
+            background: rgba(0, 170, 255, 0.15);
+        }
+
+        .summary-btn.primary {
+            background: var(--blue);
+            color: var(--bg-base);
+        }
+
+        .summary-btn.primary:hover {
+            background: var(--blue-light);
+        }
+
+        .summary-body {
+            padding: 20px;
+        }
+
+        .summary-section {
+            margin-bottom: 20px;
+        }
+
+        .summary-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .summary-section-title {
+            color: var(--blue);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(0, 170, 255, 0.2);
+        }
+
+        .summary-content {
+            color: var(--text-primary);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .summary-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .summary-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(192, 192, 192, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .summary-list li:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .summary-value {
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .summary-placeholder {
+            color: var(--text-muted);
+            font-size: 13px;
+            text-align: center;
+            padding: 40px 20px;
+            border: 2px dashed rgba(192, 192, 192, 0.2);
+            border-radius: 6px;
+        }
+
+        /* ============================================ */
+        /* MEDICAL RECORD UPLOAD (SIDEBAR)              */
+        /* ============================================ */
+        .medical-upload-zone {
+            border: 2px dashed var(--blue);
+            border-radius: 8px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: rgba(0, 170, 255, 0.03);
+        }
+
+        .medical-upload-zone:hover {
+            background: rgba(0, 170, 255, 0.1);
+            border-color: var(--blue-light);
+        }
+
+        .medical-upload-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .medical-upload-title {
+            color: var(--blue);
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .medical-upload-hint {
+            color: var(--text-muted);
+            font-size: 11px;
+        }
+
+        .medical-file-list {
+            margin-top: 16px;
+        }
+
+        .medical-file-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            background: var(--bg-elevated);
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+
+        .medical-file-icon {
+            color: var(--blue);
+            font-size: 18px;
+        }
+
+        .medical-file-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .medical-file-name {
+            color: var(--text-primary);
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .medical-file-size {
+            color: var(--text-muted);
+            font-size: 10px;
+        }
+
+        .medical-file-status {
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 10px;
+        }
+
+        .medical-file-status.ready {
+            background: rgba(0, 170, 255, 0.2);
+            color: var(--blue);
+        }
+
+        .medical-file-status.processing {
+            background: rgba(251, 191, 36, 0.2);
+            color: var(--warning);
+        }
+
+        .process-btn {
+            width: 100%;
+            padding: 14px 20px;
+            background: var(--blue);
+            border: none;
+            border-radius: 6px;
+            color: var(--bg-base);
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .process-btn:hover {
+            background: var(--blue-light);
+            transform: translateY(-1px);
+        }
+
+        .process-btn:disabled {
+            background: var(--border-subtle);
+            cursor: not-allowed;
+            transform: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-brand">
+                <div class="toolkit-logo-lockup">
+                    <img src="../assets/trajanus-logo-white-grid.png" alt="Trajanus Logo" class="toolkit-hero-logo">
+                    <div class="toolkit-brand-text">
+                        <h1 class="toolkit-brand-title">TRAJANUS</h1>
+                        <p class="toolkit-brand-tagline">ENGINEERED INTELLIGENCE<span class="tm">TM</span></p>
+                    </div>
+                </div>
+                <div class="hero-toolkit">HIPAA COMPLIANT PATIENT HEALTH RECORD APP</div>
+                <div class="hero-subtitle">Application Development Platform</div>
+            </div>
+            <div class="hero-nav">
+                <button class="hero-launch-btn" onclick="launchHealthcareApp()">
+                    <span>🚀</span> Launch App
+                </button>
+                <a href="../index.html" class="hero-home-btn">Return to Hub</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <div class="main-container">
+        <main class="main-area">
+            <!-- APP CONFIGURATION SECTION -->
+            <div class="section-divider">
+                <div class="section-border-top"></div>
+                <div class="section-title-row">
+                    <h2 class="section-title">App Configuration</h2>
+                </div>
+                <div class="section-border-bottom"></div>
+                <p class="section-subtitle">Your information - stored for app build</p>
+            </div>
+
+            <div class="config-container" id="app-config">
+                <div class="config-grid">
+                    <div class="config-field">
+                        <label class="config-label">Developer Name</label>
+                        <input type="text" class="config-input" id="config-dev-name" placeholder="Bill King">
+                    </div>
+                    <div class="config-field">
+                        <label class="config-label">Company</label>
+                        <input type="text" class="config-input" id="config-company" placeholder="Trajanus Systems">
+                    </div>
+                    <div class="config-field">
+                        <label class="config-label">Client Name</label>
+                        <input type="text" class="config-input" id="config-client" placeholder="Dr. Jako">
+                    </div>
+                    <div class="config-field">
+                        <label class="config-label">Client Practice</label>
+                        <input type="text" class="config-input" id="config-practice" placeholder="Pediatric Practice Network">
+                    </div>
+                    <div class="config-field">
+                        <label class="config-label">EMR System</label>
+                        <input type="text" class="config-input" id="config-emr" placeholder="EMR vendor name">
+                    </div>
+                    <div class="config-field">
+                        <label class="config-label">Azure Subscription</label>
+                        <input type="text" class="config-input" id="config-azure" placeholder="Subscription ID">
+                    </div>
+                    <div class="config-field full-width">
+                        <label class="config-label">Notes</label>
+                        <textarea class="config-input" id="config-notes" placeholder="Additional configuration notes..."></textarea>
+                    </div>
+                    <div class="docx-upload-zone" id="docx-upload">
+                        <div class="docx-upload-text">📄 Drop DOCX Files Here</div>
+                        <div class="docx-upload-hint">Specifications, contracts, requirements docs</div>
+                        <div class="docx-file-list" id="docx-files"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================== -->
+            <!-- APPLICATION COMPONENTS     -->
+            <!-- ========================== -->
+            <div class="section-divider">
+                <span class="section-title">APPLICATION COMPONENTS</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="progress-section">
+                <!-- LEFT PANEL: App Components Checklist -->
+                <div class="progress-checklist" id="comp-checklist">
+                    <div class="checklist-header">
+                        <div class="checklist-title">
+                            <span>&#9745;</span>
+                            Features to Build
+                        </div>
+                        <span class="checklist-count" id="comp-count">0/10</span>
+                    </div>
+                    <div class="checklist-items" id="comp-items">
+                        <div class="checklist-item" data-task="comp-upload" data-section="comp">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">PDF Upload Interface</span>
+                            <span class="checklist-badge critical">P1</span>
+                        </div>
+                        <div class="checklist-item" data-task="comp-extract" data-section="comp">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">PDF Text Extraction</span>
+                            <span class="checklist-badge critical">P1</span>
+                        </div>
+                        <div class="checklist-item" data-task="comp-parser" data-section="comp">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Data Parser</span>
+                            <span class="checklist-badge high">P2</span>
+                        </div>
+                        <div class="checklist-item" data-task="comp-template" data-section="comp">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Report Template Engine</span>
+                            <span class="checklist-badge high">P2</span>
+                        </div>
+                        <div class="checklist-item" data-task="comp-database" data-section="comp">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Patient Database Schema</span>
+                            <span class="checklist-badge high">P2</span>
+                        </div>
+                        <div class="checklist-item" data-task="comp-auth" data-section="comp">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">User Authentication</span>
+                            <span class="checklist-badge medium">P3</span>
+                        </div>
+                        <div class="checklist-item" data-task="comp-audit" data-section="comp">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Audit Logging System</span>
+                            <span class="checklist-badge medium">P3</span>
+                        </div>
+                        <div class="checklist-item" data-task="comp-azure" data-section="comp">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Azure Deployment Config</span>
+                            <span class="checklist-badge low">P4</span>
+                        </div>
+                        <div class="checklist-item" data-task="comp-ai" data-section="comp">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Healthcare AI Agent</span>
+                            <span class="checklist-badge low">P4</span>
+                        </div>
+                        <div class="checklist-item" data-task="comp-admin" data-section="comp">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Admin Dashboard</span>
+                            <span class="checklist-badge low">P4</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT PANEL: App Components Progress -->
+                <div class="progress-tracker" id="comp-tracker">
+                    <div class="progress-header">
+                        <div class="progress-title">
+                            <span class="progress-title-icon">&#128202;</span>
+                            Components Progress
+                        </div>
+                        <div class="progress-overall">
+                            <span class="progress-percent" id="comp-percent">0%</span>
+                            <span class="progress-label">Complete</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-phases" id="comp-phases">
+                        <div class="progress-phase" data-phase="1">
+                            <span class="phase-name">P1: Input</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar" style="width: 0%">
+                                    <span class="phase-tasks">0/2</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent">0%</span>
+                        </div>
+                        <div class="progress-phase" data-phase="2">
+                            <span class="phase-name">P2: Processing</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar" style="width: 0%">
+                                    <span class="phase-tasks">0/3</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent">0%</span>
+                        </div>
+                        <div class="progress-phase" data-phase="3">
+                            <span class="phase-name">P3: Security</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar" style="width: 0%">
+                                    <span class="phase-tasks">0/2</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent">0%</span>
+                        </div>
+                        <div class="progress-phase" data-phase="4">
+                            <span class="phase-name">P4: Deploy</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar" style="width: 0%">
+                                    <span class="phase-tasks">0/3</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent">0%</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-footer">
+                        <div class="progress-stat">
+                            <span class="stat-value green" id="comp-complete">0</span>
+                            <span class="stat-label">Complete</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="stat-value blue" id="comp-inprogress">0</span>
+                            <span class="stat-label">In Progress</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="stat-value gray" id="comp-pending">10</span>
+                            <span class="stat-label">Pending</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="stat-value red" id="comp-blocked">0</span>
+                            <span class="stat-label">Blocked</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================== -->
+            <!-- REQUIREMENTS DISCOVERY     -->
+            <!-- ========================== -->
+            <div class="section-divider">
+                <span class="section-title">REQUIREMENTS DISCOVERY</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="progress-section">
+                <!-- LEFT PANEL: Requirements Checklist -->
+                <div class="progress-checklist" id="req-checklist">
+                    <div class="checklist-header">
+                        <div class="checklist-title">
+                            <span>&#9745;</span>
+                            Discovery Tasks
+                        </div>
+                        <span class="checklist-count" id="req-count">0/13</span>
+                    </div>
+                    <div class="checklist-items" id="req-items">
+                        <div class="checklist-item" data-task="req-arrive" data-section="req">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">How do records arrive?</span>
+                            <span class="checklist-badge critical">WF</span>
+                        </div>
+                        <div class="checklist-item" data-task="req-format" data-section="req">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Incoming record format?</span>
+                            <span class="checklist-badge critical">WF</span>
+                        </div>
+                        <div class="checklist-item" data-task="req-process" data-section="req">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Who processes records?</span>
+                            <span class="checklist-badge critical">WF</span>
+                        </div>
+                        <div class="checklist-item" data-task="req-time" data-section="req">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Avg review time?</span>
+                            <span class="checklist-badge critical">WF</span>
+                        </div>
+                        <div class="checklist-item" data-task="req-ehr" data-section="req">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Current EHR system?</span>
+                            <span class="checklist-badge critical">WF</span>
+                        </div>
+                        <div class="checklist-item" data-task="req-summary" data-section="req">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Summary sections needed?</span>
+                            <span class="checklist-badge high">OUT</span>
+                        </div>
+                        <div class="checklist-item" data-task="req-integrate" data-section="req">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Standalone or EHR?</span>
+                            <span class="checklist-badge high">OUT</span>
+                        </div>
+                        <div class="checklist-item" data-task="req-outputs" data-section="req">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Additional outputs?</span>
+                            <span class="checklist-badge high">OUT</span>
+                        </div>
+                        <div class="checklist-item" data-task="req-reportfmt" data-section="req">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Report format?</span>
+                            <span class="checklist-badge high">OUT</span>
+                        </div>
+                        <div class="checklist-item" data-task="req-network" data-section="req">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Network size?</span>
+                            <span class="checklist-badge medium">TECH</span>
+                        </div>
+                        <div class="checklist-item" data-task="req-devices" data-section="req">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Staff devices?</span>
+                            <span class="checklist-badge medium">TECH</span>
+                        </div>
+                        <div class="checklist-item" data-task="req-itsupport" data-section="req">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">IT support structure?</span>
+                            <span class="checklist-badge medium">TECH</span>
+                        </div>
+                        <div class="checklist-item" data-task="req-connect" data-section="req">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Connectivity concerns?</span>
+                            <span class="checklist-badge medium">TECH</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT PANEL: Requirements Progress -->
+                <div class="progress-tracker" id="req-tracker">
+                    <div class="progress-header">
+                        <div class="progress-title">
+                            <span class="progress-title-icon">&#128202;</span>
+                            Discovery Progress
+                        </div>
+                        <div class="progress-overall">
+                            <span class="progress-percent" id="req-percent">0%</span>
+                            <span class="progress-label">Complete</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-phases" id="req-phases">
+                        <div class="progress-phase" data-phase="1">
+                            <span class="phase-name">WF: Workflow</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar" style="width: 0%">
+                                    <span class="phase-tasks">0/5</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent">0%</span>
+                        </div>
+                        <div class="progress-phase" data-phase="2">
+                            <span class="phase-name">OUT: Output</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar" style="width: 0%">
+                                    <span class="phase-tasks">0/4</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent">0%</span>
+                        </div>
+                        <div class="progress-phase" data-phase="3">
+                            <span class="phase-name">TECH: Technical</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar" style="width: 0%">
+                                    <span class="phase-tasks">0/4</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent">0%</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-footer">
+                        <div class="progress-stat">
+                            <span class="stat-value green" id="req-complete">0</span>
+                            <span class="stat-label">Complete</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="stat-value blue" id="req-inprogress">0</span>
+                            <span class="stat-label">In Progress</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="stat-value gray" id="req-pending">13</span>
+                            <span class="stat-label">Pending</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="stat-value red" id="req-blocked">0</span>
+                            <span class="stat-label">Blocked</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================== -->
+            <!-- HIPAA COMPLIANCE SECTION   -->
+            <!-- ========================== -->
+            <div class="section-divider">
+                <span class="section-title">HIPAA COMPLIANCE</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="progress-section">
+                <!-- LEFT PANEL: HIPAA Compliance Checklist -->
+                <div class="progress-checklist" id="hipaa-checklist">
+                    <div class="checklist-header">
+                        <div class="checklist-title">
+                            <span>&#9745;</span>
+                            Compliance Requirements
+                        </div>
+                        <span class="checklist-count" id="hipaa-count">0/23</span>
+                    </div>
+                    <div class="checklist-items" id="hipaa-items">
+                        <!-- Administrative Safeguards (6) -->
+                        <div class="checklist-item" data-task="hipaa-baa-anthropic" data-section="hipaa">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">BAA with Anthropic (AI provider)</span>
+                            <span class="checklist-badge critical">ADMIN</span>
+                        </div>
+                        <div class="checklist-item" data-task="hipaa-baa-azure" data-section="hipaa">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">BAA with Microsoft Azure</span>
+                            <span class="checklist-badge critical">ADMIN</span>
+                        </div>
+                        <div class="checklist-item" data-task="hipaa-privacy-officer" data-section="hipaa">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">HIPAA Privacy Officer identified</span>
+                            <span class="checklist-badge critical">ADMIN</span>
+                        </div>
+                        <div class="checklist-item" data-task="hipaa-training" data-section="hipaa">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Workforce training documentation</span>
+                            <span class="checklist-badge critical">ADMIN</span>
+                        </div>
+                        <div class="checklist-item" data-task="hipaa-incident" data-section="hipaa">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Incident response procedures</span>
+                            <span class="checklist-badge critical">ADMIN</span>
+                        </div>
+                        <div class="checklist-item" data-task="hipaa-retention" data-section="hipaa">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Data retention policy</span>
+                            <span class="checklist-badge critical">ADMIN</span>
+                        </div>
+                        <!-- Technical Safeguards (6) -->
+                        <div class="checklist-item" data-task="hipaa-aes256" data-section="hipaa">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">AES-256 encryption at rest</span>
+                            <span class="checklist-badge high">TECH</span>
+                        </div>
+                        <div class="checklist-item" data-task="hipaa-tls" data-section="hipaa">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">TLS 1.2+ in transit</span>
+                            <span class="checklist-badge high">TECH</span>
+                        </div>
+                        <div class="checklist-item" data-task="hipaa-rbac" data-section="hipaa">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">RBAC implemented</span>
+                            <span class="checklist-badge high">TECH</span>
+                        </div>
+                        <div class="checklist-item" data-task="hipaa-userid" data-section="hipaa">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Unique user IDs</span>
+                            <span class="checklist-badge high">TECH</span>
+                        </div>
+                        <div class="checklist-item" data-task="hipaa-timeout" data-section="hipaa">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Session timeout configured</span>
+                            <span class="checklist-badge high">TECH</span>
+                        </div>
+                        <div class="checklist-item" data-task="hipaa-audit" data-section="hipaa">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Audit logging enabled</span>
+                            <span class="checklist-badge high">TECH</span>
+                        </div>
+                        <!-- Azure & Physical Safeguards (8) -->
+                        <div class="checklist-item" data-task="hipaa-azure-baa" data-section="hipaa">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Azure HIPAA/HITECH BAA</span>
+                            <span class="checklist-badge medium">AZURE</span>
+                        </div>
+                        <div class="checklist-item" data-task="hipaa-soc2" data-section="hipaa">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">SOC 2 Type II verified</span>
+                            <span class="checklist-badge medium">AZURE</span>
+                        </div>
+                        <div class="checklist-item" data-task="hipaa-usonly" data-section="hipaa">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">US-only data residency</span>
+                            <span class="checklist-badge medium">AZURE</span>
+                        </div>
+                        <div class="checklist-item" data-task="hipaa-defender" data-section="hipaa">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Azure Defender enabled</span>
+                            <span class="checklist-badge medium">AZURE</span>
+                        </div>
+                        <div class="checklist-item" data-task="hipaa-keyvault" data-section="hipaa">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Key Vault for credentials</span>
+                            <span class="checklist-badge medium">AZURE</span>
+                        </div>
+                        <div class="checklist-item" data-task="hipaa-nsg" data-section="hipaa">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Network security groups</span>
+                            <span class="checklist-badge medium">AZURE</span>
+                        </div>
+                        <div class="checklist-item" data-task="hipaa-workstation" data-section="hipaa">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Workstation security policies</span>
+                            <span class="checklist-badge medium">AZURE</span>
+                        </div>
+                        <div class="checklist-item" data-task="hipaa-media" data-section="hipaa">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Device/media controls</span>
+                            <span class="checklist-badge medium">AZURE</span>
+                        </div>
+                        <!-- Florida State Requirements (3) -->
+                        <div class="checklist-item" data-task="hipaa-fl-rights" data-section="hipaa">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">FL Patient Bill of Rights</span>
+                            <span class="checklist-badge low">FL</span>
+                        </div>
+                        <div class="checklist-item" data-task="hipaa-fl-breach" data-section="hipaa">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">30-day breach notification</span>
+                            <span class="checklist-badge low">FL</span>
+                        </div>
+                        <div class="checklist-item" data-task="hipaa-fl-minors" data-section="hipaa">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Minors info handling</span>
+                            <span class="checklist-badge low">FL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT PANEL: HIPAA Progress Tracker -->
+                <div class="progress-tracker" id="hipaa-tracker">
+                    <div class="progress-header">
+                        <span class="progress-title">HIPAA Progress</span>
+                        <span class="progress-percent" id="hipaa-percent">0%</span>
+                    </div>
+                    <div class="progress-phases">
+                        <div class="progress-phase">
+                            <div class="phase-label">Admin Safeguards</div>
+                            <div class="phase-bar">
+                                <div class="phase-fill" id="hipaa-admin-fill" style="width: 0%"></div>
+                            </div>
+                            <div class="phase-status" id="hipaa-admin-status">0/6</div>
+                        </div>
+                        <div class="progress-phase">
+                            <div class="phase-label">Technical Safeguards</div>
+                            <div class="phase-bar">
+                                <div class="phase-fill" id="hipaa-tech-fill" style="width: 0%"></div>
+                            </div>
+                            <div class="phase-status" id="hipaa-tech-status">0/6</div>
+                        </div>
+                        <div class="progress-phase">
+                            <div class="phase-label">Azure & Physical</div>
+                            <div class="phase-bar">
+                                <div class="phase-fill" id="hipaa-azure-fill" style="width: 0%"></div>
+                            </div>
+                            <div class="phase-status" id="hipaa-azure-status">0/8</div>
+                        </div>
+                        <div class="progress-phase">
+                            <div class="phase-label">Florida Requirements</div>
+                            <div class="phase-bar">
+                                <div class="phase-fill" id="hipaa-fl-fill" style="width: 0%"></div>
+                            </div>
+                            <div class="phase-status" id="hipaa-fl-status">0/3</div>
+                        </div>
+                    </div>
+                    <div class="progress-stats">
+                        <div class="stat-item"><span class="stat-value" id="hipaa-complete">0</span><span class="stat-label">Complete</span></div>
+                        <div class="stat-item"><span class="stat-value" id="hipaa-progress">0</span><span class="stat-label">In Progress</span></div>
+                        <div class="stat-item"><span class="stat-value" id="hipaa-pending">23</span><span class="stat-label">Pending</span></div>
+                        <div class="stat-item"><span class="stat-value" id="hipaa-blocked">0</span><span class="stat-label">Blocked</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================== -->
+            <!-- CORE FEATURES SECTION      -->
+            <!-- ========================== -->
+            <div class="section-divider">
+                <span class="section-title">CORE FEATURES</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="progress-section">
+                <!-- LEFT PANEL: Core Features Checklist -->
+                <div class="progress-checklist" id="core-checklist">
+                    <div class="checklist-header">
+                        <div class="checklist-title">
+                            <span>&#9745;</span>
+                            Core Features Tasks
+                        </div>
+                        <span class="checklist-count" id="core-count">0/8</span>
+                    </div>
+                    <div class="checklist-items" id="core-items">
+                        <div class="checklist-item" data-task="core-upload" data-section="core">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">File Upload System</span>
+                            <span class="checklist-badge critical">P1</span>
+                        </div>
+                        <div class="checklist-item" data-task="core-ocr" data-section="core">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">OCR Processing Engine</span>
+                            <span class="checklist-badge critical">P1</span>
+                        </div>
+                        <div class="checklist-item" data-task="core-parser" data-section="core">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Medical Term Parser</span>
+                            <span class="checklist-badge high">P2</span>
+                        </div>
+                        <div class="checklist-item" data-task="core-ai" data-section="core">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">AI Summary Generator</span>
+                            <span class="checklist-badge high">P2</span>
+                        </div>
+                        <div class="checklist-item" data-task="core-template" data-section="core">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Report Template System</span>
+                            <span class="checklist-badge medium">P3</span>
+                        </div>
+                        <div class="checklist-item" data-task="core-export" data-section="core">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Export Functionality</span>
+                            <span class="checklist-badge medium">P3</span>
+                        </div>
+                        <div class="checklist-item" data-task="core-database" data-section="core">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Patient History Database</span>
+                            <span class="checklist-badge low">P4</span>
+                        </div>
+                        <div class="checklist-item" data-task="core-search" data-section="core">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Search & Retrieval</span>
+                            <span class="checklist-badge low">P4</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT PANEL: Core Features Progress -->
+                <div class="progress-tracker" id="core-tracker">
+                    <div class="progress-header">
+                        <div class="progress-title">
+                            <span class="progress-title-icon">&#128202;</span>
+                            Core Features Progress
+                        </div>
+                        <div class="progress-overall">
+                            <span class="progress-percent" id="core-percent">0%</span>
+                            <span class="progress-label">Complete</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-phases" id="core-phases">
+                        <div class="progress-phase" data-phase="1">
+                            <span class="phase-name">P1: Foundation</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar" style="width: 0%">
+                                    <span class="phase-tasks">0/2</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent">0%</span>
+                        </div>
+                        <div class="progress-phase" data-phase="2">
+                            <span class="phase-name">P2: Processing</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar" style="width: 0%">
+                                    <span class="phase-tasks">0/2</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent">0%</span>
+                        </div>
+                        <div class="progress-phase" data-phase="3">
+                            <span class="phase-name">P3: Output</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar" style="width: 0%">
+                                    <span class="phase-tasks">0/2</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent">0%</span>
+                        </div>
+                        <div class="progress-phase" data-phase="4">
+                            <span class="phase-name">P4: Data</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar" style="width: 0%">
+                                    <span class="phase-tasks">0/2</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent">0%</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-footer">
+                        <div class="progress-stat">
+                            <span class="stat-value green" id="core-complete">0</span>
+                            <span class="stat-label">Complete</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="stat-value blue" id="core-progress">0</span>
+                            <span class="stat-label">In Progress</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="stat-value gray" id="core-pending">8</span>
+                            <span class="stat-label">Pending</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="stat-value red" id="core-blocked">0</span>
+                            <span class="stat-label">Blocked</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================== -->
+            <!-- INTEGRATIONS SECTION       -->
+            <!-- ========================== -->
+            <div class="section-divider">
+                <span class="section-title">INTEGRATIONS</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="progress-section">
+                <!-- LEFT PANEL: Integrations Checklist -->
+                <div class="progress-checklist" id="int-checklist">
+                    <div class="checklist-header">
+                        <div class="checklist-title">
+                            <span>&#9745;</span>
+                            Integration Tasks
+                        </div>
+                        <span class="checklist-count" id="int-count">0/6</span>
+                    </div>
+                    <div class="checklist-items" id="int-items">
+                        <div class="checklist-item" data-task="int-claude" data-section="int">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Claude API Connection</span>
+                            <span class="checklist-badge critical">P1</span>
+                        </div>
+                        <div class="checklist-item" data-task="int-supabase" data-section="int">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Supabase Backend</span>
+                            <span class="checklist-badge critical">P1</span>
+                        </div>
+                        <div class="checklist-item" data-task="int-azure" data-section="int">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Azure Deployment</span>
+                            <span class="checklist-badge high">P2</span>
+                        </div>
+                        <div class="checklist-item" data-task="int-email" data-section="int">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Email Notifications</span>
+                            <span class="checklist-badge medium">P3</span>
+                        </div>
+                        <div class="checklist-item" data-task="int-icd10" data-section="int">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">ICD-10 Code Lookup</span>
+                            <span class="checklist-badge medium">P3</span>
+                        </div>
+                        <div class="checklist-item" data-task="int-backup" data-section="int">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Backup & Sync</span>
+                            <span class="checklist-badge low">P4</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT PANEL: Integrations Progress -->
+                <div class="progress-tracker" id="int-tracker">
+                    <div class="progress-header">
+                        <div class="progress-title">
+                            <span class="progress-title-icon">&#128202;</span>
+                            Integrations Progress
+                        </div>
+                        <div class="progress-overall">
+                            <span class="progress-percent" id="int-percent">0%</span>
+                            <span class="progress-label">Complete</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-phases" id="int-phases">
+                        <div class="progress-phase" data-phase="1">
+                            <span class="phase-name">P1: AI & Database</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar" style="width: 0%">
+                                    <span class="phase-tasks">0/2</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent">0%</span>
+                        </div>
+                        <div class="progress-phase" data-phase="2">
+                            <span class="phase-name">P2: Cloud</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar" style="width: 0%">
+                                    <span class="phase-tasks">0/1</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent">0%</span>
+                        </div>
+                        <div class="progress-phase" data-phase="3">
+                            <span class="phase-name">P3: Services</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar" style="width: 0%">
+                                    <span class="phase-tasks">0/2</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent">0%</span>
+                        </div>
+                        <div class="progress-phase" data-phase="4">
+                            <span class="phase-name">P4: Resilience</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar" style="width: 0%">
+                                    <span class="phase-tasks">0/1</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent">0%</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-footer">
+                        <div class="progress-stat">
+                            <span class="stat-value green" id="int-complete">0</span>
+                            <span class="stat-label">Complete</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="stat-value blue" id="int-progress">0</span>
+                            <span class="stat-label">In Progress</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="stat-value gray" id="int-pending">6</span>
+                            <span class="stat-label">Pending</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="stat-value red" id="int-blocked">0</span>
+                            <span class="stat-label">Blocked</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================== -->
+            <!-- COMPLIANCE & SECURITY      -->
+            <!-- ========================== -->
+            <div class="section-divider">
+                <span class="section-title">COMPLIANCE & SECURITY</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="progress-section">
+                <!-- LEFT PANEL: Security Checklist -->
+                <div class="progress-checklist" id="sec-checklist">
+                    <div class="checklist-header">
+                        <div class="checklist-title">
+                            <span>&#9745;</span>
+                            Security Tasks
+                        </div>
+                        <span class="checklist-count" id="sec-count">0/6</span>
+                    </div>
+                    <div class="checklist-items" id="sec-items">
+                        <div class="checklist-item" data-task="sec-auth" data-section="sec">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">User Authentication</span>
+                            <span class="checklist-badge critical">P1</span>
+                        </div>
+                        <div class="checklist-item" data-task="sec-rbac" data-section="sec">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Role-Based Access</span>
+                            <span class="checklist-badge critical">P1</span>
+                        </div>
+                        <div class="checklist-item" data-task="sec-audit" data-section="sec">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Audit Trail System</span>
+                            <span class="checklist-badge high">P2</span>
+                        </div>
+                        <div class="checklist-item" data-task="sec-encrypt" data-section="sec">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Data Encryption</span>
+                            <span class="checklist-badge high">P2</span>
+                        </div>
+                        <div class="checklist-item" data-task="sec-session" data-section="sec">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Session Management</span>
+                            <span class="checklist-badge medium">P3</span>
+                        </div>
+                        <div class="checklist-item" data-task="sec-breach" data-section="sec">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Breach Response Plan</span>
+                            <span class="checklist-badge low">P4</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT PANEL: Security Progress -->
+                <div class="progress-tracker" id="sec-tracker">
+                    <div class="progress-header">
+                        <div class="progress-title">
+                            <span class="progress-title-icon">&#128202;</span>
+                            Security Progress
+                        </div>
+                        <div class="progress-overall">
+                            <span class="progress-percent" id="sec-percent">0%</span>
+                            <span class="progress-label">Complete</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-phases" id="sec-phases">
+                        <div class="progress-phase" data-phase="1">
+                            <span class="phase-name">P1: Access Control</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar" style="width: 0%">
+                                    <span class="phase-tasks">0/2</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent">0%</span>
+                        </div>
+                        <div class="progress-phase" data-phase="2">
+                            <span class="phase-name">P2: Data Protection</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar" style="width: 0%">
+                                    <span class="phase-tasks">0/2</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent">0%</span>
+                        </div>
+                        <div class="progress-phase" data-phase="3">
+                            <span class="phase-name">P3: Session Security</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar" style="width: 0%">
+                                    <span class="phase-tasks">0/1</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent">0%</span>
+                        </div>
+                        <div class="progress-phase" data-phase="4">
+                            <span class="phase-name">P4: Incident Response</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar" style="width: 0%">
+                                    <span class="phase-tasks">0/1</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent">0%</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-footer">
+                        <div class="progress-stat">
+                            <span class="stat-value green" id="sec-complete">0</span>
+                            <span class="stat-label">Complete</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="stat-value blue" id="sec-inprogress">0</span>
+                            <span class="stat-label">In Progress</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="stat-value gray" id="sec-pending">6</span>
+                            <span class="stat-label">Pending</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="stat-value red" id="sec-blocked">0</span>
+                            <span class="stat-label">Blocked</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================== -->
+            <!-- USER INTERFACE SECTION     -->
+            <!-- ========================== -->
+            <div class="section-divider">
+                <span class="section-title">USER INTERFACE</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="progress-section">
+                <!-- LEFT PANEL: UI Checklist -->
+                <div class="progress-checklist" id="ui-checklist">
+                    <div class="checklist-header">
+                        <div class="checklist-title">
+                            <span>&#9745;</span>
+                            UI Development Tasks
+                        </div>
+                        <span class="checklist-count" id="ui-count">0/5</span>
+                    </div>
+                    <div class="checklist-items" id="ui-items">
+                        <div class="checklist-item" data-task="ui-layout" data-section="ui">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Responsive Layout</span>
+                            <span class="checklist-badge critical">P1</span>
+                        </div>
+                        <div class="checklist-item" data-task="ui-dashboard" data-section="ui">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Dashboard Design</span>
+                            <span class="checklist-badge high">P2</span>
+                        </div>
+                        <div class="checklist-item" data-task="ui-validation" data-section="ui">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Form Validation</span>
+                            <span class="checklist-badge high">P2</span>
+                        </div>
+                        <div class="checklist-item" data-task="ui-loading" data-section="ui">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Loading States</span>
+                            <span class="checklist-badge medium">P3</span>
+                        </div>
+                        <div class="checklist-item" data-task="ui-a11y" data-section="ui">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Accessibility</span>
+                            <span class="checklist-badge medium">P3</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT PANEL: UI Progress -->
+                <div class="progress-tracker" id="ui-tracker">
+                    <div class="progress-header">
+                        <div class="progress-title">
+                            <span class="progress-title-icon">&#128202;</span>
+                            UI Development Progress
+                        </div>
+                        <div class="progress-overall">
+                            <span class="progress-percent" id="ui-percent">0%</span>
+                            <span class="progress-label">Complete</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-phases" id="ui-phases">
+                        <div class="progress-phase" data-phase="1">
+                            <span class="phase-name">P1: Layout</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar" style="width: 0%">
+                                    <span class="phase-tasks">0/1</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent">0%</span>
+                        </div>
+                        <div class="progress-phase" data-phase="2">
+                            <span class="phase-name">P2: Components</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar" style="width: 0%">
+                                    <span class="phase-tasks">0/2</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent">0%</span>
+                        </div>
+                        <div class="progress-phase" data-phase="3">
+                            <span class="phase-name">P3: Polish</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar" style="width: 0%">
+                                    <span class="phase-tasks">0/2</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent">0%</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-footer">
+                        <div class="progress-stat">
+                            <span class="stat-value green" id="ui-complete">0</span>
+                            <span class="stat-label">Complete</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="stat-value blue" id="ui-inprogress">0</span>
+                            <span class="stat-label">In Progress</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="stat-value gray" id="ui-pending">5</span>
+                            <span class="stat-label">Pending</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="stat-value red" id="ui-blocked">0</span>
+                            <span class="stat-label">Blocked</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DEVELOPMENT RESOURCES SECTION -->
+            <div class="section-divider">
+                <div class="section-border-top"></div>
+                <div class="section-title-row">
+                    <h2 class="section-title">Development Resources</h2>
+                </div>
+                <div class="section-border-bottom"></div>
+            </div>
+
+            <div class="tools-grid">
+                <a href="https://www.icd10data.com" target="_blank" class="tool-card">
+                    <span class="tool-card-icon">🏥</span>
+                    <span class="tool-card-label">ICD-10 Codes</span>
+                </a>
+                <a href="https://www.hl7.org/implement/standards/product_brief.cfm?product_id=7" target="_blank" class="tool-card">
+                    <span class="tool-card-icon">📋</span>
+                    <span class="tool-card-label">HL7 C-CDA Standard</span>
+                </a>
+                <a href="https://www.hhs.gov/hipaa/for-professionals/privacy/index.html" target="_blank" class="tool-card">
+                    <span class="tool-card-icon">🔒</span>
+                    <span class="tool-card-label">HIPAA Privacy Rule</span>
+                </a>
+                <a href="https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-hipaa-us" target="_blank" class="tool-card">
+                    <span class="tool-card-icon">☁️</span>
+                    <span class="tool-card-label">Azure HIPAA</span>
+                </a>
+                <a href="https://pubmed.ncbi.nlm.nih.gov" target="_blank" class="tool-card">
+                    <span class="tool-card-icon">📚</span>
+                    <span class="tool-card-label">PubMed Research</span>
+                </a>
+                <a href="https://www.drugs.com/drug-interactions.html" target="_blank" class="tool-card">
+                    <span class="tool-card-icon">💊</span>
+                    <span class="tool-card-label">Drug Interactions</span>
+                </a>
+            </div>
+
+            <!-- BUILD TOOLS SECTION -->
+            <div class="section-divider">
+                <div class="section-border-top"></div>
+                <div class="section-title-row">
+                    <h2 class="section-title">Build Tools</h2>
+                </div>
+                <div class="section-border-bottom"></div>
+            </div>
+
+            <div class="script-grid">
+                <button class="script-btn" data-script="new_component.py">
+                    <img src="../assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">
+                    New Component
+                </button>
+                <button class="script-btn" data-script="code_generator.py">
+                    <img src="../assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">
+                    Code Generator
+                </button>
+                <button class="script-btn" data-script="test_runner.py">
+                    <img src="../assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">
+                    Test Runner
+                </button>
+                <button class="script-btn" data-script="hipaa_validator.py">
+                    <img src="../assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">
+                    HIPAA Validator
+                </button>
+                <button class="script-btn" data-script="build_preview.py">
+                    <img src="../assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">
+                    Build Preview
+                </button>
+                <button class="script-btn" data-script="deploy_azure.py">
+                    <img src="../assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">
+                    Deploy to Azure
+                </button>
+            </div>
+
+            <!-- APP BUILDER ASSISTANT SECTION -->
+            <div class="section-divider">
+                <div class="section-border-top"></div>
+                <div class="section-title-row">
+                    <h2 class="section-title">App Builder Assistant</h2>
+                </div>
+                <div class="section-border-bottom"></div>
+            </div>
+
+            <div class="assistant-panel">
+                <div class="assistant-header">
+                    <h3>App Builder Assistant</h3>
+                </div>
+                <div class="assistant-body">
+                    <div class="assistant-greeting">
+                        <strong>Ready to build.</strong> I can help you:
+                    </div>
+                    <ul class="assistant-list">
+                        <li>Write PDF text extraction code</li>
+                        <li>Build report generation templates</li>
+                        <li>Create database schemas for patient data</li>
+                        <li>Implement HIPAA-compliant authentication</li>
+                        <li>Write Azure deployment configurations</li>
+                        <li>Generate test cases for each component</li>
+                    </ul>
+                    <p style="margin-top: 16px; color: var(--blue); font-size: 13px; font-weight: 600;">
+                        What component are we building first?
+                    </p>
+                </div>
+                <div class="assistant-input-area">
+                    <input type="text" class="assistant-input" placeholder="Describe the component to build...">
+                    <button class="assistant-send-btn">Send</button>
+                </div>
+            </div>
+
+            <!-- ==================== OPERATIONS LOG ==================== -->
+            <div class="section-divider">
+                <span class="section-title">OPERATIONS LOG</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div style="background: var(--bg-surface); border: 1px solid #00AAFF; border-radius: 8px; margin-bottom: 20px;">
+                <div class="terminal-output" id="terminal-output" style="height: 200px; overflow-y: auto; padding: 16px; font-family: monospace; font-size: 12px; color: var(--text-muted);">
+                    Terminal ready. External program output will appear here.
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="page-footer">
+                <span>Trajanus USA</span> | Jacksonville, Florida | Engineered Intelligence
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // ============================================
+        // HEALTHCARE APP DEVELOPMENT PLATFORM - SCRIPTS
+        // ============================================
+
+        // Launch the Healthcare React App
+        async function launchHealthcareApp() {
+            const appUrl = 'http://localhost:5173';
+
+            // Check if we're in Tauri
+            if (window.__TAURI__) {
+                try {
+                    // Try to open in a new Tauri WebviewWindow
+                    const { WebviewWindow } = window.__TAURI__.webviewWindow;
+                    const healthcareWindow = new WebviewWindow('healthcare-app', {
+                        url: appUrl,
+                        title: 'Healthcare Records Processor',
+                        width: 1400,
+                        height: 900,
+                        center: true,
+                        resizable: true,
+                        maximizable: true
+                    });
+
+                    healthcareWindow.once('tauri://error', function (e) {
+                        // If Tauri window fails, open in browser
+                        console.log('Tauri window error, opening in browser');
+                        window.open(appUrl, '_blank');
+                    });
+                } catch (e) {
+                    console.log('Opening in browser:', e);
+                    window.open(appUrl, '_blank');
+                }
+            } else {
+                // Open in browser
+                window.open(appUrl, '_blank');
+            }
+        }
+
+        const STORAGE_KEY = 'healthcare-app-data';
+
+        // Load saved data from localStorage
+        function loadSavedData() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                try {
+                    return JSON.parse(saved);
+                } catch (e) {
+                    console.error('Error loading saved data:', e);
+                    return { checklists: {}, config: {}, docxFiles: [] };
+                }
+            }
+            return { checklists: {}, config: {}, docxFiles: [] };
+        }
+
+        // Save data to localStorage
+        function saveData() {
+            const data = {
+                checklists: {},
+                config: {},
+                docxFiles: savedDocxFiles
+            };
+
+            // Save all checklist items
+            document.querySelectorAll('.checklist-item').forEach(item => {
+                const id = item.getAttribute('data-id');
+                const checkbox = item.querySelector('.checklist-checkbox');
+                const answer = item.querySelector('.checklist-answer');
+                data.checklists[id] = {
+                    checked: checkbox.getAttribute('data-checked') === 'true',
+                    answer: answer ? answer.value : ''
+                };
+            });
+
+            // Save config fields
+            document.querySelectorAll('.config-input, .config-textarea').forEach(field => {
+                const id = field.id;
+                data.config[id] = field.value;
+            });
+
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        }
+
+        // Restore saved data on load
+        function restoreData() {
+            const data = loadSavedData();
+
+            // Restore checklist items
+            Object.keys(data.checklists).forEach(id => {
+                const item = document.querySelector(`.checklist-item[data-id="${id}"]`);
+                if (item) {
+                    const checkbox = item.querySelector('.checklist-checkbox');
+                    const answer = item.querySelector('.checklist-answer');
+                    if (data.checklists[id].checked) {
+                        checkbox.setAttribute('data-checked', 'true');
+                        checkbox.classList.add('checked');
+                    }
+                    if (answer && data.checklists[id].answer) {
+                        answer.value = data.checklists[id].answer;
+                    }
+                }
+            });
+
+            // Restore config fields
+            Object.keys(data.config).forEach(id => {
+                const field = document.getElementById(id);
+                if (field) {
+                    field.value = data.config[id];
+                }
+            });
+
+            // Restore DOCX files list
+            if (data.docxFiles && data.docxFiles.length > 0) {
+                savedDocxFiles = data.docxFiles;
+                updateDocxFileList();
+            }
+
+            // Update all progress counters
+            updateAllProgress();
+        }
+
+        // Update progress counter for a group
+        function updateProgress(groupName) {
+            const group = document.querySelector(`.checklist-group[data-group="${groupName}"]`);
+            if (!group) return;
+
+            const checkboxes = group.querySelectorAll('.checklist-checkbox');
+            const checked = group.querySelectorAll('.checklist-checkbox[data-checked="true"]').length;
+            const total = checkboxes.length;
+
+            const progressEl = group.querySelector(`.checklist-progress[data-progress="${groupName}"]`);
+            if (progressEl) {
+                progressEl.textContent = `${checked}/${total}`;
+                if (checked === total && total > 0) {
+                    progressEl.style.color = '#00AAFF';
+                    progressEl.style.fontWeight = 'bold';
+                } else {
+                    progressEl.style.color = '';
+                    progressEl.style.fontWeight = '';
+                }
+            }
+        }
+
+        // Update all progress counters
+        function updateAllProgress() {
+            document.querySelectorAll('.checklist-group').forEach(group => {
+                const groupName = group.getAttribute('data-group');
+                updateProgress(groupName);
+            });
+        }
+
+        // Track DOCX files
+        let savedDocxFiles = [];
+
+        // Update DOCX file list display
+        function updateDocxFileList() {
+            const fileList = document.getElementById('docx-files');
+            if (!fileList) return;
+
+            fileList.innerHTML = savedDocxFiles.map((file, index) =>
+                `<div class="docx-file-item">
+                    <span>📄 ${file}</span>
+                    <span class="docx-remove" data-index="${index}">✕</span>
+                </div>`
+            ).join('');
+
+            // Add remove handlers
+            fileList.querySelectorAll('.docx-remove').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const index = parseInt(this.getAttribute('data-index'));
+                    savedDocxFiles.splice(index, 1);
+                    updateDocxFileList();
+                    saveData();
+                });
+            });
+        }
+
+        // ============================================
+        // COLLAPSIBLE GROUP HEADERS
+        // ============================================
+        document.querySelectorAll('.checklist-group-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const group = this.closest('.checklist-group');
+                group.classList.toggle('collapsed');
+                const toggle = this.querySelector('.checklist-toggle');
+                toggle.textContent = group.classList.contains('collapsed') ? '▶' : '▼';
+            });
+        });
+
+        // ============================================
+        // CHECKBOX TOGGLE WITH PERSISTENCE
+        // ============================================
+        document.querySelectorAll('.checklist-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('click', function() {
+                const isChecked = this.getAttribute('data-checked') === 'true';
+                this.setAttribute('data-checked', !isChecked);
+                this.classList.toggle('checked', !isChecked);
+
+                // Update progress for this group
+                const group = this.closest('.checklist-group');
+                if (group) {
+                    updateProgress(group.getAttribute('data-group'));
+                }
+
+                // Save to localStorage
+                saveData();
+            });
+        });
+
+        // ============================================
+        // ANSWER FIELD PERSISTENCE
+        // ============================================
+        document.querySelectorAll('.checklist-answer').forEach(input => {
+            input.addEventListener('input', function() {
+                saveData();
+            });
+        });
+
+        // ============================================
+        // CONFIG FIELD PERSISTENCE
+        // ============================================
+        document.querySelectorAll('.config-input, .config-textarea').forEach(field => {
+            field.addEventListener('input', function() {
+                saveData();
+            });
+        });
+
+        // Upload zone click handler
+        document.getElementById('upload-zone').addEventListener('click', function() {
+            // Create hidden file input
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.pdf';
+            input.multiple = true;
+            input.click();
+
+            input.addEventListener('change', function(e) {
+                const files = e.target.files;
+                const fileList = document.getElementById('patient-files');
+
+                for (let file of files) {
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item';
+                    fileItem.innerHTML = '<span class="file-icon">📋</span>' +
+                        '<span class="file-name">' + file.name + '</span>' +
+                        '<span class="file-status processing">Processing</span>';
+                    fileList.appendChild(fileItem);
+
+                    // Simulate processing completion
+                    setTimeout(() => {
+                        fileItem.querySelector('.file-status').textContent = 'Ready';
+                        fileItem.querySelector('.file-status').classList.remove('processing');
+                    }, 2000);
+                }
+            });
+        });
+
+        // Drag and drop for upload zone
+        const uploadZone = document.getElementById('upload-zone');
+
+        uploadZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '#33BBFF';
+            this.style.background = 'rgba(0, 170, 255, 0.15)';
+        });
+
+        uploadZone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '#00AAFF';
+            this.style.background = 'rgba(0, 170, 255, 0.03)';
+        });
+
+        uploadZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '#00AAFF';
+            this.style.background = 'rgba(0, 170, 255, 0.03)';
+
+            const files = e.dataTransfer.files;
+            const fileList = document.getElementById('patient-files');
+
+            for (let file of files) {
+                if (file.type === 'application/pdf') {
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item';
+                    fileItem.innerHTML = '<span class="file-icon">📋</span>' +
+                        '<span class="file-name">' + file.name + '</span>' +
+                        '<span class="file-status processing">Processing</span>';
+                    fileList.appendChild(fileItem);
+
+                    setTimeout(() => {
+                        fileItem.querySelector('.file-status').textContent = 'Ready';
+                        fileItem.querySelector('.file-status').classList.remove('processing');
+                    }, 2000);
+                }
+            }
+        });
+
+        // ============================================
+        // DOCX UPLOAD ZONE
+        // ============================================
+        const docxUploadZone = document.getElementById('docx-upload');
+        if (docxUploadZone) {
+            docxUploadZone.addEventListener('click', function() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.docx,.doc';
+                input.multiple = true;
+                input.click();
+
+                input.addEventListener('change', function(e) {
+                    for (let file of e.target.files) {
+                        if (!savedDocxFiles.includes(file.name)) {
+                            savedDocxFiles.push(file.name);
+                        }
+                    }
+                    updateDocxFileList();
+                    saveData();
+                });
+            });
+
+            docxUploadZone.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.style.borderColor = '#33BBFF';
+                this.style.background = 'rgba(0, 170, 255, 0.15)';
+            });
+
+            docxUploadZone.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                this.style.borderColor = 'rgba(0, 170, 255, 0.5)';
+                this.style.background = 'transparent';
+            });
+
+            docxUploadZone.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.style.borderColor = 'rgba(0, 170, 255, 0.5)';
+                this.style.background = 'transparent';
+
+                for (let file of e.dataTransfer.files) {
+                    const name = file.name.toLowerCase();
+                    if (name.endsWith('.docx') || name.endsWith('.doc')) {
+                        if (!savedDocxFiles.includes(file.name)) {
+                            savedDocxFiles.push(file.name);
+                        }
+                    }
+                }
+                updateDocxFileList();
+                saveData();
+            });
+        }
+
+        // ============================================
+        // SCRIPT BUTTON HANDLERS
+        // ============================================
+        document.querySelectorAll('.script-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const script = this.getAttribute('data-script');
+                console.log('Running script:', script);
+                // In production, this would call the Tauri backend
+            });
+        });
+
+        // ============================================
+        // ASSISTANT HANDLERS
+        // ============================================
+        document.querySelector('.assistant-send-btn').addEventListener('click', function() {
+            const input = document.querySelector('.assistant-input');
+            const message = input.value.trim();
+            if (message) {
+                console.log('Assistant query:', message);
+                input.value = '';
+                // In production, this would send to Claude API
+            }
+        });
+
+        document.querySelector('.assistant-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.querySelector('.assistant-send-btn').click();
+            }
+        });
+
+        // ============================================
+        // INITIALIZE - RESTORE SAVED DATA
+        // ============================================
+        restoreData();
+
+        // ==================== CHECKLIST PERSISTENCE ====================
+        // Load saved checklist state
+        const savedChecklist = localStorage.getItem('healthcare-checklist-state');
+        if (savedChecklist) {
+            try {
+                const state = JSON.parse(savedChecklist);
+                document.querySelectorAll('.checklist-item').forEach(item => {
+                    const task = item.dataset.task;
+                    if (task && state.hasOwnProperty(task)) {
+                        if (state[task]) {
+                            item.classList.add('completed');
+                        } else {
+                            item.classList.remove('completed');
+                        }
+                    }
+                });
+            } catch (e) {
+                console.error('Error loading checklist state:', e);
+            }
+        }
+
+        // Update checklist count display
+        function updateChecklistCount() {
+            const items = document.querySelectorAll('.checklist-item');
+            const completed = document.querySelectorAll('.checklist-item.completed').length;
+            const countEl = document.getElementById('checklist-count');
+            if (countEl) {
+                countEl.textContent = `${completed}/${items.length}`;
+            }
+        }
+        updateChecklistCount();
+
+        // Save checklist state to localStorage
+        function saveChecklistState() {
+            const state = {};
+            document.querySelectorAll('.checklist-item').forEach(item => {
+                const task = item.dataset.task;
+                if (task) {
+                    state[task] = item.classList.contains('completed');
+                }
+            });
+            localStorage.setItem('healthcare-checklist-state', JSON.stringify(state));
+        }
+
+        // Add click handlers with persistence
+        document.querySelectorAll('.checklist-item').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('completed');
+                updateChecklistCount();
+                saveChecklistState();
+            });
+        });
+
+        // ============================================
+        // MEDICAL RECORDS PROCESSING - NEW HEALTHCARE-01
+        // ============================================
+
+        // Track uploaded medical files
+        let medicalFiles = [];
+        let recordsProcessed = 0;
+
+        // Initialize session time
+        document.getElementById('session-time').textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+        // Medical upload zone click handler
+        const medicalUploadZone = document.getElementById('medical-upload-zone');
+        if (medicalUploadZone) {
+            medicalUploadZone.addEventListener('click', function() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.pdf';
+                input.multiple = true;
+                input.click();
+
+                input.addEventListener('change', function(e) {
+                    handleMedicalFiles(e.target.files);
+                });
+            });
+
+            // Drag and drop
+            medicalUploadZone.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.style.borderColor = '#33BBFF';
+                this.style.background = 'rgba(0, 170, 255, 0.15)';
+            });
+
+            medicalUploadZone.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                this.style.borderColor = '#00AAFF';
+                this.style.background = 'rgba(0, 170, 255, 0.03)';
+            });
+
+            medicalUploadZone.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.style.borderColor = '#00AAFF';
+                this.style.background = 'rgba(0, 170, 255, 0.03)';
+                handleMedicalFiles(e.dataTransfer.files);
+            });
+        }
+
+        // Handle uploaded medical files
+        function handleMedicalFiles(files) {
+            const fileList = document.getElementById('medical-file-list');
+            const processBtn = document.getElementById('process-records-btn');
+
+            for (let file of files) {
+                if (file.type === 'application/pdf') {
+                    medicalFiles.push({
+                        name: file.name,
+                        size: (file.size / 1024).toFixed(1) + ' KB',
+                        status: 'ready'
+                    });
+
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'medical-file-item';
+                    fileItem.innerHTML = `
+                        <span class="medical-file-icon">&#128196;</span>
+                        <div class="medical-file-info">
+                            <div class="medical-file-name">${file.name}</div>
+                            <div class="medical-file-size">${(file.size / 1024).toFixed(1)} KB</div>
+                        </div>
+                        <span class="medical-file-status ready">Ready</span>
+                    `;
+                    fileList.appendChild(fileItem);
+                }
+            }
+
+            // Enable process button if files uploaded
+            if (medicalFiles.length > 0) {
+                processBtn.disabled = false;
+            }
+        }
+
+        // Process Records button handler
+        const processBtn = document.getElementById('process-records-btn');
+        if (processBtn) {
+            processBtn.addEventListener('click', function() {
+                if (medicalFiles.length === 0) return;
+                simulateAIProcessing();
+            });
+        }
+
+        // Simulate AI Processing with animation
+        function simulateAIProcessing() {
+            const statusBadge = document.getElementById('ai-status');
+            const steps = document.querySelectorAll('.ai-step');
+
+            // Update status to processing
+            statusBadge.textContent = 'Processing';
+            statusBadge.className = 'ai-status-badge processing';
+
+            // Disable process button
+            document.getElementById('process-records-btn').disabled = true;
+
+            // Animate through steps
+            let currentStep = 0;
+            const stepDurations = [1500, 2000, 2500, 1500]; // Duration for each step
+
+            function processStep() {
+                if (currentStep >= steps.length) {
+                    // All steps complete
+                    statusBadge.textContent = 'Complete';
+                    statusBadge.className = 'ai-status-badge complete';
+                    generateSummaryReport();
+
+                    // Update session count
+                    recordsProcessed += medicalFiles.length;
+                    document.getElementById('session-count').textContent = recordsProcessed;
+
+                    return;
+                }
+
+                // Mark previous step as complete
+                if (currentStep > 0) {
+                    steps[currentStep - 1].classList.remove('active');
+                    steps[currentStep - 1].classList.add('complete');
+                    steps[currentStep - 1].querySelector('.ai-step-icon').textContent = '✓';
+                    steps[currentStep - 1].querySelector('.ai-step-time').textContent = ((stepDurations[currentStep - 1] / 1000).toFixed(1)) + 's';
+                }
+
+                // Activate current step
+                steps[currentStep].classList.add('active');
+
+                // Move to next step after duration
+                setTimeout(() => {
+                    currentStep++;
+                    processStep();
+                }, stepDurations[currentStep]);
+            }
+
+            processStep();
+        }
+
+        // Generate mock summary report
+        function generateSummaryReport() {
+            const summaryBody = document.getElementById('summary-body');
+            const patientFirst = document.getElementById('patient-first').value || 'Patient';
+            const patientLast = document.getElementById('patient-last').value || 'Name';
+            const patientDob = document.getElementById('patient-dob').value || 'Not Provided';
+            const patientMrn = document.getElementById('patient-mrn').value || 'N/A';
+            const patientReason = document.getElementById('patient-reason').value || 'General review';
+
+            summaryBody.innerHTML = `
+                <div class="summary-section">
+                    <div class="summary-section-title">Patient Demographics</div>
+                    <ul class="summary-list">
+                        <li>
+                            <span class="summary-label">Name</span>
+                            <span class="summary-value">${patientFirst} ${patientLast}</span>
+                        </li>
+                        <li>
+                            <span class="summary-label">Date of Birth</span>
+                            <span class="summary-value">${patientDob}</span>
+                        </li>
+                        <li>
+                            <span class="summary-label">MRN</span>
+                            <span class="summary-value">${patientMrn}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="summary-section">
+                    <div class="summary-section-title">Chief Complaint</div>
+                    <div class="summary-content">${patientReason}</div>
+                </div>
+                <div class="summary-section">
+                    <div class="summary-section-title">Records Analyzed</div>
+                    <ul class="summary-list">
+                        ${medicalFiles.map(f => `
+                            <li>
+                                <span class="summary-label">${f.name}</span>
+                                <span class="summary-value" style="color: #4ade80;">&#10003; Processed</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+                <div class="summary-section">
+                    <div class="summary-section-title">AI Analysis Summary</div>
+                    <div class="summary-content">
+                        <p style="color: var(--blue); font-weight: 600; margin-bottom: 8px;">Document Processing Complete</p>
+                        <p>Medical records have been analyzed. This is a demonstration of the healthcare AI processing workflow. In production, this section would contain extracted clinical data including:</p>
+                        <ul style="margin: 12px 0 0 20px; color: var(--text-secondary);">
+                            <li>Active diagnoses and conditions</li>
+                            <li>Current medications list</li>
+                            <li>Recent lab results and vitals</li>
+                            <li>Immunization records</li>
+                            <li>Allergy information</li>
+                            <li>Provider notes summary</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="margin-top: 20px; padding: 12px 16px; background: rgba(0, 170, 255, 0.1); border-radius: 6px; border-left: 3px solid var(--blue);">
+                    <div style="color: var(--blue); font-size: 11px; font-weight: 700; letter-spacing: 1px; margin-bottom: 4px;">REPORT GENERATED</div>
+                    <div style="color: var(--text-primary); font-size: 12px;">${new Date().toLocaleString()}</div>
+                </div>
+            `;
+
+            // Reset for next batch
+            medicalFiles = [];
+            document.getElementById('medical-file-list').innerHTML = '';
+        }
+
+        // Export buttons (demo only)
+        document.getElementById('btn-print')?.addEventListener('click', () => window.print());
+        document.getElementById('btn-export-pdf')?.addEventListener('click', () => alert('PDF export functionality - to be implemented with production backend'));
+        document.getElementById('btn-save-ehr')?.addEventListener('click', () => alert('EHR integration - to be configured with client EMR system'));
+        document.getElementById('export-session-btn')?.addEventListener('click', () => alert('Session log export - ' + recordsProcessed + ' records processed this session'));
+
+        // Patient form persistence
+        const patientFormFields = ['patient-first', 'patient-last', 'patient-dob', 'patient-mrn', 'patient-insurance', 'patient-policy', 'patient-pcp', 'patient-phone', 'patient-reason'];
+
+        function savePatientForm() {
+            const data = {};
+            patientFormFields.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) data[id] = el.value;
+            });
+            localStorage.setItem('healthcare-patient-form', JSON.stringify(data));
+        }
+
+        function loadPatientForm() {
+            try {
+                const data = JSON.parse(localStorage.getItem('healthcare-patient-form') || '{}');
+                patientFormFields.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el && data[id]) el.value = data[id];
+                });
+            } catch (e) {}
+        }
+
+        // Add persistence to patient form fields
+        patientFormFields.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('input', savePatientForm);
+        });
+
+        loadPatientForm();
+    </script>
+</body>
+</html>
