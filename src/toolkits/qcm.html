@@ -200,7 +200,7 @@
 
         .section-border-top {
             height: 2px;
-            background: linear-gradient(to right, var(--gold), var(--border-subtle), transparent);
+            background: linear-gradient(to right, #00AAFF, #0066CC, transparent);
             margin-bottom: 12px;
         }
 
@@ -211,14 +211,14 @@
         }
 
         .section-blocks {
-            color: var(--gold);
+            color: #00AAFF;
             font-size: 14px;
             font-weight: 900;
             letter-spacing: 2px;
         }
 
         .section-title {
-            color: var(--gold);
+            color: #00AAFF;
             font-size: 14px;
             font-weight: 700;
             text-transform: uppercase;
@@ -227,14 +227,14 @@
 
         .section-border-bottom {
             height: 2px;
-            background: linear-gradient(to right, var(--gold), var(--gold-dark), transparent);
-            margin-top: 12px;
+            background: linear-gradient(to right, #00AAFF, #0066CC, transparent);
+            margin-top: 6px;
         }
 
         .section-description {
             color: var(--text-secondary);
-            font-size: 13px;
-            margin-top: 12px;
+            font-size: 14px;
+            margin-top: 4px;
             max-width: 800px;
         }
 
@@ -251,8 +251,8 @@
         }
 
         .subsection-title {
-            color: var(--text-primary);
-            font-size: 13px;
+            color: #00AAFF;
+            font-size: 14px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1.5px;
@@ -260,14 +260,35 @@
 
         .subsection-line {
             flex: 1;
-            height: 1px;
-            background: var(--border-subtle);
+            height: 2px;
+            background: linear-gradient(to right, #00AAFF, #0066CC, transparent);
         }
 
         .subsection-description {
-            color: var(--text-muted);
-            font-size: 12px;
-            margin-bottom: 12px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .subsection-workflow {
+            color: var(--text-muted, #888);
+            font-size: 13px;
+            margin-top: 8px;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .subsection-title-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .subsection-header {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 16px;
         }
 
         /* Button Containers - Flexbox */
@@ -1123,6 +1144,1678 @@
         }
 
         /* Script buttons use base V2 Synapse glow style - no color variants */
+
+        /* ============================================
+           FILE OPERATION ANIMATOR
+           ============================================ */
+
+        .file-op-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .file-op-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .file-op-modal {
+            width: 500px;
+            max-width: 90vw;
+            background: #0d0d0d;
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            border-radius: 12px;
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .file-op-modal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .file-op-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .file-op-icon-container {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #file-op-canvas {
+            position: absolute;
+            top: -40px;
+            left: -40px;
+            width: 160px;
+            height: 160px;
+            pointer-events: none;
+        }
+
+        .file-op-progress-ring {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+        }
+
+        .file-op-progress-ring circle {
+            fill: none;
+            stroke-width: 3;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        .file-op-progress-ring .bg {
+            stroke: rgba(0, 170, 255, 0.15);
+        }
+
+        .file-op-progress-ring .progress {
+            stroke: var(--gold);
+            stroke-linecap: round;
+            stroke-dasharray: 226.195;
+            stroke-dashoffset: 226.195;
+            filter: drop-shadow(0 0 4px rgba(0, 170, 255, 0.5));
+            transition: stroke-dashoffset 0.3s ease;
+        }
+
+        .file-op-center-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: var(--gold);
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .file-op-center-icon.complete {
+            color: var(--success);
+            filter: drop-shadow(0 0 10px rgba(74, 222, 128, 0.6));
+        }
+
+        .file-op-title-area {
+            flex: 1;
+        }
+
+        .file-op-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .file-op-status {
+            font-size: 12px;
+            color: #808080;
+            min-height: 18px;
+        }
+
+        .file-op-status.active {
+            color: var(--gold);
+        }
+
+        .file-op-status.complete {
+            color: var(--success);
+        }
+
+        .file-op-file-list {
+            background: #1a1a1a;
+            border-radius: 8px;
+            padding: 16px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 16px;
+        }
+
+        /* Destination Group Headers */
+        .file-op-dest-group {
+            margin-bottom: 16px;
+        }
+
+        .file-op-dest-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .file-op-dest-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: rgba(0, 170, 255, 0.1);
+            border-left: 3px solid var(--gold);
+            border-radius: 0 4px 4px 0;
+            margin-bottom: 8px;
+        }
+
+        .file-op-dest-icon {
+            font-size: 14px;
+        }
+
+        .file-op-dest-name {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .file-op-dest-count {
+            margin-left: auto;
+            font-size: 10px;
+            color: #808080;
+        }
+
+        .file-op-file-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.3s ease;
+        }
+
+        .file-op-file-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .file-op-file-item:last-child {
+            border-bottom: none;
+        }
+
+        .file-op-file-item:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .file-op-file-icon {
+            width: 20px;
+            text-align: center;
+            color: var(--gold);
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .file-op-file-icon.processing {
+            animation: pulse-icon 1s infinite;
+        }
+
+        .file-op-file-icon.complete {
+            color: var(--success);
+        }
+
+        @keyframes pulse-icon {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .file-op-file-name {
+            flex: 1;
+            font-size: 12px;
+            font-family: var(--font-mono);
+            color: #c0c0c0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-width: 0;
+        }
+
+        /* File Action Buttons */
+        .file-op-file-actions {
+            display: flex;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+
+        .file-op-action-btn {
+            width: 26px;
+            height: 26px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+            background: transparent;
+            color: #808080;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .file-op-action-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(0, 170, 255, 0.1);
+        }
+
+        .file-op-action-btn.view:hover {
+            border-color: var(--info);
+            color: var(--info);
+        }
+
+        .file-op-action-btn.download:hover {
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .file-op-action-btn.save:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .file-op-action-btn.active {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: #000;
+        }
+
+        .file-op-file-status {
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+        }
+
+        .file-op-file-status.pending {
+            background: rgba(128, 128, 128, 0.2);
+            color: #808080;
+        }
+
+        .file-op-file-status.processing {
+            background: rgba(0, 170, 255, 0.2);
+            color: var(--gold);
+        }
+
+        .file-op-file-status.complete {
+            background: rgba(74, 222, 128, 0.2);
+            color: var(--success);
+        }
+
+        .file-op-file-status.saved {
+            background: rgba(74, 222, 128, 0.2);
+            color: var(--success);
+        }
+
+        .file-op-file-status.error {
+            background: rgba(248, 113, 113, 0.2);
+            color: var(--error);
+        }
+
+        /* Save Location Selector */
+        .file-op-save-section {
+            margin-bottom: 16px;
+            padding: 12px;
+            background: #1a1a1a;
+            border-radius: 8px;
+        }
+
+        .file-op-save-label {
+            font-size: 11px;
+            color: #808080;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .file-op-save-options {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .file-op-save-option {
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: #c0c0c0;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .file-op-save-option:hover {
+            border-color: var(--gold);
+            background: rgba(0, 170, 255, 0.1);
+        }
+
+        .file-op-save-option.selected {
+            border-color: var(--gold);
+            background: rgba(0, 170, 255, 0.2);
+            color: var(--gold);
+        }
+
+        .file-op-save-option .icon {
+            font-size: 14px;
+        }
+
+        .file-op-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: #1a1a1a;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+
+        .file-op-summary-stat {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .file-op-summary-stat .label {
+            color: #808080;
+        }
+
+        .file-op-summary-stat .value {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* Footer Actions */
+        .file-op-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .file-op-btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .file-op-btn-primary {
+            background: linear-gradient(145deg, var(--gold), var(--gold-dark));
+            border: none;
+            color: #000;
+            box-shadow: 0 2px 0 #005580;
+        }
+
+        .file-op-btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 0 #005580;
+        }
+
+        .file-op-btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .file-op-btn-secondary {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #c0c0c0;
+        }
+
+        .file-op-btn-secondary:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Close button - always visible */
+        .file-op-close-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 28px;
+            height: 28px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            color: #808080;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            opacity: 1;
+            pointer-events: auto;
+            z-index: 10;
+        }
+
+        .file-op-close-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* ============================================ */
+        /* PROJECT PROGRESS - TWO PANEL LAYOUT         */
+        /* ============================================ */
+        .progress-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+            align-items: stretch;
+        }
+
+        .progress-section > * {
+            min-height: 100%;
+        }
+
+        .progress-checklist {
+            background: var(--bg-base);
+            border: 2px solid #00AAFF;
+            border-radius: 12px;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .checklist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .checklist-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #00AAFF;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checklist-count {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .checklist-items {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            background: var(--bg-elevated);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .checklist-item:hover {
+            background: var(--bg-hover);
+        }
+
+        .checklist-item.completed {
+            opacity: 0.6;
+        }
+
+        .checklist-checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #00AAFF;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .checklist-item.completed .checklist-checkbox {
+            background: #4ade80;
+            border-color: #4ade80;
+        }
+
+        .checklist-checkbox::after {
+            content: '';
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg) scale(0);
+            transition: transform 0.2s ease;
+        }
+
+        .checklist-item.completed .checklist-checkbox::after {
+            transform: rotate(45deg) scale(1);
+        }
+
+        .checklist-text {
+            font-size: 13px;
+            color: var(--text-primary);
+            flex: 1;
+        }
+
+        .checklist-item.completed .checklist-text {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .checklist-badge {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .checklist-badge.critical { background: rgba(248, 113, 113, 0.2); color: #f87171; }
+        .checklist-badge.high { background: rgba(251, 191, 36, 0.2); color: #fbbf24; }
+        .checklist-badge.medium { background: rgba(0, 170, 255, 0.2); color: #00AAFF; }
+        .checklist-badge.low { background: rgba(192, 192, 192, 0.2); color: #c0c0c0; }
+
+        .progress-tracker {
+            background: var(--bg-base);
+            border: 2px solid #00AAFF;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .progress-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #00AAFF;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .progress-title-icon {
+            font-size: 20px;
+        }
+
+        .progress-overall {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .progress-percent {
+            font-size: 28px;
+            font-weight: 700;
+            color: #00AAFF;
+            font-family: var(--font-mono);
+        }
+
+        .progress-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .progress-phases {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .progress-phase {
+            display: grid;
+            grid-template-columns: 120px 1fr 60px;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .phase-name {
+            font-size: 13px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .phase-bar-container {
+            height: 24px;
+            background: var(--bg-elevated);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .phase-bar {
+            height: 100%;
+            border-radius: 12px;
+            position: relative;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .phase-bar.complete {
+            background: linear-gradient(90deg, #22c55e 0%, #4ade80 50%, #22c55e 100%);
+            box-shadow: 0 0 12px rgba(74, 222, 128, 0.4);
+        }
+
+        .phase-bar.in-progress {
+            background: linear-gradient(90deg, #0088CC 0%, #00AAFF 50%, #0088CC 100%);
+            box-shadow: 0 0 12px rgba(0, 170, 255, 0.4);
+            animation: progressPulse 2s ease-in-out infinite;
+        }
+
+        .phase-bar.pending {
+            background: linear-gradient(90deg, #4a4a4a 0%, #6a6a6a 50%, #4a4a4a 100%);
+        }
+
+        .phase-bar.blocked {
+            background: linear-gradient(90deg, #dc2626 0%, #f87171 50%, #dc2626 100%);
+            box-shadow: 0 0 12px rgba(248, 113, 113, 0.4);
+        }
+
+        .phase-bar.in-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes progressPulse {
+            0%, 100% { box-shadow: 0 0 12px rgba(0, 170, 255, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(0, 170, 255, 0.7); }
+        }
+
+        .phase-percent {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            text-align: right;
+        }
+
+        .phase-percent.complete { color: #4ade80; }
+        .phase-percent.in-progress { color: #00AAFF; }
+        .phase-percent.blocked { color: #f87171; }
+
+        .phase-tasks {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 11px;
+            color: rgba(255,255,255,0.9);
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .progress-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .progress-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+        }
+
+        .stat-value.green { color: #4ade80; }
+        .stat-value.blue { color: #00AAFF; }
+        .stat-value.gray { color: #6a6a6a; }
+        .stat-value.red { color: #f87171; }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ============================================= */
+        /* KNOWLEDGE BASE BROWSER STYLES                 */
+        /* ============================================= */
+
+        .kb-browser-panel {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .kb-search-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .kb-search-input {
+            flex: 1;
+            padding: 10px 12px;
+            background: var(--bg-base);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+
+        .kb-search-input:focus {
+            outline: none;
+            border-color: #00AAFF;
+        }
+
+        .kb-filter-select {
+            padding: 10px 12px;
+            background: var(--bg-base);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-size: 14px;
+            min-width: 140px;
+        }
+
+        .kb-search-btn {
+            padding: 10px 20px;
+            background: var(--silver);
+            color: var(--bg-base);
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .kb-search-btn:hover {
+            background: var(--silver-light);
+        }
+
+        .kb-stats-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 16px;
+            padding: 10px 12px;
+            background: var(--bg-base);
+            border-radius: 4px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .kb-stat {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .kb-stat-value {
+            color: #00AAFF;
+            font-weight: 600;
+            font-family: var(--font-mono);
+        }
+
+        .kb-results-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            min-height: 300px;
+        }
+
+        .kb-results-list {
+            background: var(--bg-base);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .kb-result-item {
+            padding: 12px 14px;
+            border-bottom: 1px solid rgba(192, 192, 192, 0.1);
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+
+        .kb-result-item:hover {
+            background: var(--bg-hover);
+        }
+
+        .kb-result-item.selected {
+            background: rgba(0, 170, 255, 0.1);
+            border-left: 3px solid #00AAFF;
+        }
+
+        .kb-result-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .kb-result-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .kb-result-type {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .kb-type-icon {
+            font-size: 12px;
+        }
+
+        .kb-type-youtube { color: #FF0000; }
+        .kb-type-file { color: #4285F4; }
+        .kb-type-other { color: #9CA3AF; }
+
+        .kb-detail-panel {
+            background: var(--bg-base);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            padding: 16px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .kb-detail-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #00AAFF;
+            margin-bottom: 8px;
+        }
+
+        .kb-detail-source {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            word-break: break-all;
+        }
+
+        .kb-detail-source a {
+            color: #00AAFF;
+            text-decoration: none;
+        }
+
+        .kb-detail-source a:hover {
+            text-decoration: underline;
+        }
+
+        .kb-detail-content {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .kb-empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            color: var(--text-muted);
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .kb-empty-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+
+        .kb-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            color: var(--text-muted);
+        }
+
+        /* ============================================ */
+        /* SUBMITTAL TRACKER STYLES                    */
+        /* ============================================ */
+        .submittal-tracker {
+            background: var(--bg-base);
+            border: 2px solid #00AAFF;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .tracker-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .tracker-title h2 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #00AAFF;
+            margin-bottom: 8px;
+        }
+
+        .tracker-stats {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .stat-item .stat-value {
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-right: 4px;
+        }
+
+        .stat-item.pending .stat-value { color: #fbbf24; }
+        .stat-item.review .stat-value { color: #60a5fa; }
+        .stat-item.approved .stat-value { color: #4ade80; }
+        .stat-item.rejected .stat-value { color: #f87171; }
+
+        .tracker-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .view-toggle {
+            display: flex;
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .view-btn {
+            padding: 8px 12px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .view-btn:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        .view-btn.active {
+            background: #00AAFF;
+            color: var(--bg-base);
+        }
+
+        .add-submittal-btn {
+            padding: 8px 16px;
+            background: linear-gradient(180deg, #00CCFF 0%, #00AAFF 50%, #0088CC 100%);
+            border: 1px solid #00AAFF;
+            border-radius: 6px;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .add-submittal-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.15);
+        }
+
+        .tracker-filters {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .filter-search {
+            flex: 1;
+            padding: 8px 12px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 13px;
+        }
+
+        .filter-search:focus {
+            outline: none;
+            border-color: #00AAFF;
+        }
+
+        .filter-category,
+        .filter-priority {
+            padding: 8px 12px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        /* Kanban Board */
+        .kanban-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            min-height: 400px;
+        }
+
+        .kanban-column {
+            background: var(--bg-elevated);
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .column-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 12px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .column-icon {
+            font-size: 16px;
+        }
+
+        .column-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+            flex: 1;
+        }
+
+        .column-count {
+            font-size: 11px;
+            padding: 2px 8px;
+            background: rgba(192, 192, 192, 0.2);
+            border-radius: 10px;
+            color: var(--text-muted);
+        }
+
+        .column-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            overflow-y: auto;
+            min-height: 100px;
+        }
+
+        .column-content.drag-over {
+            background: rgba(0, 170, 255, 0.1);
+            border-radius: 6px;
+        }
+
+        .empty-column {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        /* Kanban Cards */
+        .kanban-card {
+            background: var(--bg-base);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .kanban-card:hover {
+            border-color: #00AAFF;
+            transform: translateY(-2px);
+        }
+
+        .kanban-card.dragging {
+            opacity: 0.5;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .card-number {
+            font-size: 11px;
+            font-weight: 600;
+            color: #00AAFF;
+            font-family: var(--font-mono);
+        }
+
+        .card-priority {
+            font-size: 9px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .card-priority.priority-urgent { background: rgba(248, 113, 113, 0.2); color: #f87171; }
+        .card-priority.priority-high { background: rgba(251, 191, 36, 0.2); color: #fbbf24; }
+        .card-priority.priority-normal { background: rgba(192, 192, 192, 0.2); color: #c0c0c0; }
+        .card-priority.priority-low { background: rgba(74, 222, 128, 0.2); color: #4ade80; }
+
+        .card-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .card-comments {
+            margin-top: 8px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* List View */
+        .submittal-list {
+            overflow-x: auto;
+        }
+
+        .list-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .list-table th,
+        .list-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .list-table th {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            background: var(--bg-elevated);
+        }
+
+        .list-table td {
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
+        .list-table tbody tr:hover {
+            background: var(--bg-hover);
+        }
+
+        .col-number {
+            font-family: var(--font-mono);
+            color: #00AAFF;
+            font-weight: 600;
+        }
+
+        .priority-badge,
+        .status-badge {
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        .priority-badge.priority-urgent { background: rgba(248, 113, 113, 0.2); color: #f87171; }
+        .priority-badge.priority-high { background: rgba(251, 191, 36, 0.2); color: #fbbf24; }
+        .priority-badge.priority-normal { background: rgba(192, 192, 192, 0.2); color: #c0c0c0; }
+        .priority-badge.priority-low { background: rgba(74, 222, 128, 0.2); color: #4ade80; }
+
+        .status-badge.status-submitted { background: rgba(251, 191, 36, 0.2); color: #fbbf24; }
+        .status-badge.status-under-review { background: rgba(96, 165, 250, 0.2); color: #60a5fa; }
+        .status-badge.status-approved { background: rgba(74, 222, 128, 0.2); color: #4ade80; }
+        .status-badge.status-rejected { background: rgba(248, 113, 113, 0.2); color: #f87171; }
+
+        .col-actions {
+            display: flex;
+            gap: 4px;
+        }
+
+        .action-btn {
+            padding: 4px 8px;
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover {
+            border-color: #00AAFF;
+            background: rgba(0, 170, 255, 0.1);
+        }
+
+        .empty-list {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .add-first-btn {
+            margin-top: 16px;
+            padding: 10px 20px;
+            background: linear-gradient(180deg, #00CCFF 0%, #00AAFF 50%, #0088CC 100%);
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Submittal Modal */
+        .submittal-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .submittal-modal {
+            background: var(--bg-base);
+            border: 2px solid #00AAFF;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .submittal-modal.detail-modal {
+            max-width: 800px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .modal-header h3 {
+            font-size: 16px;
+            color: #00AAFF;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            border-color: #f87171;
+            color: #f87171;
+        }
+
+        .modal-content {
+            padding: 20px;
+        }
+
+        /* Form Styles */
+        .submittal-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 10px 12px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00AAFF;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .btn-cancel {
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-submit {
+            padding: 10px 20px;
+            background: linear-gradient(180deg, #00CCFF 0%, #00AAFF 50%, #0088CC 100%);
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* Detail Modal */
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 20px;
+        }
+
+        .detail-section {
+            margin-bottom: 20px;
+        }
+
+        .detail-section h4 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #00AAFF;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .detail-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .detail-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            min-width: 80px;
+        }
+
+        .detail-sidebar {
+            padding-left: 20px;
+            border-left: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .action-btn-full {
+            width: 100%;
+            padding: 10px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn-full:hover {
+            border-color: #00AAFF;
+            background: rgba(0, 170, 255, 0.1);
+        }
+
+        .action-btn-full.approve:hover {
+            border-color: #4ade80;
+            background: rgba(74, 222, 128, 0.1);
+        }
+
+        .action-btn-full.reject:hover {
+            border-color: #f87171;
+            background: rgba(248, 113, 113, 0.1);
+        }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            padding: 8px;
+            background: var(--bg-elevated);
+            border-radius: 4px;
+        }
+
+        .history-action {
+            font-size: 12px;
+            color: var(--text-primary);
+            text-transform: capitalize;
+        }
+
+        .history-date {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        /* Comments */
+        .comments-list {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 16px;
+        }
+
+        .comment {
+            padding: 12px;
+            background: var(--bg-elevated);
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .comment-user {
+            font-size: 12px;
+            font-weight: 600;
+            color: #00AAFF;
+        }
+
+        .comment-date {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        .comment-text {
+            font-size: 13px;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        .no-comments {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+            padding: 20px;
+        }
+
+        .add-comment {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .comment-input {
+            padding: 10px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 13px;
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .btn-add-comment {
+            align-self: flex-end;
+            padding: 8px 16px;
+            background: linear-gradient(180deg, #00CCFF 0%, #00AAFF 50%, #0088CC 100%);
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
@@ -1199,9 +2892,7 @@
         <div class="section-divider">
             <div class="section-border-top"></div>
             <div class="section-title-row">
-                <span class="section-blocks">|||</span>
                 <h2 class="section-title">AI ASSISTANT</h2>
-                <span class="section-blocks">|||</span>
             </div>
             <div class="section-border-bottom"></div>
             <p class="section-description">
@@ -1226,13 +2917,28 @@
             </div>
         </div>
 
+        <!-- ========================== -->
+        <!-- KB TRAINING TOOLS          -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <h2 class="section-title">KB TRAINING TOOLS</h2>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Access training videos, QC reference documents, and templates from the knowledge base.
+            </p>
+        </div>
+
+        <!-- KB Browser Component Container -->
+        <div id="kb-browser-qcm"></div>
+
         <!-- APPLICATIONS SECTION -->
         <div class="section-divider">
             <div class="section-border-top"></div>
             <div class="section-title-row">
-                <span class="section-blocks">|||</span>
                 <h2 class="section-title">APPLICATIONS</h2>
-                <span class="section-blocks">|||</span>
             </div>
             <div class="section-border-bottom"></div>
             <p class="section-description">
@@ -1287,9 +2993,7 @@
         <div class="section-divider">
             <div class="section-border-top"></div>
             <div class="section-title-row">
-                <span class="section-blocks">|||</span>
                 <h2 class="section-title">TRAJANUS SCRIPTS</h2>
-                <span class="section-blocks">|||</span>
             </div>
             <div class="section-border-bottom"></div>
             <p class="section-description">
@@ -1313,9 +3017,7 @@
         <div class="section-divider">
             <div class="section-border-top"></div>
             <div class="section-title-row">
-                <span class="section-blocks">|||</span>
                 <h2 class="section-title">QC DOCUMENTS</h2>
-                <span class="section-blocks">|||</span>
             </div>
             <div class="section-border-bottom"></div>
             <p class="section-description">
@@ -1366,9 +3068,7 @@
         <div class="section-divider">
             <div class="section-border-top"></div>
             <div class="section-title-row">
-                <span class="section-blocks">|||</span>
                 <h2 class="section-title">AGENTS</h2>
-                <span class="section-blocks">|||</span>
             </div>
             <div class="section-border-bottom"></div>
             <p class="section-description">
@@ -1394,9 +3094,7 @@
         <div class="section-divider">
             <div class="section-border-top"></div>
             <div class="section-title-row">
-                <span class="section-blocks">|||</span>
                 <h2 class="section-title">AGENT RUNNER</h2>
-                <span class="section-blocks">|||</span>
             </div>
             <div class="section-border-bottom"></div>
             <p class="section-description">
@@ -1449,13 +3147,170 @@
             </div>
         </div>
 
+        <!-- ========================== -->
+        <!-- SUBMITTAL TRACKER SECTION  -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <h2 class="section-title">SUBMITTAL TRACKER</h2>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Track submittals through the review lifecycle with Kanban board and list views.
+            </p>
+        </div>
+
+        <div id="submittal-tracker-container">
+            <!-- Submittal Tracker renders here -->
+        </div>
+
+        <!-- ========================== -->
+        <!-- PROJECT PROGRESS SECTION   -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <h2 class="section-title">PROJECT PROGRESS</h2>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                QCM implementation tracking with phase-based progress visualization.
+            </p>
+        </div>
+
+        <div class="progress-section">
+            <!-- LEFT PANEL: Living Checklist -->
+            <div class="progress-checklist" id="progress-checklist">
+                <div class="checklist-header">
+                    <div class="checklist-title">
+                        <span>&#9745;</span>
+                        QCM Verification Checklist
+                    </div>
+                    <span class="checklist-count" id="checklist-count">8/8</span>
+                </div>
+                <div class="checklist-items" id="checklist-items">
+                    <div class="checklist-item completed" data-task="categories">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">6 QCM categories configured</span>
+                        <span class="checklist-badge high">P1</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="checklists">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">Submittal checklists operational</span>
+                        <span class="checklist-badge high">P1</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="templates">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">Document templates ready</span>
+                        <span class="checklist-badge medium">P2</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="agents">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">QCM agents integrated</span>
+                        <span class="checklist-badge high">P2</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="kb">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">Knowledge base connected</span>
+                        <span class="checklist-badge medium">P3</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="validation">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">Validation workflows tested</span>
+                        <span class="checklist-badge critical">P3</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="ui">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">UI standardization complete</span>
+                        <span class="checklist-badge medium">P4</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="integration">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">Hub integration verified</span>
+                        <span class="checklist-badge low">P4</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT PANEL: Progress Tracker -->
+            <div class="progress-tracker" id="progress-tracker">
+                <div class="progress-header">
+                    <div class="progress-title">
+                        <span class="progress-title-icon">&#128202;</span>
+                        QCM Build Progress
+                    </div>
+                    <div class="progress-overall">
+                        <span class="progress-percent" id="overall-percent">100%</span>
+                        <span class="progress-label">Complete</span>
+                    </div>
+                </div>
+
+                <div class="progress-phases" id="progress-phases">
+                    <div class="progress-phase" data-phase="1">
+                        <span class="phase-name">P1: Core Setup</span>
+                        <div class="phase-bar-container">
+                            <div class="phase-bar complete" style="width: 100%">
+                                <span class="phase-tasks">2/2</span>
+                            </div>
+                        </div>
+                        <span class="phase-percent complete">100%</span>
+                    </div>
+                    <div class="progress-phase" data-phase="2">
+                        <span class="phase-name">P2: Templates</span>
+                        <div class="phase-bar-container">
+                            <div class="phase-bar complete" style="width: 100%">
+                                <span class="phase-tasks">2/2</span>
+                            </div>
+                        </div>
+                        <span class="phase-percent complete">100%</span>
+                    </div>
+                    <div class="progress-phase" data-phase="3">
+                        <span class="phase-name">P3: Integration</span>
+                        <div class="phase-bar-container">
+                            <div class="phase-bar complete" style="width: 100%">
+                                <span class="phase-tasks">2/2</span>
+                            </div>
+                        </div>
+                        <span class="phase-percent complete">100%</span>
+                    </div>
+                    <div class="progress-phase" data-phase="4">
+                        <span class="phase-name">P4: Polish</span>
+                        <div class="phase-bar-container">
+                            <div class="phase-bar complete" style="width: 100%">
+                                <span class="phase-tasks">2/2</span>
+                            </div>
+                        </div>
+                        <span class="phase-percent complete">100%</span>
+                    </div>
+                </div>
+
+                <div class="progress-footer">
+                    <div class="progress-stat">
+                        <span class="stat-value green" id="stat-complete">8</span>
+                        <span class="stat-label">Complete</span>
+                    </div>
+                    <div class="progress-stat">
+                        <span class="stat-value blue" id="stat-progress">0</span>
+                        <span class="stat-label">In Progress</span>
+                    </div>
+                    <div class="progress-stat">
+                        <span class="stat-value gray" id="stat-pending">0</span>
+                        <span class="stat-label">Pending</span>
+                    </div>
+                    <div class="progress-stat">
+                        <span class="stat-value red" id="stat-blocked">0</span>
+                        <span class="stat-label">Blocked</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- TERMINAL SECTION -->
         <div class="section-divider">
             <div class="section-border-top"></div>
             <div class="section-title-row">
-                <span class="section-blocks">|||</span>
-                <h2 class="section-title">TERMINAL</h2>
-                <span class="section-blocks">|||</span>
+                <h2 class="section-title">OPERATIONS LOG</h2>
             </div>
             <div class="section-border-bottom"></div>
             <p class="section-description">
@@ -1660,28 +3515,589 @@
             info(message) { this.output(message, 'info'); }
         };
 
+        // ==================== FILE OPERATION ANIMATOR ====================
+        const FileOpAnimator = {
+            overlay: null,
+            canvas: null,
+            ctx: null,
+            particles: [],
+            isActive: false,
+            animationId: null,
+            startTime: 0,
+            timerInterval: null,
+            files: [],
+            destinations: {},
+            completedCount: 0,
+            savedCount: 0,
+            selectedDest: null,
+            mode: 'process', // 'process' | 'browse'
+
+            // Destination configurations
+            destConfigs: {
+                'gdrive-qc': { name: 'QC / GDrive', icon: '&#128193;', path: 'G:\\My Drive\\00 - Trajanus USA\\QC' },
+                'gdrive-pm': { name: 'PM / GDrive', icon: '&#128193;', path: 'G:\\My Drive\\00 - Trajanus USA\\PM' },
+                'gdrive-traffic': { name: 'Traffic / GDrive', icon: '&#128193;', path: 'G:\\My Drive\\00 - Trajanus USA\\Traffic' },
+                'local': { name: 'Local', icon: '&#128187;', path: '' }
+            },
+
+            // Operation type configurations
+            operations: {
+                'convert': {
+                    title: 'Converting Files',
+                    icon: '&#128196;',
+                    statusStart: 'Scanning for files...',
+                    statusProcess: 'Converting to Markdown...',
+                    statusComplete: 'Conversion complete!',
+                    showSaveOptions: true
+                },
+                'ingest': {
+                    title: 'Ingesting to KB',
+                    icon: '&#129504;',
+                    statusStart: 'Connecting to knowledge base...',
+                    statusProcess: 'Processing documents...',
+                    statusComplete: 'Ingestion complete!',
+                    showSaveOptions: false
+                },
+                'browse': {
+                    title: 'Browse Files',
+                    icon: '&#128269;',
+                    statusStart: 'Loading files...',
+                    statusProcess: 'Browsing...',
+                    statusComplete: 'Ready',
+                    showSaveOptions: true
+                },
+                'download': {
+                    title: 'Downloading Files',
+                    icon: '&#128229;',
+                    statusStart: 'Initializing download...',
+                    statusProcess: 'Downloading...',
+                    statusComplete: 'Download complete!',
+                    showSaveOptions: true
+                },
+                'review': {
+                    title: 'Reviewing Submittals',
+                    icon: '&#128269;',
+                    statusStart: 'Loading submittal package...',
+                    statusProcess: 'Analyzing compliance...',
+                    statusComplete: 'Review complete!',
+                    showSaveOptions: true
+                },
+                'assemble': {
+                    title: 'Assembling Report',
+                    icon: '&#128203;',
+                    statusStart: 'Gathering source files...',
+                    statusProcess: 'Compiling report...',
+                    statusComplete: 'Report assembled!',
+                    showSaveOptions: true
+                }
+            },
+
+            init() {
+                this.overlay = document.getElementById('file-op-overlay');
+                this.canvas = document.getElementById('file-op-canvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.canvas.width = 160;
+                this.canvas.height = 160;
+
+                // Event listeners
+                document.getElementById('file-op-close').addEventListener('click', () => this.close());
+                document.getElementById('file-op-cancel').addEventListener('click', () => this.close());
+                document.getElementById('file-op-save-all').addEventListener('click', () => this.saveSelected());
+
+                // Save location options
+                document.querySelectorAll('.file-op-save-option').forEach(opt => {
+                    opt.addEventListener('click', () => this.selectDestination(opt.dataset.dest));
+                });
+            },
+
+            show(operationType = 'convert', options = {}) {
+                const config = this.operations[operationType] || this.operations['convert'];
+                this.mode = options.mode || 'process';
+
+                document.getElementById('file-op-title').textContent = options.title || config.title;
+                document.getElementById('file-op-icon').innerHTML = config.icon;
+                document.getElementById('file-op-status').textContent = config.statusStart;
+                document.getElementById('file-op-status').className = 'file-op-status active';
+                document.getElementById('file-op-list').innerHTML = '';
+                document.getElementById('file-op-count').textContent = '0 / 0';
+                document.getElementById('file-op-saved').textContent = '0';
+                document.getElementById('file-op-progress').style.strokeDashoffset = '226.195';
+                document.getElementById('file-op-icon').classList.remove('complete');
+
+                // Show/hide save section based on operation
+                const saveSection = document.getElementById('file-op-save-section');
+                const footer = document.getElementById('file-op-footer');
+                if (config.showSaveOptions && this.mode === 'browse') {
+                    saveSection.style.display = 'block';
+                    footer.style.display = 'flex';
+                } else {
+                    saveSection.style.display = 'none';
+                    footer.style.display = this.mode === 'browse' ? 'flex' : 'none';
+                }
+
+                this.files = [];
+                this.destinations = {};
+                this.completedCount = 0;
+                this.savedCount = 0;
+                this.selectedDest = null;
+                this.currentConfig = config;
+                this.overlay.classList.add('active');
+
+                // Reset save button
+                document.getElementById('file-op-save-all').disabled = true;
+                document.querySelectorAll('.file-op-save-option').forEach(o => o.classList.remove('selected'));
+
+                // Start timer
+                this.startTime = Date.now();
+                this.timerInterval = setInterval(() => this.updateTimer(), 100);
+
+                // Start particle animation
+                this.isActive = true;
+                this.animateParticles();
+
+                return this;
+            },
+
+            selectDestination(destId) {
+                this.selectedDest = destId;
+                document.querySelectorAll('.file-op-save-option').forEach(opt => {
+                    opt.classList.toggle('selected', opt.dataset.dest === destId);
+                });
+                this.updateSaveButton();
+            },
+
+            updateSaveButton() {
+                const hasSelected = this.files.some(f => f.selected);
+                const hasDest = this.selectedDest !== null;
+                document.getElementById('file-op-save-all').disabled = !(hasSelected && hasDest);
+            },
+
+            addFile(filename, options = {}) {
+                const status = options.status || 'pending';
+                const dest = options.destination || null;
+                const showActions = this.mode === 'browse' || options.showActions;
+
+                // Get or create destination group
+                let container = document.getElementById('file-op-list');
+                if (dest && this.destConfigs[dest]) {
+                    if (!this.destinations[dest]) {
+                        this.destinations[dest] = this.createDestGroup(dest);
+                    }
+                    container = this.destinations[dest].filesContainer;
+                }
+
+                const item = document.createElement('div');
+                item.className = 'file-op-file-item';
+                item.dataset.filename = filename;
+
+                const icon = status === 'complete' || status === 'saved' ? '&#10003;' : '&#128196;';
+                const iconClass = status === 'processing' ? 'processing' : (status === 'complete' || status === 'saved' ? 'complete' : '');
+
+                let actionsHtml = '';
+                if (showActions) {
+                    actionsHtml = `
+                        <div class="file-op-file-actions">
+                            <button class="file-op-action-btn view" title="View" data-action="view">&#128065;</button>
+                            <button class="file-op-action-btn download" title="Download" data-action="download">&#128229;</button>
+                            <button class="file-op-action-btn save" title="Save" data-action="save">&#128190;</button>
+                        </div>
+                    `;
+                }
+
+                item.innerHTML = `
+                    <span class="file-op-file-icon ${iconClass}">${icon}</span>
+                    <span class="file-op-file-name">${filename}</span>
+                    ${actionsHtml}
+                    <span class="file-op-file-status ${status}">${status}</span>
+                `;
+
+                // Add action event listeners
+                if (showActions) {
+                    item.querySelectorAll('.file-op-action-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            this.handleFileAction(filename, btn.dataset.action);
+                        });
+                    });
+                }
+
+                container.appendChild(item);
+                const fileObj = { filename, status, element: item, destination: dest, selected: false };
+                this.files.push(fileObj);
+
+                // Update dest group count
+                if (dest && this.destinations[dest]) {
+                    this.updateDestGroupCount(dest);
+                }
+
+                // Stagger animation
+                setTimeout(() => item.classList.add('visible'), 50);
+
+                // Auto-scroll
+                const list = document.getElementById('file-op-list');
+                list.scrollTop = list.scrollHeight;
+
+                this.updateCount();
+                return this;
+            },
+
+            createDestGroup(destId) {
+                const config = this.destConfigs[destId];
+                const list = document.getElementById('file-op-list');
+
+                const group = document.createElement('div');
+                group.className = 'file-op-dest-group';
+                group.dataset.dest = destId;
+
+                group.innerHTML = `
+                    <div class="file-op-dest-header">
+                        <span class="file-op-dest-icon">${config.icon}</span>
+                        <span class="file-op-dest-name">${config.name}</span>
+                        <span class="file-op-dest-count">0 files</span>
+                    </div>
+                `;
+
+                const filesContainer = document.createElement('div');
+                filesContainer.className = 'file-op-dest-files';
+                group.appendChild(filesContainer);
+
+                list.appendChild(group);
+
+                this.destinations[destId] = { element: group, filesContainer, count: 0 };
+                return this.destinations[destId];
+            },
+
+            updateDestGroupCount(destId) {
+                const dest = this.destinations[destId];
+                if (!dest) return;
+
+                const count = this.files.filter(f => f.destination === destId).length;
+                dest.count = count;
+                dest.element.querySelector('.file-op-dest-count').textContent = `${count} file${count !== 1 ? 's' : ''}`;
+            },
+
+            handleFileAction(filename, action) {
+                const file = this.files.find(f => f.filename === filename);
+                if (!file) return;
+
+                switch (action) {
+                    case 'view':
+                        Terminal.info(`Viewing: ${filename}`);
+                        showNotification(`Opening ${filename}...`, 'info');
+                        break;
+                    case 'download':
+                        Terminal.info(`Downloading: ${filename}`);
+                        this.updateFile(filename, 'processing');
+                        setTimeout(() => {
+                            this.updateFile(filename, 'complete');
+                            showNotification(`Downloaded ${filename}`, 'success');
+                        }, 500);
+                        break;
+                    case 'save':
+                        file.selected = !file.selected;
+                        file.element.querySelector('.file-op-action-btn.save').classList.toggle('active', file.selected);
+                        this.updateSaveButton();
+                        break;
+                }
+            },
+
+            async saveSelected() {
+                const selectedFiles = this.files.filter(f => f.selected);
+                if (!selectedFiles.length || !this.selectedDest) return;
+
+                const destConfig = this.destConfigs[this.selectedDest];
+                this.setStatus(`Saving to ${destConfig.name}...`);
+
+                for (const file of selectedFiles) {
+                    this.updateFile(file.filename, 'processing');
+                    await this.sleep(300 + Math.random() * 200);
+                    this.updateFile(file.filename, 'saved');
+                    file.destination = this.selectedDest;
+                    this.savedCount++;
+                    document.getElementById('file-op-saved').textContent = this.savedCount;
+                }
+
+                this.setStatus(`Saved ${selectedFiles.length} files to ${destConfig.name}`, 'complete');
+                showNotification(`Saved ${selectedFiles.length} files`, 'success');
+            },
+
+            updateFile(filename, status) {
+                const file = this.files.find(f => f.filename === filename);
+                if (!file) return this;
+
+                file.status = status;
+                const iconEl = file.element.querySelector('.file-op-file-icon');
+                const statusEl = file.element.querySelector('.file-op-file-status');
+
+                if (status === 'complete' || status === 'saved') {
+                    iconEl.innerHTML = '&#10003;';
+                    iconEl.className = 'file-op-file-icon complete';
+                    if (status === 'complete') this.completedCount++;
+                } else if (status === 'processing') {
+                    iconEl.className = 'file-op-file-icon processing';
+                } else if (status === 'error') {
+                    iconEl.innerHTML = '&#10007;';
+                    iconEl.className = 'file-op-file-icon';
+                    iconEl.style.color = 'var(--error)';
+                }
+
+                statusEl.className = `file-op-file-status ${status}`;
+                statusEl.textContent = status;
+
+                this.updateCount();
+                this.updateProgress();
+
+                return this;
+            },
+
+            updateCount() {
+                const total = this.files.length;
+                document.getElementById('file-op-count').textContent = `${this.completedCount} / ${total}`;
+            },
+
+            updateProgress() {
+                const total = this.files.length;
+                if (total === 0) return;
+
+                const progress = this.completedCount / total;
+                const circumference = 226.195;
+                const offset = circumference * (1 - progress);
+                document.getElementById('file-op-progress').style.strokeDashoffset = offset;
+            },
+
+            updateTimer() {
+                const elapsed = (Date.now() - this.startTime) / 1000;
+                document.getElementById('file-op-time').textContent = `${elapsed.toFixed(1)}s`;
+            },
+
+            setStatus(text, state = 'active') {
+                const status = document.getElementById('file-op-status');
+                status.textContent = text;
+                status.className = `file-op-status ${state}`;
+                return this;
+            },
+
+            complete(message = null) {
+                this.isActive = false;
+                if (this.timerInterval) clearInterval(this.timerInterval);
+
+                const config = this.currentConfig || this.operations['convert'];
+                this.setStatus(message || config.statusComplete, 'complete');
+
+                const icon = document.getElementById('file-op-icon');
+                icon.innerHTML = '&#10003;';
+                icon.classList.add('complete');
+
+                document.getElementById('file-op-progress').style.strokeDashoffset = '0';
+
+                this.particles = [];
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+                return this;
+            },
+
+            error(message) {
+                this.isActive = false;
+                if (this.timerInterval) clearInterval(this.timerInterval);
+
+                this.setStatus(message || 'Operation failed', 'error');
+                this.particles = [];
+
+                return this;
+            },
+
+            close() {
+                this.overlay.classList.remove('active');
+                this.isActive = false;
+                if (this.timerInterval) clearInterval(this.timerInterval);
+                if (this.animationId) cancelAnimationFrame(this.animationId);
+                this.particles = [];
+            },
+
+            // Particle animation
+            createParticle() {
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 60 + Math.random() * 20;
+                return {
+                    x: 80 + Math.cos(angle) * distance,
+                    y: 80 + Math.sin(angle) * distance,
+                    size: 2 + Math.random() * 2,
+                    speed: 0.8 + Math.random() * 1.2,
+                    alpha: 0.4 + Math.random() * 0.6
+                };
+            },
+
+            animateParticles() {
+                if (!this.isActive) return;
+
+                if (this.particles.length < 20) {
+                    this.particles.push(this.createParticle());
+                }
+
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+                this.particles.forEach((p, i) => {
+                    const dx = 80 - p.x;
+                    const dy = 80 - p.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 15) {
+                        this.particles.splice(i, 1);
+                        return;
+                    }
+
+                    p.x += (dx / dist) * p.speed;
+                    p.y += (dy / dist) * p.speed;
+
+                    this.ctx.beginPath();
+                    this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    this.ctx.fillStyle = `rgba(0, 170, 255, ${p.alpha * (dist / 60)})`;
+                    this.ctx.fill();
+
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(p.x, p.y);
+                    this.ctx.lineTo(p.x - (dx / dist) * 10, p.y - (dy / dist) * 10);
+                    this.ctx.strokeStyle = `rgba(0, 170, 255, ${p.alpha * 0.3})`;
+                    this.ctx.lineWidth = p.size * 0.5;
+                    this.ctx.stroke();
+                });
+
+                this.animationId = requestAnimationFrame(() => this.animateParticles());
+            },
+
+            // Demo: Process mode (for script execution)
+            async demo(operationType = 'convert') {
+                this.show(operationType, { mode: 'process' });
+
+                const demoFiles = [
+                    'Session_2026-01-15_EOS.md',
+                    'KB_Implementation_Notes.md',
+                    'QCM_Workflow_Documentation.md',
+                    'Traffic_Study_Analysis.md',
+                    'Submittal_Review_Log.md'
+                ];
+
+                await this.sleep(500);
+                this.setStatus(this.currentConfig.statusProcess);
+
+                for (let i = 0; i < demoFiles.length; i++) {
+                    this.addFile(demoFiles[i], { status: 'pending' });
+                    await this.sleep(200);
+                }
+
+                for (let i = 0; i < demoFiles.length; i++) {
+                    this.updateFile(demoFiles[i], 'processing');
+                    await this.sleep(400 + Math.random() * 300);
+                    this.updateFile(demoFiles[i], 'complete');
+                }
+
+                this.complete();
+            },
+
+            // Demo: Browse mode (with actions and save)
+            async demoBrowse() {
+                this.show('browse', { mode: 'browse', title: 'Browse Project Files' });
+
+                const demoFiles = [
+                    { name: 'QC_Daily_Report_2026-01-15.docx', dest: 'gdrive-qc' },
+                    { name: 'Submittal_Package_001.pdf', dest: 'gdrive-qc' },
+                    { name: 'RFI_Response_042.docx', dest: 'gdrive-qc' },
+                    { name: 'Traffic_Count_Data.xlsx', dest: 'gdrive-traffic' },
+                    { name: 'Signal_Timing_Plan.pdf', dest: 'gdrive-traffic' },
+                    { name: 'Project_Schedule_Rev3.mpp', dest: 'gdrive-pm' },
+                    { name: 'Meeting_Minutes_2026-01-14.docx', dest: 'gdrive-pm' }
+                ];
+
+                await this.sleep(500);
+                this.setStatus('Files loaded - select to view, download, or save');
+
+                for (const file of demoFiles) {
+                    this.addFile(file.name, {
+                        status: 'ready',
+                        destination: file.dest,
+                        showActions: true
+                    });
+                    await this.sleep(150);
+                }
+            },
+
+            sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+        };
+
+        // Expose to window for testing
+        window.FileOpAnimator = FileOpAnimator;
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => FileOpAnimator.init());
+
         // ==================== SCRIPT RUNNER ====================
         const Scripts = {
+            // Map script names to operation types
+            scriptOperations: {
+                'CONVERT_MD_TO_GDOCS_PERMANENT.py': 'convert',
+                'batch_convert_md_only.py': 'convert',
+                'ingest_to_kb.py': 'ingest',
+                'download_submittals.py': 'download',
+                'review_submittal.py': 'review',
+                'assemble_report.py': 'assemble'
+            },
+
             async run(scriptName) {
                 Terminal.info(`Starting: ${scriptName}`);
-                showNotification(`Running ${scriptName}...`, 'info');
 
                 const invoke = getInvoke();
+
+                // Determine operation type
+                const opType = this.scriptOperations[scriptName] || 'convert';
+
+                // Show animator (demo mode for browser, real mode for desktop)
                 if (!invoke) {
-                    Terminal.warning(`[Browser Mode] Cannot execute ${scriptName} - requires desktop app`);
+                    Terminal.warning(`[Browser Mode] Running demo animation for ${scriptName}`);
+                    FileOpAnimator.demo(opType);
                     return;
                 }
 
+                // Desktop mode - show animator and run real script
+                FileOpAnimator.show(opType);
+
                 try {
+                    // Simulate file discovery phase
+                    await new Promise(r => setTimeout(r, 300));
+                    FileOpAnimator.setStatus('Scanning files...');
+
                     const result = await invoke('run_python_script', {
                         scriptPath: SCRIPTS_PATH + scriptName,
                         targetPath: ''
                     });
-                    Terminal.success(`Completed: ${scriptName}`);
+
+                    // Parse result for file info if available
                     if (result) {
+                        const lines = result.split('\n').filter(l => l.trim());
+                        lines.forEach((line, i) => {
+                            // Look for file-related output
+                            if (line.includes('.md') || line.includes('.pdf') || line.includes('.docx')) {
+                                const filename = line.match(/[\w\-\.]+\.(md|pdf|docx)/i);
+                                if (filename) {
+                                    setTimeout(() => {
+                                        FileOpAnimator.addFile(filename[0], 'pending');
+                                        setTimeout(() => FileOpAnimator.updateFile(filename[0], 'complete'), 200);
+                                    }, i * 150);
+                                }
+                            }
+                        });
                         Terminal.output(result);
                     }
+
+                    // Complete after processing
+                    setTimeout(() => {
+                        FileOpAnimator.complete();
+                        Terminal.success(`Completed: ${scriptName}`);
+                    }, 500);
+
                 } catch (e) {
+                    FileOpAnimator.error(`Error: ${e}`);
                     Terminal.error(`Error in ${scriptName}: ${e}`);
                     console.error(`Script error: ${e}`);
                 }
@@ -1897,15 +4313,17 @@
 
         // ==================== INITIALIZATION ====================
         document.addEventListener('DOMContentLoaded', () => {
-            // Update greeting and date
+            // Update greeting and date (if elements exist)
             const hour = new Date().getHours();
             let greeting = 'Good evening';
             if (hour < 12) greeting = 'Good morning';
             else if (hour < 17) greeting = 'Good afternoon';
-            document.getElementById('greeting-text').textContent = greeting;
+            const greetingEl = document.getElementById('greeting-text');
+            if (greetingEl) greetingEl.textContent = greeting;
 
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', options);
+            const dateEl = document.getElementById('current-date');
+            if (dateEl) dateEl.textContent = new Date().toLocaleDateString('en-US', options);
 
             // Initialize chat
             ChatAssistant.init();
@@ -1954,6 +4372,160 @@
             // Agent Runner buttons
             document.getElementById('run-agent-btn').addEventListener('click', () => AgentRunner.run());
             document.getElementById('clear-results-btn').addEventListener('click', () => AgentRunner.clear());
+
+            // ==================== CHECKLIST PERSISTENCE ====================
+            // Load saved checklist state
+            const savedChecklist = localStorage.getItem('qcm-checklist-state');
+            if (savedChecklist) {
+                try {
+                    const state = JSON.parse(savedChecklist);
+                    document.querySelectorAll('.checklist-item').forEach(item => {
+                        const task = item.dataset.task;
+                        if (task && state.hasOwnProperty(task)) {
+                            if (state[task]) {
+                                item.classList.add('completed');
+                            } else {
+                                item.classList.remove('completed');
+                            }
+                        }
+                    });
+                } catch (e) {
+                    console.error('Error loading checklist state:', e);
+                }
+            }
+
+            // Update checklist count
+            function updateChecklistCount() {
+                const items = document.querySelectorAll('.checklist-item');
+                const completed = document.querySelectorAll('.checklist-item.completed').length;
+                const countEl = document.getElementById('checklist-count');
+                if (countEl) {
+                    countEl.textContent = `${completed}/${items.length}`;
+                }
+            }
+            updateChecklistCount();
+
+            // Save checklist state function
+            function saveChecklistState() {
+                const state = {};
+                document.querySelectorAll('.checklist-item').forEach(item => {
+                    const task = item.dataset.task;
+                    if (task) {
+                        state[task] = item.classList.contains('completed');
+                    }
+                });
+                localStorage.setItem('qcm-checklist-state', JSON.stringify(state));
+            }
+
+            // Make checklist items clickable
+            document.querySelectorAll('.checklist-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    item.classList.toggle('completed');
+                    updateChecklistCount();
+                    saveChecklistState();
+                });
+            });
+        });
+    </script>
+
+    <!-- FILE OPERATION ANIMATOR MODAL -->
+    <div class="file-op-overlay" id="file-op-overlay">
+        <div class="file-op-modal">
+            <button class="file-op-close-btn" id="file-op-close">&times;</button>
+            <div class="file-op-header">
+                <div class="file-op-icon-container">
+                    <canvas id="file-op-canvas"></canvas>
+                    <svg class="file-op-progress-ring" viewBox="0 0 80 80">
+                        <circle class="bg" cx="40" cy="40" r="36"/>
+                        <circle class="progress" id="file-op-progress" cx="40" cy="40" r="36"/>
+                    </svg>
+                    <div class="file-op-center-icon" id="file-op-icon">&#128196;</div>
+                </div>
+                <div class="file-op-title-area">
+                    <div class="file-op-title" id="file-op-title">Processing Files</div>
+                    <div class="file-op-status" id="file-op-status">Initializing...</div>
+                </div>
+            </div>
+
+            <!-- Save Location Selector -->
+            <div class="file-op-save-section" id="file-op-save-section" style="display: none;">
+                <div class="file-op-save-label">Save Location</div>
+                <div class="file-op-save-options" id="file-op-save-options">
+                    <div class="file-op-save-option" data-dest="gdrive-qc">
+                        <span class="icon">&#128193;</span> QC / GDrive
+                    </div>
+                    <div class="file-op-save-option" data-dest="gdrive-pm">
+                        <span class="icon">&#128193;</span> PM / GDrive
+                    </div>
+                    <div class="file-op-save-option" data-dest="gdrive-traffic">
+                        <span class="icon">&#128193;</span> Traffic / GDrive
+                    </div>
+                    <div class="file-op-save-option" data-dest="local">
+                        <span class="icon">&#128187;</span> Local
+                    </div>
+                </div>
+            </div>
+
+            <!-- File List with Destination Groups -->
+            <div class="file-op-file-list" id="file-op-list"></div>
+
+            <!-- Summary Stats -->
+            <div class="file-op-summary">
+                <div class="file-op-summary-stat">
+                    <span class="label">Files:</span>
+                    <span class="value" id="file-op-count">0 / 0</span>
+                </div>
+                <div class="file-op-summary-stat">
+                    <span class="label">Saved:</span>
+                    <span class="value" id="file-op-saved">0</span>
+                </div>
+                <div class="file-op-summary-stat">
+                    <span class="label">Time:</span>
+                    <span class="value" id="file-op-time">0.0s</span>
+                </div>
+            </div>
+
+            <!-- Footer Actions -->
+            <div class="file-op-footer" id="file-op-footer">
+                <button class="file-op-btn file-op-btn-secondary" id="file-op-cancel">Cancel</button>
+                <button class="file-op-btn file-op-btn-primary" id="file-op-save-all" disabled>Save Selected</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- KB Browser Component -->
+    <script src="../js/kb-browser.js"></script>
+    <script>
+        // Initialize KB Browser for QCM platform
+        document.addEventListener('DOMContentLoaded', () => {
+            kbBrowsers['qcm'] = new KBBrowserComponent('kb-browser-qcm', {
+                platformName: 'qcm',
+                sectionTitle: 'KB TRAINING TOOLS',
+                officeTabLabel: 'Office Videos',
+                claudeTabLabel: 'Claude Tutorials'
+            });
+        });
+    </script>
+
+    <!-- Submittal Tracker Component -->
+    <script src="../js/submittal-tracker.js"></script>
+    <script>
+        // Initialize Submittal Tracker for QCM
+        document.addEventListener('DOMContentLoaded', () => {
+            // Create tracker instance
+            const tracker = new SubmittalTracker('submittal-tracker-container');
+
+            // Add sample data button for demo (optional)
+            if (submittalDB.submittals.length === 0) {
+                // Uncomment below to auto-load sample data on first visit
+                // submittalDB.addSampleData();
+            }
+
+            // Store reference globally for debugging
+            window.qcmSubmittalTracker = tracker;
+            window.submittalDB = submittalDB;
+
+            console.log('[QCM] Submittal Tracker initialized');
         });
     </script>
 </body>

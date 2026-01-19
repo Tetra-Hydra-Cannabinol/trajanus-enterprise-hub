@@ -440,9 +440,9 @@
         }
 
         .section-title {
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 600;
-            color: var(--gold);
+            color: #00AAFF;
             text-transform: uppercase;
             letter-spacing: 2px;
             white-space: nowrap;
@@ -450,8 +450,15 @@
 
         .section-line {
             flex: 1;
-            height: 1px;
-            background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+            height: 2px;
+            background: linear-gradient(90deg, #00AAFF 0%, #0066CC 50%, transparent 100%);
+        }
+
+        .section-description {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-top: 4px;
+            max-width: 800px;
         }
 
         /* ==================== APP GRID ==================== */
@@ -1872,6 +1879,583 @@
         }
 
         /* Brand colors removed - ext-btn uses V2 Synapse glow style from main.css */
+
+        /* ============================================ */
+        /* PROJECT PROGRESS - TWO PANEL LAYOUT         */
+        /* ============================================ */
+        .progress-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+            align-items: stretch;
+        }
+
+        .progress-section > * {
+            min-height: 100%;
+        }
+
+        .progress-checklist {
+            background: var(--bg-base);
+            border: 2px solid #00AAFF;
+            border-radius: 12px;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .checklist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .checklist-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #00AAFF;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checklist-count {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .checklist-items {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            background: var(--bg-elevated);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .checklist-item:hover {
+            background: var(--bg-hover);
+        }
+
+        .checklist-item.completed {
+            opacity: 0.6;
+        }
+
+        .checklist-checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #00AAFF;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .checklist-item.completed .checklist-checkbox {
+            background: #4ade80;
+            border-color: #4ade80;
+        }
+
+        .checklist-checkbox::after {
+            content: '';
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg) scale(0);
+            transition: transform 0.2s ease;
+        }
+
+        .checklist-item.completed .checklist-checkbox::after {
+            transform: rotate(45deg) scale(1);
+        }
+
+        .checklist-text {
+            font-size: 13px;
+            color: var(--text-primary);
+            flex: 1;
+        }
+
+        .checklist-item.completed .checklist-text {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .checklist-badge {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .checklist-badge.critical { background: rgba(248, 113, 113, 0.2); color: #f87171; }
+        .checklist-badge.high { background: rgba(251, 191, 36, 0.2); color: #fbbf24; }
+        .checklist-badge.medium { background: rgba(0, 170, 255, 0.2); color: #00AAFF; }
+        .checklist-badge.low { background: rgba(192, 192, 192, 0.2); color: #c0c0c0; }
+
+        .progress-tracker {
+            background: var(--bg-base);
+            border: 2px solid #00AAFF;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .progress-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #00AAFF;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .progress-title-icon {
+            font-size: 20px;
+        }
+
+        .progress-overall {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .progress-percent {
+            font-size: 28px;
+            font-weight: 700;
+            color: #00AAFF;
+            font-family: var(--font-mono);
+        }
+
+        .progress-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .progress-phases {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .progress-phase {
+            display: grid;
+            grid-template-columns: 120px 1fr 60px;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .phase-name {
+            font-size: 13px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .phase-bar-container {
+            height: 24px;
+            background: var(--bg-elevated);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .phase-bar {
+            height: 100%;
+            border-radius: 12px;
+            position: relative;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .phase-bar.complete {
+            background: linear-gradient(90deg, #22c55e 0%, #4ade80 50%, #22c55e 100%);
+            box-shadow: 0 0 12px rgba(74, 222, 128, 0.4);
+        }
+
+        .phase-bar.in-progress {
+            background: linear-gradient(90deg, #0088CC 0%, #00AAFF 50%, #0088CC 100%);
+            box-shadow: 0 0 12px rgba(0, 170, 255, 0.4);
+            animation: progressPulse 2s ease-in-out infinite;
+        }
+
+        .phase-bar.pending {
+            background: linear-gradient(90deg, #4a4a4a 0%, #6a6a6a 50%, #4a4a4a 100%);
+        }
+
+        .phase-bar.blocked {
+            background: linear-gradient(90deg, #dc2626 0%, #f87171 50%, #dc2626 100%);
+            box-shadow: 0 0 12px rgba(248, 113, 113, 0.4);
+        }
+
+        .phase-bar.in-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes progressPulse {
+            0%, 100% { box-shadow: 0 0 12px rgba(0, 170, 255, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(0, 170, 255, 0.7); }
+        }
+
+        .phase-percent {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            text-align: right;
+        }
+
+        .phase-percent.complete { color: #4ade80; }
+        .phase-percent.in-progress { color: #00AAFF; }
+        .phase-percent.blocked { color: #f87171; }
+
+        .phase-tasks {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 11px;
+            color: rgba(255,255,255,0.9);
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .progress-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .progress-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+        }
+
+        .stat-value.green { color: #4ade80; }
+        .stat-value.blue { color: #00AAFF; }
+        .stat-value.gray { color: #6a6a6a; }
+        .stat-value.red { color: #f87171; }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ============================================ */
+        /* JURISDICTION BROWSER STYLES                 */
+        /* ============================================ */
+        .jurisdiction-browser {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .jurisdiction-list {
+            background: var(--bg-elevated);
+            border: 2px solid #00AAFF;
+            border-radius: 12px;
+            padding: 16px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .jurisdiction-list-header {
+            font-size: 12px;
+            font-weight: 600;
+            color: #00AAFF;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .jurisdiction-search {
+            width: 100%;
+            padding: 8px 12px;
+            background: var(--bg-base);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .jurisdiction-search:focus {
+            outline: none;
+            border-color: #00AAFF;
+        }
+
+        .jurisdiction-items {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .jurisdiction-item {
+            padding: 10px 12px;
+            background: var(--bg-base);
+            border: 1px solid transparent;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .jurisdiction-item:hover {
+            border-color: var(--border-subtle);
+            background: var(--bg-hover);
+        }
+
+        .jurisdiction-item.active {
+            border-color: #00AAFF;
+            background: rgba(0, 170, 255, 0.1);
+        }
+
+        .jurisdiction-item-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .jurisdiction-item-type {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: capitalize;
+        }
+
+        .jurisdiction-detail {
+            background: var(--bg-elevated);
+            border: 2px solid #00AAFF;
+            border-radius: 12px;
+            padding: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .jurisdiction-detail-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .jurisdiction-detail-empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .jurisdiction-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .jurisdiction-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #00AAFF;
+            margin-bottom: 4px;
+        }
+
+        .jurisdiction-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .jurisdiction-population {
+            text-align: right;
+        }
+
+        .jurisdiction-population-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .jurisdiction-population-label {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .jurisdiction-section {
+            margin-bottom: 20px;
+        }
+
+        .jurisdiction-section-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #00AAFF;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .jurisdiction-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .jurisdiction-field {
+            background: var(--bg-base);
+            padding: 10px 12px;
+            border-radius: 6px;
+        }
+
+        .jurisdiction-field-label {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .jurisdiction-field-value {
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
+        .jurisdiction-list-items {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .jurisdiction-list-item {
+            font-size: 13px;
+            color: var(--text-primary);
+            padding: 6px 0;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .jurisdiction-list-item::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #00AAFF;
+        }
+
+        .jurisdiction-contact-card {
+            background: var(--bg-base);
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+
+        .jurisdiction-contact-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .jurisdiction-contact-item {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .jurisdiction-contact-link {
+            color: #00AAFF;
+            text-decoration: none;
+        }
+
+        .jurisdiction-contact-link:hover {
+            text-decoration: underline;
+        }
+
+        .jurisdiction-steps {
+            counter-reset: step;
+        }
+
+        .jurisdiction-step {
+            font-size: 13px;
+            color: var(--text-primary);
+            padding: 8px 0 8px 28px;
+            position: relative;
+        }
+
+        .jurisdiction-step::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background: #00AAFF;
+            color: var(--bg-base);
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .jurisdiction-issue {
+            background: rgba(248, 113, 113, 0.1);
+            border-left: 3px solid #f87171;
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            border-radius: 0 6px 6px 0;
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
     </style>
 </head>
 <body>
@@ -2360,6 +2944,21 @@
                 </div>
             </div>
 
+            <!-- ========================== -->
+            <!-- REFERENCE MATERIALS        -->
+            <!-- ========================== -->
+            <div class="section-divider">
+                <span class="section-title">Reference Materials</span>
+                <div class="section-line"></div>
+            </div>
+
+            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 16px;">
+                Access traffic engineering videos, reference documents, and templates from the knowledge base.
+            </p>
+
+            <!-- KB Browser Component Container -->
+            <div id="kb-browser-traffic"></div>
+
             <!-- ==================== APPLICATIONS ==================== -->
             <div class="section-divider">
                 <span class="section-title">Applications</span>
@@ -2540,6 +3139,30 @@
                 </div>
             </div>
 
+            <!-- ==================== JURISDICTION BROWSER ==================== -->
+            <div class="section-divider">
+                <span class="section-title">Jurisdiction Requirements</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="jurisdiction-browser" id="jurisdiction-browser">
+                <div class="jurisdiction-list">
+                    <div class="jurisdiction-search">
+                        <input type="text" class="jurisdiction-search-input" placeholder="Search jurisdictions..." id="jurisdiction-search">
+                    </div>
+                    <div class="jurisdiction-items" id="jurisdiction-items">
+                        <!-- Jurisdiction items will be populated by JavaScript -->
+                    </div>
+                </div>
+                <div class="jurisdiction-detail" id="jurisdiction-detail">
+                    <div class="jurisdiction-placeholder">
+                        <span style="font-size: 48px; margin-bottom: 16px;">🏛️</span>
+                        <h3>Select a Jurisdiction</h3>
+                        <p>Choose a jurisdiction from the list to view requirements, contacts, and submittal procedures.</p>
+                    </div>
+                </div>
+            </div>
+
             <!-- ==================== PROJECT DATA ==================== -->
             <div class="section-divider">
                 <span class="section-title">Project Data</span>
@@ -2672,9 +3295,144 @@
                 </div>
             </div>
 
-            <!-- ==================== TERMINAL ==================== -->
+            <!-- ========================== -->
+            <!-- PROJECT PROGRESS SECTION   -->
+            <!-- ========================== -->
             <div class="section-divider">
-                <span class="section-title">Terminal</span>
+                <span class="section-title">Project Progress</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="progress-section">
+                <!-- LEFT PANEL: Living Checklist -->
+                <div class="progress-checklist" id="progress-checklist">
+                    <div class="checklist-header">
+                        <div class="checklist-title">
+                            <span>&#9745;</span>
+                            TSE Verification Checklist
+                        </div>
+                        <span class="checklist-count" id="checklist-count">8/8</span>
+                    </div>
+                    <div class="checklist-items" id="checklist-items">
+                        <div class="checklist-item completed" data-task="templates">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Study templates configured</span>
+                            <span class="checklist-badge high">P1</span>
+                        </div>
+                        <div class="checklist-item completed" data-task="data">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Data collection tools ready</span>
+                            <span class="checklist-badge high">P1</span>
+                        </div>
+                        <div class="checklist-item completed" data-task="analysis">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Analysis modules active</span>
+                            <span class="checklist-badge medium">P2</span>
+                        </div>
+                        <div class="checklist-item completed" data-task="reports">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Report generators ready</span>
+                            <span class="checklist-badge high">P2</span>
+                        </div>
+                        <div class="checklist-item completed" data-task="agents">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">TSE agents integrated</span>
+                            <span class="checklist-badge medium">P3</span>
+                        </div>
+                        <div class="checklist-item completed" data-task="validation">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Validation workflows tested</span>
+                            <span class="checklist-badge critical">P3</span>
+                        </div>
+                        <div class="checklist-item completed" data-task="ui">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">UI standardization complete</span>
+                            <span class="checklist-badge medium">P4</span>
+                        </div>
+                        <div class="checklist-item completed" data-task="integration">
+                            <div class="checklist-checkbox"></div>
+                            <span class="checklist-text">Hub integration verified</span>
+                            <span class="checklist-badge low">P4</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT PANEL: Progress Tracker -->
+                <div class="progress-tracker" id="progress-tracker">
+                    <div class="progress-header">
+                        <div class="progress-title">
+                            <span class="progress-title-icon">&#128202;</span>
+                            TSE Build Progress
+                        </div>
+                        <div class="progress-overall">
+                            <span class="progress-percent" id="overall-percent">100%</span>
+                            <span class="progress-label">Complete</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-phases" id="progress-phases">
+                        <div class="progress-phase" data-phase="1">
+                            <span class="phase-name">P1: Core Setup</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar complete" style="width: 100%">
+                                    <span class="phase-tasks">2/2</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent complete">100%</span>
+                        </div>
+                        <div class="progress-phase" data-phase="2">
+                            <span class="phase-name">P2: Templates</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar complete" style="width: 100%">
+                                    <span class="phase-tasks">2/2</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent complete">100%</span>
+                        </div>
+                        <div class="progress-phase" data-phase="3">
+                            <span class="phase-name">P3: Integration</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar complete" style="width: 100%">
+                                    <span class="phase-tasks">2/2</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent complete">100%</span>
+                        </div>
+                        <div class="progress-phase" data-phase="4">
+                            <span class="phase-name">P4: Polish</span>
+                            <div class="phase-bar-container">
+                                <div class="phase-bar complete" style="width: 100%">
+                                    <span class="phase-tasks">2/2</span>
+                                </div>
+                            </div>
+                            <span class="phase-percent complete">100%</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-footer">
+                        <div class="progress-stat">
+                            <span class="stat-value green" id="stat-complete">8</span>
+                            <span class="stat-label">Complete</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="stat-value blue" id="stat-progress">0</span>
+                            <span class="stat-label">In Progress</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="stat-value gray" id="stat-pending">0</span>
+                            <span class="stat-label">Pending</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="stat-value red" id="stat-blocked">0</span>
+                            <span class="stat-label">Blocked</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== OPERATIONS LOG ==================== -->
+            <div class="section-divider">
+                <span class="section-title">Operations Log</span>
                 <div class="section-line"></div>
             </div>
 
@@ -3866,6 +4624,263 @@
             TseWorkflow.init();
 
             console.log('Traffic Studies workspace initialized with TSE workflow');
+
+            // ==================== CHECKLIST PERSISTENCE ====================
+            // Load saved checklist state
+            const savedChecklist = localStorage.getItem('traffic-checklist-state');
+            if (savedChecklist) {
+                try {
+                    const state = JSON.parse(savedChecklist);
+                    document.querySelectorAll('.checklist-item').forEach(item => {
+                        const task = item.dataset.task;
+                        if (task && state.hasOwnProperty(task)) {
+                            if (state[task]) {
+                                item.classList.add('completed');
+                            } else {
+                                item.classList.remove('completed');
+                            }
+                        }
+                    });
+                } catch (e) {
+                    console.error('Error loading checklist state:', e);
+                }
+            }
+
+            // Update checklist count display
+            function updateChecklistCount() {
+                const items = document.querySelectorAll('.checklist-item');
+                const completed = document.querySelectorAll('.checklist-item.completed').length;
+                const countEl = document.getElementById('checklist-count');
+                if (countEl) {
+                    countEl.textContent = `${completed}/${items.length}`;
+                }
+            }
+            updateChecklistCount();
+
+            // Save checklist state to localStorage
+            function saveChecklistState() {
+                const state = {};
+                document.querySelectorAll('.checklist-item').forEach(item => {
+                    const task = item.dataset.task;
+                    if (task) {
+                        state[task] = item.classList.contains('completed');
+                    }
+                });
+                localStorage.setItem('traffic-checklist-state', JSON.stringify(state));
+            }
+
+            // Add click handlers with persistence
+            document.querySelectorAll('.checklist-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    item.classList.toggle('completed');
+                    updateChecklistCount();
+                    saveChecklistState();
+                });
+            });
+        });
+    </script>
+
+    <!-- KB Browser Component -->
+    <script src="../js/kb-browser.js"></script>
+    <script>
+        // Initialize KB Browser for Traffic platform
+        document.addEventListener('DOMContentLoaded', () => {
+            kbBrowsers['traffic'] = new KBBrowserComponent('kb-browser-traffic', {
+                platformName: 'traffic',
+                sectionTitle: 'REFERENCE MATERIALS',
+                officeTabLabel: 'Office Videos',
+                claudeTabLabel: 'Claude Tutorials'
+            });
+        });
+    </script>
+
+    <!-- Jurisdiction Browser Component -->
+    <script>
+        // Jurisdiction Browser for TSE Workspace
+        const JurisdictionBrowser = {
+            data: null,
+            selectedId: null,
+
+            async init() {
+                try {
+                    const response = await fetch('../data/jurisdiction-templates.json');
+                    this.data = await response.json();
+                    this.renderList();
+                    this.bindEvents();
+                    console.log('[TSE] Jurisdiction Browser initialized with', this.data.jurisdictions.length, 'jurisdictions');
+                } catch (error) {
+                    console.error('[TSE] Failed to load jurisdiction templates:', error);
+                    document.getElementById('jurisdiction-items').innerHTML =
+                        '<div class="jurisdiction-error">Failed to load jurisdictions</div>';
+                }
+            },
+
+            renderList() {
+                const container = document.getElementById('jurisdiction-items');
+                if (!this.data || !this.data.jurisdictions) return;
+
+                container.innerHTML = this.data.jurisdictions.map(j => `
+                    <div class="jurisdiction-item" data-id="${j.id}">
+                        <span class="jurisdiction-icon">${this.getIcon(j.type)}</span>
+                        <div class="jurisdiction-item-info">
+                            <div class="jurisdiction-item-name">${j.name}</div>
+                            <div class="jurisdiction-item-meta">${j.type} • Pop. ${this.formatPopulation(j.population)}</div>
+                        </div>
+                    </div>
+                `).join('');
+            },
+
+            getIcon(type) {
+                const icons = {
+                    'city': '🏙️',
+                    'town': '🏘️',
+                    'municipality': '🏛️'
+                };
+                return icons[type?.toLowerCase()] || '📍';
+            },
+
+            formatPopulation(pop) {
+                if (pop >= 1000000) return (pop / 1000000).toFixed(1) + 'M';
+                if (pop >= 1000) return (pop / 1000).toFixed(0) + 'K';
+                return pop.toString();
+            },
+
+            bindEvents() {
+                // Search filter
+                document.getElementById('jurisdiction-search').addEventListener('input', (e) => {
+                    const query = e.target.value.toLowerCase();
+                    document.querySelectorAll('.jurisdiction-item').forEach(item => {
+                        const name = item.querySelector('.jurisdiction-item-name').textContent.toLowerCase();
+                        item.style.display = name.includes(query) ? 'flex' : 'none';
+                    });
+                });
+
+                // Item selection
+                document.getElementById('jurisdiction-items').addEventListener('click', (e) => {
+                    const item = e.target.closest('.jurisdiction-item');
+                    if (item) {
+                        document.querySelectorAll('.jurisdiction-item').forEach(i => i.classList.remove('active'));
+                        item.classList.add('active');
+                        this.selectedId = item.dataset.id;
+                        this.renderDetail(this.selectedId);
+                    }
+                });
+            },
+
+            renderDetail(id) {
+                const j = this.data.jurisdictions.find(j => j.id === id);
+                if (!j) return;
+
+                const container = document.getElementById('jurisdiction-detail');
+                container.innerHTML = `
+                    <div class="jurisdiction-header">
+                        <h2>${j.name}</h2>
+                        <span class="jurisdiction-type">${j.type} • ${j.county} County</span>
+                    </div>
+
+                    <div class="jurisdiction-section">
+                        <h3>📋 TIS Requirements</h3>
+                        ${this.renderRequirements(j.requirements)}
+                    </div>
+
+                    <div class="jurisdiction-section">
+                        <h3>📞 Contacts</h3>
+                        ${this.renderContacts(j.contacts)}
+                    </div>
+
+                    <div class="jurisdiction-section">
+                        <h3>📝 Submittal Procedure</h3>
+                        ${this.renderProcedure(j.submittalProcedure)}
+                    </div>
+
+                    <div class="jurisdiction-section">
+                        <h3>✅ Approval Process</h3>
+                        ${this.renderApproval(j.approvalProcess)}
+                    </div>
+
+                    <div class="jurisdiction-section">
+                        <h3>⚠️ Common Issues</h3>
+                        ${this.renderIssues(j.commonIssues)}
+                    </div>
+                `;
+            },
+
+            renderRequirements(req) {
+                const software = Array.isArray(req.softwareApproved) ? req.softwareApproved.join(', ') : (req.softwareApproved || 'N/A');
+                const additional = req.additionalRequirements ?
+                    `<div class="jurisdiction-field"><span class="field-label">Additional:</span><ul style="margin: 4px 0 0 20px; padding: 0;">${req.additionalRequirements.map(r => `<li>${r}</li>`).join('')}</ul></div>` : '';
+                return `
+                    <div class="jurisdiction-field"><span class="field-label">Study Threshold:</span> ${req.trafficStudyThreshold || 'N/A'}</div>
+                    <div class="jurisdiction-field"><span class="field-label">LOS Standard:</span> ${req.levelOfService || 'N/A'}</div>
+                    <div class="jurisdiction-field"><span class="field-label">Approved Software:</span> ${software}</div>
+                    <div class="jurisdiction-field"><span class="field-label">Trip Generation:</span> ${req.tripGeneration || 'ITE Manual'}</div>
+                    <div class="jurisdiction-field"><span class="field-label">Study Area:</span> ${req.studyArea || 'N/A'}</div>
+                    <div class="jurisdiction-field"><span class="field-label">Horizon Year:</span> ${req.horizonYear || 'N/A'}</div>
+                    <div class="jurisdiction-field"><span class="field-label">Peak Hours:</span> ${req.peakHours || 'N/A'}</div>
+                    ${additional}
+                `;
+            },
+
+            renderContacts(contacts) {
+                return `
+                    <div class="jurisdiction-contact-card">
+                        <div class="contact-title">${contacts.department || 'Traffic Engineering'}</div>
+                        <div class="contact-field">${contacts.trafficEngineering?.name || ''}</div>
+                        <div class="contact-field">📞 ${contacts.trafficEngineering?.phone || 'N/A'}</div>
+                        <div class="contact-field">✉️ ${contacts.trafficEngineering?.email || 'N/A'}</div>
+                        ${contacts.trafficEngineering?.address ? `<div class="contact-field">📍 ${contacts.trafficEngineering.address}</div>` : ''}
+                    </div>
+                    <div class="jurisdiction-contact-card">
+                        <div class="contact-title">Plan Review / Development Services</div>
+                        <div class="contact-field">${contacts.planReview?.name || ''}</div>
+                        <div class="contact-field">📞 ${contacts.planReview?.phone || 'N/A'}</div>
+                        <div class="contact-field">✉️ ${contacts.planReview?.email || 'N/A'}</div>
+                        ${contacts.planReview?.website ? `<div class="contact-field">🌐 <a href="${contacts.planReview.website}" target="_blank">${contacts.planReview.website}</a></div>` : ''}
+                    </div>
+                `;
+            },
+
+            renderProcedure(proc) {
+                return `
+                    <div class="jurisdiction-field"><span class="field-label">Format:</span> ${proc.format || 'PDF'}</div>
+                    <div class="jurisdiction-field"><span class="field-label">Copies:</span> ${proc.copies || 'N/A'}</div>
+                    <div class="jurisdiction-field"><span class="field-label">Review Time:</span> ${proc.reviewTime || 'N/A'}</div>
+                    <div class="jurisdiction-field"><span class="field-label">Resubmittal:</span> ${proc.resubmittalTime || 'N/A'}</div>
+                    <div class="jurisdiction-field"><span class="field-label">Fee:</span> ${proc.fees || 'Contact for estimate'}</div>
+                    ${proc.preSubmittalMeeting ? `<div class="jurisdiction-field"><span class="field-label">Pre-submittal:</span> ${proc.preSubmittalMeeting}</div>` : ''}
+                    ${proc.steps && proc.steps.length ? `
+                    <div class="jurisdiction-steps">
+                        <div class="steps-title">Submittal Steps:</div>
+                        <ol>
+                            ${proc.steps.map(step => `<li>${step.replace(/^\d+\.\s*/, '')}</li>`).join('')}
+                        </ol>
+                    </div>` : ''}
+                `;
+            },
+
+            renderApproval(approval) {
+                const conditions = approval.conditionsCommon ?
+                    `<div class="jurisdiction-field"><span class="field-label">Common Conditions:</span><ul style="margin: 4px 0 0 20px; padding: 0;">${approval.conditionsCommon.map(c => `<li>${c}</li>`).join('')}</ul></div>` : '';
+                return `
+                    <div class="jurisdiction-field"><span class="field-label">Review Authority:</span> ${approval.reviewAuthority || 'N/A'}</div>
+                    <div class="jurisdiction-field"><span class="field-label">Appeal Process:</span> ${approval.appealProcess || 'N/A'}</div>
+                    <div class="jurisdiction-field"><span class="field-label">Validity Period:</span> ${approval.validityPeriod || 'N/A'}</div>
+                    ${conditions}
+                `;
+            },
+
+            renderIssues(issues) {
+                if (!issues || !issues.length) return '<p>No common issues documented.</p>';
+                return `<ul class="issues-list" style="margin: 0; padding: 0 0 0 20px;">
+                    ${issues.map(issue => `<li style="margin-bottom: 8px; color: #FFD700;">${issue}</li>`).join('')}
+                </ul>`;
+            }
+        };
+
+        // Initialize Jurisdiction Browser
+        document.addEventListener('DOMContentLoaded', () => {
+            JurisdictionBrowser.init();
+            window.JurisdictionBrowser = JurisdictionBrowser;
         });
     </script>
 </body>

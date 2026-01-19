@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Management - Trajanus Enterprise Hub</title>
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
         /* Reset & Base */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -214,7 +216,7 @@
 
         .section-border-top {
             height: 2px;
-            background: linear-gradient(to right, var(--gold), var(--border-subtle), transparent);
+            background: linear-gradient(to right, #00AAFF, #0066CC, transparent);
             margin-bottom: 12px;
         }
 
@@ -225,14 +227,14 @@
         }
 
         .section-blocks {
-            color: var(--gold);
+            color: #00AAFF;
             font-size: 14px;
             font-weight: 900;
             letter-spacing: 2px;
         }
 
         .section-title {
-            color: var(--gold);
+            color: #00AAFF;
             font-size: 14px;
             font-weight: 700;
             text-transform: uppercase;
@@ -241,14 +243,14 @@
 
         .section-border-bottom {
             height: 2px;
-            background: linear-gradient(to right, var(--gold), var(--gold-dark), transparent);
-            margin-top: 12px;
+            background: linear-gradient(to right, #00AAFF, #0066CC, transparent);
+            margin-top: 6px;
         }
 
         .section-description {
             color: var(--text-secondary);
-            font-size: 13px;
-            margin-top: 12px;
+            font-size: 14px;
+            margin-top: 4px;
             max-width: 800px;
         }
 
@@ -259,14 +261,20 @@
 
         .subsection-header {
             display: flex;
-            align-items: center;
-            gap: 12px;
+            flex-direction: column;
             margin-bottom: 16px;
         }
 
+        .subsection-title-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
         .subsection-title {
-            color: var(--text-primary);
-            font-size: 13px;
+            color: #00AAFF;
+            font-size: 14px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1.5px;
@@ -274,14 +282,22 @@
 
         .subsection-line {
             flex: 1;
-            height: 1px;
-            background: var(--border-subtle);
+            height: 2px;
+            background: linear-gradient(to right, #00AAFF, #0066CC, transparent);
         }
 
         .subsection-description {
-            color: var(--text-muted);
-            font-size: 12px;
-            margin-bottom: 12px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .subsection-workflow {
+            color: var(--text-muted, #888);
+            font-size: 13px;
+            margin-top: 8px;
+            line-height: 1.5;
+            font-style: italic;
         }
 
         /* Button Containers - Flexbox */
@@ -1136,6 +1152,986 @@
         }
 
         /* Brand colors removed - ext-btn uses V2 Synapse glow style from main.css */
+
+        /* ============================================ */
+        /* PROJECT PROGRESS - TWO PANEL LAYOUT         */
+        /* ============================================ */
+        .progress-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+            align-items: stretch;
+        }
+
+        .progress-section > * {
+            min-height: 100%;
+        }
+
+        .progress-checklist {
+            background: var(--bg-base);
+            border: 2px solid #00AAFF;
+            border-radius: 12px;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .checklist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .checklist-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #00AAFF;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checklist-count {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .checklist-items {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            background: var(--bg-elevated);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .checklist-item:hover {
+            background: var(--bg-hover);
+        }
+
+        .checklist-item.completed {
+            opacity: 0.6;
+        }
+
+        .checklist-checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #00AAFF;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .checklist-item.completed .checklist-checkbox {
+            background: #4ade80;
+            border-color: #4ade80;
+        }
+
+        .checklist-checkbox::after {
+            content: '';
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg) scale(0);
+            transition: transform 0.2s ease;
+        }
+
+        .checklist-item.completed .checklist-checkbox::after {
+            transform: rotate(45deg) scale(1);
+        }
+
+        .checklist-text {
+            font-size: 13px;
+            color: var(--text-primary);
+            flex: 1;
+        }
+
+        .checklist-item.completed .checklist-text {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .checklist-badge {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .checklist-badge.critical { background: rgba(248, 113, 113, 0.2); color: #f87171; }
+        .checklist-badge.high { background: rgba(251, 191, 36, 0.2); color: #fbbf24; }
+        .checklist-badge.medium { background: rgba(0, 170, 255, 0.2); color: #00AAFF; }
+        .checklist-badge.low { background: rgba(192, 192, 192, 0.2); color: #c0c0c0; }
+
+        .progress-tracker {
+            background: var(--bg-base);
+            border: 2px solid #00AAFF;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .progress-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #00AAFF;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .progress-title-icon {
+            font-size: 20px;
+        }
+
+        .progress-overall {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .progress-percent {
+            font-size: 28px;
+            font-weight: 700;
+            color: #00AAFF;
+            font-family: var(--font-mono);
+        }
+
+        .progress-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .progress-phases {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .progress-phase {
+            display: grid;
+            grid-template-columns: 120px 1fr 60px;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .phase-name {
+            font-size: 13px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .phase-bar-container {
+            height: 24px;
+            background: var(--bg-elevated);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .phase-bar {
+            height: 100%;
+            border-radius: 12px;
+            position: relative;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .phase-bar.complete {
+            background: linear-gradient(90deg, #22c55e 0%, #4ade80 50%, #22c55e 100%);
+            box-shadow: 0 0 12px rgba(74, 222, 128, 0.4);
+        }
+
+        .phase-bar.in-progress {
+            background: linear-gradient(90deg, #0088CC 0%, #00AAFF 50%, #0088CC 100%);
+            box-shadow: 0 0 12px rgba(0, 170, 255, 0.4);
+            animation: progressPulse 2s ease-in-out infinite;
+        }
+
+        .phase-bar.pending {
+            background: linear-gradient(90deg, #4a4a4a 0%, #6a6a6a 50%, #4a4a4a 100%);
+        }
+
+        .phase-bar.blocked {
+            background: linear-gradient(90deg, #dc2626 0%, #f87171 50%, #dc2626 100%);
+            box-shadow: 0 0 12px rgba(248, 113, 113, 0.4);
+        }
+
+        .phase-bar.in-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes progressPulse {
+            0%, 100% { box-shadow: 0 0 12px rgba(0, 170, 255, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(0, 170, 255, 0.7); }
+        }
+
+        .phase-percent {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            text-align: right;
+        }
+
+        .phase-percent.complete { color: #4ade80; }
+        .phase-percent.in-progress { color: #00AAFF; }
+        .phase-percent.blocked { color: #f87171; }
+
+        .phase-tasks {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 11px;
+            color: rgba(255,255,255,0.9);
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .progress-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(192, 192, 192, 0.2);
+        }
+
+        .progress-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+        }
+
+        .stat-value.green { color: #4ade80; }
+        .stat-value.blue { color: #00AAFF; }
+        .stat-value.gray { color: #6a6a6a; }
+        .stat-value.red { color: #f87171; }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ============ P6 WORKSPACE STYLES ============ */
+        .p6-workspace {
+            background: #0a0a0a;
+            border: 2px solid #0066CC;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .p6-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+
+        .p6-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #00AAFF;
+            font-family: var(--font-display);
+        }
+
+        .p6-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .p6-btn {
+            padding: 8px 16px;
+            border: 1px solid #0066CC;
+            background: linear-gradient(180deg, #1a1a2e 0%, #0d0d1a 100%);
+            color: #00AAFF;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .p6-btn:hover {
+            background: linear-gradient(180deg, #252540 0%, #1a1a2e 100%);
+            transform: translateY(-1px);
+        }
+
+        .p6-btn.primary {
+            background: linear-gradient(180deg, #0066CC 0%, #004499 100%);
+            color: white;
+        }
+
+        .p6-tabs {
+            display: flex;
+            gap: 2px;
+            margin-bottom: 20px;
+            background: #1a1a1a;
+            padding: 4px;
+            border-radius: 6px;
+        }
+
+        .p6-tab {
+            padding: 10px 20px;
+            background: transparent;
+            border: none;
+            color: #888;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .p6-tab:hover {
+            color: #ccc;
+            background: #252525;
+        }
+
+        .p6-tab.active {
+            background: #0066CC;
+            color: white;
+        }
+
+        .p6-content {
+            min-height: 400px;
+        }
+
+        .p6-panel {
+            display: none;
+        }
+
+        .p6-panel.active {
+            display: block;
+        }
+
+        /* ============ GANTT CHART STYLES ============ */
+        .gantt-container {
+            overflow-x: auto;
+            background: #0d0d0d;
+            border: 1px solid #333;
+            border-radius: 6px;
+        }
+
+        .gantt-chart {
+            min-width: 1200px;
+            position: relative;
+        }
+
+        .gantt-timeline {
+            display: flex;
+            background: #1a1a2e;
+            border-bottom: 2px solid #0066CC;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .gantt-label-col {
+            width: 250px;
+            min-width: 250px;
+            padding: 12px 15px;
+            font-weight: 700;
+            color: #00AAFF;
+            background: #0d0d1a;
+            border-right: 1px solid #333;
+        }
+
+        .gantt-timeline-col {
+            flex: 1;
+            display: flex;
+        }
+
+        .gantt-day {
+            flex: 1;
+            padding: 8px 4px;
+            text-align: center;
+            font-size: 11px;
+            color: #888;
+            border-right: 1px solid #222;
+        }
+
+        .gantt-day.weekend {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .gantt-day.today {
+            background: rgba(0, 102, 204, 0.2);
+            color: #00AAFF;
+            font-weight: 700;
+        }
+
+        .gantt-rows {
+            position: relative;
+        }
+
+        .gantt-row {
+            display: flex;
+            border-bottom: 1px solid #222;
+            min-height: 40px;
+        }
+
+        .gantt-row:hover {
+            background: rgba(0, 102, 204, 0.05);
+        }
+
+        .gantt-activity-label {
+            width: 250px;
+            min-width: 250px;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-right: 1px solid #333;
+            background: #0a0a0a;
+        }
+
+        .activity-id {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: #666;
+            min-width: 60px;
+        }
+
+        .activity-name {
+            font-size: 13px;
+            color: #ddd;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .gantt-bar-area {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .gantt-bar {
+            position: absolute;
+            height: 24px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .gantt-bar:hover {
+            filter: brightness(1.2);
+            transform: scaleY(1.1);
+        }
+
+        .gantt-bar.normal {
+            background: linear-gradient(180deg, #0066CC 0%, #004499 100%);
+        }
+
+        .gantt-bar.critical {
+            background: linear-gradient(180deg, #dc2626 0%, #991b1b 100%);
+            box-shadow: 0 0 8px rgba(220, 38, 38, 0.5);
+        }
+
+        .gantt-bar.milestone {
+            background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+            width: 20px !important;
+            border-radius: 50%;
+        }
+
+        .gantt-bar.complete {
+            background: linear-gradient(180deg, #22c55e 0%, #16a34a 100%);
+        }
+
+        .gantt-grid-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: #222;
+        }
+
+        .gantt-today-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #00AAFF;
+            z-index: 5;
+        }
+
+        .gantt-today-line::before {
+            content: 'TODAY';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 9px;
+            color: #00AAFF;
+            font-weight: 700;
+        }
+
+        /* ============ CRITICAL PATH STYLES ============ */
+        .critical-path-container {
+            background: #0d0d0d;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 20px;
+        }
+
+        .cp-summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .cp-stat {
+            background: #1a1a2e;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .cp-stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            color: #00AAFF;
+        }
+
+        .cp-stat-value.critical {
+            color: #f87171;
+        }
+
+        .cp-stat-label {
+            font-size: 11px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        .cp-sequence {
+            margin-bottom: 25px;
+        }
+
+        .cp-sequence-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #00AAFF;
+            margin-bottom: 15px;
+        }
+
+        .cp-path {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cp-node {
+            background: linear-gradient(180deg, #dc2626 0%, #991b1b 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .cp-arrow {
+            color: #666;
+            font-size: 18px;
+        }
+
+        .cp-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .cp-table th {
+            background: #1a1a2e;
+            color: #00AAFF;
+            padding: 12px 10px;
+            text-align: left;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #0066CC;
+        }
+
+        .cp-table td {
+            padding: 10px;
+            border-bottom: 1px solid #222;
+            font-size: 13px;
+            color: #ddd;
+        }
+
+        .cp-table tr:hover {
+            background: rgba(0, 102, 204, 0.05);
+        }
+
+        .cp-table .critical-row {
+            background: rgba(220, 38, 38, 0.1);
+        }
+
+        .cp-table .critical-row:hover {
+            background: rgba(220, 38, 38, 0.15);
+        }
+
+        .float-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .float-badge.zero {
+            background: rgba(220, 38, 38, 0.2);
+            color: #f87171;
+        }
+
+        .float-badge.low {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+        }
+
+        .float-badge.high {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+        }
+
+        /* ============ SCHEDULE VARIANCE STYLES ============ */
+        .variance-container {
+            background: #0d0d0d;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 20px;
+        }
+
+        .variance-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .variance-card {
+            background: #1a1a2e;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .variance-card.behind {
+            border-color: #dc2626;
+        }
+
+        .variance-card.ontrack {
+            border-color: #22c55e;
+        }
+
+        .variance-card.ahead {
+            border-color: #0066CC;
+        }
+
+        .variance-count {
+            font-size: 36px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+        }
+
+        .variance-count.behind { color: #f87171; }
+        .variance-count.ontrack { color: #4ade80; }
+        .variance-count.ahead { color: #00AAFF; }
+
+        .variance-label {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 8px;
+        }
+
+        .variance-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .variance-table th {
+            background: #1a1a2e;
+            color: #00AAFF;
+            padding: 12px 10px;
+            text-align: left;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #0066CC;
+        }
+
+        .variance-table td {
+            padding: 10px;
+            border-bottom: 1px solid #222;
+            font-size: 13px;
+            color: #ddd;
+        }
+
+        .variance-table tr:hover {
+            background: rgba(0, 102, 204, 0.05);
+        }
+
+        .variance-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .variance-badge.behind {
+            background: rgba(220, 38, 38, 0.2);
+            color: #f87171;
+        }
+
+        .variance-badge.ontrack {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+        }
+
+        .variance-badge.ahead {
+            background: rgba(0, 102, 204, 0.2);
+            color: #00AAFF;
+        }
+
+        .days-badge {
+            font-family: var(--font-mono);
+            font-weight: 600;
+        }
+
+        .days-badge.negative { color: #f87171; }
+        .days-badge.zero { color: #4ade80; }
+        .days-badge.positive { color: #00AAFF; }
+
+        /* ============ EARNED VALUE STYLES ============ */
+        .evm-container {
+            background: #0d0d0d;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 20px;
+        }
+
+        .evm-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .evm-card {
+            background: #1a1a2e;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 15px;
+        }
+
+        .evm-card-title {
+            font-size: 11px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .evm-card-value {
+            font-size: 24px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            color: #00AAFF;
+        }
+
+        .evm-card-value.good { color: #4ade80; }
+        .evm-card-value.warning { color: #fbbf24; }
+        .evm-card-value.bad { color: #f87171; }
+
+        .evm-card-subtitle {
+            font-size: 10px;
+            color: #555;
+            margin-top: 4px;
+        }
+
+        .evm-section {
+            margin-bottom: 25px;
+        }
+
+        .evm-section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #00AAFF;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #333;
+        }
+
+        .evm-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .evm-indicator {
+            background: #1a1a2e;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .evm-indicator-label {
+            font-size: 13px;
+            color: #888;
+        }
+
+        .evm-indicator-value {
+            font-size: 18px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+        }
+
+        .evm-formula {
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 15px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: #888;
+            margin-top: 15px;
+        }
+
+        .evm-formula code {
+            color: #00AAFF;
+        }
+
+        /* ============ EMPTY STATE ============ */
+        .p6-empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .p6-empty-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .p6-empty-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .p6-empty-text {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* ============ FILE INPUT STYLES ============ */
+        .p6-file-input {
+            display: none;
+        }
+
+        .p6-dropzone {
+            border: 2px dashed #333;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 20px;
+        }
+
+        .p6-dropzone:hover {
+            border-color: #0066CC;
+            background: rgba(0, 102, 204, 0.05);
+        }
+
+        .p6-dropzone.dragover {
+            border-color: #00AAFF;
+            background: rgba(0, 170, 255, 0.1);
+        }
+
+        .p6-dropzone-icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .p6-dropzone-text {
+            font-size: 14px;
+            color: #888;
+        }
+
+        .p6-dropzone-text strong {
+            color: #00AAFF;
+        }
     </style>
 </head>
 <body>
@@ -1212,9 +2208,7 @@
         <div class="section-divider">
             <div class="section-border-top"></div>
             <div class="section-title-row">
-                <span class="section-blocks">|||</span>
                 <h2 class="section-title">AI ASSISTANT</h2>
-                <span class="section-blocks">|||</span>
             </div>
             <div class="section-border-bottom"></div>
             <p class="section-description">
@@ -1239,13 +2233,28 @@
             </div>
         </div>
 
+        <!-- ========================== -->
+        <!-- PROJECT RESOURCES          -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <h2 class="section-title">PROJECT RESOURCES</h2>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Access project management videos, reference documents, and templates from the knowledge base.
+            </p>
+        </div>
+
+        <!-- KB Browser Component Container -->
+        <div id="kb-browser-pm"></div>
+
         <!-- APPLICATIONS SECTION -->
         <div class="section-divider">
             <div class="section-border-top"></div>
             <div class="section-title-row">
-                <span class="section-blocks">|||</span>
                 <h2 class="section-title">APPLICATIONS</h2>
-                <span class="section-blocks">|||</span>
             </div>
             <div class="section-border-bottom"></div>
             <p class="section-description">
@@ -1301,9 +2310,7 @@
         <div class="section-divider">
             <div class="section-border-top"></div>
             <div class="section-title-row">
-                <span class="section-blocks">|||</span>
                 <h2 class="section-title">REFERENCE DOCUMENTS</h2>
-                <span class="section-blocks">|||</span>
             </div>
             <div class="section-border-bottom"></div>
             <p class="section-description">
@@ -1354,9 +2361,7 @@
         <div class="section-divider">
             <div class="section-border-top"></div>
             <div class="section-title-row">
-                <span class="section-blocks">|||</span>
                 <h2 class="section-title">AGENTS</h2>
-                <span class="section-blocks">|||</span>
             </div>
             <div class="section-border-bottom"></div>
             <p class="section-description">
@@ -1414,13 +2419,27 @@
             </div>
         </div>
 
+        <!-- P6 SCHEDULE ANALYSIS SECTION -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <h2 class="section-title">P6 SCHEDULE ANALYSIS</h2>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Import Primavera P6 schedules for Gantt chart visualization, critical path analysis, and earned value metrics.
+            </p>
+        </div>
+
+        <div id="p6-workspace-container">
+            <!-- P6 Workspace renders here -->
+        </div>
+
         <!-- AGENT RUNNER SECTION -->
         <div class="section-divider">
             <div class="section-border-top"></div>
             <div class="section-title-row">
-                <span class="section-blocks">|||</span>
                 <h2 class="section-title">AGENT RUNNER</h2>
-                <span class="section-blocks">|||</span>
             </div>
             <div class="section-border-bottom"></div>
             <p class="section-description">
@@ -1473,13 +2492,152 @@
             </div>
         </div>
 
+        <!-- ========================== -->
+        <!-- PROJECT PROGRESS SECTION   -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <h2 class="section-title">PROJECT PROGRESS</h2>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                PM Toolkit implementation tracking with phase-based progress visualization.
+            </p>
+        </div>
+
+        <div class="progress-section">
+            <!-- LEFT PANEL: Living Checklist -->
+            <div class="progress-checklist" id="progress-checklist">
+                <div class="checklist-header">
+                    <div class="checklist-title">
+                        <span>&#9745;</span>
+                        PM Verification Checklist
+                    </div>
+                    <span class="checklist-count" id="checklist-count">8/8</span>
+                </div>
+                <div class="checklist-items" id="checklist-items">
+                    <div class="checklist-item completed" data-task="schedule">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">Schedule analysis tools ready</span>
+                        <span class="checklist-badge high">P1</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="cost">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">Cost tracking configured</span>
+                        <span class="checklist-badge high">P1</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="resources">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">Resource management active</span>
+                        <span class="checklist-badge medium">P2</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="reports">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">Report templates loaded</span>
+                        <span class="checklist-badge high">P2</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="agents">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">PM agents integrated</span>
+                        <span class="checklist-badge medium">P3</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="dashboards">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">Dashboards functional</span>
+                        <span class="checklist-badge critical">P3</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="ui">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">UI standardization complete</span>
+                        <span class="checklist-badge medium">P4</span>
+                    </div>
+                    <div class="checklist-item completed" data-task="integration">
+                        <div class="checklist-checkbox"></div>
+                        <span class="checklist-text">Hub integration verified</span>
+                        <span class="checklist-badge low">P4</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT PANEL: Progress Tracker -->
+            <div class="progress-tracker" id="progress-tracker">
+                <div class="progress-header">
+                    <div class="progress-title">
+                        <span class="progress-title-icon">&#128202;</span>
+                        PM Build Progress
+                    </div>
+                    <div class="progress-overall">
+                        <span class="progress-percent" id="overall-percent">100%</span>
+                        <span class="progress-label">Complete</span>
+                    </div>
+                </div>
+
+                <div class="progress-phases" id="progress-phases">
+                    <div class="progress-phase" data-phase="1">
+                        <span class="phase-name">P1: Core Setup</span>
+                        <div class="phase-bar-container">
+                            <div class="phase-bar complete" style="width: 100%">
+                                <span class="phase-tasks">2/2</span>
+                            </div>
+                        </div>
+                        <span class="phase-percent complete">100%</span>
+                    </div>
+                    <div class="progress-phase" data-phase="2">
+                        <span class="phase-name">P2: Templates</span>
+                        <div class="phase-bar-container">
+                            <div class="phase-bar complete" style="width: 100%">
+                                <span class="phase-tasks">2/2</span>
+                            </div>
+                        </div>
+                        <span class="phase-percent complete">100%</span>
+                    </div>
+                    <div class="progress-phase" data-phase="3">
+                        <span class="phase-name">P3: Integration</span>
+                        <div class="phase-bar-container">
+                            <div class="phase-bar complete" style="width: 100%">
+                                <span class="phase-tasks">2/2</span>
+                            </div>
+                        </div>
+                        <span class="phase-percent complete">100%</span>
+                    </div>
+                    <div class="progress-phase" data-phase="4">
+                        <span class="phase-name">P4: Polish</span>
+                        <div class="phase-bar-container">
+                            <div class="phase-bar complete" style="width: 100%">
+                                <span class="phase-tasks">2/2</span>
+                            </div>
+                        </div>
+                        <span class="phase-percent complete">100%</span>
+                    </div>
+                </div>
+
+                <div class="progress-footer">
+                    <div class="progress-stat">
+                        <span class="stat-value green" id="stat-complete">8</span>
+                        <span class="stat-label">Complete</span>
+                    </div>
+                    <div class="progress-stat">
+                        <span class="stat-value blue" id="stat-progress">0</span>
+                        <span class="stat-label">In Progress</span>
+                    </div>
+                    <div class="progress-stat">
+                        <span class="stat-value gray" id="stat-pending">0</span>
+                        <span class="stat-label">Pending</span>
+                    </div>
+                    <div class="progress-stat">
+                        <span class="stat-value red" id="stat-blocked">0</span>
+                        <span class="stat-label">Blocked</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- TERMINAL SECTION -->
         <div class="section-divider">
             <div class="section-border-top"></div>
             <div class="section-title-row">
-                <span class="section-blocks">|||</span>
-                <h2 class="section-title">TERMINAL</h2>
-                <span class="section-blocks">|||</span>
+                <h2 class="section-title">OPERATIONS LOG</h2>
             </div>
             <div class="section-border-bottom"></div>
             <p class="section-description">
@@ -1945,6 +3103,88 @@
             // Agent Runner buttons
             document.getElementById('run-agent-btn').addEventListener('click', () => AgentRunner.run());
             document.getElementById('clear-results-btn').addEventListener('click', () => AgentRunner.clear());
+
+            // ==================== CHECKLIST PERSISTENCE ====================
+            // Load saved checklist state
+            const savedChecklist = localStorage.getItem('pm-checklist-state');
+            if (savedChecklist) {
+                try {
+                    const state = JSON.parse(savedChecklist);
+                    document.querySelectorAll('.checklist-item').forEach(item => {
+                        const task = item.dataset.task;
+                        if (task && state.hasOwnProperty(task)) {
+                            if (state[task]) {
+                                item.classList.add('completed');
+                            } else {
+                                item.classList.remove('completed');
+                            }
+                        }
+                    });
+                } catch (e) {
+                    console.error('Error loading checklist state:', e);
+                }
+            }
+
+            // Update checklist count
+            function updateChecklistCount() {
+                const items = document.querySelectorAll('.checklist-item');
+                const completed = document.querySelectorAll('.checklist-item.completed').length;
+                const countEl = document.getElementById('checklist-count');
+                if (countEl) {
+                    countEl.textContent = `${completed}/${items.length}`;
+                }
+            }
+            updateChecklistCount();
+
+            // Save checklist state function
+            function saveChecklistState() {
+                const state = {};
+                document.querySelectorAll('.checklist-item').forEach(item => {
+                    const task = item.dataset.task;
+                    if (task) {
+                        state[task] = item.classList.contains('completed');
+                    }
+                });
+                localStorage.setItem('pm-checklist-state', JSON.stringify(state));
+            }
+
+            // Make checklist items clickable
+            document.querySelectorAll('.checklist-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    item.classList.toggle('completed');
+                    updateChecklistCount();
+                    saveChecklistState();
+                });
+            });
+        });
+    </script>
+
+    <!-- KB Browser Component -->
+    <script src="../js/kb-browser.js"></script>
+    <script>
+        // Initialize KB Browser for PM platform
+        document.addEventListener('DOMContentLoaded', () => {
+            kbBrowsers['pm'] = new KBBrowserComponent('kb-browser-pm', {
+                platformName: 'pm',
+                sectionTitle: 'PROJECT RESOURCES',
+                officeTabLabel: 'Office Videos',
+                claudeTabLabel: 'Claude Tutorials'
+            });
+        });
+    </script>
+
+    <!-- P6 Schedule Parser -->
+    <script src="../js/p6-parser.js"></script>
+    <script>
+        // Initialize P6 Workspace for PM platform
+        document.addEventListener('DOMContentLoaded', () => {
+            const p6Workspace = new P6Workspace('p6-workspace-container');
+            window.pmP6Workspace = p6Workspace;
+            window.P6Parser = P6Parser;
+            window.CriticalPathAnalyzer = CriticalPathAnalyzer;
+            window.ScheduleAnalyzer = ScheduleAnalyzer;
+            window.EarnedValueAnalyzer = EarnedValueAnalyzer;
+            console.log('[PM] P6 Workspace initialized');
         });
     </script>
 </body>

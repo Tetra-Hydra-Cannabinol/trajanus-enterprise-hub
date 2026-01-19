@@ -2140,6 +2140,23 @@
         </div>
 
         <!-- ========================== -->
+        <!-- KNOWLEDGE LIBRARY          -->
+        <!-- ========================== -->
+        <div class="section-divider">
+            <div class="section-border-top"></div>
+            <div class="section-title-row">
+                <h2 class="section-title">KNOWLEDGE LIBRARY</h2>
+            </div>
+            <div class="section-border-bottom"></div>
+            <p class="section-description">
+                Access developer training videos, coding documentation, and code templates from the knowledge base.
+            </p>
+        </div>
+
+        <!-- KB Browser Component Container -->
+        <div id="kb-browser-developer"></div>
+
+        <!-- ========================== -->
         <!-- APPLICATIONS SECTION       -->
         <!-- ========================== -->
         <div class="section-divider">
@@ -2427,100 +2444,55 @@
         </div>
 
         <div class="progress-section">
-            <!-- LEFT PANEL: Living Checklist -->
+            <!-- LEFT PANEL: Session Task List -->
             <div class="progress-checklist" id="progress-checklist">
                 <div class="checklist-header">
                     <div class="checklist-title">
                         <span>&#9745;</span>
-                        Verification Checklist
+                        HEALTHCARE-01 Tasks
                     </div>
-                    <span class="checklist-count" id="checklist-count">17/17</span>
+                    <span class="checklist-count" id="checklist-count">0/10</span>
                 </div>
                 <div class="checklist-items" id="checklist-items">
-                    <div class="checklist-item completed" data-task="docs">
+                    <div class="checklist-item" data-task="hipaa-notices">
                         <div class="checklist-checkbox"></div>
-                        <span class="checklist-text">Three Documents created</span>
-                        <span class="checklist-badge low">P0</span>
+                        <span class="checklist-text">Add HIPAA compliance notices</span>
                     </div>
-                    <div class="checklist-item completed" data-task="claude-md">
+                    <div class="checklist-item" data-task="patient-form">
                         <div class="checklist-checkbox"></div>
-                        <span class="checklist-text">.claude.md context system</span>
-                        <span class="checklist-badge high">P1</span>
+                        <span class="checklist-text">Create patient intake form</span>
                     </div>
-                    <div class="checklist-item completed" data-task="agents">
+                    <div class="checklist-item" data-task="pdf-upload">
                         <div class="checklist-checkbox"></div>
-                        <span class="checklist-text">12 sub-agents operational</span>
-                        <span class="checklist-badge high">P1</span>
+                        <span class="checklist-text">Build PDF upload for records</span>
                     </div>
-                    <div class="checklist-item completed" data-task="commands">
+                    <div class="checklist-item" data-task="ai-processing">
                         <div class="checklist-checkbox"></div>
-                        <span class="checklist-text">6 custom commands</span>
-                        <span class="checklist-badge high">P1</span>
+                        <span class="checklist-text">Add AI processing status</span>
                     </div>
-                    <div class="checklist-item completed" data-task="playwright">
+                    <div class="checklist-item" data-task="summary-display">
                         <div class="checklist-checkbox"></div>
-                        <span class="checklist-text">Playwright MCP configured</span>
-                        <span class="checklist-badge critical">P2</span>
+                        <span class="checklist-text">Create summary report display</span>
                     </div>
-                    <div class="checklist-item completed" data-task="styleguide">
+                    <div class="checklist-item" data-task="export-function">
                         <div class="checklist-checkbox"></div>
-                        <span class="checklist-text">Style guide documented</span>
-                        <span class="checklist-badge medium">P2</span>
+                        <span class="checklist-text">Implement export functionality</span>
                     </div>
-                    <div class="checklist-item completed" data-task="templates">
+                    <div class="checklist-item" data-task="green-theme">
                         <div class="checklist-checkbox"></div>
-                        <span class="checklist-text">4 acceptance templates</span>
-                        <span class="checklist-badge medium">P2</span>
+                        <span class="checklist-text">Apply green medical theme</span>
                     </div>
-                    <div class="checklist-item completed" data-task="workflows">
+                    <div class="checklist-item" data-task="info-hierarchy">
                         <div class="checklist-checkbox"></div>
-                        <span class="checklist-text">4 workflow guides</span>
-                        <span class="checklist-badge high">P3</span>
+                        <span class="checklist-text">Clear information hierarchy</span>
                     </div>
-                    <div class="checklist-item completed" data-task="gsd">
+                    <div class="checklist-item" data-task="test-layout">
                         <div class="checklist-checkbox"></div>
-                        <span class="checklist-text">GSD Framework documented</span>
-                        <span class="checklist-badge high">P3</span>
+                        <span class="checklist-text">Test layout with Playwright</span>
                     </div>
-                    <div class="checklist-item completed" data-task="eos">
+                    <div class="checklist-item" data-task="document-task">
                         <div class="checklist-checkbox"></div>
-                        <span class="checklist-text">EOS automation ready</span>
-                        <span class="checklist-badge high">P4</span>
-                    </div>
-                    <div class="checklist-item completed" data-task="kb">
-                        <div class="checklist-checkbox"></div>
-                        <span class="checklist-text">KB retriever configured</span>
-                        <span class="checklist-badge medium">P4</span>
-                    </div>
-                    <div class="checklist-item completed" data-task="readme">
-                        <div class="checklist-checkbox"></div>
-                        <span class="checklist-text">README comprehensive</span>
-                        <span class="checklist-badge medium">P5</span>
-                    </div>
-                    <div class="checklist-item completed" data-task="guides">
-                        <div class="checklist-checkbox"></div>
-                        <span class="checklist-text">4 quick start guides</span>
-                        <span class="checklist-badge low">P5</span>
-                    </div>
-                    <div class="checklist-item completed" data-task="testing">
-                        <div class="checklist-checkbox"></div>
-                        <span class="checklist-text">Foundation tested</span>
-                        <span class="checklist-badge critical">P6</span>
-                    </div>
-                    <div class="checklist-item completed" data-task="validation">
-                        <div class="checklist-checkbox"></div>
-                        <span class="checklist-text">Final validation passed</span>
-                        <span class="checklist-badge critical">P6</span>
-                    </div>
-                    <div class="checklist-item completed" data-task="progress-ui">
-                        <div class="checklist-checkbox"></div>
-                        <span class="checklist-text">Progress tracker UI</span>
-                        <span class="checklist-badge medium">NEW</span>
-                    </div>
-                    <div class="checklist-item completed" data-task="two-panel">
-                        <div class="checklist-checkbox"></div>
-                        <span class="checklist-text">Two-panel layout</span>
-                        <span class="checklist-badge medium">NEW</span>
+                        <span class="checklist-text">Document in TASK_REPORT</span>
                     </div>
                 </div>
             </div>
@@ -2530,83 +2502,24 @@
                 <div class="progress-header">
                     <div class="progress-title">
                         <span class="progress-title-icon">&#128202;</span>
-                        Foundation Build
+                        Session Progress
                     </div>
                     <div class="progress-overall">
-                        <span class="progress-percent" id="overall-percent">100%</span>
-                        <span class="progress-label">Complete</span>
+                        <span class="progress-percent" id="overall-percent">0%</span>
+                        <span class="progress-label">Ready</span>
                     </div>
                 </div>
 
                 <div class="progress-phases" id="progress-phases">
-                    <div class="progress-phase" data-phase="0">
-                        <span class="phase-name">P0: Docs</span>
-                        <div class="phase-bar-container">
-                            <div class="phase-bar complete" style="width: 100%">
-                                <span class="phase-tasks">1/1</span>
-                            </div>
-                        </div>
-                        <span class="phase-percent complete">100%</span>
-                    </div>
-                    <div class="progress-phase" data-phase="1">
-                        <span class="phase-name">P1: Context</span>
-                        <div class="phase-bar-container">
-                            <div class="phase-bar complete" style="width: 100%">
-                                <span class="phase-tasks">3/3</span>
-                            </div>
-                        </div>
-                        <span class="phase-percent complete">100%</span>
-                    </div>
-                    <div class="progress-phase" data-phase="2">
-                        <span class="phase-name">P2: Validation</span>
-                        <div class="phase-bar-container">
-                            <div class="phase-bar complete" style="width: 100%">
-                                <span class="phase-tasks">3/3</span>
-                            </div>
-                        </div>
-                        <span class="phase-percent complete">100%</span>
-                    </div>
-                    <div class="progress-phase" data-phase="3">
-                        <span class="phase-name">P3: Workflows</span>
-                        <div class="phase-bar-container">
-                            <div class="phase-bar complete" style="width: 100%">
-                                <span class="phase-tasks">4/4</span>
-                            </div>
-                        </div>
-                        <span class="phase-percent complete">100%</span>
-                    </div>
-                    <div class="progress-phase" data-phase="4">
-                        <span class="phase-name">P4: Integration</span>
-                        <div class="phase-bar-container">
-                            <div class="phase-bar complete" style="width: 100%">
-                                <span class="phase-tasks">3/3</span>
-                            </div>
-                        </div>
-                        <span class="phase-percent complete">100%</span>
-                    </div>
-                    <div class="progress-phase" data-phase="5">
-                        <span class="phase-name">P5: Docs</span>
-                        <div class="phase-bar-container">
-                            <div class="phase-bar complete" style="width: 100%">
-                                <span class="phase-tasks">2/2</span>
-                            </div>
-                        </div>
-                        <span class="phase-percent complete">100%</span>
-                    </div>
-                    <div class="progress-phase" data-phase="6">
-                        <span class="phase-name">P6: Testing</span>
-                        <div class="phase-bar-container">
-                            <div class="phase-bar complete" style="width: 100%">
-                                <span class="phase-tasks">2/2</span>
-                            </div>
-                        </div>
-                        <span class="phase-percent complete">100%</span>
+                    <!-- Dynamic phases will be added here -->
+                    <div class="progress-empty" style="color: #666; font-style: italic; text-align: center; padding: 40px 20px;">
+                        Progress bars appear when tasks are added
                     </div>
                 </div>
 
                 <div class="progress-footer">
                     <div class="progress-stat">
-                        <span class="stat-value green" id="stat-complete">17</span>
+                        <span class="stat-value green" id="stat-complete">0</span>
                         <span class="stat-label">Complete</span>
                     </div>
                     <div class="progress-stat">
@@ -3245,15 +3158,8 @@
 
         // ==================== PROGRESS TRACKER ====================
         const ProgressTracker = {
-            phases: [
-                { id: 0, name: 'Docs', total: 1, complete: 1 },
-                { id: 1, name: 'Context', total: 3, complete: 3 },
-                { id: 2, name: 'Validation', total: 3, complete: 3 },
-                { id: 3, name: 'Workflows', total: 4, complete: 4 },
-                { id: 4, name: 'Integration', total: 3, complete: 3 },
-                { id: 5, name: 'Docs', total: 2, complete: 2 },
-                { id: 6, name: 'Testing', total: 2, complete: 2 }
-            ],
+            tasks: [],  // Dynamic task list
+            phases: [], // Empty - ready for dynamic phases
 
             init() {
                 this.loadChecklistState();
@@ -3352,16 +3258,16 @@
 
                 // Animate overall percentage counter
                 const percentEl = document.getElementById('overall-percent');
-                gsap.from(percentEl, {
-                    textContent: 0,
+                const targetPercent = parseInt(percentEl.textContent) || 100;
+                let currentPercent = { value: 0 };
+                gsap.to(currentPercent, {
+                    value: targetPercent,
                     duration: 2,
                     ease: 'power2.out',
-                    snap: { textContent: 1 },
                     onUpdate: function() {
-                        percentEl.textContent = Math.round(this.targets()[0].textContent) + '%';
+                        percentEl.textContent = Math.round(currentPercent.value) + '%';
                     }
                 });
-                percentEl.textContent = '100%';
 
                 // Animate stat counters
                 const statEls = ['stat-complete', 'stat-progress', 'stat-pending', 'stat-blocked'];
@@ -3424,12 +3330,13 @@
                 const overallPercent = Math.round((completeTasks / totalTasks) * 100);
 
                 const percentEl = document.getElementById('overall-percent');
-                gsap.to(percentEl, {
-                    textContent: overallPercent,
+                const currentValue = parseInt(percentEl.textContent) || 0;
+                let animValue = { value: currentValue };
+                gsap.to(animValue, {
+                    value: overallPercent,
                     duration: 0.5,
-                    snap: { textContent: 1 },
                     onUpdate: function() {
-                        percentEl.textContent = Math.round(this.targets()[0].textContent) + '%';
+                        percentEl.textContent = Math.round(animValue.value) + '%';
                     }
                 });
 
@@ -3807,6 +3714,20 @@
             console.log('GSAP animations initialized for', scriptBtns.length, 'script buttons');
         });
 
+    </script>
+
+    <!-- KB Browser Component -->
+    <script src="../js/kb-browser.js"></script>
+    <script>
+        // Initialize KB Browser for Developer platform
+        document.addEventListener('DOMContentLoaded', () => {
+            kbBrowsers['developer'] = new KBBrowserComponent('kb-browser-developer', {
+                platformName: 'developer',
+                sectionTitle: 'KNOWLEDGE LIBRARY',
+                officeTabLabel: 'Office Videos',
+                claudeTabLabel: 'Claude Tutorials'
+            });
+        });
     </script>
 </body>
 </html>

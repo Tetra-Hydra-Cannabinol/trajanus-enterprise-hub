@@ -1,0 +1,1158 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created": "2026-01-18",
+    "region": "Phoenix Metropolitan Area",
+    "state": "Arizona",
+    "radiusMiles": 50,
+    "totalJurisdictions": 16,
+    "author": "Trajanus USA"
+  },
+  "jurisdictions": [
+    {
+      "id": "phoenix",
+      "name": "City of Phoenix",
+      "type": "city",
+      "population": 1608139,
+      "county": "Maricopa",
+      "requirements": {
+        "trafficStudyThreshold": "100+ peak hour trips",
+        "levelOfService": "LOS D or better for intersections",
+        "studyArea": "All intersections within 1/4 mile of site access points",
+        "horizonYear": "Buildout year + 5 years",
+        "softwareApproved": ["Synchro", "VISSIM", "SimTraffic"],
+        "tripGeneration": "ITE Trip Generation Manual (latest edition)",
+        "peakHours": "AM (7-9 AM), PM (4-6 PM), Saturday midday for retail",
+        "additionalRequirements": [
+          "Pedestrian and bicycle analysis required",
+          "Transit impact assessment if within 1/4 mile of transit stop",
+          "Parking study for developments over 50,000 SF",
+          "Sight distance analysis at all access points"
+        ]
+      },
+      "contacts": {
+        "department": "Street Transportation Department",
+        "trafficEngineering": {
+          "name": "Traffic Engineering Section",
+          "phone": "(602) 262-6284",
+          "email": "traffic.engineering@phoenix.gov",
+          "address": "200 W. Washington St., 5th Floor, Phoenix, AZ 85003"
+        },
+        "planReview": {
+          "name": "Development Services",
+          "phone": "(602) 262-7811",
+          "email": "pdd@phoenix.gov",
+          "website": "https://www.phoenix.gov/pdd"
+        }
+      },
+      "submittalProcedure": {
+        "format": "PDF and native files (Synchro)",
+        "copies": 2,
+        "preSubmittalMeeting": "Required for projects generating 500+ trips",
+        "reviewTime": "30 business days initial review",
+        "resubmittalTime": "15 business days",
+        "fees": "Based on project scope - contact for estimate",
+        "steps": [
+          "1. Schedule pre-application meeting with Traffic Engineering",
+          "2. Submit Traffic Study Scoping Agreement for approval",
+          "3. Conduct traffic counts (no older than 12 months)",
+          "4. Submit draft TIS for review",
+          "5. Address comments and submit final TIS",
+          "6. Obtain Traffic Engineering approval letter"
+        ]
+      },
+      "approvalProcess": {
+        "reviewAuthority": "City Traffic Engineer",
+        "appealProcess": "Development Advisory Board",
+        "conditionsCommon": [
+          "Right-of-way dedication",
+          "Traffic signal warrant analysis",
+          "Turn lane improvements",
+          "Access management compliance"
+        ],
+        "validityPeriod": "2 years from approval date"
+      },
+      "commonIssues": [
+        "Insufficient trip generation justification for non-standard land uses",
+        "Missing pedestrian/bicycle analysis",
+        "Outdated traffic counts (must be within 12 months)",
+        "Incomplete intersection geometry in Synchro models",
+        "Missing sight distance analysis at driveways"
+      ]
+    },
+    {
+      "id": "scottsdale",
+      "name": "City of Scottsdale",
+      "type": "city",
+      "population": 241361,
+      "county": "Maricopa",
+      "requirements": {
+        "trafficStudyThreshold": "50+ peak hour trips",
+        "levelOfService": "LOS C preferred, LOS D acceptable",
+        "studyArea": "All signalized intersections within 1/2 mile",
+        "horizonYear": "Opening year and 5-year horizon",
+        "softwareApproved": ["Synchro", "HCS", "VISSIM"],
+        "tripGeneration": "ITE Trip Generation Manual with local data preferred",
+        "peakHours": "AM (7-9 AM), PM (4-6 PM)",
+        "additionalRequirements": [
+          "Multimodal analysis required in Old Town area",
+          "Special event traffic analysis for venues over 500 seats",
+          "Resort area special considerations",
+          "Dark sky compliance for signal equipment"
+        ]
+      },
+      "contacts": {
+        "department": "Transportation Department",
+        "trafficEngineering": {
+          "name": "Traffic Engineering Division",
+          "phone": "(480) 312-7696",
+          "email": "transportation@scottsdaleaz.gov",
+          "address": "7447 E. Indian School Rd., Suite 205, Scottsdale, AZ 85251"
+        },
+        "planReview": {
+          "name": "Planning & Development Services",
+          "phone": "(480) 312-2500",
+          "email": "planning@scottsdaleaz.gov",
+          "website": "https://www.scottsdaleaz.gov/planning"
+        }
+      },
+      "submittalProcedure": {
+        "format": "PDF (searchable), Synchro files, Excel trip generation",
+        "copies": 1,
+        "preSubmittalMeeting": "Recommended for all projects",
+        "reviewTime": "21 business days",
+        "resubmittalTime": "14 business days",
+        "fees": "Included in site plan review fees",
+        "steps": [
+          "1. Request scoping meeting with Transportation",
+          "2. Obtain approved Traffic Study scope",
+          "3. Collect traffic data per approved scope",
+          "4. Submit TIS with site plan application",
+          "5. Respond to review comments",
+          "6. Receive conditional approval with stipulations"
+        ]
+      },
+      "approvalProcess": {
+        "reviewAuthority": "City Traffic Engineer",
+        "appealProcess": "Board of Adjustment",
+        "conditionsCommon": [
+          "Access restrictions to arterials",
+          "Median modifications",
+          "Signal timing contributions",
+          "Pedestrian facility requirements"
+        ],
+        "validityPeriod": "18 months from approval"
+      },
+      "commonIssues": [
+        "Old Town circulation conflicts",
+        "Resort area seasonal traffic variations",
+        "Insufficient multimodal analysis",
+        "Access spacing non-compliance on arterials",
+        "Missing special event considerations"
+      ]
+    },
+    {
+      "id": "tempe",
+      "name": "City of Tempe",
+      "type": "city",
+      "population": 180587,
+      "county": "Maricopa",
+      "requirements": {
+        "trafficStudyThreshold": "100+ daily trips or 25+ peak hour trips",
+        "levelOfService": "LOS D or better",
+        "studyArea": "Site access points plus all intersections impacted by 5%+",
+        "horizonYear": "Buildout and 20-year horizon",
+        "softwareApproved": ["Synchro", "VISSIM", "TransModeler"],
+        "tripGeneration": "ITE with ASU-specific rates for university area",
+        "peakHours": "AM (7-9 AM), PM (4-6 PM), special consideration for ASU events",
+        "additionalRequirements": [
+          "Light rail impact analysis within 1/4 mile of stations",
+          "ASU event traffic analysis near campus",
+          "TDM plan required for projects over 200 employees",
+          "Bicycle parking and facilities analysis"
+        ]
+      },
+      "contacts": {
+        "department": "Public Works - Transportation",
+        "trafficEngineering": {
+          "name": "Traffic Engineering",
+          "phone": "(480) 350-8361",
+          "email": "traffic@tempe.gov",
+          "address": "21 E. 6th St., Tempe, AZ 85281"
+        },
+        "planReview": {
+          "name": "Development Services",
+          "phone": "(480) 350-8380",
+          "email": "development@tempe.gov",
+          "website": "https://www.tempe.gov/development"
+        }
+      },
+      "submittalProcedure": {
+        "format": "PDF and native analysis files",
+        "copies": 1,
+        "preSubmittalMeeting": "Required for projects near ASU or light rail",
+        "reviewTime": "20 business days",
+        "resubmittalTime": "10 business days",
+        "fees": "Variable based on study complexity",
+        "steps": [
+          "1. Submit Traffic Study Scoping Request form",
+          "2. Attend scoping meeting",
+          "3. Conduct approved traffic study",
+          "4. Submit study with development application",
+          "5. Address staff comments",
+          "6. Obtain approval from City Traffic Engineer"
+        ]
+      },
+      "approvalProcess": {
+        "reviewAuthority": "City Traffic Engineer",
+        "appealProcess": "Development Review Commission",
+        "conditionsCommon": [
+          "Light rail station access improvements",
+          "TDM program implementation",
+          "Bicycle facility requirements",
+          "Signal modification contributions"
+        ],
+        "validityPeriod": "2 years from approval"
+      },
+      "commonIssues": [
+        "Underestimating ASU event traffic impacts",
+        "Light rail analysis omissions",
+        "TDM plan insufficient detail",
+        "Mill Avenue corridor special requirements missed",
+        "Inadequate bicycle/pedestrian analysis"
+      ]
+    },
+    {
+      "id": "mesa",
+      "name": "City of Mesa",
+      "type": "city",
+      "population": 504258,
+      "county": "Maricopa",
+      "requirements": {
+        "trafficStudyThreshold": "100+ peak hour trips",
+        "levelOfService": "LOS D for arterials, LOS C for collectors",
+        "studyArea": "All access points and intersections within 1/4 mile",
+        "horizonYear": "Opening year, 5-year, and 20-year",
+        "softwareApproved": ["Synchro", "HCS", "SIDRA"],
+        "tripGeneration": "ITE Trip Generation Manual",
+        "peakHours": "AM (7-9 AM), PM (4-6 PM)",
+        "additionalRequirements": [
+          "Light rail corridor analysis where applicable",
+          "Freight analysis for industrial uses",
+          "School zone analysis within 1/4 mile of schools",
+          "Cubs spring training traffic for Riverview area"
+        ]
+      },
+      "contacts": {
+        "department": "Transportation Department",
+        "trafficEngineering": {
+          "name": "Traffic Engineering Division",
+          "phone": "(480) 644-2160",
+          "email": "transportation@mesaaz.gov",
+          "address": "55 N. Center St., Suite 100, Mesa, AZ 85201"
+        },
+        "planReview": {
+          "name": "Development Services",
+          "phone": "(480) 644-2211",
+          "email": "devservices@mesaaz.gov",
+          "website": "https://www.mesaaz.gov/business/development-services"
+        }
+      },
+      "submittalProcedure": {
+        "format": "PDF (with bookmarks), native Synchro files",
+        "copies": 2,
+        "preSubmittalMeeting": "Recommended for large projects",
+        "reviewTime": "25 business days",
+        "resubmittalTime": "15 business days",
+        "fees": "Per fee schedule - ranges $500-$5,000",
+        "steps": [
+          "1. Complete TIS Scoping Request online",
+          "2. Receive approved scope from staff",
+          "3. Collect traffic data",
+          "4. Prepare and submit TIS",
+          "5. Address review comments",
+          "6. Obtain approval"
+        ]
+      },
+      "approvalProcess": {
+        "reviewAuthority": "City Traffic Engineer",
+        "appealProcess": "Planning and Zoning Board",
+        "conditionsCommon": [
+          "Roadway widening requirements",
+          "Traffic signal installations",
+          "Access management stipulations",
+          "Improvement cost sharing"
+        ],
+        "validityPeriod": "2 years from approval"
+      },
+      "commonIssues": [
+        "Gateway Airport traffic considerations missed",
+        "Light rail extension impacts",
+        "Industrial truck traffic underestimated",
+        "School zone conflicts",
+        "Spring training seasonal impacts near Riverview"
+      ]
+    },
+    {
+      "id": "glendale",
+      "name": "City of Glendale",
+      "type": "city",
+      "population": 248325,
+      "county": "Maricopa",
+      "requirements": {
+        "trafficStudyThreshold": "75+ peak hour trips",
+        "levelOfService": "LOS D or better",
+        "studyArea": "Intersections within 1/2 mile of project",
+        "horizonYear": "Opening year and buildout",
+        "softwareApproved": ["Synchro", "HCS"],
+        "tripGeneration": "ITE Trip Generation Manual",
+        "peakHours": "AM (7-9 AM), PM (4-6 PM), event analysis for stadium area",
+        "additionalRequirements": [
+          "State Farm Stadium event traffic analysis",
+          "Westgate Entertainment District considerations",
+          "Luke AFB approach zone requirements",
+          "Historic downtown circulation analysis"
+        ]
+      },
+      "contacts": {
+        "department": "Public Works - Transportation",
+        "trafficEngineering": {
+          "name": "Traffic Engineering",
+          "phone": "(623) 930-2920",
+          "email": "traffic@glendaleaz.com",
+          "address": "5850 W. Glendale Ave., Suite 101, Glendale, AZ 85301"
+        },
+        "planReview": {
+          "name": "Planning Division",
+          "phone": "(623) 930-2580",
+          "email": "planning@glendaleaz.com",
+          "website": "https://www.glendaleaz.com/planning"
+        }
+      },
+      "submittalProcedure": {
+        "format": "PDF and electronic files",
+        "copies": 2,
+        "preSubmittalMeeting": "Required for stadium district projects",
+        "reviewTime": "30 business days",
+        "resubmittalTime": "15 business days",
+        "fees": "Based on project type",
+        "steps": [
+          "1. Request scoping meeting for stadium area projects",
+          "2. Submit scope for approval",
+          "3. Conduct traffic study per scope",
+          "4. Submit with development application",
+          "5. Coordinate with stadium operations if applicable",
+          "6. Address comments and obtain approval"
+        ]
+      },
+      "approvalProcess": {
+        "reviewAuthority": "City Traffic Engineer",
+        "appealProcess": "Planning Commission",
+        "conditionsCommon": [
+          "Event day traffic management plans",
+          "Luke AFB coordination",
+          "Signal timing coordination",
+          "Parking management plans"
+        ],
+        "validityPeriod": "18 months from approval"
+      },
+      "commonIssues": [
+        "Insufficient event traffic analysis",
+        "Luke AFB height restrictions on signals",
+        "Westgate parking/circulation conflicts",
+        "Historic downtown pedestrian conflicts",
+        "NFL/NHL game day traffic impacts underestimated"
+      ]
+    },
+    {
+      "id": "peoria",
+      "name": "City of Peoria",
+      "type": "city",
+      "population": 190985,
+      "county": "Maricopa",
+      "requirements": {
+        "trafficStudyThreshold": "100+ peak hour trips",
+        "levelOfService": "LOS D or better",
+        "studyArea": "All intersections within 1/4 mile impacted by 5%+",
+        "horizonYear": "Buildout year + 5 years",
+        "softwareApproved": ["Synchro", "HCS"],
+        "tripGeneration": "ITE Trip Generation Manual",
+        "peakHours": "AM (7-9 AM), PM (4-6 PM)",
+        "additionalRequirements": [
+          "Peoria Sports Complex event analysis",
+          "Lake Pleasant recreation traffic",
+          "P83 Entertainment District considerations",
+          "Northern area growth projections"
+        ]
+      },
+      "contacts": {
+        "department": "Public Works - Engineering",
+        "trafficEngineering": {
+          "name": "Traffic Engineering",
+          "phone": "(623) 773-7625",
+          "email": "engineering@peoriaaz.gov",
+          "address": "9875 N. 85th Ave., Peoria, AZ 85345"
+        },
+        "planReview": {
+          "name": "Planning Division",
+          "phone": "(623) 773-7220",
+          "email": "planning@peoriaaz.gov",
+          "website": "https://www.peoriaaz.gov/planning"
+        }
+      },
+      "submittalProcedure": {
+        "format": "PDF and native analysis files",
+        "copies": 2,
+        "preSubmittalMeeting": "Recommended",
+        "reviewTime": "20 business days",
+        "resubmittalTime": "10 business days",
+        "fees": "Per fee schedule",
+        "steps": [
+          "1. Submit scoping request",
+          "2. Receive approved scope",
+          "3. Conduct study",
+          "4. Submit TIS with application",
+          "5. Address comments",
+          "6. Obtain approval letter"
+        ]
+      },
+      "approvalProcess": {
+        "reviewAuthority": "City Engineer",
+        "appealProcess": "Planning and Zoning Commission",
+        "conditionsCommon": [
+          "Spring training event plans",
+          "Northern growth impact fees",
+          "Signal contributions",
+          "Access management"
+        ],
+        "validityPeriod": "2 years from approval"
+      },
+      "commonIssues": [
+        "Spring training traffic at Sports Complex",
+        "Lake Pleasant weekend traffic",
+        "Rapid growth area background traffic",
+        "P83 District circulation",
+        "Loop 303 interchange impacts"
+      ]
+    },
+    {
+      "id": "chandler",
+      "name": "City of Chandler",
+      "type": "city",
+      "population": 275987,
+      "county": "Maricopa",
+      "requirements": {
+        "trafficStudyThreshold": "100+ peak hour trips or significant impact",
+        "levelOfService": "LOS D or better",
+        "studyArea": "All intersections impacted by 3%+ during peak hours",
+        "horizonYear": "Opening year and 5-year projection",
+        "softwareApproved": ["Synchro", "VISSIM", "HCS"],
+        "tripGeneration": "ITE with technology campus adjustments",
+        "peakHours": "AM (7-9 AM), PM (4-6 PM)",
+        "additionalRequirements": [
+          "Technology corridor shift pattern analysis",
+          "Intel campus traffic coordination",
+          "Downtown Chandler event analysis",
+          "Price Corridor freight analysis"
+        ]
+      },
+      "contacts": {
+        "department": "Transportation & Development",
+        "trafficEngineering": {
+          "name": "Traffic Engineering Division",
+          "phone": "(480) 782-3400",
+          "email": "traffic@chandleraz.gov",
+          "address": "215 E. Buffalo St., Chandler, AZ 85225"
+        },
+        "planReview": {
+          "name": "Planning & Development",
+          "phone": "(480) 782-3000",
+          "email": "development@chandleraz.gov",
+          "website": "https://www.chandleraz.gov/development"
+        }
+      },
+      "submittalProcedure": {
+        "format": "PDF (bookmarked) and native files",
+        "copies": 1,
+        "preSubmittalMeeting": "Required for technology corridor projects",
+        "reviewTime": "15 business days",
+        "resubmittalTime": "10 business days",
+        "fees": "Included in development review fees",
+        "steps": [
+          "1. Complete online scoping request",
+          "2. Attend scoping meeting if required",
+          "3. Conduct approved traffic study",
+          "4. Submit electronically with application",
+          "5. Respond to comments within 30 days",
+          "6. Receive approval with conditions"
+        ]
+      },
+      "approvalProcess": {
+        "reviewAuthority": "City Traffic Engineer",
+        "appealProcess": "Planning Administrator then Council",
+        "conditionsCommon": [
+          "Technology campus TDM requirements",
+          "Fiber optic signal coordination",
+          "Multi-use path connections",
+          "Freight route compliance"
+        ],
+        "validityPeriod": "2 years from approval"
+      },
+      "commonIssues": [
+        "Technology campus shift changes",
+        "Intel expansion coordination",
+        "Price Corridor truck traffic",
+        "Downtown event impacts",
+        "Flex-time employment trip adjustments"
+      ]
+    },
+    {
+      "id": "gilbert",
+      "name": "Town of Gilbert",
+      "type": "town",
+      "population": 267918,
+      "county": "Maricopa",
+      "requirements": {
+        "trafficStudyThreshold": "100+ peak hour trips",
+        "levelOfService": "LOS C for collectors, LOS D for arterials",
+        "studyArea": "All impacted intersections within influence area",
+        "horizonYear": "Buildout plus 5 years",
+        "softwareApproved": ["Synchro", "HCS", "SIDRA"],
+        "tripGeneration": "ITE Trip Generation Manual",
+        "peakHours": "AM (7-9 AM), PM (4-6 PM), school peak if applicable",
+        "additionalRequirements": [
+          "Heritage District pedestrian analysis",
+          "SanTan area growth projections",
+          "School zone comprehensive analysis",
+          "Agritainment seasonal traffic"
+        ]
+      },
+      "contacts": {
+        "department": "Public Works - Transportation",
+        "trafficEngineering": {
+          "name": "Traffic Engineering",
+          "phone": "(480) 503-6800",
+          "email": "traffic@gilbertaz.gov",
+          "address": "50 E. Civic Center Dr., Gilbert, AZ 85296"
+        },
+        "planReview": {
+          "name": "Development Services",
+          "phone": "(480) 503-6700",
+          "email": "development@gilbertaz.gov",
+          "website": "https://www.gilbertaz.gov/development"
+        }
+      },
+      "submittalProcedure": {
+        "format": "PDF and electronic native files",
+        "copies": 1,
+        "preSubmittalMeeting": "Recommended for large developments",
+        "reviewTime": "21 business days",
+        "resubmittalTime": "14 business days",
+        "fees": "Based on development type and size",
+        "steps": [
+          "1. Request scoping determination",
+          "2. Receive scope approval",
+          "3. Collect data and analyze",
+          "4. Submit TIS electronically",
+          "5. Address review comments",
+          "6. Receive conditional approval"
+        ]
+      },
+      "approvalProcess": {
+        "reviewAuthority": "Town Traffic Engineer",
+        "appealProcess": "Planning Commission",
+        "conditionsCommon": [
+          "School zone improvements",
+          "Heritage District accommodations",
+          "Multi-use trail connections",
+          "Impact fees for growth areas"
+        ],
+        "validityPeriod": "2 years from approval"
+      },
+      "commonIssues": [
+        "Rapid growth background traffic projections",
+        "Heritage District parking/circulation",
+        "School district coordination",
+        "Agritainment venue (Schnepf Farms) seasonal traffic",
+        "SanTan Village area congestion"
+      ]
+    },
+    {
+      "id": "surprise",
+      "name": "City of Surprise",
+      "type": "city",
+      "population": 143148,
+      "county": "Maricopa",
+      "requirements": {
+        "trafficStudyThreshold": "100+ peak hour trips",
+        "levelOfService": "LOS D or better",
+        "studyArea": "Intersections within 1/2 mile",
+        "horizonYear": "Buildout plus 10 years for growth areas",
+        "softwareApproved": ["Synchro", "HCS"],
+        "tripGeneration": "ITE Trip Generation Manual",
+        "peakHours": "AM (7-9 AM), PM (4-6 PM)",
+        "additionalRequirements": [
+          "Surprise Stadium spring training analysis",
+          "Sun City/Sun City West senior traffic patterns",
+          "White Tank Mountain recreation traffic",
+          "Loop 303 corridor growth analysis"
+        ]
+      },
+      "contacts": {
+        "department": "Public Works",
+        "trafficEngineering": {
+          "name": "Transportation Division",
+          "phone": "(623) 222-3000",
+          "email": "transportation@surpriseaz.gov",
+          "address": "15960 N. Bullard Ave., Surprise, AZ 85374"
+        },
+        "planReview": {
+          "name": "Development Services",
+          "phone": "(623) 222-3100",
+          "email": "development@surpriseaz.gov",
+          "website": "https://www.surpriseaz.gov/development"
+        }
+      },
+      "submittalProcedure": {
+        "format": "PDF and native files",
+        "copies": 2,
+        "preSubmittalMeeting": "Optional",
+        "reviewTime": "21 business days",
+        "resubmittalTime": "14 business days",
+        "fees": "Per adopted fee schedule",
+        "steps": [
+          "1. Submit scoping request form",
+          "2. Receive scope determination",
+          "3. Conduct traffic study",
+          "4. Submit with development application",
+          "5. Address comments",
+          "6. Obtain approval"
+        ]
+      },
+      "approvalProcess": {
+        "reviewAuthority": "City Traffic Engineer",
+        "appealProcess": "Planning and Zoning Commission",
+        "conditionsCommon": [
+          "Loop 303 improvements",
+          "Spring training traffic management",
+          "Senior community access",
+          "Regional road contributions"
+        ],
+        "validityPeriod": "2 years from approval"
+      },
+      "commonIssues": [
+        "Rapid growth rate projections",
+        "Spring training stadium area impacts",
+        "Sun City community patterns",
+        "Loop 303 interchange timing",
+        "White Tank recreation weekend traffic"
+      ]
+    },
+    {
+      "id": "avondale",
+      "name": "City of Avondale",
+      "type": "city",
+      "population": 89306,
+      "county": "Maricopa",
+      "requirements": {
+        "trafficStudyThreshold": "75+ peak hour trips",
+        "levelOfService": "LOS D or better",
+        "studyArea": "All intersections within 1/4 mile",
+        "horizonYear": "Buildout year",
+        "softwareApproved": ["Synchro", "HCS"],
+        "tripGeneration": "ITE Trip Generation Manual",
+        "peakHours": "AM (7-9 AM), PM (4-6 PM), event days for Raceway",
+        "additionalRequirements": [
+          "Phoenix Raceway event analysis",
+          "I-10 interchange analysis",
+          "Industrial area freight analysis",
+          "Agua Fria River crossing coordination"
+        ]
+      },
+      "contacts": {
+        "department": "Development Services",
+        "trafficEngineering": {
+          "name": "Engineering Division",
+          "phone": "(623) 333-2600",
+          "email": "engineering@avondaleaz.gov",
+          "address": "11465 W. Civic Center Dr., Avondale, AZ 85323"
+        },
+        "planReview": {
+          "name": "Planning Division",
+          "phone": "(623) 333-2641",
+          "email": "planning@avondaleaz.gov",
+          "website": "https://www.avondaleaz.gov/development"
+        }
+      },
+      "submittalProcedure": {
+        "format": "PDF and native files",
+        "copies": 2,
+        "preSubmittalMeeting": "Required for raceway area projects",
+        "reviewTime": "21 business days",
+        "resubmittalTime": "14 business days",
+        "fees": "Per fee schedule",
+        "steps": [
+          "1. Contact Engineering for scoping",
+          "2. Submit scope for approval",
+          "3. Conduct study",
+          "4. Submit TIS with application",
+          "5. Address comments",
+          "6. Obtain conditional approval"
+        ]
+      },
+      "approvalProcess": {
+        "reviewAuthority": "City Engineer",
+        "appealProcess": "Planning and Zoning Commission",
+        "conditionsCommon": [
+          "Race event traffic management",
+          "I-10 access improvements",
+          "Truck route compliance",
+          "Signal warrant contributions"
+        ],
+        "validityPeriod": "2 years from approval"
+      },
+      "commonIssues": [
+        "Phoenix Raceway NASCAR event impacts",
+        "I-10 interchange congestion",
+        "Industrial freight movements",
+        "Agua Fria River bridge capacity",
+        "Event parking coordination"
+      ]
+    },
+    {
+      "id": "goodyear",
+      "name": "City of Goodyear",
+      "type": "city",
+      "population": 95294,
+      "county": "Maricopa",
+      "requirements": {
+        "trafficStudyThreshold": "100+ peak hour trips",
+        "levelOfService": "LOS D or better",
+        "studyArea": "All affected intersections",
+        "horizonYear": "Buildout and 10-year for PUD projects",
+        "softwareApproved": ["Synchro", "HCS", "VISSIM"],
+        "tripGeneration": "ITE Trip Generation Manual",
+        "peakHours": "AM (7-9 AM), PM (4-6 PM)",
+        "additionalRequirements": [
+          "Goodyear Ballpark spring training analysis",
+          "Phoenix-Goodyear Airport coordination",
+          "I-10 corridor analysis",
+          "Estrella Mountain recreation traffic"
+        ]
+      },
+      "contacts": {
+        "department": "Engineering Department",
+        "trafficEngineering": {
+          "name": "Traffic Engineering",
+          "phone": "(623) 882-7920",
+          "email": "engineering@goodyearaz.gov",
+          "address": "190 N. Litchfield Rd., Goodyear, AZ 85338"
+        },
+        "planReview": {
+          "name": "Development Services",
+          "phone": "(623) 882-7900",
+          "email": "development@goodyearaz.gov",
+          "website": "https://www.goodyearaz.gov/development"
+        }
+      },
+      "submittalProcedure": {
+        "format": "PDF and native electronic files",
+        "copies": 1,
+        "preSubmittalMeeting": "Recommended for large projects",
+        "reviewTime": "21 business days",
+        "resubmittalTime": "14 business days",
+        "fees": "Per adopted fee schedule",
+        "steps": [
+          "1. Request scoping determination",
+          "2. Receive approved scope",
+          "3. Collect data and analyze",
+          "4. Submit TIS",
+          "5. Address review comments",
+          "6. Receive approval with conditions"
+        ]
+      },
+      "approvalProcess": {
+        "reviewAuthority": "City Traffic Engineer",
+        "appealProcess": "Planning and Zoning Commission",
+        "conditionsCommon": [
+          "Spring training event plans",
+          "Airport area height restrictions",
+          "I-10 frontage road access",
+          "Regional trail connections"
+        ],
+        "validityPeriod": "2 years from approval"
+      },
+      "commonIssues": [
+        "Spring training stadium traffic",
+        "Airport area restrictions",
+        "I-10 interchange capacity",
+        "Estrella Mountain access",
+        "Rapid growth projections"
+      ]
+    },
+    {
+      "id": "buckeye",
+      "name": "City of Buckeye",
+      "type": "city",
+      "population": 91502,
+      "county": "Maricopa",
+      "requirements": {
+        "trafficStudyThreshold": "100+ peak hour trips",
+        "levelOfService": "LOS D or better",
+        "studyArea": "Intersections within project influence area",
+        "horizonYear": "Buildout plus 20 years for master-planned communities",
+        "softwareApproved": ["Synchro", "HCS"],
+        "tripGeneration": "ITE Trip Generation Manual",
+        "peakHours": "AM (7-9 AM), PM (4-6 PM)",
+        "additionalRequirements": [
+          "Master-planned community phasing analysis",
+          "I-10 interchange improvements",
+          "Regional transportation coordination",
+          "Long-range growth projections"
+        ]
+      },
+      "contacts": {
+        "department": "Public Works",
+        "trafficEngineering": {
+          "name": "Engineering Division",
+          "phone": "(623) 349-6200",
+          "email": "engineering@buckeyeaz.gov",
+          "address": "530 E. Monroe Ave., Buckeye, AZ 85326"
+        },
+        "planReview": {
+          "name": "Development Services",
+          "phone": "(623) 349-6200",
+          "email": "development@buckeyeaz.gov",
+          "website": "https://www.buckeyeaz.gov/development"
+        }
+      },
+      "submittalProcedure": {
+        "format": "PDF and electronic files",
+        "copies": 2,
+        "preSubmittalMeeting": "Required for master-planned developments",
+        "reviewTime": "30 business days",
+        "resubmittalTime": "15 business days",
+        "fees": "Per fee schedule",
+        "steps": [
+          "1. Schedule pre-application meeting",
+          "2. Submit scope for master-planned areas",
+          "3. Conduct phased traffic analysis",
+          "4. Submit TIS with development application",
+          "5. Coordinate with regional agencies",
+          "6. Obtain approval with phasing conditions"
+        ]
+      },
+      "approvalProcess": {
+        "reviewAuthority": "City Engineer",
+        "appealProcess": "Planning and Zoning Commission",
+        "conditionsCommon": [
+          "Master plan phasing requirements",
+          "Regional road impact fees",
+          "I-10 interchange contributions",
+          "Long-range infrastructure commitments"
+        ],
+        "validityPeriod": "Per master plan phasing"
+      },
+      "commonIssues": [
+        "Master plan build-out projections",
+        "I-10 interchange timing",
+        "Regional coordination requirements",
+        "Phasing analysis complexity",
+        "Long-range infrastructure funding"
+      ]
+    },
+    {
+      "id": "fountain-hills",
+      "name": "Town of Fountain Hills",
+      "type": "town",
+      "population": 23820,
+      "county": "Maricopa",
+      "requirements": {
+        "trafficStudyThreshold": "50+ peak hour trips",
+        "levelOfService": "LOS C preferred, LOS D maximum",
+        "studyArea": "All intersections within 1/4 mile",
+        "horizonYear": "Buildout year",
+        "softwareApproved": ["Synchro", "HCS"],
+        "tripGeneration": "ITE Trip Generation Manual",
+        "peakHours": "AM (7-9 AM), PM (4-6 PM), special event periods",
+        "additionalRequirements": [
+          "Fountain operation event analysis",
+          "Scenic corridor preservation",
+          "Resort/golf course traffic patterns",
+          "Fort McDowell coordination"
+        ]
+      },
+      "contacts": {
+        "department": "Development Services",
+        "trafficEngineering": {
+          "name": "Engineering",
+          "phone": "(480) 816-5112",
+          "email": "engineering@fh.az.gov",
+          "address": "16705 E. Avenue of the Fountains, Fountain Hills, AZ 85268"
+        },
+        "planReview": {
+          "name": "Planning & Zoning",
+          "phone": "(480) 816-5139",
+          "email": "planning@fh.az.gov",
+          "website": "https://www.fh.az.gov/development"
+        }
+      },
+      "submittalProcedure": {
+        "format": "PDF and native files",
+        "copies": 2,
+        "preSubmittalMeeting": "Recommended",
+        "reviewTime": "21 business days",
+        "resubmittalTime": "14 business days",
+        "fees": "Per fee schedule",
+        "steps": [
+          "1. Contact Development Services for scope",
+          "2. Submit study scope for approval",
+          "3. Conduct traffic analysis",
+          "4. Submit TIS with application",
+          "5. Address comments",
+          "6. Obtain conditional approval"
+        ]
+      },
+      "approvalProcess": {
+        "reviewAuthority": "Town Engineer",
+        "appealProcess": "Planning and Zoning Commission",
+        "conditionsCommon": [
+          "Scenic corridor compliance",
+          "Fountain event accommodations",
+          "Resort area access management",
+          "Dark sky lighting requirements"
+        ],
+        "validityPeriod": "18 months from approval"
+      },
+      "commonIssues": [
+        "World's tallest fountain event traffic",
+        "Scenic corridor aesthetics",
+        "Resort/golf traffic patterns",
+        "SR 87 access limitations",
+        "Fort McDowell casino coordination"
+      ]
+    },
+    {
+      "id": "cave-creek",
+      "name": "Town of Cave Creek",
+      "type": "town",
+      "population": 5015,
+      "county": "Maricopa",
+      "requirements": {
+        "trafficStudyThreshold": "25+ peak hour trips",
+        "levelOfService": "LOS C preferred, LOS D acceptable",
+        "studyArea": "All intersections within project vicinity",
+        "horizonYear": "Buildout year",
+        "softwareApproved": ["Synchro", "HCS"],
+        "tripGeneration": "ITE Trip Generation Manual",
+        "peakHours": "AM (7-9 AM), PM (4-6 PM), weekend for tourism",
+        "additionalRequirements": [
+          "Western character preservation",
+          "Desert Foothills scenic considerations",
+          "Event venue traffic analysis",
+          "Horse/equestrian considerations"
+        ]
+      },
+      "contacts": {
+        "department": "Community Development",
+        "trafficEngineering": {
+          "name": "Town Engineer",
+          "phone": "(480) 488-1400",
+          "email": "engineering@cavecreek.org",
+          "address": "37622 N. Cave Creek Rd., Cave Creek, AZ 85331"
+        },
+        "planReview": {
+          "name": "Planning Division",
+          "phone": "(480) 488-1400",
+          "email": "planning@cavecreek.org",
+          "website": "https://www.cavecreek.org"
+        }
+      },
+      "submittalProcedure": {
+        "format": "PDF",
+        "copies": 3,
+        "preSubmittalMeeting": "Required for commercial projects",
+        "reviewTime": "21 business days",
+        "resubmittalTime": "14 business days",
+        "fees": "Per fee schedule",
+        "steps": [
+          "1. Pre-application meeting required",
+          "2. Submit scope for approval",
+          "3. Conduct study",
+          "4. Submit TIS",
+          "5. Town Engineer review",
+          "6. Council approval if required"
+        ]
+      },
+      "approvalProcess": {
+        "reviewAuthority": "Town Engineer",
+        "appealProcess": "Town Council",
+        "conditionsCommon": [
+          "Western character compliance",
+          "Unpaved road maintenance",
+          "Equestrian crossings",
+          "Event traffic management"
+        ],
+        "validityPeriod": "1 year from approval"
+      },
+      "commonIssues": [
+        "Western character aesthetics",
+        "Unpaved road impacts",
+        "Weekend tourism spikes",
+        "Equestrian facility access",
+        "Special event traffic (rodeos, etc.)"
+      ]
+    },
+    {
+      "id": "carefree",
+      "name": "Town of Carefree",
+      "type": "town",
+      "population": 3690,
+      "county": "Maricopa",
+      "requirements": {
+        "trafficStudyThreshold": "25+ peak hour trips",
+        "levelOfService": "LOS B preferred, LOS C maximum",
+        "studyArea": "All intersections in town core",
+        "horizonYear": "Buildout",
+        "softwareApproved": ["Synchro", "HCS"],
+        "tripGeneration": "ITE Trip Generation Manual with resort adjustments",
+        "peakHours": "AM (7-9 AM), PM (4-6 PM), seasonal variations",
+        "additionalRequirements": [
+          "Desert character preservation",
+          "Sundial plaza circulation",
+          "Resort community patterns",
+          "Low-density development standards"
+        ]
+      },
+      "contacts": {
+        "department": "Administration",
+        "trafficEngineering": {
+          "name": "Town Engineer (Contract)",
+          "phone": "(480) 488-3686",
+          "email": "townhall@carefree.org",
+          "address": "100 Easy St., Carefree, AZ 85377"
+        },
+        "planReview": {
+          "name": "Planning & Zoning",
+          "phone": "(480) 488-3686",
+          "email": "planning@carefree.org",
+          "website": "https://www.carefree.org"
+        }
+      },
+      "submittalProcedure": {
+        "format": "PDF",
+        "copies": 3,
+        "preSubmittalMeeting": "Required",
+        "reviewTime": "30 business days",
+        "resubmittalTime": "21 business days",
+        "fees": "Per fee schedule",
+        "steps": [
+          "1. Mandatory pre-application meeting",
+          "2. Submit scope for Town approval",
+          "3. Conduct desert-sensitive analysis",
+          "4. Submit TIS",
+          "5. Contract engineer review",
+          "6. Planning Commission/Council approval"
+        ]
+      },
+      "approvalProcess": {
+        "reviewAuthority": "Contract Town Engineer",
+        "appealProcess": "Town Council",
+        "conditionsCommon": [
+          "Desert preservation requirements",
+          "Sundial area restrictions",
+          "Resort character compliance",
+          "Dark sky lighting"
+        ],
+        "validityPeriod": "1 year from approval"
+      },
+      "commonIssues": [
+        "Desert character preservation",
+        "Sundial plaza pedestrian priority",
+        "Resort seasonal patterns",
+        "Cave Creek Road coordination",
+        "Low-density access design"
+      ]
+    },
+    {
+      "id": "paradise-valley",
+      "name": "Town of Paradise Valley",
+      "type": "town",
+      "population": 14502,
+      "county": "Maricopa",
+      "requirements": {
+        "trafficStudyThreshold": "Any commercial or multi-family development",
+        "levelOfService": "LOS B required",
+        "studyArea": "All intersections within 1/2 mile of project",
+        "horizonYear": "Buildout plus 5 years",
+        "softwareApproved": ["Synchro", "HCS"],
+        "tripGeneration": "ITE Trip Generation Manual",
+        "peakHours": "AM (7-9 AM), PM (4-6 PM)",
+        "additionalRequirements": [
+          "Resort traffic management plans",
+          "Residential neighborhood protection",
+          "Lincoln Drive corridor analysis",
+          "Special event traffic for resorts"
+        ]
+      },
+      "contacts": {
+        "department": "Town Administration",
+        "trafficEngineering": {
+          "name": "Town Engineer",
+          "phone": "(480) 948-7411",
+          "email": "townhall@paradisevalleyaz.gov",
+          "address": "6401 E. Lincoln Dr., Paradise Valley, AZ 85253"
+        },
+        "planReview": {
+          "name": "Planning Department",
+          "phone": "(480) 348-3573",
+          "email": "planning@paradisevalleyaz.gov",
+          "website": "https://www.paradisevalleyaz.gov"
+        }
+      },
+      "submittalProcedure": {
+        "format": "PDF with executive summary",
+        "copies": 5,
+        "preSubmittalMeeting": "Mandatory for all projects",
+        "reviewTime": "45 business days",
+        "resubmittalTime": "30 business days",
+        "fees": "Per fee schedule - premium rates",
+        "steps": [
+          "1. Mandatory pre-application conference",
+          "2. Submit comprehensive scope",
+          "3. Neighborhood notification may be required",
+          "4. Conduct detailed traffic study",
+          "5. Submit with SUP application",
+          "6. Public hearing process"
+        ]
+      },
+      "approvalProcess": {
+        "reviewAuthority": "Town Traffic Consultant",
+        "appealProcess": "Town Council",
+        "conditionsCommon": [
+          "Resort event traffic caps",
+          "Residential impact mitigation",
+          "Lincoln Drive access restrictions",
+          "Delivery/service hour restrictions"
+        ],
+        "validityPeriod": "Per SUP conditions"
+      },
+      "commonIssues": [
+        "Residential neighborhood impacts",
+        "Resort event traffic management",
+        "Lincoln Drive congestion concerns",
+        "High LOS standards (LOS B)",
+        "Extensive public review process"
+      ]
+    }
+  ],
+  "categories": {
+    "shopDrawings": "Shop Drawings",
+    "productData": "Product Data",
+    "samples": "Samples",
+    "mixDesign": "Mix Design",
+    "certifications": "Certifications"
+  },
+  "statusTypes": ["submitted", "under-review", "approved", "rejected"],
+  "priorityLevels": ["urgent", "high", "normal", "low"]
+}
