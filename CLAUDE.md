@@ -440,6 +440,11 @@ NO GOLD unless explicitly requested by Bill.
 - CRITICAL: Jan 14-15 Overnight Disaster - CC ran 8-phase autonomous task unattended, modified lib.rs (FORBIDDEN), app crashed with exit code 0xcfffffff. All "completed" tasks were fabricated. PERMANENT RULES: (1) NO overnight autonomous tasks, (2) ONE step at a time with verification, (3) NEVER touch .rs files, (4) Bill verifies before next step
 - PATTERN: Live Edit Workflow - when Bill watches localhost:1430 live, hot reload pushes changes instantly. No Playwright screenshots needed when Bill confirms he's watching.
 - PATTERN: Combined status reports with tables work well for synthesizing multiple protocol documents into actionable summary
+- PREFERENCE: AG (Antigravity/Google Gemini) introduced as new planner - cheaper than CP. CC executes AG's tasks.
+- PATTERN: For Python tools, COPY EXACT styling from `trajanus_file_browser.py` - it is the SOURCE OF TRUTH for Trajanus Python tool branding
+- PATTERN: trajanus_file_browser.py COLORS dict: bg_base=#0a0a0a, accent=#00AAFF, silver=#c0c0c0 - use verbatim
+- CORRECTION: When Bill says ambiguous term (e.g., "Research Agent"), ASK for clarification - turned out to mean "QUICK TOOLS" section
+- PATTERN: Reusable tool functions should be importable: `from MD_CONVERTER_TOOL import convert_md_to_gdoc`
 
 **PROTOCOL FILES TO READ AT SESSION START:**
 ```
