@@ -3426,6 +3426,930 @@
                     <button class="ws-submit-btn" id="ws-submit-step2">Submit Data Collection</button>
                 </div>
 
+                <!-- STEP 3: TRIP GENERATION -->
+                <div class="workspace-panel" id="ws-panel-3" data-step="3">
+                    <h3>Step 3 — Trip Generation</h3>
+
+                    <!-- DEPENDENCY CHECK -->
+                    <div class="ws-validation-panel visible" id="val-step3-dep" style="border-color:#fbbf24;">
+                        <h4>Dependency Check</h4>
+                        <div id="val-step3-dep-items"></div>
+                    </div>
+
+                    <!-- LAND USE TABLE (auto-populated from Step 1) -->
+                    <div class="ws-section-header">
+                        <div class="ws-section-title">ITE Trip Generation</div>
+                        <span class="ws-section-badge incomplete" id="badge-trip-gen">Incomplete</span>
+                    </div>
+                    <div style="overflow-x:auto;margin-bottom:16px;">
+                        <table class="buildings-table" id="trip-gen-table" style="min-width:700px;">
+                            <thead>
+                                <tr>
+                                    <th style="width:18%">Land Use</th>
+                                    <th style="width:8%">ITE Code</th>
+                                    <th style="width:10%">Size</th>
+                                    <th style="width:6%">Units</th>
+                                    <th style="width:8%">AM In</th>
+                                    <th style="width:8%">AM Out</th>
+                                    <th style="width:8%">PM In</th>
+                                    <th style="width:8%">PM Out</th>
+                                    <th style="width:8%">Daily</th>
+                                    <th style="width:8%">Source</th>
+                                    <th style="width:5%"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="trip-gen-tbody">
+                                <!-- Populated by JS from Step 1 buildings -->
+                            </tbody>
+                            <tfoot>
+                                <tr style="background:var(--bg-elevated);font-weight:700;">
+                                    <td colspan="4" style="text-align:right;padding-right:12px;">Total Gross Trips</td>
+                                    <td id="trip-total-am-in">0</td>
+                                    <td id="trip-total-am-out">0</td>
+                                    <td id="trip-total-pm-in">0</td>
+                                    <td id="trip-total-pm-out">0</td>
+                                    <td id="trip-total-daily">0</td>
+                                    <td colspan="2"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <button class="add-building-btn" id="add-trip-row-btn">+ Add Land Use</button>
+
+                    <!-- REDUCTIONS -->
+                    <div class="ws-section-header" style="margin-top:20px;">
+                        <div class="ws-section-title">Trip Reductions</div>
+                        <span class="ws-section-badge incomplete" id="badge-reductions">Optional</span>
+                    </div>
+                    <div class="ws-form-grid">
+                        <div class="ws-form-group">
+                            <label for="ws-passby-pct">Pass-by Reduction (%)</label>
+                            <input type="number" id="ws-passby-pct" value="0" min="0" max="100" step="1" placeholder="0" style="background:var(--bg-base);border:1px solid var(--blue);border-radius:6px;padding:10px;color:var(--text-light);font-size:14px;">
+                        </div>
+                        <div class="ws-form-group">
+                            <label for="ws-internal-pct">Internal Capture (%)</label>
+                            <input type="number" id="ws-internal-pct" value="0" min="0" max="100" step="1" placeholder="0" style="background:var(--bg-base);border:1px solid var(--blue);border-radius:6px;padding:10px;color:var(--text-light);font-size:14px;">
+                        </div>
+                        <div class="ws-form-group full-width">
+                            <label for="ws-reduction-notes">Justification / Notes</label>
+                            <textarea id="ws-reduction-notes" rows="2" placeholder="e.g., ITE pass-by rate for LUC 934 = 34% per ITE Trip Gen Manual 11th Ed." style="background:var(--bg-base);border:1px solid var(--blue);border-radius:6px;padding:10px;color:var(--text-light);font-size:13px;resize:vertical;width:100%;box-sizing:border-box;font-family:inherit;"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- NET NEW TRIPS SUMMARY -->
+                    <div class="ws-section-header" style="margin-top:8px;">
+                        <div class="ws-section-title">Net New Trips</div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:24px;">
+                        <div style="background:var(--bg-base);border:1px solid var(--blue);border-radius:6px;padding:12px;text-align:center;">
+                            <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">AM In</div>
+                            <div style="font-size:18px;font-weight:700;color:var(--gold);" id="net-am-in">0</div>
+                        </div>
+                        <div style="background:var(--bg-base);border:1px solid var(--blue);border-radius:6px;padding:12px;text-align:center;">
+                            <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">AM Out</div>
+                            <div style="font-size:18px;font-weight:700;color:var(--gold);" id="net-am-out">0</div>
+                        </div>
+                        <div style="background:var(--bg-base);border:1px solid var(--blue);border-radius:6px;padding:12px;text-align:center;">
+                            <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">PM In</div>
+                            <div style="font-size:18px;font-weight:700;color:var(--gold);" id="net-pm-in">0</div>
+                        </div>
+                        <div style="background:var(--bg-base);border:1px solid var(--blue);border-radius:6px;padding:12px;text-align:center;">
+                            <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">PM Out</div>
+                            <div style="font-size:18px;font-weight:700;color:var(--gold);" id="net-pm-out">0</div>
+                        </div>
+                        <div style="background:var(--bg-base);border:1px solid var(--success);border-radius:6px;padding:12px;text-align:center;">
+                            <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">Daily</div>
+                            <div style="font-size:18px;font-weight:700;color:var(--success);" id="net-daily">0</div>
+                        </div>
+                    </div>
+
+                    <div class="ws-validation-panel" id="val-trip-gen">
+                        <h4>Trip Generation Validation</h4>
+                        <div id="val-trip-gen-items"></div>
+                    </div>
+
+                    <!-- SUBMIT -->
+                    <button class="ws-submit-btn" id="ws-submit-step3">Submit Trip Generation</button>
+                </div>
+
+                <!-- STEP 4: TRIP DISTRIBUTION -->
+                <div class="workspace-panel" id="ws-panel-4" data-step="4">
+                    <h3>Step 4 — Trip Distribution</h3>
+
+                    <!-- DEPENDENCY CHECK -->
+                    <div class="ws-validation-panel visible" id="val-step4-dep" style="border-color:#fbbf24;">
+                        <h4>Dependency Check</h4>
+                        <div id="val-step4-dep-items"></div>
+                    </div>
+
+                    <!-- DISTRIBUTION METHOD -->
+                    <div class="ws-section-header">
+                        <div class="ws-section-title">Distribution Method</div>
+                        <span class="ws-section-badge incomplete" id="badge-dist-method">Incomplete</span>
+                    </div>
+                    <div class="ws-form-grid">
+                        <div class="ws-form-group">
+                            <label for="ws-dist-method">Method</label>
+                            <select id="ws-dist-method" style="background:var(--bg-base);border:1px solid var(--blue);border-radius:6px;padding:10px;color:var(--text-light);font-size:14px;">
+                                <option value="">-- Select --</option>
+                                <option value="existing">Existing Traffic Patterns</option>
+                                <option value="gravity">Gravity Model</option>
+                                <option value="analogous">Analogous Site</option>
+                                <option value="engineering">Engineering Judgment</option>
+                            </select>
+                        </div>
+                        <div class="ws-form-group">
+                            <label for="ws-dist-source">Data Source</label>
+                            <select id="ws-dist-source" style="background:var(--bg-base);border:1px solid var(--blue);border-radius:6px;padding:10px;color:var(--text-light);font-size:14px;">
+                                <option value="">-- Select --</option>
+                                <option value="tmc">TMC Count Data</option>
+                                <option value="adot">ADOT Traffic Counts</option>
+                                <option value="pag">PAG Model Data</option>
+                                <option value="manual">Manual Assignment</option>
+                            </select>
+                        </div>
+                        <div class="ws-form-group full-width">
+                            <label for="ws-dist-notes">Distribution Justification</label>
+                            <textarea id="ws-dist-notes" rows="2" placeholder="e.g., Distribution based on existing AM/PM peak turning movement proportions at study intersections." style="background:var(--bg-base);border:1px solid var(--blue);border-radius:6px;padding:10px;color:var(--text-light);font-size:13px;resize:vertical;width:100%;box-sizing:border-box;font-family:inherit;"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- DIRECTIONAL DISTRIBUTION TABLE -->
+                    <div class="ws-section-header">
+                        <div class="ws-section-title">Directional Split</div>
+                        <span class="ws-section-badge incomplete" id="badge-dist-split">Incomplete</span>
+                    </div>
+                    <div style="overflow-x:auto;margin-bottom:16px;">
+                        <table class="buildings-table" id="dist-table">
+                            <thead>
+                                <tr>
+                                    <th style="width:25%">Approach / Route</th>
+                                    <th style="width:12%">Direction</th>
+                                    <th style="width:12%">AM %</th>
+                                    <th style="width:12%">PM %</th>
+                                    <th style="width:12%">AM Trips</th>
+                                    <th style="width:12%">PM Trips</th>
+                                    <th style="width:5%"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="dist-tbody">
+                                <!-- Default 4 cardinal directions -->
+                            </tbody>
+                            <tfoot>
+                                <tr style="background:var(--bg-elevated);font-weight:700;">
+                                    <td colspan="2" style="text-align:right;padding-right:12px;">Totals</td>
+                                    <td id="dist-total-am-pct" style="text-align:center;">0%</td>
+                                    <td id="dist-total-pm-pct" style="text-align:center;">0%</td>
+                                    <td id="dist-total-am-trips" style="text-align:center;">0</td>
+                                    <td id="dist-total-pm-trips" style="text-align:center;">0</td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <button class="add-building-btn" id="add-dist-row-btn">+ Add Route</button>
+
+                    <!-- VALIDATION -->
+                    <div class="ws-validation-panel" id="val-dist">
+                        <h4>Distribution Validation</h4>
+                        <div id="val-dist-items"></div>
+                    </div>
+
+                    <!-- SUBMIT -->
+                    <button class="ws-submit-btn" id="ws-submit-step4">Submit Trip Distribution</button>
+                </div>
+
+                <!-- ==================== STEP 5: FUTURE VOLUMES ==================== -->
+                <div class="workspace-panel" id="ws-panel-5">
+                    <h3>Step 5: Future Volumes</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 16px;">Build volume scenarios: Existing, Background (with growth), and Total Future (background + site trips).</p>
+
+                    <!-- DEPENDENCY CHECK -->
+                    <div class="ws-validation-panel visible" id="dep-check-step5" style="margin-bottom: 16px;">
+                        <h4>Dependency Check</h4>
+                        <div id="dep-check-step5-items"></div>
+                    </div>
+
+                    <!-- GROWTH PARAMETERS -->
+                    <div class="ws-section-header">
+                        <h4>Growth Parameters</h4>
+                        <span class="ws-section-badge incomplete" id="badge-growth-params">Incomplete</span>
+                    </div>
+                    <div class="form-row" style="display: flex; gap: 12px; margin-bottom: 16px;">
+                        <div style="flex: 1;">
+                            <label>Base Year</label>
+                            <input type="number" id="ws-vol-base-year" class="ws-input" placeholder="2025" min="2020" max="2040">
+                        </div>
+                        <div style="flex: 1;">
+                            <label>Opening Year</label>
+                            <input type="number" id="ws-vol-open-year" class="ws-input" placeholder="2027" min="2020" max="2050" readonly style="opacity: 0.7;">
+                        </div>
+                        <div style="flex: 1;">
+                            <label>Horizon Year</label>
+                            <input type="number" id="ws-vol-horizon-year" class="ws-input" placeholder="2032" min="2020" max="2060" readonly style="opacity: 0.7;">
+                        </div>
+                        <div style="flex: 1;">
+                            <label>Annual Growth Rate (%)</label>
+                            <input type="number" id="ws-vol-growth-rate" class="ws-input" placeholder="2.0" min="0" max="15" step="0.1" readonly style="opacity: 0.7;">
+                        </div>
+                    </div>
+
+                    <!-- GROWTH FACTORS SUMMARY -->
+                    <div style="display: flex; gap: 12px; margin-bottom: 20px;">
+                        <div class="trip-summary-card" style="flex: 1;">
+                            <div class="trip-summary-label">Opening Year Factor</div>
+                            <div class="trip-summary-value" id="vol-open-factor">—</div>
+                        </div>
+                        <div class="trip-summary-card" style="flex: 1;">
+                            <div class="trip-summary-label">Horizon Year Factor</div>
+                            <div class="trip-summary-value" id="vol-horizon-factor">—</div>
+                        </div>
+                        <div class="trip-summary-card" style="flex: 1;">
+                            <div class="trip-summary-label">Years to Opening</div>
+                            <div class="trip-summary-value" id="vol-years-open">—</div>
+                        </div>
+                        <div class="trip-summary-card" style="flex: 1;">
+                            <div class="trip-summary-label">Years to Horizon</div>
+                            <div class="trip-summary-value" id="vol-years-horizon">—</div>
+                        </div>
+                    </div>
+
+                    <!-- EXISTING VOLUMES -->
+                    <div class="ws-section-header">
+                        <h4>Existing Volumes (from TMC Data)</h4>
+                        <span class="ws-section-badge incomplete" id="badge-existing-vol">Incomplete</span>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 8px;">Enter existing intersection volumes by direction. These come from your TMC counts (Step 2).</p>
+                    <div class="table-container">
+                        <table class="buildings-table">
+                            <thead>
+                                <tr>
+                                    <th>Intersection / Segment</th>
+                                    <th>Direction</th>
+                                    <th>AM Peak</th>
+                                    <th>PM Peak</th>
+                                    <th>Daily</th>
+                                </tr>
+                            </thead>
+                            <tbody id="existing-vol-tbody"></tbody>
+                        </table>
+                    </div>
+                    <button class="add-building-btn" id="add-existing-vol-btn">+ Add Location</button>
+
+                    <!-- VOLUME SCENARIOS TABLE -->
+                    <div class="ws-section-header" style="margin-top: 20px;">
+                        <h4>Volume Scenarios</h4>
+                        <span class="ws-section-badge incomplete" id="badge-vol-scenarios">Incomplete</span>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 8px;">Auto-calculated from existing volumes, growth factors, and site-generated trips (Steps 3 &amp; 4).</p>
+                    <div class="table-container">
+                        <table class="buildings-table">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">Location</th>
+                                    <th rowspan="2">Dir</th>
+                                    <th colspan="2" style="text-align:center; border-bottom: 1px solid #333;">Existing</th>
+                                    <th colspan="2" style="text-align:center; border-bottom: 1px solid #333;">Background (Opening)</th>
+                                    <th colspan="2" style="text-align:center; border-bottom: 1px solid #333;">Background (Horizon)</th>
+                                    <th colspan="2" style="text-align:center; border-bottom: 1px solid #333;">+ Site Trips</th>
+                                    <th colspan="2" style="text-align:center; border-bottom: 1px solid #333;">Total Future (Opening)</th>
+                                    <th colspan="2" style="text-align:center; border-bottom: 1px solid #333;">Total Future (Horizon)</th>
+                                </tr>
+                                <tr>
+                                    <th>AM</th><th>PM</th>
+                                    <th>AM</th><th>PM</th>
+                                    <th>AM</th><th>PM</th>
+                                    <th>AM</th><th>PM</th>
+                                    <th>AM</th><th>PM</th>
+                                    <th>AM</th><th>PM</th>
+                                </tr>
+                            </thead>
+                            <tbody id="vol-scenarios-tbody"></tbody>
+                        </table>
+                    </div>
+
+                    <!-- NET NEW TRIPS SUMMARY -->
+                    <h4 style="margin-top: 20px;">Net Site Trip Summary (from Steps 3 &amp; 4)</h4>
+                    <div style="display: flex; gap: 12px; margin-bottom: 20px;">
+                        <div class="trip-summary-card" style="flex: 1;">
+                            <div class="trip-summary-label">AM In</div>
+                            <div class="trip-summary-value" id="vol-site-am-in">—</div>
+                        </div>
+                        <div class="trip-summary-card" style="flex: 1;">
+                            <div class="trip-summary-label">AM Out</div>
+                            <div class="trip-summary-value" id="vol-site-am-out">—</div>
+                        </div>
+                        <div class="trip-summary-card" style="flex: 1;">
+                            <div class="trip-summary-label">PM In</div>
+                            <div class="trip-summary-value" id="vol-site-pm-in">—</div>
+                        </div>
+                        <div class="trip-summary-card" style="flex: 1;">
+                            <div class="trip-summary-label">PM Out</div>
+                            <div class="trip-summary-value" id="vol-site-pm-out">—</div>
+                        </div>
+                    </div>
+
+                    <!-- VALIDATION -->
+                    <div class="ws-validation-panel" id="val-volumes">
+                        <h4>Volume Validation</h4>
+                        <div id="val-volumes-items"></div>
+                    </div>
+
+                    <!-- SUBMIT -->
+                    <button class="ws-submit-btn" id="ws-submit-step5">Submit Future Volumes</button>
+                </div>
+
+                <!-- ==================== STEP 6: CAPACITY ANALYSIS ==================== -->
+                <div class="workspace-panel" id="ws-panel-6">
+                    <h3>Step 6: Capacity Analysis</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 16px;">Document intersection capacity analysis — Synchro/HCS models and Level of Service results for each scenario.</p>
+
+                    <!-- DEPENDENCY CHECK -->
+                    <div class="ws-validation-panel visible" id="dep-check-step6" style="margin-bottom: 16px;">
+                        <h4>Dependency Check</h4>
+                        <div id="dep-check-step6-items"></div>
+                    </div>
+
+                    <!-- SYNCHRO MODEL FILES -->
+                    <div class="ws-section-header">
+                        <h4>Synchro / HCS Model Files</h4>
+                        <span class="ws-section-badge incomplete" id="badge-synchro-files">Incomplete</span>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 8px;">Upload or reference your Synchro (.syn) or HCS files. One model per scenario is typical.</p>
+                    <div class="table-container">
+                        <table class="buildings-table">
+                            <thead>
+                                <tr>
+                                    <th>Scenario</th>
+                                    <th>Software</th>
+                                    <th>File Name</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody id="synchro-tbody">
+                                <tr>
+                                    <td style="color: var(--text-light);">Existing</td>
+                                    <td><select class="ws-input cap-software" style="width:110px;">
+                                        <option value="Synchro">Synchro</option>
+                                        <option value="HCS">HCS</option>
+                                        <option value="Sidra">Sidra</option>
+                                        <option value="SimTraffic">SimTraffic</option>
+                                        <option value="Other">Other</option>
+                                    </select></td>
+                                    <td><input type="text" class="ws-input cap-filename" placeholder="Existing.syn" style="width:100%;"></td>
+                                    <td><input type="text" class="ws-input cap-file-notes" placeholder="Notes" style="width:100%;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="color: var(--text-light);">Background (Opening)</td>
+                                    <td><select class="ws-input cap-software" style="width:110px;">
+                                        <option value="Synchro">Synchro</option><option value="HCS">HCS</option><option value="Sidra">Sidra</option><option value="SimTraffic">SimTraffic</option><option value="Other">Other</option>
+                                    </select></td>
+                                    <td><input type="text" class="ws-input cap-filename" placeholder="Background_Opening.syn" style="width:100%;"></td>
+                                    <td><input type="text" class="ws-input cap-file-notes" placeholder="Notes" style="width:100%;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="color: var(--text-light);">Total Future (Opening)</td>
+                                    <td><select class="ws-input cap-software" style="width:110px;">
+                                        <option value="Synchro">Synchro</option><option value="HCS">HCS</option><option value="Sidra">Sidra</option><option value="SimTraffic">SimTraffic</option><option value="Other">Other</option>
+                                    </select></td>
+                                    <td><input type="text" class="ws-input cap-filename" placeholder="TotalFuture_Opening.syn" style="width:100%;"></td>
+                                    <td><input type="text" class="ws-input cap-file-notes" placeholder="Notes" style="width:100%;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="color: var(--text-light);">Total Future (Horizon)</td>
+                                    <td><select class="ws-input cap-software" style="width:110px;">
+                                        <option value="Synchro">Synchro</option><option value="HCS">HCS</option><option value="Sidra">Sidra</option><option value="SimTraffic">SimTraffic</option><option value="Other">Other</option>
+                                    </select></td>
+                                    <td><input type="text" class="ws-input cap-filename" placeholder="TotalFuture_Horizon.syn" style="width:100%;"></td>
+                                    <td><input type="text" class="ws-input cap-file-notes" placeholder="Notes" style="width:100%;"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- LOS SUMMARY TABLE -->
+                    <div class="ws-section-header" style="margin-top: 20px;">
+                        <h4>Level of Service Summary</h4>
+                        <span class="ws-section-badge incomplete" id="badge-los-table">Incomplete</span>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 8px;">Enter LOS results per intersection and scenario. LOS grades A-F with average delay (sec/veh).</p>
+                    <div class="table-container" style="overflow-x: auto;">
+                        <table class="buildings-table">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">Intersection</th>
+                                    <th rowspan="2">Control</th>
+                                    <th rowspan="2">Peak</th>
+                                    <th colspan="2" style="text-align:center; border-bottom: 1px solid #333;">Existing</th>
+                                    <th colspan="2" style="text-align:center; border-bottom: 1px solid #333;">Background</th>
+                                    <th colspan="2" style="text-align:center; border-bottom: 1px solid #333;">Total Future</th>
+                                    <th rowspan="2">Mitigation Needed?</th>
+                                </tr>
+                                <tr>
+                                    <th>LOS</th><th>Delay</th>
+                                    <th>LOS</th><th>Delay</th>
+                                    <th>LOS</th><th>Delay</th>
+                                </tr>
+                            </thead>
+                            <tbody id="los-tbody"></tbody>
+                        </table>
+                    </div>
+                    <button class="add-building-btn" id="add-los-row-btn">+ Add Intersection</button>
+
+                    <!-- MITIGATION NOTES -->
+                    <div class="ws-section-header" style="margin-top: 20px;">
+                        <h4>Mitigation Measures</h4>
+                    </div>
+                    <textarea id="ws-mitigation-notes" class="ws-input" rows="4" placeholder="Describe any required mitigation measures (turn lanes, signal timing, new signals, etc.)" style="width: 100%; resize: vertical;"></textarea>
+
+                    <!-- VALIDATION -->
+                    <div class="ws-validation-panel" id="val-capacity">
+                        <h4>Capacity Analysis Validation</h4>
+                        <div id="val-capacity-items"></div>
+                    </div>
+
+                    <!-- SUBMIT -->
+                    <button class="ws-submit-btn" id="ws-submit-step6">Submit Capacity Analysis</button>
+                </div>
+
+                <!-- ==================== STEP 7: SITE ACCESS ==================== -->
+                <div class="workspace-panel" id="ws-panel-7">
+                    <h3>Step 7: Site Access</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 16px;">Document site driveways, turn lane requirements, sight distance evaluation, and access spacing compliance.</p>
+
+                    <!-- DEPENDENCY CHECK -->
+                    <div class="ws-validation-panel visible" id="dep-check-step7" style="margin-bottom: 16px;">
+                        <h4>Dependency Check</h4>
+                        <div id="dep-check-step7-items"></div>
+                    </div>
+
+                    <!-- DRIVEWAY INVENTORY -->
+                    <div class="ws-section-header">
+                        <h4>Driveway Inventory</h4>
+                        <span class="ws-section-badge incomplete" id="badge-driveways">Incomplete</span>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 8px;">Document each proposed site access point — location, type, lanes, and control.</p>
+                    <div class="table-container" style="overflow-x: auto;">
+                        <table class="buildings-table">
+                            <thead>
+                                <tr>
+                                    <th>Driveway Name</th>
+                                    <th>Road</th>
+                                    <th>Type</th>
+                                    <th>Movements</th>
+                                    <th>Lanes In</th>
+                                    <th>Lanes Out</th>
+                                    <th>Control</th>
+                                    <th>Spacing (ft)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="driveway-tbody"></tbody>
+                        </table>
+                    </div>
+                    <button class="add-building-btn" id="add-driveway-btn">+ Add Driveway</button>
+
+                    <!-- TURN LANE ANALYSIS -->
+                    <div class="ws-section-header" style="margin-top: 20px;">
+                        <h4>Turn Lane Analysis</h4>
+                        <span class="ws-section-badge incomplete" id="badge-turn-lanes">Incomplete</span>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 8px;">Document turn lane warrants and recommendations at each access point.</p>
+                    <div class="table-container" style="overflow-x: auto;">
+                        <table class="buildings-table">
+                            <thead>
+                                <tr>
+                                    <th>Location</th>
+                                    <th>Movement</th>
+                                    <th>Peak Vol (vph)</th>
+                                    <th>Warrant Method</th>
+                                    <th>Warranted?</th>
+                                    <th>Recommended</th>
+                                    <th>Storage (ft)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="turnlane-tbody"></tbody>
+                        </table>
+                    </div>
+                    <button class="add-building-btn" id="add-turnlane-btn">+ Add Turn Lane Analysis</button>
+
+                    <!-- SIGHT DISTANCE -->
+                    <div class="ws-section-header" style="margin-top: 20px;">
+                        <h4>Sight Distance</h4>
+                        <span class="ws-section-badge incomplete" id="badge-sight-dist">Incomplete</span>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 8px;">Intersection sight distance (ISD) checks per AASHTO at each access point.</p>
+                    <div class="table-container">
+                        <table class="buildings-table">
+                            <thead>
+                                <tr>
+                                    <th>Driveway</th>
+                                    <th>Direction</th>
+                                    <th>Design Speed (mph)</th>
+                                    <th>Required ISD (ft)</th>
+                                    <th>Available ISD (ft)</th>
+                                    <th>Adequate?</th>
+                                </tr>
+                            </thead>
+                            <tbody id="sight-tbody"></tbody>
+                        </table>
+                    </div>
+                    <button class="add-building-btn" id="add-sight-btn">+ Add Sight Check</button>
+
+                    <!-- ACCESS NOTES -->
+                    <div class="ws-section-header" style="margin-top: 20px;">
+                        <h4>Access Spacing &amp; Compliance Notes</h4>
+                    </div>
+                    <textarea id="ws-access-notes" class="ws-input" rows="4" placeholder="Document jurisdiction access spacing standards, compliance notes, variance requests, ADA considerations, etc." style="width: 100%; resize: vertical;"></textarea>
+
+                    <!-- VALIDATION -->
+                    <div class="ws-validation-panel" id="val-access">
+                        <h4>Site Access Validation</h4>
+                        <div id="val-access-items"></div>
+                    </div>
+
+                    <!-- SUBMIT -->
+                    <button class="ws-submit-btn" id="ws-submit-step7">Submit Site Access</button>
+                </div>
+
+                <!-- ==================== STEP 8: SIGNAL WARRANTS ==================== -->
+                <div class="workspace-panel" id="ws-panel-8">
+                    <h3>Step 8: Signal Warrants</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 16px;">Evaluate MUTCD signal warrants at study intersections. Document which warrants are met and recommendations.</p>
+
+                    <!-- DEPENDENCY CHECK -->
+                    <div class="ws-validation-panel visible" id="dep-check-step8" style="margin-bottom: 16px;">
+                        <h4>Dependency Check</h4>
+                        <div id="dep-check-step8-items"></div>
+                    </div>
+
+                    <!-- INTERSECTIONS FOR WARRANT ANALYSIS -->
+                    <div class="ws-section-header">
+                        <h4>Intersections Evaluated</h4>
+                        <span class="ws-section-badge incomplete" id="badge-warrant-ints">Incomplete</span>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 8px;">Select intersections requiring signal warrant evaluation (typically unsignalized with site impact).</p>
+                    <div class="table-container">
+                        <table class="buildings-table">
+                            <thead>
+                                <tr>
+                                    <th>Intersection</th>
+                                    <th>Current Control</th>
+                                    <th>Major Rd Vol (vph)</th>
+                                    <th>Minor Rd Vol (vph)</th>
+                                    <th>Scenario</th>
+                                </tr>
+                            </thead>
+                            <tbody id="warrant-int-tbody"></tbody>
+                        </table>
+                    </div>
+                    <button class="add-building-btn" id="add-warrant-int-btn">+ Add Intersection</button>
+
+                    <!-- MUTCD WARRANT CHECKLIST -->
+                    <div class="ws-section-header" style="margin-top: 20px;">
+                        <h4>MUTCD Warrant Results</h4>
+                        <span class="ws-section-badge incomplete" id="badge-warrant-results">Incomplete</span>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 8px;">Document warrant analysis results per intersection. Check each warrant evaluated.</p>
+                    <div class="table-container" style="overflow-x: auto;">
+                        <table class="buildings-table">
+                            <thead>
+                                <tr>
+                                    <th>Intersection</th>
+                                    <th title="Warrant 1: 8-Hour Volume">W1</th>
+                                    <th title="Warrant 2: 4-Hour Volume">W2</th>
+                                    <th title="Warrant 3: Peak Hour">W3</th>
+                                    <th title="Warrant 4: Pedestrian Volume">W4</th>
+                                    <th title="Warrant 5: School Crossing">W5</th>
+                                    <th title="Warrant 6: Coordinated Signal">W6</th>
+                                    <th title="Warrant 7: Crash Experience">W7</th>
+                                    <th title="Warrant 8: Roadway Network">W8</th>
+                                    <th title="Warrant 9: Near Railroad">W9</th>
+                                    <th>Warrants Met</th>
+                                    <th>Recommendation</th>
+                                </tr>
+                            </thead>
+                            <tbody id="warrant-results-tbody"></tbody>
+                        </table>
+                    </div>
+                    <button class="add-building-btn" id="add-warrant-result-btn">+ Add Warrant Analysis</button>
+
+                    <!-- WARRANT LEGEND -->
+                    <div style="margin-top: 12px; padding: 10px 14px; background: var(--bg-base); border: 1px solid #222; border-radius: 8px; font-size: 11px; color: var(--text-muted);">
+                        <strong style="color: var(--text-light);">MUTCD Warrant Reference:</strong><br>
+                        W1: Eight-Hour Vehicular Volume &nbsp;|&nbsp; W2: Four-Hour Vehicular Volume &nbsp;|&nbsp; W3: Peak Hour<br>
+                        W4: Pedestrian Volume &nbsp;|&nbsp; W5: School Crossing &nbsp;|&nbsp; W6: Coordinated Signal System<br>
+                        W7: Crash Experience &nbsp;|&nbsp; W8: Roadway Network &nbsp;|&nbsp; W9: Intersection Near Railroad
+                    </div>
+
+                    <!-- SIGNAL WARRANT NOTES -->
+                    <div class="ws-section-header" style="margin-top: 20px;">
+                        <h4>Analysis Notes &amp; Recommendations</h4>
+                    </div>
+                    <textarea id="ws-warrant-notes" class="ws-input" rows="4" placeholder="Document signal warrant analysis methodology, engineering judgment, timing recommendations, coordination needs, etc." style="width: 100%; resize: vertical;"></textarea>
+
+                    <!-- VALIDATION -->
+                    <div class="ws-validation-panel" id="val-warrants">
+                        <h4>Signal Warrant Validation</h4>
+                        <div id="val-warrant-items"></div>
+                    </div>
+
+                    <!-- SUBMIT -->
+                    <button class="ws-submit-btn" id="ws-submit-step8">Submit Signal Warrants</button>
+                </div>
+
+                <!-- ==================== STEP 9: REPORT ASSEMBLY ==================== -->
+                <div class="workspace-panel" id="ws-panel-9">
+                    <h3>Step 9: Report Assembly</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 16px;">Assemble the TIA report — verify all sections, manage exhibits/figures, and prepare the draft document.</p>
+
+                    <!-- DEPENDENCY CHECK -->
+                    <div class="ws-validation-panel visible" id="dep-check-step9" style="margin-bottom: 16px;">
+                        <h4>Dependency Check — All Analysis Steps</h4>
+                        <div id="dep-check-step9-items"></div>
+                    </div>
+
+                    <!-- REPORT SECTIONS CHECKLIST -->
+                    <div class="ws-section-header">
+                        <h4>Report Sections</h4>
+                        <span class="ws-section-badge incomplete" id="badge-report-sections">Incomplete</span>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 8px;">Standard TIA report outline. Check off each section as drafted. Data auto-populated from previous steps.</p>
+                    <div id="report-sections-list" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px;">
+                        <label class="rpt-section-item" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--bg-base); border: 1px solid #222; border-radius: 6px; cursor: pointer;">
+                            <input type="checkbox" class="rpt-section-check" data-section="intro">
+                            <span style="flex:1; color: var(--text-light);">1. Introduction &amp; Purpose</span>
+                            <span class="rpt-data-status" style="font-size: 11px; color: var(--text-muted);">Step 1</span>
+                        </label>
+                        <label class="rpt-section-item" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--bg-base); border: 1px solid #222; border-radius: 6px; cursor: pointer;">
+                            <input type="checkbox" class="rpt-section-check" data-section="existing">
+                            <span style="flex:1; color: var(--text-light);">2. Existing Conditions</span>
+                            <span class="rpt-data-status" style="font-size: 11px; color: var(--text-muted);">Steps 2, 5</span>
+                        </label>
+                        <label class="rpt-section-item" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--bg-base); border: 1px solid #222; border-radius: 6px; cursor: pointer;">
+                            <input type="checkbox" class="rpt-section-check" data-section="tripgen">
+                            <span style="flex:1; color: var(--text-light);">3. Trip Generation</span>
+                            <span class="rpt-data-status" style="font-size: 11px; color: var(--text-muted);">Step 3</span>
+                        </label>
+                        <label class="rpt-section-item" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--bg-base); border: 1px solid #222; border-radius: 6px; cursor: pointer;">
+                            <input type="checkbox" class="rpt-section-check" data-section="distribution">
+                            <span style="flex:1; color: var(--text-light);">4. Trip Distribution &amp; Assignment</span>
+                            <span class="rpt-data-status" style="font-size: 11px; color: var(--text-muted);">Step 4</span>
+                        </label>
+                        <label class="rpt-section-item" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--bg-base); border: 1px solid #222; border-radius: 6px; cursor: pointer;">
+                            <input type="checkbox" class="rpt-section-check" data-section="volumes">
+                            <span style="flex:1; color: var(--text-light);">5. Future Volume Development</span>
+                            <span class="rpt-data-status" style="font-size: 11px; color: var(--text-muted);">Step 5</span>
+                        </label>
+                        <label class="rpt-section-item" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--bg-base); border: 1px solid #222; border-radius: 6px; cursor: pointer;">
+                            <input type="checkbox" class="rpt-section-check" data-section="capacity">
+                            <span style="flex:1; color: var(--text-light);">6. Capacity Analysis &amp; LOS</span>
+                            <span class="rpt-data-status" style="font-size: 11px; color: var(--text-muted);">Step 6</span>
+                        </label>
+                        <label class="rpt-section-item" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--bg-base); border: 1px solid #222; border-radius: 6px; cursor: pointer;">
+                            <input type="checkbox" class="rpt-section-check" data-section="access">
+                            <span style="flex:1; color: var(--text-light);">7. Site Access &amp; Turn Lanes</span>
+                            <span class="rpt-data-status" style="font-size: 11px; color: var(--text-muted);">Step 7</span>
+                        </label>
+                        <label class="rpt-section-item" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--bg-base); border: 1px solid #222; border-radius: 6px; cursor: pointer;">
+                            <input type="checkbox" class="rpt-section-check" data-section="warrants">
+                            <span style="flex:1; color: var(--text-light);">8. Signal Warrant Analysis</span>
+                            <span class="rpt-data-status" style="font-size: 11px; color: var(--text-muted);">Step 8</span>
+                        </label>
+                        <label class="rpt-section-item" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--bg-base); border: 1px solid #222; border-radius: 6px; cursor: pointer;">
+                            <input type="checkbox" class="rpt-section-check" data-section="conclusions">
+                            <span style="flex:1; color: var(--text-light);">9. Conclusions &amp; Recommendations</span>
+                            <span class="rpt-data-status" style="font-size: 11px; color: var(--text-muted);">All Steps</span>
+                        </label>
+                    </div>
+
+                    <!-- REPORT PROGRESS -->
+                    <div style="display: flex; gap: 12px; margin-bottom: 20px;">
+                        <div class="trip-summary-card" style="flex: 1;">
+                            <div class="trip-summary-label">Sections Drafted</div>
+                            <div class="trip-summary-value" id="rpt-sections-count">0 / 9</div>
+                        </div>
+                        <div class="trip-summary-card" style="flex: 1;">
+                            <div class="trip-summary-label">Data Steps Complete</div>
+                            <div class="trip-summary-value" id="rpt-data-steps">0 / 8</div>
+                        </div>
+                        <div class="trip-summary-card" style="flex: 1;">
+                            <div class="trip-summary-label">Exhibits Listed</div>
+                            <div class="trip-summary-value" id="rpt-exhibits-count">0</div>
+                        </div>
+                    </div>
+
+                    <!-- EXHIBITS / FIGURES -->
+                    <div class="ws-section-header">
+                        <h4>Exhibits &amp; Figures</h4>
+                        <span class="ws-section-badge incomplete" id="badge-exhibits">Incomplete</span>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 8px;">List all figures and exhibits to include in the report appendix.</p>
+                    <div class="table-container">
+                        <table class="buildings-table">
+                            <thead>
+                                <tr>
+                                    <th>Figure #</th>
+                                    <th>Title</th>
+                                    <th>Type</th>
+                                    <th>Source Step</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="exhibits-tbody"></tbody>
+                        </table>
+                    </div>
+                    <button class="add-building-btn" id="add-exhibit-btn">+ Add Exhibit</button>
+
+                    <!-- REPORT FILE REFERENCE -->
+                    <div class="ws-section-header" style="margin-top: 20px;">
+                        <h4>Report Document</h4>
+                    </div>
+                    <div class="form-row" style="display: flex; gap: 12px; margin-bottom: 16px;">
+                        <div style="flex: 2;">
+                            <label>Report File Name</label>
+                            <input type="text" id="ws-report-filename" class="ws-input" placeholder="e.g. TIA_ProjectName_Draft_v1.docx" style="width: 100%;">
+                        </div>
+                        <div style="flex: 1;">
+                            <label>Version</label>
+                            <input type="text" id="ws-report-version" class="ws-input" placeholder="Draft v1" style="width: 100%;">
+                        </div>
+                        <div style="flex: 1;">
+                            <label>Date</label>
+                            <input type="date" id="ws-report-date" class="ws-input" style="width: 100%;">
+                        </div>
+                    </div>
+                    <div>
+                        <label>Author / Reviewer Notes</label>
+                        <textarea id="ws-report-notes" class="ws-input" rows="3" placeholder="Internal notes on report status, reviewer comments, outstanding items..." style="width: 100%; resize: vertical;"></textarea>
+                    </div>
+
+                    <!-- VALIDATION -->
+                    <div class="ws-validation-panel" id="val-report">
+                        <h4>Report Assembly Validation</h4>
+                        <div id="val-report-items"></div>
+                    </div>
+
+                    <!-- SUBMIT -->
+                    <button class="ws-submit-btn" id="ws-submit-step9">Submit Report Assembly</button>
+                </div>
+
+                <!-- ==================== STEP 10: FINAL DELIVERY ==================== -->
+                <div class="workspace-panel" id="ws-panel-10">
+                    <h3>Step 10: Final Delivery</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 16px;">Final QC, deliverables packaging, and submission tracking. Complete this step to close out the project.</p>
+
+                    <!-- DEPENDENCY CHECK -->
+                    <div class="ws-validation-panel visible" id="dep-check-step10" style="margin-bottom: 16px;">
+                        <h4>Dependency Check</h4>
+                        <div id="dep-check-step10-items"></div>
+                    </div>
+
+                    <!-- QC CHECKLIST -->
+                    <div class="ws-section-header">
+                        <h4>Quality Control Checklist</h4>
+                        <span class="ws-section-badge incomplete" id="badge-qc-checklist">Incomplete</span>
+                    </div>
+                    <div id="qc-checklist" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px;">
+                        <label class="rpt-section-item" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--bg-base); border: 1px solid #222; border-radius: 6px; cursor: pointer;">
+                            <input type="checkbox" class="qc-check" data-qc="proj-info">
+                            <span style="flex:1; color: var(--text-light);">Project info correct (name, number, address, jurisdiction)</span>
+                        </label>
+                        <label class="rpt-section-item" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--bg-base); border: 1px solid #222; border-radius: 6px; cursor: pointer;">
+                            <input type="checkbox" class="qc-check" data-qc="trip-calcs">
+                            <span style="flex:1; color: var(--text-light);">Trip generation calculations verified</span>
+                        </label>
+                        <label class="rpt-section-item" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--bg-base); border: 1px solid #222; border-radius: 6px; cursor: pointer;">
+                            <input type="checkbox" class="qc-check" data-qc="volumes">
+                            <span style="flex:1; color: var(--text-light);">Volume scenarios balance-checked</span>
+                        </label>
+                        <label class="rpt-section-item" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--bg-base); border: 1px solid #222; border-radius: 6px; cursor: pointer;">
+                            <input type="checkbox" class="qc-check" data-qc="los-results">
+                            <span style="flex:1; color: var(--text-light);">LOS results match Synchro output</span>
+                        </label>
+                        <label class="rpt-section-item" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--bg-base); border: 1px solid #222; border-radius: 6px; cursor: pointer;">
+                            <input type="checkbox" class="qc-check" data-qc="figures">
+                            <span style="flex:1; color: var(--text-light);">All figures/exhibits final and numbered</span>
+                        </label>
+                        <label class="rpt-section-item" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--bg-base); border: 1px solid #222; border-radius: 6px; cursor: pointer;">
+                            <input type="checkbox" class="qc-check" data-qc="formatting">
+                            <span style="flex:1; color: var(--text-light);">Report formatting, headers, page numbers</span>
+                        </label>
+                        <label class="rpt-section-item" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--bg-base); border: 1px solid #222; border-radius: 6px; cursor: pointer;">
+                            <input type="checkbox" class="qc-check" data-qc="pe-seal">
+                            <span style="flex:1; color: var(--text-light);">PE seal and signature applied</span>
+                        </label>
+                        <label class="rpt-section-item" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--bg-base); border: 1px solid #222; border-radius: 6px; cursor: pointer;">
+                            <input type="checkbox" class="qc-check" data-qc="spell-check">
+                            <span style="flex:1; color: var(--text-light);">Spell check and proofreading complete</span>
+                        </label>
+                    </div>
+
+                    <!-- DELIVERABLES -->
+                    <div class="ws-section-header">
+                        <h4>Deliverables Package</h4>
+                        <span class="ws-section-badge incomplete" id="badge-deliverables">Incomplete</span>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 8px;">List all files included in the final delivery package.</p>
+                    <div class="table-container">
+                        <table class="buildings-table">
+                            <thead>
+                                <tr>
+                                    <th>File Name</th>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="deliverables-tbody"></tbody>
+                        </table>
+                    </div>
+                    <button class="add-building-btn" id="add-deliverable-btn">+ Add Deliverable</button>
+
+                    <!-- SUBMISSION TRACKING -->
+                    <div class="ws-section-header" style="margin-top: 20px;">
+                        <h4>Submission Tracking</h4>
+                        <span class="ws-section-badge incomplete" id="badge-submission">Incomplete</span>
+                    </div>
+                    <div class="form-row" style="display: flex; gap: 12px; margin-bottom: 12px;">
+                        <div style="flex: 1;">
+                            <label>Submitted To</label>
+                            <input type="text" id="ws-submit-to" class="ws-input" placeholder="e.g. City of Phoenix Traffic Dept" style="width: 100%;">
+                        </div>
+                        <div style="flex: 1;">
+                            <label>Submission Date</label>
+                            <input type="date" id="ws-submit-date" class="ws-input" style="width: 100%;">
+                        </div>
+                        <div style="flex: 1;">
+                            <label>Submission Method</label>
+                            <select id="ws-submit-method" class="ws-input" style="width: 100%;">
+                                <option value="">— Select —</option>
+                                <option value="Email">Email</option>
+                                <option value="Portal Upload">Portal Upload</option>
+                                <option value="Hard Copy">Hard Copy</option>
+                                <option value="FTP">FTP / File Share</option>
+                                <option value="In Person">In Person</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row" style="display: flex; gap: 12px; margin-bottom: 16px;">
+                        <div style="flex: 1;">
+                            <label>Contact Name</label>
+                            <input type="text" id="ws-submit-contact" class="ws-input" placeholder="Reviewer name" style="width: 100%;">
+                        </div>
+                        <div style="flex: 1;">
+                            <label>Contact Email</label>
+                            <input type="email" id="ws-submit-email" class="ws-input" placeholder="reviewer@jurisdiction.gov" style="width: 100%;">
+                        </div>
+                        <div style="flex: 1;">
+                            <label>Review Status</label>
+                            <select id="ws-review-status" class="ws-input" style="width: 100%;">
+                                <option value="Not Submitted">Not Submitted</option>
+                                <option value="Submitted">Submitted</option>
+                                <option value="Under Review">Under Review</option>
+                                <option value="Comments Received">Comments Received</option>
+                                <option value="Resubmitted">Resubmitted</option>
+                                <option value="Approved">Approved</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label>Submission Notes</label>
+                        <textarea id="ws-submit-notes" class="ws-input" rows="3" placeholder="Tracking notes, review comments, resubmittal items..." style="width: 100%; resize: vertical;"></textarea>
+                    </div>
+
+                    <!-- PROJECT COMPLETION SUMMARY -->
+                    <div style="margin-top: 20px; padding: 16px; background: linear-gradient(135deg, rgba(0,170,255,0.08), rgba(74,222,128,0.08)); border: 1px solid rgba(0,170,255,0.2); border-radius: 10px;">
+                        <h4 style="margin: 0 0 12px 0; color: var(--gold);">Project Completion Summary</h4>
+                        <div style="display: flex; gap: 12px;" id="completion-summary-cards">
+                            <div class="trip-summary-card" style="flex: 1;">
+                                <div class="trip-summary-label">Steps Complete</div>
+                                <div class="trip-summary-value" id="final-steps-complete">0 / 10</div>
+                            </div>
+                            <div class="trip-summary-card" style="flex: 1;">
+                                <div class="trip-summary-label">QC Items Passed</div>
+                                <div class="trip-summary-value" id="final-qc-count">0 / 8</div>
+                            </div>
+                            <div class="trip-summary-card" style="flex: 1;">
+                                <div class="trip-summary-label">Deliverables</div>
+                                <div class="trip-summary-value" id="final-deliverables-count">0</div>
+                            </div>
+                            <div class="trip-summary-card" style="flex: 1;">
+                                <div class="trip-summary-label">Review Status</div>
+                                <div class="trip-summary-value" id="final-review-status" style="font-size: 14px;">—</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- VALIDATION -->
+                    <div class="ws-validation-panel" id="val-delivery">
+                        <h4>Final Delivery Validation</h4>
+                        <div id="val-delivery-items"></div>
+                    </div>
+
+                    <!-- SUBMIT -->
+                    <button class="ws-submit-btn" id="ws-submit-step10" style="background: linear-gradient(135deg, var(--gold), var(--success)); font-size: 15px;">Complete Project — Final Delivery</button>
+                </div>
+
             </div>
 
             <!-- ==================== PROJECT SUMMARY CARD ==================== -->
@@ -5560,6 +6484,1631 @@
                     });
                 }
 
+                // ==================== STEP 3: TRIP GENERATION ====================
+
+                // ITE Trip Rates reference (common Arizona land uses)
+                const iteRates = {
+                    '110': { name: 'Light Industrial', unit: 'KSF', amIn: 0.52, amOut: 0.09, pmIn: 0.09, pmOut: 0.51, daily: 4.96 },
+                    '140': { name: 'Manufacturing', unit: 'KSF', amIn: 0.52, amOut: 0.07, pmIn: 0.07, pmOut: 0.50, daily: 3.82 },
+                    '210': { name: 'Single-Family Housing', unit: 'DU', amIn: 0.19, amOut: 0.56, pmIn: 0.63, pmOut: 0.37, daily: 9.44 },
+                    '220': { name: 'Multifamily Housing (Low-Rise)', unit: 'DU', amIn: 0.10, amOut: 0.41, pmIn: 0.40, pmOut: 0.22, daily: 6.74 },
+                    '240': { name: 'Mobile Home Park', unit: 'DU', amIn: 0.10, amOut: 0.37, pmIn: 0.33, pmOut: 0.18, daily: 4.99 },
+                    '310': { name: 'Hotel', unit: 'Room', amIn: 0.26, amOut: 0.33, pmIn: 0.31, pmOut: 0.22, daily: 8.36 },
+                    '520': { name: 'Elementary School', unit: 'Student', amIn: 0.43, amOut: 0.28, pmIn: 0.15, pmOut: 0.34, daily: 1.29 },
+                    '530': { name: 'High School', unit: 'Student', amIn: 0.38, amOut: 0.18, pmIn: 0.13, pmOut: 0.28, daily: 1.71 },
+                    '560': { name: 'Church', unit: 'KSF', amIn: 0.31, amOut: 0.28, pmIn: 0.29, pmOut: 0.30, daily: 9.11 },
+                    '565': { name: 'Day Care Center', unit: 'KSF', amIn: 5.36, amOut: 3.72, pmIn: 3.52, pmOut: 5.29, daily: 47.62 },
+                    '610': { name: 'Hospital', unit: 'KSF', amIn: 0.70, amOut: 0.39, pmIn: 0.47, pmOut: 0.68, daily: 10.72 },
+                    '710': { name: 'General Office', unit: 'KSF', amIn: 1.16, amOut: 0.20, pmIn: 0.25, pmOut: 1.07, daily: 9.74 },
+                    '720': { name: 'Medical Office', unit: 'KSF', amIn: 2.04, amOut: 0.64, pmIn: 0.88, pmOut: 2.05, daily: 34.80 },
+                    '820': { name: 'Shopping Center', unit: 'KSF', amIn: 0.62, amOut: 0.40, pmIn: 1.83, pmOut: 1.96, daily: 37.75 },
+                    '850': { name: 'Supermarket', unit: 'KSF', amIn: 1.60, amOut: 1.49, pmIn: 4.67, pmOut: 4.57, daily: 106.78 },
+                    '932': { name: 'Restaurant (Sit-Down)', unit: 'KSF', amIn: 0.65, amOut: 0.58, pmIn: 3.72, pmOut: 2.62, daily: 83.84 },
+                    '934': { name: 'Fast-Food Restaurant', unit: 'KSF', amIn: 8.46, amOut: 7.70, pmIn: 16.74, pmOut: 15.82, daily: 470.95 },
+                    '936': { name: 'Coffee/Donut Shop', unit: 'KSF', amIn: 42.33, amOut: 39.61, pmIn: 12.83, pmOut: 12.53, daily: 820.00 },
+                    '944': { name: 'Gas Station w/ Convenience', unit: 'Pump', amIn: 7.32, amOut: 6.80, pmIn: 7.72, pmOut: 7.48, daily: 142.11 },
+                    '945': { name: 'Gas Station w/ Convenience (GFA)', unit: 'KSF', amIn: 20.63, amOut: 19.31, pmIn: 21.14, pmOut: 21.47, daily: 548.54 }
+                };
+
+                // Build a trip gen row
+                function buildTripRow(bldg) {
+                    const code = bldg.luc || '';
+                    const rate = iteRates[code];
+                    const size = parseFloat(bldg.sqft) || 0;
+                    const unit = rate ? rate.unit : 'KSF';
+                    const divisor = unit === 'KSF' ? 1000 : 1;
+                    const qty = unit === 'KSF' ? size / divisor : size;
+                    const inputStyle = 'background:var(--bg-base);border:1px solid var(--blue);border-radius:4px;padding:6px;color:var(--text-light);font-size:12px;width:100%;box-sizing:border-box;text-align:center;';
+
+                    const amIn = rate ? Math.round(rate.amIn * qty) : 0;
+                    const amOut = rate ? Math.round(rate.amOut * qty) : 0;
+                    const pmIn = rate ? Math.round(rate.pmIn * qty) : 0;
+                    const pmOut = rate ? Math.round(rate.pmOut * qty) : 0;
+                    const daily = rate ? Math.round(rate.daily * qty) : 0;
+
+                    const row = document.createElement('tr');
+                    row.innerHTML =
+                        '<td style="font-size:12px;">' + (bldg.name || 'New Land Use') + '</td>' +
+                        '<td><input type="text" class="trip-luc" value="' + code + '" placeholder="LUC" style="' + inputStyle + '"></td>' +
+                        '<td><input type="number" class="trip-size" value="' + (bldg.sqft || '') + '" placeholder="Size" style="' + inputStyle + '"></td>' +
+                        '<td style="font-size:11px;color:var(--text-muted);text-align:center;">' + unit + '</td>' +
+                        '<td><input type="number" class="trip-am-in" value="' + amIn + '" style="' + inputStyle + '"></td>' +
+                        '<td><input type="number" class="trip-am-out" value="' + amOut + '" style="' + inputStyle + '"></td>' +
+                        '<td><input type="number" class="trip-pm-in" value="' + pmIn + '" style="' + inputStyle + '"></td>' +
+                        '<td><input type="number" class="trip-pm-out" value="' + pmOut + '" style="' + inputStyle + '"></td>' +
+                        '<td><input type="number" class="trip-daily" value="' + daily + '" style="' + inputStyle + '"></td>' +
+                        '<td style="font-size:10px;color:var(--text-muted);text-align:center;">' + (rate ? 'ITE 11th' : 'Manual') + '</td>' +
+                        '<td><button class="remove-building-btn" onclick="this.closest(\'tr\').remove(); recalcTrips();">✕</button></td>';
+
+                    // Auto-recalc when ITE code or size changes
+                    const lucInput = row.querySelector('.trip-luc');
+                    const sizeInput = row.querySelector('.trip-size');
+                    [lucInput, sizeInput].forEach(inp => {
+                        inp.addEventListener('change', () => {
+                            const newCode = lucInput.value.trim();
+                            const newRate = iteRates[newCode];
+                            const newSize = parseFloat(sizeInput.value) || 0;
+                            const newUnit = newRate ? newRate.unit : 'KSF';
+                            const newQty = newUnit === 'KSF' ? newSize / 1000 : newSize;
+
+                            row.querySelector('td:nth-child(4)').textContent = newUnit;
+                            row.querySelector('td:nth-child(10)').textContent = newRate ? 'ITE 11th' : 'Manual';
+
+                            if (newRate) {
+                                row.querySelector('.trip-am-in').value = Math.round(newRate.amIn * newQty);
+                                row.querySelector('.trip-am-out').value = Math.round(newRate.amOut * newQty);
+                                row.querySelector('.trip-pm-in').value = Math.round(newRate.pmIn * newQty);
+                                row.querySelector('.trip-pm-out').value = Math.round(newRate.pmOut * newQty);
+                                row.querySelector('.trip-daily').value = Math.round(newRate.daily * newQty);
+                            }
+                            recalcTrips();
+                        });
+                    });
+
+                    // Recalc on manual trip edits
+                    row.querySelectorAll('.trip-am-in,.trip-am-out,.trip-pm-in,.trip-pm-out,.trip-daily').forEach(inp => {
+                        inp.addEventListener('change', recalcTrips);
+                    });
+
+                    return row;
+                }
+
+                // Recalculate totals and net trips
+                function recalcTrips() {
+                    let totals = { amIn: 0, amOut: 0, pmIn: 0, pmOut: 0, daily: 0 };
+                    document.querySelectorAll('#trip-gen-tbody tr').forEach(row => {
+                        totals.amIn += parseInt(row.querySelector('.trip-am-in')?.value) || 0;
+                        totals.amOut += parseInt(row.querySelector('.trip-am-out')?.value) || 0;
+                        totals.pmIn += parseInt(row.querySelector('.trip-pm-in')?.value) || 0;
+                        totals.pmOut += parseInt(row.querySelector('.trip-pm-out')?.value) || 0;
+                        totals.daily += parseInt(row.querySelector('.trip-daily')?.value) || 0;
+                    });
+
+                    document.getElementById('trip-total-am-in').textContent = totals.amIn;
+                    document.getElementById('trip-total-am-out').textContent = totals.amOut;
+                    document.getElementById('trip-total-pm-in').textContent = totals.pmIn;
+                    document.getElementById('trip-total-pm-out').textContent = totals.pmOut;
+                    document.getElementById('trip-total-daily').textContent = totals.daily;
+
+                    // Apply reductions
+                    const passby = parseFloat(document.getElementById('ws-passby-pct')?.value) || 0;
+                    const internal = parseFloat(document.getElementById('ws-internal-pct')?.value) || 0;
+                    const factor = (100 - passby) / 100 * (100 - internal) / 100;
+
+                    document.getElementById('net-am-in').textContent = Math.round(totals.amIn * factor);
+                    document.getElementById('net-am-out').textContent = Math.round(totals.amOut * factor);
+                    document.getElementById('net-pm-in').textContent = Math.round(totals.pmIn * factor);
+                    document.getElementById('net-pm-out').textContent = Math.round(totals.pmOut * factor);
+                    document.getElementById('net-daily').textContent = Math.round(totals.daily * factor);
+
+                    // Update badge
+                    const hasTrips = totals.daily > 0;
+                    setBadge('badge-trip-gen', hasTrips ? 'valid' : 'incomplete');
+
+                    // Validate
+                    const valPanel = document.getElementById('val-trip-gen');
+                    const valItems = document.getElementById('val-trip-gen-items');
+                    let html = '';
+
+                    const rowCount = document.querySelectorAll('#trip-gen-tbody tr').length;
+                    html += valItem(rowCount > 0, 'Land uses defined', rowCount + ' land use(s)');
+
+                    // Check for zero-trip rows
+                    let zeroRows = 0;
+                    document.querySelectorAll('#trip-gen-tbody tr').forEach(row => {
+                        const d = parseInt(row.querySelector('.trip-daily')?.value) || 0;
+                        if (d === 0) zeroRows++;
+                    });
+                    if (zeroRows > 0) html += valItem(null, zeroRows + ' land use(s) with zero daily trips', 'Enter ITE code or manual trips');
+
+                    html += valItem(totals.daily > 0, 'Total daily trips > 0', totals.daily + ' gross trips');
+
+                    if (passby > 0 || internal > 0) {
+                        html += valItem(true, 'Reductions applied', 'Pass-by: ' + passby + '%, Internal: ' + internal + '%');
+                        const netDaily = Math.round(totals.daily * factor);
+                        html += valItem(true, 'Net new daily trips', netDaily + ' trips');
+                    }
+
+                    const totalPeakAM = totals.amIn + totals.amOut;
+                    const totalPeakPM = totals.pmIn + totals.pmOut;
+                    if (totalPeakPM > 100) {
+                        html += valItem(null, 'PM peak > 100 trips — TIA likely required by jurisdiction', totalPeakPM + ' PM peak trips');
+                    }
+
+                    valItems.innerHTML = html;
+                    valPanel.classList.add('visible');
+                }
+
+                // Make functions globally accessible
+                window.recalcTrips = recalcTrips;
+                window.populateStep3 = populateStep3;
+
+                // Populate Step 3 when panel opens
+                function populateStep3() {
+                    const tbody = document.getElementById('trip-gen-tbody');
+                    const depPanel = document.getElementById('val-step3-dep');
+                    const depItems = document.getElementById('val-step3-dep-items');
+
+                    // Check dependency on Step 1
+                    const saved = localStorage.getItem('tfe_active_project');
+                    if (!saved) {
+                        depItems.innerHTML = valItem(false, 'No project data found', 'Complete Step 1 first');
+                        depPanel.style.borderColor = '#ef4444';
+                        return;
+                    }
+                    const proj = JSON.parse(saved);
+                    const hasBldgs = proj.buildings && proj.buildings.length > 0;
+                    let depHtml = '';
+                    depHtml += valItem(true, 'Project loaded', proj.name);
+                    depHtml += valItem(hasBldgs, 'Buildings/land uses from Step 1', hasBldgs ? proj.buildings.length + ' land use(s)' : 'No buildings defined — add manually below');
+
+                    const hasTmc = proj.folderItems && proj.folderItems['folder-tmc-counts'];
+                    depHtml += valItem(hasTmc ? true : null, 'TMC data from Step 2', hasTmc ? 'Available' : 'Not yet uploaded — can proceed without');
+
+                    depItems.innerHTML = depHtml;
+                    depPanel.style.borderColor = hasBldgs ? 'var(--success)' : '#fbbf24';
+
+                    // Only populate if tbody is empty (don't overwrite manual edits)
+                    if (tbody.children.length === 0 && hasBldgs) {
+                        proj.buildings.forEach(bldg => {
+                            tbody.appendChild(buildTripRow(bldg));
+                        });
+                        recalcTrips();
+                    }
+                }
+
+                // Bind: reduction inputs recalc
+                ['ws-passby-pct', 'ws-internal-pct'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.addEventListener('input', recalcTrips);
+                });
+
+                // Bind: add trip row button
+                const addTripRowBtn = document.getElementById('add-trip-row-btn');
+                if (addTripRowBtn) {
+                    addTripRowBtn.addEventListener('click', () => {
+                        const tbody = document.getElementById('trip-gen-tbody');
+                        tbody.appendChild(buildTripRow({ name: 'New Land Use', luc: '', sqft: '' }));
+                    });
+                }
+
+                // Bind: Submit Step 3
+                const submitStep3 = document.getElementById('ws-submit-step3');
+                if (submitStep3) {
+                    submitStep3.addEventListener('click', () => {
+                        const rows = document.querySelectorAll('#trip-gen-tbody tr');
+                        if (rows.length === 0) {
+                            submitStep3.textContent = 'Add Land Uses First';
+                            submitStep3.style.background = '#ef4444';
+                            setTimeout(() => { submitStep3.textContent = 'Submit Trip Generation'; submitStep3.style.background = 'var(--gold)'; }, 2000);
+                            return;
+                        }
+
+                        // Save trip data
+                        const tripData = [];
+                        rows.forEach(row => {
+                            tripData.push({
+                                name: row.querySelector('td:first-child')?.textContent,
+                                luc: row.querySelector('.trip-luc')?.value,
+                                size: row.querySelector('.trip-size')?.value,
+                                amIn: row.querySelector('.trip-am-in')?.value,
+                                amOut: row.querySelector('.trip-am-out')?.value,
+                                pmIn: row.querySelector('.trip-pm-in')?.value,
+                                pmOut: row.querySelector('.trip-pm-out')?.value,
+                                daily: row.querySelector('.trip-daily')?.value
+                            });
+                        });
+
+                        const step3Data = {
+                            trips: tripData,
+                            passby: document.getElementById('ws-passby-pct')?.value,
+                            internal: document.getElementById('ws-internal-pct')?.value,
+                            notes: document.getElementById('ws-reduction-notes')?.value,
+                            netAmIn: document.getElementById('net-am-in')?.textContent,
+                            netAmOut: document.getElementById('net-am-out')?.textContent,
+                            netPmIn: document.getElementById('net-pm-in')?.textContent,
+                            netPmOut: document.getElementById('net-pm-out')?.textContent,
+                            netDaily: document.getElementById('net-daily')?.textContent
+                        };
+                        localStorage.setItem('tfe_step3_data', JSON.stringify(step3Data));
+
+                        this.markStepComplete(3);
+                        this.markFolderItem('folder-trip-calcs');
+                        this.markFolderItem('folder-trip-worksheet');
+
+                        submitStep3.textContent = '✓ Trip Generation Saved';
+                        submitStep3.style.background = 'var(--success)';
+                        setTimeout(() => { submitStep3.textContent = 'Submit Trip Generation'; submitStep3.style.background = 'var(--gold)'; }, 2000);
+                    });
+                }
+
+                // ==================== STEP 4: TRIP DISTRIBUTION ====================
+
+                const distInputStyle = 'background:var(--bg-base);border:1px solid var(--blue);border-radius:4px;padding:6px;color:var(--text-light);font-size:12px;width:100%;box-sizing:border-box;text-align:center;';
+
+                function buildDistRow(routeName, direction) {
+                    const row = document.createElement('tr');
+                    row.innerHTML =
+                        '<td><input type="text" class="dist-route" value="' + (routeName || '') + '" placeholder="e.g., Oracle Rd" style="' + distInputStyle + 'text-align:left;"></td>' +
+                        '<td><select class="dist-dir" style="' + distInputStyle + '">' +
+                            '<option value="NB"' + (direction === 'NB' ? ' selected' : '') + '>NB</option>' +
+                            '<option value="SB"' + (direction === 'SB' ? ' selected' : '') + '>SB</option>' +
+                            '<option value="EB"' + (direction === 'EB' ? ' selected' : '') + '>EB</option>' +
+                            '<option value="WB"' + (direction === 'WB' ? ' selected' : '') + '>WB</option>' +
+                        '</select></td>' +
+                        '<td><input type="number" class="dist-am-pct" value="0" min="0" max="100" step="1" style="' + distInputStyle + '"></td>' +
+                        '<td><input type="number" class="dist-pm-pct" value="0" min="0" max="100" step="1" style="' + distInputStyle + '"></td>' +
+                        '<td class="dist-am-trips" style="text-align:center;font-size:12px;color:var(--text-light);">0</td>' +
+                        '<td class="dist-pm-trips" style="text-align:center;font-size:12px;color:var(--text-light);">0</td>' +
+                        '<td><button class="remove-building-btn" onclick="this.closest(\'tr\').remove(); recalcDist();">✕</button></td>';
+
+                    row.querySelectorAll('.dist-am-pct,.dist-pm-pct').forEach(inp => {
+                        inp.addEventListener('input', recalcDist);
+                    });
+                    return row;
+                }
+
+                function recalcDist() {
+                    // Get net trips from Step 3
+                    const step3 = localStorage.getItem('tfe_step3_data');
+                    let netAM = 0, netPM = 0;
+                    if (step3) {
+                        const d = JSON.parse(step3);
+                        netAM = (parseInt(d.netAmIn) || 0) + (parseInt(d.netAmOut) || 0);
+                        netPM = (parseInt(d.netPmIn) || 0) + (parseInt(d.netPmOut) || 0);
+                    }
+
+                    let totalAmPct = 0, totalPmPct = 0, totalAmTrips = 0, totalPmTrips = 0;
+
+                    document.querySelectorAll('#dist-tbody tr').forEach(row => {
+                        const amPct = parseFloat(row.querySelector('.dist-am-pct')?.value) || 0;
+                        const pmPct = parseFloat(row.querySelector('.dist-pm-pct')?.value) || 0;
+                        const amTrips = Math.round(netAM * amPct / 100);
+                        const pmTrips = Math.round(netPM * pmPct / 100);
+
+                        row.querySelector('.dist-am-trips').textContent = amTrips;
+                        row.querySelector('.dist-pm-trips').textContent = pmTrips;
+
+                        totalAmPct += amPct;
+                        totalPmPct += pmPct;
+                        totalAmTrips += amTrips;
+                        totalPmTrips += pmTrips;
+                    });
+
+                    document.getElementById('dist-total-am-pct').textContent = totalAmPct + '%';
+                    document.getElementById('dist-total-pm-pct').textContent = totalPmPct + '%';
+                    document.getElementById('dist-total-am-trips').textContent = totalAmTrips;
+                    document.getElementById('dist-total-pm-trips').textContent = totalPmTrips;
+
+                    // Badge
+                    const hasRows = document.querySelectorAll('#dist-tbody tr').length > 0;
+                    const pctValid = Math.abs(totalAmPct - 100) <= 1 && Math.abs(totalPmPct - 100) <= 1;
+                    setBadge('badge-dist-split', hasRows && pctValid ? 'valid' : (hasRows ? 'warning' : 'incomplete'));
+
+                    // Validation panel
+                    const valPanel = document.getElementById('val-dist');
+                    const valItems = document.getElementById('val-dist-items');
+                    let html = '';
+
+                    html += valItem(hasRows, 'Distribution routes defined', document.querySelectorAll('#dist-tbody tr').length + ' route(s)');
+                    html += valItem(Math.abs(totalAmPct - 100) <= 1, 'AM percentages sum to 100%', totalAmPct + '%');
+                    html += valItem(Math.abs(totalPmPct - 100) <= 1, 'PM percentages sum to 100%', totalPmPct + '%');
+
+                    if (Math.abs(totalAmPct - 100) > 1) html += valItem(false, 'AM distribution does not equal 100%', 'Adjust percentages (' + (100 - totalAmPct) + '% remaining)');
+                    if (Math.abs(totalPmPct - 100) > 1) html += valItem(false, 'PM distribution does not equal 100%', 'Adjust percentages (' + (100 - totalPmPct) + '% remaining)');
+
+                    if (netAM > 0) {
+                        html += valItem(true, 'Net AM peak trips from Step 3', netAM + ' trips');
+                        html += valItem(true, 'Net PM peak trips from Step 3', netPM + ' trips');
+                    } else {
+                        html += valItem(null, 'No trip data from Step 3', 'Complete Step 3 for trip calculations');
+                    }
+
+                    valItems.innerHTML = html;
+                    valPanel.classList.add('visible');
+                }
+
+                window.recalcDist = recalcDist;
+
+                function populateStep4() {
+                    const depPanel = document.getElementById('val-step4-dep');
+                    const depItems = document.getElementById('val-step4-dep-items');
+                    const tbody = document.getElementById('dist-tbody');
+
+                    // Dependency check
+                    const step3 = localStorage.getItem('tfe_step3_data');
+                    const proj = localStorage.getItem('tfe_active_project');
+                    let depHtml = '';
+
+                    if (proj) {
+                        const p = JSON.parse(proj);
+                        depHtml += valItem(true, 'Project loaded', p.name);
+                    } else {
+                        depHtml += valItem(false, 'No project data', 'Complete Step 1 first');
+                    }
+
+                    if (step3) {
+                        const d = JSON.parse(step3);
+                        const netAM = (parseInt(d.netAmIn) || 0) + (parseInt(d.netAmOut) || 0);
+                        const netPM = (parseInt(d.netPmIn) || 0) + (parseInt(d.netPmOut) || 0);
+                        depHtml += valItem(true, 'Trip generation data available', netAM + ' AM / ' + netPM + ' PM net trips');
+                        depPanel.style.borderColor = 'var(--success)';
+                    } else {
+                        depHtml += valItem(null, 'No trip generation data', 'Complete Step 3 — trips will show as 0 until then');
+                        depPanel.style.borderColor = '#fbbf24';
+                    }
+
+                    depItems.innerHTML = depHtml;
+
+                    // Populate default 4 rows if empty
+                    if (tbody.children.length === 0) {
+                        tbody.appendChild(buildDistRow('', 'NB'));
+                        tbody.appendChild(buildDistRow('', 'SB'));
+                        tbody.appendChild(buildDistRow('', 'EB'));
+                        tbody.appendChild(buildDistRow('', 'WB'));
+                        recalcDist();
+                    }
+                }
+
+                window.populateStep4 = populateStep4;
+
+                // Bind: method select updates badge
+                const distMethodEl = document.getElementById('ws-dist-method');
+                if (distMethodEl) {
+                    distMethodEl.addEventListener('change', () => {
+                        setBadge('badge-dist-method', distMethodEl.value ? 'valid' : 'incomplete');
+                    });
+                }
+
+                // Bind: add route row
+                const addDistRowBtn = document.getElementById('add-dist-row-btn');
+                if (addDistRowBtn) {
+                    addDistRowBtn.addEventListener('click', () => {
+                        document.getElementById('dist-tbody').appendChild(buildDistRow('', 'NB'));
+                    });
+                }
+
+                // Bind: Submit Step 4
+                const submitStep4 = document.getElementById('ws-submit-step4');
+                if (submitStep4) {
+                    submitStep4.addEventListener('click', () => {
+                        const rows = document.querySelectorAll('#dist-tbody tr');
+                        if (rows.length === 0) {
+                            submitStep4.textContent = 'Add Routes First';
+                            submitStep4.style.background = '#ef4444';
+                            setTimeout(() => { submitStep4.textContent = 'Submit Trip Distribution'; submitStep4.style.background = 'var(--gold)'; }, 2000);
+                            return;
+                        }
+
+                        // Save distribution data
+                        const distData = [];
+                        rows.forEach(row => {
+                            distData.push({
+                                route: row.querySelector('.dist-route')?.value,
+                                direction: row.querySelector('.dist-dir')?.value,
+                                amPct: row.querySelector('.dist-am-pct')?.value,
+                                pmPct: row.querySelector('.dist-pm-pct')?.value,
+                                amTrips: row.querySelector('.dist-am-trips')?.textContent,
+                                pmTrips: row.querySelector('.dist-pm-trips')?.textContent
+                            });
+                        });
+
+                        const step4Data = {
+                            method: document.getElementById('ws-dist-method')?.value,
+                            source: document.getElementById('ws-dist-source')?.value,
+                            notes: document.getElementById('ws-dist-notes')?.value,
+                            routes: distData
+                        };
+                        localStorage.setItem('tfe_step4_data', JSON.stringify(step4Data));
+
+                        this.markStepComplete(4);
+                        this.markFolderItem('folder-distribution');
+
+                        submitStep4.textContent = '✓ Trip Distribution Saved';
+                        submitStep4.style.background = 'var(--success)';
+                        setTimeout(() => { submitStep4.textContent = 'Submit Trip Distribution'; submitStep4.style.background = 'var(--gold)'; }, 2000);
+                    });
+                }
+
+                // ==================== STEP 5: FUTURE VOLUMES JS ====================
+
+                function buildExistingVolRow(location = '', direction = 'NB') {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><input type="text" class="ws-input evol-location" value="${location}" placeholder="e.g. Main St & 1st Ave" style="width:100%;"></td>
+                        <td><select class="ws-input evol-dir" style="width:70px;">
+                            <option value="NB" ${direction==='NB'?'selected':''}>NB</option>
+                            <option value="SB" ${direction==='SB'?'selected':''}>SB</option>
+                            <option value="EB" ${direction==='EB'?'selected':''}>EB</option>
+                            <option value="WB" ${direction==='WB'?'selected':''}>WB</option>
+                        </select></td>
+                        <td><input type="number" class="ws-input evol-am" min="0" value="0" style="width:70px;"></td>
+                        <td><input type="number" class="ws-input evol-pm" min="0" value="0" style="width:70px;"></td>
+                        <td><input type="number" class="ws-input evol-daily" min="0" value="0" style="width:80px;"></td>
+                    `;
+                    tr.querySelectorAll('input, select').forEach(el => el.addEventListener('change', recalcVolumes));
+                    return tr;
+                }
+
+                function recalcVolumes() {
+                    const baseYear = parseInt(document.getElementById('ws-vol-base-year')?.value) || 0;
+                    const openYear = parseInt(document.getElementById('ws-vol-open-year')?.value) || 0;
+                    const horizonYear = parseInt(document.getElementById('ws-vol-horizon-year')?.value) || 0;
+                    const growthRate = parseFloat(document.getElementById('ws-vol-growth-rate')?.value) || 0;
+
+                    // Calculate growth factors
+                    const yearsToOpen = openYear - baseYear;
+                    const yearsToHorizon = horizonYear - baseYear;
+                    const openFactor = yearsToOpen > 0 ? Math.pow(1 + growthRate / 100, yearsToOpen) : 1;
+                    const horizonFactor = yearsToHorizon > 0 ? Math.pow(1 + growthRate / 100, yearsToHorizon) : 1;
+
+                    document.getElementById('vol-open-factor').textContent = openFactor.toFixed(3);
+                    document.getElementById('vol-horizon-factor').textContent = horizonFactor.toFixed(3);
+                    document.getElementById('vol-years-open').textContent = yearsToOpen > 0 ? yearsToOpen : '—';
+                    document.getElementById('vol-years-horizon').textContent = yearsToHorizon > 0 ? yearsToHorizon : '—';
+
+                    // Get site trips from Step 3 + Step 4
+                    const step3 = JSON.parse(localStorage.getItem('tfe_step3_data') || '{}');
+                    const step4 = JSON.parse(localStorage.getItem('tfe_step4_data') || '{}');
+
+                    const siteAmIn = parseInt(step3.netAmIn) || 0;
+                    const siteAmOut = parseInt(step3.netAmOut) || 0;
+                    const sitePmIn = parseInt(step3.netPmIn) || 0;
+                    const sitePmOut = parseInt(step3.netPmOut) || 0;
+
+                    document.getElementById('vol-site-am-in').textContent = siteAmIn || '—';
+                    document.getElementById('vol-site-am-out').textContent = siteAmOut || '—';
+                    document.getElementById('vol-site-pm-in').textContent = sitePmIn || '—';
+                    document.getElementById('vol-site-pm-out').textContent = sitePmOut || '—';
+
+                    // Build scenario rows from existing volumes
+                    const scenarioTbody = document.getElementById('vol-scenarios-tbody');
+                    scenarioTbody.innerHTML = '';
+                    const existingRows = document.querySelectorAll('#existing-vol-tbody tr');
+                    let hasData = false;
+
+                    existingRows.forEach(row => {
+                        const loc = row.querySelector('.evol-location')?.value || '';
+                        const dir = row.querySelector('.evol-dir')?.value || '';
+                        const exAM = parseInt(row.querySelector('.evol-am')?.value) || 0;
+                        const exPM = parseInt(row.querySelector('.evol-pm')?.value) || 0;
+
+                        if (!loc && exAM === 0 && exPM === 0) return;
+                        hasData = true;
+
+                        // Background = existing * growth factor
+                        const bgOpenAM = Math.round(exAM * openFactor);
+                        const bgOpenPM = Math.round(exPM * openFactor);
+                        const bgHorzAM = Math.round(exAM * horizonFactor);
+                        const bgHorzPM = Math.round(exPM * horizonFactor);
+
+                        // Site trips per direction from Step 4 distribution
+                        let siteDirAM = 0, siteDirPM = 0;
+                        if (step4.routes) {
+                            step4.routes.forEach(r => {
+                                if (r.direction === dir) {
+                                    siteDirAM += parseInt(r.amTrips) || 0;
+                                    siteDirPM += parseInt(r.pmTrips) || 0;
+                                }
+                            });
+                        }
+
+                        // Total future = background + site
+                        const totalOpenAM = bgOpenAM + siteDirAM;
+                        const totalOpenPM = bgOpenPM + siteDirPM;
+                        const totalHorzAM = bgHorzAM + siteDirAM;
+                        const totalHorzPM = bgHorzPM + siteDirPM;
+
+                        const sr = document.createElement('tr');
+                        sr.innerHTML = `
+                            <td>${loc}</td>
+                            <td>${dir}</td>
+                            <td>${exAM}</td><td>${exPM}</td>
+                            <td>${bgOpenAM}</td><td>${bgOpenPM}</td>
+                            <td>${bgHorzAM}</td><td>${bgHorzPM}</td>
+                            <td style="color: var(--gold);">${siteDirAM}</td><td style="color: var(--gold);">${siteDirPM}</td>
+                            <td style="font-weight:600; color: var(--success);">${totalOpenAM}</td><td style="font-weight:600; color: var(--success);">${totalOpenPM}</td>
+                            <td style="font-weight:600; color: var(--success);">${totalHorzAM}</td><td style="font-weight:600; color: var(--success);">${totalHorzPM}</td>
+                        `;
+                        scenarioTbody.appendChild(sr);
+                    });
+
+                    // Update badges
+                    setBadge('badge-growth-params', (baseYear > 0 && openYear > 0 && growthRate > 0) ? 'valid' : 'incomplete');
+                    setBadge('badge-existing-vol', hasData ? 'valid' : 'incomplete');
+                    setBadge('badge-vol-scenarios', hasData ? 'valid' : 'incomplete');
+
+                    // Validation
+                    const valItems = document.getElementById('val-volumes-items');
+                    const valPanel = document.getElementById('val-volumes');
+                    if (valItems) {
+                        let html = '';
+                        html += valItem(baseYear > 2000, 'Base year set', baseYear > 2000 ? `${baseYear}` : 'Enter base year');
+                        html += valItem(openYear > 0 && horizonYear > 0, 'Project years from Step 1', (openYear > 0) ? `Opening: ${openYear}, Horizon: ${horizonYear}` : 'Complete Step 1 first');
+                        html += valItem(growthRate > 0, 'Growth rate defined', growthRate > 0 ? `${growthRate}% annually` : 'Set in Step 1');
+                        html += valItem(hasData, 'Existing volumes entered', hasData ? `${existingRows.length} locations` : 'Add at least one location');
+                        html += valItem(siteAmIn > 0 || siteAmOut > 0, 'Site trips from Step 3', (siteAmIn > 0 || siteAmOut > 0) ? 'Available' : 'Complete Step 3 first');
+                        valItems.innerHTML = html;
+                        valPanel.classList.add('visible');
+                    }
+                }
+
+                function populateStep5() {
+                    // Dependency check
+                    const step3 = localStorage.getItem('tfe_step3_data');
+                    const step4 = localStorage.getItem('tfe_step4_data');
+                    const proj = JSON.parse(localStorage.getItem('tfe_active_project') || '{}');
+                    let depHtml = '';
+
+                    depHtml += valItem(!!step3, 'Step 3 — Trip Generation', step3 ? 'Complete' : 'Not submitted — net trips needed');
+                    depHtml += valItem(!!step4, 'Step 4 — Trip Distribution', step4 ? 'Complete' : 'Not submitted — directional splits needed');
+                    depHtml += valItem(!!proj.openingYear, 'Step 1 — Opening/Horizon Years', proj.openingYear ? 'Available' : 'Not set — complete Step 1');
+
+                    const depItems = document.getElementById('dep-check-step5-items');
+                    if (depItems) depItems.innerHTML = depHtml;
+
+                    // Auto-fill from Step 1 project data
+                    if (proj.openingYear) {
+                        document.getElementById('ws-vol-open-year').value = proj.openingYear;
+                    }
+                    if (proj.horizonYear) {
+                        document.getElementById('ws-vol-horizon-year').value = proj.horizonYear;
+                    }
+                    if (proj.growthRate) {
+                        document.getElementById('ws-vol-growth-rate').value = proj.growthRate;
+                    }
+
+                    // Seed existing volume rows if empty
+                    const tbody = document.getElementById('existing-vol-tbody');
+                    if (tbody && tbody.rows.length === 0) {
+                        // If Step 4 has routes, seed from those
+                        if (step4) {
+                            const s4 = JSON.parse(step4);
+                            if (s4.routes && s4.routes.length > 0) {
+                                s4.routes.forEach(r => {
+                                    tbody.appendChild(buildExistingVolRow(r.route || '', r.direction || 'NB'));
+                                });
+                            } else {
+                                // Default 4 cardinal directions
+                                ['NB','SB','EB','WB'].forEach(d => tbody.appendChild(buildExistingVolRow('', d)));
+                            }
+                        } else {
+                            ['NB','SB','EB','WB'].forEach(d => tbody.appendChild(buildExistingVolRow('', d)));
+                        }
+                    }
+
+                    recalcVolumes();
+                }
+                window.recalcVolumes = recalcVolumes;
+                window.populateStep5 = populateStep5;
+
+                // Bind: add existing volume row
+                const addExistVolBtn = document.getElementById('add-existing-vol-btn');
+                if (addExistVolBtn) {
+                    addExistVolBtn.addEventListener('click', () => {
+                        document.getElementById('existing-vol-tbody').appendChild(buildExistingVolRow('', 'NB'));
+                    });
+                }
+
+                // Bind: base year change triggers recalc
+                const baseYearEl = document.getElementById('ws-vol-base-year');
+                if (baseYearEl) {
+                    baseYearEl.addEventListener('change', recalcVolumes);
+                }
+
+                // Bind: Submit Step 5
+                const submitStep5 = document.getElementById('ws-submit-step5');
+                if (submitStep5) {
+                    submitStep5.addEventListener('click', () => {
+                        const rows = document.querySelectorAll('#existing-vol-tbody tr');
+                        if (rows.length === 0) {
+                            submitStep5.textContent = 'Add Volumes First';
+                            submitStep5.style.background = '#ef4444';
+                            setTimeout(() => { submitStep5.textContent = 'Submit Future Volumes'; submitStep5.style.background = 'var(--gold)'; }, 2000);
+                            return;
+                        }
+
+                        const existingVolumes = [];
+                        rows.forEach(row => {
+                            existingVolumes.push({
+                                location: row.querySelector('.evol-location')?.value,
+                                direction: row.querySelector('.evol-dir')?.value,
+                                amPeak: row.querySelector('.evol-am')?.value,
+                                pmPeak: row.querySelector('.evol-pm')?.value,
+                                daily: row.querySelector('.evol-daily')?.value
+                            });
+                        });
+
+                        const step5Data = {
+                            baseYear: document.getElementById('ws-vol-base-year')?.value,
+                            openYear: document.getElementById('ws-vol-open-year')?.value,
+                            horizonYear: document.getElementById('ws-vol-horizon-year')?.value,
+                            growthRate: document.getElementById('ws-vol-growth-rate')?.value,
+                            openFactor: document.getElementById('vol-open-factor')?.textContent,
+                            horizonFactor: document.getElementById('vol-horizon-factor')?.textContent,
+                            existingVolumes: existingVolumes
+                        };
+                        localStorage.setItem('tfe_step5_data', JSON.stringify(step5Data));
+
+                        this.markStepComplete(5);
+                        this.markFolderItem('folder-volumes');
+
+                        submitStep5.textContent = '✓ Future Volumes Saved';
+                        submitStep5.style.background = 'var(--success)';
+                        setTimeout(() => { submitStep5.textContent = 'Submit Future Volumes'; submitStep5.style.background = 'var(--gold)'; }, 2000);
+                    });
+                }
+
+                // ==================== STEP 6: CAPACITY ANALYSIS JS ====================
+
+                function buildLosRow(intersection = '', control = 'Signal') {
+                    const tr = document.createElement('tr');
+                    const losOpts = ['—','A','B','C','D','E','F'].map(g => `<option value="${g}">${g}</option>`).join('');
+                    tr.innerHTML = `
+                        <td><input type="text" class="ws-input los-intersection" value="${intersection}" placeholder="e.g. Main St & 1st Ave" style="width:100%;"></td>
+                        <td><select class="ws-input los-control" style="width:90px;">
+                            <option value="Signal" ${control==='Signal'?'selected':''}>Signal</option>
+                            <option value="TWSC" ${control==='TWSC'?'selected':''}>TWSC</option>
+                            <option value="AWSC" ${control==='AWSC'?'selected':''}>AWSC</option>
+                            <option value="Roundabout" ${control==='Roundabout'?'selected':''}>Roundabout</option>
+                            <option value="Unsig" ${control==='Unsig'?'selected':''}>Unsig</option>
+                        </select></td>
+                        <td><select class="ws-input los-peak" style="width:60px;">
+                            <option value="AM">AM</option>
+                            <option value="PM">PM</option>
+                        </select></td>
+                        <td><select class="ws-input los-ex-grade" style="width:50px;">${losOpts}</select></td>
+                        <td><input type="number" class="ws-input los-ex-delay" min="0" step="0.1" value="" placeholder="—" style="width:60px;"></td>
+                        <td><select class="ws-input los-bg-grade" style="width:50px;">${losOpts}</select></td>
+                        <td><input type="number" class="ws-input los-bg-delay" min="0" step="0.1" value="" placeholder="—" style="width:60px;"></td>
+                        <td><select class="ws-input los-tf-grade" style="width:50px;">${losOpts}</select></td>
+                        <td><input type="number" class="ws-input los-tf-delay" min="0" step="0.1" value="" placeholder="—" style="width:60px;"></td>
+                        <td><select class="ws-input los-mitigation" style="width:70px;">
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select></td>
+                    `;
+                    tr.querySelectorAll('input, select').forEach(el => el.addEventListener('change', validateCapacity));
+                    return tr;
+                }
+
+                function validateCapacity() {
+                    const synchroRows = document.querySelectorAll('#synchro-tbody tr');
+                    let filesCount = 0;
+                    synchroRows.forEach(row => {
+                        if (row.querySelector('.cap-filename')?.value.trim()) filesCount++;
+                    });
+
+                    const losRows = document.querySelectorAll('#los-tbody tr');
+                    let losCount = 0;
+                    let mitigationNeeded = false;
+                    losRows.forEach(row => {
+                        const grade = row.querySelector('.los-tf-grade')?.value;
+                        if (grade && grade !== '—') losCount++;
+                        if (row.querySelector('.los-mitigation')?.value === 'Yes') mitigationNeeded = true;
+                    });
+
+                    const mitigationNotes = document.getElementById('ws-mitigation-notes')?.value.trim();
+
+                    setBadge('badge-synchro-files', filesCount > 0 ? 'valid' : 'incomplete');
+                    setBadge('badge-los-table', losCount > 0 ? 'valid' : 'incomplete');
+
+                    // Validation panel
+                    const valItems = document.getElementById('val-capacity-items');
+                    const valPanel = document.getElementById('val-capacity');
+                    if (valItems) {
+                        let html = '';
+                        html += valItem(filesCount > 0, 'Model files referenced', filesCount > 0 ? `${filesCount} scenario(s) documented` : 'Enter at least one filename');
+                        html += valItem(losCount > 0, 'LOS results entered', losCount > 0 ? `${losCount} intersection result(s)` : 'Add intersection LOS data');
+                        html += valItem(!mitigationNeeded || mitigationNotes.length > 0, 'Mitigation documented', mitigationNeeded ? (mitigationNotes ? 'Notes provided' : 'Mitigation flagged — add notes') : 'No mitigation needed');
+                        const allGradesOk = Array.from(losRows).every(r => {
+                            const g = r.querySelector('.los-tf-grade')?.value;
+                            return !g || g === '—' || ['A','B','C','D'].includes(g);
+                        });
+                        html += valItem(allGradesOk, 'Acceptable LOS (A-D)', allGradesOk ? 'All intersections pass' : 'One or more intersections at LOS E/F');
+                        valItems.innerHTML = html;
+                        valPanel.classList.add('visible');
+                    }
+                }
+
+                function populateStep6() {
+                    // Dependency check
+                    const step5 = localStorage.getItem('tfe_step5_data');
+                    const step3 = localStorage.getItem('tfe_step3_data');
+                    let depHtml = '';
+                    depHtml += valItem(!!step5, 'Step 5 — Future Volumes', step5 ? 'Complete' : 'Not submitted — volume scenarios needed');
+                    depHtml += valItem(!!step3, 'Step 3 — Trip Generation', step3 ? 'Complete' : 'Not submitted');
+                    const depItems = document.getElementById('dep-check-step6-items');
+                    if (depItems) depItems.innerHTML = depHtml;
+
+                    // Seed LOS rows from Step 5 existing volumes if empty
+                    const losTbody = document.getElementById('los-tbody');
+                    if (losTbody && losTbody.rows.length === 0) {
+                        if (step5) {
+                            const s5 = JSON.parse(step5);
+                            if (s5.existingVolumes && s5.existingVolumes.length > 0) {
+                                // Group by unique locations
+                                const locations = [...new Set(s5.existingVolumes.map(v => v.location).filter(Boolean))];
+                                locations.forEach(loc => {
+                                    // AM row
+                                    losTbody.appendChild(buildLosRow(loc, 'Signal'));
+                                    // PM row
+                                    const pmRow = buildLosRow(loc, 'Signal');
+                                    pmRow.querySelector('.los-peak').value = 'PM';
+                                    losTbody.appendChild(pmRow);
+                                });
+                            }
+                        }
+                        if (losTbody.rows.length === 0) {
+                            // Default: two rows
+                            losTbody.appendChild(buildLosRow('', 'Signal'));
+                            const pmRow = buildLosRow('', 'Signal');
+                            pmRow.querySelector('.los-peak').value = 'PM';
+                            losTbody.appendChild(pmRow);
+                        }
+                    }
+                    validateCapacity();
+                }
+                window.validateCapacity = validateCapacity;
+                window.populateStep6 = populateStep6;
+
+                // Bind: add LOS row
+                const addLosRowBtn = document.getElementById('add-los-row-btn');
+                if (addLosRowBtn) {
+                    addLosRowBtn.addEventListener('click', () => {
+                        document.getElementById('los-tbody').appendChild(buildLosRow('', 'Signal'));
+                    });
+                }
+
+                // Bind: synchro file changes trigger validation
+                document.querySelectorAll('#synchro-tbody input').forEach(el => el.addEventListener('change', validateCapacity));
+
+                // Bind: Submit Step 6
+                const submitStep6 = document.getElementById('ws-submit-step6');
+                if (submitStep6) {
+                    submitStep6.addEventListener('click', () => {
+                        // Save synchro models
+                        const synchroData = [];
+                        document.querySelectorAll('#synchro-tbody tr').forEach(row => {
+                            synchroData.push({
+                                scenario: row.querySelector('td:first-child')?.textContent.trim(),
+                                software: row.querySelector('.cap-software')?.value,
+                                filename: row.querySelector('.cap-filename')?.value,
+                                notes: row.querySelector('.cap-file-notes')?.value
+                            });
+                        });
+
+                        // Save LOS results
+                        const losData = [];
+                        document.querySelectorAll('#los-tbody tr').forEach(row => {
+                            losData.push({
+                                intersection: row.querySelector('.los-intersection')?.value,
+                                control: row.querySelector('.los-control')?.value,
+                                peak: row.querySelector('.los-peak')?.value,
+                                exGrade: row.querySelector('.los-ex-grade')?.value,
+                                exDelay: row.querySelector('.los-ex-delay')?.value,
+                                bgGrade: row.querySelector('.los-bg-grade')?.value,
+                                bgDelay: row.querySelector('.los-bg-delay')?.value,
+                                tfGrade: row.querySelector('.los-tf-grade')?.value,
+                                tfDelay: row.querySelector('.los-tf-delay')?.value,
+                                mitigation: row.querySelector('.los-mitigation')?.value
+                            });
+                        });
+
+                        const step6Data = {
+                            synchroModels: synchroData,
+                            losResults: losData,
+                            mitigationNotes: document.getElementById('ws-mitigation-notes')?.value
+                        };
+                        localStorage.setItem('tfe_step6_data', JSON.stringify(step6Data));
+
+                        this.markStepComplete(6);
+                        this.markFolderItem('folder-synchro');
+                        this.markFolderItem('folder-los');
+
+                        submitStep6.textContent = '✓ Capacity Analysis Saved';
+                        submitStep6.style.background = 'var(--success)';
+                        setTimeout(() => { submitStep6.textContent = 'Submit Capacity Analysis'; submitStep6.style.background = 'var(--gold)'; }, 2000);
+                    });
+                }
+
+                // ==================== STEP 7: SITE ACCESS JS ====================
+
+                function buildDrivewayRow(name = '') {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><input type="text" class="ws-input dw-name" value="${name}" placeholder="e.g. Driveway 1" style="width:100%;"></td>
+                        <td><input type="text" class="ws-input dw-road" placeholder="e.g. Main St" style="width:100%;"></td>
+                        <td><select class="ws-input dw-type" style="width:100px;">
+                            <option value="Full">Full Access</option>
+                            <option value="Right-In/Right-Out">Right-In/Out</option>
+                            <option value="Right-In Only">Right-In Only</option>
+                            <option value="Right-Out Only">Right-Out Only</option>
+                            <option value="Left-In/Left-Out">Left-In/Out</option>
+                            <option value="3/4">3/4 Movement</option>
+                        </select></td>
+                        <td><select class="ws-input dw-movements" style="width:80px;">
+                            <option value="All">All</option>
+                            <option value="Right Only">Right Only</option>
+                            <option value="Limited">Limited</option>
+                        </select></td>
+                        <td><input type="number" class="ws-input dw-lanes-in" min="1" max="4" value="1" style="width:50px;"></td>
+                        <td><input type="number" class="ws-input dw-lanes-out" min="1" max="4" value="1" style="width:50px;"></td>
+                        <td><select class="ws-input dw-control" style="width:80px;">
+                            <option value="None">None</option>
+                            <option value="Stop">Stop</option>
+                            <option value="Signal">Signal</option>
+                            <option value="Yield">Yield</option>
+                        </select></td>
+                        <td><input type="number" class="ws-input dw-spacing" min="0" value="" placeholder="—" style="width:70px;"></td>
+                    `;
+                    tr.querySelectorAll('input, select').forEach(el => el.addEventListener('change', validateAccess));
+                    return tr;
+                }
+
+                function buildTurnLaneRow(location = '') {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><input type="text" class="ws-input tl-location" value="${location}" placeholder="e.g. Driveway 1" style="width:100%;"></td>
+                        <td><select class="ws-input tl-movement" style="width:80px;">
+                            <option value="Left">Left</option>
+                            <option value="Right">Right</option>
+                        </select></td>
+                        <td><input type="number" class="ws-input tl-volume" min="0" value="" placeholder="—" style="width:70px;"></td>
+                        <td><select class="ws-input tl-method" style="width:120px;">
+                            <option value="FDOT">FDOT Index</option>
+                            <option value="NCHRP 745">NCHRP 745</option>
+                            <option value="AASHTO">AASHTO</option>
+                            <option value="Jurisdiction">Jurisdiction Std</option>
+                        </select></td>
+                        <td><select class="ws-input tl-warranted" style="width:60px;">
+                            <option value="—">—</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select></td>
+                        <td><select class="ws-input tl-recommended" style="width:60px;">
+                            <option value="—">—</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select></td>
+                        <td><input type="number" class="ws-input tl-storage" min="0" value="" placeholder="—" style="width:70px;"></td>
+                    `;
+                    tr.querySelectorAll('input, select').forEach(el => el.addEventListener('change', validateAccess));
+                    return tr;
+                }
+
+                function buildSightRow(driveway = '') {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><input type="text" class="ws-input sd-driveway" value="${driveway}" placeholder="e.g. Driveway 1" style="width:100%;"></td>
+                        <td><select class="ws-input sd-direction" style="width:70px;">
+                            <option value="Left">Left</option>
+                            <option value="Right">Right</option>
+                        </select></td>
+                        <td><input type="number" class="ws-input sd-speed" min="15" max="70" value="" placeholder="—" style="width:70px;"></td>
+                        <td><input type="number" class="ws-input sd-required" min="0" value="" placeholder="—" style="width:80px;"></td>
+                        <td><input type="number" class="ws-input sd-available" min="0" value="" placeholder="—" style="width:80px;"></td>
+                        <td class="sd-adequate" style="font-weight:600;">—</td>
+                    `;
+                    // Auto-check adequate on change
+                    const inputs = tr.querySelectorAll('input');
+                    inputs.forEach(el => el.addEventListener('change', () => {
+                        const req = parseInt(tr.querySelector('.sd-required')?.value) || 0;
+                        const avail = parseInt(tr.querySelector('.sd-available')?.value) || 0;
+                        const cell = tr.querySelector('.sd-adequate');
+                        if (req > 0 && avail > 0) {
+                            cell.textContent = avail >= req ? 'Yes' : 'No';
+                            cell.style.color = avail >= req ? 'var(--success)' : '#ef4444';
+                        } else {
+                            cell.textContent = '—';
+                            cell.style.color = 'var(--text-muted)';
+                        }
+                        validateAccess();
+                    }));
+                    return tr;
+                }
+
+                function validateAccess() {
+                    const dwRows = document.querySelectorAll('#driveway-tbody tr');
+                    let dwCount = 0;
+                    dwRows.forEach(r => { if (r.querySelector('.dw-name')?.value.trim()) dwCount++; });
+
+                    const tlRows = document.querySelectorAll('#turnlane-tbody tr');
+                    let tlCount = 0;
+                    tlRows.forEach(r => { if (r.querySelector('.tl-warranted')?.value !== '—') tlCount++; });
+
+                    const sdRows = document.querySelectorAll('#sight-tbody tr');
+                    let sdCount = 0;
+                    let sdFail = false;
+                    sdRows.forEach(r => {
+                        const req = parseInt(r.querySelector('.sd-required')?.value) || 0;
+                        const avail = parseInt(r.querySelector('.sd-available')?.value) || 0;
+                        if (req > 0) { sdCount++; if (avail < req) sdFail = true; }
+                    });
+
+                    setBadge('badge-driveways', dwCount > 0 ? 'valid' : 'incomplete');
+                    setBadge('badge-turn-lanes', tlCount > 0 ? 'valid' : 'incomplete');
+                    setBadge('badge-sight-dist', sdCount > 0 ? (sdFail ? 'warning' : 'valid') : 'incomplete');
+
+                    const valItems = document.getElementById('val-access-items');
+                    const valPanel = document.getElementById('val-access');
+                    if (valItems) {
+                        let html = '';
+                        html += valItem(dwCount > 0, 'Driveways documented', dwCount > 0 ? `${dwCount} access point(s)` : 'Add at least one driveway');
+                        html += valItem(tlCount > 0, 'Turn lane analysis complete', tlCount > 0 ? `${tlCount} movement(s) evaluated` : 'Evaluate turn lane warrants');
+                        html += valItem(sdCount > 0, 'Sight distance checked', sdCount > 0 ? `${sdCount} check(s)` : 'Add sight distance evaluations');
+                        html += valItem(!sdFail, 'All sight distances adequate', sdFail ? 'One or more locations deficient' : (sdCount > 0 ? 'All adequate' : 'Pending evaluation'));
+                        valItems.innerHTML = html;
+                        valPanel.classList.add('visible');
+                    }
+                }
+
+                function populateStep7() {
+                    // Dependency check
+                    const step6 = localStorage.getItem('tfe_step6_data');
+                    const step5 = localStorage.getItem('tfe_step5_data');
+                    let depHtml = '';
+                    depHtml += valItem(!!step6, 'Step 6 — Capacity Analysis', step6 ? 'Complete' : 'Not submitted — capacity results needed');
+                    depHtml += valItem(!!step5, 'Step 5 — Future Volumes', step5 ? 'Complete' : 'Not submitted');
+                    const depItems = document.getElementById('dep-check-step7-items');
+                    if (depItems) depItems.innerHTML = depHtml;
+
+                    // Seed driveways if empty
+                    const dwTbody = document.getElementById('driveway-tbody');
+                    if (dwTbody && dwTbody.rows.length === 0) {
+                        dwTbody.appendChild(buildDrivewayRow('Driveway 1'));
+                        dwTbody.appendChild(buildDrivewayRow('Driveway 2'));
+                    }
+
+                    // Seed turn lane rows if empty
+                    const tlTbody = document.getElementById('turnlane-tbody');
+                    if (tlTbody && tlTbody.rows.length === 0) {
+                        tlTbody.appendChild(buildTurnLaneRow('Driveway 1'));
+                        tlTbody.appendChild(buildTurnLaneRow('Driveway 1'));
+                    }
+
+                    // Seed sight distance if empty
+                    const sdTbody = document.getElementById('sight-tbody');
+                    if (sdTbody && sdTbody.rows.length === 0) {
+                        sdTbody.appendChild(buildSightRow('Driveway 1'));
+                        sdTbody.appendChild(buildSightRow('Driveway 1'));
+                    }
+
+                    validateAccess();
+                }
+                window.validateAccess = validateAccess;
+                window.populateStep7 = populateStep7;
+
+                // Bind: add buttons
+                const addDwBtn = document.getElementById('add-driveway-btn');
+                if (addDwBtn) addDwBtn.addEventListener('click', () => document.getElementById('driveway-tbody').appendChild(buildDrivewayRow('')));
+
+                const addTlBtn = document.getElementById('add-turnlane-btn');
+                if (addTlBtn) addTlBtn.addEventListener('click', () => document.getElementById('turnlane-tbody').appendChild(buildTurnLaneRow('')));
+
+                const addSdBtn = document.getElementById('add-sight-btn');
+                if (addSdBtn) addSdBtn.addEventListener('click', () => document.getElementById('sight-tbody').appendChild(buildSightRow('')));
+
+                // Bind: Submit Step 7
+                const submitStep7 = document.getElementById('ws-submit-step7');
+                if (submitStep7) {
+                    submitStep7.addEventListener('click', () => {
+                        const driveways = [];
+                        document.querySelectorAll('#driveway-tbody tr').forEach(row => {
+                            driveways.push({
+                                name: row.querySelector('.dw-name')?.value,
+                                road: row.querySelector('.dw-road')?.value,
+                                type: row.querySelector('.dw-type')?.value,
+                                movements: row.querySelector('.dw-movements')?.value,
+                                lanesIn: row.querySelector('.dw-lanes-in')?.value,
+                                lanesOut: row.querySelector('.dw-lanes-out')?.value,
+                                control: row.querySelector('.dw-control')?.value,
+                                spacing: row.querySelector('.dw-spacing')?.value
+                            });
+                        });
+
+                        const turnLanes = [];
+                        document.querySelectorAll('#turnlane-tbody tr').forEach(row => {
+                            turnLanes.push({
+                                location: row.querySelector('.tl-location')?.value,
+                                movement: row.querySelector('.tl-movement')?.value,
+                                volume: row.querySelector('.tl-volume')?.value,
+                                method: row.querySelector('.tl-method')?.value,
+                                warranted: row.querySelector('.tl-warranted')?.value,
+                                recommended: row.querySelector('.tl-recommended')?.value,
+                                storage: row.querySelector('.tl-storage')?.value
+                            });
+                        });
+
+                        const sightDist = [];
+                        document.querySelectorAll('#sight-tbody tr').forEach(row => {
+                            sightDist.push({
+                                driveway: row.querySelector('.sd-driveway')?.value,
+                                direction: row.querySelector('.sd-direction')?.value,
+                                speed: row.querySelector('.sd-speed')?.value,
+                                required: row.querySelector('.sd-required')?.value,
+                                available: row.querySelector('.sd-available')?.value,
+                                adequate: row.querySelector('.sd-adequate')?.textContent
+                            });
+                        });
+
+                        const step7Data = {
+                            driveways: driveways,
+                            turnLanes: turnLanes,
+                            sightDistance: sightDist,
+                            accessNotes: document.getElementById('ws-access-notes')?.value
+                        };
+                        localStorage.setItem('tfe_step7_data', JSON.stringify(step7Data));
+
+                        this.markStepComplete(7);
+                        this.markFolderItem('folder-driveway');
+
+                        submitStep7.textContent = '✓ Site Access Saved';
+                        submitStep7.style.background = 'var(--success)';
+                        setTimeout(() => { submitStep7.textContent = 'Submit Site Access'; submitStep7.style.background = 'var(--gold)'; }, 2000);
+                    });
+                }
+
+                // ==================== STEP 8: SIGNAL WARRANTS JS ====================
+
+                function buildWarrantIntRow(intersection = '') {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><input type="text" class="ws-input wi-intersection" value="${intersection}" placeholder="e.g. Main St & Site Dr" style="width:100%;"></td>
+                        <td><select class="ws-input wi-control" style="width:100px;">
+                            <option value="TWSC">TWSC</option>
+                            <option value="AWSC">AWSC</option>
+                            <option value="Unsignalized">Unsignalized</option>
+                            <option value="Roundabout">Roundabout</option>
+                        </select></td>
+                        <td><input type="number" class="ws-input wi-major-vol" min="0" value="" placeholder="—" style="width:80px;"></td>
+                        <td><input type="number" class="ws-input wi-minor-vol" min="0" value="" placeholder="—" style="width:80px;"></td>
+                        <td><select class="ws-input wi-scenario" style="width:120px;">
+                            <option value="Existing">Existing</option>
+                            <option value="Background">Background</option>
+                            <option value="Total Future" selected>Total Future</option>
+                        </select></td>
+                    `;
+                    tr.querySelectorAll('input, select').forEach(el => el.addEventListener('change', validateWarrants));
+                    return tr;
+                }
+
+                function buildWarrantResultRow(intersection = '') {
+                    const tr = document.createElement('tr');
+                    const metOpts = '<option value="—">—</option><option value="Met">Met</option><option value="Not Met">Not</option><option value="N/A">N/A</option>';
+                    tr.innerHTML = `
+                        <td><input type="text" class="ws-input wr-intersection" value="${intersection}" placeholder="Intersection" style="width:100%;"></td>
+                        <td><select class="ws-input wr-w1" style="width:52px;">${metOpts}</select></td>
+                        <td><select class="ws-input wr-w2" style="width:52px;">${metOpts}</select></td>
+                        <td><select class="ws-input wr-w3" style="width:52px;">${metOpts}</select></td>
+                        <td><select class="ws-input wr-w4" style="width:52px;">${metOpts}</select></td>
+                        <td><select class="ws-input wr-w5" style="width:52px;">${metOpts}</select></td>
+                        <td><select class="ws-input wr-w6" style="width:52px;">${metOpts}</select></td>
+                        <td><select class="ws-input wr-w7" style="width:52px;">${metOpts}</select></td>
+                        <td><select class="ws-input wr-w8" style="width:52px;">${metOpts}</select></td>
+                        <td><select class="ws-input wr-w9" style="width:52px;">${metOpts}</select></td>
+                        <td class="wr-met-count" style="text-align:center; font-weight:600;">0</td>
+                        <td><select class="ws-input wr-recommendation" style="width:110px;">
+                            <option value="No Signal">No Signal</option>
+                            <option value="Signal Recommended">Signal Rec.</option>
+                            <option value="Signal Required">Signal Req.</option>
+                            <option value="Monitor">Monitor</option>
+                            <option value="Roundabout">Roundabout</option>
+                        </select></td>
+                    `;
+                    // Auto-count warrants met on change
+                    tr.querySelectorAll('select').forEach(el => el.addEventListener('change', () => {
+                        let count = 0;
+                        for (let i = 1; i <= 9; i++) {
+                            if (tr.querySelector(`.wr-w${i}`)?.value === 'Met') count++;
+                        }
+                        const cell = tr.querySelector('.wr-met-count');
+                        cell.textContent = count;
+                        cell.style.color = count > 0 ? 'var(--gold)' : 'var(--text-muted)';
+                        validateWarrants();
+                    }));
+                    return tr;
+                }
+
+                function validateWarrants() {
+                    const intRows = document.querySelectorAll('#warrant-int-tbody tr');
+                    let intCount = 0;
+                    intRows.forEach(r => { if (r.querySelector('.wi-intersection')?.value.trim()) intCount++; });
+
+                    const resRows = document.querySelectorAll('#warrant-results-tbody tr');
+                    let resCount = 0;
+                    let anyMet = false;
+                    resRows.forEach(r => {
+                        const intersection = r.querySelector('.wr-intersection')?.value.trim();
+                        if (intersection) resCount++;
+                        const metCount = parseInt(r.querySelector('.wr-met-count')?.textContent) || 0;
+                        if (metCount > 0) anyMet = true;
+                    });
+
+                    const notes = document.getElementById('ws-warrant-notes')?.value.trim();
+
+                    setBadge('badge-warrant-ints', intCount > 0 ? 'valid' : 'incomplete');
+                    setBadge('badge-warrant-results', resCount > 0 ? 'valid' : 'incomplete');
+
+                    const valItems = document.getElementById('val-warrant-items');
+                    const valPanel = document.getElementById('val-warrants');
+                    if (valItems) {
+                        let html = '';
+                        html += valItem(intCount > 0, 'Intersections identified', intCount > 0 ? `${intCount} intersection(s)` : 'Add intersections for evaluation');
+                        html += valItem(resCount > 0, 'Warrant results documented', resCount > 0 ? `${resCount} analysis complete` : 'Complete warrant evaluation');
+                        html += valItem(!anyMet || notes.length > 0, 'Recommendations documented', anyMet ? (notes ? 'Notes provided' : 'Warrants met — add recommendation notes') : 'No warrants met');
+                        valItems.innerHTML = html;
+                        valPanel.classList.add('visible');
+                    }
+                }
+
+                function populateStep8() {
+                    // Dependency check
+                    const step6 = localStorage.getItem('tfe_step6_data');
+                    const step5 = localStorage.getItem('tfe_step5_data');
+                    let depHtml = '';
+                    depHtml += valItem(!!step6, 'Step 6 — Capacity Analysis', step6 ? 'Complete' : 'Not submitted — capacity results needed');
+                    depHtml += valItem(!!step5, 'Step 5 — Future Volumes', step5 ? 'Complete' : 'Not submitted — volume data needed');
+                    const depItems = document.getElementById('dep-check-step8-items');
+                    if (depItems) depItems.innerHTML = depHtml;
+
+                    // Seed intersection rows from Step 7 driveways if available
+                    const intTbody = document.getElementById('warrant-int-tbody');
+                    const resTbody = document.getElementById('warrant-results-tbody');
+                    if (intTbody && intTbody.rows.length === 0) {
+                        const step7 = localStorage.getItem('tfe_step7_data');
+                        if (step7) {
+                            const s7 = JSON.parse(step7);
+                            if (s7.driveways && s7.driveways.length > 0) {
+                                s7.driveways.forEach(dw => {
+                                    const name = (dw.road ? dw.road + ' & ' : '') + (dw.name || 'Site Access');
+                                    intTbody.appendChild(buildWarrantIntRow(name));
+                                    if (resTbody && resTbody.rows.length < s7.driveways.length) {
+                                        resTbody.appendChild(buildWarrantResultRow(name));
+                                    }
+                                });
+                            }
+                        }
+                        if (intTbody.rows.length === 0) {
+                            intTbody.appendChild(buildWarrantIntRow(''));
+                            resTbody.appendChild(buildWarrantResultRow(''));
+                        }
+                    }
+                    validateWarrants();
+                }
+                window.validateWarrants = validateWarrants;
+                window.populateStep8 = populateStep8;
+
+                // Bind: add buttons
+                const addWarrantIntBtn = document.getElementById('add-warrant-int-btn');
+                if (addWarrantIntBtn) addWarrantIntBtn.addEventListener('click', () => document.getElementById('warrant-int-tbody').appendChild(buildWarrantIntRow('')));
+
+                const addWarrantResBtn = document.getElementById('add-warrant-result-btn');
+                if (addWarrantResBtn) addWarrantResBtn.addEventListener('click', () => document.getElementById('warrant-results-tbody').appendChild(buildWarrantResultRow('')));
+
+                // Bind: Submit Step 8
+                const submitStep8 = document.getElementById('ws-submit-step8');
+                if (submitStep8) {
+                    submitStep8.addEventListener('click', () => {
+                        const intersections = [];
+                        document.querySelectorAll('#warrant-int-tbody tr').forEach(row => {
+                            intersections.push({
+                                intersection: row.querySelector('.wi-intersection')?.value,
+                                control: row.querySelector('.wi-control')?.value,
+                                majorVol: row.querySelector('.wi-major-vol')?.value,
+                                minorVol: row.querySelector('.wi-minor-vol')?.value,
+                                scenario: row.querySelector('.wi-scenario')?.value
+                            });
+                        });
+
+                        const warrantResults = [];
+                        document.querySelectorAll('#warrant-results-tbody tr').forEach(row => {
+                            const result = {
+                                intersection: row.querySelector('.wr-intersection')?.value,
+                                recommendation: row.querySelector('.wr-recommendation')?.value,
+                                warrantsMet: parseInt(row.querySelector('.wr-met-count')?.textContent) || 0
+                            };
+                            for (let i = 1; i <= 9; i++) {
+                                result['w' + i] = row.querySelector(`.wr-w${i}`)?.value;
+                            }
+                            warrantResults.push(result);
+                        });
+
+                        const step8Data = {
+                            intersections: intersections,
+                            warrantResults: warrantResults,
+                            notes: document.getElementById('ws-warrant-notes')?.value
+                        };
+                        localStorage.setItem('tfe_step8_data', JSON.stringify(step8Data));
+
+                        this.markStepComplete(8);
+                        this.markFolderItem('folder-warrants');
+
+                        submitStep8.textContent = '✓ Signal Warrants Saved';
+                        submitStep8.style.background = 'var(--success)';
+                        setTimeout(() => { submitStep8.textContent = 'Submit Signal Warrants'; submitStep8.style.background = 'var(--gold)'; }, 2000);
+                    });
+                }
+
+                // ==================== STEP 9: REPORT ASSEMBLY JS ====================
+
+                function buildExhibitRow(figNum = '', title = '') {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><input type="text" class="ws-input ex-fig-num" value="${figNum}" placeholder="e.g. 1" style="width:60px;"></td>
+                        <td><input type="text" class="ws-input ex-title" value="${title}" placeholder="e.g. Site Location Map" style="width:100%;"></td>
+                        <td><select class="ws-input ex-type" style="width:100px;">
+                            <option value="Figure">Figure</option>
+                            <option value="Table">Table</option>
+                            <option value="Map">Map</option>
+                            <option value="Photo">Photo</option>
+                            <option value="Diagram">Diagram</option>
+                        </select></td>
+                        <td><select class="ws-input ex-source" style="width:80px;">
+                            <option value="Step 1">Step 1</option>
+                            <option value="Step 2">Step 2</option>
+                            <option value="Step 3">Step 3</option>
+                            <option value="Step 4">Step 4</option>
+                            <option value="Step 5">Step 5</option>
+                            <option value="Step 6">Step 6</option>
+                            <option value="Step 7">Step 7</option>
+                            <option value="Step 8">Step 8</option>
+                            <option value="External">External</option>
+                        </select></td>
+                        <td><select class="ws-input ex-status" style="width:90px;">
+                            <option value="Pending">Pending</option>
+                            <option value="Draft">Draft</option>
+                            <option value="Final">Final</option>
+                        </select></td>
+                    `;
+                    tr.querySelectorAll('input, select').forEach(el => el.addEventListener('change', validateReport));
+                    return tr;
+                }
+
+                function validateReport() {
+                    // Count checked sections
+                    const checks = document.querySelectorAll('.rpt-section-check');
+                    let checkedCount = 0;
+                    checks.forEach(c => { if (c.checked) checkedCount++; });
+                    document.getElementById('rpt-sections-count').textContent = `${checkedCount} / 9`;
+
+                    // Count data steps complete
+                    const stepKeys = ['tfe_active_project','tfe_step2_data','tfe_step3_data','tfe_step4_data','tfe_step5_data','tfe_step6_data','tfe_step7_data','tfe_step8_data'];
+                    let dataComplete = 0;
+                    stepKeys.forEach(k => { if (localStorage.getItem(k)) dataComplete++; });
+                    document.getElementById('rpt-data-steps').textContent = `${dataComplete} / 8`;
+
+                    // Count exhibits
+                    const exRows = document.querySelectorAll('#exhibits-tbody tr');
+                    let exCount = 0;
+                    let exFinal = 0;
+                    exRows.forEach(r => {
+                        if (r.querySelector('.ex-title')?.value.trim()) exCount++;
+                        if (r.querySelector('.ex-status')?.value === 'Final') exFinal++;
+                    });
+                    document.getElementById('rpt-exhibits-count').textContent = exCount;
+
+                    const reportFile = document.getElementById('ws-report-filename')?.value.trim();
+
+                    setBadge('badge-report-sections', checkedCount >= 9 ? 'valid' : (checkedCount > 0 ? 'warning' : 'incomplete'));
+                    setBadge('badge-exhibits', exCount > 0 ? 'valid' : 'incomplete');
+
+                    const valItems = document.getElementById('val-report-items');
+                    const valPanel = document.getElementById('val-report');
+                    if (valItems) {
+                        let html = '';
+                        html += valItem(checkedCount >= 9, 'All report sections drafted', `${checkedCount}/9 sections checked`);
+                        html += valItem(dataComplete >= 6, 'Source data available', `${dataComplete}/8 analysis steps complete`);
+                        html += valItem(exCount > 0, 'Exhibits listed', exCount > 0 ? `${exCount} exhibit(s), ${exFinal} finalized` : 'Add report exhibits');
+                        html += valItem(!!reportFile, 'Report file referenced', reportFile || 'Enter report filename');
+                        valItems.innerHTML = html;
+                        valPanel.classList.add('visible');
+                    }
+                }
+
+                const defaultExhibits = [
+                    { num: '1', title: 'Site Location Map' },
+                    { num: '2', title: 'Site Plan' },
+                    { num: '3', title: 'Existing Lane Geometry' },
+                    { num: '4', title: 'Existing Traffic Volumes' },
+                    { num: '5', title: 'Trip Generation Summary' },
+                    { num: '6', title: 'Trip Distribution' },
+                    { num: '7', title: 'Background Traffic Volumes' },
+                    { num: '8', title: 'Total Future Traffic Volumes' },
+                    { num: '9', title: 'LOS Summary' }
+                ];
+
+                function populateStep9() {
+                    // Dependency check — all analysis steps
+                    const stepChecks = [
+                        { key: 'tfe_active_project', label: 'Step 1 — Project Setup' },
+                        { key: 'tfe_step2_data', label: 'Step 2 — Data Collection' },
+                        { key: 'tfe_step3_data', label: 'Step 3 — Trip Generation' },
+                        { key: 'tfe_step4_data', label: 'Step 4 — Trip Distribution' },
+                        { key: 'tfe_step5_data', label: 'Step 5 — Future Volumes' },
+                        { key: 'tfe_step6_data', label: 'Step 6 — Capacity Analysis' },
+                        { key: 'tfe_step7_data', label: 'Step 7 — Site Access' },
+                        { key: 'tfe_step8_data', label: 'Step 8 — Signal Warrants' }
+                    ];
+                    let depHtml = '';
+                    stepChecks.forEach(s => {
+                        const exists = !!localStorage.getItem(s.key);
+                        depHtml += valItem(exists, s.label, exists ? 'Complete' : 'Not submitted');
+                    });
+                    const depItems = document.getElementById('dep-check-step9-items');
+                    if (depItems) depItems.innerHTML = depHtml;
+
+                    // Seed exhibits if empty
+                    const exTbody = document.getElementById('exhibits-tbody');
+                    if (exTbody && exTbody.rows.length === 0) {
+                        defaultExhibits.forEach(ex => exTbody.appendChild(buildExhibitRow(ex.num, ex.title)));
+                    }
+
+                    // Auto-fill report date
+                    const dateEl = document.getElementById('ws-report-date');
+                    if (dateEl && !dateEl.value) {
+                        dateEl.value = new Date().toISOString().split('T')[0];
+                    }
+
+                    // Bind section checkboxes
+                    document.querySelectorAll('.rpt-section-check').forEach(cb => {
+                        cb.removeEventListener('change', validateReport);
+                        cb.addEventListener('change', validateReport);
+                    });
+
+                    validateReport();
+                }
+                window.validateReport = validateReport;
+                window.populateStep9 = populateStep9;
+
+                // Bind: add exhibit
+                const addExhibitBtn = document.getElementById('add-exhibit-btn');
+                if (addExhibitBtn) addExhibitBtn.addEventListener('click', () => document.getElementById('exhibits-tbody').appendChild(buildExhibitRow('', '')));
+
+                // Bind: report filename/version/notes trigger validation
+                ['ws-report-filename','ws-report-version','ws-report-date'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.addEventListener('change', validateReport);
+                });
+
+                // Bind: Submit Step 9
+                const submitStep9 = document.getElementById('ws-submit-step9');
+                if (submitStep9) {
+                    submitStep9.addEventListener('click', () => {
+                        const sections = {};
+                        document.querySelectorAll('.rpt-section-check').forEach(cb => {
+                            sections[cb.dataset.section] = cb.checked;
+                        });
+
+                        const exhibits = [];
+                        document.querySelectorAll('#exhibits-tbody tr').forEach(row => {
+                            exhibits.push({
+                                figNum: row.querySelector('.ex-fig-num')?.value,
+                                title: row.querySelector('.ex-title')?.value,
+                                type: row.querySelector('.ex-type')?.value,
+                                source: row.querySelector('.ex-source')?.value,
+                                status: row.querySelector('.ex-status')?.value
+                            });
+                        });
+
+                        const step9Data = {
+                            sections: sections,
+                            exhibits: exhibits,
+                            reportFilename: document.getElementById('ws-report-filename')?.value,
+                            reportVersion: document.getElementById('ws-report-version')?.value,
+                            reportDate: document.getElementById('ws-report-date')?.value,
+                            notes: document.getElementById('ws-report-notes')?.value
+                        };
+                        localStorage.setItem('tfe_step9_data', JSON.stringify(step9Data));
+
+                        this.markStepComplete(9);
+                        this.markFolderItem('folder-report');
+                        this.markFolderItem('folder-exhibits');
+
+                        submitStep9.textContent = '✓ Report Assembly Saved';
+                        submitStep9.style.background = 'var(--success)';
+                        setTimeout(() => { submitStep9.textContent = 'Submit Report Assembly'; submitStep9.style.background = 'var(--gold)'; }, 2000);
+                    });
+                }
+
+                // ==================== STEP 10: FINAL DELIVERY JS ====================
+
+                function buildDeliverableRow(filename = '', type = 'PDF', desc = '') {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><input type="text" class="ws-input del-filename" value="${filename}" placeholder="e.g. TIA_Report_Final.pdf" style="width:100%;"></td>
+                        <td><select class="ws-input del-type" style="width:90px;">
+                            <option value="PDF" ${type==='PDF'?'selected':''}>PDF</option>
+                            <option value="DOCX" ${type==='DOCX'?'selected':''}>DOCX</option>
+                            <option value="SYN" ${type==='SYN'?'selected':''}>SYN</option>
+                            <option value="XLSX" ${type==='XLSX'?'selected':''}>XLSX</option>
+                            <option value="CSV" ${type==='CSV'?'selected':''}>CSV</option>
+                            <option value="DWG" ${type==='DWG'?'selected':''}>DWG</option>
+                            <option value="ZIP" ${type==='ZIP'?'selected':''}>ZIP</option>
+                            <option value="Other" ${type==='Other'?'selected':''}>Other</option>
+                        </select></td>
+                        <td><input type="text" class="ws-input del-desc" value="${desc}" placeholder="Description" style="width:100%;"></td>
+                        <td><select class="ws-input del-status" style="width:80px;">
+                            <option value="Pending">Pending</option>
+                            <option value="Ready">Ready</option>
+                            <option value="Sent">Sent</option>
+                        </select></td>
+                    `;
+                    tr.querySelectorAll('input, select').forEach(el => el.addEventListener('change', validateDelivery));
+                    return tr;
+                }
+
+                const defaultDeliverables = [
+                    { name: '', type: 'PDF', desc: 'Final TIA Report (sealed)' },
+                    { name: '', type: 'PDF', desc: 'Appendix — TMC Count Data' },
+                    { name: '', type: 'PDF', desc: 'Appendix — Synchro Reports' },
+                    { name: '', type: 'SYN', desc: 'Synchro Model Files' },
+                    { name: '', type: 'XLSX', desc: 'Trip Generation Worksheets' }
+                ];
+
+                function validateDelivery() {
+                    // QC checklist
+                    const qcChecks = document.querySelectorAll('.qc-check');
+                    let qcCount = 0;
+                    qcChecks.forEach(c => { if (c.checked) qcCount++; });
+                    document.getElementById('final-qc-count').textContent = `${qcCount} / ${qcChecks.length}`;
+
+                    // Deliverables
+                    const delRows = document.querySelectorAll('#deliverables-tbody tr');
+                    let delCount = 0;
+                    let delReady = 0;
+                    delRows.forEach(r => {
+                        if (r.querySelector('.del-filename')?.value.trim() || r.querySelector('.del-desc')?.value.trim()) delCount++;
+                        if (r.querySelector('.del-status')?.value === 'Ready' || r.querySelector('.del-status')?.value === 'Sent') delReady++;
+                    });
+                    document.getElementById('final-deliverables-count').textContent = delCount;
+
+                    // Steps complete
+                    const proj = JSON.parse(localStorage.getItem('tfe_active_project') || '{}');
+                    const completed = proj.stepsCompleted || {};
+                    let stepsCount = Object.keys(completed).filter(k => completed[k]).length;
+                    document.getElementById('final-steps-complete').textContent = `${stepsCount} / 10`;
+
+                    // Submission
+                    const submitTo = document.getElementById('ws-submit-to')?.value.trim();
+                    const submitDate = document.getElementById('ws-submit-date')?.value;
+                    const submitMethod = document.getElementById('ws-submit-method')?.value;
+                    const reviewStatus = document.getElementById('ws-review-status')?.value;
+                    document.getElementById('final-review-status').textContent = reviewStatus || '—';
+
+                    setBadge('badge-qc-checklist', qcCount >= qcChecks.length ? 'valid' : (qcCount > 0 ? 'warning' : 'incomplete'));
+                    setBadge('badge-deliverables', delReady > 0 ? 'valid' : (delCount > 0 ? 'warning' : 'incomplete'));
+                    setBadge('badge-submission', submitTo && submitMethod ? 'valid' : 'incomplete');
+
+                    const valItems = document.getElementById('val-delivery-items');
+                    const valPanel = document.getElementById('val-delivery');
+                    if (valItems) {
+                        let html = '';
+                        html += valItem(qcCount >= qcChecks.length, 'QC checklist complete', `${qcCount}/${qcChecks.length} items checked`);
+                        html += valItem(delCount > 0, 'Deliverables listed', delCount > 0 ? `${delCount} file(s), ${delReady} ready` : 'Add deliverable files');
+                        html += valItem(!!submitTo, 'Recipient identified', submitTo || 'Enter submission recipient');
+                        html += valItem(!!submitMethod, 'Submission method set', submitMethod || 'Select delivery method');
+                        html += valItem(stepsCount >= 9, 'All prior steps complete', stepsCount >= 9 ? `${stepsCount}/9 analysis steps done` : `Only ${stepsCount}/9 — complete remaining steps`);
+                        valItems.innerHTML = html;
+                        valPanel.classList.add('visible');
+                    }
+                }
+
+                function populateStep10() {
+                    // Dependency check
+                    const step9 = localStorage.getItem('tfe_step9_data');
+                    let depHtml = '';
+                    depHtml += valItem(!!step9, 'Step 9 — Report Assembly', step9 ? 'Complete' : 'Not submitted — report draft needed');
+
+                    // Also check all prior steps
+                    const allStepKeys = [
+                        { key: 'tfe_active_project', label: 'Step 1' },
+                        { key: 'tfe_step3_data', label: 'Step 3' },
+                        { key: 'tfe_step4_data', label: 'Step 4' },
+                        { key: 'tfe_step5_data', label: 'Step 5' },
+                        { key: 'tfe_step6_data', label: 'Step 6' },
+                        { key: 'tfe_step7_data', label: 'Step 7' },
+                        { key: 'tfe_step8_data', label: 'Step 8' }
+                    ];
+                    let allDone = !!step9;
+                    allStepKeys.forEach(s => { if (!localStorage.getItem(s.key)) allDone = false; });
+                    depHtml += valItem(allDone, 'All analysis steps (1-9)', allDone ? 'All complete' : 'Some steps incomplete — review folder tracker');
+
+                    const depItems = document.getElementById('dep-check-step10-items');
+                    if (depItems) depItems.innerHTML = depHtml;
+
+                    // Seed deliverables if empty
+                    const delTbody = document.getElementById('deliverables-tbody');
+                    if (delTbody && delTbody.rows.length === 0) {
+                        defaultDeliverables.forEach(d => delTbody.appendChild(buildDeliverableRow(d.name, d.type, d.desc)));
+                    }
+
+                    // Bind QC checkboxes
+                    document.querySelectorAll('.qc-check').forEach(cb => {
+                        cb.removeEventListener('change', validateDelivery);
+                        cb.addEventListener('change', validateDelivery);
+                    });
+
+                    // Bind submission fields
+                    ['ws-submit-to','ws-submit-date','ws-submit-method','ws-submit-contact','ws-submit-email','ws-review-status'].forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) {
+                            el.removeEventListener('change', validateDelivery);
+                            el.addEventListener('change', validateDelivery);
+                        }
+                    });
+
+                    validateDelivery();
+                }
+                window.validateDelivery = validateDelivery;
+                window.populateStep10 = populateStep10;
+
+                // Bind: add deliverable
+                const addDelBtn = document.getElementById('add-deliverable-btn');
+                if (addDelBtn) addDelBtn.addEventListener('click', () => document.getElementById('deliverables-tbody').appendChild(buildDeliverableRow('', 'PDF', '')));
+
+                // Bind: Submit Step 10
+                const submitStep10 = document.getElementById('ws-submit-step10');
+                if (submitStep10) {
+                    submitStep10.addEventListener('click', () => {
+                        const qcItems = {};
+                        document.querySelectorAll('.qc-check').forEach(cb => {
+                            qcItems[cb.dataset.qc] = cb.checked;
+                        });
+
+                        const deliverables = [];
+                        document.querySelectorAll('#deliverables-tbody tr').forEach(row => {
+                            deliverables.push({
+                                filename: row.querySelector('.del-filename')?.value,
+                                type: row.querySelector('.del-type')?.value,
+                                description: row.querySelector('.del-desc')?.value,
+                                status: row.querySelector('.del-status')?.value
+                            });
+                        });
+
+                        const step10Data = {
+                            qcChecklist: qcItems,
+                            deliverables: deliverables,
+                            submitTo: document.getElementById('ws-submit-to')?.value,
+                            submitDate: document.getElementById('ws-submit-date')?.value,
+                            submitMethod: document.getElementById('ws-submit-method')?.value,
+                            contactName: document.getElementById('ws-submit-contact')?.value,
+                            contactEmail: document.getElementById('ws-submit-email')?.value,
+                            reviewStatus: document.getElementById('ws-review-status')?.value,
+                            notes: document.getElementById('ws-submit-notes')?.value
+                        };
+                        localStorage.setItem('tfe_step10_data', JSON.stringify(step10Data));
+
+                        this.markStepComplete(10);
+                        this.markFolderItem('folder-final-pdf');
+                        this.markFolderItem('folder-appendix');
+
+                        submitStep10.textContent = '✓ Project Complete!';
+                        submitStep10.style.background = 'var(--success)';
+                        setTimeout(() => { submitStep10.textContent = 'Complete Project — Final Delivery'; submitStep10.style.background = 'linear-gradient(135deg, var(--gold), var(--success))'; }, 3000);
+                    });
+                }
+
                 // Workspace: Submit button — Step 1
                 const submitBtn = document.getElementById('ws-submit-step1');
                 if (submitBtn) {
@@ -5757,6 +8306,15 @@
                 if (targetPanel) {
                     targetPanel.classList.add('active');
                     workspace.classList.add('open');
+                    // Trigger step-specific population
+                    if (step === 3) populateStep3();
+                    if (step === 4) populateStep4();
+                    if (step === 5) populateStep5();
+                    if (step === 6) populateStep6();
+                    if (step === 7) populateStep7();
+                    if (step === 8) populateStep8();
+                    if (step === 9) populateStep9();
+                    if (step === 10) populateStep10();
                 } else {
                     workspace.classList.remove('open');
                 }
