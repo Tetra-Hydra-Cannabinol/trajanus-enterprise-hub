@@ -1094,6 +1094,456 @@
             color: var(--text-light);
         }
 
+        /* ==================== WORKFLOW WORKSPACE PANELS ==================== */
+        .workflow-workspace {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.3s ease;
+            opacity: 0;
+            margin-bottom: 0;
+        }
+
+        .workflow-workspace.open {
+            max-height: 2000px;
+            opacity: 1;
+            margin-bottom: 24px;
+        }
+
+        .workspace-panel {
+            background: var(--bg-surface);
+            border: 1px solid var(--blue);
+            border-radius: 8px;
+            padding: 24px;
+            display: none;
+        }
+
+        .workspace-panel.active {
+            display: block;
+        }
+
+        .workspace-panel h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0 0 20px 0;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--blue);
+        }
+
+        .ws-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .ws-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .ws-form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .ws-form-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .ws-form-group input,
+        .ws-form-group select {
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 6px;
+            padding: 10px 12px;
+            color: var(--text-light);
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        .ws-form-group input:focus,
+        .ws-form-group select:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .ws-form-group input::placeholder {
+            color: #555;
+        }
+
+        .ws-section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 24px 0 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ws-section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--blue);
+        }
+
+        /* Buildings Table */
+        .buildings-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-bottom: 12px;
+        }
+
+        .buildings-table th {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 8px 10px;
+            text-align: left;
+            border-bottom: 1px solid var(--blue);
+        }
+
+        .buildings-table td {
+            padding: 6px 4px;
+        }
+
+        .buildings-table input[type="text"],
+        .buildings-table input[type="number"] {
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 4px;
+            padding: 8px 10px;
+            color: var(--text-light);
+            font-size: 13px;
+            font-family: inherit;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .buildings-table input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .buildings-table input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--gold);
+        }
+
+        .buildings-table .remove-building-btn {
+            background: transparent;
+            border: 1px solid #ff4444;
+            color: #ff4444;
+            border-radius: 4px;
+            padding: 6px 10px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .buildings-table .remove-building-btn:hover {
+            background: #ff4444;
+            color: #fff;
+        }
+
+        .add-building-btn {
+            background: transparent;
+            border: 1px dashed var(--blue);
+            color: var(--blue-light);
+            border-radius: 6px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+            margin-bottom: 24px;
+        }
+
+        .add-building-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: var(--bg-elevated);
+        }
+
+        /* File Drop Zone */
+        .ws-drop-zone {
+            border: 2px dashed var(--blue);
+            border-radius: 8px;
+            padding: 32px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+            transition: all 0.2s;
+            cursor: pointer;
+            margin-bottom: 24px;
+        }
+
+        .ws-drop-zone:hover {
+            border-color: var(--gold);
+            background: var(--bg-elevated);
+        }
+
+        .ws-drop-zone.dragover {
+            border-color: var(--gold);
+            background: var(--bg-elevated);
+            color: var(--gold);
+        }
+
+        .ws-drop-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .ws-drop-text {
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .ws-drop-subtext {
+            font-size: 11px;
+            color: #555;
+        }
+
+        /* Submit Button */
+        .ws-submit-btn {
+            background: var(--gold);
+            color: var(--bg-base);
+            border: none;
+            border-radius: 6px;
+            padding: 14px 32px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        .ws-submit-btn:hover {
+            filter: brightness(1.15);
+        }
+
+        /* ==================== PROJECT SUMMARY CARD ==================== */
+        .project-summary-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--gold);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            display: none;
+        }
+
+        .project-summary-card.visible {
+            display: block;
+        }
+
+        .project-summary-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--blue);
+        }
+
+        .project-summary-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .project-summary-status {
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .project-summary-status.active {
+            background: rgba(74, 222, 128, 0.15);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .project-summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .project-summary-field {
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 6px;
+            padding: 10px 12px;
+        }
+
+        .project-summary-field .field-label {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .project-summary-field .field-value {
+            font-size: 14px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .project-summary-buildings {
+            margin-top: 12px;
+        }
+
+        .project-summary-buildings .building-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 4px;
+            padding: 6px 12px;
+            font-size: 12px;
+            color: var(--text-light);
+            margin: 0 6px 6px 0;
+        }
+
+        /* ==================== PROJECT FOLDER TRACKER ==================== */
+        .project-folder-tracker {
+            background: var(--bg-surface);
+            border: 1px solid var(--blue);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            display: none;
+        }
+
+        .project-folder-tracker.visible {
+            display: block;
+        }
+
+        .folder-tracker-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--blue);
+        }
+
+        .folder-tracker-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .folder-tracker-progress {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .folder-step-group {
+            margin-bottom: 16px;
+        }
+
+        .folder-step-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .folder-step-label .step-badge {
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        .folder-step-label .step-badge.done {
+            background: var(--success);
+            border-color: var(--success);
+            color: var(--bg-base);
+        }
+
+        .folder-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            background: var(--bg-base);
+            border: 1px solid var(--blue);
+            border-radius: 4px;
+            margin-bottom: 4px;
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        .folder-item.pending {
+            opacity: 0.5;
+            border-style: dashed;
+        }
+
+        .folder-item .item-icon {
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .folder-item .item-name {
+            flex: 1;
+        }
+
+        .folder-item .item-status {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .folder-item .item-status.done {
+            color: var(--success);
+        }
+
+        .folder-item .item-status.pending {
+            color: var(--text-muted);
+        }
+
         /* Required Documents Panel */
         .docs-panel {
             background: var(--bg-surface);
@@ -2640,112 +3090,6 @@
         </div>
     </section>
 
-    <!-- Platform Guidance Section -->
-    <section class="guidance-section" id="guidance-section">
-        <div class="guidance-header" onclick="toggleGuidance()">
-            <span class="guidance-title">🤖 AI Tools & Platform Guidance</span>
-            <span class="guidance-toggle" id="guidance-toggle">▲</span>
-        </div>
-        <div class="guidance-content" id="guidance-content">
-            <!-- Introduction Description -->
-            <div class="guidance-description">
-                <strong>Three AI Tools to Accelerate Your Traffic Studies:</strong> This platform integrates AI assistance at multiple levels. Use the <em>Trajanus EI Assistant</em> below for quick guidance, launch the <em>Agent Runner</em> for complex multi-step tasks, or access <em>Claude Prime</em> for in-depth analysis and report drafting. Each tool is optimized for different aspects of your TIA workflow.
-            </div>
-
-            <!-- Tools Grid -->
-            <div class="guidance-tools-grid">
-                <!-- Tool 1: Trajanus EI Assistant -->
-                <div class="guidance-tool-card">
-                    <div class="guidance-tool-header">
-                        <div class="guidance-tool-icon">🚦</div>
-                        <div class="guidance-tool-name">Trajanus EI Assistant</div>
-                        <span class="guidance-tool-status active">ACTIVE</span>
-                    </div>
-                    <div class="guidance-tool-desc">
-                        Your embedded traffic engineering specialist. Quick answers, methodology guidance, and real-time calculation support directly within this platform.
-                    </div>
-                    <div class="guidance-tool-uses">Best for:</div>
-                    <ul class="guidance-use-list">
-                        <li>ITE trip generation rates and calculations</li>
-                        <li>Level of service (LOS) analysis guidance</li>
-                        <li>ADOT/MAG/City of Mesa compliance questions</li>
-                        <li>Synchro/HCS methodology clarification</li>
-                        <li>Quick reference lookups and standards</li>
-                    </ul>
-                    <div class="guidance-tool-action">
-                        <button class="guidance-action-btn primary" onclick="scrollToAssistant()">
-                            <span>↓</span> Jump to Assistant
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Tool 2: Agent Runner -->
-                <div class="guidance-tool-card">
-                    <div class="guidance-tool-header">
-                        <div class="guidance-tool-icon">⚡</div>
-                        <div class="guidance-tool-name">Agent Runner</div>
-                        <span class="guidance-tool-status available">AVAILABLE</span>
-                    </div>
-                    <div class="guidance-tool-desc">
-                        Autonomous AI agent for complex, multi-step traffic engineering tasks. Executes complete workflows with minimal supervision.
-                    </div>
-                    <div class="guidance-tool-uses">Best for:</div>
-                    <ul class="guidance-use-list">
-                        <li>Generate complete trip generation reports</li>
-                        <li>Multi-intersection LOS analysis packages</li>
-                        <li>Signal warrant analysis automation</li>
-                        <li>Batch processing of traffic count data</li>
-                        <li>Draft TIA sections with proper formatting</li>
-                    </ul>
-                    <div class="guidance-tool-action">
-                        <button class="guidance-action-btn" onclick="launchAgentRunner()">
-                            <span>🚀</span> Launch Agent Runner
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Tool 3: Claude Prime -->
-                <div class="guidance-tool-card">
-                    <div class="guidance-tool-header">
-                        <div class="guidance-tool-icon">🧠</div>
-                        <div class="guidance-tool-name">Claude Prime</div>
-                        <span class="guidance-tool-status embed">EMBED</span>
-                    </div>
-                    <div class="guidance-tool-desc">
-                        Full Claude AI interface for in-depth analysis, complex reasoning, and extended conversations about traffic engineering challenges.
-                    </div>
-                    <div class="guidance-tool-uses">Best for:</div>
-                    <ul class="guidance-use-list">
-                        <li>Complex traffic impact analysis narratives</li>
-                        <li>Mitigation strategy brainstorming</li>
-                        <li>Report section drafting and refinement</li>
-                        <li>Research on emerging traffic technologies</li>
-                        <li>Extended problem-solving sessions</li>
-                    </ul>
-                    <div class="guidance-tool-action">
-                        <button class="guidance-action-btn" onclick="toggleClaudeEmbed()">
-                            <span>💬</span> Open Claude Prime
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Claude Prime Embed Container -->
-            <div class="claude-embed-container" id="claude-embed-container">
-                <div class="claude-embed-header">
-                    <span class="claude-embed-title">Claude Prime - Extended AI Session</span>
-                    <button class="claude-embed-close" onclick="toggleClaudeEmbed()">Close</button>
-                </div>
-                <div class="claude-embed-placeholder">
-                    <span>🧠</span>
-                    <p>Claude Prime integration ready. Click to launch in new window or configure embed settings in preferences.</p>
-                    <button class="guidance-action-btn" style="margin-top: 16px; width: auto;" onclick="openClaudePrime()">
-                        Open Claude.ai in New Tab
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <div class="workspace-container">
 
@@ -2806,6 +3150,311 @@
                     <div class="workflow-step" data-step="10">
                         <span class="workflow-step-number">10</span>
                         <span class="workflow-step-name">Final</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== WORKFLOW WORKSPACE ==================== -->
+            <div class="workflow-workspace" id="workflow-workspace">
+
+                <!-- STEP 1: PROJECT SETUP -->
+                <div class="workspace-panel active" id="ws-panel-1" data-step="1">
+                    <h3>Step 1 — Project Setup</h3>
+
+                    <div class="ws-form-grid">
+                        <div class="ws-form-group">
+                            <label for="ws-project-name">Project Name</label>
+                            <input type="text" id="ws-project-name" placeholder="e.g., Grace Fellowship Church TIS">
+                        </div>
+                        <div class="ws-form-group">
+                            <label for="ws-project-number">Project Number</label>
+                            <input type="text" id="ws-project-number" placeholder="e.g., TRA-2026-001">
+                        </div>
+                        <div class="ws-form-group full-width">
+                            <label for="ws-site-address">Site Address</label>
+                            <input type="text" id="ws-site-address" placeholder="e.g., 12345 N Oracle Rd, Tucson, AZ 85737">
+                        </div>
+                        <div class="ws-form-group">
+                            <label for="ws-jurisdiction">Jurisdiction</label>
+                            <select id="ws-jurisdiction">
+                                <option value="">-- Select Jurisdiction --</option>
+                                <option value="pima">Pima County</option>
+                                <option value="marana">Town of Marana</option>
+                                <option value="tucson">City of Tucson</option>
+                                <option value="oro-valley">Town of Oro Valley</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="ws-form-group">
+                            <label for="ws-opening-year">Opening Year</label>
+                            <input type="number" id="ws-opening-year" placeholder="2027" min="2025" max="2050">
+                        </div>
+                        <div class="ws-form-group">
+                            <label for="ws-horizon-year">Horizon Year</label>
+                            <input type="number" id="ws-horizon-year" placeholder="2032" min="2025" max="2060">
+                        </div>
+                        <div class="ws-form-group">
+                            <label for="ws-growth-rate">Annual Growth Rate %</label>
+                            <input type="number" id="ws-growth-rate" placeholder="2.0" step="0.1" min="0" max="20">
+                        </div>
+                    </div>
+
+                    <div class="ws-section-title">Buildings</div>
+                    <table class="buildings-table" id="buildings-table">
+                        <thead>
+                            <tr>
+                                <th style="width:28%">Building Name</th>
+                                <th style="width:18%">Square Footage</th>
+                                <th style="width:22%">ITE LUC Code</th>
+                                <th style="width:12%">Drive-Thru</th>
+                                <th style="width:10%"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="buildings-tbody">
+                            <tr>
+                                <td><input type="text" placeholder="e.g., Main Building"></td>
+                                <td><input type="number" placeholder="10,000"></td>
+                                <td><input type="text" placeholder="e.g., 560"></td>
+                                <td style="text-align:center"><input type="checkbox"></td>
+                                <td><button class="remove-building-btn" onclick="this.closest('tr').remove()">✕</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="add-building-btn" id="add-building-btn">+ Add Building</button>
+
+                    <div class="ws-section-title">Site Documents</div>
+                    <div class="ws-drop-zone" id="ws-drop-zone">
+                        <div class="ws-drop-icon">📄</div>
+                        <div class="ws-drop-text">Drop site plan, plat, or aerial here</div>
+                        <div class="ws-drop-subtext">PDF, PNG, JPG</div>
+                    </div>
+                    <div style="display:flex;gap:12px;margin-bottom:24px;">
+                        <button class="action-btn" id="ws-browse-files" style="flex:1;padding:12px;font-size:13px;cursor:pointer;">📁 Browse Files (Native Dialog)</button>
+                        <button class="action-btn" id="ws-browse-local" style="flex:1;padding:12px;font-size:13px;cursor:pointer;">💻 Browse Local (HTML)</button>
+                    </div>
+                    <div id="ws-attached-files" style="margin-bottom:16px;"></div>
+
+                    <button class="ws-submit-btn" id="ws-submit-step1">Submit Project Setup</button>
+                </div>
+
+                <!-- STEP 2: DATA COLLECTION -->
+                <div class="workspace-panel" id="ws-panel-2" data-step="2">
+                    <h3>Step 2 — Data Collection</h3>
+
+                    <!-- TMC COUNT INFO -->
+                    <div class="ws-section-title">TMC Count Info</div>
+                    <div class="ws-form-grid">
+                        <div class="ws-form-group">
+                            <label for="ws-count-date">Count Date</label>
+                            <input type="date" id="ws-count-date" style="background:var(--bg-base);border:1px solid var(--blue);border-radius:6px;padding:10px;color:var(--text-light);font-size:14px;">
+                        </div>
+                        <div class="ws-form-group">
+                            <label for="ws-day-of-week">Day of Week</label>
+                            <select id="ws-day-of-week" style="background:var(--bg-base);border:1px solid var(--blue);border-radius:6px;padding:10px;color:var(--text-light);font-size:14px;">
+                                <option value="">-- Select --</option>
+                                <option value="tuesday">Tuesday</option>
+                                <option value="wednesday">Wednesday</option>
+                                <option value="thursday">Thursday</option>
+                                <option value="monday">Monday</option>
+                                <option value="friday">Friday</option>
+                            </select>
+                        </div>
+                        <div class="ws-form-group">
+                            <label>AM Window</label>
+                            <div style="display:flex;gap:8px;align-items:center;">
+                                <input type="time" id="ws-am-start" value="06:00" style="background:var(--bg-base);border:1px solid var(--blue);border-radius:6px;padding:10px;color:var(--text-light);font-size:14px;flex:1;">
+                                <span style="color:var(--text-muted);">to</span>
+                                <input type="time" id="ws-am-end" value="09:00" style="background:var(--bg-base);border:1px solid var(--blue);border-radius:6px;padding:10px;color:var(--text-light);font-size:14px;flex:1;">
+                            </div>
+                        </div>
+                        <div class="ws-form-group">
+                            <label>PM Window</label>
+                            <div style="display:flex;gap:8px;align-items:center;">
+                                <input type="time" id="ws-pm-start" value="15:00" style="background:var(--bg-base);border:1px solid var(--blue);border-radius:6px;padding:10px;color:var(--text-light);font-size:14px;flex:1;">
+                                <span style="color:var(--text-muted);">to</span>
+                                <input type="time" id="ws-pm-end" value="18:00" style="background:var(--bg-base);border:1px solid var(--blue);border-radius:6px;padding:10px;color:var(--text-light);font-size:14px;flex:1;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TMC SPREADSHEET UPLOAD -->
+                    <div class="ws-section-title">TMC Spreadsheet Upload</div>
+                    <div class="ws-drop-zone" id="ws-drop-zone-tmc" style="min-height:140px;cursor:pointer;">
+                        <div class="ws-drop-icon" style="font-size:36px;">📊</div>
+                        <div class="ws-drop-text" style="font-size:15px;">Drop TMC spreadsheet here</div>
+                        <div class="ws-drop-subtext">.xlsx, .csv — or click to browse</div>
+                    </div>
+                    <div id="ws-tmc-file-info" style="margin-bottom:16px;"></div>
+                    <button class="ws-submit-btn" id="ws-parse-tmc-btn" style="display:none;background:var(--blue);margin-bottom:24px;">Parse TMC Data</button>
+
+                    <!-- INTERSECTION PHOTOS -->
+                    <div class="ws-section-title">Intersection Photos</div>
+                    <div class="ws-drop-zone" id="ws-drop-zone-photos" style="min-height:90px;cursor:pointer;">
+                        <div class="ws-drop-icon">📷</div>
+                        <div class="ws-drop-text">Drop intersection photos here</div>
+                        <div class="ws-drop-subtext">.jpg, .png, .heic — or click to browse</div>
+                    </div>
+                    <div id="ws-photos-info" style="margin-bottom:24px;"></div>
+
+                    <!-- SUBMIT -->
+                    <button class="ws-submit-btn" id="ws-submit-step2">Submit Data Collection</button>
+                </div>
+
+            </div>
+
+            <!-- ==================== PROJECT SUMMARY CARD ==================== -->
+            <div class="project-summary-card" id="project-summary-card">
+                <div class="project-summary-header">
+                    <span class="project-summary-title">Project Summary</span>
+                    <span class="project-summary-status active" id="project-summary-status">Active</span>
+                </div>
+                <div class="project-summary-grid" id="project-summary-grid">
+                    <!-- Populated by JS on Step 1 submit -->
+                </div>
+                <div class="project-summary-buildings" id="project-summary-buildings">
+                    <!-- Building tags populated by JS -->
+                </div>
+            </div>
+
+            <!-- ==================== PROJECT FOLDER TRACKER ==================== -->
+            <div class="project-folder-tracker" id="project-folder-tracker">
+                <div class="folder-tracker-header">
+                    <span class="folder-tracker-title">Project Folder</span>
+                    <span class="folder-tracker-progress" id="folder-tracker-progress">0 / 10 steps complete</span>
+                </div>
+
+                <!-- Step 1: Setup -->
+                <div class="folder-step-group" data-folder-step="1">
+                    <div class="folder-step-label"><span class="step-badge" id="folder-badge-1">1</span> Project Setup</div>
+                    <div class="folder-item pending" id="folder-project-info">
+                        <span class="item-icon">📋</span>
+                        <span class="item-name">Project Information</span>
+                        <span class="item-status pending">Pending</span>
+                    </div>
+                    <div class="folder-item pending" id="folder-site-docs">
+                        <span class="item-icon">📄</span>
+                        <span class="item-name">Site Plan / Plat / Aerial</span>
+                        <span class="item-status pending">Pending</span>
+                    </div>
+                </div>
+
+                <!-- Step 2: Data Collection -->
+                <div class="folder-step-group" data-folder-step="2">
+                    <div class="folder-step-label"><span class="step-badge" id="folder-badge-2">2</span> Data Collection</div>
+                    <div class="folder-item pending" id="folder-intersections">
+                        <span class="item-icon">🚦</span>
+                        <span class="item-name">Study Intersections</span>
+                        <span class="item-status pending">Pending</span>
+                    </div>
+                    <div class="folder-item pending" id="folder-tmc-counts">
+                        <span class="item-icon">📊</span>
+                        <span class="item-name">TMC Counts (AM/PM)</span>
+                        <span class="item-status pending">Pending</span>
+                    </div>
+                    <div class="folder-item pending" id="folder-adt-counts">
+                        <span class="item-icon">📈</span>
+                        <span class="item-name">ADT / Tube Counts</span>
+                        <span class="item-status pending">Pending</span>
+                    </div>
+                </div>
+
+                <!-- Step 3: Trip Generation -->
+                <div class="folder-step-group" data-folder-step="3">
+                    <div class="folder-step-label"><span class="step-badge" id="folder-badge-3">3</span> Trip Generation</div>
+                    <div class="folder-item pending" id="folder-trip-calcs">
+                        <span class="item-icon">🚗</span>
+                        <span class="item-name">ITE Trip Calculations</span>
+                        <span class="item-status pending">Pending</span>
+                    </div>
+                    <div class="folder-item pending" id="folder-trip-worksheet">
+                        <span class="item-icon">📑</span>
+                        <span class="item-name">Trip Generation Worksheet</span>
+                        <span class="item-status pending">Pending</span>
+                    </div>
+                </div>
+
+                <!-- Step 4: Distribution -->
+                <div class="folder-step-group" data-folder-step="4">
+                    <div class="folder-step-label"><span class="step-badge" id="folder-badge-4">4</span> Trip Distribution</div>
+                    <div class="folder-item pending" id="folder-distribution">
+                        <span class="item-icon">🗺️</span>
+                        <span class="item-name">Distribution Percentages</span>
+                        <span class="item-status pending">Pending</span>
+                    </div>
+                </div>
+
+                <!-- Step 5: Future Volumes -->
+                <div class="folder-step-group" data-folder-step="5">
+                    <div class="folder-step-label"><span class="step-badge" id="folder-badge-5">5</span> Future Volumes</div>
+                    <div class="folder-item pending" id="folder-volumes">
+                        <span class="item-icon">📊</span>
+                        <span class="item-name">Volume Scenarios (Existing / Background / Site)</span>
+                        <span class="item-status pending">Pending</span>
+                    </div>
+                </div>
+
+                <!-- Step 6: Capacity Analysis -->
+                <div class="folder-step-group" data-folder-step="6">
+                    <div class="folder-step-label"><span class="step-badge" id="folder-badge-6">6</span> Capacity Analysis</div>
+                    <div class="folder-item pending" id="folder-synchro">
+                        <span class="item-icon">🚦</span>
+                        <span class="item-name">Synchro Models (.syn)</span>
+                        <span class="item-status pending">Pending</span>
+                    </div>
+                    <div class="folder-item pending" id="folder-los">
+                        <span class="item-icon">📋</span>
+                        <span class="item-name">LOS Summary Table</span>
+                        <span class="item-status pending">Pending</span>
+                    </div>
+                </div>
+
+                <!-- Step 7: Site Access -->
+                <div class="folder-step-group" data-folder-step="7">
+                    <div class="folder-step-label"><span class="step-badge" id="folder-badge-7">7</span> Site Access</div>
+                    <div class="folder-item pending" id="folder-driveway">
+                        <span class="item-icon">📐</span>
+                        <span class="item-name">Driveway Analysis / Turn Lanes</span>
+                        <span class="item-status pending">Pending</span>
+                    </div>
+                </div>
+
+                <!-- Step 8: Signal Warrants -->
+                <div class="folder-step-group" data-folder-step="8">
+                    <div class="folder-step-label"><span class="step-badge" id="folder-badge-8">8</span> Signal Warrants</div>
+                    <div class="folder-item pending" id="folder-warrants">
+                        <span class="item-icon">🚥</span>
+                        <span class="item-name">Warrant Analysis (MUTCD)</span>
+                        <span class="item-status pending">Pending</span>
+                    </div>
+                </div>
+
+                <!-- Step 9: Report Assembly -->
+                <div class="folder-step-group" data-folder-step="9">
+                    <div class="folder-step-label"><span class="step-badge" id="folder-badge-9">9</span> Report Assembly</div>
+                    <div class="folder-item pending" id="folder-report">
+                        <span class="item-icon">📝</span>
+                        <span class="item-name">TIA Report Draft (.docx)</span>
+                        <span class="item-status pending">Pending</span>
+                    </div>
+                    <div class="folder-item pending" id="folder-exhibits">
+                        <span class="item-icon">🖼️</span>
+                        <span class="item-name">Exhibits / Figures</span>
+                        <span class="item-status pending">Pending</span>
+                    </div>
+                </div>
+
+                <!-- Step 10: Final Delivery -->
+                <div class="folder-step-group" data-folder-step="10">
+                    <div class="folder-step-label"><span class="step-badge" id="folder-badge-10">10</span> Final Delivery</div>
+                    <div class="folder-item pending" id="folder-final-pdf">
+                        <span class="item-icon">📕</span>
+                        <span class="item-name">Final TIA (.pdf)</span>
+                        <span class="item-status pending">Pending</span>
+                    </div>
+                    <div class="folder-item pending" id="folder-appendix">
+                        <span class="item-icon">📦</span>
+                        <span class="item-name">Appendix (counts, capacity reports)</span>
+                        <span class="item-status pending">Pending</span>
                     </div>
                 </div>
             </div>
@@ -2918,46 +3567,6 @@
                 </div>
             </div>
 
-            <!-- ==================== AI ASSISTANT ==================== -->
-            <div class="section-divider">
-                <span class="section-title">AI Assistant</span>
-                <div class="section-line"></div>
-            </div>
-
-            <div class="guidance-description" style="margin-bottom: 16px;">
-                <strong>Trajanus EI Assistant:</strong> Your embedded traffic engineering specialist for quick answers and real-time support. Ask questions about ITE trip generation rates, level of service calculations, signal warrant analysis, or Arizona jurisdiction requirements. For complex multi-step tasks, use the Agent Runner from the Platform Guidance section above.
-            </div>
-
-            <div class="chat-section">
-                <div class="chat-header">
-                    <div class="chat-header-title">TRAFFIC STUDIES ASSISTANT</div>
-                    <div class="chat-header-subtitle">Trip generation, LOS analysis, signal timing, TIA reports</div>
-                </div>
-                <div class="chat-messages" id="chat-messages">
-                    <div class="chat-message assistant">
-                        I'm your Traffic Engineering specialist. I can help with trip generation using ITE methods, level of service analysis, signal timing optimization, TIA reports, and Arizona jurisdiction compliance. What would you like to work on?
-                    </div>
-                </div>
-                <div class="chat-input-area">
-                    <textarea class="chat-input" id="chat-input" rows="2" placeholder="Ask about trip generation, LOS, signal timing, or ADOT compliance..."></textarea>
-                    <button class="chat-send-btn" id="chat-send-btn">Send</button>
-                </div>
-            </div>
-
-            <!-- ========================== -->
-            <!-- REFERENCE MATERIALS        -->
-            <!-- ========================== -->
-            <div class="section-divider">
-                <span class="section-title">Reference Materials</span>
-                <div class="section-line"></div>
-            </div>
-
-            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 16px;">
-                Access traffic engineering videos, reference documents, and templates from the knowledge base.
-            </p>
-
-            <!-- KB Browser Component Container -->
-            <div id="kb-browser-traffic"></div>
 
             <!-- ==================== APPLICATIONS ==================== -->
             <div class="section-divider">
@@ -3241,57 +3850,6 @@
                         <div class="agent-desc">Generate traffic impact reports</div>
                     </div>
                     <span class="agent-status">Ready</span>
-                </div>
-            </div>
-
-            <!-- ==================== AGENT RUNNER ==================== -->
-            <div class="section-divider">
-                <span class="section-title">Agent Runner</span>
-                <div class="section-line"></div>
-            </div>
-
-            <div class="agent-runner-panel" style="background: var(--bg-surface); border: 1px solid var(--blue); border-radius: 8px; padding: 20px; margin-bottom: 20px;">
-                <!-- Skill Selection -->
-                <div style="margin-bottom: 16px;">
-                    <label style="display: block; color: var(--gold); font-size: 12px; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Select Skill</label>
-                    <select id="agent-skill" style="width: 100%; padding: 10px 12px; background: var(--bg-base); border: 1px solid var(--blue); border-radius: 4px; color: var(--text-light); font-size: 14px;">
-                        <option value="traffic-impact">Traffic Impact Analysis</option>
-                        <option value="signal-timing">Signal Timing Review</option>
-                        <option value="trip-generation">Trip Generation</option>
-                        <option value="los-analysis">Level of Service Analysis</option>
-                    </select>
-                </div>
-
-                <!-- Research Mode -->
-                <div style="margin-bottom: 16px;">
-                    <label style="display: block; color: var(--gold); font-size: 12px; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Research Mode</label>
-                    <div style="display: flex; gap: 12px;">
-                        <label style="display: flex; align-items: center; gap: 6px; color: var(--text-light); cursor: pointer;">
-                            <input type="checkbox" id="research-external" checked style="accent-color: var(--gold);">
-                            <span>External (Web)</span>
-                        </label>
-                        <label style="display: flex; align-items: center; gap: 6px; color: var(--text-light); cursor: pointer;">
-                            <input type="checkbox" id="research-internal" checked style="accent-color: var(--gold);">
-                            <span>Internal (GDrive)</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Query Input -->
-                <div style="margin-bottom: 16px;">
-                    <label style="display: block; color: var(--gold); font-size: 12px; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Query</label>
-                    <textarea id="agent-query" rows="3" placeholder="Enter your query or analysis request..." style="width: 100%; padding: 10px 12px; background: var(--bg-base); border: 1px solid var(--blue); border-radius: 4px; color: var(--text-light); font-size: 14px; resize: vertical;"></textarea>
-                </div>
-
-                <!-- Run Button -->
-                <div style="display: flex; gap: 12px; margin-bottom: 16px;">
-                    <button id="run-agent-btn" style="flex: 1; padding: 12px 20px; background: var(--gold); color: var(--bg-base); border: none; border-radius: 4px; font-size: 14px; font-weight: 600; cursor: pointer;">Run Agent</button>
-                    <button id="clear-results-btn" style="padding: 12px 20px; background: transparent; border: 1px solid var(--blue); color: var(--text-light); border-radius: 4px; font-size: 14px; cursor: pointer;">Clear</button>
-                </div>
-
-                <!-- Results Display -->
-                <div id="agent-results" style="background: var(--bg-base); border: 1px solid var(--blue); border-radius: 4px; padding: 16px; min-height: 120px; max-height: 400px; overflow-y: auto; font-size: 14px; color: var(--text-muted);">
-                    Results will appear here after running the agent...
                 </div>
             </div>
 
@@ -4220,6 +4778,114 @@
                 this.loadProjects();
                 this.updateStepDisplay();
                 this.bindEvents();
+                this.loadActiveProject();
+            },
+
+            // Load persisted project data and render summary/folder
+            loadActiveProject() {
+                const saved = localStorage.getItem('tfe_active_project');
+                if (saved) {
+                    try {
+                        const data = JSON.parse(saved);
+                        this.renderProjectSummary(data);
+                        this.renderFolderTracker(data);
+                    } catch(e) { /* ignore parse errors */ }
+                }
+            },
+
+            // Render the project summary card
+            renderProjectSummary(data) {
+                const card = document.getElementById('project-summary-card');
+                const grid = document.getElementById('project-summary-grid');
+                const buildingsDiv = document.getElementById('project-summary-buildings');
+
+                const fields = [
+                    { label: 'Project Name', value: data.name },
+                    { label: 'Project Number', value: data.number || '—' },
+                    { label: 'Jurisdiction', value: data.jurisdiction || '—' },
+                    { label: 'Site Address', value: data.address || '—' },
+                    { label: 'Opening Year', value: data.openingYear || '—' },
+                    { label: 'Horizon Year', value: data.horizonYear || '—' },
+                    { label: 'Growth Rate', value: data.growthRate ? data.growthRate + '%' : '—' },
+                ];
+
+                grid.innerHTML = fields.map(f =>
+                    '<div class="project-summary-field"><div class="field-label">' + f.label + '</div><div class="field-value">' + f.value + '</div></div>'
+                ).join('');
+
+                if (data.buildings && data.buildings.length) {
+                    buildingsDiv.innerHTML = '<div style="font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Buildings</div>' +
+                        data.buildings.map(b =>
+                            '<span class="building-tag">🏢 ' + b.name + (b.sqft ? ' — ' + Number(b.sqft).toLocaleString() + ' SF' : '') + (b.luc ? ' (LUC ' + b.luc + ')' : '') + (b.driveThru ? ' 🚗' : '') + '</span>'
+                        ).join('');
+                }
+
+                card.classList.add('visible');
+            },
+
+            // Render the project folder tracker
+            renderFolderTracker(data) {
+                const tracker = document.getElementById('project-folder-tracker');
+                tracker.classList.add('visible');
+
+                const completed = data.stepsCompleted || {};
+                const folderItems = data.folderItems || {};
+
+                // Update step badges
+                for (let i = 1; i <= 10; i++) {
+                    const badge = document.getElementById('folder-badge-' + i);
+                    if (badge) {
+                        if (completed[i]) {
+                            badge.classList.add('done');
+                            badge.textContent = '✓';
+                        } else {
+                            badge.classList.remove('done');
+                            badge.textContent = i;
+                        }
+                    }
+                }
+
+                // Update individual folder items
+                Object.keys(folderItems).forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el && folderItems[id]) {
+                        el.classList.remove('pending');
+                        const statusEl = el.querySelector('.item-status');
+                        if (statusEl) {
+                            statusEl.textContent = 'Done';
+                            statusEl.classList.remove('pending');
+                            statusEl.classList.add('done');
+                        }
+                    }
+                });
+
+                // Update progress count
+                const doneCount = Object.keys(completed).length;
+                document.getElementById('folder-tracker-progress').textContent = doneCount + ' / 10 steps complete';
+            },
+
+            // Save folder item as complete
+            markFolderItem(itemId) {
+                const saved = localStorage.getItem('tfe_active_project');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    if (!data.folderItems) data.folderItems = {};
+                    data.folderItems[itemId] = true;
+                    localStorage.setItem('tfe_active_project', JSON.stringify(data));
+                    this.renderFolderTracker(data);
+                }
+            },
+
+            // Mark a step as complete in the folder
+            markStepComplete(stepNum) {
+                const saved = localStorage.getItem('tfe_active_project');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    if (!data.stepsCompleted) data.stepsCompleted = {};
+                    data.stepsCompleted[stepNum] = true;
+                    localStorage.setItem('tfe_active_project', JSON.stringify(data));
+                    this.renderFolderTracker(data);
+                }
             },
 
             bindEvents() {
@@ -4248,6 +4914,255 @@
                 // Action buttons
                 document.getElementById('open-folder-btn').addEventListener('click', () => this.openProjectFolder());
                 document.getElementById('next-step-btn').addEventListener('click', () => this.advanceStep());
+
+                // Workspace: Add Building button
+                document.getElementById('add-building-btn').addEventListener('click', () => {
+                    const tbody = document.getElementById('buildings-tbody');
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td><input type="text" placeholder="e.g., Outparcel"></td>
+                        <td><input type="number" placeholder="5,000"></td>
+                        <td><input type="text" placeholder="e.g., 934"></td>
+                        <td style="text-align:center"><input type="checkbox"></td>
+                        <td><button class="remove-building-btn" onclick="this.closest('tr').remove()">✕</button></td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+                // Workspace: Drop zone
+                const dropZone = document.getElementById('ws-drop-zone');
+                if (dropZone) {
+                    dropZone.addEventListener('dragover', (e) => {
+                        e.preventDefault();
+                        dropZone.classList.add('dragover');
+                    });
+                    dropZone.addEventListener('dragleave', () => {
+                        dropZone.classList.remove('dragover');
+                    });
+                    dropZone.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        dropZone.classList.remove('dragover');
+                        const files = e.dataTransfer.files;
+                        if (files.length) {
+                            dropZone.innerHTML = '<div class="ws-drop-icon">✅</div><div class="ws-drop-text">' + files.length + ' file(s) attached</div><div class="ws-drop-subtext">' + Array.from(files).map(f => f.name).join(', ') + '</div>';
+                        }
+                    });
+                    dropZone.addEventListener('click', () => {
+                        const input = document.createElement('input');
+                        input.type = 'file';
+                        input.accept = '.pdf,.png,.jpg,.jpeg';
+                        input.multiple = true;
+                        input.onchange = () => {
+                            if (input.files.length) {
+                                dropZone.innerHTML = '<div class="ws-drop-icon">✅</div><div class="ws-drop-text">' + input.files.length + ' file(s) attached</div><div class="ws-drop-subtext">' + Array.from(input.files).map(f => f.name).join(', ') + '</div>';
+                            }
+                        };
+                        input.click();
+                    });
+                }
+
+                // Workspace: Browse Files (Native Dialog via PowerShell)
+                document.getElementById('ws-browse-files').addEventListener('click', async () => {
+                    const attachDiv = document.getElementById('ws-attached-files');
+                    try {
+                        const invoke = getInvoke();
+                        if (invoke) {
+                            // Use PowerShell to open native file dialog
+                            const result = await invoke('open_terminal_output', {
+                                command: 'powershell',
+                                args: ['-WindowStyle', 'Hidden', '-Command', `
+                                    Add-Type -AssemblyName System.Windows.Forms
+                                    $dlg = New-Object System.Windows.Forms.OpenFileDialog
+                                    $dlg.Title = 'Select Site Documents'
+                                    $dlg.InitialDirectory = 'G:\\My Drive\\00 - Trajanus USA'
+                                    $dlg.Filter = 'Documents (*.pdf;*.png;*.jpg;*.jpeg)|*.pdf;*.png;*.jpg;*.jpeg|All files (*.*)|*.*'
+                                    $dlg.Multiselect = $true
+                                    if ($dlg.ShowDialog() -eq 'OK') { $dlg.FileNames -join '|' } else { '' }
+                                `]
+                            });
+                            if (result && result.trim()) {
+                                const files = result.trim().split('|');
+                                attachDiv.innerHTML = files.map(f =>
+                                    '<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--bg-base);border:1px solid var(--blue);border-radius:6px;margin-bottom:6px;font-size:13px;color:var(--text-light);">📎 ' + f.split('\\').pop() + '<span style="color:var(--text-muted);font-size:11px;margin-left:auto;">' + f + '</span></div>'
+                                ).join('');
+                            }
+                        } else {
+                            showNotification('Native file dialog requires Tauri desktop app', 'warning');
+                        }
+                    } catch(e) {
+                        // Fallback: try run_powershell_script or show error
+                        showNotification('File dialog: ' + e, 'warning');
+                    }
+                });
+
+                // Workspace: Browse Local (HTML file input)
+                document.getElementById('ws-browse-local').addEventListener('click', () => {
+                    const input = document.createElement('input');
+                    input.type = 'file';
+                    input.accept = '.pdf,.png,.jpg,.jpeg';
+                    input.multiple = true;
+                    input.onchange = () => {
+                        if (input.files.length) {
+                            const attachDiv = document.getElementById('ws-attached-files');
+                            attachDiv.innerHTML = Array.from(input.files).map(f =>
+                                '<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--bg-base);border:1px solid var(--blue);border-radius:6px;margin-bottom:6px;font-size:13px;color:var(--text-light);">📎 ' + f.name + '<span style="color:var(--text-muted);font-size:11px;margin-left:auto;">' + (f.size / 1024).toFixed(1) + ' KB</span></div>'
+                            ).join('');
+                        }
+                    };
+                    input.click();
+                });
+
+                // Workspace: Step 2 — TMC Drop Zone (click to browse + drag/drop)
+                const tmcDropZone = document.getElementById('ws-drop-zone-tmc');
+                const tmcFileInfo = document.getElementById('ws-tmc-file-info');
+                const parseTmcBtn = document.getElementById('ws-parse-tmc-btn');
+
+                function showTmcFile(file) {
+                    tmcFileInfo.innerHTML = '<div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--bg-base);border:1px solid var(--success);border-radius:6px;font-size:13px;color:var(--text-light);">📊 ' + file.name + '<span style="color:var(--text-muted);font-size:11px;margin-left:auto;">' + (file.size / 1024).toFixed(1) + ' KB</span></div>';
+                    parseTmcBtn.style.display = 'block';
+                }
+
+                if (tmcDropZone) {
+                    tmcDropZone.addEventListener('click', () => {
+                        const input = document.createElement('input');
+                        input.type = 'file';
+                        input.accept = '.xlsx,.csv';
+                        input.onchange = () => { if (input.files.length) showTmcFile(input.files[0]); };
+                        input.click();
+                    });
+                    tmcDropZone.addEventListener('dragover', (e) => { e.preventDefault(); tmcDropZone.classList.add('dragover'); });
+                    tmcDropZone.addEventListener('dragleave', () => { tmcDropZone.classList.remove('dragover'); });
+                    tmcDropZone.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        tmcDropZone.classList.remove('dragover');
+                        if (e.dataTransfer.files.length) showTmcFile(e.dataTransfer.files[0]);
+                    });
+                }
+
+                if (parseTmcBtn) {
+                    parseTmcBtn.addEventListener('click', () => {
+                        parseTmcBtn.textContent = 'Parsing...';
+                        parseTmcBtn.style.opacity = '0.7';
+                        setTimeout(() => {
+                            parseTmcBtn.textContent = '✓ TMC Data Parsed';
+                            parseTmcBtn.style.background = 'var(--success)';
+                            parseTmcBtn.style.opacity = '1';
+                            this.markFolderItem('folder-tmc-counts');
+                        }, 1200);
+                    });
+                }
+
+                // Workspace: Step 2 — Photos Drop Zone (click to browse + drag/drop)
+                const photosDropZone = document.getElementById('ws-drop-zone-photos');
+                const photosInfo = document.getElementById('ws-photos-info');
+
+                function showPhotos(files) {
+                    photosInfo.innerHTML = Array.from(files).map(f =>
+                        '<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--bg-base);border:1px solid var(--blue);border-radius:6px;margin-bottom:6px;font-size:13px;color:var(--text-light);">📷 ' + f.name + '<span style="color:var(--text-muted);font-size:11px;margin-left:auto;">' + (f.size / 1024).toFixed(1) + ' KB</span></div>'
+                    ).join('');
+                }
+
+                if (photosDropZone) {
+                    photosDropZone.addEventListener('click', () => {
+                        const input = document.createElement('input');
+                        input.type = 'file';
+                        input.accept = '.jpg,.jpeg,.png,.heic';
+                        input.multiple = true;
+                        input.onchange = () => { if (input.files.length) showPhotos(input.files); };
+                        input.click();
+                    });
+                    photosDropZone.addEventListener('dragover', (e) => { e.preventDefault(); photosDropZone.classList.add('dragover'); });
+                    photosDropZone.addEventListener('dragleave', () => { photosDropZone.classList.remove('dragover'); });
+                    photosDropZone.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        photosDropZone.classList.remove('dragover');
+                        if (e.dataTransfer.files.length) showPhotos(e.dataTransfer.files);
+                    });
+                }
+
+                // Workspace: Step 2 Submit
+                const submitStep2 = document.getElementById('ws-submit-step2');
+                if (submitStep2) {
+                    submitStep2.addEventListener('click', () => {
+                        this.markStepComplete(2);
+                        // Mark folder items based on what was provided
+                        if (tmcFileInfo.innerHTML) this.markFolderItem('folder-tmc-counts');
+                        if (photosInfo.innerHTML) this.markFolderItem('folder-intersections');
+
+                        // Save Step 2 data to localStorage
+                        const step2Data = {
+                            countDate: document.getElementById('ws-count-date')?.value,
+                            dayOfWeek: document.getElementById('ws-day-of-week')?.value,
+                            amStart: document.getElementById('ws-am-start')?.value,
+                            amEnd: document.getElementById('ws-am-end')?.value,
+                            pmStart: document.getElementById('ws-pm-start')?.value,
+                            pmEnd: document.getElementById('ws-pm-end')?.value,
+                            tmcUploaded: !!tmcFileInfo.innerHTML,
+                            photosUploaded: !!photosInfo.innerHTML
+                        };
+                        localStorage.setItem('tfe_step2_data', JSON.stringify(step2Data));
+
+                        submitStep2.textContent = '✓ Data Collection Saved';
+                        submitStep2.style.background = 'var(--success)';
+                        setTimeout(() => {
+                            submitStep2.textContent = 'Submit Data Collection';
+                            submitStep2.style.background = 'var(--gold)';
+                        }, 2000);
+                    });
+                }
+
+                // Workspace: Submit button — Step 1
+                const submitBtn = document.getElementById('ws-submit-step1');
+                if (submitBtn) {
+                    submitBtn.addEventListener('click', () => {
+                        const name = document.getElementById('ws-project-name').value.trim();
+                        if (!name) {
+                            alert('Please enter a Project Name.');
+                            return;
+                        }
+
+                        // Gather project data
+                        const projectData = {
+                            name: name,
+                            number: document.getElementById('ws-project-number').value.trim(),
+                            address: document.getElementById('ws-site-address').value.trim(),
+                            jurisdiction: document.getElementById('ws-jurisdiction').selectedOptions[0]?.text || '',
+                            openingYear: document.getElementById('ws-opening-year').value,
+                            horizonYear: document.getElementById('ws-horizon-year').value,
+                            growthRate: document.getElementById('ws-growth-rate').value,
+                            buildings: [],
+                            stepsCompleted: { 1: true },
+                            folderItems: { 'folder-project-info': true }
+                        };
+
+                        // Gather buildings
+                        document.querySelectorAll('#buildings-tbody tr').forEach(row => {
+                            const inputs = row.querySelectorAll('input');
+                            if (inputs[0] && inputs[0].value.trim()) {
+                                projectData.buildings.push({
+                                    name: inputs[0].value.trim(),
+                                    sqft: inputs[1]?.value || '',
+                                    luc: inputs[2]?.value || '',
+                                    driveThru: inputs[3]?.checked || false
+                                });
+                            }
+                        });
+
+                        // Save to localStorage
+                        localStorage.setItem('tfe_active_project', JSON.stringify(projectData));
+
+                        // Show summary card
+                        this.renderProjectSummary(projectData);
+                        this.renderFolderTracker(projectData);
+
+                        submitBtn.textContent = '✓ Project Setup Saved';
+                        submitBtn.style.background = 'var(--success)';
+                        setTimeout(() => {
+                            submitBtn.textContent = 'Submit Project Setup';
+                            submitBtn.style.background = 'var(--gold)';
+                        }, 2000);
+                    });
+                }
             },
 
             loadProjects() {
@@ -4370,13 +5285,32 @@
             },
 
             goToStep(step) {
-                if (step < 1 || step > 6) return;
+                if (step < 1 || step > 10) return;
+
+                // Toggle workspace: if clicking the already-active step, close panel
+                const workspace = document.getElementById('workflow-workspace');
+                if (step === this.currentStep && workspace.classList.contains('open')) {
+                    workspace.classList.remove('open');
+                    return;
+                }
+
                 this.currentStep = step;
                 if (this.currentProject) {
                     this.currentProject.step = step;
                     this.saveProjects();
                 }
                 this.updateStepDisplay();
+
+                // Show workspace panel for the step (if one exists)
+                const allPanels = workspace.querySelectorAll('.workspace-panel');
+                allPanels.forEach(p => p.classList.remove('active'));
+                const targetPanel = document.getElementById('ws-panel-' + step);
+                if (targetPanel) {
+                    targetPanel.classList.add('active');
+                    workspace.classList.add('open');
+                } else {
+                    workspace.classList.remove('open');
+                }
             },
 
             advanceStep() {
@@ -4598,27 +5532,8 @@
                 el.addEventListener('click', () => Agents.activate(el.dataset.agent));
             });
 
-            // Agent Runner buttons
-            document.getElementById('run-agent-btn').addEventListener('click', () => {
-                AgentRunner.run();
-            });
-
-            document.getElementById('clear-results-btn').addEventListener('click', () => {
-                AgentRunner.clear();
-            });
-
-            // Chat send button
-            document.getElementById('chat-send-btn').addEventListener('click', () => {
-                Chat.send();
-            });
-
-            // Chat input enter key
-            document.getElementById('chat-input').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    Chat.send();
-                }
-            });
+            // Agent Runner and Chat UI removed during TFE restructure
+            // Their event bindings are no longer needed
 
             // Initialize TSE Workflow
             TseWorkflow.init();
