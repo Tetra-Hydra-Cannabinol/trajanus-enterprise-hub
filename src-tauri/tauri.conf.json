@@ -12,8 +12,10 @@
       {
         "title": "Trajanus Command Center",
         "url": "index_TFE_DEV_COPY.html",
-        "width": 1400,
-        "height": 900,
+        "width": 1100,
+        "height": 850,
+        "minWidth": 800,
+        "minHeight": 600,
         "resizable": true,
         "maximizable": true,
         "fullscreen": false,

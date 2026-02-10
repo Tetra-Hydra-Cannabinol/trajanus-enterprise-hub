@@ -1028,11 +1028,14 @@
 
         .workflow-steps {
             display: flex;
+            flex-wrap: wrap;
             gap: 8px;
         }
 
         .workflow-step {
-            flex: 1;
+            flex: 1 1 calc(20% - 8px);
+            min-width: 100px;
+            max-width: calc(20% - 8px);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -1043,6 +1046,7 @@
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.2s;
+            box-sizing: border-box;
         }
 
         .workflow-step:hover {
@@ -1340,6 +1344,88 @@
             filter: brightness(1.15);
         }
 
+        /* ==================== VALIDATION UI ==================== */
+        .ws-section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        .ws-section-header .ws-section-title {
+            margin-bottom: 0;
+        }
+        .ws-section-badge {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .ws-section-badge.incomplete {
+            background: rgba(255,255,255,0.06);
+            color: var(--text-muted);
+            border: 1px solid #333;
+        }
+        .ws-section-badge.valid {
+            background: rgba(74,222,128,0.12);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+        .ws-section-badge.warning {
+            background: rgba(251,191,36,0.12);
+            color: #fbbf24;
+            border: 1px solid #fbbf24;
+        }
+        .ws-validation-panel {
+            background: var(--bg-base);
+            border: 1px solid #222;
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .ws-validation-panel.visible {
+            display: block;
+        }
+        .ws-validation-panel h4 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin: 0 0 10px 0;
+        }
+        .ws-val-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+            font-size: 13px;
+            color: var(--text-light);
+            border-bottom: 1px solid #1a1a1a;
+        }
+        .ws-val-item:last-child {
+            border-bottom: none;
+        }
+        .ws-val-icon {
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+        .ws-val-icon.pass { color: var(--success); }
+        .ws-val-icon.fail { color: #ef4444; }
+        .ws-val-icon.warn { color: #fbbf24; }
+        .ws-val-detail {
+            color: var(--text-muted);
+            font-size: 11px;
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+
         /* ==================== PROJECT SUMMARY CARD ==================== */
         .project-summary-card {
             background: var(--bg-surface);
@@ -1347,11 +1433,6 @@
             border-radius: 8px;
             padding: 24px;
             margin-bottom: 24px;
-            display: none;
-        }
-
-        .project-summary-card.visible {
-            display: block;
         }
 
         .project-summary-header {
@@ -1439,11 +1520,6 @@
             border-radius: 8px;
             padding: 24px;
             margin-bottom: 24px;
-            display: none;
-        }
-
-        .project-folder-tracker.visible {
-            display: block;
         }
 
         .folder-tracker-header {
@@ -1501,6 +1577,31 @@
             background: var(--success);
             border-color: var(--success);
             color: var(--bg-base);
+        }
+
+        .folder-step-label .step-badge.partial {
+            background: rgba(251,191,36,0.15);
+            border-color: #fbbf24;
+            color: #fbbf24;
+            border-radius: 10px;
+            width: auto;
+            padding: 0 6px;
+            font-size: 9px;
+        }
+
+        .folder-dep-note {
+            padding: 6px 12px 6px 42px;
+            margin-bottom: 4px;
+        }
+
+        .item-status.pending {
+            color: var(--text-muted);
+            font-size: 11px;
+        }
+
+        .item-status.done {
+            color: var(--success);
+            font-size: 11px;
         }
 
         .folder-item {
@@ -3241,8 +3342,11 @@
                 <div class="workspace-panel" id="ws-panel-2" data-step="2">
                     <h3>Step 2 — Data Collection</h3>
 
-                    <!-- TMC COUNT INFO -->
-                    <div class="ws-section-title">TMC Count Info</div>
+                    <!-- SECTION 1: TMC COUNT INFO -->
+                    <div class="ws-section-header">
+                        <div class="ws-section-title">TMC Count Info</div>
+                        <span class="ws-section-badge incomplete" id="badge-tmc-info">Incomplete</span>
+                    </div>
                     <div class="ws-form-grid">
                         <div class="ws-form-group">
                             <label for="ws-count-date">Count Date</label>
@@ -3276,25 +3380,47 @@
                             </div>
                         </div>
                     </div>
+                    <div class="ws-validation-panel" id="val-tmc-info">
+                        <h4>Requirements Check</h4>
+                        <div id="val-tmc-info-items"></div>
+                    </div>
 
-                    <!-- TMC SPREADSHEET UPLOAD -->
-                    <div class="ws-section-title">TMC Spreadsheet Upload</div>
+                    <!-- SECTION 2: TMC SPREADSHEET UPLOAD -->
+                    <div class="ws-section-header">
+                        <div class="ws-section-title">TMC Spreadsheet Upload</div>
+                        <span class="ws-section-badge incomplete" id="badge-tmc-upload">Incomplete</span>
+                    </div>
                     <div class="ws-drop-zone" id="ws-drop-zone-tmc" style="min-height:140px;cursor:pointer;">
                         <div class="ws-drop-icon" style="font-size:36px;">📊</div>
                         <div class="ws-drop-text" style="font-size:15px;">Drop TMC spreadsheet here</div>
                         <div class="ws-drop-subtext">.xlsx, .csv — or click to browse</div>
                     </div>
                     <div id="ws-tmc-file-info" style="margin-bottom:16px;"></div>
+                    <div class="ws-validation-panel" id="val-tmc-upload">
+                        <h4>File Validation</h4>
+                        <div id="val-tmc-upload-items"></div>
+                    </div>
                     <button class="ws-submit-btn" id="ws-parse-tmc-btn" style="display:none;background:var(--blue);margin-bottom:24px;">Parse TMC Data</button>
+                    <div class="ws-validation-panel" id="val-tmc-parsed">
+                        <h4>TMC Data Analysis</h4>
+                        <div id="val-tmc-parsed-items"></div>
+                    </div>
 
-                    <!-- INTERSECTION PHOTOS -->
-                    <div class="ws-section-title">Intersection Photos</div>
+                    <!-- SECTION 3: INTERSECTION PHOTOS -->
+                    <div class="ws-section-header">
+                        <div class="ws-section-title">Intersection Photos</div>
+                        <span class="ws-section-badge incomplete" id="badge-photos">Incomplete</span>
+                    </div>
                     <div class="ws-drop-zone" id="ws-drop-zone-photos" style="min-height:90px;cursor:pointer;">
                         <div class="ws-drop-icon">📷</div>
                         <div class="ws-drop-text">Drop intersection photos here</div>
                         <div class="ws-drop-subtext">.jpg, .png, .heic — or click to browse</div>
                     </div>
-                    <div id="ws-photos-info" style="margin-bottom:24px;"></div>
+                    <div id="ws-photos-info" style="margin-bottom:8px;"></div>
+                    <div class="ws-validation-panel" id="val-photos">
+                        <h4>Photo Validation</h4>
+                        <div id="val-photos-items"></div>
+                    </div>
 
                     <!-- SUBMIT -->
                     <button class="ws-submit-btn" id="ws-submit-step2">Submit Data Collection</button>
@@ -3329,12 +3455,12 @@
                     <div class="folder-item pending" id="folder-project-info">
                         <span class="item-icon">📋</span>
                         <span class="item-name">Project Information</span>
-                        <span class="item-status pending">Pending</span>
+                        <span class="item-status pending">Missing</span>
                     </div>
                     <div class="folder-item pending" id="folder-site-docs">
                         <span class="item-icon">📄</span>
                         <span class="item-name">Site Plan / Plat / Aerial</span>
-                        <span class="item-status pending">Pending</span>
+                        <span class="item-status pending">Missing</span>
                     </div>
                 </div>
 
@@ -3344,17 +3470,17 @@
                     <div class="folder-item pending" id="folder-intersections">
                         <span class="item-icon">🚦</span>
                         <span class="item-name">Study Intersections</span>
-                        <span class="item-status pending">Pending</span>
+                        <span class="item-status pending">Missing</span>
                     </div>
                     <div class="folder-item pending" id="folder-tmc-counts">
                         <span class="item-icon">📊</span>
                         <span class="item-name">TMC Counts (AM/PM)</span>
-                        <span class="item-status pending">Pending</span>
+                        <span class="item-status pending">Missing</span>
                     </div>
                     <div class="folder-item pending" id="folder-adt-counts">
                         <span class="item-icon">📈</span>
                         <span class="item-name">ADT / Tube Counts</span>
-                        <span class="item-status pending">Pending</span>
+                        <span class="item-status pending">Missing</span>
                     </div>
                 </div>
 
@@ -3364,12 +3490,12 @@
                     <div class="folder-item pending" id="folder-trip-calcs">
                         <span class="item-icon">🚗</span>
                         <span class="item-name">ITE Trip Calculations</span>
-                        <span class="item-status pending">Pending</span>
+                        <span class="item-status pending">Missing</span>
                     </div>
                     <div class="folder-item pending" id="folder-trip-worksheet">
                         <span class="item-icon">📑</span>
                         <span class="item-name">Trip Generation Worksheet</span>
-                        <span class="item-status pending">Pending</span>
+                        <span class="item-status pending">Missing</span>
                     </div>
                 </div>
 
@@ -3379,7 +3505,7 @@
                     <div class="folder-item pending" id="folder-distribution">
                         <span class="item-icon">🗺️</span>
                         <span class="item-name">Distribution Percentages</span>
-                        <span class="item-status pending">Pending</span>
+                        <span class="item-status pending">Missing</span>
                     </div>
                 </div>
 
@@ -3389,7 +3515,7 @@
                     <div class="folder-item pending" id="folder-volumes">
                         <span class="item-icon">📊</span>
                         <span class="item-name">Volume Scenarios (Existing / Background / Site)</span>
-                        <span class="item-status pending">Pending</span>
+                        <span class="item-status pending">Missing</span>
                     </div>
                 </div>
 
@@ -3399,12 +3525,12 @@
                     <div class="folder-item pending" id="folder-synchro">
                         <span class="item-icon">🚦</span>
                         <span class="item-name">Synchro Models (.syn)</span>
-                        <span class="item-status pending">Pending</span>
+                        <span class="item-status pending">Missing</span>
                     </div>
                     <div class="folder-item pending" id="folder-los">
                         <span class="item-icon">📋</span>
                         <span class="item-name">LOS Summary Table</span>
-                        <span class="item-status pending">Pending</span>
+                        <span class="item-status pending">Missing</span>
                     </div>
                 </div>
 
@@ -3414,7 +3540,7 @@
                     <div class="folder-item pending" id="folder-driveway">
                         <span class="item-icon">📐</span>
                         <span class="item-name">Driveway Analysis / Turn Lanes</span>
-                        <span class="item-status pending">Pending</span>
+                        <span class="item-status pending">Missing</span>
                     </div>
                 </div>
 
@@ -3424,7 +3550,7 @@
                     <div class="folder-item pending" id="folder-warrants">
                         <span class="item-icon">🚥</span>
                         <span class="item-name">Warrant Analysis (MUTCD)</span>
-                        <span class="item-status pending">Pending</span>
+                        <span class="item-status pending">Missing</span>
                     </div>
                 </div>
 
@@ -3434,12 +3560,12 @@
                     <div class="folder-item pending" id="folder-report">
                         <span class="item-icon">📝</span>
                         <span class="item-name">TIA Report Draft (.docx)</span>
-                        <span class="item-status pending">Pending</span>
+                        <span class="item-status pending">Missing</span>
                     </div>
                     <div class="folder-item pending" id="folder-exhibits">
                         <span class="item-icon">🖼️</span>
                         <span class="item-name">Exhibits / Figures</span>
-                        <span class="item-status pending">Pending</span>
+                        <span class="item-status pending">Missing</span>
                     </div>
                 </div>
 
@@ -3449,12 +3575,12 @@
                     <div class="folder-item pending" id="folder-final-pdf">
                         <span class="item-icon">📕</span>
                         <span class="item-name">Final TIA (.pdf)</span>
-                        <span class="item-status pending">Pending</span>
+                        <span class="item-status pending">Missing</span>
                     </div>
                     <div class="folder-item pending" id="folder-appendix">
                         <span class="item-icon">📦</span>
                         <span class="item-name">Appendix (counts, capacity reports)</span>
-                        <span class="item-status pending">Pending</span>
+                        <span class="item-status pending">Missing</span>
                     </div>
                 </div>
             </div>
@@ -4781,7 +4907,7 @@
                 this.loadActiveProject();
             },
 
-            // Load persisted project data and render summary/folder
+            // Load persisted project data and render summary/folder — ALWAYS render tracker
             loadActiveProject() {
                 const saved = localStorage.getItem('tfe_active_project');
                 if (saved) {
@@ -4789,7 +4915,14 @@
                         const data = JSON.parse(saved);
                         this.renderProjectSummary(data);
                         this.renderFolderTracker(data);
-                    } catch(e) { /* ignore parse errors */ }
+                    } catch(e) {
+                        this.renderFolderTracker({ stepsCompleted: {}, folderItems: {} });
+                    }
+                } else {
+                    // No project yet — show tracker with everything missing, summary placeholder
+                    this.renderFolderTracker({ stepsCompleted: {}, folderItems: {} });
+                    const grid = document.getElementById('project-summary-grid');
+                    if (grid) grid.innerHTML = '<div style="color:var(--text-muted);font-size:13px;grid-column:1/-1;text-align:center;padding:12px;">No project submitted yet — complete Step 1 to populate</div>';
                 }
             },
 
@@ -4831,37 +4964,88 @@
                 const completed = data.stepsCompleted || {};
                 const folderItems = data.folderItems || {};
 
-                // Update step badges
-                for (let i = 1; i <= 10; i++) {
-                    const badge = document.getElementById('folder-badge-' + i);
+                // Dependency map: which steps need output from prior steps
+                const dependencies = {
+                    3: { needs: 'TMC data from Step 2', check: ['folder-tmc-counts'] },
+                    4: { needs: 'Trip generation from Step 3', check: ['folder-trip-calcs'] },
+                    5: { needs: 'Distribution from Step 4', check: ['folder-distribution'] },
+                    6: { needs: 'Volume scenarios from Step 5', check: ['folder-volumes'] },
+                    7: { needs: 'Capacity results from Step 6', check: ['folder-synchro'] },
+                    8: { needs: 'Capacity results from Step 6', check: ['folder-synchro'] },
+                    9: { needs: 'All analysis steps (3-8)', check: ['folder-trip-calcs','folder-synchro'] },
+                    10: { needs: 'Report draft from Step 9', check: ['folder-report'] }
+                };
+
+                // Update step groups
+                document.querySelectorAll('.folder-step-group').forEach(group => {
+                    const stepNum = parseInt(group.dataset.folderStep);
+                    const badge = document.getElementById('folder-badge-' + stepNum);
+                    const items = group.querySelectorAll('.folder-item');
+                    let doneInStep = 0;
+                    let totalInStep = items.length;
+
+                    items.forEach(item => {
+                        const statusEl = item.querySelector('.item-status');
+                        if (folderItems[item.id]) {
+                            item.classList.remove('pending');
+                            if (statusEl) {
+                                statusEl.textContent = 'Done';
+                                statusEl.className = 'item-status done';
+                            }
+                            doneInStep++;
+                        } else {
+                            item.classList.add('pending');
+                            if (statusEl) {
+                                statusEl.textContent = 'Missing';
+                                statusEl.className = 'item-status pending';
+                            }
+                        }
+                    });
+
+                    // Update badge: done / partial / pending
                     if (badge) {
-                        if (completed[i]) {
+                        badge.classList.remove('done', 'partial');
+                        if (completed[stepNum] || doneInStep === totalInStep) {
                             badge.classList.add('done');
                             badge.textContent = '✓';
+                        } else if (doneInStep > 0) {
+                            badge.classList.add('partial');
+                            badge.textContent = doneInStep + '/' + totalInStep;
                         } else {
-                            badge.classList.remove('done');
-                            badge.textContent = i;
+                            badge.textContent = stepNum;
                         }
                     }
-                }
 
-                // Update individual folder items
-                Object.keys(folderItems).forEach(id => {
-                    const el = document.getElementById(id);
-                    if (el && folderItems[id]) {
-                        el.classList.remove('pending');
-                        const statusEl = el.querySelector('.item-status');
-                        if (statusEl) {
-                            statusEl.textContent = 'Done';
-                            statusEl.classList.remove('pending');
-                            statusEl.classList.add('done');
+                    // Add/update dependency note
+                    let depNote = group.querySelector('.folder-dep-note');
+                    const dep = dependencies[stepNum];
+                    if (dep) {
+                        const depMet = dep.check.every(id => folderItems[id]);
+                        if (!depMet) {
+                            if (!depNote) {
+                                depNote = document.createElement('div');
+                                depNote.className = 'folder-dep-note';
+                                group.appendChild(depNote);
+                            }
+                            depNote.innerHTML = '<span style="color:#fbbf24;font-size:11px;">⚠ Requires: ' + dep.needs + '</span>';
+                            depNote.style.display = 'block';
+                        } else if (depNote) {
+                            depNote.style.display = 'none';
                         }
                     }
                 });
 
-                // Update progress count
-                const doneCount = Object.keys(completed).length;
-                document.getElementById('folder-tracker-progress').textContent = doneCount + ' / 10 steps complete';
+                // Update progress — count steps with ALL items done
+                let fullyDone = 0;
+                let partialDone = 0;
+                document.querySelectorAll('.folder-step-group').forEach(group => {
+                    const items = group.querySelectorAll('.folder-item');
+                    const done = Array.from(items).filter(i => folderItems[i.id]).length;
+                    if (done === items.length) fullyDone++;
+                    else if (done > 0) partialDone++;
+                });
+                const progressText = fullyDone + ' complete' + (partialDone > 0 ? ', ' + partialDone + ' in progress' : '') + ' / 10 steps';
+                document.getElementById('folder-tracker-progress').textContent = progressText;
             },
 
             // Save folder item as complete
@@ -5012,22 +5196,184 @@
                     input.click();
                 });
 
-                // Workspace: Step 2 — TMC Drop Zone (click to browse + drag/drop)
+                // ==================== STEP 2 VALIDATION ENGINE ====================
+
+                // Helper: render a validation item
+                function valItem(pass, label, detail) {
+                    const icon = pass === true ? 'pass' : (pass === false ? 'fail' : 'warn');
+                    const sym = pass === true ? '✓' : (pass === false ? '✕' : '!');
+                    return '<div class="ws-val-item"><span class="ws-val-icon ' + icon + '">' + sym + '</span><span>' + label + '</span>' + (detail ? '<span class="ws-val-detail">' + detail + '</span>' : '') + '</div>';
+                }
+
+                // Helper: update a section badge
+                function setBadge(id, state) {
+                    const badge = document.getElementById(id);
+                    if (!badge) return;
+                    badge.className = 'ws-section-badge ' + state;
+                    badge.textContent = state === 'valid' ? 'Complete' : (state === 'warning' ? 'Issues' : 'Incomplete');
+                }
+
+                // --- TMC COUNT INFO: live validation on change ---
+                function validateTmcInfo() {
+                    const panel = document.getElementById('val-tmc-info');
+                    const items = document.getElementById('val-tmc-info-items');
+                    const countDate = document.getElementById('ws-count-date')?.value;
+                    const dayOfWeek = document.getElementById('ws-day-of-week')?.value;
+                    const amStart = document.getElementById('ws-am-start')?.value;
+                    const amEnd = document.getElementById('ws-am-end')?.value;
+                    const pmStart = document.getElementById('ws-pm-start')?.value;
+                    const pmEnd = document.getElementById('ws-pm-end')?.value;
+
+                    // Only show panel once user starts filling fields
+                    if (!countDate && !dayOfWeek) { panel.classList.remove('visible'); setBadge('badge-tmc-info', 'incomplete'); return; }
+
+                    let html = '';
+                    let allPass = true;
+                    let hasWarning = false;
+
+                    // Count date provided
+                    html += valItem(!!countDate, 'Count date selected', countDate || 'Required');
+                    if (!countDate) allPass = false;
+
+                    // Day of week selected
+                    html += valItem(!!dayOfWeek, 'Day of week selected', dayOfWeek ? dayOfWeek.charAt(0).toUpperCase() + dayOfWeek.slice(1) : 'Required');
+                    if (!dayOfWeek) allPass = false;
+
+                    // Preferred day check (Tue/Wed/Thu)
+                    if (dayOfWeek) {
+                        const preferred = ['tuesday','wednesday','thursday'].includes(dayOfWeek);
+                        if (!preferred) {
+                            html += valItem(null, 'Non-standard count day', 'Tue-Thu preferred per ADOT guidelines');
+                            hasWarning = true;
+                        } else {
+                            html += valItem(true, 'Standard count day (Tue-Thu)', 'ADOT compliant');
+                        }
+                    }
+
+                    // Date matches day-of-week
+                    if (countDate && dayOfWeek) {
+                        const d = new Date(countDate + 'T12:00:00');
+                        const days = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+                        const actualDay = days[d.getDay()];
+                        const match = actualDay === dayOfWeek;
+                        html += valItem(match, 'Date matches day of week', match ? actualDay : 'Date is ' + actualDay + ', selected ' + dayOfWeek);
+                        if (!match) { allPass = false; }
+                    }
+
+                    // AM window check
+                    if (amStart && amEnd) {
+                        const amOk = amStart <= '07:00' && amEnd >= '09:00';
+                        html += valItem(amOk ? true : null, 'AM window covers peak (7:00-9:00)', amStart + ' - ' + amEnd);
+                        if (!amOk) hasWarning = true;
+                    }
+
+                    // PM window check
+                    if (pmStart && pmEnd) {
+                        const pmOk = pmStart <= '16:00' && pmEnd >= '18:00';
+                        html += valItem(pmOk ? true : null, 'PM window covers peak (4:00-6:00)', pmStart + ' - ' + pmEnd);
+                        if (!pmOk) hasWarning = true;
+                    }
+
+                    items.innerHTML = html;
+                    panel.classList.add('visible');
+                    setBadge('badge-tmc-info', allPass ? (hasWarning ? 'warning' : 'valid') : 'warning');
+                }
+
+                // Bind live validation to TMC info fields
+                ['ws-count-date','ws-day-of-week','ws-am-start','ws-am-end','ws-pm-start','ws-pm-end'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.addEventListener('change', validateTmcInfo);
+                });
+
+                // Auto-fill day-of-week from date
+                const countDateEl = document.getElementById('ws-count-date');
+                const dayOfWeekEl = document.getElementById('ws-day-of-week');
+                if (countDateEl && dayOfWeekEl) {
+                    countDateEl.addEventListener('change', () => {
+                        if (countDateEl.value) {
+                            const d = new Date(countDateEl.value + 'T12:00:00');
+                            const days = ['','monday','tuesday','wednesday','thursday','friday',''];
+                            const day = days[d.getDay()] || '';
+                            if (day) { dayOfWeekEl.value = day; }
+                        }
+                    });
+                }
+
+                // --- TMC SPREADSHEET: upload + validate file ---
                 const tmcDropZone = document.getElementById('ws-drop-zone-tmc');
                 const tmcFileInfo = document.getElementById('ws-tmc-file-info');
                 const parseTmcBtn = document.getElementById('ws-parse-tmc-btn');
+                let tmcFileRef = null;
 
-                function showTmcFile(file) {
-                    tmcFileInfo.innerHTML = '<div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--bg-base);border:1px solid var(--success);border-radius:6px;font-size:13px;color:var(--text-light);">📊 ' + file.name + '<span style="color:var(--text-muted);font-size:11px;margin-left:auto;">' + (file.size / 1024).toFixed(1) + ' KB</span></div>';
+                function validateTmcFile(file) {
+                    tmcFileRef = file;
+                    const ext = file.name.split('.').pop().toLowerCase();
+                    const sizeKB = file.size / 1024;
+                    const sizeMB = sizeKB / 1024;
+
+                    // Show file info
+                    tmcFileInfo.innerHTML = '<div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--bg-base);border:1px solid var(--success);border-radius:6px;font-size:13px;color:var(--text-light);">📊 ' + file.name + '<span style="ws-val-detail" style="color:var(--text-muted);font-size:11px;margin-left:auto;">' + (sizeKB < 1024 ? sizeKB.toFixed(1) + ' KB' : sizeMB.toFixed(2) + ' MB') + '</span></div>';
+
+                    // Validate
+                    const panel = document.getElementById('val-tmc-upload');
+                    const items = document.getElementById('val-tmc-upload-items');
+                    let html = '';
+                    let allPass = true;
+
+                    // File type
+                    const validExt = ['xlsx','csv','xls'].includes(ext);
+                    html += valItem(validExt, 'Valid file format', '.' + ext);
+                    if (!validExt) allPass = false;
+
+                    // File size
+                    const sizeOk = file.size > 1024 && file.size < 52428800;
+                    html += valItem(sizeOk, 'File size acceptable', sizeKB < 1024 ? sizeKB.toFixed(0) + ' KB' : sizeMB.toFixed(1) + ' MB');
+                    if (!sizeOk) { allPass = false; html += valItem(false, file.size <= 1024 ? 'File too small — may be empty' : 'File too large (>50MB)', 'Check file'); }
+
+                    // Filename check — should contain TMC or turning or count
+                    const nameHint = /tmc|turning|count|movement/i.test(file.name);
+                    html += valItem(nameHint ? true : null, 'Filename suggests TMC data', nameHint ? 'Detected' : 'No TMC keywords found — verify correct file');
+
+                    // CSV-specific: try to read headers
+                    if (ext === 'csv') {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const firstLine = e.target.result.split('\n')[0];
+                            const cols = firstLine.split(',').map(c => c.trim().replace(/"/g,''));
+                            const rowCount = e.target.result.split('\n').filter(r => r.trim()).length - 1;
+
+                            let csvHtml = '';
+                            csvHtml += valItem(true, 'CSV readable', cols.length + ' columns, ' + rowCount + ' data rows');
+
+                            // Check for expected TMC columns
+                            const expectedCols = ['intersection','northbound','southbound','eastbound','westbound','left','through','right','time','period','am','pm'];
+                            const foundCols = cols.filter(c => expectedCols.some(ec => c.toLowerCase().includes(ec)));
+                            csvHtml += valItem(foundCols.length >= 2, 'TMC column headers detected', foundCols.length + ' of expected columns found');
+                            if (foundCols.length < 2) {
+                                csvHtml += valItem(null, 'Expected columns: Intersection, NB/SB/EB/WB, Left/Through/Right, Time/Period', 'Review spreadsheet format');
+                            }
+
+                            // Row count check
+                            csvHtml += valItem(rowCount >= 4, 'Sufficient data rows', rowCount + ' rows');
+                            if (rowCount < 4) csvHtml += valItem(false, 'Too few rows — TMC data typically has 12+ rows per intersection', 'Check data completeness');
+
+                            items.innerHTML += csvHtml;
+                        };
+                        reader.readAsText(file.slice(0, 8192)); // Read first 8KB for headers
+                    }
+
+                    items.innerHTML = html;
+                    panel.classList.add('visible');
                     parseTmcBtn.style.display = 'block';
+                    setBadge('badge-tmc-upload', allPass ? 'valid' : 'warning');
                 }
 
                 if (tmcDropZone) {
                     tmcDropZone.addEventListener('click', () => {
                         const input = document.createElement('input');
                         input.type = 'file';
-                        input.accept = '.xlsx,.csv';
-                        input.onchange = () => { if (input.files.length) showTmcFile(input.files[0]); };
+                        input.accept = '.xlsx,.csv,.xls';
+                        input.onchange = () => { if (input.files.length) validateTmcFile(input.files[0]); };
                         input.click();
                     });
                     tmcDropZone.addEventListener('dragover', (e) => { e.preventDefault(); tmcDropZone.classList.add('dragover'); });
@@ -5035,40 +5381,135 @@
                     tmcDropZone.addEventListener('drop', (e) => {
                         e.preventDefault();
                         tmcDropZone.classList.remove('dragover');
-                        if (e.dataTransfer.files.length) showTmcFile(e.dataTransfer.files[0]);
+                        if (e.dataTransfer.files.length) validateTmcFile(e.dataTransfer.files[0]);
                     });
                 }
 
+                // Parse TMC button — deeper analysis
                 if (parseTmcBtn) {
                     parseTmcBtn.addEventListener('click', () => {
                         parseTmcBtn.textContent = 'Parsing...';
                         parseTmcBtn.style.opacity = '0.7';
+
+                        const parsedPanel = document.getElementById('val-tmc-parsed');
+                        const parsedItems = document.getElementById('val-tmc-parsed-items');
+
                         setTimeout(() => {
+                            let html = '';
+
+                            if (tmcFileRef && tmcFileRef.name.endsWith('.csv')) {
+                                const reader = new FileReader();
+                                reader.onload = function(e) {
+                                    const lines = e.target.result.split('\n').filter(r => r.trim());
+                                    const headers = lines[0].split(',').map(c => c.trim().replace(/"/g,''));
+                                    const dataRows = lines.length - 1;
+
+                                    html += valItem(true, 'File parsed successfully', dataRows + ' records');
+                                    html += valItem(true, 'Columns: ' + headers.slice(0,5).join(', ') + (headers.length > 5 ? '...' : ''), headers.length + ' total');
+
+                                    // Check for zero/empty values
+                                    let emptyCount = 0;
+                                    for (let i = 1; i < Math.min(lines.length, 20); i++) {
+                                        const vals = lines[i].split(',');
+                                        vals.forEach(v => { if (!v.trim() || v.trim() === '0') emptyCount++; });
+                                    }
+                                    const emptyPct = ((emptyCount / (Math.min(dataRows, 19) * headers.length)) * 100).toFixed(0);
+                                    html += valItem(emptyPct < 30, 'Data completeness', (100 - emptyPct) + '% cells populated');
+                                    if (emptyPct >= 30) html += valItem(null, 'High percentage of empty/zero values', 'Review for missing count data');
+
+                                    html += valItem(true, 'Ready for analysis', 'Proceed to Step 3: Trip Generation');
+
+                                    parsedItems.innerHTML = html;
+                                    parsedPanel.classList.add('visible');
+                                };
+                                reader.readAsText(tmcFileRef);
+                            } else {
+                                // XLSX — can't parse in browser without library, show guidance
+                                html += valItem(true, 'XLSX file accepted', tmcFileRef ? tmcFileRef.name : '');
+                                html += valItem(null, 'Full column analysis requires CSV format', 'Convert to CSV for detailed validation');
+                                html += valItem(true, 'File staged for processing', 'Will be parsed during Step 3');
+                                parsedItems.innerHTML = html;
+                                parsedPanel.classList.add('visible');
+                            }
+
                             parseTmcBtn.textContent = '✓ TMC Data Parsed';
                             parseTmcBtn.style.background = 'var(--success)';
                             parseTmcBtn.style.opacity = '1';
                             this.markFolderItem('folder-tmc-counts');
-                        }, 1200);
+                        }, 800);
                     });
                 }
 
-                // Workspace: Step 2 — Photos Drop Zone (click to browse + drag/drop)
+                // --- INTERSECTION PHOTOS: upload + validate ---
                 const photosDropZone = document.getElementById('ws-drop-zone-photos');
                 const photosInfo = document.getElementById('ws-photos-info');
 
-                function showPhotos(files) {
-                    photosInfo.innerHTML = Array.from(files).map(f =>
+                function validatePhotos(files) {
+                    const validExts = ['jpg','jpeg','png','heic','heif','webp'];
+                    const fileArr = Array.from(files);
+
+                    // Show file list
+                    photosInfo.innerHTML = fileArr.map(f =>
                         '<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--bg-base);border:1px solid var(--blue);border-radius:6px;margin-bottom:6px;font-size:13px;color:var(--text-light);">📷 ' + f.name + '<span style="color:var(--text-muted);font-size:11px;margin-left:auto;">' + (f.size / 1024).toFixed(1) + ' KB</span></div>'
                     ).join('');
+
+                    // Validate
+                    const panel = document.getElementById('val-photos');
+                    const items = document.getElementById('val-photos-items');
+                    let html = '';
+                    let allPass = true;
+
+                    // File count
+                    html += valItem(fileArr.length >= 1, 'Photos uploaded', fileArr.length + ' file(s)');
+
+                    // Check each file type
+                    const invalidFiles = fileArr.filter(f => !validExts.includes(f.name.split('.').pop().toLowerCase()));
+                    if (invalidFiles.length > 0) {
+                        html += valItem(false, 'Invalid file type(s)', invalidFiles.map(f => f.name).join(', '));
+                        allPass = false;
+                    } else {
+                        html += valItem(true, 'All files are valid image formats', validExts.slice(0,4).join(', '));
+                    }
+
+                    // Size check — flag very small (<10KB, probably thumbnail) or very large (>20MB)
+                    const tooSmall = fileArr.filter(f => f.size < 10240);
+                    const tooLarge = fileArr.filter(f => f.size > 20971520);
+                    if (tooSmall.length) {
+                        html += valItem(null, tooSmall.length + ' file(s) under 10KB', 'May be thumbnails — verify image quality');
+                    }
+                    if (tooLarge.length) {
+                        html += valItem(null, tooLarge.length + ' file(s) over 20MB', 'Consider compressing before submission');
+                    }
+                    if (!tooSmall.length && !tooLarge.length) {
+                        html += valItem(true, 'File sizes within normal range', '');
+                    }
+
+                    // Check against Step 1 project data for intersection count
+                    const projectData = localStorage.getItem('tfe_active_project');
+                    if (projectData) {
+                        try {
+                            const proj = JSON.parse(projectData);
+                            const buildingCount = proj.buildings ? proj.buildings.length : 0;
+                            const expectedPhotos = Math.max(buildingCount, 1);
+                            html += valItem(fileArr.length >= expectedPhotos, 'Coverage check', fileArr.length + ' photos for ' + expectedPhotos + ' site location(s)');
+                            if (fileArr.length < expectedPhotos) {
+                                html += valItem(null, 'Recommend at least 1 photo per intersection/access point', 'Add more photos for complete documentation');
+                            }
+                        } catch(e) {}
+                    }
+
+                    items.innerHTML = html;
+                    panel.classList.add('visible');
+                    setBadge('badge-photos', allPass ? 'valid' : 'warning');
                 }
 
                 if (photosDropZone) {
                     photosDropZone.addEventListener('click', () => {
                         const input = document.createElement('input');
                         input.type = 'file';
-                        input.accept = '.jpg,.jpeg,.png,.heic';
+                        input.accept = '.jpg,.jpeg,.png,.heic,.heif,.webp';
                         input.multiple = true;
-                        input.onchange = () => { if (input.files.length) showPhotos(input.files); };
+                        input.onchange = () => { if (input.files.length) validatePhotos(input.files); };
                         input.click();
                     });
                     photosDropZone.addEventListener('dragover', (e) => { e.preventDefault(); photosDropZone.classList.add('dragover'); });
@@ -5076,23 +5517,34 @@
                     photosDropZone.addEventListener('drop', (e) => {
                         e.preventDefault();
                         photosDropZone.classList.remove('dragover');
-                        if (e.dataTransfer.files.length) showPhotos(e.dataTransfer.files);
+                        if (e.dataTransfer.files.length) validatePhotos(e.dataTransfer.files);
                     });
                 }
 
-                // Workspace: Step 2 Submit
+                // --- STEP 2 SUBMIT: final validation gate ---
                 const submitStep2 = document.getElementById('ws-submit-step2');
                 if (submitStep2) {
                     submitStep2.addEventListener('click', () => {
+                        // Run TMC info validation to make sure panel is showing
+                        validateTmcInfo();
+
+                        // Check if minimum requirements are met
+                        const countDate = document.getElementById('ws-count-date')?.value;
+                        const dayOfWeek = document.getElementById('ws-day-of-week')?.value;
+                        if (!countDate || !dayOfWeek) {
+                            submitStep2.textContent = 'Fill Required Fields Above';
+                            submitStep2.style.background = '#ef4444';
+                            setTimeout(() => { submitStep2.textContent = 'Submit Data Collection'; submitStep2.style.background = 'var(--gold)'; }, 2000);
+                            return;
+                        }
+
                         this.markStepComplete(2);
-                        // Mark folder items based on what was provided
                         if (tmcFileInfo.innerHTML) this.markFolderItem('folder-tmc-counts');
                         if (photosInfo.innerHTML) this.markFolderItem('folder-intersections');
 
-                        // Save Step 2 data to localStorage
                         const step2Data = {
-                            countDate: document.getElementById('ws-count-date')?.value,
-                            dayOfWeek: document.getElementById('ws-day-of-week')?.value,
+                            countDate,
+                            dayOfWeek,
                             amStart: document.getElementById('ws-am-start')?.value,
                             amEnd: document.getElementById('ws-am-end')?.value,
                             pmStart: document.getElementById('ws-pm-start')?.value,
@@ -5104,10 +5556,7 @@
 
                         submitStep2.textContent = '✓ Data Collection Saved';
                         submitStep2.style.background = 'var(--success)';
-                        setTimeout(() => {
-                            submitStep2.textContent = 'Submit Data Collection';
-                            submitStep2.style.background = 'var(--gold)';
-                        }, 2000);
+                        setTimeout(() => { submitStep2.textContent = 'Submit Data Collection'; submitStep2.style.background = 'var(--gold)'; }, 2000);
                     });
                 }
 
@@ -5323,13 +5772,17 @@
                 // Update progress text
                 document.getElementById('workflow-progress').textContent = 'Step ' + this.currentStep + ' of 10';
 
-                // Update step indicators
+                // Update step indicators — based on actual completion, not position
+                const saved = localStorage.getItem('tfe_active_project');
+                const completedSteps = saved ? (JSON.parse(saved).stepsCompleted || {}) : {};
+
                 document.querySelectorAll('.workflow-step').forEach(step => {
                     const stepNum = parseInt(step.dataset.step);
                     step.classList.remove('active', 'completed');
                     if (stepNum === this.currentStep) {
                         step.classList.add('active');
-                    } else if (stepNum < this.currentStep) {
+                    }
+                    if (completedSteps[stepNum]) {
                         step.classList.add('completed');
                     }
                 });
