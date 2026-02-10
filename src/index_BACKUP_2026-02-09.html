@@ -1,0 +1,3966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trajanus Enterprise Hub</title>
+    <link rel="stylesheet" href="./main.css">
+</head>
+<body>
+    <div class="app-wrapper has-sidebar">
+        <!-- Project Sidebar -->
+        <nav class="project-sidebar">
+            <div class="sidebar-header">
+                <h2>PROJECTS</h2>
+                <button class="new-project-btn" onclick="showNewProjectModal()">+ New</button>
+            </div>
+
+            <div class="project-section">
+                <div class="section-header-sidebar" onclick="toggleSection(&#39;traffic&#39;)">
+                    <span>🚦 Traffic Studies</span>
+                    <span class="project-count" id="traffic-count">1</span>
+                </div>
+                <div class="project-list" id="traffic-projects">
+                        <div class="project-item active " id="project-PRJ-2025-002" onclick="selectProject(&#39;PRJ-2025-002&#39;)">
+                            <div class="project-name">Grace Fellowship TIS</div>
+                            <div class="project-meta">Bill King • Dec 31</div>
+                        </div>
+                    </div>
+            </div>
+
+            <div class="project-section">
+                <div class="section-header-sidebar" onclick="toggleSection(&#39;qcm&#39;)">
+                    <span>✓ Quality Control</span>
+                    <span class="project-count" id="qcm-count">0</span>
+                </div>
+                <div class="project-list" id="qcm-projects"></div>
+            </div>
+
+            <div class="project-section">
+                <div class="section-header-sidebar" onclick="toggleSection(&#39;pm&#39;)">
+                    <span>📋 Project Management</span>
+                    <span class="project-count" id="pm-count">2</span>
+                </div>
+                <div class="project-list" id="pm-projects">
+                        <div class="project-item active " id="project-PRJ-2025-001" onclick="selectProject(&#39;PRJ-2025-001&#39;)">
+                            <div class="project-name">SOUTHCOM Guatemala</div>
+                            <div class="project-meta">Bill King • Dec 31</div>
+                        </div>
+                    
+                        <div class="project-item active " id="project-PRJ-2025-003" onclick="selectProject(&#39;PRJ-2025-003&#39;)">
+                            <div class="project-name">Base Housing - Kwajalein</div>
+                            <div class="project-meta">Bill King • Dec 31</div>
+                        </div>
+                    </div>
+            </div>
+
+            <div class="project-section">
+                <div class="section-header-sidebar" onclick="toggleSection(&#39;dev&#39;)">
+                    <span>🛠 Development</span>
+                    <span class="project-count" id="dev-count">0</span>
+                </div>
+                <div class="project-list" id="dev-projects"></div>
+            </div>
+
+            <div class="project-section">
+                <div class="section-header-sidebar" onclick="toggleSection(&#39;healthcare&#39;)">
+                    <span>🏥 Healthcare</span>
+                    <span class="project-count" id="healthcare-count">0</span>
+                </div>
+                <div class="project-list" id="healthcare-projects"></div>
+            </div>
+
+            <div class="project-section delivered-section">
+                <div class="section-header-sidebar" onclick="toggleSection(&#39;delivered&#39;)">
+                    <span>📦 Client Deliverables</span>
+                    <span class="project-count" id="delivered-count">0</span>
+                </div>
+                <div class="project-list" id="delivered-projects"></div>
+            </div>
+
+            <!-- Team Feedback Tab -->
+            <div class="feedback-tab" id="feedbackTab" onclick="showFeedbackPanel()">
+                <span class="feedback-tab-icon">💬</span>
+                <span class="feedback-tab-label">Team Feedback</span>
+                <span class="unread-badge" id="feedbackBadge" style="display: none;">0</span>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Title - Neural Grid Logo (2026-01-16) -->
+            <section class="hero-title">
+                <style>
+                    .hero-centered {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 0.375rem;
+                    }
+                    .logo-text-group {
+                        display: flex;
+                        align-items: center;
+                        position: relative;
+                    }
+                    .hero-logo {
+                        width: 85px;
+                        height: 85px;
+                        object-fit: contain;
+                        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.15));
+                    }
+                    .hero-text {
+                        position: relative;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        margin-left: -22px;
+                        height: 85px;
+                    }
+                    .hero-text h1 {
+                        color: #00AAFF;
+                        font-family: Tahoma, sans-serif;
+                        font-size: 34px;
+                        font-weight: 300;
+                        letter-spacing: 8px;
+                        margin: 0;
+                        display: flex;
+                        align-items: baseline;
+                    }
+                    .hero-text p {
+                        color: #FFFFFF;
+                        font-size: 9px;
+                        letter-spacing: 3px;
+                        margin: 2px 0 0 0;
+                    }
+                    .hero-text .tm {
+                        font-size: 7px;
+                        vertical-align: super;
+                        margin-left: 2px;
+                        color: #FFFFFF;
+                        opacity: 0.7;
+                    }
+                    /* FIX 1: Top margin - reduce to 96px (1 inch) */
+                    .main-content {
+                        padding-top: 48px !important;
+                    }
+                    /* Hero spacing override - reduced 2026-01-16 */
+                    .hero-title {
+                        padding-top: 0;
+                        padding-bottom: 18px;
+                        margin-bottom: 24px;
+                    }
+                    /* FIX 5: Greeting/Date - WHITE text */
+                    .greeting {
+                        color: #FFFFFF !important;
+                    }
+                    .greeting-name {
+                        color: #00AAFF !important;
+                    }
+                    .current-date {
+                        color: #FFFFFF !important;
+                    }
+                    /* FIX 2-4: Hub Agent - brainwaves bg, Tahoma font, WHITE text */
+                    .hub-agent-messages {
+                        background-image: url('assets/brain-8825819_1280.jpg') !important;
+                        background-size: contain;
+                    }
+                    .hub-agent-messages::before {
+                        background: rgba(10, 10, 10, 0.85) !important;
+                    }
+                    .hub-agent-messages .message.assistant {
+                        font-family: Tahoma, sans-serif;
+                        color: #FFFFFF !important;
+                        background: transparent !important;
+                        border: 1px solid #00AAFF !important;
+                        border-left: 3px solid #00AAFF !important;
+                    }
+                    .hub-agent-messages .message.user {
+                        font-family: Arial, sans-serif;
+                        color: #2ECC71 !important;
+                        background: transparent !important;
+                        border: 1px solid #00AAFF !important;
+                    }
+                    /* Chat input styling */
+                    #chat-input {
+                        color: #00AAFF !important;
+                    }
+                    #chat-input::placeholder {
+                        color: #FFFFFF !important;
+                        opacity: 1;
+                    }
+                    /* Hub toolkit title - Copperplate Gothic Bold like TRAJANUS */
+                    .hub-toolkit {
+                        font-size: 32px;
+                        font-weight: 700;
+                        font-family: Tahoma, sans-serif;
+                        color: #FFFFFF;
+                        letter-spacing: 1px;
+                        text-align: center;
+                        margin-top: 12px;
+                    }
+                    /* FIX 3: All silver/grey text to WHITE for better contrast */
+                    .welcome-title,
+                    .welcome-intro,
+                    .section-title,
+                    .panel-title,
+                    .hub-section-desc,
+                    .chat-welcome,
+                    .project-meta,
+                    .platform-desc,
+                    .tool-description,
+                    .footer-text,
+                    p, span, div {
+                        color: #FFFFFF;
+                    }
+                    /* Keep section titles blue */
+                    .hub-section-title,
+                    h2.section-title {
+                        color: #00AAFF !important;
+                    }
+                </style>
+                <div class="hero-centered">
+                    <div class="logo-text-group">
+                        <img src="assets/trajanus-logo-white-grid.png" alt="Trajanus Logo" class="hero-logo">
+                        <div class="hero-text">
+                            <h1>TRAJANUS</h1>
+                            <p>ENGINEERED INTELLIGENCE<span class="tm">™</span></p>
+                        </div>
+                    </div>
+                    <div class="hub-toolkit">ENTERPRISE HUB</div>
+                </div>
+            </section>
+
+            <!-- Greeting Row -->
+            <div class="greeting-row">
+                <h2 class="greeting">
+                    <span id="greeting-text">Good morning</span>, <span class="greeting-name">Bill</span>.
+                </h2>
+                <span class="current-date" id="current-date">January 3, 2026</span>
+            </div>
+
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <h2 class="welcome-title">Welcome to the Trajanus Enterprise Hub</h2>
+                <p class="welcome-intro">
+                    Welcome to the Trajanus Enterprise Hub, your AI-augmented command center for federal construction management. This platform integrates four specialized workspaces: Quality Control Management for inspections, submittals, and RFI tracking; Project Management for scheduling, earned value, and SOUTHCOM contract oversight; Traffic Studies Engineering for ITE calculations and Arizona jurisdiction compliance; and Developer Tools for code, automation, and system maintenance.
+                </p>
+                <p class="welcome-intro" style="margin-top: 8px;">
+                    Each workspace provides direct access to external applications, Microsoft Office integration, custom Trajanus scripts, and AI assistants trained on your specific workflows. Use the sidebar to navigate between platforms and projects. The Enterprise Hub Agent below can answer questions about any tool or feature across all workspaces.
+                </p>
+            </section>
+
+<!-- TRAJANUS HUB AGENT -->
+            <div class="hub-section-divider">
+                <div class="hub-divider-line"></div>
+                <h2 class="hub-section-title">ENTERPRISE HUB ASSISTANT</h2>
+                <p class="hub-section-desc">AI assistant with skills for all platforms</p>
+            </div>
+            <div class="hub-agent-container" id="claude-chat">
+                <div class="hub-agent-messages" id="chat-messages">
+                    <div class="chat-welcome">Ask the Hub Agent anything about projects, platforms, or workflows...</div>
+                </div>
+                <div class="hub-agent-input">
+                    <textarea id="chat-input" placeholder="How can I help you today?" rows="1"></textarea>
+                    <button class="hub-agent-send" id="send-chat-btn">Send</button>
+                    <button class="hub-agent-clear" id="clear-chat-btn">Clear</button>
+                </div>
+            </div>
+
+            <!-- ENTERPRISE KNOWLEDGE -->
+            <div class="hub-section">
+                <h2 class="hub-section-title">ENTERPRISE KNOWLEDGE</h2>
+                <p style="color: #888; font-size: 14px; margin-bottom: 16px;">
+                    Access training videos, reference documents, and templates across all platforms.
+                </p>
+                <div id="kb-browser-enterprise"></div>
+            </div>
+
+            <!-- PLATFORMS -->
+            <div class="hub-section-divider">
+                <div class="hub-divider-line"></div>
+                <h2 class="hub-section-title">PLATFORMS</h2>
+            </div>
+            <div class="platforms-grid">
+                    <!-- Developer Workspace -->
+                    <a href="./toolkits/developer.html" class="platform-card">
+                        <h3 class="platform-title">Developer Workspace</h3>
+                        <p class="platform-subtitle">Knomad Prime's Workspace</p>
+                        <p class="platform-description">
+                            Session management, script execution, and AI-assisted development.
+                            Central control for file conversion, automation, and Claude integration.
+                        </p>
+                    </a>
+
+                    <!-- Project Management -->
+                    <a href="./toolkits/pm.html" class="platform-card">
+                        <h3 class="platform-title">Project Management</h3>
+                        <p class="platform-subtitle">User Workspace</p>
+                        <p class="platform-description">
+                            Integrated scheduling, cost tracking, and document control for federal construction contracts.
+                            Connects to Primavera P6, Procore, and Corps of Engineers systems.
+                        </p>
+                    </a>
+
+                    <!-- Quality Control -->
+                    <a href="./toolkits/qcm.html" class="platform-card">
+                        <h3 class="platform-title">Quality Control</h3>
+                        <p class="platform-subtitle">User Workspace</p>
+                        <p class="platform-description">
+                            Submittal processing, inspection documentation, and deficiency tracking.
+                            Interfaces with RMS 3.0 and generates QC reports for USACE compliance.
+                        </p>
+                    </a>
+
+                    <!-- Traffic Studies Engineer -->
+                    <a href="./toolkits/traffic.html" class="platform-card">
+                        <h3 class="platform-title">Traffic Studies</h3>
+                        <p class="platform-subtitle">Engineer Workspace</p>
+                        <p class="platform-description">
+                            Guided workflow for traffic impact studies. Document management, trip generation,
+                            capacity analysis, and jurisdiction-compliant report assembly.
+                        </p>
+                    </a>
+
+                    <!-- Healthcare -->
+                    <a href="./toolkits/healthcare.html" class="platform-card">
+                        <h3 class="platform-title">Healthcare</h3>
+                        <p class="platform-subtitle">HIPAA Compliant Workspace</p>
+                        <p class="platform-description">
+                            AI-augmented clinical documentation workflows. Patient record processing,
+                            summary generation, referral drafting, and HIPAA-compliant audit logging.
+                        </p>
+                    </a>
+            </div>
+
+            <!-- QUICK TOOLS -->
+            <div class="trajanus-tool-container">
+                <div class="tool-header">
+                    <h2>QUICK TOOLS</h2>
+                </div>
+                <div class="quick-tools-grid">
+                    <!-- External Program Buttons (120x44px) -->
+                    <button class="ext-btn btn-word" onclick="Hub.launchApp('word')"><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M6 2h8l6 6v12c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2zm7 1.5V9h5.5L13 3.5zM7 11v2h2v6h2v-6h2v-2H7z"/></svg>Word</button>
+                    <button class="ext-btn btn-excel" onclick="Hub.launchApp('excel')"><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M6 2h8l6 6v12c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2zm7 1.5V9h5.5L13 3.5zM7 11l2.5 4L7 19h2l1.5-2.5L12 19h2l-2.5-4L14 11h-2l-1.5 2.5L9 11H7z"/></svg>Excel</button>
+                    <button class="ext-btn btn-teams" onclick="Hub.launchApp('teams')"><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M19.2 6c.9 0 1.6.7 1.6 1.6v6.8c0 .9-.7 1.6-1.6 1.6h-3.2v2.8c0 .9-.7 1.6-1.6 1.6H5.6c-.9 0-1.6-.7-1.6-1.6V9.6C4 8.7 4.7 8 5.6 8h2.8V5.2c0-.9.7-1.6 1.6-1.6h9.2zm-4 10V9.6c0-.9-.7-1.6-1.6-1.6H10v2h3.6c.2 0 .4.2.4.4v5.2h1.2zm4-8.4H10v2h5.2v4.8h4V7.6z"/></svg>Teams</button>
+                    <button class="ext-btn btn-outlook" onclick="Hub.launchApp('outlook')"><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M12 13L2 8v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8l-10 5zm10-7c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2l10 5 10-5z"/></svg>Outlook</button>
+                    <button class="ext-btn btn-calc" onclick="Hub.launchApp('calc')"><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM7 7h4v2H7V7zm0 4h4v2H7v-2zm0 4h4v2H7v-2zm6-8h4v6h-4V7zm0 8h4v2h-4v-2z"/></svg>Calc</button>
+                    <button class="ext-btn btn-gmail" onclick="Hub.launchApp('gmail')"><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>Gmail</button>
+                    <!-- Trajanus Script Buttons (160x50px) - Brain Icon -->
+                    <button class="script-btn" onclick="Hub.openTool('kb-ingestion')"><img src="assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">KB Ingest</button>
+                    <button class="script-btn" onclick="Hub.openTool('md-converter')"><img src="assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">MD Convert</button>
+                    <button class="script-btn" onclick="Hub.openTool('query-kb')"><img src="assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">Query KB</button>
+                    <button class="script-btn" onclick="Hub.openTool('youtube-transcript')"><img src="assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">YT Transcript</button>
+                </div>
+            </div>
+
+            <!-- APPLICATIONS -->
+            <div class="hub-section-divider">
+                <div class="hub-divider-line"></div>
+                <h2 class="hub-section-title">APPLICATIONS</h2>
+            </div>
+            <div class="applications-grid">
+                    <div class="app-category">
+                        <h4 style="color: #00AAFF; margin-bottom: 12px;">Federal & DoD</h4>
+                        <div class="button-grid" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                            <button class="ext-btn btn-rms" onclick="Hub.openEmbedded('https://rms.usace.army.mil/', 'RMS 3.0')"><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm-1 14.5v-3H9v-3h2v-3h2v3h2v3h-2v3h-2z"/></svg>RMS 3.0</button>
+                            <button class="ext-btn btn-cefms" onclick="Hub.openEmbedded('https://cefms.usace.army.mil/', 'CEFMS')"><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm0-4h-2V7h2v8z"/></svg>CEFMS</button>
+                            <button class="ext-btn" onclick="showDevNotice('eng_form_4025')" disabled><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/></svg>ENG 4025</button>
+                            <button class="ext-btn" onclick="showDevNotice('ecms_integration')" disabled><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>eCMS</button>
+                        </div>
+                    </div>
+
+                    <div class="app-category">
+                        <h4 style="color: #00AAFF; margin-bottom: 12px;">Project Controls</h4>
+                        <div class="button-grid" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                            <button class="ext-btn btn-p6" onclick="showDevNotice('primavera_p6')" disabled><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/></svg>P6</button>
+                            <button class="ext-btn btn-procore" onclick="Hub.openEmbedded('https://app.procore.com/', 'Procore')"><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg>Procore</button>
+                            <button class="ext-btn" onclick="showDevNotice('oracle_unifier')" disabled><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>Unifier</button>
+                            <button class="ext-btn btn-msproject" onclick="showDevNotice('ms_project')" disabled><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M3 3v18h18V3H3zm16 16H5V5h14v14zM7 12h2v5H7zm4-3h2v8h-2zm4-3h2v11h-2z"/></svg>MS Project</button>
+                        </div>
+                    </div>
+            </div>
+
+            <!-- WORKSPACE PANEL -->
+            <section class="hub-workspace-section">
+                <div class="hub-workspace-header">
+                    <h2 class="hub-section-title">WORKSPACE</h2>
+                    <div class="hub-workspace-controls">
+                        <span id="workspace-title" class="workspace-title">Ready</span>
+                        <button class="hub-workspace-btn" onclick="HubWorkspace.close()">Close</button>
+                    </div>
+                </div>
+                <div class="hub-workspace-container" id="hub-workspace">
+                    <div class="hub-workspace-placeholder">
+                        <div class="workspace-placeholder-icon">🖥️</div>
+                        <p>Select an application above to open it here</p>
+                        <p class="workspace-hint">Web apps will embed • Desktop apps launch externally</p>
+                    </div>
+                </div>
+                <!-- Mini Terminal Log -->
+                <div class="hub-mini-terminal" id="hub-terminal-output">
+                    <div class="hub-terminal-line">[Ready] Trajanus Enterprise Hub initialized</div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <span class="footer-item">Trajanus USA</span>
+            <span class="footer-item">High Springs, FL</span>
+            <span class="footer-item">v0.5.0</span>
+            <span class="footer-item footer-status">
+                <span class="status-dot active"></span>
+                Connected
+            </span>
+        </footer>
+    </div>
+
+    <!-- New Project Modal -->
+    <div class="modal-overlay" id="newProjectModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>NEW PROJECT</h3>
+                <button class="modal-close" onclick="hideNewProjectModal()">×</button>
+            </div>
+            <div class="form-group">
+                <label for="newProjectName">Project Name</label>
+                <input type="text" id="newProjectName" placeholder="e.g., Grace Fellowship TIS">
+            </div>
+            <div class="form-group">
+                <label for="newProjectPlatform">Platform</label>
+                <select id="newProjectPlatform">
+                    <option value="">Select platform...</option>
+                    <option value="traffic">Traffic Studies</option>
+                    <option value="qcm">Quality Control</option>
+                    <option value="pm">Project Management</option>
+                    <option value="dev">Development</option>
+                    <option value="healthcare">Healthcare</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="newProjectClient">Client Name</label>
+                <input type="text" id="newProjectClient" placeholder="e.g., Grace Fellowship Church">
+            </div>
+            <div class="form-group">
+                <label for="newProjectCreator">Creator</label>
+                <input type="text" id="newProjectCreator" value="Bill King">
+            </div>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="hideNewProjectModal()">Cancel</button>
+                <button class="btn-primary" onclick="createProject()">Create Project</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tauri API - Browser-safe check
+        function getInvoke() {
+            if (window.__TAURI__ && window.__TAURI__.core && window.__TAURI__.core.invoke) {
+                return window.__TAURI__.core.invoke;
+            }
+            return null;
+        }
+        const invoke = getInvoke();
+
+        // ============================================
+        // LOGGING SYSTEM
+        // ============================================
+
+        // Hub Terminal - writes to the mini terminal log
+        const HubTerminal = {
+            log(message, type = 'info') {
+                const terminal = document.getElementById('hub-terminal-output');
+                if (!terminal) return;
+
+                const time = new Date().toLocaleTimeString();
+                const line = document.createElement('div');
+                line.className = `hub-terminal-line ${type}`;
+                line.textContent = `[${time}] ${message}`;
+                terminal.appendChild(line);
+                terminal.scrollTop = terminal.scrollHeight;
+            },
+
+            clear() {
+                const terminal = document.getElementById('hub-terminal-output');
+                if (terminal) {
+                    terminal.innerHTML = '<div class="hub-terminal-line">[Ready] Terminal cleared</div>';
+                }
+            }
+        };
+
+        // Hub Workspace - manages the embedded application panel using Tauri webviews
+        const HubWorkspace = {
+            currentApp: null,
+            isEmbedded: false,
+
+            // Embed a web URL - opens in new Tauri window for Office apps (they block embedding)
+            async embed(url, title) {
+                const workspace = document.getElementById('hub-workspace');
+                const titleEl = document.getElementById('workspace-title');
+                if (!workspace) return;
+
+                this.currentApp = title;
+                titleEl.textContent = title;
+
+                const tauriInvoke = getInvoke();
+
+                // Office.com blocks embedding - open in new window instead
+                const isOfficeUrl = url.includes('office.com') || url.includes('outlook.office') || url.includes('teams.microsoft');
+
+                if (tauriInvoke && isOfficeUrl) {
+                    // Open Office apps in a new Tauri window
+                    try {
+                        const { WebviewWindow } = window.__TAURI__.webviewWindow;
+                        const popup = new WebviewWindow(`office-${Date.now()}`, {
+                            url: url,
+                            title: title,
+                            width: 1200,
+                            height: 800,
+                            center: true,
+                            decorations: true,
+                            resizable: true
+                        });
+
+                        popup.once('tauri://created', () => {
+                            log(`Opened ${title} in new window`, 'success');
+                        });
+                        popup.once('tauri://error', (e) => {
+                            log(`Failed to open ${title}: ${e}`, 'error');
+                            // Fallback: open in default browser
+                            window.__TAURI__.shell.open(url);
+                        });
+
+                        workspace.innerHTML = `
+                            <div class="hub-workspace-placeholder">
+                                <div class="workspace-placeholder-icon">🌐</div>
+                                <p><strong>${title}</strong> opened in new window</p>
+                                <p class="workspace-hint">Office apps open in separate windows for best experience</p>
+                            </div>`;
+                    } catch(e) {
+                        // Fallback: open in default browser
+                        log(`Opening ${title} in browser: ${e}`, 'info');
+                        if (window.__TAURI__?.shell?.open) {
+                            window.__TAURI__.shell.open(url);
+                        } else {
+                            window.open(url, '_blank');
+                        }
+                        workspace.innerHTML = `
+                            <div class="hub-workspace-placeholder">
+                                <div class="workspace-placeholder-icon">🌐</div>
+                                <p><strong>${title}</strong> opened in browser</p>
+                            </div>`;
+                    }
+                } else if (tauriInvoke) {
+                    // Non-Office URLs - try to embed in workspace
+                    try {
+                        const rect = workspace.getBoundingClientRect();
+                        await tauriInvoke('close_embedded');
+                        await tauriInvoke('embed_url', {
+                            url: url,
+                            x: rect.left,
+                            y: rect.top,
+                            width: rect.width,
+                            height: rect.height
+                        });
+                        this.isEmbedded = true;
+                        workspace.innerHTML = `<div class="hub-workspace-active">Loading ${title}...</div>`;
+                        log(`Opened ${title} in workspace`, 'success');
+                    } catch(e) {
+                        log(`Failed to embed ${title}: ${e}`, 'error');
+                        workspace.innerHTML = `<iframe class="hub-workspace-iframe" src="${url}" allow="clipboard-read; clipboard-write"></iframe>`;
+                    }
+                } else {
+                    // Browser fallback - use iframe
+                    workspace.innerHTML = `<iframe class="hub-workspace-iframe" src="${url}" allow="clipboard-read; clipboard-write"></iframe>`;
+                    log(`Opened ${title} in workspace (browser mode)`, 'success');
+                }
+            },
+
+            // Show status for external app (can't embed native apps)
+            showExternal(appName) {
+                const workspace = document.getElementById('hub-workspace');
+                const titleEl = document.getElementById('workspace-title');
+                if (!workspace) return;
+
+                this.currentApp = appName;
+                titleEl.textContent = `${appName} (External)`;
+
+                workspace.innerHTML = `
+                    <div class="hub-workspace-placeholder">
+                        <div class="workspace-placeholder-icon">✅</div>
+                        <p><strong>${appName}</strong> launched externally</p>
+                        <p class="workspace-hint">Desktop applications open in their own windows</p>
+                    </div>
+                `;
+            },
+
+            // Close/reset the workspace
+            async close() {
+                const workspace = document.getElementById('hub-workspace');
+                const titleEl = document.getElementById('workspace-title');
+                if (!workspace) return;
+
+                // Close Tauri webview if embedded
+                if (this.isEmbedded) {
+                    const tauriInvoke = getInvoke();
+                    if (tauriInvoke) {
+                        try {
+                            await tauriInvoke('close_embedded');
+                        } catch(e) { /* ignore */ }
+                    }
+                    this.isEmbedded = false;
+                }
+
+                this.currentApp = null;
+                titleEl.textContent = 'Ready';
+
+                workspace.innerHTML = `
+                    <div class="hub-workspace-placeholder">
+                        <div class="workspace-placeholder-icon">🖥️</div>
+                        <p>Select an application above to open it here</p>
+                        <p class="workspace-hint">Web apps will embed • Desktop apps launch externally</p>
+                    </div>
+                `;
+                log('Workspace closed', 'info');
+            }
+        };
+
+        function log(message, type = 'info') {
+            const prefix = {
+                'info': '[INFO]',
+                'success': '[SUCCESS]',
+                'warning': '[WARNING]',
+                'error': '[ERROR]'
+            };
+            console.log(`${prefix[type] || '[LOG]'} ${message}`);
+
+            // Write to hub terminal
+            HubTerminal.log(message, type);
+
+            // Show toast notification
+            showToast(message, type);
+        }
+
+        function showToast(message, type = 'info') {
+            // Remove existing toast
+            const existing = document.querySelector('.toast');
+            if (existing) existing.remove();
+
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 80px;
+                right: 20px;
+                padding: 12px 20px;
+                background: var(--bg-card);
+                border: 1px solid var(--accent-dim);
+                border-left: 3px solid ${type === 'error' ? 'var(--status-error)' : type === 'success' ? 'var(--status-success)' : 'var(--accent)'};
+                color: var(--text-white);
+                border-radius: 4px;
+                z-index: 9999;
+                animation: slideIn 0.3s ease;
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // ============================================
+        // PROJECT STORE
+        // ============================================
+        const projectStore = {
+            projects: [],
+
+            create: function(projectData) {
+                const id = `PRJ-${new Date().getFullYear()}-${String(this.projects.length + 1).padStart(3, '0')}`;
+                const project = {
+                    id: id,
+                    ...projectData,
+                    createdAt: new Date().toISOString(),
+                    status: 'active',
+                    documents: [],
+                    lastModified: new Date().toISOString(),
+                    deliveredAt: null
+                };
+                this.projects.push(project);
+                this.save();
+                return project;
+            },
+
+            getByPlatform: function(platform) {
+                return this.projects.filter(p => p.platform === platform && p.status !== 'delivered');
+            },
+
+            getActive: function() {
+                return this.projects.filter(p => p.status === 'active');
+            },
+
+            getDelivered: function() {
+                return this.projects.filter(p => p.status === 'delivered');
+            },
+
+            markComplete: function(id) {
+                const project = this.projects.find(p => p.id === id);
+                if (project) {
+                    project.status = 'complete';
+                    project.lastModified = new Date().toISOString();
+                    this.save();
+                }
+            },
+
+            deliver: function(id) {
+                const project = this.projects.find(p => p.id === id);
+                if (project) {
+                    project.status = 'delivered';
+                    project.deliveredAt = new Date().toISOString();
+                    this.save();
+                }
+            },
+
+            save: function() {
+                localStorage.setItem('trajanus_projects', JSON.stringify(this.projects));
+            },
+
+            load: function() {
+                const stored = localStorage.getItem('trajanus_projects');
+                if (stored) {
+                    this.projects = JSON.parse(stored);
+                } else {
+                    // Initialize with default projects
+                    this.projects = [
+                        {
+                            id: 'PRJ-2025-001',
+                            name: 'SOUTHCOM Guatemala',
+                            platform: 'pm',
+                            creator: 'Bill King',
+                            createdAt: '2025-01-01T00:00:00Z',
+                            status: 'active',
+                            client: 'USACE',
+                            documents: [],
+                            notes: 'Contract: W9127823R0034, Value: $47.2M',
+                            lastModified: new Date().toISOString(),
+                            deliveredAt: null
+                        },
+                        {
+                            id: 'PRJ-2025-002',
+                            name: 'Grace Fellowship TIS',
+                            platform: 'traffic',
+                            creator: 'Bill King',
+                            createdAt: '2025-12-01T00:00:00Z',
+                            status: 'active',
+                            client: 'Grace Fellowship Church',
+                            documents: [],
+                            notes: 'Traffic Impact Study',
+                            lastModified: new Date().toISOString(),
+                            deliveredAt: null
+                        },
+                        {
+                            id: 'PRJ-2025-003',
+                            name: 'Base Housing - Kwajalein',
+                            platform: 'pm',
+                            creator: 'Bill King',
+                            createdAt: '2025-06-01T00:00:00Z',
+                            status: 'active',
+                            client: 'US Army',
+                            documents: [],
+                            notes: 'Military Housing, Kwajalein Atoll',
+                            lastModified: new Date().toISOString(),
+                            deliveredAt: null
+                        }
+                    ];
+                    this.save();
+                }
+            }
+        };
+
+        // ============================================
+        // PROJECT UI FUNCTIONS
+        // ============================================
+        let currentProject = null;
+
+        function formatDate(isoString) {
+            if (!isoString) return 'N/A';
+            const date = new Date(isoString);
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+
+        function renderProjectList() {
+            const platforms = ['traffic', 'qcm', 'pm', 'dev'];
+
+            platforms.forEach(platform => {
+                const projects = projectStore.getByPlatform(platform);
+                const container = document.getElementById(`${platform}-projects`);
+                const countEl = document.getElementById(`${platform}-count`);
+
+                if (countEl) countEl.textContent = projects.length;
+
+                if (container) {
+                    container.innerHTML = projects.map(p => `
+                        <div class="project-item ${p.status} ${currentProject && currentProject.id === p.id ? 'selected' : ''}"
+                             id="project-${p.id}"
+                             onclick="selectProject('${p.id}')">
+                            <div class="project-name">${p.name}</div>
+                            <div class="project-meta">${p.creator} &bull; ${formatDate(p.lastModified)}</div>
+                        </div>
+                    `).join('');
+                }
+            });
+
+            // Delivered projects
+            const delivered = projectStore.getDelivered();
+            const deliveredCount = document.getElementById('delivered-count');
+            const deliveredContainer = document.getElementById('delivered-projects');
+
+            if (deliveredCount) deliveredCount.textContent = delivered.length;
+            if (deliveredContainer) {
+                deliveredContainer.innerHTML = delivered.map(p => `
+                    <div class="project-item delivered" id="project-${p.id}" onclick="selectProject('${p.id}')">
+                        <div class="project-name">${p.name}</div>
+                        <div class="project-meta">Delivered ${formatDate(p.deliveredAt)}</div>
+                    </div>
+                `).join('');
+            }
+
+            // Render active projects grid
+            renderActiveProjectsGrid();
+        }
+
+        function renderActiveProjectsGrid() {
+            const activeProjects = projectStore.getActive().slice(0, 6);
+            const grid = document.getElementById('active-projects-grid');
+
+            if (!grid) return;
+
+            if (activeProjects.length === 0) {
+                grid.innerHTML = '<div class="project-card"><div class="project-name">No active projects</div><div class="project-subtitle">Create a new project to get started</div></div>';
+                return;
+            }
+
+            grid.innerHTML = activeProjects.map(p => {
+                const platformLabels = {
+                    'traffic': 'Traffic Study',
+                    'qcm': 'Quality Control',
+                    'pm': 'Project Management',
+                    'dev': 'Development',
+                    'healthcare': 'Healthcare'
+                };
+                // Status color class: active=green, pending=yellow, complete=blue
+                const statusClass = p.status === 'active' ? 'project-status-active' :
+                                   p.status === 'pending' ? 'project-status-pending' :
+                                   p.status === 'complete' ? 'project-status-completed' : 'project-status-active';
+                return `
+                    <div class="project-card compact ${statusClass}" onclick="selectProject('${p.id}')" style="cursor: pointer;">
+                        <div class="project-name">${p.name}</div>
+                        <div class="project-subtitle">${platformLabels[p.platform] || p.platform}</div>
+                        <div class="project-details">
+                            <span class="project-client">${p.client || 'N/A'}</span>
+                            <span class="project-status-label">${p.status.charAt(0).toUpperCase() + p.status.slice(1)}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function selectProject(projectId) {
+            const project = projectStore.projects.find(p => p.id === projectId);
+            if (!project) return;
+
+            currentProject = project;
+
+            // Update sidebar selection
+            document.querySelectorAll('.project-item').forEach(el => el.classList.remove('selected'));
+            const projectEl = document.getElementById(`project-${projectId}`);
+            if (projectEl) projectEl.classList.add('selected');
+
+            // Navigate to appropriate platform
+            const platformUrls = {
+                'traffic': 'toolkits/traffic.html',
+                'qcm': 'toolkits/qcm.html',
+                'pm': 'toolkits/pm.html',
+                'dev': 'toolkits/developer.html'
+            };
+
+            if (platformUrls[project.platform]) {
+                log(`Opening project: ${project.name}`, 'success');
+                // Store selected project for the platform page
+                sessionStorage.setItem('currentProject', JSON.stringify(project));
+                window.location.href = platformUrls[project.platform];
+            }
+        }
+
+        function toggleSection(platform) {
+            const list = document.getElementById(`${platform}-projects`);
+            if (list) {
+                list.style.display = list.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+
+        // ============================================
+        // NEW PROJECT MODAL
+        // ============================================
+        function showNewProjectModal() {
+            document.getElementById('newProjectModal').classList.add('visible');
+        }
+
+        function hideNewProjectModal() {
+            document.getElementById('newProjectModal').classList.remove('visible');
+            // Clear form
+            document.getElementById('newProjectName').value = '';
+            document.getElementById('newProjectPlatform').value = '';
+            document.getElementById('newProjectClient').value = '';
+        }
+
+        function createProject() {
+            const name = document.getElementById('newProjectName').value.trim();
+            const platform = document.getElementById('newProjectPlatform').value;
+            const client = document.getElementById('newProjectClient').value.trim();
+            const creator = document.getElementById('newProjectCreator').value.trim() || 'Bill King';
+
+            if (!name || !platform) {
+                log('Project name and platform are required', 'error');
+                return;
+            }
+
+            const project = projectStore.create({
+                name: name,
+                platform: platform,
+                client: client,
+                creator: creator,
+                notes: ''
+            });
+
+            renderProjectList();
+            hideNewProjectModal();
+
+            log(`Created project: ${project.name} (${project.id})`, 'success');
+        }
+
+        // ============================================
+        // HUB CONTROLLER
+        // ============================================
+        const Hub = {
+            init() {
+                this.updateGreeting();
+                this.updateDate();
+                projectStore.load();
+                renderProjectList();
+            },
+
+            updateGreeting() {
+                const hour = new Date().getHours();
+                let greeting = 'Good evening';
+                if (hour < 12) greeting = 'Good morning';
+                else if (hour < 17) greeting = 'Good afternoon';
+                document.getElementById('greeting-text').textContent = greeting;
+            },
+
+            updateDate() {
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                const date = new Date().toLocaleDateString('en-US', options);
+                document.getElementById('current-date').textContent = date;
+            },
+
+            async launchTool(tool) {
+                const SCRIPTS_PATH = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\';
+
+                switch(tool) {
+                    case 'md-to-docs':
+                        try {
+                            await invoke('run_python_script', {
+                                scriptPath: SCRIPTS_PATH + 'CONVERT_MD_TO_GDOCS_PERMANENT.py'
+                            });
+                            log('Launching MD to Docs converter...', 'success');
+                        } catch(e) {
+                            log('Failed to launch MD to Docs: ' + e, 'error');
+                        }
+                        break;
+                    case 'xer-parse':
+                        showDevNotice('xer_parse');
+                        break;
+                    case 'converter':
+                        window.location.href = 'toolkits/developer.html';
+                        break;
+                    case 'browser':
+                        try {
+                            await invoke('run_python_script', {
+                                scriptPath: SCRIPTS_PATH + 'SCRIPT_BROWSER.py'
+                            });
+                            log('Launching Script Browser...', 'success');
+                        } catch(e) {
+                            log('Script Browser not found', 'warning');
+                        }
+                        break;
+                    default:
+                        log(`Unknown tool: ${tool}`, 'warning');
+                }
+            },
+
+            async launchApp(app) {
+                const appConfig = {
+                    // MS Office Online - embed in workspace iframe
+                    'word': { url: 'https://www.office.com/launch/word', name: 'Word Online', type: 'web' },
+                    'excel': { url: 'https://www.office.com/launch/excel', name: 'Excel Online', type: 'web' },
+                    'powerpoint': { url: 'https://www.office.com/launch/powerpoint', name: 'PowerPoint Online', type: 'web' },
+                    'outlook': { url: 'https://outlook.office.com', name: 'Outlook Online', type: 'web' },
+                    // Communication - Teams web
+                    'teams': { url: 'https://teams.microsoft.com', name: 'Teams', type: 'web' },
+                    // Browsers - desktop only
+                    'chrome': { path: 'chrome', name: 'Chrome', type: 'desktop' },
+                    'edge': { path: 'msedge', name: 'Edge', type: 'desktop' },
+                    // Development - desktop
+                    'vscode': { path: 'code', name: 'VS Code', type: 'desktop' },
+                    'notepad++': { path: 'notepad++', name: 'Notepad++', type: 'desktop' },
+                    // System - desktop
+                    'explorer': { path: 'explorer', name: 'File Explorer', type: 'desktop' },
+                    'calc': { path: 'calc', name: 'Calculator', type: 'desktop' },
+                    // Web apps - embed in workspace
+                    'gmail': { url: 'https://mail.google.com', name: 'Gmail', type: 'web' }
+                };
+
+                const config = appConfig[app];
+                if (!config) {
+                    log(`Unknown app: ${app}`, 'warning');
+                    return;
+                }
+
+                // Web apps - embed in workspace
+                if (config.type === 'web') {
+                    HubWorkspace.embed(config.url, config.name);
+                    return;
+                }
+
+                // Desktop apps - launch externally
+                const tauriInvoke = getInvoke();
+                if (!tauriInvoke) {
+                    log(`${config.name} requires desktop app (Tauri not available)`, 'warning');
+                    return;
+                }
+
+                try {
+                    await tauriInvoke('open_program', { program: app, path: config.path });
+                    HubWorkspace.showExternal(config.name);
+                    log(`Launched ${config.name}`, 'success');
+                } catch(e) {
+                    log(`Failed to launch ${config.name}: ${e}`, 'error');
+                }
+            },
+
+            // Open external URL in embedded modal webview (uses WindowManager)
+            async openEmbedded(url, title) {
+                try {
+                    if (!invoke) {
+                        log('Tauri not available - cannot embed external sites', 'warning');
+                        return;
+                    }
+                    // Show loading toast
+                    log(`Opening ${title}...`, 'info');
+
+                    // Use WindowManager for consistent positioning
+                    const windowId = `embedded-${title.toLowerCase().replace(/\s+/g, '-')}`;
+                    const contentHTML = `
+                        <div class="embedded-modal-body" id="embedded-container">
+                            <div class="embedded-loading">Loading ${title}...</div>
+                        </div>
+                    `;
+                    WindowManager.open(windowId, title, contentHTML);
+
+                    // Store reference for closeEmbedded
+                    this._currentEmbeddedId = windowId;
+
+                    // Small delay to ensure window is rendered
+                    await new Promise(r => setTimeout(r, 50));
+
+                    // Get container position for webview
+                    const container = document.getElementById('embedded-container');
+                    const rect = container.getBoundingClientRect();
+
+                    // Invoke Tauri to embed the URL
+                    await invoke('embed_url', {
+                        url: url,
+                        x: rect.left,
+                        y: rect.top,
+                        width: rect.width,
+                        height: rect.height
+                    });
+
+                    log(`${title} opened in embedded view`, 'success');
+                } catch(e) {
+                    log(`Failed to embed ${title}: ${e}`, 'error');
+                    this.closeEmbedded();
+                }
+            },
+
+            closeEmbedded() {
+                if (this._currentEmbeddedId) {
+                    WindowManager.close(this._currentEmbeddedId);
+                    this._currentEmbeddedId = null;
+                }
+                if (invoke) {
+                    invoke('close_embedded').catch(() => {});
+                }
+            },
+
+            // Open Trajanus tool windows
+            openTool(toolId) {
+                const tools = {
+                    'kb-ingestion': {
+                        title: 'KB Ingestion',
+                        content: `
+                            <div class="tool-panel">
+                                <div class="tool-section">
+                                    <h3>Knowledge Base Ingestion</h3>
+                                    <p>Ingest documents into the Trajanus Knowledge Base.</p>
+                                </div>
+                                <div class="tool-section">
+                                    <label>Source Folder</label>
+                                    <div class="input-row">
+                                        <input type="text" id="kb-source-path" placeholder="Select folder..." readonly>
+                                        <button class="tool-btn" onclick="Hub.browseFolder('kb-source-path')">Browse</button>
+                                    </div>
+                                </div>
+                                <div class="tool-section">
+                                    <label>Category</label>
+                                    <select id="kb-category">
+                                        <option value="session">Session Files</option>
+                                        <option value="protocol">Protocols</option>
+                                        <option value="reference">Reference Docs</option>
+                                        <option value="code">Code Examples</option>
+                                    </select>
+                                </div>
+                                <div class="tool-actions">
+                                    <button class="tool-btn primary" onclick="Hub.runKBIngestion()">Start Ingestion</button>
+                                </div>
+                                <div class="tool-output" id="kb-output"></div>
+                            </div>
+                        `
+                    },
+                    'md-converter': {
+                        title: 'MD Converter',
+                        content: `
+                            <div class="tool-panel">
+                                <div class="tool-section">
+                                    <h3>Markdown to Google Docs Converter</h3>
+                                    <p>Convert .md files to Google Docs format.</p>
+                                </div>
+                                <div class="tool-section">
+                                    <label>Source File or Folder</label>
+                                    <div class="input-row">
+                                        <input type="text" id="md-source-path" placeholder="Select file or folder..." readonly>
+                                        <button class="tool-btn" onclick="Hub.browseFolder('md-source-path')">Browse</button>
+                                    </div>
+                                </div>
+                                <div class="tool-actions">
+                                    <button class="tool-btn primary" onclick="Hub.runMDConverter()">Convert</button>
+                                </div>
+                                <div class="tool-output" id="md-output"></div>
+                            </div>
+                        `
+                    },
+                    'query-kb': {
+                        title: 'Query KB',
+                        content: `
+                            <div class="tool-panel">
+                                <div class="tool-section">
+                                    <h3>Query Knowledge Base</h3>
+                                    <p>Search the Trajanus Knowledge Base.</p>
+                                </div>
+                                <div class="tool-section">
+                                    <label>Search Query</label>
+                                    <input type="text" id="kb-query" placeholder="Enter search terms...">
+                                </div>
+                                <div class="tool-section">
+                                    <label>Max Results</label>
+                                    <select id="kb-max-results">
+                                        <option value="5">5</option>
+                                        <option value="10" selected>10</option>
+                                        <option value="20">20</option>
+                                    </select>
+                                </div>
+                                <div class="tool-actions">
+                                    <button class="tool-btn primary" onclick="Hub.runKBQuery()">Search</button>
+                                </div>
+                                <div class="tool-output" id="query-output"></div>
+                            </div>
+                        `
+                    },
+                    'youtube-transcript': {
+                        title: 'YouTube Transcript',
+                        content: `
+                            <div class="tool-panel">
+                                <div class="tool-section">
+                                    <h3>YouTube Transcript Extractor</h3>
+                                    <p>Extract transcripts from YouTube videos.</p>
+                                </div>
+                                <div class="tool-section">
+                                    <label>YouTube URL</label>
+                                    <input type="text" id="yt-url" placeholder="https://youtube.com/watch?v=...">
+                                </div>
+                                <div class="tool-actions">
+                                    <button class="tool-btn primary" onclick="Hub.runYTTranscript()">Extract Transcript</button>
+                                </div>
+                                <div class="tool-output" id="yt-output"></div>
+                            </div>
+                        `
+                    }
+                };
+
+                const tool = tools[toolId];
+                if (!tool) {
+                    log(`Unknown tool: ${toolId}`, 'warning');
+                    return;
+                }
+
+                WindowManager.open(toolId, tool.title, tool.content);
+                log(`Opened ${tool.title}`, 'success');
+            },
+
+            // Tool execution methods
+            async browseFolder(inputId) {
+                // For now, prompt user for path - full file picker requires Tauri dialog plugin
+                const path = prompt('Enter folder path:');
+                if (path) {
+                    document.getElementById(inputId).value = path;
+                }
+            },
+
+            async runKBIngestion() {
+                const sourcePath = document.getElementById('kb-source-path')?.value;
+                const category = document.getElementById('kb-category')?.value;
+                const output = document.getElementById('kb-output');
+
+                if (!sourcePath) {
+                    log('Please select a source folder', 'warning');
+                    return;
+                }
+
+                const tauriInvoke = getInvoke();
+                if (!tauriInvoke) {
+                    output.innerHTML = '<div class="error">Requires desktop app (Tauri not available)</div>';
+                    log('KB Ingestion requires desktop app', 'warning');
+                    return;
+                }
+
+                output.innerHTML = '<div class="loading">Processing...</div>';
+
+                try {
+                    const scriptPath = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\BATCH_INGEST_TOOL.py';
+                    const result = await tauriInvoke('run_python_script', {
+                        scriptPath: scriptPath,
+                        targetPath: sourcePath
+                    });
+                    output.innerHTML = `<div class="success">Ingestion complete: ${result}</div>`;
+                    log('KB Ingestion complete', 'success');
+                } catch (e) {
+                    output.innerHTML = `<div class="error">Error: ${e}</div>`;
+                    log('KB Ingestion failed: ' + e, 'error');
+                }
+            },
+
+            async runMDConverter() {
+                const sourcePath = document.getElementById('md-source-path')?.value;
+                const output = document.getElementById('md-output');
+
+                if (!sourcePath) {
+                    log('Please select a source file or folder', 'warning');
+                    return;
+                }
+
+                const tauriInvoke = getInvoke();
+                if (!tauriInvoke) {
+                    output.innerHTML = '<div class="error">Requires desktop app (Tauri not available)</div>';
+                    log('MD Converter requires desktop app', 'warning');
+                    return;
+                }
+
+                output.innerHTML = '<div class="loading">Converting...</div>';
+
+                try {
+                    const scriptPath = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\CONVERT_MD_TO_GDOCS_PERMANENT.py';
+                    const result = await tauriInvoke('run_python_script', {
+                        scriptPath: scriptPath,
+                        targetPath: sourcePath
+                    });
+                    output.innerHTML = `<div class="success">Conversion complete: ${result}</div>`;
+                    log('MD Converter complete', 'success');
+                } catch (e) {
+                    output.innerHTML = `<div class="error">Error: ${e}</div>`;
+                    log('MD Converter failed: ' + e, 'error');
+                }
+            },
+
+            async runKBQuery() {
+                const query = document.getElementById('kb-query')?.value;
+                const maxResults = document.getElementById('kb-max-results')?.value || 10;
+                const output = document.getElementById('query-output');
+
+                if (!query) {
+                    log('Please enter a search query', 'warning');
+                    return;
+                }
+
+                const tauriInvoke = getInvoke();
+                if (!tauriInvoke) {
+                    output.innerHTML = '<div class="error">Requires desktop app (Tauri not available)</div>';
+                    log('KB Query requires desktop app', 'warning');
+                    return;
+                }
+
+                output.innerHTML = '<div class="loading">Searching...</div>';
+
+                try {
+                    const scriptPath = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\QUERY_KB_TOOL.py';
+                    const result = await tauriInvoke('run_python_script', {
+                        scriptPath: scriptPath,
+                        targetPath: query
+                    });
+                    output.innerHTML = `<div class="success">${result}</div>`;
+                    log('KB Query complete', 'success');
+                } catch (e) {
+                    output.innerHTML = `<div class="error">Error: ${e}</div>`;
+                    log('KB Query failed: ' + e, 'error');
+                }
+            },
+
+            async runYTTranscript() {
+                const url = document.getElementById('yt-url')?.value;
+                const output = document.getElementById('yt-output');
+
+                if (!url) {
+                    log('Please enter a YouTube URL', 'warning');
+                    return;
+                }
+
+                const tauriInvoke = getInvoke();
+                if (!tauriInvoke) {
+                    output.innerHTML = '<div class="error">Requires desktop app (Tauri not available)</div>';
+                    log('YT Transcript requires desktop app', 'warning');
+                    return;
+                }
+
+                output.innerHTML = '<div class="loading">Extracting transcript...</div>';
+
+                try {
+                    const scriptPath = 'G:\\My Drive\\00 - Trajanus USA\\00-Command-Center\\05-Scripts\\YOUTUBE_TRANSCRIPT_TOOL.py';
+                    const result = await tauriInvoke('run_python_script', {
+                        scriptPath: scriptPath,
+                        targetPath: url
+                    });
+                    output.innerHTML = `<div class="success">${result}</div>`;
+                    log('YT Transcript complete', 'success');
+                } catch (e) {
+                    output.innerHTML = `<div class="error">Error: ${e}</div>`;
+                    log('YT Transcript failed: ' + e, 'error');
+                }
+            }
+        };
+
+        // ============================================
+        // CLAUDE CHAT - Via Tauri Backend
+        // ============================================
+        const ChatAssistant = {
+            systemPrompt: 'You are the Trajanus Enterprise Hub assistant. Help users navigate the application and understand its features. Respond conversationally with complete sentences, proper punctuation, and paragraph formatting. Never use bullet points or numbered lists unless the user explicitly requests a list. Be warm, professional, and helpful. The app has these main areas: Developer Workspace (for scripts and Claude integration), Project Management (PM Toolkit for schedules and contracts), Quality Control (QCM Toolkit for submittals and inspections), and Traffic Studies (for traffic impact analysis). Users can access these by clicking the platform cards on the landing page or using the sidebar.',
+            conversationHistory: [],
+
+            async send(userMessage) {
+                const tauriInvoke = getInvoke();
+                if (!tauriInvoke) {
+                    throw new Error('Tauri not available');
+                }
+
+                // Build context with system prompt and conversation history
+                let context = this.systemPrompt;
+                if (this.conversationHistory.length > 0) {
+                    context += '\n\nPrevious conversation:\n';
+                    for (const msg of this.conversationHistory) {
+                        context += `${msg.role}: ${msg.content}\n`;
+                    }
+                }
+
+                try {
+                    const response = await tauriInvoke('chat_with_claude', {
+                        message: userMessage,
+                        context: context
+                    });
+
+                    // Store in history for context
+                    this.conversationHistory.push({ role: 'User', content: userMessage });
+                    this.conversationHistory.push({ role: 'Assistant', content: response });
+
+                    // Keep history manageable (last 10 exchanges)
+                    if (this.conversationHistory.length > 20) {
+                        this.conversationHistory = this.conversationHistory.slice(-20);
+                    }
+
+                    return response;
+                } catch (error) {
+                    console.error('Chat error:', error);
+                    throw error;
+                }
+            },
+
+            clear() {
+                this.conversationHistory = [];
+            }
+        };
+
+        function addMessage(content, role) {
+            const messagesDiv = document.getElementById('chat-messages');
+            const welcome = messagesDiv.querySelector('.chat-welcome');
+            if (welcome) welcome.remove();
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${role}`;
+            messageDiv.textContent = content;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const messagesDiv = document.getElementById('chat-messages');
+            const typing = document.createElement('div');
+            typing.className = 'typing-indicator';
+            typing.id = 'typing-indicator';
+            typing.innerHTML = '<span></span><span></span><span></span>';
+            messagesDiv.appendChild(typing);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const typing = document.getElementById('typing-indicator');
+            if (typing) typing.remove();
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            if (!message) return;
+
+            input.value = '';
+            addMessage(message, 'user');
+            showTypingIndicator();
+
+            try {
+                const response = await ChatAssistant.send(message);
+                hideTypingIndicator();
+                addMessage(response, 'assistant');
+            } catch (error) {
+                hideTypingIndicator();
+                addMessage('Error: ' + error.message, 'assistant');
+                log('Chat error: ' + error.message, 'error');
+            }
+        }
+
+        function handleChatKeydown(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        function clearChat() {
+            ChatAssistant.clear();
+            const messagesDiv = document.getElementById('chat-messages');
+            messagesDiv.innerHTML = '<div class="chat-welcome">Ask Trajanus anything...</div>';
+            log('Chat cleared', 'info');
+        }
+
+        // Return to Hub function
+        function returnToHub() {
+            // If on a sub-page, navigate to main hub
+            if (window.location.pathname.includes('toolkits/')) {
+                window.location.href = '../index.html';
+            } else {
+                // Hide all workspaces/platforms
+                document.querySelectorAll('.platform-workspace, .workspace-view').forEach(ws => {
+                    ws.style.display = 'none';
+                });
+                // Show main hub/landing
+                const hub = document.getElementById('main-hub') || document.getElementById('landing-page') || document.querySelector('.main-content');
+                if (hub) hub.style.display = 'block';
+                window.scrollTo({top: 0, behavior: 'smooth'});
+                log('Returned to Hub', 'info');
+            }
+        }
+
+        // ============================================
+        // CLAUDE.AI EMBED
+        // ============================================
+        let claudeEmbedActive = false;
+
+        async function launchClaudeEmbed() {
+            const container = document.getElementById('claude-embed-container');
+            if (!container) return;
+
+            const tauriInvoke = getInvoke();
+            if (!tauriInvoke) {
+                log('Tauri not available - opening in browser', 'warning');
+                window.open('https://claude.ai', '_blank');
+                return;
+            }
+
+            try {
+                log('Launching Claude.ai embed...', 'info');
+
+                // Show loading state
+                container.innerHTML = '<div class="claude-loading">Loading Claude.ai...</div>';
+
+                // Get container position for webview
+                const rect = container.getBoundingClientRect();
+
+                // Use existing embed_claude command
+                await tauriInvoke('embed_claude', {
+                    x: rect.left,
+                    y: rect.top,
+                    width: rect.width,
+                    height: rect.height
+                });
+
+                claudeEmbedActive = true;
+                container.innerHTML = '<div class="claude-embed-active">Claude.ai embedded above</div>';
+                log('Claude.ai embed launched', 'success');
+
+                // Add scroll listener to keep webview positioned
+                window.addEventListener('scroll', updateClaudePosition);
+                window.addEventListener('resize', updateClaudePosition);
+            } catch (e) {
+                log('Failed to embed Claude.ai: ' + e, 'error');
+                container.innerHTML = `
+                    <div class="claude-embed-placeholder">
+                        <p>Could not embed Claude.ai</p>
+                        <button class="tool-button primary" id="launch-claude-btn">Try Again</button>
+                    </div>
+                `;
+                // Re-attach event listener
+                document.getElementById('launch-claude-btn')?.addEventListener('click', launchClaudeEmbed);
+            }
+        }
+
+        function updateClaudePosition() {
+            if (!claudeEmbedActive) return;
+            const container = document.getElementById('claude-embed-container');
+            if (!container) return;
+
+            const tauriInvoke = getInvoke();
+            if (!tauriInvoke) return;
+
+            const rect = container.getBoundingClientRect();
+            tauriInvoke('resize_embedded', {
+                x: rect.left,
+                y: rect.top,
+                width: rect.width,
+                height: rect.height
+            }).catch(() => {});
+        }
+
+        async function reloadClaudeEmbed() {
+            const tauriInvoke = getInvoke();
+            if (!tauriInvoke) return;
+
+            // Close and reopen
+            try {
+                await tauriInvoke('close_embedded');
+                claudeEmbedActive = false;
+                setTimeout(() => launchClaudeEmbed(), 100);
+            } catch (e) {
+                log('Failed to reload: ' + e, 'error');
+            }
+        }
+
+        async function closeClaudeEmbed() {
+            const tauriInvoke = getInvoke();
+            if (!tauriInvoke) return;
+
+            try {
+                await tauriInvoke('close_embedded');
+                claudeEmbedActive = false;
+                const container = document.getElementById('claude-embed-container');
+                if (container) {
+                    container.innerHTML = `
+                        <div class="claude-embed-placeholder">
+                            <p>Claude.ai Chat</p>
+                            <button class="tool-button primary" id="launch-claude-btn">Launch Claude.ai</button>
+                        </div>
+                    `;
+                    document.getElementById('launch-claude-btn')?.addEventListener('click', launchClaudeEmbed);
+                }
+            } catch (e) {
+                log('Failed to close: ' + e, 'error');
+            }
+        }
+
+        // ============================================
+        // QUAD CHAT MODE - Multiple Claude.ai Webviews
+        // ============================================
+        let quadChatEnabled = false;
+
+        async function toggleQuadChat() {
+            const btn = document.getElementById('quad-chat-toggle');
+
+            try {
+                if (!quadChatEnabled) {
+                    // Enable Quad Chat Mode
+                    log('Enabling Quad Chat Mode...', 'info');
+                    const result = await invoke('enable_quad_chat');
+                    log(result, 'success');
+                    quadChatEnabled = true;
+                    btn.classList.add('active');
+                    btn.title = 'Exit Quad Chat Mode';
+                } else {
+                    // Disable Quad Chat Mode
+                    log('Disabling Quad Chat Mode...', 'info');
+                    const result = await invoke('disable_quad_chat');
+                    log(result, 'success');
+                    quadChatEnabled = false;
+                    btn.classList.remove('active');
+                    btn.title = 'Quad Chat Mode';
+                }
+            } catch (e) {
+                log('Quad Chat Error: ' + e, 'error');
+            }
+        }
+
+        // Check if quad chat is already enabled on page load
+        async function checkQuadChatStatus() {
+            try {
+                quadChatEnabled = await invoke('is_quad_chat_enabled');
+                const btn = document.getElementById('quad-chat-toggle');
+                if (quadChatEnabled && btn) {
+                    btn.classList.add('active');
+                    btn.title = 'Exit Quad Chat Mode';
+                }
+            } catch (e) {
+                // Ignore - command may not exist in older versions
+            }
+        }
+
+        // ============================================
+        // NAVIGATION - Close embedded webviews before leaving
+        // ============================================
+        window.addEventListener('beforeunload', async () => {
+            const tauriInvoke = getInvoke();
+            if (tauriInvoke && claudeEmbedActive) {
+                try {
+                    await tauriInvoke('close_embedded');
+                } catch (e) {
+                    console.log('Error closing embedded on unload:', e);
+                }
+            }
+        });
+
+        // Intercept all navigation links to close webviews first
+        document.addEventListener('click', async (e) => {
+            const link = e.target.closest('a[href]');
+            if (link && !link.href.includes('#') && claudeEmbedActive) {
+                e.preventDefault();
+                const tauriInvoke = getInvoke();
+                if (tauriInvoke) {
+                    try {
+                        await tauriInvoke('close_embedded');
+                        claudeEmbedActive = false;
+                    } catch (err) {
+                        console.log('Error closing embedded:', err);
+                    }
+                }
+                // Navigate after closing
+                window.location.href = link.href;
+            }
+        });
+
+        // ============================================
+        // TRAJANUS WINDOW MANAGER - Phase 1.2
+        // Ensures ALL windows open in SAME position, EVERY time
+        // ============================================
+
+        const WindowManager = {
+            // Standard dimensions for ALL windows
+            defaultSize: { width: '90%', height: '90%' },
+            defaultPosition: { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' },
+            zIndexBase: 1000,
+            activeWindows: [],
+
+            /**
+             * Opens a Trajanus-styled window with branded header
+             * @param {string} id - Unique identifier for the window
+             * @param {string} title - Title displayed in the hero bar
+             * @param {string} content - HTML content for the window body
+             * @param {object} options - Optional overrides (rarely used)
+             * @returns {HTMLElement} The window element
+             */
+            open(id, title, content, options = {}) {
+                // Remove existing window with same ID if present
+                this.close(id);
+
+                // Calculate z-index for this window
+                const zIndex = this.zIndexBase + (this.activeWindows.length * 2);
+
+                // Create overlay
+                const overlay = document.createElement('div');
+                overlay.className = 'trajanus-window-overlay';
+                overlay.id = `trajanus-overlay-${id}`;
+                overlay.style.zIndex = zIndex;
+                overlay.addEventListener('click', () => this.close(id));
+
+                // Create window with ENFORCED position and size
+                const win = document.createElement('div');
+                win.className = 'trajanus-window';
+                win.id = `window-${id}`;
+
+                // ENFORCE position - ALWAYS centered, ALWAYS 90%
+                win.style.cssText = `
+                    position: fixed;
+                    top: ${this.defaultPosition.top};
+                    left: ${this.defaultPosition.left};
+                    transform: ${this.defaultPosition.transform};
+                    width: ${this.defaultSize.width};
+                    height: ${this.defaultSize.height};
+                    z-index: ${zIndex + 1};
+                `;
+
+                win.innerHTML = `
+                    <div class="trajanus-window-hero">
+                        <div class="trajanus-window-brand">
+                            <span class="trajanus-mark">▪</span>
+                            <span class="trajanus-title">TRAJANUS</span>
+                            <span class="trajanus-separator">|</span>
+                            <span class="window-title">${title}</span>
+                        </div>
+                        <div class="trajanus-window-controls">
+                            <button class="win-ctrl minimize" title="Minimize">_</button>
+                            <button class="win-ctrl maximize" title="Maximize">□</button>
+                            <button class="win-ctrl close" title="Close">×</button>
+                        </div>
+                    </div>
+                    <div class="trajanus-window-content">
+                        ${content}
+                    </div>
+                `;
+
+                // Add to DOM
+                document.body.appendChild(overlay);
+                document.body.appendChild(win);
+
+                // Track this window
+                this.activeWindows.push({ id, title, overlay, win, zIndex });
+
+                // Attach event handlers
+                win.querySelector('.win-ctrl.close').addEventListener('click', () => this.close(id));
+                win.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.bringToFront(id);
+                });
+
+                // Activate with slight delay for animation
+                requestAnimationFrame(() => {
+                    overlay.classList.add('active');
+                    win.classList.add('active');
+                });
+
+                log(`Opened window: ${title}`, 'info');
+                return win;
+            },
+
+            /**
+             * Closes a window by ID
+             * @param {string} id - The window identifier
+             */
+            close(id) {
+                const overlay = document.getElementById(`trajanus-overlay-${id}`);
+                const win = document.getElementById(`window-${id}`);
+
+                if (overlay) {
+                    overlay.classList.remove('active');
+                    setTimeout(() => overlay.remove(), 200);
+                }
+
+                if (win) {
+                    win.classList.remove('active');
+                    setTimeout(() => win.remove(), 200);
+                    log(`Closed window: ${id}`, 'info');
+                }
+
+                // Remove from tracking array
+                this.activeWindows = this.activeWindows.filter(w => w.id !== id);
+            },
+
+            /**
+             * Brings a window to the front (highest z-index)
+             * @param {string} id - The window identifier
+             */
+            bringToFront(id) {
+                const windowData = this.activeWindows.find(w => w.id === id);
+                if (!windowData) return;
+
+                // Get max z-index from all windows
+                const maxZ = Math.max(...this.activeWindows.map(w => w.zIndex), this.zIndexBase);
+                const newZ = maxZ + 2;
+
+                // Update z-index
+                windowData.zIndex = newZ;
+                windowData.overlay.style.zIndex = newZ;
+                windowData.win.style.zIndex = newZ + 1;
+            },
+
+            /**
+             * Closes all open windows
+             */
+            closeAll() {
+                // Create copy of array since close() modifies it
+                const windowIds = this.activeWindows.map(w => w.id);
+                windowIds.forEach(id => this.close(id));
+                log('Closed all windows', 'info');
+            },
+
+            /**
+             * Gets list of active window IDs
+             * @returns {string[]} Array of window IDs
+             */
+            getActiveWindows() {
+                return this.activeWindows.map(w => w.id);
+            }
+        };
+
+        // Legacy function aliases for backward compatibility
+        function openTrajanusWindow(id, title, contentHTML) {
+            return WindowManager.open(id, title, contentHTML);
+        }
+
+        function closeTrajanusWindow(id) {
+            WindowManager.close(id);
+        }
+
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            Hub.init();
+
+            // Check quad chat status on load
+            checkQuadChatStatus();
+
+            // Manually attach chat event handlers (inline onclick blocked by CSP)
+            const sendBtn = document.getElementById('send-chat-btn');
+            const chatInput = document.getElementById('chat-input');
+            const clearBtn = document.getElementById('clear-chat-btn');
+
+            if (sendBtn) {
+                sendBtn.addEventListener('click', sendMessage);
+            }
+
+            if (chatInput) {
+                chatInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        sendMessage();
+                    }
+                });
+            }
+
+            if (clearBtn) {
+                clearBtn.addEventListener('click', clearChat);
+            }
+
+            // Claude.ai embed handlers
+            const launchClaudeBtn = document.getElementById('launch-claude-btn');
+            const reloadClaudeBtn = document.getElementById('reload-claude-btn');
+            const openExternalBtn = document.getElementById('open-claude-external-btn');
+
+            if (launchClaudeBtn) {
+                launchClaudeBtn.addEventListener('click', launchClaudeEmbed);
+            }
+
+            if (reloadClaudeBtn) {
+                reloadClaudeBtn.addEventListener('click', reloadClaudeEmbed);
+            }
+
+            if (openExternalBtn) {
+                openExternalBtn.addEventListener('click', () => {
+                    const tauriInvoke = getInvoke();
+                    if (tauriInvoke) {
+                        tauriInvoke('open_path', { path: 'https://claude.ai' });
+                    }
+                });
+            }
+
+            // Panel toggle handlers
+            const panels = ['ai', 'platforms', 'projects', 'tools'];
+            panels.forEach(panelId => {
+                const toggleBtn = document.getElementById(`toggle-${panelId}`);
+                const panel = document.getElementById(`panel-${panelId}`);
+                const header = panel?.querySelector('.panel-header');
+
+                if (toggleBtn && panel) {
+                    // Click on toggle button
+                    toggleBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        panel.classList.toggle('collapsed');
+                    });
+
+                    // Click on header also toggles
+                    if (header) {
+                        header.addEventListener('click', () => {
+                            panel.classList.toggle('collapsed');
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+
+    <style>
+        /* Toast animation */
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Quad Chat Button Styles */
+        .quad-chat-btn {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .quad-chat-btn.active {
+            background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%) !important;
+            border-color: #4CAF50 !important;
+            color: #4CAF50 !important;
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.4);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           TRAJANUS WINDOW FRAME COMPONENT - BLACK/SILVER
+           Colors: #c0c0c0 silver, #1a1a1a background
+           ═══════════════════════════════════════════════════════════════ */
+
+        .trajanus-window-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+
+        .trajanus-window-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .trajanus-window {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            height: 90%;
+            background: #1a1a1a;
+            border: 2px solid #c0c0c0;
+            border-radius: 8px;
+            box-shadow: 0 0 40px rgba(192, 192, 192, 0.3), 0 20px 60px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+
+        .trajanus-window.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .trajanus-window-hero {
+            height: 36px;
+            max-height: 36px;
+            min-height: 36px;
+            background: linear-gradient(180deg, #3d3d3d 0%, #2d2d2d 100%);
+            border-bottom: 1px solid #c0c0c0;
+            border-radius: 6px 6px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+            flex-shrink: 0;
+        }
+
+        .trajanus-window-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #c0c0c0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .trajanus-mark {
+            font-size: 10px;
+            color: #c0c0c0;
+        }
+
+        .trajanus-title {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #e0e0e0;
+        }
+
+        .trajanus-separator {
+            font-size: 11px;
+            color: #808080;
+            margin: 0 4px;
+        }
+
+        .window-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: #e0e0e0;
+        }
+
+        .trajanus-window-controls {
+            display: flex;
+            gap: 6px;
+        }
+
+        .trajanus-window-controls .win-ctrl {
+            width: 24px;
+            height: 24px;
+            border: none;
+            border-radius: 4px;
+            background: rgba(45, 45, 45, 0.2);
+            color: #2d2d2d;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s ease;
+        }
+
+        .trajanus-window-controls .win-ctrl:hover {
+            background: rgba(45, 45, 45, 0.35);
+        }
+
+        .trajanus-window-controls .win-ctrl.close:hover {
+            background: #c0392b;
+            color: #fff;
+        }
+
+        .trajanus-window-content {
+            flex: 1;
+            overflow: auto;
+            padding: 16px;
+            background: #2d2d2d;
+            border-radius: 0 0 6px 6px;
+            color: #e0e0e0;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           TOOL PANEL STYLES - BLACK/SILVER
+           Silver: #c0c0c0, Black: #1a1a1a, Panel: #2d2d2d
+           ═══════════════════════════════════════════════════════════════ */
+
+        .tool-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .tool-section {
+            background: #2d2d2d;
+            padding: 16px;
+            border-radius: 6px;
+            border: 1px solid #4a4a4a;
+        }
+
+        .tool-section h3 {
+            color: #c0c0c0;
+            margin: 0 0 8px 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .tool-section p {
+            color: #b0b0b0;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .tool-section label {
+            display: block;
+            color: #c0c0c0;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tool-section input,
+        .tool-section select {
+            width: 100%;
+            padding: 10px 12px;
+            background: #1a1a1a;
+            border: 1px solid #4a4a4a;
+            border-radius: 4px;
+            color: #ffffff;
+            font-size: 14px;
+        }
+
+        .tool-section input:focus,
+        .tool-section select:focus {
+            outline: none;
+            border-color: #c0c0c0;
+        }
+
+        .tool-section select option {
+            background: #1a1a1a;
+            color: #ffffff;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .input-row input {
+            flex: 1;
+        }
+
+        .tool-btn {
+            padding: 10px 20px;
+            border: 1px solid #4a4a4a;
+            border-radius: 4px;
+            background: #2d2d2d;
+            color: #ffffff;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.15s ease;
+        }
+
+        .tool-btn:hover {
+            background: #3d3d3d;
+            border-color: #c0c0c0;
+        }
+
+        .tool-btn.primary {
+            background: #c0c0c0;
+            color: #1a1a1a;
+            border-color: #c0c0c0;
+            font-weight: 600;
+        }
+
+        .tool-btn.primary:hover {
+            background: #e0e0e0;
+        }
+
+        .tool-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .tool-output {
+            background: #1a1a1a;
+            border: 1px solid #3d3d3d;
+            border-radius: 4px;
+            padding: 16px;
+            min-height: 100px;
+            max-height: 300px;
+            overflow: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 13px;
+        }
+
+        .tool-output .loading {
+            color: #c0c0c0;
+        }
+
+        .tool-output .success {
+            color: #4ade80;
+        }
+
+        .tool-output .error {
+            color: #f87171;
+        }
+
+        /* Tooltip styles for buttons */
+        [data-tooltip] {
+            position: relative;
+        }
+
+        [data-tooltip]:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 6px 10px;
+            background: #1d1d1d;
+            color: #ffffff;
+            font-size: 12px;
+            border-radius: 4px;
+            white-space: nowrap;
+            z-index: 9999;
+            margin-bottom: 6px;
+            border: 1px solid #c0c0c0;
+        }
+
+        [data-tooltip]:hover::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #c0c0c0;
+            z-index: 9999;
+        }
+
+        /* ==================== TEAM FEEDBACK BOARD ==================== */
+        .feedback-tab {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            margin: 16px 12px;
+            cursor: pointer;
+            border: 1px solid var(--blue, #4a90d9);
+            border-radius: 8px;
+            background: var(--bg-surface, #1a1a1a);
+            transition: all 0.2s ease;
+        }
+
+        .feedback-tab:hover {
+            background: rgba(74, 144, 217, 0.1);
+            border-color: var(--blue-light, #6ab0f9);
+        }
+
+        .feedback-tab.active {
+            background: rgba(74, 144, 217, 0.15);
+            border-color: #00AAFF;
+        }
+
+        .feedback-tab-icon {
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
+
+        .feedback-tab-label {
+            flex: 1;
+            font-weight: 500;
+            color: var(--text-light, #c0c0c0);
+        }
+
+        .unread-badge {
+            background: #00AAFF;
+            color: var(--bg-base, #0a0a0a);
+            font-size: 0.75em;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 10px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        /* Feedback Panel - Floating Resizable Window */
+        /* Navy/Blue/Gold Color Scheme */
+        #feedbackPanel {
+            position: fixed;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 500px;
+            height: 600px;
+            min-width: 350px;
+            min-height: 400px;
+            max-width: 90vw;
+            max-height: 85vh;
+            background: #1a1a1a;
+            border: 2px solid #4a90d9;
+            border-radius: 8px;
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            resize: both;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        #feedbackPanel.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .feedback-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: #0a0a0a;
+            border-bottom: 1px solid #4a90d9;
+            cursor: move;
+            user-select: none;
+            flex-shrink: 0;
+        }
+
+        .feedback-header h3 {
+            margin: 0;
+            font-size: 1.1em;
+            color: #00AAFF;
+        }
+
+        .feedback-close-btn {
+            background: none;
+            border: 1px solid #4a90d9;
+            color: #8899aa;
+            font-size: 1.2em;
+            cursor: pointer;
+            padding: 4px 10px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .feedback-close-btn:hover {
+            border-color: #6ab0f9;
+            color: #e0e0e0;
+        }
+
+        /* Category Filters */
+        .feedback-filters {
+            display: flex;
+            gap: 8px;
+            padding: 12px 16px;
+            background: #0a0a0a;
+            border-bottom: 1px solid #4a90d9;
+            flex-wrap: wrap;
+            flex-shrink: 0;
+        }
+
+        .feedback-filter-btn {
+            padding: 6px 12px;
+            background: #1a1a1a;
+            border: 1px solid #4a90d9;
+            border-radius: 4px;
+            color: #e0e0e0;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.2s;
+        }
+
+        .feedback-filter-btn:hover {
+            background: #2a2a2a;
+            border-color: #6ab0f9;
+        }
+
+        .feedback-filter-btn.active {
+            background: #4a90d9;
+            color: #0a0a0a;
+            border-color: #4a90d9;
+        }
+
+        /* Messages Area - Neuron Grid Background (reverted from brainwaves 2026-01-16) */
+        .feedback-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            position: relative;
+            background-image: url('assets/ai-generated-8909412_1280.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .feedback-messages::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 26, 26, 0.85);
+            pointer-events: none;
+        }
+
+        .feedback-messages > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .feedback-item {
+            background: #0a0a0a;
+            border: 1px solid #4a90d9;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+        }
+
+        .feedback-item.resolved {
+            opacity: 0.6;
+            background: #15253a;
+        }
+
+        .feedback-item.resolved .feedback-body {
+            text-decoration: line-through;
+        }
+
+        /* Resolve Checkbox */
+        .feedback-resolve-check {
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            margin-right: 8px;
+        }
+
+        .feedback-resolve-check input {
+            width: 16px;
+            height: 16px;
+            accent-color: #00AAFF;
+            cursor: pointer;
+        }
+
+        /* Item Actions */
+        .feedback-item-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .feedback-item-actions {
+            margin-left: auto;
+            display: flex;
+            gap: 4px;
+        }
+
+        .feedback-action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9em;
+            padding: 2px 6px;
+            border-radius: 4px;
+            opacity: 0.6;
+            transition: opacity 0.2s, background 0.2s;
+        }
+
+        .feedback-action-btn:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .feedback-action-btn.delete:hover {
+            background: rgba(255, 0, 0, 0.2);
+        }
+
+        .feedback-action-btn.small {
+            font-size: 0.75em;
+            padding: 1px 4px;
+        }
+
+        /* Toast Notification */
+        .feedback-toast {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #00AAFF;
+            color: var(--bg-base, #0a0a0a);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: bold;
+            animation: fadeInOut 2s ease;
+            z-index: 1001;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+            15% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            85% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+        }
+
+        /* Header Toolbar */
+        .feedback-header-toolbar {
+            display: flex;
+            gap: 8px;
+        }
+
+        .feedback-header-btn {
+            background: none;
+            border: 1px solid var(--blue, #4a90d9);
+            color: var(--text-muted, #888);
+            font-size: 0.85em;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .feedback-header-btn:hover {
+            border-color: #00AAFF;
+            color: #00AAFF;
+        }
+
+        /* Introduction Section */
+        .feedback-intro {
+            padding: 12px 16px;
+            background: linear-gradient(180deg, rgba(74, 144, 217, 0.1) 0%, transparent 100%);
+            border-bottom: 1px solid var(--blue, #4a90d9);
+            font-size: 0.85em;
+            color: var(--text-muted, #888);
+            flex-shrink: 0;
+        }
+
+        .feedback-intro h4 {
+            margin: 0 0 8px 0;
+            color: #00AAFF;
+            font-size: 1em;
+        }
+
+        .feedback-intro ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .feedback-intro li {
+            margin-bottom: 4px;
+        }
+
+        .feedback-intro-toggle {
+            background: none;
+            border: none;
+            color: var(--blue, #4a90d9);
+            cursor: pointer;
+            font-size: 0.8em;
+            padding: 0;
+            margin-top: 8px;
+        }
+
+        .feedback-intro-toggle:hover {
+            text-decoration: underline;
+        }
+
+        /* Expanded Input */
+        .feedback-expand-btn {
+            background: none;
+            border: 1px solid var(--blue, #4a90d9);
+            color: var(--text-muted, #888);
+            font-size: 0.8em;
+            padding: 2px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 8px;
+        }
+
+        .feedback-expand-btn:hover {
+            border-color: #00AAFF;
+            color: #00AAFF;
+        }
+
+        .feedback-form textarea.expanded {
+            min-height: 150px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           FEEDBACK MODALS - Viewer and Composer
+           ═══════════════════════════════════════════════════════════════ */
+        .feedback-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .feedback-modal.active {
+            display: flex;
+        }
+
+        .feedback-modal-content {
+            width: 700px;
+            max-width: 90vw;
+            height: 500px;
+            max-height: 80vh;
+            background: #1a1a1a;
+            border: 2px solid #4a90d9;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .feedback-modal-content.composer {
+            height: 600px;
+        }
+
+        .feedback-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: #0a0a0a;
+            border-bottom: 1px solid #4a90d9;
+            flex-shrink: 0;
+        }
+
+        .feedback-modal-header h3 {
+            margin: 0;
+            color: #00AAFF;
+            font-size: 1.1em;
+        }
+
+        .feedback-modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            font-size: 1em;
+            line-height: 1.6;
+            color: #e0e0e0;
+            white-space: pre-wrap;
+            user-select: text;
+            background: #1a1a1a;
+        }
+
+        .feedback-modal-body .viewer-meta {
+            color: #8899aa;
+            font-size: 0.9em;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #4a90d9;
+        }
+
+        .feedback-modal-body .viewer-content {
+            font-size: 1.05em;
+        }
+
+        .feedback-modal-body .viewer-replies {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #4a90d9;
+        }
+
+        .feedback-modal-body .viewer-replies h4 {
+            color: #00AAFF;
+            margin: 0 0 12px 0;
+        }
+
+        .feedback-modal-body .viewer-reply {
+            background: #0a0a0a;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-left: 3px solid #4a90d9;
+        }
+
+        /* Composer Styles */
+        .composer-body {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            background: #1a1a1a;
+        }
+
+        .composer-row {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 16px;
+        }
+
+        .composer-row:last-child {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .composer-row label {
+            color: #00AAFF;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .composer-category-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .composer-cat-btn {
+            padding: 10px 16px;
+            background: #0a0a0a;
+            border: 1px solid #4a90d9;
+            border-radius: 6px;
+            color: #e0e0e0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .composer-cat-btn:hover {
+            border-color: #6ab0f9;
+            background: #2a2a2a;
+        }
+
+        .composer-cat-btn.active {
+            background: #4a90d9;
+            color: #0a0a0a;
+            border-color: #4a90d9;
+        }
+
+        .composer-row textarea {
+            flex: 1;
+            min-height: 250px;
+            padding: 16px;
+            background: #0a0a0a;
+            border: 1px solid #4a90d9;
+            border-radius: 6px;
+            color: #e0e0e0;
+            font-family: inherit;
+            font-size: 1em;
+            line-height: 1.5;
+            resize: none;
+        }
+
+        .composer-row textarea:focus {
+            outline: none;
+            border-color: #00AAFF;
+        }
+
+        .feedback-modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            padding: 16px 20px;
+            background: #0a0a0a;
+            border-top: 1px solid #4a90d9;
+            flex-shrink: 0;
+        }
+
+        .btn-cancel {
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid #8899aa;
+            border-radius: 6px;
+            color: #8899aa;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-cancel:hover {
+            border-color: #e0e0e0;
+            color: #e0e0e0;
+        }
+
+        .btn-submit {
+            padding: 10px 24px;
+            background: #4a90d9;
+            border: none;
+            border-radius: 6px;
+            color: #0a0a0a;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-submit:hover {
+            background: #00AAFF;
+        }
+
+        /* Clickable feedback items */
+        .feedback-item .feedback-body {
+            cursor: pointer;
+        }
+
+        .feedback-item .feedback-body:hover {
+            color: #00AAFF;
+        }
+
+        .feedback-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .feedback-author {
+            font-weight: bold;
+            color: #00AAFF;
+        }
+
+        .feedback-meta {
+            font-size: 0.8em;
+            color: #8899aa;
+        }
+
+        .feedback-category {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            margin-left: 8px;
+        }
+
+        .category-works { background: #2d5a2d; color: #8fbc8f; }
+        .category-doesnt { background: #5a2d2d; color: #f08080; }
+        .category-suggestion { background: #5a5a2d; color: #f0e68c; }
+
+        .feedback-body {
+            color: #e0e0e0;
+            line-height: 1.5;
+        }
+
+        /* Replies */
+        .feedback-replies {
+            margin-top: 12px;
+            padding-left: 16px;
+            border-left: 2px solid #4a90d9;
+        }
+
+        .reply-item {
+            background: #1a1a1a;
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin-top: 8px;
+        }
+
+        .reply-btn {
+            background: none;
+            border: none;
+            color: #8899aa;
+            cursor: pointer;
+            font-size: 0.85em;
+            margin-top: 8px;
+        }
+
+        .reply-btn:hover {
+            color: #00AAFF;
+        }
+
+        .reply-form {
+            margin-top: 8px;
+        }
+
+        .reply-form textarea {
+            width: 100%;
+            padding: 8px;
+            background: #1a1a1a;
+            border: 1px solid #4a90d9;
+            border-radius: 4px;
+            color: #e0e0e0;
+            resize: none;
+            font-family: inherit;
+            font-size: 0.9em;
+        }
+
+        /* New Message Form */
+        .feedback-form {
+            padding: 16px;
+            background: #0a0a0a;
+            border-top: 1px solid #4a90d9;
+            flex-shrink: 0;
+        }
+
+        .feedback-form-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .feedback-form-row label {
+            color: #00AAFF;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .feedback-form select {
+            flex: 1;
+            padding: 8px 12px;
+            background: #1a1a1a;
+            border: 1px solid #4a90d9;
+            border-radius: 4px;
+            color: #e0e0e0;
+        }
+
+        .feedback-form textarea {
+            width: 100%;
+            padding: 12px;
+            background: #1a1a1a;
+            border: 1px solid #4a90d9;
+            border-radius: 4px;
+            color: #e0e0e0;
+            resize: none;
+            font-family: inherit;
+            margin-bottom: 12px;
+        }
+
+        .feedback-form textarea:focus,
+        .feedback-form select:focus {
+            outline: none;
+            border-color: #6ab0f9;
+        }
+
+        .feedback-submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: #4a90d9;
+            border: none;
+            border-radius: 4px;
+            color: #0a0a0a;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .feedback-submit-btn:hover {
+            background: #00AAFF;
+        }
+
+        .feedback-loading {
+            text-align: center;
+            color: #8899aa;
+            padding: 40px;
+        }
+
+        /* User Selector */
+        .feedback-user-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: #0a0a0a;
+            border-bottom: 1px solid #4a90d9;
+            flex-shrink: 0;
+        }
+
+        .feedback-user-selector label {
+            color: #8899aa;
+            font-size: 0.85em;
+        }
+
+        .feedback-user-selector select {
+            padding: 4px 8px;
+            background: #1a1a1a;
+            border: 1px solid #4a90d9;
+            border-radius: 4px;
+            color: #e0e0e0;
+            font-size: 0.85em;
+        }
+
+        /* ============================================
+           HUB WORKSPACE - Embedded Application Panel
+           ============================================ */
+        .hub-workspace-section {
+            margin-top: 40px;
+            padding: 0 20px;
+        }
+
+        .hub-workspace-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .hub-workspace-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .workspace-title {
+            color: #00AAFF;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .hub-workspace-btn {
+            padding: 6px 16px;
+            background: #1a1a1a;
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            border-radius: 4px;
+            color: #00AAFF;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .hub-workspace-btn:hover {
+            background: rgba(0, 170, 255, 0.1);
+            border-color: #00AAFF;
+        }
+
+        .hub-workspace-container {
+            background: #0a0a0a;
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            border-radius: 6px;
+            width: 100%;
+            height: 600px;
+            min-height: 500px;
+            max-height: 800px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hub-workspace-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #556677;
+        }
+
+        .workspace-placeholder-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .hub-workspace-placeholder p {
+            margin: 8px 0;
+            font-size: 1rem;
+        }
+
+        .workspace-hint {
+            font-size: 0.85rem !important;
+            color: #445566;
+        }
+
+        .hub-workspace-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Mini Terminal Log */
+        .hub-mini-terminal {
+            background: #050505;
+            border: 1px solid rgba(0, 170, 255, 0.2);
+            border-radius: 4px;
+            padding: 10px 16px;
+            margin-top: 12px;
+            height: 80px;
+            overflow-y: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .hub-terminal-line {
+            color: #667788;
+            margin-bottom: 2px;
+        }
+
+        .hub-terminal-line.success {
+            color: #00ff88;
+        }
+
+        .hub-terminal-line.error {
+            color: #ff4444;
+        }
+
+        .hub-terminal-line.warning {
+            color: #ffaa00;
+        }
+
+        .hub-terminal-line.info {
+            color: #00AAFF;
+        }
+    </style>
+
+    <!-- Team Feedback Panel -->
+    <div id="feedbackPanel" class="feedback-panel">
+        <div class="feedback-header">
+            <h3>Team Feedback</h3>
+            <div class="feedback-header-toolbar">
+                <button class="feedback-header-btn" onclick="exportFeedbackToFile()" title="Export to file">📥 Export</button>
+                <button class="feedback-close-btn" onclick="hideFeedbackPanel()">&times;</button>
+            </div>
+        </div>
+
+        <div class="feedback-intro" id="feedbackIntro">
+            <h4>Welcome to Team Feedback</h4>
+            <ul>
+                <li><strong>What Works</strong> - Share features or workflows that are helpful</li>
+                <li><strong>What Doesn't</strong> - Report bugs, issues, or friction points</li>
+                <li><strong>Suggestions</strong> - Propose new features or improvements</li>
+            </ul>
+            <p style="margin: 8px 0 0 0;">
+                <strong>Tips:</strong> Check the box to mark items as addressed.
+                Use 📋 to copy and 🗑️ to delete. Click "Export" to save all feedback to a file.
+            </p>
+            <button class="feedback-intro-toggle" onclick="toggleFeedbackIntro()">Hide instructions</button>
+        </div>
+
+        <div class="feedback-user-selector">
+            <label>Posting as:</label>
+            <select id="feedbackUserSelect" onchange="setFeedbackUser(this.value)">
+                <option value="">Select your name...</option>
+                <option value="Bill">Bill</option>
+                <option value="Tom">Tom</option>
+                <option value="Chris">Chris</option>
+            </select>
+        </div>
+
+        <div class="feedback-filters">
+            <button class="feedback-filter-btn active" data-filter="all" onclick="filterFeedback('all')">All</button>
+            <button class="feedback-filter-btn" data-filter="works" onclick="filterFeedback('works')">What Works</button>
+            <button class="feedback-filter-btn" data-filter="doesnt" onclick="filterFeedback('doesnt')">What Doesn't</button>
+            <button class="feedback-filter-btn" data-filter="suggestion" onclick="filterFeedback('suggestion')">Suggestions</button>
+        </div>
+
+        <div class="feedback-messages" id="feedbackMessages">
+            <!-- Feedback items loaded dynamically -->
+            <div class="feedback-loading">Loading feedback...</div>
+        </div>
+
+        <div class="feedback-form">
+            <button class="feedback-submit-btn" onclick="openComposer()">+ New Feedback</button>
+        </div>
+    </div>
+
+    <!-- Message Viewer Modal -->
+    <div id="feedbackViewer" class="feedback-modal">
+        <div class="feedback-modal-content">
+            <div class="feedback-modal-header">
+                <h3 id="viewerTitle">Message</h3>
+                <div class="feedback-header-toolbar">
+                    <button class="feedback-header-btn" onclick="copyViewerContent()" title="Copy to clipboard">📋 Copy</button>
+                    <button class="feedback-close-btn" onclick="closeViewer()">&times;</button>
+                </div>
+            </div>
+            <div class="feedback-modal-body" id="viewerBody">
+                <!-- Message content loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Composer Modal -->
+    <div id="feedbackComposer" class="feedback-modal">
+        <div class="feedback-modal-content composer">
+            <div class="feedback-modal-header">
+                <h3>New Feedback</h3>
+                <button class="feedback-close-btn" onclick="closeComposer()">&times;</button>
+            </div>
+            <div class="feedback-modal-body composer-body">
+                <div class="composer-row">
+                    <label>Category:</label>
+                    <div class="composer-category-buttons">
+                        <button class="composer-cat-btn active" data-cat="works" onclick="selectComposerCategory('works')">✓ What Works</button>
+                        <button class="composer-cat-btn" data-cat="doesnt" onclick="selectComposerCategory('doesnt')">✗ What Doesn't</button>
+                        <button class="composer-cat-btn" data-cat="suggestion" onclick="selectComposerCategory('suggestion')">💡 Suggestion</button>
+                    </div>
+                </div>
+                <div class="composer-row">
+                    <label>Your Message:</label>
+                    <textarea id="composerInput" placeholder="Type your feedback here..."></textarea>
+                </div>
+            </div>
+            <div class="feedback-modal-footer">
+                <button class="btn-cancel" onclick="closeComposer()">Cancel</button>
+                <button class="btn-submit" onclick="submitComposer()">Submit Feedback</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ═══════════════════════════════════════════════════════════════
+        // TEAM FEEDBACK BOARD - Supabase Integration
+        // ═══════════════════════════════════════════════════════════════
+
+        const FEEDBACK_SUPABASE_URL = 'https://iaxtwrswinygwwwdkvok.supabase.co';
+        const FEEDBACK_SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlheHR3cnN3aW55Z3d3d2Rrdm9rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyOTc4NjAsImV4cCI6MjA4MDg3Mzg2MH0.JGSdki3TtDiRS7OQrpBDuyN4nxPW1Qc9ImMunnjHFoE';
+
+        let feedbackData = [];
+        let currentFeedbackFilter = 'all';
+        let currentFeedbackUser = localStorage.getItem('feedbackUser') || '';
+        let lastFeedbackCheck = localStorage.getItem('lastFeedbackCheck') || null;
+        let currentViewerPostId = null;
+        let composerCategory = 'works';
+
+        // Initialize feedback user on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const userSelect = document.getElementById('feedbackUserSelect');
+            if (userSelect && currentFeedbackUser) {
+                userSelect.value = currentFeedbackUser;
+            }
+            checkUnreadFeedback();
+            initFeedbackPanelDrag();
+            initFeedbackIntro();
+        });
+
+        // Drag functionality for feedback panel
+        function initFeedbackPanelDrag() {
+            const panel = document.getElementById('feedbackPanel');
+            const header = panel?.querySelector('.feedback-header');
+            if (!panel || !header) return;
+
+            let isDragging = false;
+            let startX, startY, startLeft, startTop;
+
+            header.addEventListener('mousedown', (e) => {
+                // Don't drag if clicking close button
+                if (e.target.closest('.feedback-close-btn')) return;
+
+                isDragging = true;
+                const rect = panel.getBoundingClientRect();
+                startX = e.clientX;
+                startY = e.clientY;
+                startLeft = rect.left;
+                startTop = rect.top;
+
+                // Remove center transform when starting drag
+                panel.style.left = rect.left + 'px';
+                panel.style.top = rect.top + 'px';
+                panel.style.transform = 'none';
+
+                document.body.style.userSelect = 'none';
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+
+                const dx = e.clientX - startX;
+                const dy = e.clientY - startY;
+
+                let newLeft = startLeft + dx;
+                let newTop = startTop + dy;
+
+                // Keep within viewport bounds
+                newLeft = Math.max(0, Math.min(newLeft, window.innerWidth - panel.offsetWidth));
+                newTop = Math.max(0, Math.min(newTop, window.innerHeight - 50));
+
+                panel.style.left = newLeft + 'px';
+                panel.style.top = newTop + 'px';
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+                document.body.style.userSelect = '';
+            });
+        }
+
+        function setFeedbackUser(user) {
+            currentFeedbackUser = user;
+            localStorage.setItem('feedbackUser', user);
+        }
+
+        function showFeedbackPanel() {
+            const panel = document.getElementById('feedbackPanel');
+            if (panel) {
+                // Reset to center position if not already positioned
+                if (!panel.style.left || panel.style.left === '50%') {
+                    panel.style.left = '50%';
+                    panel.style.top = '100px';
+                    panel.style.transform = 'translateX(-50%)';
+                }
+                panel.classList.add('active');
+                loadFeedback();
+                // Update last check time
+                localStorage.setItem('lastFeedbackCheck', new Date().toISOString());
+                updateUnreadBadge(0);
+            }
+        }
+
+        function hideFeedbackPanel() {
+            const panel = document.getElementById('feedbackPanel');
+            if (panel) {
+                panel.classList.remove('active');
+            }
+        }
+
+        async function loadFeedback() {
+            const messagesContainer = document.getElementById('feedbackMessages');
+            if (!messagesContainer) return;
+
+            messagesContainer.innerHTML = '<div class="feedback-loading">Loading feedback...</div>';
+
+            try {
+                const response = await fetch(
+                    `${FEEDBACK_SUPABASE_URL}/rest/v1/team_feedback?order=created_at.desc`,
+                    {
+                        headers: {
+                            'apikey': FEEDBACK_SUPABASE_KEY,
+                            'Authorization': `Bearer ${FEEDBACK_SUPABASE_KEY}`,
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                feedbackData = await response.json();
+                renderFeedback();
+                saveFeedbackBackup(); // Save local backup
+            } catch (error) {
+                console.error('Error loading feedback:', error);
+                messagesContainer.innerHTML = '<div class="feedback-error">Failed to load feedback. Please try again.</div>';
+            }
+        }
+
+        function renderFeedback() {
+            const messagesContainer = document.getElementById('feedbackMessages');
+            if (!messagesContainer) return;
+
+            // Filter feedback
+            let filtered = feedbackData;
+            if (currentFeedbackFilter !== 'all') {
+                filtered = feedbackData.filter(item => item.category === currentFeedbackFilter);
+            }
+
+            // Separate parent posts and replies
+            const parentPosts = filtered.filter(item => !item.parent_id);
+            const replies = filtered.filter(item => item.parent_id);
+
+            if (parentPosts.length === 0) {
+                messagesContainer.innerHTML = '<div class="feedback-empty">No feedback yet. Be the first to share!</div>';
+                return;
+            }
+
+            let html = '';
+            parentPosts.forEach(post => {
+                const postReplies = replies.filter(r => r.parent_id === post.id);
+                html += renderFeedbackItem(post, postReplies);
+            });
+
+            messagesContainer.innerHTML = html;
+        }
+
+        function renderFeedbackItem(post, replies = []) {
+            const categoryLabels = {
+                'works': '✓ Works',
+                'doesnt': '✗ Doesn\'t Work',
+                'suggestion': '💡 Suggestion'
+            };
+
+            const date = new Date(post.created_at).toLocaleDateString('en-US', {
+                month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+            });
+
+            const resolvedClass = post.resolved ? ' resolved' : '';
+            const resolvedCheck = post.resolved ? ' checked' : '';
+
+            let html = `
+                <div class="feedback-item${resolvedClass}" data-category="${post.category}" data-id="${post.id}">
+                    <div class="feedback-item-header">
+                        <label class="feedback-resolve-check" title="Mark as addressed">
+                            <input type="checkbox"${resolvedCheck} onchange="toggleResolved(${post.id}, this.checked)">
+                            <span class="checkmark"></span>
+                        </label>
+                        <span class="feedback-author">${post.author}</span>
+                        <span class="feedback-category-tag category-${post.category}">${categoryLabels[post.category] || post.category}</span>
+                        <span class="feedback-date">${date}</span>
+                        <div class="feedback-item-actions">
+                            <button class="feedback-action-btn" onclick="copyFeedback(${post.id})" title="Copy to clipboard">📋</button>
+                            <button class="feedback-action-btn delete" onclick="deleteFeedback(${post.id})" title="Delete">🗑️</button>
+                        </div>
+                    </div>
+                    <div class="feedback-body" onclick="openViewer(${post.id})">${escapeHtml(post.message)}</div>
+                    <div class="feedback-actions">
+                        <button class="feedback-reply-btn" onclick="toggleReplyForm(${post.id})">Reply</button>
+                    </div>
+                    <div class="reply-form" id="replyForm-${post.id}" style="display: none;">
+                        <textarea id="replyInput-${post.id}" placeholder="Write a reply..." rows="2"></textarea>
+                        <button onclick="postReply(${post.id})">Send Reply</button>
+                    </div>
+            `;
+
+            if (replies.length > 0) {
+                html += '<div class="feedback-replies">';
+                replies.forEach(reply => {
+                    const replyDate = new Date(reply.created_at).toLocaleDateString('en-US', {
+                        month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+                    });
+                    html += `
+                        <div class="feedback-reply">
+                            <span class="feedback-author">${reply.author}</span>
+                            <span class="feedback-date">${replyDate}</span>
+                            <div class="feedback-body">${escapeHtml(reply.message)}</div>
+                            <button class="feedback-action-btn small" onclick="copyText('${escapeHtml(reply.message).replace(/'/g, "\\'")}')">📋</button>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function toggleReplyForm(postId) {
+            const form = document.getElementById(`replyForm-${postId}`);
+            if (form) {
+                form.style.display = form.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+
+        // Toggle resolved status
+        async function toggleResolved(postId, resolved) {
+            try {
+                const response = await fetch(
+                    `${FEEDBACK_SUPABASE_URL}/rest/v1/team_feedback?id=eq.${postId}`,
+                    {
+                        method: 'PATCH',
+                        headers: {
+                            'apikey': FEEDBACK_SUPABASE_KEY,
+                            'Authorization': `Bearer ${FEEDBACK_SUPABASE_KEY}`,
+                            'Content-Type': 'application/json',
+                            'Prefer': 'return=minimal'
+                        },
+                        body: JSON.stringify({ resolved: resolved })
+                    }
+                );
+
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                // Update local data and re-render
+                const item = feedbackData.find(f => f.id === postId);
+                if (item) item.resolved = resolved;
+                renderFeedback();
+
+                // Save to local backup
+                saveFeedbackBackup();
+            } catch (error) {
+                console.error('Error updating resolved status:', error);
+                alert('Failed to update. Please try again.');
+            }
+        }
+
+        // Copy feedback to clipboard
+        function copyFeedback(postId) {
+            const post = feedbackData.find(f => f.id === postId);
+            if (!post) return;
+
+            const replies = feedbackData.filter(f => f.parent_id === postId);
+            let text = `[${post.category.toUpperCase()}] ${post.author} (${new Date(post.created_at).toLocaleDateString()}):\n${post.message}`;
+
+            if (replies.length > 0) {
+                text += '\n\nReplies:';
+                replies.forEach(r => {
+                    text += `\n- ${r.author}: ${r.message}`;
+                });
+            }
+
+            copyText(text);
+        }
+
+        // Copy text to clipboard
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showFeedbackToast('Copied to clipboard!');
+            }).catch(err => {
+                console.error('Copy failed:', err);
+                alert('Failed to copy to clipboard');
+            });
+        }
+
+        // Show toast notification
+        function showFeedbackToast(message) {
+            const existing = document.querySelector('.feedback-toast');
+            if (existing) existing.remove();
+
+            const toast = document.createElement('div');
+            toast.className = 'feedback-toast';
+            toast.textContent = message;
+            document.getElementById('feedbackPanel').appendChild(toast);
+
+            setTimeout(() => toast.remove(), 2000);
+        }
+
+        // Delete feedback
+        async function deleteFeedback(postId) {
+            if (!confirm('Delete this feedback and all its replies?')) return;
+
+            try {
+                // Delete replies first
+                await fetch(
+                    `${FEEDBACK_SUPABASE_URL}/rest/v1/team_feedback?parent_id=eq.${postId}`,
+                    {
+                        method: 'DELETE',
+                        headers: {
+                            'apikey': FEEDBACK_SUPABASE_KEY,
+                            'Authorization': `Bearer ${FEEDBACK_SUPABASE_KEY}`
+                        }
+                    }
+                );
+
+                // Delete main post
+                const response = await fetch(
+                    `${FEEDBACK_SUPABASE_URL}/rest/v1/team_feedback?id=eq.${postId}`,
+                    {
+                        method: 'DELETE',
+                        headers: {
+                            'apikey': FEEDBACK_SUPABASE_KEY,
+                            'Authorization': `Bearer ${FEEDBACK_SUPABASE_KEY}`
+                        }
+                    }
+                );
+
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                loadFeedback();
+                showFeedbackToast('Deleted successfully');
+            } catch (error) {
+                console.error('Error deleting feedback:', error);
+                alert('Failed to delete. Please try again.');
+            }
+        }
+
+        // Save local backup
+        function saveFeedbackBackup() {
+            const backup = {
+                timestamp: new Date().toISOString(),
+                data: feedbackData
+            };
+            localStorage.setItem('feedbackBackup', JSON.stringify(backup));
+        }
+
+        // Export all feedback to file
+        function exportFeedbackToFile() {
+            const categoryLabels = {
+                'works': 'WORKS',
+                'doesnt': 'DOESNT WORK',
+                'suggestion': 'SUGGESTION'
+            };
+
+            let content = `TEAM FEEDBACK EXPORT\n`;
+            content += `Generated: ${new Date().toLocaleString()}\n`;
+            content += `${'='.repeat(60)}\n\n`;
+
+            const parentPosts = feedbackData.filter(f => !f.parent_id);
+
+            parentPosts.forEach(post => {
+                const status = post.resolved ? '[RESOLVED]' : '[OPEN]';
+                content += `${status} [${categoryLabels[post.category] || post.category}]\n`;
+                content += `From: ${post.author} | ${new Date(post.created_at).toLocaleString()}\n`;
+                content += `${'-'.repeat(40)}\n`;
+                content += `${post.message}\n`;
+
+                const replies = feedbackData.filter(f => f.parent_id === post.id);
+                if (replies.length > 0) {
+                    content += `\nReplies:\n`;
+                    replies.forEach(r => {
+                        content += `  → ${r.author} (${new Date(r.created_at).toLocaleString()}):\n`;
+                        content += `    ${r.message}\n`;
+                    });
+                }
+
+                content += `\n${'='.repeat(60)}\n\n`;
+            });
+
+            // Create download
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Team_Feedback_${new Date().toISOString().split('T')[0]}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            showFeedbackToast('Exported to file!');
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // MESSAGE VIEWER MODAL
+        // ═══════════════════════════════════════════════════════════════
+
+        function openViewer(postId) {
+            const post = feedbackData.find(f => f.id === postId);
+            if (!post) return;
+
+            currentViewerPostId = postId;
+
+            const categoryLabels = {
+                'works': '✓ What Works',
+                'doesnt': '✗ What Doesn\'t Work',
+                'suggestion': '💡 Suggestion'
+            };
+
+            const date = new Date(post.created_at).toLocaleString();
+            const replies = feedbackData.filter(f => f.parent_id === postId);
+
+            // Build viewer content
+            let html = `
+                <div class="viewer-meta">
+                    <strong>${post.author}</strong> &nbsp;|&nbsp;
+                    ${categoryLabels[post.category] || post.category} &nbsp;|&nbsp;
+                    ${date}
+                    ${post.resolved ? ' &nbsp;|&nbsp; <span style="color: #00AAFF;">✓ Addressed</span>' : ''}
+                </div>
+                <div class="viewer-content">${escapeHtml(post.message)}</div>
+            `;
+
+            if (replies.length > 0) {
+                html += `<div class="viewer-replies"><h4>Replies (${replies.length})</h4>`;
+                replies.forEach(r => {
+                    const replyDate = new Date(r.created_at).toLocaleString();
+                    html += `
+                        <div class="viewer-reply">
+                            <strong>${r.author}</strong> <span style="color: var(--text-muted);">${replyDate}</span>
+                            <div style="margin-top: 8px;">${escapeHtml(r.message)}</div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+
+            document.getElementById('viewerTitle').textContent = categoryLabels[post.category] || 'Message';
+            document.getElementById('viewerBody').innerHTML = html;
+            document.getElementById('feedbackViewer').classList.add('active');
+        }
+
+        function closeViewer() {
+            document.getElementById('feedbackViewer').classList.remove('active');
+            currentViewerPostId = null;
+        }
+
+        function copyViewerContent() {
+            if (!currentViewerPostId) return;
+            copyFeedback(currentViewerPostId);
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // MESSAGE COMPOSER MODAL
+        // ═══════════════════════════════════════════════════════════════
+
+        function openComposer() {
+            if (!currentFeedbackUser) {
+                alert('Please select your name first (in the main feedback panel).');
+                return;
+            }
+
+            composerCategory = 'works';
+            document.getElementById('composerInput').value = '';
+
+            // Reset category buttons
+            document.querySelectorAll('.composer-cat-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.cat === 'works');
+            });
+
+            document.getElementById('feedbackComposer').classList.add('active');
+            document.getElementById('composerInput').focus();
+        }
+
+        function closeComposer() {
+            document.getElementById('feedbackComposer').classList.remove('active');
+        }
+
+        function selectComposerCategory(cat) {
+            composerCategory = cat;
+            document.querySelectorAll('.composer-cat-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.cat === cat);
+            });
+        }
+
+        async function submitComposer() {
+            const input = document.getElementById('composerInput');
+            const content = input.value.trim();
+
+            if (!content) {
+                alert('Please enter your feedback.');
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    `${FEEDBACK_SUPABASE_URL}/rest/v1/team_feedback`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'apikey': FEEDBACK_SUPABASE_KEY,
+                            'Authorization': `Bearer ${FEEDBACK_SUPABASE_KEY}`,
+                            'Content-Type': 'application/json',
+                            'Prefer': 'return=minimal'
+                        },
+                        body: JSON.stringify({
+                            author: currentFeedbackUser,
+                            category: composerCategory,
+                            message: content
+                        })
+                    }
+                );
+
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                closeComposer();
+                loadFeedback();
+                showFeedbackToast('Feedback submitted!');
+            } catch (error) {
+                console.error('Error posting feedback:', error);
+                alert('Failed to submit. Please try again.');
+            }
+        }
+
+        // Close modals on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (document.getElementById('feedbackViewer').classList.contains('active')) {
+                    closeViewer();
+                }
+                if (document.getElementById('feedbackComposer').classList.contains('active')) {
+                    closeComposer();
+                }
+            }
+        });
+
+        // Toggle introduction visibility
+        function toggleFeedbackIntro() {
+            const intro = document.getElementById('feedbackIntro');
+            const btn = intro?.querySelector('.feedback-intro-toggle');
+            if (!intro || !btn) return;
+
+            const isHidden = localStorage.getItem('feedbackIntroHidden') === 'true';
+
+            if (isHidden) {
+                intro.style.display = 'block';
+                btn.textContent = 'Hide instructions';
+                localStorage.setItem('feedbackIntroHidden', 'false');
+            } else {
+                intro.style.display = 'none';
+                localStorage.setItem('feedbackIntroHidden', 'true');
+            }
+        }
+
+        // Check intro preference on load
+        function initFeedbackIntro() {
+            const intro = document.getElementById('feedbackIntro');
+            if (intro && localStorage.getItem('feedbackIntroHidden') === 'true') {
+                intro.style.display = 'none';
+            }
+        }
+
+        function filterFeedback(filter) {
+            currentFeedbackFilter = filter;
+
+            // Update button states
+            document.querySelectorAll('.feedback-filter-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.filter === filter);
+            });
+
+            renderFeedback();
+        }
+
+
+        async function postReply(parentId) {
+            if (!currentFeedbackUser) {
+                alert('Please select your name before posting.');
+                return;
+            }
+
+            const input = document.getElementById(`replyInput-${parentId}`);
+            if (!input || !input.value.trim()) {
+                alert('Please enter your reply.');
+                return;
+            }
+
+            const content = input.value.trim();
+
+            // Find parent post to inherit category
+            const parentPost = feedbackData.find(p => p.id === parentId);
+            const category = parentPost ? parentPost.category : 'suggestion';
+
+            try {
+                const response = await fetch(
+                    `${FEEDBACK_SUPABASE_URL}/rest/v1/team_feedback`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'apikey': FEEDBACK_SUPABASE_KEY,
+                            'Authorization': `Bearer ${FEEDBACK_SUPABASE_KEY}`,
+                            'Content-Type': 'application/json',
+                            'Prefer': 'return=minimal'
+                        },
+                        body: JSON.stringify({
+                            author: currentFeedbackUser,
+                            category: category,
+                            message: content,
+                            parent_id: parentId
+                        })
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                input.value = '';
+                document.getElementById(`replyForm-${parentId}`).style.display = 'none';
+                loadFeedback();
+            } catch (error) {
+                console.error('Error posting reply:', error);
+                alert('Failed to post reply. Please try again.');
+            }
+        }
+
+        async function checkUnreadFeedback() {
+            if (!lastFeedbackCheck) {
+                // First time - don't show badge
+                localStorage.setItem('lastFeedbackCheck', new Date().toISOString());
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    `${FEEDBACK_SUPABASE_URL}/rest/v1/team_feedback?created_at=gt.${lastFeedbackCheck}&select=id`,
+                    {
+                        headers: {
+                            'apikey': FEEDBACK_SUPABASE_KEY,
+                            'Authorization': `Bearer ${FEEDBACK_SUPABASE_KEY}`,
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                );
+
+                if (response.ok) {
+                    const newItems = await response.json();
+                    updateUnreadBadge(newItems.length);
+                }
+            } catch (error) {
+                console.error('Error checking unread feedback:', error);
+            }
+        }
+
+        function updateUnreadBadge(count) {
+            const badge = document.getElementById('feedbackBadge');
+            if (badge) {
+                if (count > 0) {
+                    badge.textContent = count > 99 ? '99+' : count;
+                    badge.style.display = 'inline-block';
+                } else {
+                    badge.style.display = 'none';
+                }
+            }
+        }
+
+        // ==================== COMING SOON / IN DEVELOPMENT NOTIFICATION ====================
+        // Feature status registry - tracks which features are complete, beta, or coming soon
+        const FEATURE_STATUS = {
+            // Complete features
+            'developer_workspace': 'complete',
+            'file_browser': 'complete',
+            'chat_claude': 'complete',
+
+            // Beta features (working but may have issues)
+            'tse_workspace': 'beta',
+            'tse_project_creation': 'beta',
+            'tse_ai_chat': 'beta',
+            'qcm_workspace': 'beta',
+
+            // Coming Soon features
+            'tse_report_export': 'coming_soon',
+            'tse_file_upload': 'coming_soon',
+            'pm_workspace': 'coming_soon',
+            'cpm_workspace': 'coming_soon',
+            'password_protection': 'coming_soon',
+            'user_settings': 'coming_soon',
+            'client_portal': 'coming_soon'
+        };
+
+        function showDevNotice(featureName, customMessage = null) {
+            const status = FEATURE_STATUS[featureName] || 'coming_soon';
+            let icon, title, message;
+
+            switch(status) {
+                case 'beta':
+                    icon = '🚧';
+                    title = 'Beta Feature';
+                    message = customMessage || 'This feature is currently in beta testing. It works but may have some rough edges. Your feedback helps us improve!';
+                    break;
+                case 'coming_soon':
+                    icon = '🔜';
+                    title = 'Coming Soon';
+                    message = customMessage || 'This feature is currently under development and will be available in a future update.';
+                    break;
+                default:
+                    return; // Feature is complete, no notice needed
+            }
+
+            // Create overlay if it doesn't exist
+            let overlay = document.getElementById('devNoticeOverlay');
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.id = 'devNoticeOverlay';
+                overlay.className = 'dev-notice-overlay';
+                overlay.innerHTML = `
+                    <div class="dev-notice-modal">
+                        <div class="dev-notice-icon"></div>
+                        <div class="dev-notice-title"></div>
+                        <div class="dev-notice-message"></div>
+                        <div class="dev-notice-feature"></div>
+                        <button class="dev-notice-close" onclick="hideDevNotice()">Got it</button>
+                    </div>
+                `;
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) hideDevNotice();
+                });
+                document.body.appendChild(overlay);
+            }
+
+            // Update content
+            overlay.querySelector('.dev-notice-icon').textContent = icon;
+            overlay.querySelector('.dev-notice-title').textContent = title;
+            overlay.querySelector('.dev-notice-message').textContent = message;
+            overlay.querySelector('.dev-notice-feature').textContent = featureName.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+
+            // Show
+            setTimeout(() => overlay.classList.add('visible'), 10);
+        }
+
+        function hideDevNotice() {
+            const overlay = document.getElementById('devNoticeOverlay');
+            if (overlay) {
+                overlay.classList.remove('visible');
+            }
+        }
+
+        // Helper to check feature status before executing
+        function checkFeature(featureName, callback) {
+            const status = FEATURE_STATUS[featureName];
+            if (status === 'coming_soon') {
+                showDevNotice(featureName);
+                return false;
+            }
+            if (status === 'beta') {
+                // For beta, show notice briefly but still execute
+                console.log(`[BETA] Executing beta feature: ${featureName}`);
+            }
+            if (callback) callback();
+            return true;
+        }
+    </script>
+
+    <!-- KB Browser Component -->
+    <script src="js/kb-browser.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Enterprise Knowledge Browser
+            window.kbBrowsers = window.kbBrowsers || {};
+            kbBrowsers['enterprise'] = new KBBrowserComponent('kb-browser-enterprise', {
+                platformName: 'enterprise',
+                sectionTitle: 'ENTERPRISE KNOWLEDGE',
+                officeTabLabel: 'Office Videos',
+                claudeTabLabel: 'Claude Tutorials'
+            });
+        });
+    </script>
+
+</body></html>
