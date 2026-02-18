@@ -1,37 +1,7 @@
 <!DOCTYPE html>
-<!-- saved from url=(0032)http://127.0.0.1:1430/index.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script>// Copyright 2019-2024 Tauri Programme within The Commons Conservancy
-// SPDX-License-Identifier: Apache-2.0
-// SPDX-License-Identifier: MIT
-
-// taken from https://github.com/thedodd/trunk/blob/5c799dc35f1f1d8f8d3d30c8723cbb761a9b6a08/src/autoreload.js
-
-;(function () {
-  const reload_url = 'ws://127.0.0.1:1430/__tauri_cli'
-  const url = reload_url ? reload_url : window.location.href
-  const poll_interval = 5000
-  const reload_upon_connect = () => {
-    window.setTimeout(() => {
-      // when we successfully reconnect, we'll force a
-      // reload (since we presumably lost connection to
-      // tauri-cli due to it being killed)
-      const ws = new WebSocket(url)
-      ws.onopen = () => window.location.reload()
-      ws.onclose = reload_upon_connect
-    }, poll_interval)
-  }
-
-  const ws = new WebSocket(url)
-  ws.onmessage = (ev) => {
-    const msg = JSON.parse(ev.data)
-    if (msg.reload) {
-      window.location.reload()
-    }
-  }
-  ws.onclose = reload_upon_connect
-})()
-</script>
-    
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trajanus Enterprise Hub</title>
     <link rel="stylesheet" href="./main.css">
@@ -90,6 +60,14 @@
                     <span class="project-count" id="dev-count">0</span>
                 </div>
                 <div class="project-list" id="dev-projects"></div>
+            </div>
+
+            <div class="project-section">
+                <div class="section-header-sidebar" onclick="toggleSection(&#39;healthcare&#39;)">
+                    <span>🏥 Healthcare</span>
+                    <span class="project-count" id="healthcare-count">0</span>
+                </div>
+                <div class="project-list" id="healthcare-projects"></div>
             </div>
 
             <div class="project-section delivered-section">
@@ -289,6 +267,15 @@
                 </div>
             </div>
 
+            <!-- ENTERPRISE KNOWLEDGE -->
+            <div class="hub-section">
+                <h2 class="hub-section-title">ENTERPRISE KNOWLEDGE</h2>
+                <p style="color: #888; font-size: 14px; margin-bottom: 16px;">
+                    Access training videos, reference documents, and templates across all platforms.
+                </p>
+                <div id="kb-browser-enterprise"></div>
+            </div>
+
             <!-- PLATFORMS -->
             <div class="hub-section-divider">
                 <div class="hub-divider-line"></div>
@@ -334,14 +321,24 @@
                             capacity analysis, and jurisdiction-compliant report assembly.
                         </p>
                     </a>
+
+                    <!-- Healthcare -->
+                    <a href="./toolkits/healthcare.html" class="platform-card">
+                        <h3 class="platform-title">Healthcare</h3>
+                        <p class="platform-subtitle">HIPAA Compliant Workspace</p>
+                        <p class="platform-description">
+                            AI-augmented clinical documentation workflows. Patient record processing,
+                            summary generation, referral drafting, and HIPAA-compliant audit logging.
+                        </p>
+                    </a>
             </div>
 
             <!-- QUICK TOOLS -->
-            <div class="hub-section-divider">
-                <div class="hub-divider-line"></div>
-                <h2 class="hub-section-title">QUICK TOOLS</h2>
-            </div>
-            <div class="quick-tools-grid">
+            <div class="trajanus-tool-container">
+                <div class="tool-header">
+                    <h2>QUICK TOOLS</h2>
+                </div>
+                <div class="quick-tools-grid">
                     <!-- External Program Buttons (120x44px) -->
                     <button class="ext-btn btn-word" onclick="Hub.launchApp('word')"><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M6 2h8l6 6v12c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2zm7 1.5V9h5.5L13 3.5zM7 11v2h2v6h2v-6h2v-2H7z"/></svg>Word</button>
                     <button class="ext-btn btn-excel" onclick="Hub.launchApp('excel')"><svg class="ext-btn-icon" viewBox="0 0 24 24" fill="white"><path d="M6 2h8l6 6v12c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2zm7 1.5V9h5.5L13 3.5zM7 11l2.5 4L7 19h2l1.5-2.5L12 19h2l-2.5-4L14 11h-2l-1.5 2.5L9 11H7z"/></svg>Excel</button>
@@ -354,6 +351,7 @@
                     <button class="script-btn" onclick="Hub.openTool('md-converter')"><img src="assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">MD Convert</button>
                     <button class="script-btn" onclick="Hub.openTool('query-kb')"><img src="assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">Query KB</button>
                     <button class="script-btn" onclick="Hub.openTool('youtube-transcript')"><img src="assets/ai-generated-7986803_1280.jpg" class="script-btn-icon" alt="">YT Transcript</button>
+                </div>
             </div>
 
             <!-- APPLICATIONS -->
@@ -437,6 +435,7 @@
                     <option value="qcm">Quality Control</option>
                     <option value="pm">Project Management</option>
                     <option value="dev">Development</option>
+                    <option value="healthcare">Healthcare</option>
                 </select>
             </div>
             <div class="form-group">
@@ -844,7 +843,8 @@
                     'traffic': 'Traffic Study',
                     'qcm': 'Quality Control',
                     'pm': 'Project Management',
-                    'dev': 'Development'
+                    'dev': 'Development',
+                    'healthcare': 'Healthcare'
                 };
                 // Status color class: active=green, pending=yellow, complete=blue
                 const statusClass = p.status === 'active' ? 'project-status-active' :
@@ -3946,6 +3946,21 @@
             if (callback) callback();
             return true;
         }
+    </script>
+
+    <!-- KB Browser Component -->
+    <script src="js/kb-browser.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Enterprise Knowledge Browser
+            window.kbBrowsers = window.kbBrowsers || {};
+            kbBrowsers['enterprise'] = new KBBrowserComponent('kb-browser-enterprise', {
+                platformName: 'enterprise',
+                sectionTitle: 'ENTERPRISE KNOWLEDGE',
+                officeTabLabel: 'Office Videos',
+                claudeTabLabel: 'Claude Tutorials'
+            });
+        });
     </script>
 
 </body></html>

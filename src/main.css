@@ -309,14 +309,14 @@ a:hover {
 .platforms-grid {
     display: flex;
     justify-content: space-evenly;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 12px;
 }
 
 .platform-card {
     display: block;
     flex: 1;
-    min-width: 0;
+    min-width: 180px;
     background: var(--bg-base);
     border: 1px solid var(--border-subtle);
     border-left: 3px solid var(--accent-gold);
@@ -502,6 +502,37 @@ a:hover {
     cursor: not-allowed;
     transform: none;
     box-shadow: 0 2px 0 #333, 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* ==================== TRAJANUS TOOL CONTAINER ==================== */
+/* Standardized container for all tool sections - Sci-Fi Glow aesthetic */
+.trajanus-tool-container {
+    border: 3px solid #0066CC;
+    border-radius: 12px;
+    background: var(--bg-base);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-xl);
+    box-shadow: 0 0 20px rgba(0, 102, 204, 0.3), inset 0 0 30px rgba(0, 102, 204, 0.05);
+}
+
+.trajanus-tool-container .tool-header {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid #0066CC;
+}
+
+.trajanus-tool-container .tool-header h2 {
+    color: #00AAFF;
+    font-family: Tahoma, sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 4px;
+    margin: 0;
+}
+
+.trajanus-tool-container .tool-header h2::before {
+    content: '◆ ';
+    color: #C0C0C0;
 }
 
 /* ==================== QUICK TOOLS ==================== */
