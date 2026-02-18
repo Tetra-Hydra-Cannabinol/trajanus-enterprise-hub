@@ -1205,6 +1205,145 @@
             margin-bottom: 8px;
         }
 
+        /* ==================== PROJECT LIFECYCLE ==================== */
+        .lifecycle-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+        .lifecycle-toolbar .toolbar-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-right: 4px;
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 1px solid;
+        }
+        .status-badge.status-draft { color: #888; border-color: #555; background: rgba(136,136,136,0.1); }
+        .status-badge.status-active { color: #4a90d9; border-color: #4a90d9; background: rgba(74,144,217,0.1); }
+        .status-badge.status-in-review { color: #f5a623; border-color: #f5a623; background: rgba(245,166,35,0.1); }
+        .status-badge.status-approved { color: #4ade80; border-color: #4ade80; background: rgba(74,222,128,0.1); }
+        .status-badge.status-delivered { color: #fbbf24; border-color: #fbbf24; background: rgba(251,191,36,0.15); }
+        .transition-btn {
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-hover);
+            color: var(--text-primary);
+            transition: all 0.2s;
+        }
+        .transition-btn:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+        .transition-btn.btn-danger { border-color: #f87171; color: #f87171; }
+        .transition-btn.btn-danger:hover { background: #f87171; color: #fff; }
+        .transition-btn.btn-success { border-color: #4ade80; color: #4ade80; }
+        .transition-btn.btn-success:hover { background: #4ade80; color: #000; }
+        .transition-btn.btn-warn { border-color: #fbbf24; color: #fbbf24; }
+        .transition-btn.btn-warn:hover { background: #fbbf24; color: #000; }
+        .lock-banner {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(251,191,36,0.12);
+            border: 1px solid #fbbf24;
+            border-radius: 6px;
+            margin: 8px 0;
+            font-size: 12px;
+            color: #fbbf24;
+        }
+        .lock-banner .lock-icon { font-size: 16px; }
+        .workspace-container.locked input,
+        .workspace-container.locked select,
+        .workspace-container.locked textarea,
+        .workspace-container.locked button:not(.transition-btn):not(.lifecycle-action) {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .lifecycle-separator { width: 1px; height: 20px; background: var(--border-subtle); }
+        .lifecycle-toolbar .toolbar-right {
+            margin-left: auto;
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+        /* Transition confirmation modal */
+        .transition-modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7); z-index: 10000;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .transition-modal {
+            background: var(--bg-elevated); border: 1px solid var(--border-subtle);
+            border-radius: 8px; padding: 24px; width: 420px; max-width: 90vw;
+        }
+        .transition-modal h3 { margin-bottom: 12px; font-size: 16px; }
+        .transition-modal .status-flow {
+            display: flex; align-items: center; gap: 8px; margin: 12px 0;
+            font-size: 13px;
+        }
+        .transition-modal .status-flow .arrow { color: var(--text-muted); }
+        .transition-modal textarea {
+            width: 100%; padding: 8px; border-radius: 4px; margin: 8px 0 12px;
+            background: var(--bg-base); border: 1px solid var(--border-subtle);
+            color: var(--text-primary); font-size: 12px; resize: vertical;
+            min-height: 60px;
+        }
+        .transition-modal .modal-actions {
+            display: flex; gap: 8px; justify-content: flex-end;
+        }
+        .transition-modal .warn-text {
+            color: #f87171; font-size: 11px; margin: 6px 0;
+        }
+        /* Preview All modal */
+        .preview-all-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.85); z-index: 10000;
+            overflow-y: auto; padding: 24px;
+        }
+        .preview-all-container {
+            max-width: 900px; margin: 0 auto;
+            background: var(--bg-elevated); border: 1px solid var(--border-subtle);
+            border-radius: 8px; padding: 24px;
+        }
+        .preview-all-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border-subtle);
+        }
+        .preview-all-header h2 { font-size: 18px; }
+        .preview-step-section {
+            margin-bottom: 20px; padding: 16px;
+            border: 1px solid var(--border-subtle); border-radius: 6px;
+        }
+        .preview-step-section h3 {
+            font-size: 14px; margin-bottom: 8px; color: var(--blue);
+            border-bottom: 1px solid var(--border-subtle); padding-bottom: 6px;
+        }
+        @media print {
+            .preview-all-overlay { position: static; background: #fff; padding: 0; }
+            .preview-all-container { border: none; max-width: 100%; }
+            .preview-all-header button { display: none; }
+        }
+
         /* ==================== STEP PREVIEW ==================== */
         .step-preview-btn {
             display: none;
@@ -3699,10 +3838,20 @@
         <!-- Project Bar -->
         <div class="project-bar">
             <span class="project-bar-label">Project:</span>
+            <select class="project-select" id="project-status-filter" style="width:auto;min-width:80px;font-size:11px;padding:4px 6px;background:var(--bg-hover);border:1px solid var(--border-subtle);color:var(--text-primary);border-radius:4px;margin-right:4px;">
+                <option value="all">All</option>
+                <option value="draft">Draft</option>
+                <option value="active">Active</option>
+                <option value="in-review">In Review</option>
+                <option value="approved">Approved</option>
+                <option value="delivered">Delivered</option>
+            </select>
             <select class="project-select" id="project-select">
                 <option value="">-- Select Project --</option>
             </select>
             <button class="new-project-btn" id="new-project-btn">+ New Project</button>
+            <button class="new-project-btn" id="import-project-btn" style="background:var(--bg-hover);border:1px solid var(--border-subtle);">Import</button>
+            <input type="file" id="import-project-file" accept=".json,.tse-project.json" style="display:none;">
             <span class="autosave-indicator" id="autosave-indicator"></span>
         </div>
 
@@ -5777,6 +5926,27 @@
             try { return JSON.parse(localStorage.getItem(key)); } catch(e) { return null; }
         }
 
+        // ==================== PROJECT LIFECYCLE CONSTANTS ====================
+        const PROJECT_STATUSES = ['draft', 'active', 'in-review', 'approved', 'delivered'];
+        const STATUS_LABELS = { 'draft': 'Draft', 'active': 'Active', 'in-review': 'In Review', 'approved': 'Approved', 'delivered': 'Delivered' };
+        const STATUS_COLORS = { 'draft': '#888', 'active': '#4a90d9', 'in-review': '#f5a623', 'approved': '#4ade80', 'delivered': '#fbbf24' };
+        const STATUS_TRANSITIONS = {
+            'draft': ['active'],
+            'active': ['in-review'],
+            'in-review': ['active', 'approved'],
+            'approved': ['active', 'delivered'],
+            'delivered': ['active']
+        };
+        const TRANSITION_LABELS = {
+            'draft->active': 'Start Work',
+            'active->in-review': 'Submit for Review',
+            'in-review->active': 'Send Back for Edits',
+            'in-review->approved': 'Approve',
+            'approved->active': 'Reject to Active',
+            'approved->delivered': 'Deliver & Lock',
+            'delivered->active': 'Unlock (Admin)'
+        };
+
         // ==================== PROJECT STORE (IndexedDB via localForage) ====================
         const ProjectStore = {
             _store: null,
@@ -5811,19 +5981,107 @@
                     checklist: data.checklist || {},
                     stepData: { 1: null, 2: null, 3: null, 4: null, 5: null, 6: null, 7: null, 8: null, 9: null, 10: null }
                 };
+                this.ensureLifecycleFields(project);
                 await this._store.setItem(id, project);
                 await this.setActiveProjectId(id);
                 return project;
             },
 
+            ensureLifecycleFields(project) {
+                if (!project) return project;
+                if (!project.status) project.status = 'draft';
+                if (!project.statusHistory) project.statusHistory = [];
+                if (project.lockedAt === undefined) project.lockedAt = null;
+                if (project.reviewedBy === undefined) project.reviewedBy = null;
+                if (project.approvedAt === undefined) project.approvedAt = null;
+                if (project.deliveredAt === undefined) project.deliveredAt = null;
+                if (!project.exportHistory) project.exportHistory = [];
+                return project;
+            },
+
             async getProject(id) {
-                return await this._store.getItem(id);
+                const project = await this._store.getItem(id);
+                return this.ensureLifecycleFields(project);
             },
 
             async saveProject(project) {
                 project.modified = new Date().toISOString();
                 project.version = (project.version || 0) + 1;
                 await this._store.setItem(project.id, project);
+                return project;
+            },
+
+            async transitionStatus(projectId, newStatus, note = '') {
+                const project = await this.getProject(projectId);
+                if (!project) throw new Error('Project not found');
+                const currentStatus = project.status || 'draft';
+                const allowed = STATUS_TRANSITIONS[currentStatus] || [];
+                if (!allowed.includes(newStatus)) {
+                    throw new Error(`Cannot transition from "${currentStatus}" to "${newStatus}"`);
+                }
+                project.statusHistory.push({
+                    from: currentStatus,
+                    to: newStatus,
+                    timestamp: new Date().toISOString(),
+                    note: note
+                });
+                project.status = newStatus;
+                if (newStatus === 'approved') project.approvedAt = new Date().toISOString();
+                if (newStatus === 'delivered') {
+                    project.deliveredAt = new Date().toISOString();
+                    project.lockedAt = new Date().toISOString();
+                }
+                if (newStatus === 'active' && currentStatus === 'delivered') {
+                    project.lockedAt = null;
+                }
+                return await this.saveProject(project);
+            },
+
+            isLocked(project) {
+                return project && project.status === 'delivered';
+            },
+
+            async exportProject(projectId) {
+                const project = await this.getProject(projectId);
+                if (!project) throw new Error('Project not found');
+                project.exportHistory.push({ timestamp: new Date().toISOString(), format: 'json' });
+                await this.saveProject(project);
+                const exportData = { ...project, _exportedAt: new Date().toISOString(), _exportVersion: 1 };
+                const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${(project.name || 'project').replace(/[^a-zA-Z0-9-_]/g, '_')}.tse-project.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                return project;
+            },
+
+            async importProject(jsonString) {
+                const data = JSON.parse(jsonString);
+                if (!data.name && !data.stepData) throw new Error('Invalid project file');
+                const newId = 'proj_' + Date.now();
+                const project = {
+                    ...data,
+                    id: newId,
+                    status: 'draft',
+                    statusHistory: data.statusHistory || [],
+                    lockedAt: null,
+                    created: data.created || new Date().toISOString(),
+                    modified: new Date().toISOString(),
+                    _importedAt: new Date().toISOString(),
+                    _importedFrom: data.id || 'unknown'
+                };
+                this.ensureLifecycleFields(project);
+                project.statusHistory.push({
+                    from: data.status || 'unknown',
+                    to: 'draft',
+                    timestamp: new Date().toISOString(),
+                    note: 'Imported as new draft'
+                });
+                await this._store.setItem(newId, project);
                 return project;
             },
 
@@ -5847,6 +6105,7 @@
                         jurisdiction: value.jurisdiction,
                         currentStep: value.currentStep || 1,
                         stepsCompleted: value.stepsCompleted || {},
+                        status: value.status || 'draft',
                         modified: value.modified,
                         created: value.created
                     });
@@ -5866,6 +6125,10 @@
             async saveStepData(projectId, stepNum, data) {
                 const project = await this.getProject(projectId);
                 if (!project) return;
+                if (this.isLocked(project)) {
+                    showNotification('This project is locked. Unlock to make changes.', 'warning');
+                    return project;
+                }
                 project.stepData[stepNum] = data;
                 return await this.saveProject(project);
             },
@@ -6007,6 +6270,7 @@
 
             async saveNow() {
                 if (!TseWorkflow._activeProjectId || !TseWorkflow._activeProject) return;
+                if (ProjectStore.isLocked(TseWorkflow._activeProject)) return;
                 this.showIndicator('Saving...');
                 try {
                     const stepNum = TseWorkflow.currentStep;
@@ -7622,6 +7886,164 @@
             }
         };
 
+        // ==================== LOCK / UNLOCK FORMS ====================
+        function lockAllForms() {
+            const container = document.querySelector('.workspace-container');
+            if (container) container.classList.add('locked');
+            const els = document.querySelectorAll('#workflow-workspace input, #workflow-workspace select, #workflow-workspace textarea');
+            els.forEach(el => el.setAttribute('disabled', 'disabled'));
+        }
+
+        function unlockAllForms() {
+            const container = document.querySelector('.workspace-container');
+            if (container) container.classList.remove('locked');
+            const els = document.querySelectorAll('#workflow-workspace input[disabled], #workflow-workspace select[disabled], #workflow-workspace textarea[disabled]');
+            els.forEach(el => el.removeAttribute('disabled'));
+        }
+
+        // ==================== PROJECT LIFECYCLE MODULE ====================
+        const ProjectLifecycle = {
+            _toolbarContainer: null,
+
+            renderToolbar(project, containerEl) {
+                if (!project) return;
+                const status = project.status || 'draft';
+                const transitions = STATUS_TRANSITIONS[status] || [];
+                const statusLabel = STATUS_LABELS[status] || status;
+
+                let html = `<div class="lifecycle-toolbar" id="lifecycle-toolbar">
+                    <span class="toolbar-label">Status:</span>
+                    <span class="status-badge status-${status}">${statusLabel}</span>
+                    <div class="lifecycle-separator"></div>`;
+
+                // Transition buttons
+                transitions.forEach(target => {
+                    const key = `${status}->${target}`;
+                    const label = TRANSITION_LABELS[key] || target;
+                    let btnClass = 'transition-btn';
+                    if (target === 'delivered') btnClass += ' btn-warn';
+                    else if (target === 'approved') btnClass += ' btn-success';
+                    else if (target === 'active' && status === 'delivered') btnClass += ' btn-danger';
+                    html += `<button class="${btnClass}" onclick="ProjectLifecycle.confirmTransition('${project.id}','${status}','${target}')">${label}</button>`;
+                });
+
+                html += `<div class="toolbar-right">`;
+                html += `<button class="transition-btn lifecycle-action" onclick="ProjectLifecycle.previewAll('${project.id}')">Preview All</button>`;
+                html += `<button class="transition-btn lifecycle-action" onclick="ProjectStore.exportProject('${project.id}')">Export</button>`;
+                html += `</div></div>`;
+
+                // Lock banner
+                if (ProjectStore.isLocked(project)) {
+                    html += `<div class="lock-banner" id="lock-banner">
+                        <span class="lock-icon">&#128274;</span>
+                        <span>This project is <strong>delivered and locked</strong>. No edits allowed unless unlocked by admin.</span>
+                    </div>`;
+                }
+
+                if (containerEl) {
+                    containerEl.insertAdjacentHTML('afterend', html);
+                } else {
+                    const existing = document.getElementById('lifecycle-toolbar');
+                    if (existing) existing.remove();
+                    const banner = document.getElementById('lock-banner');
+                    if (banner) banner.remove();
+                    const summary = document.getElementById('project-summary-card');
+                    if (summary) summary.insertAdjacentHTML('afterend', html);
+                }
+            },
+
+            confirmTransition(projectId, fromStatus, toStatus) {
+                const key = `${fromStatus}->${toStatus}`;
+                const label = TRANSITION_LABELS[key] || `${fromStatus} → ${toStatus}`;
+                const isLock = toStatus === 'delivered';
+                const isUnlock = fromStatus === 'delivered' && toStatus === 'active';
+
+                let warnHtml = '';
+                if (isLock) warnHtml = '<p class="warn-text">This will LOCK the project. All forms become read-only. Only an admin unlock can reverse this.</p>';
+                if (isUnlock) warnHtml = '<p class="warn-text">This will UNLOCK a delivered project. Use only for emergency corrections.</p>';
+
+                const overlay = document.createElement('div');
+                overlay.className = 'transition-modal-overlay';
+                overlay.id = 'transition-modal-overlay';
+                overlay.innerHTML = `<div class="transition-modal">
+                    <h3>${label}</h3>
+                    <div class="status-flow">
+                        <span class="status-badge status-${fromStatus}">${STATUS_LABELS[fromStatus]}</span>
+                        <span class="arrow">&#10140;</span>
+                        <span class="status-badge status-${toStatus}">${STATUS_LABELS[toStatus]}</span>
+                    </div>
+                    ${warnHtml}
+                    <label style="font-size:12px;color:var(--text-muted)">Note (optional):</label>
+                    <textarea id="transition-note" placeholder="Reason for this change..."></textarea>
+                    <div class="modal-actions">
+                        <button class="transition-btn" onclick="ProjectLifecycle.cancelTransition()">Cancel</button>
+                        <button class="transition-btn ${isLock ? 'btn-warn' : 'btn-success'}" onclick="ProjectLifecycle.executeTransition('${projectId}','${toStatus}')">Confirm</button>
+                    </div>
+                </div>`;
+                document.body.appendChild(overlay);
+            },
+
+            cancelTransition() {
+                const overlay = document.getElementById('transition-modal-overlay');
+                if (overlay) overlay.remove();
+            },
+
+            async executeTransition(projectId, toStatus) {
+                const note = (document.getElementById('transition-note')?.value || '').trim();
+                this.cancelTransition();
+                try {
+                    const project = await ProjectStore.transitionStatus(projectId, toStatus, note);
+                    if (typeof TseWorkflow !== 'undefined' && TseWorkflow._activeProject) {
+                        TseWorkflow._activeProject = project;
+                    }
+                    // Re-render toolbar
+                    const existing = document.getElementById('lifecycle-toolbar');
+                    if (existing) existing.remove();
+                    const banner = document.getElementById('lock-banner');
+                    if (banner) banner.remove();
+                    this.renderToolbar(project);
+                    // Handle lock/unlock
+                    if (toStatus === 'delivered') {
+                        lockAllForms();
+                    } else if (ProjectStore.isLocked(project) === false) {
+                        unlockAllForms();
+                    }
+                    showNotification(`Project status changed to ${STATUS_LABELS[toStatus]}`, 'success');
+                } catch (e) {
+                    showNotification('Transition failed: ' + e.message, 'error');
+                }
+            },
+
+            async previewAll(projectId) {
+                const project = await ProjectStore.getProject(projectId);
+                if (!project) return;
+                let stepsHtml = '';
+                for (let i = 1; i <= 10; i++) {
+                    const title = StepPreview._stepTitles?.[i] || `Step ${i}`;
+                    const data = project.stepData?.[i];
+                    let content = '<p style="color:var(--text-muted);font-size:12px;">No data entered for this step.</p>';
+                    if (data && typeof StepPreview[`renderStep${i}`] === 'function') {
+                        content = StepPreview[`renderStep${i}`](data);
+                    }
+                    stepsHtml += `<div class="preview-step-section"><h3>Step ${i}: ${title}</h3>${content}</div>`;
+                }
+                const overlay = document.createElement('div');
+                overlay.className = 'preview-all-overlay';
+                overlay.id = 'preview-all-overlay';
+                overlay.innerHTML = `<div class="preview-all-container">
+                    <div class="preview-all-header">
+                        <h2>${project.name || 'Project'} — Full Preview</h2>
+                        <div style="display:flex;gap:8px;">
+                            <button class="transition-btn" onclick="window.print()">Print</button>
+                            <button class="transition-btn" onclick="document.getElementById('preview-all-overlay').remove()">Close</button>
+                        </div>
+                    </div>
+                    ${stepsHtml}
+                </div>`;
+                document.body.appendChild(overlay);
+            }
+        };
+
         // ==================== STEP PREVIEW MODULE ====================
         const StepPreview = {
             _stepTitles: {
@@ -8171,6 +8593,9 @@
                 AutoSave.init();
                 SupplementalFiles.init();
 
+                // Load project list for dropdown
+                await this.loadProjects();
+
                 // Check if there's an active project to auto-resume
                 const activeId = await ProjectStore.getActiveProjectId();
                 if (activeId) {
@@ -8211,9 +8636,14 @@
                 this.currentStep = project.currentStep || 1;
                 await ProjectStore.setActiveProjectId(id);
 
-                // Update project select dropdown
+                // Update project select dropdown — ensure projects loaded, then select active
+                if (!this.projects || this.projects.length === 0) {
+                    await this.loadProjects();
+                } else {
+                    this.populateProjectSelect();
+                }
                 const select = document.getElementById('project-select');
-                select.innerHTML = '<option value="">' + project.name + '</option>';
+                select.value = id;
 
                 // Render project summary and folder tracker
                 this.renderProjectSummary(project);
@@ -8228,6 +8658,13 @@
                 // Load supplemental files and aerial data
                 SupplementalFiles.renderList();
                 AerialFetch.loadFromProject(project);
+
+                // Apply lock if project is delivered
+                if (ProjectStore.isLocked(project)) {
+                    lockAllForms();
+                } else {
+                    unlockAllForms();
+                }
             },
 
             gatherStepData(stepNum) {
@@ -8365,6 +8802,13 @@
                 }
 
                 card.classList.add('visible');
+
+                // Render lifecycle toolbar below summary
+                const existing = document.getElementById('lifecycle-toolbar');
+                if (existing) existing.remove();
+                const banner = document.getElementById('lock-banner');
+                if (banner) banner.remove();
+                ProjectLifecycle.renderToolbar(data);
             },
 
             // Render the project folder tracker
@@ -8489,6 +8933,28 @@
                 document.getElementById('modal-close').addEventListener('click', () => this.closeModal());
                 document.getElementById('modal-cancel').addEventListener('click', () => this.closeModal());
                 document.getElementById('modal-create').addEventListener('click', () => this.createProject());
+
+                // Import project
+                document.getElementById('import-project-btn').addEventListener('click', () => {
+                    document.getElementById('import-project-file').click();
+                });
+                document.getElementById('import-project-file').addEventListener('change', async (e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    try {
+                        const text = await file.text();
+                        const project = await ProjectStore.importProject(text);
+                        showNotification('Imported: ' + project.name, 'success');
+                        await this.openProject(project.id);
+                        await this.loadProjects();
+                    } catch (err) {
+                        showNotification('Import failed: ' + err.message, 'error');
+                    }
+                    e.target.value = '';
+                });
+
+                // Status filter
+                document.getElementById('project-status-filter').addEventListener('change', () => this.populateProjectSelect());
 
                 // Project selection
                 document.getElementById('project-select').addEventListener('change', (e) => this.selectProject(e.target.value));
@@ -10738,13 +11204,17 @@
                 this.populateProjectSelect();
             },
 
-            populateProjectSelect() {
+            populateProjectSelect(statusFilter) {
+                const filter = statusFilter || document.getElementById('project-status-filter')?.value || 'all';
                 const select = document.getElementById('project-select');
                 select.innerHTML = '<option value="">-- Select Project --</option>';
-                this.projects.forEach((proj, idx) => {
+                this.projects.forEach((proj) => {
+                    const status = proj.status || 'draft';
+                    if (filter !== 'all' && status !== filter) return;
                     const opt = document.createElement('option');
-                    opt.value = idx;
-                    opt.textContent = proj.name;
+                    opt.value = proj.id;
+                    const badge = STATUS_LABELS[status] || status;
+                    opt.textContent = `[${badge}] ${proj.name}`;
                     select.appendChild(opt);
                 });
             },
