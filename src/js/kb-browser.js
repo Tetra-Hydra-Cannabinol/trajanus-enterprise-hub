@@ -9,7 +9,7 @@ class KBBrowserComponent {
     constructor(containerId, config = {}) {
         this.container = document.getElementById(containerId);
         if (!this.container) {
-            console.error(`KBBrowserComponent: Container '${containerId}' not found`);
+            // Container not present on this page — silently skip
             return;
         }
 
