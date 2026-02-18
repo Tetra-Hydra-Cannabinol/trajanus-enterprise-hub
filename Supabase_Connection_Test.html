@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase Connection Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            font-family: monospace;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .test-result {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .success { border-color: #2ecc71; background: rgba(46,204,113,0.1); }
+        .error { border-color: #e74c3c; background: rgba(231,76,60,0.1); }
+        .loading { border-color: #f39c12; background: rgba(243,156,18,0.1); }
+        button {
+            background: #9B7E52;
+            border: none;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 10px 5px;
+        }
+        button:hover { opacity: 0.8; }
+        pre {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Supabase Connection Test</h1>
+    <p>Testing connection to: <strong>https://iaxtwrswinygwwwdkvok.supabase.co</strong></p>
+    
+    <button onclick="runAllTests()">Run All Tests</button>
+    <button onclick="testConnection()">Test 1: Basic Connection</button>
+    <button onclick="testTableExists()">Test 2: Table Exists</button>
+    <button onclick="testQueryDocuments()">Test 3: Query Documents</button>
+    <button onclick="clearResults()">Clear Results</button>
+    
+    <div id="results"></div>
+
+    <script>
+        // Load from config or prompt user - DO NOT HARDCODE CREDENTIALS
+        const SUPABASE_URL = window.SUPABASE_CONFIG?.url || localStorage.getItem('SUPABASE_URL') || prompt('Enter Supabase URL:');
+        const SUPABASE_ANON_KEY = window.SUPABASE_CONFIG?.key || localStorage.getItem('SUPABASE_KEY') || prompt('Enter Supabase Anon Key:');
+
+        // Store for future use
+        if (SUPABASE_URL) localStorage.setItem('SUPABASE_URL', SUPABASE_URL);
+        if (SUPABASE_ANON_KEY) localStorage.setItem('SUPABASE_KEY', SUPABASE_ANON_KEY);
+
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        function addResult(title, success, details) {
+            const resultsDiv = document.getElementById('results');
+            const statusClass = success ? 'success' : 'error';
+            const statusIcon = success ? '✅' : '❌';
+            
+            const resultHTML = `
+                <div class="test-result ${statusClass}">
+                    <h3>${statusIcon} ${title}</h3>
+                    <pre>${JSON.stringify(details, null, 2)}</pre>
+                </div>
+            `;
+            
+            resultsDiv.innerHTML += resultHTML;
+        }
+        
+        function addLoading(title) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML += `
+                <div class="test-result loading" id="loading-${Date.now()}">
+                    <h3>⏳ ${title}</h3>
+                    <p>Running test...</p>
+                </div>
+            `;
+        }
+        
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+        }
+        
+        async function testConnection() {
+            addLoading('Test 1: Basic Connection');
+            document.querySelectorAll('.loading').forEach(el => el.remove());
+            
+            try {
+                console.log('Testing basic connection...');
+                const { data, error } = await supabaseClient.from('documents').select('count', { count: 'exact', head: true });
+                
+                if (error) {
+                    addResult('Test 1: Basic Connection', false, {
+                        error: error.message,
+                        details: error.details,
+                        hint: error.hint,
+                        code: error.code
+                    });
+                    return false;
+                }
+                
+                addResult('Test 1: Basic Connection', true, {
+                    status: 'Connected successfully',
+                    count: data
+                });
+                return true;
+                
+            } catch (err) {
+                addResult('Test 1: Basic Connection', false, {
+                    error: err.message,
+                    stack: err.stack
+                });
+                return false;
+            }
+        }
+        
+        async function testTableExists() {
+            addLoading('Test 2: Table Exists');
+            document.querySelectorAll('.loading').forEach(el => el.remove());
+            
+            try {
+                console.log('Checking if documents table exists...');
+                const { data, error, count } = await supabaseClient
+                    .from('documents')
+                    .select('*', { count: 'exact', head: true });
+                
+                if (error) {
+                    addResult('Test 2: Table Exists', false, {
+                        error: error.message,
+                        details: error.details,
+                        hint: error.hint,
+                        code: error.code
+                    });
+                    return false;
+                }
+                
+                addResult('Test 2: Table Exists', true, {
+                    status: 'Table exists',
+                    documentCount: count
+                });
+                return true;
+                
+            } catch (err) {
+                addResult('Test 2: Table Exists', false, {
+                    error: err.message,
+                    stack: err.stack
+                });
+                return false;
+            }
+        }
+        
+        async function testQueryDocuments() {
+            addLoading('Test 3: Query Documents');
+            document.querySelectorAll('.loading').forEach(el => el.remove());
+            
+            try {
+                console.log('Querying documents...');
+                const { data, error } = await supabaseClient
+                    .from('documents')
+                    .select('*')
+                    .limit(5);
+                
+                if (error) {
+                    addResult('Test 3: Query Documents', false, {
+                        error: error.message,
+                        details: error.details,
+                        hint: error.hint,
+                        code: error.code
+                    });
+                    return false;
+                }
+                
+                addResult('Test 3: Query Documents', true, {
+                    status: 'Query successful',
+                    documentCount: data ? data.length : 0,
+                    sampleDocuments: data ? data.slice(0, 2) : []
+                });
+                return true;
+                
+            } catch (err) {
+                addResult('Test 3: Query Documents', false, {
+                    error: err.message,
+                    stack: err.stack
+                });
+                return false;
+            }
+        }
+        
+        async function runAllTests() {
+            clearResults();
+            
+            const test1 = await testConnection();
+            if (!test1) {
+                addResult('Tests Stopped', false, { reason: 'Basic connection failed' });
+                return;
+            }
+            
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            const test2 = await testTableExists();
+            if (!test2) {
+                addResult('Tests Stopped', false, { reason: 'Table check failed' });
+                return;
+            }
+            
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            await testQueryDocuments();
+        }
+        
+        // Auto-run tests on load
+        window.addEventListener('load', () => {
+            console.log('Page loaded, ready to test');
+            addResult('Initialization', true, {
+                supabaseURL: SUPABASE_URL,
+                clientInitialized: !!supabaseClient,
+                timestamp: new Date().toISOString()
+            });
+        });
+    </script>
+</body>
+</html>

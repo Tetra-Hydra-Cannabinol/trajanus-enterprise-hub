@@ -1,0 +1,590 @@
+/* Developer Toolkit v2 - Professional Styling */
+
+/* ==================== COLOR PALETTE ==================== */
+:root {
+    --bg-primary: #1a1a1a;
+    --bg-sidebar: #252525;
+    --bg-console: #0d0d0d;
+    --button-fill: #d4a574;
+    --button-hover: #e8922a;
+    --text-primary: #ffffff;
+    --text-secondary: #888888;
+    --success: #4a9f4a;
+    --badge-orange: #e8922a;
+    --error: #ff4a4a;
+    --border-color: #333333;
+
+    /* Elevation system (replaces shadows on dark themes) */
+    --elevation-0: #1a1a1a;
+    --elevation-1: #252525;
+    --elevation-2: #2d2d2d;
+    --elevation-3: #353535;
+    --elevation-4: #3d3d3d;
+}
+
+/* ==================== RESET & BASE ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ==================== APP CONTAINER ==================== */
+.app-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ==================== SIDEBAR ==================== */
+.sidebar {
+    width: 250px;
+    min-width: 250px;
+    background: var(--bg-sidebar);
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border-color);
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar-logo {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nav-section {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nav-section-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0 20px 10px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    font-size: 13px;
+    color: var(--text-primary);
+}
+
+.nav-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-item.active {
+    background: rgba(212, 165, 116, 0.15);
+    border-left: 3px solid var(--button-fill);
+    padding-left: 17px;
+}
+
+/* ==================== BADGES ==================== */
+.badge {
+    font-size: 9px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge-active {
+    background: var(--success);
+    color: var(--text-primary);
+}
+
+.badge-beta {
+    background: var(--badge-orange);
+    color: #1a1a1a;
+}
+
+.badge-dev {
+    background: transparent;
+    border: 1px solid var(--badge-orange);
+    color: var(--badge-orange);
+}
+
+/* ==================== MAIN AREA ==================== */
+.main-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.main-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* ==================== MAIN HEADER ==================== */
+.main-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 25px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-primary);
+}
+
+.main-header h1 {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.home-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s ease;
+}
+
+.home-btn:hover {
+    border-color: var(--button-fill);
+    color: var(--button-fill);
+}
+
+/* ==================== TAB BAR ==================== */
+.tab-bar {
+    display: flex;
+    gap: 0;
+    background: var(--bg-sidebar);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tab {
+    padding: 12px 25px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.tab:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.tab.active {
+    color: var(--button-fill);
+    border-bottom-color: var(--button-fill);
+    background: var(--bg-primary);
+}
+
+/* ==================== CONTENT AREA ==================== */
+.content-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 25px;
+    padding-bottom: 50px;
+}
+
+/* ==================== SECTIONS ==================== */
+.section {
+    margin-bottom: 30px;
+}
+
+.section-header {
+    margin-bottom: 15px;
+    padding-left: 12px;
+    border-left: 3px solid var(--badge-orange);
+}
+
+.section-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.section-subtitle {
+    font-size: 11px;
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+/* ==================== CARD GRID ==================== */
+.card-grid {
+    display: grid;
+    gap: 12px;
+}
+
+.card-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.card-grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* ==================== BUTTON CARDS ==================== */
+.button-card {
+    background: linear-gradient(135deg, #d4a574 0%, #c49464 100%);
+    color: #1a1a1a;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 20px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease;
+}
+
+.button-card:hover {
+    background: linear-gradient(135deg, #e8b584 0%, #d4a574 100%);
+    transform: translateY(-1px);
+}
+
+.button-card:active {
+    transform: translateY(0);
+}
+
+.button-card-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.button-card-desc {
+    font-size: 11px;
+    opacity: 0.8;
+}
+
+/* ==================== CLAUDE ASSISTANT ==================== */
+.claude-section {
+    background: var(--bg-sidebar);
+    border-radius: 8px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    max-height: 300px;
+}
+
+.claude-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.claude-response {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    font-size: 13px;
+    line-height: 1.5;
+    min-height: 120px;
+    max-height: 180px;
+}
+
+.claude-response .message {
+    margin-bottom: 12px;
+    padding: 10px 14px;
+    border-radius: 8px;
+}
+
+.claude-response .message.user {
+    background: rgba(212, 165, 116, 0.2);
+    margin-left: 20%;
+    text-align: right;
+}
+
+.claude-response .message.assistant {
+    background: rgba(255, 255, 255, 0.05);
+    margin-right: 20%;
+}
+
+.claude-input-area {
+    display: flex;
+    gap: 10px;
+    padding: 12px 16px;
+    border-top: 1px solid var(--border-color);
+}
+
+.claude-input {
+    flex: 1;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    resize: none;
+}
+
+.claude-input:focus {
+    outline: none;
+    border-color: var(--button-fill);
+}
+
+.claude-input::placeholder {
+    color: var(--text-secondary);
+}
+
+.claude-send-btn {
+    background: var(--button-fill);
+    color: #1a1a1a;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.claude-send-btn:hover {
+    background: var(--button-hover);
+}
+
+/* ==================== CONSOLE AREA ==================== */
+.console-area {
+    height: 150px;
+    min-height: 150px;
+    background: var(--bg-console);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.console-header {
+    padding: 8px 16px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.console-output {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 16px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.console-line {
+    margin-bottom: 2px;
+}
+
+.console-line .timestamp {
+    color: var(--text-secondary);
+}
+
+.console-line.success {
+    color: var(--success);
+}
+
+.console-line.info {
+    color: var(--text-secondary);
+}
+
+.console-line.error {
+    color: var(--error);
+}
+
+.log-entry.error {
+    color: var(--error);
+}
+
+/* Nav item as link */
+a.nav-item {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* ==================== SCROLLBAR STYLING ==================== */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+/* ==================== DROPDOWN ==================== */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 20px;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 13px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.dropdown-toggle:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.dropdown-toggle::after {
+    content: '';
+    border: 4px solid transparent;
+    border-top-color: var(--text-secondary);
+    margin-left: 8px;
+}
+
+.dropdown-menu {
+    display: none;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    margin: 5px 10px;
+    overflow: hidden;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-item {
+    padding: 8px 16px;
+    font-size: 12px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background: rgba(212, 165, 116, 0.15);
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1200px) {
+    .card-grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .sidebar {
+        width: 200px;
+        min-width: 200px;
+    }
+
+    .card-grid-3,
+    .card-grid-2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==================== COLLAPSIBLE SIDEBAR ==================== */
+.sidebar {
+    position: relative;
+    transition: width 0.3s ease, min-width 0.3s ease;
+}
+
+.sidebar.collapsed {
+    width: 0;
+    min-width: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.sidebar.collapsed .sidebar-header,
+.sidebar.collapsed .nav-section {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.sidebar-toggle {
+    position: fixed;
+    top: 20px;
+    left: 250px;
+    width: 28px;
+    height: 28px;
+    background: var(--button-fill);
+    border: 2px solid var(--elevation-3);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #1a1a1a;
+    transition: left 0.3s ease, transform 0.2s ease;
+}
+
+.sidebar-toggle:hover {
+    background: var(--button-hover);
+    transform: scale(1.1);
+}
+
+.sidebar.collapsed ~ .main-wrapper .sidebar-toggle,
+body.sidebar-collapsed .sidebar-toggle {
+    left: 10px;
+}
+
+body.sidebar-collapsed .sidebar {
+    width: 0;
+    min-width: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body.sidebar-collapsed .sidebar .sidebar-header,
+body.sidebar-collapsed .sidebar .nav-section {
+    opacity: 0;
+    visibility: hidden;
+}
