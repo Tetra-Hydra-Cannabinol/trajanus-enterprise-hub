@@ -1,0 +1,2001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signal Warrant Calculator - Trajanus Enterprise Hub</title>
+    <style>
+        /* ==================== CSS VARIABLES ==================== */
+        :root {
+            --bg-base: #0a0a0a;
+            --bg-surface: #0a0a0a;
+            --bg-card: #0a0a0a;
+            --bg-elevated: #1a1a1a;
+            --bg-hover: #2a2a2a;
+            --border-subtle: #c0c0c0;
+            --border-accent: #c0c0c0;
+            --text-light: #c0c0c0;
+            --text-primary: #c0c0c0;
+            --text-secondary: #c0c0c0;
+            --text-muted: #c0c0c0;
+            --accent: #c0c0c0;
+            --silver: #c0c0c0;
+            --silver-light: #e0e0e0;
+            --silver-dark: #a0a0a0;
+            --gold: #00AAFF;
+            --gold-light: #33BBFF;
+            --gold-dark: #0088CC;
+            --blue: #4a90d9;
+            --blue-light: #6ab0f9;
+            --blue-dark: #3a70b9;
+            --success: #4ade80;
+            --info: #60a5fa;
+            --warning: #fbbf24;
+            --error: #f87171;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-base);
+            color: var(--text-light);
+            line-height: 1.5;
+            border: 2px solid #0066CC;
+            min-height: 100vh;
+        }
+
+        /* ==================== STICKY HEADER ==================== */
+        .hero-section {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--bg-base);
+            border-bottom: 1px solid var(--gold);
+            padding: 16px 32px;
+        }
+
+        .hero-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hero-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+        }
+
+        .hero-company {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero-company .tm {
+            font-size: 8px;
+            vertical-align: super;
+        }
+
+        .hero-toolkit {
+            font-family: Tahoma, sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+
+        .hero-description {
+            font-size: 13px;
+            color: var(--text-light);
+            max-width: 500px;
+            line-height: 1.4;
+            margin-top: 4px;
+        }
+
+        .hero-nav {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .hero-home-btn {
+            width: 130px;
+            height: 36px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            border: 1px solid #00AAFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            color: #00AAFF;
+            background: transparent;
+            text-decoration: none;
+        }
+
+        .hero-home-btn:hover {
+            background: rgba(0, 170, 255, 0.15);
+            color: #33BBFF;
+            border-color: #33BBFF;
+        }
+
+        /* ==================== MAIN LAYOUT ==================== */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 340px 1fr 400px;
+            gap: 16px;
+            padding: 16px 24px 60px;
+            min-height: calc(100vh - 100px);
+        }
+
+        @media (max-width: 1400px) {
+            .main-layout {
+                grid-template-columns: 320px 1fr 360px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ==================== PANEL STYLES ==================== */
+        .panel {
+            background: var(--bg-elevated);
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel-header {
+            background: var(--bg-base);
+            border-bottom: 1px solid #333;
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .panel-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .panel-badge {
+            font-size: 11px;
+            color: var(--silver-dark);
+            font-style: italic;
+        }
+
+        .panel-body {
+            padding: 16px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        /* ==================== FORM STYLES ==================== */
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--silver-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            background: var(--bg-base);
+            border: 1px solid #333;
+            color: var(--text-light);
+            padding: 8px 10px;
+            border-radius: 4px;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-size: 13px;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .form-input::placeholder {
+            color: #555;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .form-divider {
+            border: none;
+            border-top: 1px solid #333;
+            margin: 14px 0;
+        }
+
+        .form-section-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid #333;
+        }
+
+        /* ==================== LIVE THRESHOLD INDICATOR ==================== */
+        .threshold-indicator {
+            background: var(--bg-base);
+            border: 1px solid var(--gold);
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 8px;
+        }
+
+        .threshold-indicator-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .threshold-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+
+        .threshold-label {
+            color: var(--silver-dark);
+        }
+
+        .threshold-value {
+            font-family: 'Consolas', 'Courier New', monospace;
+            color: var(--silver-light);
+            font-weight: 600;
+        }
+
+        .threshold-reason {
+            font-size: 11px;
+            color: var(--gold);
+            font-style: italic;
+            margin-top: 4px;
+            padding-top: 4px;
+            border-top: 1px dashed #333;
+        }
+
+        /* ==================== VOLUME TABLE ==================== */
+        .volume-table-wrapper {
+            overflow-x: auto;
+            overflow-y: auto;
+            max-height: calc(100vh - 200px);
+        }
+
+        .volume-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        .volume-table thead {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .volume-table th {
+            background: var(--bg-base);
+            color: var(--gold);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 8px 6px;
+            text-align: center;
+            border-bottom: 2px solid var(--gold);
+            white-space: nowrap;
+        }
+
+        .volume-table td {
+            padding: 4px 4px;
+            text-align: center;
+            border-bottom: 1px solid #222;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 12px;
+        }
+
+        .volume-table tr:hover {
+            background: var(--bg-hover);
+        }
+
+        .volume-table .hour-label {
+            color: var(--silver-dark);
+            font-weight: 600;
+            text-align: left;
+            padding-left: 8px;
+            white-space: nowrap;
+        }
+
+        .volume-table input[type="number"] {
+            width: 60px;
+            background: var(--bg-base);
+            border: 1px solid #333;
+            color: var(--text-light);
+            padding: 4px 6px;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 12px;
+            text-align: right;
+        }
+
+        .volume-table input[type="number"]:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        /* Remove spinner arrows from number inputs */
+        .volume-table input[type="number"]::-webkit-outer-spin-button,
+        .volume-table input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .volume-table input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        .computed-col {
+            color: var(--silver-light);
+            font-weight: 600;
+        }
+
+        .totals-row td {
+            border-top: 2px solid var(--gold);
+            font-weight: 700;
+            color: var(--silver-light);
+            padding: 8px 4px;
+        }
+
+        /* ==================== ACTION BUTTONS ==================== */
+        .action-bar {
+            display: flex;
+            gap: 10px;
+            padding: 10px 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: 1px solid #333;
+            background: var(--bg-base);
+            color: var(--text-light);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            background: var(--bg-hover);
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .btn-primary {
+            background: #0066CC;
+            border-color: #0066CC;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #0077EE;
+            border-color: #0077EE;
+            color: #fff;
+        }
+
+        .btn-danger {
+            border-color: var(--error);
+            color: var(--error);
+        }
+
+        .btn-danger:hover {
+            background: rgba(248, 113, 113, 0.15);
+        }
+
+        .btn-success {
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .btn-success:hover {
+            background: rgba(74, 222, 128, 0.15);
+        }
+
+        /* ==================== RESULTS PANEL ==================== */
+        .results-section {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .results-placeholder {
+            text-align: center;
+            padding: 60px 20px;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .results-placeholder-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+            opacity: 0.4;
+        }
+
+        /* ==================== THRESHOLD SUMMARY CARD ==================== */
+        .threshold-card {
+            background: var(--bg-base);
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 14px;
+        }
+
+        .threshold-card-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #333;
+        }
+
+        .threshold-card-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            margin-bottom: 3px;
+        }
+
+        .threshold-card-label {
+            color: var(--silver-dark);
+        }
+
+        .threshold-card-value {
+            font-family: 'Consolas', 'Courier New', monospace;
+            color: var(--silver-light);
+            font-weight: 600;
+        }
+
+        /* ==================== HOUR-BY-HOUR RESULTS TABLE ==================== */
+        .results-table-wrapper {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #333;
+            border-radius: 6px;
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+
+        .results-table thead {
+            position: sticky;
+            top: 0;
+            z-index: 5;
+        }
+
+        .results-table th {
+            background: var(--bg-base);
+            color: var(--gold);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 8px 6px;
+            text-align: center;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .results-table td {
+            padding: 5px 6px;
+            text-align: center;
+            border-bottom: 1px solid #222;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 11px;
+            color: var(--text-light);
+        }
+
+        .results-table tr:hover {
+            background: var(--bg-hover);
+        }
+
+        .cell-pass {
+            background: rgba(74, 222, 128, 0.2);
+            color: #4ade80;
+            font-weight: 700;
+        }
+
+        .cell-fail {
+            background: rgba(248, 113, 113, 0.15);
+            color: #f87171;
+        }
+
+        .results-table .totals-row td {
+            border-top: 2px solid var(--gold);
+            font-weight: 700;
+            padding: 8px 6px;
+        }
+
+        /* ==================== WARRANT RESULT CARDS ==================== */
+        .warrant-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .warrant-card {
+            background: var(--bg-base);
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 14px;
+        }
+
+        .warrant-card.warrant-met {
+            border-color: var(--success);
+        }
+
+        .warrant-card.warrant-not-met {
+            border-color: var(--error);
+        }
+
+        .warrant-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .warrant-card-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--silver-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .warrant-card-subtitle {
+            font-size: 11px;
+            color: var(--silver-dark);
+        }
+
+        .warrant-overall-badge {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-met {
+            background: rgba(74, 222, 128, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .badge-not-met {
+            background: rgba(248, 113, 113, 0.15);
+            color: var(--error);
+            border: 1px solid var(--error);
+        }
+
+        .warrant-condition {
+            margin-bottom: 10px;
+        }
+
+        .warrant-condition-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--silver-dark);
+            margin-bottom: 4px;
+        }
+
+        .warrant-condition-count {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .progress-bar-track {
+            width: 100%;
+            height: 10px;
+            background: #222;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 4px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 0.4s ease;
+        }
+
+        .progress-bar-fill.fill-pass {
+            background: var(--success);
+        }
+
+        .progress-bar-fill.fill-fail {
+            background: var(--error);
+        }
+
+        .condition-status {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-met { color: var(--success); }
+        .status-not-met { color: var(--error); }
+
+        /* Warrant 3 peak info */
+        .peak-info {
+            font-size: 12px;
+            margin-bottom: 6px;
+            padding: 6px 8px;
+            background: var(--bg-elevated);
+            border-radius: 4px;
+        }
+
+        .peak-label {
+            font-weight: 600;
+            color: var(--silver-dark);
+        }
+
+        .peak-value {
+            font-family: 'Consolas', 'Courier New', monospace;
+            color: var(--silver-light);
+        }
+
+        /* ==================== SUMMARY BOX ==================== */
+        .summary-box {
+            background: var(--bg-base);
+            border: 2px solid #0066CC;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .summary-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #333;
+        }
+
+        .summary-line {
+            font-size: 12px;
+            margin-bottom: 6px;
+            padding-left: 12px;
+            line-height: 1.6;
+        }
+
+        .summary-line-met {
+            color: var(--success);
+        }
+
+        .summary-line-not-met {
+            color: var(--error);
+        }
+
+        .summary-conclusion {
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid #333;
+            font-size: 13px;
+            color: var(--silver-light);
+            line-height: 1.7;
+        }
+
+        /* ==================== COPY BUTTON ==================== */
+        .copy-bar {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .copy-feedback {
+            font-size: 12px;
+            color: var(--success);
+            display: none;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .copy-feedback.show {
+            display: flex;
+        }
+
+        /* ==================== SCROLLBAR STYLING ==================== */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-base);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* ==================== UTILITY ==================== */
+        .hidden { display: none !important; }
+
+        .mono {
+            font-family: 'Consolas', 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== STICKY HEADER ==================== -->
+    <header class="hero-section">
+        <div class="hero-content">
+            <div class="hero-nav">
+                <a href="../index.html" class="hero-home-btn">&#8592; Return to Hub</a>
+            </div>
+            <div class="hero-brand">
+                <div class="hero-company">TRAJANUS USA <span class="tm">ENGINEERED INTELLIGENCE&trade;</span></div>
+                <div class="hero-toolkit">SIGNAL WARRANT CALCULATOR</div>
+                <div class="hero-description">MUTCD Warrants 1, 2 &amp; 3 -- Eight-Hour, Four-Hour, and Peak Hour Volume Analysis</div>
+            </div>
+            <div class="hero-nav">
+                <a href="traffic.html" class="hero-home-btn">Traffic Toolkit &#8594;</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== THREE-COLUMN LAYOUT ==================== -->
+    <div class="main-layout">
+
+        <!-- ==================== LEFT PANEL: CONFIGURATION ==================== -->
+        <div class="panel" id="config-panel">
+            <div class="panel-header">
+                <span class="panel-title">Intersection Configuration</span>
+            </div>
+            <div class="panel-body">
+
+                <div class="form-section-label">Project Information</div>
+
+                <div class="form-group">
+                    <label class="form-label">Project Name</label>
+                    <input type="text" class="form-input" id="projectName" placeholder="Valero / TX 82 & Public Road">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Location</label>
+                        <input type="text" class="form-input" id="location" placeholder="Port Arthur, TX">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Jurisdiction</label>
+                        <input type="text" class="form-input" id="jurisdiction" placeholder="TxDOT -- Jefferson County">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Analyst</label>
+                        <input type="text" class="form-input" id="analyst" placeholder="Thomas J. Chlebanowski, PE">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Count Vendor</label>
+                        <input type="text" class="form-input" id="countVendor" placeholder="GRAM Traffic Counting">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Count Date</label>
+                        <input type="date" class="form-input" id="countDate">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Day of Week</label>
+                        <input type="text" class="form-input" id="dayOfWeek" placeholder="(auto-computed)" readonly>
+                    </div>
+                </div>
+
+                <hr class="form-divider">
+                <div class="form-section-label">Street Configuration</div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Major Street Name</label>
+                        <input type="text" class="form-input" id="majorStreet" placeholder="TX 82">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Minor Street Name</label>
+                        <input type="text" class="form-input" id="minorStreet" placeholder="Public Road">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Major Lanes</label>
+                        <select class="form-select" id="majorLanes">
+                            <option value="1">1 lane</option>
+                            <option value="2" selected>2+ lanes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Minor Lanes</label>
+                        <select class="form-select" id="minorLanes">
+                            <option value="1" selected>1 lane</option>
+                            <option value="2">2+ lanes</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Control Type</label>
+                    <input type="text" class="form-input" id="controlType" placeholder="Stop-controlled on minor approaches">
+                </div>
+
+                <hr class="form-divider">
+                <div class="form-section-label">Threshold Parameters</div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">85th %ile Speed (mph)</label>
+                        <input type="number" class="form-input" id="speed85" placeholder="48" min="0" max="100">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Community Population</label>
+                        <input type="number" class="form-input" id="population" placeholder="65000" min="0">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Posted Speed Limit (mph)</label>
+                    <input type="number" class="form-input" id="postedSpeed" placeholder="45" min="0" max="100">
+                </div>
+
+                <!-- Live Threshold Indicator -->
+                <div class="threshold-indicator" id="thresholdIndicator">
+                    <div class="threshold-indicator-title">Threshold Configuration</div>
+                    <div class="threshold-row">
+                        <span class="threshold-label">Threshold Column:</span>
+                        <span class="threshold-value" id="threshColValue">--</span>
+                    </div>
+                    <div class="threshold-row">
+                        <span class="threshold-label">Lane Config:</span>
+                        <span class="threshold-value" id="threshLaneConfig">--</span>
+                    </div>
+                    <div class="threshold-row">
+                        <span class="threshold-label">Condition A:</span>
+                        <span class="threshold-value" id="threshCondA">--</span>
+                    </div>
+                    <div class="threshold-row">
+                        <span class="threshold-label">Condition B:</span>
+                        <span class="threshold-value" id="threshCondB">--</span>
+                    </div>
+                    <div class="threshold-reason" id="threshReason">Enter speed and population values</div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==================== CENTER PANEL: VOLUME ENTRY ==================== -->
+        <div class="panel" id="volume-panel">
+            <div class="panel-header">
+                <span class="panel-title">24-Hour Volume Entry</span>
+                <span class="panel-badge" id="volumeSummary">Major: 0 | Minor: 0</span>
+            </div>
+            <div class="panel-body" style="padding: 8px 12px;">
+
+                <div class="action-bar">
+                    <button class="btn btn-primary" id="btnPrefill">Pre-fill Valero Test Data</button>
+                    <button class="btn btn-danger" id="btnClear">Clear All</button>
+                    <button class="btn btn-success" id="btnAnalyze">Run Analysis</button>
+                </div>
+
+                <div class="volume-table-wrapper">
+                    <table class="volume-table" id="volumeTable">
+                        <thead>
+                            <tr>
+                                <th>Hour</th>
+                                <th>Major App 1</th>
+                                <th>Major App 2</th>
+                                <th>Minor App 1</th>
+                                <th>Minor App 2</th>
+                                <th>Major Total</th>
+                                <th>Minor Higher</th>
+                            </tr>
+                        </thead>
+                        <tbody id="volumeTableBody">
+                            <!-- Generated by JS -->
+                        </tbody>
+                        <tfoot>
+                            <tr class="totals-row">
+                                <td class="hour-label">TOTALS</td>
+                                <td id="totalMaj1">0</td>
+                                <td id="totalMaj2">0</td>
+                                <td id="totalMin1">0</td>
+                                <td id="totalMin2">0</td>
+                                <td id="totalMajor">0</td>
+                                <td id="totalMinor">0</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== RIGHT PANEL: RESULTS ==================== -->
+        <div class="panel" id="results-panel">
+            <div class="panel-header">
+                <span class="panel-title">Analysis Results</span>
+            </div>
+            <div class="panel-body">
+
+                <!-- Placeholder when no results -->
+                <div id="resultsPlaceholder" class="results-placeholder">
+                    <div class="results-placeholder-icon">&#9888;</div>
+                    <div>Enter volume data and click <strong>Run Analysis</strong> to see warrant evaluation results.</div>
+                </div>
+
+                <!-- Results content (hidden initially) -->
+                <div id="resultsContent" class="results-section hidden">
+
+                    <!-- Threshold Summary -->
+                    <div class="threshold-card" id="resultThresholdCard">
+                        <div class="threshold-card-title">Threshold Configuration</div>
+                        <div id="resultThresholdBody"></div>
+                    </div>
+
+                    <!-- Hour-by-Hour Table -->
+                    <div style="margin-top: 4px;">
+                        <div class="form-section-label" style="margin-top:0;">Hour-by-Hour Analysis</div>
+                        <div class="results-table-wrapper">
+                            <table class="results-table" id="resultsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Hour</th>
+                                        <th>Major Total</th>
+                                        <th>Minor Higher</th>
+                                        <th>W1-A</th>
+                                        <th>W1-B</th>
+                                        <th>W2</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="resultsTableBody"></tbody>
+                                <tfoot id="resultsTableFoot"></tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Warrant Cards -->
+                    <div class="warrant-cards" id="warrantCards"></div>
+
+                    <!-- Summary Box -->
+                    <div class="summary-box" id="summaryBox"></div>
+
+                    <!-- Copy Button -->
+                    <div class="copy-bar">
+                        <button class="btn btn-primary" id="btnCopy">Copy Summary to Clipboard</button>
+                        <span class="copy-feedback" id="copyFeedback">Copied!</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <script src="../js/localforage.min.js"></script>
+    <script src="../js/warrant-engine.js"></script>
+    <script>
+    /* ================================================================
+       SIGNAL WARRANT CALCULATOR -- UI LOGIC
+       Trajanus Enterprise Hub
+       ================================================================ */
+    (function() {
+        'use strict';
+
+        /* ==================== CONSTANTS ==================== */
+
+        // MUTCD Warrant Threshold Tables (Table 4C-1)
+        // Format: [majorLanes, minorLanes, column] -> { condA: {major, minor}, condB: {major, minor} }
+        // W1 Condition A: Minimum Vehicular Volume
+        // W1 Condition B: Interruption of Continuous Traffic
+        const W1_THRESHOLDS = {
+            // Lane config: major 2+ / minor 1
+            '2_1_100': { condA: { major: 600, minor: 150 }, condB: { major: 900, minor: 75 } },
+            '2_1_70':  { condA: { major: 420, minor: 105 }, condB: { major: 630, minor: 53 } },
+            // Lane config: major 2+ / minor 2+
+            '2_2_100': { condA: { major: 600, minor: 200 }, condB: { major: 900, minor: 100 } },
+            '2_2_70':  { condA: { major: 420, minor: 140 }, condB: { major: 630, minor: 70 } },
+            // Lane config: major 1 / minor 1
+            '1_1_100': { condA: { major: 500, minor: 150 }, condB: { major: 750, minor: 75 } },
+            '1_1_70':  { condA: { major: 350, minor: 105 }, condB: { major: 525, minor: 53 } },
+            // Lane config: major 1 / minor 2+
+            '1_2_100': { condA: { major: 500, minor: 200 }, condB: { major: 750, minor: 100 } },
+            '1_2_70':  { condA: { major: 350, minor: 140 }, condB: { major: 525, minor: 70 } },
+        };
+
+        // W2: Four-Hour Vehicular Volume (Table 4C-2) -- simplified threshold curves
+        // Points on the curve for the 100% and 70% thresholds
+        // [majorTotal, minorHigher] -- if point is above/on line, warrant met for that hour
+        const W2_CURVES = {
+            // major 2+ / minor 1
+            '2_1_100': [
+                [400, 120], [500, 100], [600, 85], [700, 70], [800, 60],
+                [900, 50], [1000, 45], [1100, 40], [1200, 35], [1300, 30]
+            ],
+            '2_1_70': [
+                [280, 84], [350, 70], [420, 60], [490, 49], [560, 42],
+                [630, 35], [700, 32], [770, 28], [840, 25], [910, 21]
+            ],
+            // major 2+ / minor 2+
+            '2_2_100': [
+                [400, 160], [500, 130], [600, 110], [700, 95], [800, 80],
+                [900, 70], [1000, 60], [1100, 55], [1200, 50], [1300, 45]
+            ],
+            '2_2_70': [
+                [280, 112], [350, 91], [420, 77], [490, 67], [560, 56],
+                [630, 49], [700, 42], [770, 39], [840, 35], [910, 32]
+            ],
+            // major 1 / minor 1
+            '1_1_100': [
+                [300, 120], [400, 100], [500, 85], [600, 70], [700, 60],
+                [800, 50], [900, 45], [1000, 40], [1100, 35]
+            ],
+            '1_1_70': [
+                [210, 84], [280, 70], [350, 60], [420, 49], [490, 42],
+                [560, 35], [630, 32], [700, 28], [770, 25]
+            ],
+            // major 1 / minor 2+
+            '1_2_100': [
+                [300, 160], [400, 130], [500, 110], [600, 95], [700, 80],
+                [800, 70], [900, 60], [1000, 55], [1100, 50]
+            ],
+            '1_2_70': [
+                [210, 112], [280, 91], [350, 77], [420, 67], [490, 56],
+                [560, 49], [630, 42], [700, 39], [770, 35]
+            ],
+        };
+
+        // W3: Peak Hour (Table 4C-3) -- simplified threshold curves
+        // Same structure as W2 but different threshold values
+        const W3_CURVES = {
+            '2_1_100': [
+                [400, 150], [500, 130], [600, 110], [700, 95], [800, 80],
+                [900, 65], [1000, 55], [1100, 50], [1200, 45], [1300, 40]
+            ],
+            '2_1_70': [
+                [280, 105], [350, 91], [420, 77], [490, 67], [560, 56],
+                [630, 46], [700, 39], [770, 35], [840, 32], [910, 28]
+            ],
+            '2_2_100': [
+                [400, 200], [500, 170], [600, 145], [700, 125], [800, 100],
+                [900, 85], [1000, 75], [1100, 65], [1200, 60], [1300, 55]
+            ],
+            '2_2_70': [
+                [280, 140], [350, 119], [420, 102], [490, 88], [560, 70],
+                [630, 60], [700, 53], [770, 46], [840, 42], [910, 39]
+            ],
+            '1_1_100': [
+                [300, 150], [400, 130], [500, 110], [600, 95], [700, 80],
+                [800, 65], [900, 55], [1000, 50], [1100, 45]
+            ],
+            '1_1_70': [
+                [210, 105], [280, 91], [350, 77], [420, 67], [490, 56],
+                [560, 46], [630, 39], [700, 35], [770, 32]
+            ],
+            '1_2_100': [
+                [300, 200], [400, 170], [500, 145], [600, 125], [700, 100],
+                [800, 85], [900, 75], [1000, 65], [1100, 60]
+            ],
+            '1_2_70': [
+                [210, 140], [280, 119], [350, 102], [420, 88], [490, 70],
+                [560, 60], [630, 53], [700, 46], [770, 42]
+            ],
+        };
+
+        // Valero test data
+        const VALERO_HOURLY = [
+            [0,  80, 75, 15, 1],
+            [1,  55, 50, 10, 1],
+            [2,  40, 38, 8, 0],
+            [3,  35, 33, 7, 0],
+            [4,  50, 48, 12, 1],
+            [5,  120, 115, 35, 2],
+            [6,  280, 270, 95, 5],
+            [7,  420, 410, 140, 7],
+            [8,  380, 370, 120, 6],
+            [9,  310, 300, 85, 4],
+            [10, 290, 280, 70, 4],
+            [11, 320, 310, 75, 4],
+            [12, 350, 340, 80, 4],
+            [13, 330, 320, 72, 4],
+            [14, 340, 330, 78, 4],
+            [15, 380, 370, 100, 5],
+            [16, 440, 430, 148, 8],
+            [17, 460, 450, 155, 8],
+            [18, 380, 370, 110, 6],
+            [19, 280, 270, 75, 4],
+            [20, 220, 210, 55, 3],
+            [21, 180, 170, 42, 2],
+            [22, 140, 135, 30, 2],
+            [23, 100, 95, 20, 1],
+        ];
+
+        /* ==================== DOM REFERENCES ==================== */
+        const els = {
+            // Form fields
+            projectName: document.getElementById('projectName'),
+            location: document.getElementById('location'),
+            jurisdiction: document.getElementById('jurisdiction'),
+            analyst: document.getElementById('analyst'),
+            countVendor: document.getElementById('countVendor'),
+            countDate: document.getElementById('countDate'),
+            dayOfWeek: document.getElementById('dayOfWeek'),
+            majorStreet: document.getElementById('majorStreet'),
+            minorStreet: document.getElementById('minorStreet'),
+            majorLanes: document.getElementById('majorLanes'),
+            minorLanes: document.getElementById('minorLanes'),
+            controlType: document.getElementById('controlType'),
+            speed85: document.getElementById('speed85'),
+            population: document.getElementById('population'),
+            postedSpeed: document.getElementById('postedSpeed'),
+
+            // Threshold indicator
+            threshColValue: document.getElementById('threshColValue'),
+            threshLaneConfig: document.getElementById('threshLaneConfig'),
+            threshCondA: document.getElementById('threshCondA'),
+            threshCondB: document.getElementById('threshCondB'),
+            threshReason: document.getElementById('threshReason'),
+
+            // Volume table
+            volumeTableBody: document.getElementById('volumeTableBody'),
+            volumeSummary: document.getElementById('volumeSummary'),
+            totalMaj1: document.getElementById('totalMaj1'),
+            totalMaj2: document.getElementById('totalMaj2'),
+            totalMin1: document.getElementById('totalMin1'),
+            totalMin2: document.getElementById('totalMin2'),
+            totalMajor: document.getElementById('totalMajor'),
+            totalMinor: document.getElementById('totalMinor'),
+
+            // Buttons
+            btnPrefill: document.getElementById('btnPrefill'),
+            btnClear: document.getElementById('btnClear'),
+            btnAnalyze: document.getElementById('btnAnalyze'),
+            btnCopy: document.getElementById('btnCopy'),
+            copyFeedback: document.getElementById('copyFeedback'),
+
+            // Results
+            resultsPlaceholder: document.getElementById('resultsPlaceholder'),
+            resultsContent: document.getElementById('resultsContent'),
+            resultThresholdBody: document.getElementById('resultThresholdBody'),
+            resultsTableBody: document.getElementById('resultsTableBody'),
+            resultsTableFoot: document.getElementById('resultsTableFoot'),
+            warrantCards: document.getElementById('warrantCards'),
+            summaryBox: document.getElementById('summaryBox'),
+        };
+
+        /* ==================== VOLUME TABLE INITIALIZATION ==================== */
+
+        function buildVolumeTable() {
+            let html = '';
+            for (let h = 0; h < 24; h++) {
+                const hourStr = String(h).padStart(2, '0') + ':00';
+                html += '<tr data-hour="' + h + '">';
+                html += '<td class="hour-label">' + hourStr + '</td>';
+                html += '<td><input type="number" id="maj1_' + h + '" min="0" value="0" tabindex="' + (h * 4 + 1) + '"></td>';
+                html += '<td><input type="number" id="maj2_' + h + '" min="0" value="0" tabindex="' + (h * 4 + 2) + '"></td>';
+                html += '<td><input type="number" id="min1_' + h + '" min="0" value="0" tabindex="' + (h * 4 + 3) + '"></td>';
+                html += '<td><input type="number" id="min2_' + h + '" min="0" value="0" tabindex="' + (h * 4 + 4) + '"></td>';
+                html += '<td class="computed-col" id="majTot_' + h + '">0</td>';
+                html += '<td class="computed-col" id="minHi_' + h + '">0</td>';
+                html += '</tr>';
+            }
+            els.volumeTableBody.innerHTML = html;
+        }
+
+        function getVolumeValue(id) {
+            const el = document.getElementById(id);
+            return el ? (parseInt(el.value, 10) || 0) : 0;
+        }
+
+        function setVolumeValue(id, val) {
+            const el = document.getElementById(id);
+            if (el) el.value = val;
+        }
+
+        function recalcTotals() {
+            let tMaj1 = 0, tMaj2 = 0, tMin1 = 0, tMin2 = 0, tMajor = 0, tMinor = 0;
+            for (let h = 0; h < 24; h++) {
+                const m1 = getVolumeValue('maj1_' + h);
+                const m2 = getVolumeValue('maj2_' + h);
+                const n1 = getVolumeValue('min1_' + h);
+                const n2 = getVolumeValue('min2_' + h);
+
+                const majTotal = m1 + m2;
+                const minHigher = Math.max(n1, n2);
+
+                document.getElementById('majTot_' + h).textContent = majTotal;
+                document.getElementById('minHi_' + h).textContent = minHigher;
+
+                tMaj1 += m1;
+                tMaj2 += m2;
+                tMin1 += n1;
+                tMin2 += n2;
+                tMajor += majTotal;
+                tMinor += (n1 + n2);
+            }
+
+            els.totalMaj1.textContent = tMaj1.toLocaleString();
+            els.totalMaj2.textContent = tMaj2.toLocaleString();
+            els.totalMin1.textContent = tMin1.toLocaleString();
+            els.totalMin2.textContent = tMin2.toLocaleString();
+            els.totalMajor.textContent = tMajor.toLocaleString();
+            els.totalMinor.textContent = tMinor.toLocaleString();
+
+            els.volumeSummary.textContent = 'Major: ' + tMajor.toLocaleString() + ' | Minor: ' + tMinor.toLocaleString();
+        }
+
+        /* ==================== PASTE SUPPORT ==================== */
+
+        function handlePaste(e) {
+            const target = e.target;
+            if (target.tagName !== 'INPUT' || target.type !== 'number') return;
+
+            // Find which cell was pasted into
+            const idMatch = target.id.match(/(maj1|maj2|min1|min2)_(\d+)/);
+            if (!idMatch) return;
+
+            const clipData = (e.clipboardData || window.clipboardData).getData('text');
+            if (!clipData) return;
+
+            // Check if this looks like multi-cell data (has tabs or newlines)
+            if (clipData.indexOf('\t') === -1 && clipData.indexOf('\n') === -1) return;
+
+            e.preventDefault();
+
+            const colOrder = ['maj1', 'maj2', 'min1', 'min2'];
+            const startCol = colOrder.indexOf(idMatch[1]);
+            const startRow = parseInt(idMatch[2], 10);
+
+            const rows = clipData.trim().split('\n');
+            for (let r = 0; r < rows.length; r++) {
+                const hour = startRow + r;
+                if (hour >= 24) break;
+
+                const cells = rows[r].split('\t');
+                for (let c = 0; c < cells.length; c++) {
+                    const colIdx = startCol + c;
+                    if (colIdx >= colOrder.length) break;
+
+                    const val = parseInt(cells[c].trim().replace(/,/g, ''), 10) || 0;
+                    setVolumeValue(colOrder[colIdx] + '_' + hour, val);
+                }
+            }
+
+            recalcTotals();
+        }
+
+        /* ==================== THRESHOLD LOGIC ==================== */
+
+        function getThresholdColumn() {
+            const speed = parseFloat(els.speed85.value) || 0;
+            const pop = parseFloat(els.population.value) || 0;
+
+            const speed70 = speed > 40;
+            const pop70 = pop < 10000;
+
+            if (speed70 || pop70) {
+                let reason = '';
+                if (speed70) reason += '85th %ile speed = ' + speed + ' mph > 40 mph';
+                if (speed70 && pop70) reason += '; ';
+                if (pop70) reason += 'population < 10,000';
+                return { column: 70, reason: reason };
+            }
+
+            return { column: 100, reason: 'Standard thresholds (no reductions)' };
+        }
+
+        function getLaneKey() {
+            const maj = els.majorLanes.value;
+            const min = els.minorLanes.value;
+            return maj + '_' + min;
+        }
+
+        function getThresholdKey() {
+            return getLaneKey() + '_' + getThresholdColumn().column;
+        }
+
+        function getW1Thresholds() {
+            const key = getThresholdKey();
+            return W1_THRESHOLDS[key] || W1_THRESHOLDS['2_1_100'];
+        }
+
+        function updateThresholdIndicator() {
+            const tc = getThresholdColumn();
+            const laneKey = getLaneKey();
+            const thresholds = getW1Thresholds();
+
+            const laneDisplay = (els.majorLanes.value === '2' ? '2+' : '1') + ' / ' + (els.minorLanes.value === '2' ? '2+' : '1');
+
+            els.threshColValue.textContent = tc.column + '%';
+            els.threshLaneConfig.textContent = laneDisplay;
+            els.threshCondA.textContent = 'Major >= ' + thresholds.condA.major + ' VPH, Minor >= ' + thresholds.condA.minor + ' VPH';
+            els.threshCondB.textContent = 'Major >= ' + thresholds.condB.major + ' VPH, Minor >= ' + thresholds.condB.minor + ' VPH';
+            els.threshReason.textContent = tc.reason;
+        }
+
+        /* ==================== DATE HANDLING ==================== */
+
+        function updateDayOfWeek() {
+            const dateVal = els.countDate.value;
+            if (dateVal) {
+                const d = new Date(dateVal + 'T12:00:00');
+                const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                els.dayOfWeek.value = days[d.getDay()];
+            } else {
+                els.dayOfWeek.value = '';
+            }
+        }
+
+        /* ==================== PRE-FILL ==================== */
+
+        function prefillValero() {
+            els.projectName.value = 'Valero / TX 82 & Public Road';
+            els.location.value = 'Port Arthur, TX';
+            els.jurisdiction.value = 'TxDOT -- Jefferson County';
+            els.analyst.value = 'Thomas J. Chlebanowski, PE';
+            els.countVendor.value = 'GRAM Traffic Counting';
+            els.countDate.value = '2025-10-15';
+            updateDayOfWeek();
+            els.majorStreet.value = 'TX 82';
+            els.minorStreet.value = 'Public Road';
+            els.majorLanes.value = '2';
+            els.minorLanes.value = '1';
+            els.controlType.value = 'Stop-controlled on minor approaches';
+            els.speed85.value = '48';
+            els.population.value = '65000';
+            els.postedSpeed.value = '45';
+
+            for (let h = 0; h < 24; h++) {
+                const row = VALERO_HOURLY[h];
+                setVolumeValue('maj1_' + h, row[1]);
+                setVolumeValue('maj2_' + h, row[2]);
+                setVolumeValue('min1_' + h, row[3]);
+                setVolumeValue('min2_' + h, row[4]);
+            }
+
+            recalcTotals();
+            updateThresholdIndicator();
+        }
+
+        function clearAll() {
+            for (let h = 0; h < 24; h++) {
+                setVolumeValue('maj1_' + h, 0);
+                setVolumeValue('maj2_' + h, 0);
+                setVolumeValue('min1_' + h, 0);
+                setVolumeValue('min2_' + h, 0);
+            }
+            recalcTotals();
+
+            // Hide results
+            els.resultsPlaceholder.classList.remove('hidden');
+            els.resultsContent.classList.add('hidden');
+        }
+
+        /* ==================== CURVE CHECK (W2 / W3) ==================== */
+
+        /**
+         * Check if a point (majorTotal, minorHigher) is above or on the curve.
+         * Uses linear interpolation between curve points.
+         */
+        function isAboveCurve(curvePoints, majorTotal, minorHigher) {
+            if (!curvePoints || curvePoints.length === 0) return false;
+
+            // Below minimum major value on curve
+            if (majorTotal < curvePoints[0][0]) return false;
+
+            // Above maximum major value on curve
+            if (majorTotal >= curvePoints[curvePoints.length - 1][0]) {
+                return minorHigher >= curvePoints[curvePoints.length - 1][1];
+            }
+
+            // Find the two bracketing points
+            for (let i = 0; i < curvePoints.length - 1; i++) {
+                const [x1, y1] = curvePoints[i];
+                const [x2, y2] = curvePoints[i + 1];
+
+                if (majorTotal >= x1 && majorTotal < x2) {
+                    // Linear interpolation to find threshold at this major volume
+                    const fraction = (majorTotal - x1) / (x2 - x1);
+                    const threshold = y1 + fraction * (y2 - y1);
+                    return minorHigher >= threshold;
+                }
+            }
+
+            return false;
+        }
+
+        /* ==================== ANALYSIS ENGINE ==================== */
+
+        function collectFormData() {
+            const hourlyVolumes = [];
+            for (let h = 0; h < 24; h++) {
+                const m1 = getVolumeValue('maj1_' + h);
+                const m2 = getVolumeValue('maj2_' + h);
+                const n1 = getVolumeValue('min1_' + h);
+                const n2 = getVolumeValue('min2_' + h);
+                hourlyVolumes.push({
+                    hour: h,
+                    majorApproach1: m1,
+                    majorApproach2: m2,
+                    minorApproach1: n1,
+                    minorApproach2: n2,
+                });
+            }
+
+            return {
+                projectName: els.projectName.value,
+                location: els.location.value,
+                jurisdiction: els.jurisdiction.value,
+                analyst: els.analyst.value,
+                countVendor: els.countVendor.value,
+                countDate: els.countDate.value,
+                dayOfWeek: els.dayOfWeek.value,
+                majorStreet: els.majorStreet.value,
+                minorStreet: els.minorStreet.value,
+                majorLanes: els.majorLanes.value === '2' ? '2+' : '1',
+                minorLanes: els.minorLanes.value === '2' ? '2+' : '1',
+                controlType: els.controlType.value,
+                speed85th: parseFloat(els.speed85.value) || 0,
+                population: parseFloat(els.population.value) || 0,
+                postedSpeed: parseFloat(els.postedSpeed.value) || 0,
+                hourlyVolumes: hourlyVolumes,
+            };
+        }
+
+        function generateInlineResult(input) {
+            const tc = getThresholdColumn();
+            const laneKey = getLaneKey();
+            const threshKey = getThresholdKey();
+            const w1t = W1_THRESHOLDS[threshKey] || W1_THRESHOLDS['2_1_100'];
+            const w2Curve = W2_CURVES[threshKey] || W2_CURVES['2_1_100'];
+            const w3Curve = W3_CURVES[threshKey] || W3_CURVES['2_1_100'];
+
+            // Evaluate each hour
+            const hourResults = [];
+            let w1aCount = 0, w1bCount = 0, w2Count = 0;
+
+            for (let h = 0; h < 24; h++) {
+                const d = input.hourlyVolumes[h];
+                const majTotal = (d.majorApproach1 || 0) + (d.majorApproach2 || 0);
+                const minHi = Math.max(d.minorApproach1 || 0, d.minorApproach2 || 0);
+
+                // W1 Condition A
+                const w1a = (majTotal >= w1t.condA.major && minHi >= w1t.condA.minor);
+                // W1 Condition B
+                const w1b = (majTotal >= w1t.condB.major && minHi >= w1t.condB.minor);
+                // W2: Four-Hour Volume
+                const w2 = isAboveCurve(w2Curve, majTotal, minHi);
+
+                if (w1a) w1aCount++;
+                if (w1b) w1bCount++;
+                if (w2) w2Count++;
+
+                hourResults.push({
+                    hour: h,
+                    majorTotal: majTotal,
+                    minorHigher: minHi,
+                    w1a: w1a,
+                    w1b: w1b,
+                    w2: w2,
+                });
+            }
+
+            // W3: Peak Hour analysis -- find AM peak (6-9) and PM peak (15-18)
+            let amPeakHour = -1, amPeakMajor = 0, amPeakMinor = 0;
+            let pmPeakHour = -1, pmPeakMajor = 0, pmPeakMinor = 0;
+
+            for (let h = 6; h <= 9; h++) {
+                const d = input.hourlyVolumes[h];
+                const mt = (d.majorApproach1||0) + (d.majorApproach2||0);
+                const mh = Math.max(d.minorApproach1||0, d.minorApproach2||0);
+                if (mt > amPeakMajor || (mt === amPeakMajor && mh > amPeakMinor)) {
+                    amPeakHour = h;
+                    amPeakMajor = mt;
+                    amPeakMinor = mh;
+                }
+            }
+
+            for (let h = 15; h <= 18; h++) {
+                const d = input.hourlyVolumes[h];
+                const mt = (d.majorApproach1||0) + (d.majorApproach2||0);
+                const mh = Math.max(d.minorApproach1||0, d.minorApproach2||0);
+                if (mt > pmPeakMajor || (mt === pmPeakMajor && mh > pmPeakMinor)) {
+                    pmPeakHour = h;
+                    pmPeakMajor = mt;
+                    pmPeakMinor = mh;
+                }
+            }
+
+            const amAboveCurve = isAboveCurve(w3Curve, amPeakMajor, amPeakMinor);
+            const pmAboveCurve = isAboveCurve(w3Curve, pmPeakMajor, pmPeakMinor);
+
+            // Warrant determinations
+            const w1aMet = w1aCount >= 8;
+            const w1bMet = w1bCount >= 8;
+            const w1Met = w1aMet || w1bMet;
+
+            const w2Met = w2Count >= 4;
+
+            const w3Met = amAboveCurve || pmAboveCurve;
+
+            return {
+                thresholdColumn: tc.column,
+                thresholdReason: tc.reason,
+                laneConfig: (input.majorLanes === '2+' ? '2+' : '1') + ' / ' + (input.minorLanes === '2+' ? '2+' : '1'),
+                condAThreshold: w1t.condA,
+                condBThreshold: w1t.condB,
+                hourResults: hourResults,
+                warrant1: {
+                    condA: { count: w1aCount, required: 8, met: w1aMet },
+                    condB: { count: w1bCount, required: 8, met: w1bMet },
+                    met: w1Met,
+                },
+                warrant2: {
+                    count: w2Count,
+                    required: 4,
+                    met: w2Met,
+                },
+                warrant3: {
+                    amPeak: { hour: amPeakHour, major: amPeakMajor, minor: amPeakMinor, aboveCurve: amAboveCurve },
+                    pmPeak: { hour: pmPeakHour, major: pmPeakMajor, minor: pmPeakMinor, aboveCurve: pmAboveCurve },
+                    met: w3Met,
+                },
+                anyWarrantMet: w1Met || w2Met || w3Met,
+            };
+        }
+
+        /* ==================== RESULTS DISPLAY ==================== */
+
+        function displayResults(result) {
+            els.resultsPlaceholder.classList.add('hidden');
+            els.resultsContent.classList.remove('hidden');
+
+            // Threshold summary
+            els.resultThresholdBody.innerHTML = ''
+                + '<div class="threshold-card-row"><span class="threshold-card-label">Lane Config:</span><span class="threshold-card-value">' + result.laneConfig + '</span></div>'
+                + '<div class="threshold-card-row"><span class="threshold-card-label">Threshold Column:</span><span class="threshold-card-value">' + result.thresholdColumn + '%</span></div>'
+                + '<div class="threshold-card-row"><span class="threshold-card-label">Condition A:</span><span class="threshold-card-value">Major >= ' + result.condAThreshold.major + ', Minor >= ' + result.condAThreshold.minor + '</span></div>'
+                + '<div class="threshold-card-row"><span class="threshold-card-label">Condition B:</span><span class="threshold-card-value">Major >= ' + result.condBThreshold.major + ', Minor >= ' + result.condBThreshold.minor + '</span></div>'
+                + '<div style="font-size:11px;color:#00AAFF;margin-top:6px;font-style:italic;">' + result.thresholdReason + '</div>';
+
+            // Hour-by-hour table
+            let tbody = '';
+            for (let h = 0; h < 24; h++) {
+                const r = result.hourResults[h];
+                const hourStr = String(h).padStart(2, '0') + ':00';
+                tbody += '<tr>';
+                tbody += '<td style="text-align:left;padding-left:8px;color:#a0a0a0;font-weight:600;">' + hourStr + '</td>';
+                tbody += '<td>' + r.majorTotal + '</td>';
+                tbody += '<td>' + r.minorHigher + '</td>';
+                tbody += '<td class="' + (r.w1a ? 'cell-pass' : 'cell-fail') + '">' + (r.w1a ? 'PASS' : '--') + '</td>';
+                tbody += '<td class="' + (r.w1b ? 'cell-pass' : 'cell-fail') + '">' + (r.w1b ? 'PASS' : '--') + '</td>';
+                tbody += '<td class="' + (r.w2 ? 'cell-pass' : 'cell-fail') + '">' + (r.w2 ? 'PASS' : '--') + '</td>';
+                tbody += '</tr>';
+            }
+            els.resultsTableBody.innerHTML = tbody;
+
+            // Totals row
+            els.resultsTableFoot.innerHTML = '<tr class="totals-row">'
+                + '<td style="text-align:left;padding-left:8px;">TOTALS</td>'
+                + '<td></td><td></td>'
+                + '<td>' + result.warrant1.condA.count + ' of 8</td>'
+                + '<td>' + result.warrant1.condB.count + ' of 8</td>'
+                + '<td>' + result.warrant2.count + ' of 4</td>'
+                + '</tr>';
+
+            // Warrant cards
+            let cardsHtml = '';
+
+            // Warrant 1
+            cardsHtml += buildWarrantCard('Warrant 1', 'Eight-Hour Vehicular Volume', result.warrant1.met, [
+                {
+                    title: 'Condition A: Minimum Vehicular Volume',
+                    count: result.warrant1.condA.count,
+                    required: result.warrant1.condA.required,
+                    met: result.warrant1.condA.met,
+                },
+                {
+                    title: 'Condition B: Interruption of Continuous Traffic',
+                    count: result.warrant1.condB.count,
+                    required: result.warrant1.condB.required,
+                    met: result.warrant1.condB.met,
+                },
+            ]);
+
+            // Warrant 2
+            cardsHtml += buildWarrantCard('Warrant 2', 'Four-Hour Vehicular Volume', result.warrant2.met, [
+                {
+                    title: 'Hours Above Curve',
+                    count: result.warrant2.count,
+                    required: result.warrant2.required,
+                    met: result.warrant2.met,
+                },
+            ]);
+
+            // Warrant 3
+            cardsHtml += buildWarrant3Card(result.warrant3);
+
+            els.warrantCards.innerHTML = cardsHtml;
+
+            // Summary box
+            buildSummaryBox(result);
+        }
+
+        function buildWarrantCard(name, subtitle, overallMet, conditions) {
+            const metClass = overallMet ? 'warrant-met' : 'warrant-not-met';
+            const badgeClass = overallMet ? 'badge-met' : 'badge-not-met';
+            const badgeText = overallMet ? 'MET' : 'NOT MET';
+
+            let html = '<div class="warrant-card ' + metClass + '">';
+            html += '<div class="warrant-card-header">';
+            html += '<div><div class="warrant-card-name">' + name + '</div><div class="warrant-card-subtitle">' + subtitle + '</div></div>';
+            html += '<span class="warrant-overall-badge ' + badgeClass + '">' + badgeText + '</span>';
+            html += '</div>';
+
+            for (const cond of conditions) {
+                const pct = Math.min(100, Math.round((cond.count / cond.required) * 100));
+                const fillClass = cond.met ? 'fill-pass' : 'fill-fail';
+                const statusClass = cond.met ? 'status-met' : 'status-not-met';
+                const statusText = cond.met ? 'MET' : 'NOT MET';
+
+                html += '<div class="warrant-condition">';
+                html += '<div class="warrant-condition-title">' + cond.title + '</div>';
+                html += '<div class="warrant-condition-count" style="color:' + (cond.met ? '#4ade80' : '#f87171') + ';">' + cond.count + ' of ' + cond.required + ' hours</div>';
+                html += '<div class="progress-bar-track"><div class="progress-bar-fill ' + fillClass + '" style="width:' + pct + '%;"></div></div>';
+                html += '<div class="condition-status ' + statusClass + '">' + statusText + '</div>';
+                html += '</div>';
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        function buildWarrant3Card(w3) {
+            const metClass = w3.met ? 'warrant-met' : 'warrant-not-met';
+            const badgeClass = w3.met ? 'badge-met' : 'badge-not-met';
+            const badgeText = w3.met ? 'MET' : 'NOT MET';
+
+            let html = '<div class="warrant-card ' + metClass + '">';
+            html += '<div class="warrant-card-header">';
+            html += '<div><div class="warrant-card-name">Warrant 3</div><div class="warrant-card-subtitle">Peak Hour</div></div>';
+            html += '<span class="warrant-overall-badge ' + badgeClass + '">' + badgeText + '</span>';
+            html += '</div>';
+
+            // AM Peak
+            const amStatus = w3.amPeak.aboveCurve;
+            const amHourStr = w3.amPeak.hour >= 0 ? (String(w3.amPeak.hour).padStart(2, '0') + ':00') : '--';
+            html += '<div class="peak-info">';
+            html += '<span class="peak-label">AM Peak: </span>';
+            html += '<span class="peak-value">Hour ' + amHourStr + ', Major = ' + w3.amPeak.major + ', Minor = ' + w3.amPeak.minor + '</span>';
+            html += ' -- <span style="font-weight:700;color:' + (amStatus ? '#4ade80' : '#f87171') + ';">' + (amStatus ? 'Above Curve - PASS' : 'Below Curve - FAIL') + '</span>';
+            html += '</div>';
+
+            // PM Peak
+            const pmStatus = w3.pmPeak.aboveCurve;
+            const pmHourStr = w3.pmPeak.hour >= 0 ? (String(w3.pmPeak.hour).padStart(2, '0') + ':00') : '--';
+            html += '<div class="peak-info">';
+            html += '<span class="peak-label">PM Peak: </span>';
+            html += '<span class="peak-value">Hour ' + pmHourStr + ', Major = ' + w3.pmPeak.major + ', Minor = ' + w3.pmPeak.minor + '</span>';
+            html += ' -- <span style="font-weight:700;color:' + (pmStatus ? '#4ade80' : '#f87171') + ';">' + (pmStatus ? 'Above Curve - PASS' : 'Below Curve - FAIL') + '</span>';
+            html += '</div>';
+
+            html += '</div>';
+            return html;
+        }
+
+        function buildSummaryBox(result) {
+            const input = collectFormData();
+
+            let html = '<div class="summary-title">Signal Warrant Analysis Summary</div>';
+
+            // Project info
+            html += '<div style="font-size:12px;color:#a0a0a0;margin-bottom:10px;">';
+            if (input.projectName) html += '<div>' + input.projectName + '</div>';
+            if (input.majorStreet && input.minorStreet) html += '<div>' + input.majorStreet + ' & ' + input.minorStreet + '</div>';
+            if (input.location) html += '<div>' + input.location + '</div>';
+            html += '</div>';
+
+            // Warrant 1
+            let w1Label = '';
+            if (result.warrant1.condA.met && result.warrant1.condB.met) {
+                w1Label = 'Conditions A and B';
+            } else if (result.warrant1.condA.met) {
+                w1Label = 'Condition A (Minimum Vehicular Volume)';
+            } else if (result.warrant1.condB.met) {
+                w1Label = 'Condition B (Interruption of Continuous Traffic)';
+            }
+
+            if (result.warrant1.met) {
+                const condCount = result.warrant1.condA.met ? result.warrant1.condA.count : result.warrant1.condB.count;
+                html += '<div class="summary-line summary-line-met">&#10003; Warrant 1 -- ' + w1Label + ': MET (' + condCount + ' of 8 required hours satisfied)</div>';
+            } else {
+                html += '<div class="summary-line summary-line-not-met">&#10007; Warrant 1 -- Eight-Hour Volume: NOT MET (Cond A: ' + result.warrant1.condA.count + '/8, Cond B: ' + result.warrant1.condB.count + '/8)</div>';
+            }
+
+            // Warrant 2
+            if (result.warrant2.met) {
+                html += '<div class="summary-line summary-line-met">&#10003; Warrant 2 -- Four-Hour Vehicular Volume: MET (' + result.warrant2.count + ' of 4 required hours satisfied)</div>';
+            } else {
+                html += '<div class="summary-line summary-line-not-met">&#10007; Warrant 2 -- Four-Hour Vehicular Volume: NOT MET (' + result.warrant2.count + ' of 4 required hours)</div>';
+            }
+
+            // Warrant 3
+            if (result.warrant3.met) {
+                const peakDesc = result.warrant3.amPeak.aboveCurve && result.warrant3.pmPeak.aboveCurve
+                    ? 'AM and PM peaks above curve'
+                    : result.warrant3.amPeak.aboveCurve
+                        ? 'AM peak above curve'
+                        : 'PM peak above curve';
+                html += '<div class="summary-line summary-line-met">&#10003; Warrant 3 -- Peak Hour: MET (' + peakDesc + ')</div>';
+            } else {
+                html += '<div class="summary-line summary-line-not-met">&#10007; Warrant 3 -- Peak Hour: NOT MET (neither peak above curve)</div>';
+            }
+
+            // Conclusion
+            html += '<div class="summary-conclusion">';
+            if (result.anyWarrantMet) {
+                html += 'Signal warrant analysis indicates that traffic signal installation <strong style="color:#4ade80;">may be warranted</strong> at this intersection based on the volumes and conditions analyzed.';
+            } else {
+                html += 'Signal warrant analysis indicates that traffic signal installation <strong style="color:#f87171;">is not warranted</strong> at this intersection based on the volumes and conditions analyzed.';
+            }
+            html += '</div>';
+
+            els.summaryBox.innerHTML = html;
+        }
+
+        /* ==================== COPY TO CLIPBOARD ==================== */
+
+        function copyToClipboard() {
+            const input = collectFormData();
+            const tc = getThresholdColumn();
+            const thresholds = getW1Thresholds();
+
+            let text = '========================================\n';
+            text += 'SIGNAL WARRANT ANALYSIS SUMMARY\n';
+            text += '========================================\n\n';
+
+            text += 'Project: ' + (input.projectName || 'N/A') + '\n';
+            text += 'Location: ' + (input.location || 'N/A') + '\n';
+            text += 'Intersection: ' + (input.majorStreet || 'N/A') + ' & ' + (input.minorStreet || 'N/A') + '\n';
+            text += 'Jurisdiction: ' + (input.jurisdiction || 'N/A') + '\n';
+            text += 'Analyst: ' + (input.analyst || 'N/A') + '\n';
+            text += 'Count Date: ' + (input.countDate || 'N/A') + ' (' + (input.dayOfWeek || 'N/A') + ')\n';
+            text += 'Count Vendor: ' + (input.countVendor || 'N/A') + '\n\n';
+
+            text += 'Lane Configuration: ' + (input.majorLanes === '2+' ? '2+' : '1') + ' (major) / ' + (input.minorLanes === '2+' ? '2+' : '1') + ' (minor)\n';
+            text += '85th Percentile Speed: ' + input.speed85 + ' mph\n';
+            text += 'Community Population: ' + input.population.toLocaleString() + '\n';
+            text += 'Threshold Column: ' + tc.column + '% (' + tc.reason + ')\n';
+            text += 'Control Type: ' + (input.controlType || 'N/A') + '\n\n';
+
+            text += '--- WARRANT RESULTS ---\n\n';
+
+            // Get stored result from last analysis
+            const lastResult = window._lastResult;
+            if (lastResult) {
+                // Warrant 1
+                text += 'Warrant 1 -- Eight-Hour Vehicular Volume\n';
+                text += '  Condition A: ' + lastResult.warrant1.condA.count + ' of 8 hours -- ' + (lastResult.warrant1.condA.met ? 'MET' : 'NOT MET') + '\n';
+                text += '  Condition B: ' + lastResult.warrant1.condB.count + ' of 8 hours -- ' + (lastResult.warrant1.condB.met ? 'MET' : 'NOT MET') + '\n';
+                text += '  Overall: ' + (lastResult.warrant1.met ? 'MET' : 'NOT MET') + '\n\n';
+
+                // Warrant 2
+                text += 'Warrant 2 -- Four-Hour Vehicular Volume\n';
+                text += '  Hours above curve: ' + lastResult.warrant2.count + ' of 4 -- ' + (lastResult.warrant2.met ? 'MET' : 'NOT MET') + '\n\n';
+
+                // Warrant 3
+                text += 'Warrant 3 -- Peak Hour\n';
+                const amH = lastResult.warrant3.amPeak.hour >= 0 ? String(lastResult.warrant3.amPeak.hour).padStart(2, '0') + ':00' : 'N/A';
+                const pmH = lastResult.warrant3.pmPeak.hour >= 0 ? String(lastResult.warrant3.pmPeak.hour).padStart(2, '0') + ':00' : 'N/A';
+                text += '  AM Peak: Hour ' + amH + ', Major=' + lastResult.warrant3.amPeak.major + ', Minor=' + lastResult.warrant3.amPeak.minor + ' -- ' + (lastResult.warrant3.amPeak.aboveCurve ? 'ABOVE CURVE' : 'BELOW CURVE') + '\n';
+                text += '  PM Peak: Hour ' + pmH + ', Major=' + lastResult.warrant3.pmPeak.major + ', Minor=' + lastResult.warrant3.pmPeak.minor + ' -- ' + (lastResult.warrant3.pmPeak.aboveCurve ? 'ABOVE CURVE' : 'BELOW CURVE') + '\n';
+                text += '  Overall: ' + (lastResult.warrant3.met ? 'MET' : 'NOT MET') + '\n\n';
+
+                text += '--- CONCLUSION ---\n\n';
+                if (lastResult.anyWarrantMet) {
+                    text += 'Signal warrant analysis indicates that traffic signal installation may be warranted at this intersection based on the volumes and conditions analyzed.\n';
+                } else {
+                    text += 'Signal warrant analysis indicates that traffic signal installation is not warranted at this intersection based on the volumes and conditions analyzed.\n';
+                }
+            } else {
+                text += '(No analysis has been run yet.)\n';
+            }
+
+            text += '\n========================================\n';
+            text += 'Generated by Trajanus Signal Warrant Calculator\n';
+
+            navigator.clipboard.writeText(text).then(function() {
+                els.copyFeedback.classList.add('show');
+                setTimeout(function() {
+                    els.copyFeedback.classList.remove('show');
+                }, 2500);
+            }).catch(function(err) {
+                console.error('Clipboard write failed:', err);
+                alert('Failed to copy to clipboard. Please try again.');
+            });
+        }
+
+        /* ==================== RUN ANALYSIS ==================== */
+
+        // Adapt engine output to the format displayResults expects
+        function adaptEngineResult(eng, input) {
+            // Build hourResults in UI format from engine's hourlyAnalysis
+            const hourResults = eng.hourlyAnalysis.map(function(row) {
+                return {
+                    hour: row.hour,
+                    majorTotal: row.majorTotal,
+                    minorHigher: row.minorHigher,
+                    w1a: row.condA_pass,
+                    w1b: row.condB_pass,
+                    w2: row.w2_pass,
+                };
+            });
+
+            const w1aMet = eng.warrant1.conditionA.result === 'MET';
+            const w1bMet = eng.warrant1.conditionB.result === 'MET';
+            const w2Met  = eng.warrant2.result === 'MET';
+            const w3Met  = eng.warrant3.result === 'MET';
+
+            return {
+                thresholdColumn: eng.thresholdInfo.column,
+                thresholdReason: eng.thresholdInfo.reason,
+                laneConfig: eng.laneConfig.replace(/_/g, ' / '),
+                condAThreshold: eng.condAThresholds,
+                condBThreshold: eng.condBThresholds,
+                hourResults: hourResults,
+                warrant1: {
+                    condA: { count: eng.warrant1.conditionA.hoursMet, required: 8, met: w1aMet },
+                    condB: { count: eng.warrant1.conditionB.hoursMet, required: 8, met: w1bMet },
+                    met: w1aMet || w1bMet,
+                },
+                warrant2: {
+                    count: eng.warrant2.hoursMet,
+                    required: 4,
+                    met: w2Met,
+                },
+                warrant3: {
+                    amPeak: { hour: eng.warrant3.amPeak.hour, major: eng.warrant3.amPeak.majorTotal, minor: eng.warrant3.amPeak.minorHigher, aboveCurve: eng.warrant3.amPeak.pass },
+                    pmPeak: { hour: eng.warrant3.pmPeak.hour, major: eng.warrant3.pmPeak.majorTotal, minor: eng.warrant3.pmPeak.minorHigher, aboveCurve: eng.warrant3.pmPeak.pass },
+                    met: w3Met,
+                },
+                anyWarrantMet: w1aMet || w1bMet || w2Met || w3Met,
+            };
+        }
+
+        function runAnalysis() {
+            const input = collectFormData();
+
+            let result;
+            if (window.WarrantEngine && typeof window.WarrantEngine.evaluateWarrants === 'function') {
+                const engineResult = window.WarrantEngine.evaluateWarrants(input);
+                result = adaptEngineResult(engineResult, input);
+            } else {
+                result = generateInlineResult(input);
+            }
+
+            // Store for clipboard copy
+            window._lastResult = result;
+
+            displayResults(result);
+        }
+
+        /* ==================== EVENT BINDINGS ==================== */
+
+        function init() {
+            // Build the volume table rows
+            buildVolumeTable();
+
+            // Button handlers
+            els.btnPrefill.addEventListener('click', prefillValero);
+            els.btnClear.addEventListener('click', clearAll);
+            els.btnAnalyze.addEventListener('click', runAnalysis);
+            els.btnCopy.addEventListener('click', copyToClipboard);
+
+            // Volume table: recalc on input change
+            document.getElementById('volumeTable').addEventListener('input', function(e) {
+                if (e.target.tagName === 'INPUT') {
+                    recalcTotals();
+                }
+            });
+
+            // Paste support on the volume table
+            document.getElementById('volumeTable').addEventListener('paste', handlePaste);
+
+            // Live threshold indicator updates
+            els.speed85.addEventListener('input', updateThresholdIndicator);
+            els.population.addEventListener('input', updateThresholdIndicator);
+            els.majorLanes.addEventListener('change', updateThresholdIndicator);
+            els.minorLanes.addEventListener('change', updateThresholdIndicator);
+
+            // Date -> Day of Week
+            els.countDate.addEventListener('change', updateDayOfWeek);
+
+            // Initial threshold display
+            updateThresholdIndicator();
+            recalcTotals();
+        }
+
+        // Run on DOM ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+
+    })();
+    </script>
+</body>
+</html>
